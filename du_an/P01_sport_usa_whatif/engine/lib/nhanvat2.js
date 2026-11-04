@@ -52,11 +52,11 @@ function outfitMaterial(base) {
   return m;
 }
 
-function numberTexture(num, fg, outline, word = null, wordColor = null) {
+function numberTexture(num, fg, outline, word = null, wordColor = null, wordMax = 236) {
   const c = document.createElement('canvas'); c.width = 256; c.height = 256; const g = c.getContext('2d');
   g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round';
   let ny = 136, fs = 200;
-  if (word) { ny = 160; fs = 170; let wf = 64; g.font = `900 ${wf}px Inter, Anton, sans-serif`; while (g.measureText(word).width > 236 && wf > 18) { wf -= 2; g.font = `900 ${wf}px Inter, Anton, sans-serif`; }
+  if (word) { ny = 160; fs = 170; let wf = 64; g.font = `900 ${wf}px Inter, Anton, sans-serif`; while (g.measureText(word).width > wordMax && wf > 18) { wf -= 2; g.font = `900 ${wf}px Inter, Anton, sans-serif`; }
     g.lineWidth = Math.max(4, wf * 0.16); g.strokeStyle = outline; g.strokeText(word, 128, 40); g.fillStyle = wordColor || fg; g.fillText(word, 128, 40); }
   g.font = `900 ${fs}px Anton, Impact, sans-serif`;
   g.lineWidth = 16; g.strokeStyle = outline; g.strokeText(String(num), 128, ny);
@@ -357,7 +357,7 @@ export function makeCharacter(lib, o = {}) {
     U.numOB.value.copy(new THREE.Vector3(cc.x, cc.y + cs.y * 0.05, cc.z).applyMatrix4(inv));
     U.numR.value.copy(new THREE.Vector3(1, 0, 0).transformDirection(inv)); U.numUp.value.copy(new THREE.Vector3(0, 1, 0).transformDirection(inv)); U.numF.value.copy(new THREE.Vector3(0, 0, 1).transformDirection(inv));
     U.numSF.value = cs.x * (P.frontNumberSize ?? 0.8) * ls.x; U.numSB.value = cs.x * (P.backNumberSize ?? 1.1) * ls.x;
-    U.numMap.value = numberTexture(P.number, P.numberColor, P.numberOutline, P.wordmark, P.wordmarkColor); U.numMapB.value = P.backName ? numberTexture(P.number, P.numberColor, P.numberOutline, P.backName, P.wordmarkColor) : U.numMap.value;
+    U.numMap.value = numberTexture(P.number, P.numberColor, P.numberOutline, P.wordmark, P.wordmarkColor); U.numMapB.value = P.backName ? numberTexture(P.number, P.numberColor, P.numberOutline, P.backName, P.wordmarkColor, P.backNameMax ?? 236) : U.numMap.value;
   }
   if (P.headScale !== 1) head.scale.setScalar(P.headScale);
   root.scale.setScalar(P.scale);

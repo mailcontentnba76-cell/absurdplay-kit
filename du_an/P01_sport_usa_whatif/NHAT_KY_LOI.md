@@ -28,3 +28,6 @@
 | 04/11/2026 | G10 ráp | melt xuất ra 720x576 dù project là 1080x1920 | consumer avformat dùng profile mặc định khi không truyền thuộc tính | Thêm `width=1080 height=1920 progressive=1 frame_rate_num=30 frame_rate_den=1` vào consumer | Luôn ffprobe file melt trước khi chuẩn hoá âm | có |
 | 04/11/2026 | G4 render | Render E02 chậm (≈30 s/khung khi 2 tiến trình) | Khán đài ~14 nghìn ghế + ~6 nghìn người instanced, motion blur render 2 lần/khung | Gộp khán đài thành 1 lưới tĩnh ít tam giác; bỏ lượt render tư thế trước khi khung liền trước vừa render; PCFShadowMap → ≈4,4 s/khung | Đo s/khung 12 khung trước khi chạy cả video | có |
 | 04/11/2026 | G7 đồ hoạ | Thẻ/chữ 3D đè lên mặt nhân vật (MVP, 2–5, #34) | Vị trí thẻ cố định, không xét khung hình của shot cận | Dời thẻ lên trên cùng hoặc xuống dưới phụ đề theo shot | Kiểm ảnh có đồ hoạ ở các shot cận mặt | có |
+| 04/11 | E03 | Nhân vật mở đầu gần như đứng yên (chủ dự án nhắc) | Thêm `liven`/`qbSignal` (thở, đổi trọng tâm, quay đầu, chỉ tay), quy tắc "nhân vật luôn cử động" vào SKILL |
+| 04/11 | E03 | Tên sau lưng tràn qua vai thành "ERBER" | `backNameMax` giới hạn bề rộng chữ tên; kiểm ảnh cận lưng áo |
+| 04/11 | E03 | Cột gôn che bảng điểm; máy quay cận che mặt bởi chữ 3D | Dời bảng điểm lệch trục (z −15); chữ 3D ở shot cận đặt top ~290 |

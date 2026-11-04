@@ -2,15 +2,16 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.3 (04/11/2026)
+# Sport USA "What If" — v0.4 (04/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA).
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL).
 
 ## 0. Cách nhận việc (yêu cầu cố định của chủ dự án)
 - **Chờ yêu cầu.** Người dùng nói môn (vd "NFL", "NBA") → tự tìm tin MỚI NHẤT của môn đó (WebSearch + `mcp__widgets__fetch_sports_data` scores/standings/game_stats), chọn tin đáng làm, đề xuất 3 ý tưởng + 1 kịch bản. Chưa dựng video khi kịch bản chưa duyệt.
 - **Nguồn tin (theo yêu cầu chủ dự án):** chỉ dùng nguồn lớn, uy tín, mới nhất. Thứ tự ưu tiên: (1) trang chính thức NBA.com / NFL.com và trang chính thức của đội; dữ liệu trận `fetch_sports_data`; (2) hãng tin & báo thể thao lớn: AP, Reuters, ESPN, The Athletic, CBS Sports, NBC Sports, Yahoo Sports, Bleacher Report, USA Today; (3) tài khoản mạng xã hội có tích xanh của giải/đội/phóng viên tin nóng (vd Shams Charania, Adam Schefter, Ian Rapoport) — chỉ qua bài báo/nhúng mà WebSearch/WebFetch đọc được. Mỗi số liệu/tin dùng trong kịch bản phải khớp ≥ 2 nguồn (hoặc 1 nguồn chính thức), ghi nguồn + ngày trong bảng "Tin đã chọn". Không dùng blog/tin đồn/trang tổng hợp không rõ nguồn.
+- **Ưu tiên kịch bản TROLL ĐỘI THUA (chủ dự án yêu cầu):** nhóm này có view trung vị 1,4M (mẫu: Cowboys vs 50 babies 5,8M; Herbert 20 O-line 1,5M; Packers vs babies 1,4M). Khuôn 5 bước: (1) Hook "Could [đội đang thảm hại] beat [đối thủ yếu vô lý]?" (2) thổi phồng lợi thế "This should be the easiest win…" (3) "Except" + nỗi đau THẬT của fan (chuỗi thua, thống kê tệ) (4) trận ảo thua đúng kiểu lỗi thật, tên cầu thủ thật (5) Final score như bản tin + câu troll để fan đối thủ chia sẻ. Không chép premise kênh mẫu đã làm; không đùa về chấn thương/bệnh.
 - **Hai điểm duyệt:** (1) kịch bản, (2) bản cắt thử. Sau đó mới render đủ.
 - **Không lặp:** mỗi tập khác hẳn các tập trước về đối thủ/gag VÀ bối cảnh. Trước khi dựng, ghi vào kịch bản bảng "đã dùng" (mục 7) và chọn bối cảnh chưa có.
 - **Nhận diện đúng tuyệt đối:** đội HIỆN TẠI, số áo HIỆN TẠI, bản áo (trắng/màu), chữ trên ngực, tóc, râu, màu da, chiều cao/dáng — tra web mỗi lần, không dựa trí nhớ (cầu thủ có thể vừa đổi đội/đổi số; ảnh người dùng gửi có thể là ảnh cũ → kiểm rồi giải thích). Ghi bảng nhận diện có nguồn vào kịch bản.
@@ -33,17 +34,20 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 
 ## 3. Bối cảnh — bài học E01/E02
 - Mẫu NBA: nhà thi đấu SÁNG, màu đội rực (ghế 3D từng hàng màu đội + khán giả low-poly ngồi thưa, bậc bê tông sáng, LED giữa 2 tầng); nhiều tập đưa sao sang thế giới thứ hai (rừng tiền sử, La Mã, sân đường phố trời xanh, vũ trụ). Không dùng lại khán đài texture chấm màu của E01.
-- Đã dùng: E01 sân NFL trong nhà kiểu AT&T (khán đài texture), E02 nhà thi đấu Bucks ghế xanh–kem (`lib/nba.js`). Tập sau chọn khác: sân ngoài trời, sân đối thủ màu khác, bối cảnh lịch sử/vũ trụ/thành phố…
+- Đã dùng: E01 sân NFL trong nhà kiểu AT&T (khán đài texture), E02 nhà thi đấu Bucks ghế xanh–kem (`lib/nba.js`), E03 sân ngoài trời ban đêm (`lib/ngoaitroi.js`: trời sao, 6 tháp đèn pha, khán đài nhôm + chòi bình luận, cỏ bàn cờ, đường chạy đỏ, cột gôn vàng, bảng điểm 2 cột). Tập sau chọn khác: sân ban ngày/tuyết/mưa, sân đường phố, bối cảnh lịch sử/vũ trụ/thành phố…
 - Ánh sáng: hemi ≥ 2,5 + key có bóng + đèn phụ gắn máy quay (nhân vật da tối/áo tối vẫn rõ). Kiểm số đo bão hòa/sáng trên ảnh xem trước.
 - Khán giả phải cử động: vertex shader nhún + giơ tay + ngủ gục, điều khiển theo shot (`A.crowd.uCheer/uSleep/uT`).
 
 ## 4. Nhân vật & động tác
+- **NHÂN VẬT LUÔN CỬ ĐỘNG (chủ dự án yêu cầu, áp dụng mọi tập):** không nhân vật người nào đứng yên tuyệt đối trong khung hình, nhất là shot mở đầu (0–3 s quyết định giữ chân người xem). Mỗi nhân vật trong khung có tối thiểu: thở + đổi trọng tâm + quay đầu/nhìn quanh (`liven(ch,t,seed,amt,headAmt)` trong `lib/bongbau.js`, hoặc `alive()` trong `tuthe.js`), gọi SAU khi đặt tư thế; seed khác nhau để lệch nhịp. Nhân vật chính có thêm cử chỉ theo lời (chỉ tay hô tín hiệu `qbSignal`, giơ ngón cái có nhún, lắc đầu khi thua, giật mình ở "Except"). Ngoại lệ duy nhất: thứ đứng im là CHÍNH gag (vd ma-nơ-canh) — khi đó cho chi tiết phụ chuyển động (mác giá đung đưa, khán giả, máy quay trôi). Kiểm: render 3 khung cách 0,5 s mỗi shot, so thấy khác nhau mới đạt.
 - `lib/nhanvat2.js`: `tank`, `shorts`, `sockAt`, `shortsTo`, `wordmark`, `wordmarkColor`, `backName`, `collar`, `pantsStripes`, `edgeSoft:1`, số chiếu phẳng trước/sau. `lib/cast2.js`: mẫu cấu hình (HEAT trắng Association, BUCKS xanh, fan, trọng tài). Tay dài: scale `upperarm`. **Chiều cao: luôn dùng `heightM` = chiều cao thật (m) tra web** (thân gốc nam 1,81 m, nữ 1,767 m); không dùng `scale` đoán. E02 sai: Giannis 1,99 m (thật 2,11), Herro 1,77 m (thật 1,96), Bucks 1,81 m.
 - `lib/bongro.js`: stance, dribble, wingspan, holdChest, shoot, dunk, flex, seated (ngủ), slump, toss, defend. NFL: `lib/tuthe.js` (benchSit, pushup, akimbo, alive…).
 - `resetPose(ch)` ngay sau khi tạo; trộn clip và tư thế code được (clip() gọi resetPose trước).
 - **Tóc** (`lib/toc.js`, gọi qua `makeCharacter({hairStyle, hairColor, hairOpts})`): `proc:buzz|fade|curlytop|afro|dreads|twists|cornrows|braids|hightop|manbun|mohawk` (dựng bằng code, `hairOpts {len,n,thick,puff,front,back,seed}`) và `mh:afro01|mh:short04` (MakeHuman system assets CC0, chuyển bằng `cong_cu/chuyen_toc_mh.py` từ gói npm makehuman-data). Bảng mẫu: `tai_nguyen/bang_kieu_toc.jpg`; kiểm bằng `test_toc.html#proc:...`. Tóc chưa có kiểu phù hợp → thêm case mới trong toc.js, không dùng tóc sai.
 - **Dáng người & phụ kiện** (`makeCharacter`): `build: 'slim'|'fit'|'big'|'belly'`, `shoulders: 'wide'|'narrow'`, `headband: màu`, `wristband: {side:'l'|'r'|'both', color}`, `armSleeve: 'l'|'r'|'both'` + `armSleeveColor`, `tattoo: 'l'|'r'|'both'` (vẽ trong shader, sắc nét), `beardStyle: 'goatee'|'full'|'stubble'|'mustache'` + `beardColor`, `glasses: màu`. Bảng mẫu: `tai_nguyen/bang_dang_nguoi.jpg`, kiểm bằng `test_dang.html` (#side, #arm, #head). Ghi dáng/phụ kiện thật của cầu thủ vào bảng nhận diện.
 - Bóng: NBA `basketball()` 8 múi #C8541F; NFL `football()`.
+- NFL (E03): `lib/bongbau.js` — `CAST3` (herbert/dicker/bolt), mẫu áo `CHARGERS`; `makeMannequin` (ma-nơ-canh bóng, khớp tròn, cọc inox, mác giá); tư thế `qbHold, qbSignal, qbThrow, kick, yawn, thumbsUp, sadWalk, sprint, mannequinPose`; `liven`. Mũ NFL: `helmet, helmetStripe, mask`.
+- Tên sau lưng (`backName`) tự co chữ; đặt `backNameMax` (px trên texture 256, NFL ≈150) để tên không tràn qua vai (E03 lỗi "ERBER"). Luôn render 1 ảnh cận lưng áo để kiểm.
 - Ảnh kiểm nhân vật trước/sau (test_nba.html) trước khi dựng shot.
 
 ## 5. Chuỗi công cụ
@@ -76,11 +80,13 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 |---|---|---|---|---|---|
 | E01 | NFL | Dallas Cowboys | 50 cụ bà, khung tập đi | sân NFL trong nhà, khán đài texture | (xem tap/E01) |
 | E02 | NBA | Giannis (Heat #7, áo trắng HEAT) | đội cũ Bucks, ném phạt lâu, fan áo #34 | nhà thi đấu Bucks ghế 3D xanh–kem, jumbotron | alvana hiphop/legends |
+| E03 | NFL | Chargers 0–7: Herbert #10, Dicker #11 (áo nhà xanh bột) | 11 ma-nơ-canh, bóng dội tay vào tay, mác SALE, khán đài khách toàn ma-nơ-canh | sân ngoài trời ban đêm, đèn pha, khán đài nhôm | alvana funk/make-money |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.4 (04/11): E03 — quy tắc NHÂN VẬT LUÔN CỬ ĐỘNG (`liven`, `qbSignal`), sân ngoài trời ban đêm `lib/ngoaitroi.js`, ma-nơ-canh + tư thế NFL `lib/bongbau.js`, `backNameMax`, đồ hoạ khối xiên Anton.
 - v0.1 (03/11): bản đầu.
 - v0.2 (04/11): E01 — motion blur, mặt vẽ, số áo chiếu shader, phụ đề gộp token.
 - v0.3.2 (04/11): dáng người (gầy/cân đối/to con/bụng phệ, vai rộng/hẹp), phụ kiện (băng đô, băng tay, ống tay, xăm, râu dê/quai nón/lún phún, kính), chiều cao thật `heightM`; 14 tiếng sân đấu Magnific.
