@@ -1,0 +1,70 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 4: đồ hoạ kiểu "tờ rơi bán xe" — nhãn giá cắt góc, ngôi sao bùng nổ vàng chữ đỏ, thanh xanh midnight green + bạc.
+   Khác E01 (thẻ thẳng), E02 (thẻ vàng + chữ pixel), E03 (khối xiên + chữ ánh kim). */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.bug{top:300px;display:flex;height:86px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 24px;letter-spacing:1px}
+.bA{background:#17707a;color:#fff;min-width:200px;border-radius:14px 0 0 14px}.bB{background:#d0021b;color:#fff;min-width:200px}.bS{background:#fffdf2;color:#111;min-width:84px}.bC{background:#a5acaf;color:#111;min-width:190px;font-size:40px!important;border-radius:0 14px 14px 0}
+.tag{display:flex;align-items:stretch;filter:drop-shadow(0 8px 12px rgba(0,0,0,.4))}
+.tag .hole{width:70px;background:#ffe14a;clip-path:polygon(100% 0,100% 100%,0 50%);position:relative}
+.tag .hole::after{content:'';position:absolute;right:16px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 4px #333}
+.tag .body{background:#ffe14a;color:#d0021b;padding:10px 34px 10px 10px;font-size:64px;line-height:1.05;white-space:nowrap}
+.tag.grn .hole,.tag.grn .body{background:#17707a;color:#fff}
+.tag.red .hole,.tag.red .body{background:#d0021b;color:#fff}
+.card{text-align:center;filter:drop-shadow(0 10px 16px rgba(0,0,0,.45))}
+.card .k{display:inline-block;white-space:nowrap;background:#a5acaf;color:#111;font-size:40px;letter-spacing:3px;padding:6px 26px;border-radius:10px 10px 0 0}
+.card .v{background:#fffdf2;color:#17707a;font-size:140px;line-height:1;padding:14px 46px 18px;border:8px solid #17707a;border-radius:18px;white-space:nowrap}
+.card .v.red{color:#d0021b;border-color:#d0021b}
+.burst{width:560px;height:560px;display:flex;align-items:center;justify-content:center;text-align:center;color:#d0021b;font-size:150px;line-height:0.95;
+  background:#ffe14a;clip-path:polygon(50% 0,57% 14%,71% 5%,72% 21%,88% 17%,83% 32%,99% 35%,88% 47%,100% 59%,85% 64%,92% 79%,76% 79%,74% 95%,61% 86%,50% 100%,39% 86%,26% 95%,24% 79%,8% 79%,15% 64%,0 59%,12% 47%,1% 35%,17% 32%,12% 17%,28% 21%,29% 5%,43% 14%);
+  filter:drop-shadow(0 10px 0 #d0021b)}
+.sack{display:flex;gap:14px}.sack div{width:96px;height:96px;border-radius:50%;background:#fffdf2;border:6px solid #d0021b;display:flex;align-items:center;justify-content:center;font-size:56px;color:#d0021b}
+.sack div.on{background:#d0021b;color:#fff}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.92);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.35)}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">PHI</div><div class="bS" id="sA">0</div><div class="bB">TUBE</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST 15:00</div></div>
+<div class="el tag red" id="title" style="top:1420px"><div class="hole"></div><div class="body" style="font-size:72px">EAGLES vs 11 TUBE MEN</div></div>
+<div class="el tag grn" id="saq" style="top:420px"><div class="hole"></div><div class="body">SAQUON BARKLEY #26</div></div>
+<div class="el burst" id="air" style="top:330px;width:420px;height:420px;font-size:110px">100%<br>AIR</div>
+<div class="el card" id="prob" style="top:300px"><div class="k">WIN PROBABILITY</div><div class="v">99%</div></div>
+<div class="el burst" id="r06" style="top:300px;width:460px;height:460px;font-size:170px">0–6</div>
+<div class="el card" id="skid" style="top:1420px"><div class="k">FIRST 6-GAME SKID SINCE</div><div class="v red">2012</div></div>
+<div class="el tag" id="clockT" style="top:420px"><div class="hole"></div><div class="body">EAGLES POINTS AFTER 10–0: 0</div></div>
+<div class="el tag red" id="yds" style="top:420px"><div class="hole"></div><div class="body" style="font-size:90px">2 YARDS</div></div>
+<div class="el tag red" id="sackT" style="top:420px"><div class="hole"></div><div class="body" style="font-size:80px">SACK!</div></div>
+<div class="el sack" id="sk" style="top:560px"></div>
+<div class="el tag red" id="nogood" style="top:420px"><div class="hole"></div><div class="body" style="font-size:80px">DOINK — NO GOOD</div></div>
+<div class="el burst" id="fin" style="top:1150px;width:520px;height:520px;font-size:140px">FINAL</div>
+<div class="el card" id="fin2" style="top:420px"><div class="v red" style="font-size:84px">TUBE MEN 27 · EAGLES 10</div></div>
+<div class="el card" id="kick" style="top:300px"><div class="k">ONE TUBE MAN vs THE EAGLES</div><div class="v red" style="font-size:110px">12 – 10</div></div>
+<div class="el tag grn" id="next" style="top:420px"><div class="hole"></div><div class="body">NEXT: vs NEW YORK</div></div>
+<div class="el tag" id="wave" style="top:420px"><div class="hole"></div><div class="body" style="font-size:80px">STILL WAVING</div></div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB} from './ep04_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:(b<0?SH[k][1]+b:SH[k][0]+b)];
+const SKB=[SH.s12[0],...SUB.s12,SH.s12[1]];const YB=[SH.s16[0],...SUB.s16,SH.s16[1]];
+const TL=[['bug',0,SH.s2[0]],['title',SH.s2[0]+0.25,SH.s2[1]],['saq',...at('s3',0.3)],['air',...at('s4',0.75)],['prob',...at('s5',0.3)],['r06',SH.s6[0]+0.35,SH.s6[1]],['skid',...at('s7',0.5)],
+ ['bug',SH.s8[0],SH.s9[1]],['clockT',...at('s9',0.4)],['bug',SH.s10[0],SH.s16[0]],['yds',SUB.s10[1],SH.s10[1]],['sackT',SH.s12[0],SH.s12[1]],['sk',SH.s12[0],SH.s12[1]],['nogood',SUB.s13+0.05,SH.s13[1]],
+ ['fin',...at('s15',0.15)],['fin2',...at('s15',0.4)],['kick',...at('s16',0.3)],['next',...at('s17',0.15)],['wave',...at('s18',0.4)]];
+const sk=document.getElementById('sk');for(let i=0;i<5;i++){const d=document.createElement('div');d.textContent=i+1;sk.appendChild(d);}
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;
+    e.style.opacity=on?(a===0?1:Math.min(1,(t-a)/0.07)):0;const burst=e.classList.contains('burst');const sc=e.id==='bug'?1:(burst?0.4+0.6*k:0.82+0.18*k);const rot=burst?(1-k)*-25+Math.sin(t*3)*2:0;
+    e.style.transform=`translateX(-50%) scale(${sc}) rotate(${rot}deg)`;}
+  // điểm: Eagles 7 khi Barkley chạm vạch, 10 sau đó; người hơi tăng dần 3–27 trong s14
+  const a=t<SUB.s8+1.6?0:t<SH.s9[0]?7:10;let b=0;if(t>=SH.s14[0])b=Math.min(27,Math.floor((t-SH.s14[0])/(SH.s14[1]-SH.s14[0])*10)*3);if(t>=SH.s14[1])b=27;
+  document.getElementById('sA').textContent=a;document.getElementById('sB').textContent=b;
+  document.getElementById('clk').textContent=t<SH.s10[0]?'1ST 15:00':t<SH.s13[0]?'3RD 9:41':'4TH 2:05';
+  [...sk.children].forEach((d,i)=>d.classList.toggle('on',t>=SKB[i]+0.15));
+  const f=(t-SH.s6[0])*30;document.getElementById('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;
+};
+</script></body></html>

@@ -174,3 +174,40 @@ export function liven(ch, t, seed = 0, amt = 1, headAmt = 1) {
   rotW(B(ch, 'neck_01'), up, yaw * 0.45); rotW(B(ch, 'Head'), up, yaw * 0.55); rotW(B(ch, 'Head'), lat, pit);
   return yaw;
 }
+
+// ---- Tập 4: Eagles (nguồn: Eagles.com, ESPN, Statscrew 2026, SportsLogos/OnPattison): áo nhà xanh midnight green,
+// số trắng viền than chì, quần trắng, mũ xanh midnight green (KHÔNG vẽ cánh chim), lưới chắn mặt xám bạc.
+export const PHI = { green: '#17707a', silver: '#a5acaf', charcoal: '#2b2e33' };
+export const EAGLES = { ...BASE, jersey: PHI.green, numberColor: '#ffffff', numberOutline: PHI.charcoal, pants: '#f4f4f2', pantsStripes: [PHI.green, PHI.silver], socks: '#f2f2f2', shoes: '#f4f4f4', gloves: '#f4f4f4',
+  backNameMax: 150, helmet: '#176a72', helmetStripe: [], helmetMetal: 0.45, mask: '#9aa0a6', maskThick: 0.085, maskY: -0.1, collar: PHI.charcoal, build: 'fit', shoulders: 'wide' };
+export const CAST4 = {
+  // Saquon Barkley: số 26, 1,83 m, 233 lb — thấp đậm, đùi to, da nâu
+  barkley: (lib, o = {}) => makeCharacter(lib, { ...EAGLES, skin: '#7a4a2c', number: 26, backName: 'BARKLEY', heightM: 1.83, build: 'big', ...o }),
+  // Tanner McKee: số 16, 1,98 m, 231 lb — cao, da trắng
+  mckee: (lib, o = {}) => makeCharacter(lib, { ...EAGLES, skin: '#f0c8a6', number: 16, backName: 'MCKEE', heightM: 1.98, shoulders: null, ...o }),
+  // Jake Elliott: số 4, 1,75 m, 167 lb — nhỏ gọn
+  elliott: (lib, o = {}) => makeCharacter(lib, { ...EAGLES, skin: '#eec7a4', number: 4, backName: 'ELLIOTT', heightM: 1.75, build: 'slim', shoulders: null, ...o }),
+  ol: (lib, o = {}) => makeCharacter(lib, { ...EAGLES, skin: '#c68c5f', number: 65, heightM: 1.95, build: 'big', ...o }),
+};
+// ngã ngửa vì bị đè (k 0 đứng → 1 nằm), hướng ngã theo -z cục bộ
+export function knockedDown(ch, x, z, k) {
+  resetPose(ch); ch.root.position.set(x, 0, z);
+  const kk = Math.min(1, Math.max(0, k));
+  legs(ch, 0.1 + kk * 0.5, 0.4, 0);
+  for (const [s, sg] of [['l', 1], ['r', -1]]) { aim(B(ch, 'upperarm_' + s), B(ch, 'lowerarm_' + s), L(ch, sg * 0.8, 0.5 * kk - 0.3, 0.2)); aim(B(ch, 'lowerarm_' + s), B(ch, 'hand_' + s), L(ch, sg * 0.6, 0.6, 0.3)); }
+  const ry = ch.root.rotation.y; ch.root.rotation.set(0, ry, 0); ch.root.rotateX(-kk * 1.45);
+  ch.root.updateMatrixWorld(true); groundIt(ch, 0, 0.02);
+}
+// chạy mang bóng (pha ph, tay phải kẹp bóng); trả về vị trí bóng
+export function runCarry(ch, x, z, ph) {
+  sprint(ch, x, z, ph); const sc = ch.root.scale.x;
+  const c = B(ch, 'spine_03').getWorldPosition(new THREE.Vector3()).add(L(ch, -0.16 * sc, -0.08 * sc, 0.18 * sc));
+  ik2(ch, 'upperarm_r', 'lowerarm_r', 'hand_r', c, L(ch, -1, -0.5, -0.2));
+  return c;
+}
+// ăn mừng: 2 tay giơ cao nhún nhảy
+export function celebrate(ch, x, z, t, seed = 0) {
+  resetPose(ch); ch.root.position.set(x, 0, z); legs(ch, 0.08, 0.36, 0);
+  for (const [s, sg] of [['l', 1], ['r', -1]]) { const w = Math.sin(t * 7 + seed + (sg > 0 ? 0 : 1.2)) * 0.25; aim(B(ch, 'upperarm_' + s), B(ch, 'lowerarm_' + s), L(ch, sg * 0.45, 0.9, w)); aim(B(ch, 'lowerarm_' + s), B(ch, 'hand_' + s), L(ch, sg * 0.15, 1, 0.1)); }
+  place(ch, x, z); ch.root.position.y += Math.abs(Math.sin(t * 7 + seed)) * 0.12;
+}
