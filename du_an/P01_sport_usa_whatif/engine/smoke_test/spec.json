@@ -1,0 +1,6 @@
+{"width":1080,"height":1920,"fps":30,"tracks":[
+ {"type":"audio","name":"Nhac","clips":[{"file":"nhac.wav","start":0,"in":0,"out":2,"gain":0.3}]},
+ {"type":"audio","name":"Giong","clips":[{"file":"giong.wav","start":0,"in":0,"out":2}]},
+ {"type":"video","name":"Hinh 3D","clips":[{"file":"shot_01.mp4","start":0,"in":0,"out":2}]},
+ {"type":"video","name":"Do hoa","clips":[{"file":"dohoa_01.mov","start":0,"in":0,"out":2}]}],
+ "subtitles":"phu_de.ass"}

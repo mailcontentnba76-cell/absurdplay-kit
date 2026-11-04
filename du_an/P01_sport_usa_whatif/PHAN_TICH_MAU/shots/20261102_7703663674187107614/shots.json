@@ -1,0 +1,274 @@
+{
+ "video": "20261102_7703663674187107614.mp4",
+ "thoi_luong": 78.899955,
+ "ket_thuc_noi_dung": 74.5,
+ "nguong": 0.22,
+ "shots": [
+  {
+   "n": 1,
+   "vao": 0.0,
+   "ra": 2.23,
+   "dai": 2.23,
+   "loi": "Could the 2026 Atlanta Falcons beat"
+  },
+  {
+   "n": 2,
+   "vao": 2.23,
+   "ra": 3.7,
+   "dai": 1.47,
+   "loi": "the Tampa Bay Buccaneers without"
+  },
+  {
+   "n": 3,
+   "vao": 3.7,
+   "ra": 5.13,
+   "dai": 1.43,
+   "loi": "a quarterback?"
+  },
+  {
+   "n": 4,
+   "vao": 5.13,
+   "ra": 6.2,
+   "dai": 1.07,
+   "loi": "On November 1st,"
+  },
+  {
+   "n": 5,
+   "vao": 6.2,
+   "ra": 8.03,
+   "dai": 1.83,
+   "loi": "the Falcons face the Buccaneers."
+  },
+  {
+   "n": 6,
+   "vao": 8.03,
+   "ra": 10.33,
+   "dai": 2.3,
+   "loi": "Baker Mayfield attempted three passes."
+  },
+  {
+   "n": 7,
+   "vao": 10.33,
+   "ra": 11.83,
+   "dai": 1.5,
+   "loi": "He completes zero."
+  },
+  {
+   "n": 8,
+   "vao": 11.83,
+   "ra": 13.5,
+   "dai": 1.67,
+   "loi": "Tampa immediately removes the forward"
+  },
+  {
+   "n": 9,
+   "vao": 13.5,
+   "ra": 16.1,
+   "dai": 2.6,
+   "loi": "pass from its playbook. First quarter,"
+  },
+  {
+   "n": 10,
+   "vao": 16.1,
+   "ra": 17.7,
+   "dai": 1.6,
+   "loi": "Michael Penix drops back."
+  },
+  {
+   "n": 11,
+   "vao": 17.7,
+   "ra": 19.47,
+   "dai": 1.77,
+   "loi": "He finds Alex Anzaloni. Unfortunately,"
+  },
+  {
+   "n": 12,
+   "vao": 19.47,
+   "ra": 21.9,
+   "dai": 2.43,
+   "loi": "Anzaloni plays for Tampa."
+  },
+  {
+   "n": 13,
+   "vao": 21.9,
+   "ra": 23.2,
+   "dai": 1.3,
+   "loi": "Penix gets the ball back."
+  },
+  {
+   "n": 14,
+   "vao": 23.2,
+   "ra": 24.9,
+   "dai": 1.7,
+   "loi": "He finds Anzaloni again."
+  },
+  {
+   "n": 15,
+   "vao": 24.9,
+   "ra": 26.83,
+   "dai": 1.93,
+   "loi": "Anzaloni now has more receptions than"
+  },
+  {
+   "n": 16,
+   "vao": 26.83,
+   "ra": 29.07,
+   "dai": 2.23,
+   "loi": "Tampa's entire receiving core. The"
+  },
+  {
+   "n": 17,
+   "vao": 29.07,
+   "ra": 31.1,
+   "dai": 2.03,
+   "loi": "Buccaneers kick two field goals,"
+  },
+  {
+   "n": 18,
+   "vao": 31.1,
+   "ra": 32.1,
+   "dai": 1.0,
+   "loi": "six nothing."
+  },
+  {
+   "n": 19,
+   "vao": 32.1,
+   "ra": 34.5,
+   "dai": 2.4,
+   "loi": "Penix responds with a third interception."
+  },
+  {
+   "n": 20,
+   "vao": 34.5,
+   "ra": 35.23,
+   "dai": 0.73,
+   "loi": "Half -time,"
+  },
+  {
+   "n": 21,
+   "vao": 35.23,
+   "ra": 36.23,
+   "dai": 1.0,
+   "loi": "nine nothing."
+  },
+  {
+   "n": 22,
+   "vao": 36.23,
+   "ra": 39.1,
+   "dai": 2.87,
+   "loi": "Baker Mayfield still has zero passing yards."
+  },
+  {
+   "n": 23,
+   "vao": 39.1,
+   "ra": 40.9,
+   "dai": 1.8,
+   "loi": "Tampa's entire playbook is now one"
+  },
+  {
+   "n": 24,
+   "vao": 40.9,
+   "ra": 43.63,
+   "dai": 2.73,
+   "loi": "laminated sheet that says run."
+  },
+  {
+   "n": 25,
+   "vao": 43.63,
+   "ra": 44.53,
+   "dai": 0.9,
+   "loi": "Third quarter,"
+  },
+  {
+   "n": 26,
+   "vao": 44.53,
+   "ra": 50.37,
+   "dai": 5.83,
+   "loi": "Bucky Irving breaks loose for 46 yards. Kenny Gainwell adds 28. Irving finishes the drive with"
+  },
+  {
+   "n": 27,
+   "vao": 50.37,
+   "ra": 51.9,
+   "dai": 1.53,
+   "loi": "a four yard touchdown."
+  },
+  {
+   "n": 28,
+   "vao": 51.9,
+   "ra": 54.17,
+   "dai": 2.27,
+   "loi": "16 nothing. Fourth quarter,"
+  },
+  {
+   "n": 29,
+   "vao": 54.17,
+   "ra": 56.27,
+   "dai": 2.1,
+   "loi": "Penix throws his fourth interception. Atlanta"
+  },
+  {
+   "n": 30,
+   "vao": 56.27,
+   "ra": 61.2,
+   "dai": 4.93,
+   "loi": "finally completes a 76 yard pass. They're inside Tampa's 25."
+  },
+  {
+   "n": 31,
+   "vao": 61.2,
+   "ra": 62.83,
+   "dai": 1.63,
+   "loi": "They turn it over on downs."
+  },
+  {
+   "n": 32,
+   "vao": 62.83,
+   "ra": 64.03,
+   "dai": 1.2,
+   "loi": "The Buccaneers finish with 324"
+  },
+  {
+   "n": 33,
+   "vao": 64.03,
+   "ra": 66.37,
+   "dai": 2.33,
+   "loi": "rushing yards."
+  },
+  {
+   "n": 34,
+   "vao": 66.37,
+   "ra": 67.17,
+   "dai": 0.8,
+   "loi": "Final score,"
+  },
+  {
+   "n": 35,
+   "vao": 67.17,
+   "ra": 68.63,
+   "dai": 1.47,
+   "loi": "Tampa Bay 16,"
+  },
+  {
+   "n": 36,
+   "vao": 68.63,
+   "ra": 69.93,
+   "dai": 1.3,
+   "loi": "Atlanta zero."
+  },
+  {
+   "n": 37,
+   "vao": 69.93,
+   "ra": 72.37,
+   "dai": 2.43,
+   "loi": "Baker Mayfield completed zero passes."
+  },
+  {
+   "n": 38,
+   "vao": 72.37,
+   "ra": 74.5,
+   "dai": 2.13,
+   "loi": "Michael Penix completed four to Tampa Bay."
+  }
+ ]
+}

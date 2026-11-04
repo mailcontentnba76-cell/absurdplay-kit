@@ -1,0 +1,330 @@
+{
+ "video": "20261027_7701378171496697118.mp4",
+ "thoi_luong": 79.2,
+ "ket_thuc_noi_dung": 79.2,
+ "nguong": 0.22,
+ "shots": [
+  {
+   "n": 1,
+   "vao": 0.0,
+   "ra": 2.87,
+   "dai": 2.87,
+   "loi": "Could Josh Allen finally beat the Chiefs in the playoffs if"
+  },
+  {
+   "n": 2,
+   "vao": 2.87,
+   "ra": 4.9,
+   "dai": 2.03,
+   "loi": "their entire team was in wheelchairs?"
+  },
+  {
+   "n": 3,
+   "vao": 4.9,
+   "ra": 6.83,
+   "dai": 1.93,
+   "loi": "Josh Allen is 0 -4"
+  },
+  {
+   "n": 4,
+   "vao": 6.83,
+   "ra": 8.9,
+   "dai": 2.07,
+   "loi": "against Patrick Mahomes in the playoffs."
+  },
+  {
+   "n": 5,
+   "vao": 8.9,
+   "ra": 10.37,
+   "dai": 1.47,
+   "loi": "He once gave Buffalo the lead with"
+  },
+  {
+   "n": 6,
+   "vao": 10.37,
+   "ra": 12.03,
+   "dai": 1.67,
+   "loi": "13 seconds left."
+  },
+  {
+   "n": 7,
+   "vao": 12.03,
+   "ra": 13.23,
+   "dai": 1.2,
+   "loi": "He still lost."
+  },
+  {
+   "n": 8,
+   "vao": 13.23,
+   "ra": 14.07,
+   "dai": 0.83,
+   "loi": "But this time,"
+  },
+  {
+   "n": 9,
+   "vao": 14.07,
+   "ra": 16.93,
+   "dai": 2.87,
+   "loi": "the entire Chiefs team is playing in wheelchairs,"
+  },
+  {
+   "n": 10,
+   "vao": 16.93,
+   "ra": 17.67,
+   "dai": 0.73,
+   "loi": "offense,"
+  },
+  {
+   "n": 11,
+   "vao": 17.67,
+   "ra": 18.5,
+   "dai": 0.83,
+   "loi": "defense,"
+  },
+  {
+   "n": 12,
+   "vao": 18.5,
+   "ra": 19.67,
+   "dai": 1.17,
+   "loi": "even Mahomes."
+  },
+  {
+   "n": 13,
+   "vao": 19.67,
+   "ra": 21.2,
+   "dai": 1.53,
+   "loi": "Buffalo immediately starts planning"
+  },
+  {
+   "n": 14,
+   "vao": 21.2,
+   "ra": 22.77,
+   "dai": 1.57,
+   "loi": "the Super Bowl parade."
+  },
+  {
+   "n": 15,
+   "vao": 22.77,
+   "ra": 23.77,
+   "dai": 1.0,
+   "loi": "First drive,"
+  },
+  {
+   "n": 16,
+   "vao": 23.77,
+   "ra": 25.03,
+   "dai": 1.27,
+   "loi": "Allen drops back."
+  },
+  {
+   "n": 17,
+   "vao": 25.03,
+   "ra": 27.3,
+   "dai": 2.27,
+   "loi": "Four receivers are completely uncovered."
+  },
+  {
+   "n": 18,
+   "vao": 27.3,
+   "ra": 29.47,
+   "dai": 2.17,
+   "loi": "He throws directly to a Chiefs cornerback who"
+  },
+  {
+   "n": 19,
+   "vao": 29.47,
+   "ra": 31.23,
+   "dai": 1.77,
+   "loi": "hasn't moved since the snap."
+  },
+  {
+   "n": 20,
+   "vao": 31.23,
+   "ra": 33.03,
+   "dai": 1.8,
+   "loi": "Interception. Next possession,"
+  },
+  {
+   "n": 21,
+   "vao": 33.03,
+   "ra": 37.47,
+   "dai": 4.43,
+   "loi": "Allen scrambles into the open field. There isn't a defender within 20 yards."
+  },
+  {
+   "n": 22,
+   "vao": 37.47,
+   "ra": 39.93,
+   "dai": 2.47,
+   "loi": "He attempts to hurdle absolutely nobody."
+  },
+  {
+   "n": 23,
+   "vao": 39.93,
+   "ra": 41.37,
+   "dai": 1.43,
+   "loi": "The football flies out."
+  },
+  {
+   "n": 24,
+   "vao": 41.37,
+   "ra": 42.03,
+   "dai": 0.67,
+   "loi": "Fumble."
+  },
+  {
+   "n": 25,
+   "vao": 42.03,
+   "ra": 42.9,
+   "dai": 0.87,
+   "loi": "Chiefs recover."
+  },
+  {
+   "n": 26,
+   "vao": 42.9,
+   "ra": 44.07,
+   "dai": 1.17,
+   "loi": "By the fourth quarter,"
+  },
+  {
+   "n": 27,
+   "vao": 44.07,
+   "ra": 46.87,
+   "dai": 2.8,
+   "loi": "Buffalo somehow leads 13 to 10."
+  },
+  {
+   "n": 28,
+   "vao": 46.87,
+   "ra": 48.23,
+   "dai": 1.37,
+   "loi": "13 seconds left."
+  },
+  {
+   "n": 29,
+   "vao": 48.23,
+   "ra": 51.3,
+   "dai": 3.07,
+   "loi": "Kansas City has the ball at Buffalo's 12 -yard line."
+  },
+  {
+   "n": 30,
+   "vao": 51.3,
+   "ra": 52.6,
+   "dai": 1.3,
+   "loi": "Kelsey motions left."
+  },
+  {
+   "n": 31,
+   "vao": 52.6,
+   "ra": 54.83,
+   "dai": 2.23,
+   "loi": "The entire Bills' defense follows him."
+  },
+  {
+   "n": 32,
+   "vao": 54.83,
+   "ra": 56.2,
+   "dai": 1.37,
+   "loi": "Mahomes takes the snap."
+  },
+  {
+   "n": 33,
+   "vao": 56.2,
+   "ra": 57.27,
+   "dai": 1.07,
+   "loi": "He starts rolling."
+  },
+  {
+   "n": 34,
+   "vao": 57.27,
+   "ra": 59.07,
+   "dai": 1.8,
+   "loi": "Nobody has quarterback contained. He's"
+  },
+  {
+   "n": 35,
+   "vao": 59.07,
+   "ra": 60.0,
+   "dai": 0.93,
+   "loi": "at the 10,"
+  },
+  {
+   "n": 36,
+   "vao": 60.0,
+   "ra": 60.8,
+   "dai": 0.8,
+   "loi": "the five."
+  },
+  {
+   "n": 37,
+   "vao": 60.8,
+   "ra": 63.2,
+   "dai": 2.4,
+   "loi": "A Bills linebacker runs straight past him."
+  },
+  {
+   "n": 38,
+   "vao": 63.2,
+   "ra": 64.9,
+   "dai": 1.7,
+   "loi": "Mahomes rolls into the end zone completely"
+  },
+  {
+   "n": 39,
+   "vao": 64.9,
+   "ra": 66.17,
+   "dai": 1.27,
+   "loi": "untouched."
+  },
+  {
+   "n": 40,
+   "vao": 66.17,
+   "ra": 67.9,
+   "dai": 1.73,
+   "loi": "Touchdown, Kansas City."
+  },
+  {
+   "n": 41,
+   "vao": 67.9,
+   "ra": 70.07,
+   "dai": 2.17,
+   "loi": "Final score, Chiefs 17,"
+  },
+  {
+   "n": 42,
+   "vao": 70.07,
+   "ra": 71.57,
+   "dai": 1.5,
+   "loi": "Bills 13."
+  },
+  {
+   "n": 43,
+   "vao": 71.57,
+   "ra": 73.17,
+   "dai": 1.6,
+   "loi": "Josh Allen has been sent home five"
+  },
+  {
+   "n": 44,
+   "vao": 73.17,
+   "ra": 74.9,
+   "dai": 1.73,
+   "loi": "times against Mahomes."
+  },
+  {
+   "n": 45,
+   "vao": 74.9,
+   "ra": 77.63,
+   "dai": 2.73,
+   "loi": "Now he has more time to spend with Hailee Steinfeld and"
+  },
+  {
+   "n": 46,
+   "vao": 77.63,
+   "ra": 79.2,
+   "dai": 1.57,
+   "loi": "Michael B. Jordan."
+  }
+ ]
+}

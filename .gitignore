@@ -1,0 +1,7 @@
+node_modules/
+out_*/
+*.mp4
+*.mov
+*.wav
+!**/magnific_sfx/*.wav
+*.zip
