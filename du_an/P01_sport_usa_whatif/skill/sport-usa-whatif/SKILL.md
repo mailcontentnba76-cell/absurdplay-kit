@@ -2,11 +2,19 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.4 (04/11/2026)
+# Sport USA "What If" — v0.5 (05/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL).
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã có bản cắt thử, chờ duyệt (xem `tap/E04_eagles_tube_men/HUONG_DAN_TIEP_TUC.md`).
+
+## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
+- **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA".
+- Bộ hồ sơ đầy đủ nằm ở `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO/`. Chưa có → (1) người dùng đính kèm `AbsurdPlay_P01_bo_ho_so.zip` → giải nén vào `/root/work/`, hoặc (2) clone GitHub `mailcontentnba76-cell/absurdplay-kit` nếu tài khoản có quyền.
+- Engine: `cp -r du_an/P01_sport_usa_whatif/engine /root/work/engine && cd /root/work/engine && npm install` (three r170, postprocessing, realism-effects, camera-controls, simplex-noise, @fontsource/*), rồi BẮT BUỘC `python3 patches/va_realism_effects_three170.py` (vá motion blur cho three r170; chạy lại sau mỗi lần npm install, thiếu thì render có motion blur báo `INVALID_OPERATION`); Playwright + Chromium có sẵn trong môi trường (không cài lại). Python: faster-whisper, numpy (`pip install --break-system-packages faster-whisper`); ffmpeg, melt (MLT) cho Kdenlive.
+- **Âm thanh KHÔNG có trong gói** (theo yêu cầu chủ dự án): nhạc/SFX CC0 tải lại theo `tai_nguyen/am_thanh/README.md` (git clone sfx-kit, alvana-audio, Free-SFX, Meta-open-sound vào `/root/work/assets/audio`); tiếng sân đấu Magnific (`magnific_sfx/`) → nhờ người dùng tạo lại bằng Magnific Sound Effects hoặc đính kèm. `tron_am_thanh.py` của mỗi tập ghi rõ file nào dùng ở giây nào.
+- Giọng clone "Sport USA" nằm trong tài khoản Magnific của người dùng (không chuyển được qua gói): tài khoản Claude mới chỉ cần Claude in Chrome đăng nhập sẵn Magnific, hoặc người dùng tự tạo giọng và đính kèm mp3.
+- Chạy thử engine: `node render.js "ep04.html#nomb" out_test 30 0 1 360 640 30,300,900` → có 3 ảnh là engine chạy đúng.
 
 ## 0. Cách nhận việc (yêu cầu cố định của chủ dự án)
 - **Chờ yêu cầu.** Người dùng nói môn (vd "NFL", "NBA") → tự tìm tin MỚI NHẤT của môn đó (WebSearch + `mcp__widgets__fetch_sports_data` scores/standings/game_stats), chọn tin đáng làm, đề xuất 3 ý tưởng + 1 kịch bản. Chưa dựng video khi kịch bản chưa duyệt.
@@ -46,6 +54,7 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - **Tóc** (`lib/toc.js`, gọi qua `makeCharacter({hairStyle, hairColor, hairOpts})`): `proc:buzz|fade|curlytop|afro|dreads|twists|cornrows|braids|hightop|manbun|mohawk` (dựng bằng code, `hairOpts {len,n,thick,puff,front,back,seed}`) và `mh:afro01|mh:short04` (MakeHuman system assets CC0, chuyển bằng `cong_cu/chuyen_toc_mh.py` từ gói npm makehuman-data). Bảng mẫu: `tai_nguyen/bang_kieu_toc.jpg`; kiểm bằng `test_toc.html#proc:...`. Tóc chưa có kiểu phù hợp → thêm case mới trong toc.js, không dùng tóc sai.
 - **Dáng người & phụ kiện** (`makeCharacter`): `build: 'slim'|'fit'|'big'|'belly'`, `shoulders: 'wide'|'narrow'`, `headband: màu`, `wristband: {side:'l'|'r'|'both', color}`, `armSleeve: 'l'|'r'|'both'` + `armSleeveColor`, `tattoo: 'l'|'r'|'both'` (vẽ trong shader, sắc nét), `beardStyle: 'goatee'|'full'|'stubble'|'mustache'` + `beardColor`, `glasses: màu`. Bảng mẫu: `tai_nguyen/bang_dang_nguoi.jpg`, kiểm bằng `test_dang.html` (#side, #arm, #head). Ghi dáng/phụ kiện thật của cầu thủ vào bảng nhận diện.
 - Bóng: NBA `basketball()` 8 múi #C8541F; NFL `football()`.
+- Người hơi vẫy tay (E04): `lib/nguoihoi.js` — `makeTubeMan({color,arm,seed,H})`, điều khiển `amp, fold, lean, armReach, faceYaw`, gọi `update(t)` mỗi khung; bãi xe `lib/baixe.js`. Eagles: `EAGLES`, `CAST4`, `knockedDown, runCarry, celebrate`.
 - NFL (E03): `lib/bongbau.js` — `CAST3` (herbert/dicker/bolt), mẫu áo `CHARGERS`; `makeMannequin` (ma-nơ-canh bóng, khớp tròn, cọc inox, mác giá); tư thế `qbHold, qbSignal, qbThrow, kick, yawn, thumbsUp, sadWalk, sprint, mannequinPose`; `liven`. Mũ NFL: `helmet, helmetStripe, mask`.
 - Tên sau lưng (`backName`) tự co chữ; đặt `backNameMax` (px trên texture 256, NFL ≈150) để tên không tràn qua vai (E03 lỗi "ERBER"). Luôn render 1 ảnh cận lưng áo để kiểm.
 - Ảnh kiểm nhân vật trước/sau (test_nba.html) trước khi dựng shot.
@@ -81,11 +90,13 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E01 | NFL | Dallas Cowboys | 50 cụ bà, khung tập đi | sân NFL trong nhà, khán đài texture | (xem tap/E01) |
 | E02 | NBA | Giannis (Heat #7, áo trắng HEAT) | đội cũ Bucks, ném phạt lâu, fan áo #34 | nhà thi đấu Bucks ghế 3D xanh–kem, jumbotron | alvana hiphop/legends |
 | E03 | NFL | Chargers 0–7: Herbert #10, Dicker #11 (áo nhà xanh bột) | 11 ma-nơ-canh, bóng dội tay vào tay, mác SALE, khán đài khách toàn ma-nơ-canh | sân ngoài trời ban đêm, đèn pha, khán đài nhôm | alvana funk/make-money |
+| E04 | NFL | Eagles 2–6: Barkley #26, McKee #16, Elliott #4 (áo nhà midnight green) | 11 người hơi vẫy tay (gập đè Barkley, 5 lần sack McKee, đá trúng cột) | bãi xe hàng xe hơi ban ngày "MEGA DEALS AUTO" | alvana upbeat/bouncing |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.5 (05/11): mục Khởi động ở tài khoản/máy mới; E04 (người hơi vẫy tay, bãi xe ban ngày, đồ hoạ tờ rơi bán xe).
 - v0.4 (04/11): E03 — quy tắc NHÂN VẬT LUÔN CỬ ĐỘNG (`liven`, `qbSignal`), sân ngoài trời ban đêm `lib/ngoaitroi.js`, ma-nơ-canh + tư thế NFL `lib/bongbau.js`, `backNameMax`, đồ hoạ khối xiên Anton.
 - v0.1 (03/11): bản đầu.
 - v0.2 (04/11): E01 — motion blur, mặt vẽ, số áo chiếu shader, phụ đề gộp token.
