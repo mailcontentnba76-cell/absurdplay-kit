@@ -31,3 +31,4 @@
 | 04/11 | E03 | Nhân vật mở đầu gần như đứng yên (chủ dự án nhắc) | Thêm `liven`/`qbSignal` (thở, đổi trọng tâm, quay đầu, chỉ tay), quy tắc "nhân vật luôn cử động" vào SKILL |
 | 04/11 | E03 | Tên sau lưng tràn qua vai thành "ERBER" | `backNameMax` giới hạn bề rộng chữ tên; kiểm ảnh cận lưng áo |
 | 04/11 | E03 | Cột gôn che bảng điểm; máy quay cận che mặt bởi chữ 3D | Dời bảng điểm lệch trục (z −15); chữ 3D ở shot cận đặt top ~290 |
+| 05/11 | E04 | Bản cuối: biển khuyến mãi hiện FINAL suốt video (bản cắt thử thì đúng) | Sửa code bằng `s.index("if(IN('s14',t)){")` bắt nhầm khối bảng điểm (`else if(IN('s14',t))`) xuất hiện trước khối shot → code bị nhân đôi. Khôi phục từ GitHub, tìm khối shot bằng "\n  if(IN(" + assert đếm số lần xuất hiện; luôn render lại 3–5 khung kiểm SAU mỗi lần sửa, trước khi render đủ |

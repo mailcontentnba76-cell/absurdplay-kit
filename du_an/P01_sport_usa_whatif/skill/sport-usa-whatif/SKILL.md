@@ -6,7 +6,7 @@ description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã có bản cắt thử, chờ duyệt (xem `tap/E04_eagles_tube_men/HUONG_DAN_TIEP_TUC.md`).
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11.
 
 ## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
 - **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA".

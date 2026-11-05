@@ -44,6 +44,7 @@ const tmAt=(list,t,amp=1)=>TM.forEach((m,i)=>{const p=list?list[i]:TF[i];if(!p){
 // ---------- đạo cụ ----------
 const mkBall=()=>{const g=new THREE.Group();const b=football(0.28);b.rotation.y=Math.PI/2;g.add(b);g.userData.b=b;s.add(g);return g;};
 const ball=mkBall(),ball2=mkBall();
+const BIG=(()=>{const g=new THREE.Group();const b=football(0.42);b.rotation.y=Math.PI/2;g.add(b);g.userData.b=b;s.add(g);return g;})(); // bóng to cho shot 13–14 (dễ thấy trên điện thoại)
 const orient=(bl,from,to,spin)=>{bl.position.copy(from);if(to.distanceTo(from)>1e-4)bl.lookAt(to);bl.userData.b.rotation.z=spin;};
 const arc=(a,b,h,k)=>{const p=a.clone().lerp(b,k);p.y+=h*4*k*(1-k);return p;};
 const fly=(bl,a,b,h,k,spin)=>{const p=arc(a,b,h,k),q=arc(a,b,h,Math.min(1,k+0.01));if(k>=0.99)q.copy(p).add(b.clone().sub(a).setY(0).normalize().multiplyScalar(0.1));orient(bl,p,q,spin);};
@@ -94,10 +95,10 @@ const SKC=[[[MX+3.5,1.2,3.0],[MX,0.8,0]],[[MX-3.2,2.4,2.6],[MX,0.6,0]],[[MX+0.4,
 for(let q=0;q<5;q++){const [p,l]=SKC[q];Sp(SKB[q],SKB[q+1],{pos:p,look:l},{pos:[p[0]*0.98+MX*0.02,p[1],p[2]*0.92],look:l},{fov:[48,46],shake:0.01,shakeHz:1.5});}
 // s13: Elliott sút — ngang; "Doink" — cận cột trái
 const KX=12;
-Sp(SH.s13[0],SUB.s13,{pos:[KX-0.4,1.1,4.0],look:[KX,1.0,0]},{pos:[KX+1.5,2.0,4.6],look:[22,3.5,1.5]},{fov:[44,46],ease:'inOut'});
-Sp(SUB.s13,SH.s13[1],{pos:[26.5,5.2,5.8],look:[30,5.8,2.82]},{pos:[26.9,5.0,6.2],look:[30,5.0,2.82]},{fov:[42,40]});
+Sp(SH.s13[0],SUB.s13,{pos:[KX-0.4,1.1,4.0],look:[KX,1.0,0]},{pos:[24,4.4,5.2],look:[30,5.5,2.8]},{fov:[44,44],ease:'in'});
+Sp(SUB.s13,SH.s13[1],{pos:[27.2,5.6,5.4],look:[29.6,5.4,2.9]},{pos:[25.8,4.2,6.4],look:[27.5,2.2,4.0]},{fov:[42,46]});
 // s14: người hơi "chạy" (quạt trượt) ôm bóng về end zone trái — máy bám ngang
-S('s14',{pos:[8,2.0,5.2],look:[4,1.8,0]},{pos:[-20,1.9,5.2],look:[-24,1.7,0]},{fov:[50,48],ease:'linear',shake:0.01,shakeHz:1.1});
+S('s14',{pos:[6.5,2.3,4.2],look:[3.5,2.1,0]},{pos:[-22.5,2.2,4.2],look:[-25.5,2.0,0]},{fov:[50,48],ease:'linear',shake:0.01,shakeHz:1.1});
 // s15: FINAL trên biển — người hơi ăn mừng tiền cảnh
 S('s15',{pos:[-17,1.0,3],look:[-28,4.5,-6]},{pos:[-19,2.6,0],look:SBP},{fov:[50,44],ease:'inOut'});
 // s16: người hơi vàng "đá" 4 quả — giới thiệu + 4 cắt nhanh
@@ -111,7 +112,7 @@ S('s17',{pos:[-2,1.6,-16.4],look:[-6,1.4,-16.4]},{pos:[-0.8,1.55,-16.4],look:[-5
 S('s18',{pos:[-6,2.0,6],look:[4,2.2,0]},{pos:[-20,11,16],look:[4,1.5,0]},{fov:[46,50],ease:'inOut'});
 const CUTS=[...new Set([...Object.values(SH).map(v=>v[0]),SH.s18[1],SUB.s8,...SUB.s10,SUB.s11,...SUB.s12,SUB.s13,...SUB.s16])].sort((a,b)=>a-b);
 // ---------- dàn dựng ----------
-const hideAll=()=>{for(const ch of PEOPLE)ch.root.visible=false;TM.forEach(m=>m.root.visible=false);[ball,ball2,TEE].forEach(o=>o.visible=false);};
+const hideAll=()=>{for(const ch of PEOPLE)ch.root.visible=false;TM.forEach(m=>m.root.visible=false);[ball,ball2,BIG,TEE].forEach(o=>o.visible=false);};
 const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
 const olLine=(t)=>OL.forEach((ch,i)=>{ch.root.rotation.set(0,Math.PI/2,0);qbHold(ch,-0.75,(i-2)*1.2,t+i,0.55);
   for(const [sd,k] of [['l',1],['r',-1]])ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,ch.bones['calf_'+sd].getWorldPosition(V(0,0,0)).add(V(0.25,0.15,0)),V(0,0,k));liven(ch,t,i*1.9+0.4,0.8,0.7);ch.root.position.y+=0.012*Math.sin(t*2.2+i*1.3);show(ch);face(ch,t,i);});
@@ -167,12 +168,12 @@ const pose=t=>{
     LT.follow(MX,0);}
   if(IN('s13',t)){const u=U('s13',t);EL.root.rotation.set(0,Math.PI/2,0);const kk=cl((u-0.3)/0.55);kick(EL,KX-0.45+0.5*sm(kk*0.9),0,kk);show(EL);face(EL,t,6,{look:[0.4,0.3],lid:0.1,browAngle:-0.1});
     const tee=V(KX+0.12,0.035,0.05);TEE.position.copy(tee);TEE.visible=true;const hitK=SH.s13[0]+0.3+0.55*0.5;const post=V(LOT.L/2,5.6,2.75);
-    if(t<hitK)orient(ball,tee.clone().add(V(0,0.16,0)),tee.clone().add(V(0,1.2,0.3)),0);
-    else if(t<SUB.s13){fly(ball,tee.clone().add(V(0,0.16,0)),post,4.0,(t-hitK)/(SUB.s13-hitK),t*9);}
-    else{const v=t-SUB.s13;ball.position.copy(post).add(V(-v*3.2,1.2*v-4.9*v*v*1.2,v*1.4));ball.position.y=Math.max(0.15,ball.position.y);ball.rotation.set(t*14,t*5,0);}
-    ball.visible=true;tmAt(TF.map((p,i)=>i>=6?[LOT.L/2+3+(i-6)*1.2,(i-8)*1.8,-Math.PI/2,1.6]:null),t);LT.follow(t<SUB.s13?KX+4:28,1);}
+    if(t<hitK)orient(BIG,tee.clone().add(V(0,0.16,0)),tee.clone().add(V(0,1.2,0.3)),0);
+    else if(t<SUB.s13){fly(BIG,tee.clone().add(V(0,0.16,0)),post,4.0,(t-hitK)/(SUB.s13-hitK),t*9);}
+    else{const v=t-SUB.s13;BIG.position.copy(post).add(V(-v*3.2,1.2*v-4.9*v*v*1.2,v*1.4));BIG.position.y=Math.max(0.15,BIG.position.y);BIG.rotation.set(t*14,t*5,0);}
+    BIG.visible=true;tmAt(TF.map((p,i)=>i>=6?[LOT.L/2+3+(i-6)*1.2,(i-8)*1.8,-Math.PI/2,1.6]:null),t);LT.follow(t<SUB.s13?KX+4:28,1);}
   if(IN('s14',t)){const k=K('s14',t);const x=4-k*30;const T=TM[3];const P=TF.map((p,i)=>i===3?[x,0,-Math.PI/2,1.8,0,0,-0.5]:i===2?[x+5,2,-Math.PI/2,2]:i===6?[x+8,-2.5,-Math.PI/2,2]:null);
-    tmAt(P,t);const tip=tubeTip(T,0);orient(ball,tip,tip.clone().add(V(-1,0,0)),0);ball.visible=true;
+    T.armReach=null;tmAt(P,t);T.armReach=V(0.6,2.1,0.5);T.update(t);T.root.updateMatrixWorld(true);const hug=V(0.38,2.1,0.42).applyMatrix4(T.root.matrixWorld);orient(BIG,hug,hug.clone().add(V(-1,0,0)),0);BIG.visible=true;
     [OL[0],OL[3]].forEach((ch,i)=>{ch.root.rotation.set(0,-Math.PI/2,0);const bx=x+6+i*1.8+k*2;sprint(ch,bx,1.5-i*3,t*12+i);show(ch);ch.face({look:[0,0],blink:0,mouth:'o',browAngle:-0.3});});LT.follow(x,0);}
   if(IN('s15',t)){const P=TF.map((p,i)=>i<5?[-22-i*1.3,1.5-i*1.2,-Math.PI/2+1.2,2.2]:null);tmAt(P,t);LT.follow(-24,-2);}
   if(IN('s16',t)){const q=YB.findIndex((x,i)=>t>=x&&t<YB[i+1]);const u=t-YB[q];const T=KICKER;

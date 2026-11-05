@@ -15,3 +15,4 @@ Kịch bản đã duyệt: https://claude.ai/artifact/AVhuNcGqUhBqkVKC94j5GE
    → hinh.mp4 (lanczos 1080x1920, eq=saturation=0.86:brightness=0.02, unsharp) → tao_kdenlive.py mo_ta.json giao/E04_eagles_tube_men.kdenlive → melt → loudnorm 2 lượt → QA.md.
 3. Giao + 3 tiêu đề viral + hashtag; cập nhật bảng "đã dùng" (E04 | NFL | Eagles 2–6 | 11 người hơi | bãi xe ban ngày | alvana upbeat/bouncing); push GitHub.
 Nếu máy mới không có thư mục: clone absurdplay-kit, cài node_modules engine (npm i), tải lại thư viện âm thanh theo tai_nguyen/am_thanh/README.md.
+- Hoàn thành 05/11: giao/E04_eagles_tube_men.mp4 + .kdenlive + QA.md.
