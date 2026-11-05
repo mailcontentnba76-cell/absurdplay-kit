@@ -1,0 +1,4 @@
+{"name":"nu","gender":0,"age":"young","muscle":0.5,"weight":0.5,"height":0.5,"race":{"caucasian":1},
+ "skin":"young_caucasian_female/young_caucasian_female.json",
+ "proxies":["clothes/female_casualsuit01/female_casualsuit01.json","clothes/shoes02/shoes02.json","hair/ponytail01/ponytail01.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],
+ "eye_texture":"brown"}

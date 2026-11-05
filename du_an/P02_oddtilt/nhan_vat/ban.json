@@ -1,0 +1,4 @@
+{"name":"ban","gender":1,"age":"young","muscle":0.55,"weight":0.5,"height":0.6,"race":{"african":1},
+ "skin":"young_african_male/young_african_male.json",
+ "proxies":["clothes/male_casualsuit01/male_casualsuit01.json","clothes/shoes03/shoes03.json","hair/short04/short04.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],
+ "eye_texture":"brown"}

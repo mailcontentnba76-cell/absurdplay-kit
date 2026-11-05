@@ -1,0 +1,4 @@
+{"name":"chinh","gender":1,"age":"young","muscle":0.7,"weight":0.5,"height":0.6,"race":{"caucasian":1},
+ "skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":["clothes/male_casualsuit06/male_casualsuit06.json","clothes/shoes01/shoes01.json","hair/short02/short02.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],
+ "eye_texture":"blue"}

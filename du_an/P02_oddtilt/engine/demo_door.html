@@ -1,0 +1,120 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="720" height="1280"></canvas>
+<!-- DEMO nội bộ P02 (không đăng): bản thử 0–11 s theo mẫu "the door". Mốc lời: ../tap/DEMO_door/am_thanh/words.json -->
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {resetPose,aim,ik2,benchSit,alive,rotW} from './lib/tuthe.js';
+const q=new URLSearchParams(location.search); const W=+q.get('w')||720, H=Math.round(W*16/9);
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.0;
+const s=new THREE.Scene();s.background=new THREE.Color('#a9c9e8');s.fog=new THREE.Fog('#c9d9e6',30,140);
+s.add(new THREE.HemisphereLight('#eef4ff','#8a7656',1.5));
+const sun=new THREE.DirectionalLight('#fff0d8',3.2);sun.position.set(5,9,7);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.0004;
+Object.assign(sun.shadow.camera,{left:-6,right:6,top:6,bottom:-6});s.add(sun);
+let seed=7;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+function tex(w,h,fn,rep){const cv=document.createElement('canvas');cv.width=w;cv.height=h;fn(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...rep);t.anisotropy=8;return t;}
+const noise=(g,w,h,a)=>{const d=g.getImageData(0,0,w,h);for(let i=0;i<d.data.length;i+=4){const n=(rnd()-.5)*a;d.data[i]+=n;d.data[i+1]+=n;d.data[i+2]+=n;}g.putImageData(d,0,0);};
+// đá xây: viên đá đa giác có đổ bóng trong, vữa tối, nhiễu hạt
+const stone=tex(1024,1024,(g,w,h)=>{g.fillStyle='#3b3833';g.fillRect(0,0,w,h);
+  for(let k=0;k<520;k++){const cx=rnd()*w,cy=rnd()*h,rw=22+rnd()*42,rh=16+rnd()*26,rot=(rnd()-.5)*.6;
+    const L=38+rnd()*24,hu=25+rnd()*20,sa=5+rnd()*12;const gr=g.createLinearGradient(cx,cy-rh,cx,cy+rh);gr.addColorStop(0,`hsl(${hu},${sa}%,${L+8}%)`);gr.addColorStop(1,`hsl(${hu},${sa}%,${L-12}%)`);
+    g.save();g.translate(cx,cy);g.rotate(rot);g.fillStyle=gr;g.beginPath();const n=6+Math.floor(rnd()*3);for(let j=0;j<n;j++){const a=j/n*6.283,rr=.82+rnd()*.3;g.lineTo(Math.cos(a)*rw*rr,Math.sin(a)*rh*rr);}g.closePath();g.fill();
+    g.strokeStyle='rgba(25,22,20,.7)';g.lineWidth=3;g.stroke();g.restore();}
+  noise(g,w,h,30);},[1.6,1.3]);
+const wood=tex(1024,1024,(g,w,h)=>{for(let i=0;i<8;i++){const L=50+rnd()*10;g.fillStyle=`hsl(30,45%,${L}%)`;g.fillRect(0,i*128,w,128);
+  for(let k=0;k<70;k++){g.strokeStyle=`hsla(26,45%,${L-18}%,.35)`;g.lineWidth=1+rnd()*2;g.beginPath();const y=i*128+rnd()*128;g.moveTo(0,y);g.bezierCurveTo(w*.3,y+(rnd()-.5)*10,w*.6,y+(rnd()-.5)*10,w,y);g.stroke();}
+  g.fillStyle='rgba(40,22,8,.7)';g.fillRect(0,i*128,w,3);}noise(g,w,h,14);},[2,2]);
+const board=tex(512,1024,(g,w,h)=>{for(let i=0;i<4;i++){const L=58+rnd()*12;g.fillStyle=`hsl(35,10%,${L}%)`;g.fillRect(i*128,0,128,h);
+  for(let k=0;k<50;k++){g.strokeStyle=`hsla(30,12%,${L-25}%,.4)`;g.lineWidth=1+rnd()*2;g.beginPath();const x=i*128+rnd()*128;g.moveTo(x,0);g.bezierCurveTo(x+(rnd()-.5)*12,h*.3,x+(rnd()-.5)*12,h*.7,x+(rnd()-.5)*8,h);g.stroke();}
+  g.fillStyle='rgba(20,18,15,.8)';g.fillRect(i*128,0,4,h);}noise(g,w,h,22);},[1,1]);
+const leatherT=tex(512,512,(g,w,h)=>{g.fillStyle='#8a4a26';g.fillRect(0,0,w,h);for(let k=0;k<400;k++){g.fillStyle=`rgba(${60+rnd()*60},${30+rnd()*25},15,.25)`;g.beginPath();g.ellipse(rnd()*w,rnd()*h,rnd()*30,rnd()*12,rnd()*3,0,7);g.fill();}noise(g,w,h,18);},[1,1]);
+const grassT=tex(512,512,(g,w,h)=>{g.fillStyle='#b7a35c';g.fillRect(0,0,w,h);for(let k=0;k<5000;k++){g.strokeStyle=`hsl(${45+rnd()*25},${35+rnd()*25}%,${40+rnd()*25}%)`;g.beginPath();const x=rnd()*w,y=rnd()*h;g.moveTo(x,y);g.lineTo(x+(rnd()-.5)*4,y-4-rnd()*8);g.stroke();}},[60,60]);
+const M=(o)=>new THREE.MeshStandardMaterial(Object.assign({roughness:.9},o));
+const box=(w,h,d,m,x,y,z)=>{const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);b.position.set(x,y,z);b.castShadow=b.receiveShadow=true;s.add(b);return b;};
+// đồng cỏ + cây xa
+const gnd=new THREE.Mesh(new THREE.PlaneGeometry(400,400),M({map:grassT}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;s.add(gnd);
+for(let i=0;i<14;i++){const tr=new THREE.Group();const a=rnd()*6.28,d=18+rnd()*40;tr.position.set(Math.cos(a)*d,0,Math.sin(a)*d-10);
+  const tk=new THREE.Mesh(new THREE.CylinderGeometry(.15,.25,2.2,8),M({color:'#5b4632'}));tk.position.y=1.1;tr.add(tk);
+  for(let k=0;k<4;k++){const f=new THREE.Mesh(new THREE.IcosahedronGeometry(1.1+rnd()*.5,1),M({color:`hsl(${85+rnd()*20},28%,${30+rnd()*8}%)`,flatShading:true}));f.position.set((rnd()-.5)*1.6,2.6+rnd()*.8,(rnd()-.5)*1.6);tr.add(f);}s.add(tr);}
+// chòi đá 3,2 x 3,2 m, cửa ở tường trước (z=+1.6), lỗ cửa rộng 1,0 m cao 2,0 m
+const sm=M({map:stone,roughness:.95});const T=0.28,HW=2.5;
+box(3.2,HW,T,sm,0,HW/2,-1.6);box(T,HW,3.2,sm,-1.6,HW/2,0);box(T,HW,3.2,sm,1.6,HW/2,0);
+box(1.1,HW,T,sm,-1.05,HW/2,1.6);box(1.1,HW,T,sm,1.05,HW/2,1.6);box(1.0,.5,T,sm,0,2.25,1.6);
+const roof=box(3.6,.18,3.6,M({color:'#3d3a36'}),0,HW+.09,0);
+const fl=new THREE.Mesh(new THREE.PlaneGeometry(3.1,3.1),M({map:wood,roughness:.8}));fl.rotation.x=-Math.PI/2;fl.position.y=.005;fl.receiveShadow=true;s.add(fl);
+const fm=M({map:board,color:'#9a9188'});box(.12,2.05,.32,fm,-.56,1.02,1.6);box(.12,2.05,.32,fm,.56,1.02,1.6);box(1.24,.12,.32,fm,0,2.06,1.6);
+// băng ghế gỗ trong phòng
+box(1.3,.08,.42,M({map:wood,color:'#b07a4a'}),0,.46,-1.2);box(.08,.42,.38,M({map:wood}),-.55,.21,-1.2);box(.08,.42,.38,M({map:wood}),.55,.21,-1.2);
+// đèn phụ trong phòng (để không quá tối)
+const fill=new THREE.PointLight('#ffe7c8',6,6,1.5);fill.position.set(0,2.1,.4);s.add(fill);
+// TẤM DA: lưới chia nhỏ, biến dạng theo gió bằng code
+const LG=new THREE.PlaneGeometry(1.06,2.0,20,30);const L0=LG.attributes.position.array.slice();
+const leather=new THREE.Mesh(LG,M({map:leatherT,side:THREE.DoubleSide,roughness:.75}));leather.castShadow=true;leather.position.set(0,2.02,1.6-0.17);s.add(leather);
+function leatherAt(t,drop,lift){ // drop: 0..1 tấm da buông xuống; lift: 0..1 gió hất ra ngoài
+  const p=LG.attributes.position.array;for(let i=0;i<p.length;i+=3){const x=L0[i],y0=L0[i+1];const v=(1.0-y0)/2.0; // 0 ở mép trên, 1 ở mép dưới
+    const len=drop*2.0;const yy=-Math.min(v*2.0,len);const fold=Math.max(0,v*2.0-len);
+    const flutter=Math.sin(t*9+x*6+v*5)*0.02*(0.3+lift);
+    const ang=lift*1.25*Math.pow(v,1.2)+Math.sin(t*6+x*3)*0.08*lift*v;
+    p[i]=x+Math.sin(t*4+v*3)*0.02*lift;p[i+1]=yy*Math.cos(ang)+fold*0.0;p[i+2]=-yy*Math.sin(ang)*1+flutter-fold*0.02;}
+  LG.attributes.position.needsUpdate=true;LG.computeVertexNormals();}
+// CỬA VÁN: 5 tấm ván rơi vào vị trí lần lượt
+const planks=[];for(let i=0;i<5;i++){const m=M({map:board,color:'#a79e93'});const b=box(.2,1.98,.05,m,-.4+i*.2,1.0,1.6+.12);b.userData.x=-.4+i*.2;planks.push(b);}
+const braces=[box(1.0,.12,.05,M({map:board,color:'#8d8478'}),0,.45,1.6+.17),box(1.0,.12,.05,M({map:board,color:'#8d8478'}),0,1.6,1.6+.17)];
+// luồng gió: ống cong xanh nhạt trong suốt
+const windG=new THREE.Group();s.add(windG);const wmat=new THREE.MeshBasicMaterial({color:'#d8f0ff',transparent:true,opacity:0,depthWrite:false});
+for(let k=0;k<6;k++){const pts=[];for(let j=0;j<12;j++)pts.push(new THREE.Vector3(-2.5+j*.4,.6+k*.25+Math.sin(j*.9+k)*.12,2.6+Math.cos(j*.7+k)*.25));
+  windG.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),48,.012,6),wmat));}
+// NHÂN VẬT
+const lib=await loadLibrary();
+const A=makeCharacter(lib,{face:'real',cartoonEyes:false,skin:'#eac6aa',skinMix:.3,jersey:'#f3f3f1',pants:'#5776a3',socks:'#5776a3',shoes:'#6b4a2e',hair:'Hair_SimpleParted',hairColor:'#6a4426',browColor:'#4a2e18',heightM:1.80,puff:{jersey:.02,pants:.014,socks:.014,shoes:.006,skin:0}});
+const F=makeCharacter(lib,{face:'real',cartoonEyes:false,skin:'#5b3a27',skinMix:.75,jersey:'#2d3a55',pants:'#38455f',socks:'#38455f',shoes:'#1e1e1e',hair:'Hair_Buzzed',hairColor:'#120c08',heightM:1.83,puff:{jersey:.024,pants:.014,socks:.014,shoes:.006,skin:0}});
+s.add(A.root,F.root);
+const loc=(ch,x,y,z)=>new THREE.Vector3(x,y,z).applyQuaternion(ch.root.quaternion);
+function stand(ch,t,sd){resetPose(ch);ch.root.updateMatrixWorld(true);for(const [side,k] of [['l',1],['r',-1]]){
+  aim(ch.bones['upperarm_'+side],ch.bones['lowerarm_'+side],loc(ch,k*.18,-1,.03+Math.sin(t*1.3+sd+k)*.03));aim(ch.bones['lowerarm_'+side],ch.bones['hand_'+side],loc(ch,k*.08,-1,.18));}
+  rotW(ch.bones.spine_02,loc(ch,1,0,0),Math.sin(t*1.6+sd)*.015);}
+function reach(ch,side,target,pole){ik2(ch,'upperarm_'+side,'lowerarm_'+side,'hand_'+side,target,pole);}
+// máy quay theo shot: [t0,t1, vị trí đầu, vị trí cuối, nhìn đầu, nhìn cuối, fov]
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+const SH=[[0,2.8,V(-.25,1.62,3.5),V(-.2,1.6,3.15),V(0,1.0,-1.1),V(0,1.0,-1.1),34],
+ [2.8,5.7,V(-.75,1.5,-1.0),V(-.5,1.55,-.7),V(.05,1.5,1.6),V(.05,1.55,1.6),44],
+ [5.7,8.35,V(.8,1.4,-.9),V(.6,1.4,-.6),V(-.05,1.2,1.7),V(-.05,1.25,1.7),46],
+ [8.35,11.1,V(.7,1.45,-1.5),V(.45,1.4,-1.0),V(-.1,1.1,1.65),V(-.1,1.1,1.65),44]];
+const cam=new THREE.PerspectiveCamera(40,9/16,.05,400);
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2, cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), ramp=(t,a,b)=>cl((t-a)/(b-a));
+window.renderFrame=(t)=>{
+  const sh=SH.find(x=>t>=x[0]&&t<x[1])||SH[SH.length-1];const u=ease(ramp(t,sh[0],sh[1]));
+  cam.position.lerpVectors(sh[2],sh[3],u);cam.lookAt(new THREE.Vector3().lerpVectors(sh[4],sh[5],u));cam.fov=sh[6];cam.updateProjectionMatrix();
+  // tấm da: xuất hiện 3,28→4,35 (buông xuống); gió 6,0→8,3; biến mất khi có cửa ván
+  const drop=t<3.2?0:ease(ramp(t,3.28,4.35));const lift=t<5.9?0:Math.sin(Math.PI*ramp(t,6.0,8.2))*1.0;
+  leather.visible=t>=3.2&&t<8.6;leatherAt(t,drop,lift);
+  windG.visible=t>5.85&&t<8.3;wmat.opacity=.55*Math.sin(Math.PI*ramp(t,5.9,8.3));windG.position.x=(t-6)*1.4;
+  planks.forEach((b,i)=>{const t0=8.75+i*.3;const k=ease(ramp(t,t0,t0+.28));b.visible=t>=t0;b.position.y=1.0+(1-k)*1.6;b.rotation.z=(1-k)*.4*(i%2?1:-1);});
+  braces.forEach((b,i)=>{const t0=10.2+i*.25;b.visible=t>=t0;b.scale.x=ease(ramp(t,t0,t0+.25))||0.001;});
+  // NHÂN VẬT CHÍNH
+  if(t<2.8){ // ngồi ghế, che người, nhìn ra cửa khó chịu
+    A.root.position.set(0,0,-1.12);A.root.rotation.set(0,0,0);benchSit(A,t,.5,0.3);
+    const c=A.bones.spine_03.getWorldPosition(new THREE.Vector3());reach(A,'l',c.clone().add(V(-.12,-.05,.2)),V(1,0,1));reach(A,'r',c.clone().add(V(.14,-.02,.2)),V(-1,0,1));
+    alive(A,t,1,.5,0);
+  }else if(t<5.7){ // đứng quay lưng, treo tấm da lên khung cửa rồi chống nạnh "Clever!"
+    A.root.position.set(0,0,1.0);A.root.rotation.set(0,0,0);stand(A,t,1);
+    if(t<4.9){const k=Math.sin(t*5)*.03;reach(A,'l',V(-.42,2.0+k,1.42),V(1,0,-1));reach(A,'r',V(.42,2.0-k,1.42),V(-1,0,-1));}
+    else{const pel=A.bones.pelvis.getWorldPosition(new THREE.Vector3());const g=ease(ramp(t,4.9,5.15));
+      reach(A,'l',pel.clone().add(V(.2,.1,0)).lerp(V(-.42,2.0,1.42),1-g),V(1,0,-.6));reach(A,'r',pel.clone().add(V(-.2,.1,0)).lerp(V(.42,2.0,1.42),1-g),V(-1,0,-.6));
+      rotW(A.bones.neck_01,V(0,1,0),.9*g);}
+    alive(A,t,2,.3,0);
+  }else if(t<8.35){ // nhìn tấm da bị hất, giật mình
+    A.root.position.set(-.75,0,.55);A.root.rotation.set(0,-0.6,0);stand(A,t,3);
+    const sp=ramp(t,6.4,6.8);reach(A,'l',A.bones.Head.getWorldPosition(new THREE.Vector3()).add(V(-.18,.05+sp*.1,-.1)),V(1,-1,0));alive(A,t,3,1,0);
+  }else{A.root.position.set(-.75,0,.35);A.root.rotation.set(0,-0.5,0);stand(A,t,4);alive(A,t,4,.6,0);}
+  // NGƯỜI BẠN
+  F.root.rotation.set(0,Math.PI,0);
+  if(t<2.8){F.root.position.set(-.55,0,2.55);stand(F,t,5);rotW(F.bones.spine_02,V(1,0,0),.18);reach(F,'r',V(-.5,1.25,1.78),V(-1,0,1));alive(F,t,5,.3,.15);}
+  else if(t<5.7){F.root.position.set(.85,0,2.6);stand(F,t,6);alive(F,t,6,.8,0);}
+  else if(t<8.35){const pk=ramp(t,6.7,7.3);F.root.position.set(-.1,0,2.25);stand(F,t,7);rotW(F.bones.spine_02,V(1,0,0),.35*pk);rotW(F.bones.spine_03,V(1,0,0),.2*pk);
+    reach(F,'r',V(-.3,1.3,1.75),V(-1,0,1));reach(F,'l',V(.3,1.3,1.75),V(1,0,1));alive(F,t,7,.4,0);}
+  else{F.root.position.set(-.3,0,4.5);stand(F,t,8);alive(F,t,8,.5,0);}
+  A.mixer.setTime(0);r.render(s,cam);};
+window.ready=true;
+</script></body></html>

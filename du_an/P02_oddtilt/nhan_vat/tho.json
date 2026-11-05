@@ -1,0 +1,4 @@
+{"name":"tho","gender":1,"age":"young","muscle":0.6,"weight":0.5,"height":0.5,"race":{"caucasian":0.7,"asian":0.3},
+ "skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":["clothes/male_worksuit01/male_worksuit01.json","clothes/shoes05/shoes05.json","hair/short01/short01.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],
+ "eye_texture":"brown"}

@@ -1,0 +1,76 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,46,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,2.2,2,5,40,40,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.45,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}You're taking
+Dialogue: 0,0:00:00.48,0:00:01.09,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}a shit,
+Dialogue: 0,0:00:01.12,0:00:01.33,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}but your
+Dialogue: 0,0:00:01.36,0:00:01.97,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend keeps
+Dialogue: 0,0:00:02.00,0:00:02.29,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}trying to
+Dialogue: 0,0:00:02.32,0:00:02.85,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}watch,
+Dialogue: 0,0:00:02.88,0:00:03.25,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:03.28,0:00:03.89,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hang leather
+Dialogue: 0,0:00:03.92,0:00:04.29,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}across your
+Dialogue: 0,0:00:04.32,0:00:05.01,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}entryway.
+Dialogue: 0,0:00:05.04,0:00:05.73,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Clever!
+Dialogue: 0,0:00:05.76,0:00:05.97,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But the
+Dialogue: 0,0:00:06.00,0:00:06.53,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wind lifts
+Dialogue: 0,0:00:06.56,0:00:06.85,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it and
+Dialogue: 0,0:00:06.88,0:00:07.25,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your friend
+Dialogue: 0,0:00:07.28,0:00:07.73,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}gets another
+Dialogue: 0,0:00:07.76,0:00:08.37,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}peek,
+Dialogue: 0,0:00:08.40,0:00:08.77,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:08.80,0:00:09.25,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}replace it
+Dialogue: 0,0:00:09.28,0:00:09.73,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}with wooden
+Dialogue: 0,0:00:09.76,0:00:10.45,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}boards joined
+Dialogue: 0,0:00:10.48,0:00:11.01,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}together.
+Dialogue: 0,0:00:11.04,0:00:11.81,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except lifting
+Dialogue: 0,0:00:11.84,0:00:12.29,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the whole
+Dialogue: 0,0:00:12.32,0:00:12.77,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}thing every
+Dialogue: 0,0:00:12.80,0:00:13.17,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}time you
+Dialogue: 0,0:00:13.20,0:00:13.65,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}leave is
+Dialogue: 0,0:00:13.68,0:00:14.69,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}exhausting,
+Dialogue: 0,0:00:14.72,0:00:15.01,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:15.04,0:00:15.89,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}attach hinges
+Dialogue: 0,0:00:15.92,0:00:16.37,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}along one
+Dialogue: 0,0:00:16.40,0:00:16.85,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}side,
+Dialogue: 0,0:00:16.88,0:00:17.17,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}letting it
+Dialogue: 0,0:00:17.20,0:00:17.97,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}swing open.
+Dialogue: 0,0:00:18.00,0:00:18.21,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But the
+Dialogue: 0,0:00:18.24,0:00:18.85,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wind swings
+Dialogue: 0,0:00:18.88,0:00:19.81,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it open too,
+Dialogue: 0,0:00:19.84,0:00:20.21,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:20.24,0:00:20.45,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}add a
+Dialogue: 0,0:00:20.48,0:00:21.01,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}latch that
+Dialogue: 0,0:00:21.04,0:00:21.49,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}catches in
+Dialogue: 0,0:00:21.52,0:00:21.89,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the frame
+Dialogue: 0,0:00:21.92,0:00:22.13,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}when you
+Dialogue: 0,0:00:22.16,0:00:22.77,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}close it.
+Dialogue: 0,0:00:22.80,0:00:23.65,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Much better.
+Dialogue: 0,0:00:23.68,0:00:24.21,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except your
+Dialogue: 0,0:00:24.24,0:00:24.93,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend still
+Dialogue: 0,0:00:24.96,0:00:25.73,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}FUCKING manages
+Dialogue: 0,0:00:25.76,0:00:26.53,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}to open it.
+Dialogue: 0,0:00:26.56,0:00:26.93,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:26.96,0:00:27.17,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}add a
+Dialogue: 0,0:00:27.20,0:00:27.65,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}bolt on
+Dialogue: 0,0:00:27.68,0:00:28.21,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the inside
+Dialogue: 0,0:00:28.24,0:00:28.77,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}that slides
+Dialogue: 0,0:00:28.80,0:00:29.09,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}into the
+Dialogue: 0,0:00:29.12,0:00:29.57,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}frame,
+Dialogue: 0,0:00:29.60,0:00:29.89,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}keeping the
+Dialogue: 0,0:00:29.92,0:00:30.53,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}door shut
+Dialogue: 0,0:00:30.56,0:00:30.85,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}until you
+Dialogue: 0,0:00:30.88,0:00:31.17,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}pull it
+Dialogue: 0,0:00:31.20,0:00:31.65,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back.
+Dialogue: 0,0:00:31.68,0:00:31.97,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now your
+Dialogue: 0,0:00:32.00,0:00:32.45,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend can
+Dialogue: 0,0:00:32.48,0:00:33.32,Sub,,0,0,0,,{\pos(360,767)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}come inside.

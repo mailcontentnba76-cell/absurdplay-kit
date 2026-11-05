@@ -1,0 +1,13 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="720" height="1280"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {loadMH} from './lib/mh.js';
+const q=new URLSearchParams(location.search);const W=+q.get('w')||720,H=Math.round(W*16/9);const who=(q.get('n')||'chinh').split(',');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#9db7cf');s.add(new THREE.HemisphereLight('#eef4ff','#8a7656',1.6));const sun=new THREE.DirectionalLight('#fff0d8',3);sun.position.set(3,6,5);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);s.add(sun);
+const g=new THREE.Mesh(new THREE.PlaneGeometry(20,20),new THREE.MeshStandardMaterial({color:'#9b8466'}));g.rotation.x=-Math.PI/2;g.receiveShadow=true;s.add(g);
+const C=[];for(const [i,n] of who.entries()){const ch=await loadMH('./assets/mh/'+n,{});ch.root.position.x=(i-(who.length-1)/2)*0.95;s.add(ch.root);C.push(ch);}
+await new Promise(r=>setTimeout(r,1500));for(const ch of C)for(const m of Object.values(ch.meshes)){const a=m.geometry.attributes.skinIndex.array;let mx=0;for(const x of a)mx=Math.max(mx,x);console.log("DBG",m.name,mx,m.skeleton.bones.length,m.geometry.attributes.position.count,m.geometry.attributes.skinIndex.count)}
+const cam=new THREE.PerspectiveCamera(30,9/16,.05,100);
+window.renderFrame=(t)=>{try{const h=location.hash;if(h==='#face'){cam.position.set(0.0,1.68,0.75);cam.lookAt(0,1.65,0);}else if(h==='#back'){cam.position.set(0.3,1.2,-4);cam.lookAt(0,1.0,0);}else{cam.position.set(0.35,1.15,4.4);cam.lookAt(0,0.95,0);}r.render(s,cam);}catch(e){console.log("ERR "+e.stack)}};window.ready=true;
+</script></body></html>
