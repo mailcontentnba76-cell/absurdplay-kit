@@ -113,3 +113,23 @@ export function applyMocap(ch, mo, t, opt = {}) {
   }
   return T;
 }
+
+// IK 2 đoạn cho tay MakeHuman: đặt cổ tay (wrist) tới target, khuỷu hướng về pole (thế giới)
+export function armIK(ch, side, target, pole) {
+  const U = ch.bones['upperarm01.' + side + '____head'], L = ch.bones['lowerarm01.' + side + '____head'], W = ch.bones['wrist.' + side + '____head'];
+  const Ue = ch.bones['upperarm02.' + side], Le = ch.bones['lowerarm02.' + side];
+  ch.root.updateMatrixWorld(true);
+  const S = U.getWorldPosition(new THREE.Vector3()), E0 = L.getWorldPosition(new THREE.Vector3()), H0 = W.getWorldPosition(new THREE.Vector3());
+  const a = S.distanceTo(E0), b = E0.distanceTo(H0); const dv = target.clone().sub(S); let d = Math.min(dv.length(), (a + b) * 0.999); const u = dv.normalize();
+  const cosA = THREE.MathUtils.clamp((a * a + d * d - b * b) / (2 * a * d), -1, 1), sinA = Math.sqrt(1 - cosA * cosA);
+  const pp = pole.clone().sub(u.clone().multiplyScalar(pole.dot(u))).normalize();
+  const elbow = S.clone().addScaledVector(u, a * cosA).addScaledVector(pp, a * sinA);
+  aimMH(U, Ue, elbow.clone().sub(S)); aimMH(L, Le, S.clone().addScaledVector(u, d).sub(elbow));
+}
+// quay nút quanh trục thế giới
+export function rotWorld(bone, axis, ang) {
+  bone.updateWorldMatrix(true, false);
+  const wq = bone.getWorldQuaternion(new THREE.Quaternion()).premultiply(new THREE.Quaternion().setFromAxisAngle(axis.clone().normalize(), ang));
+  bone.quaternion.copy(bone.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(wq)); bone.updateWorldMatrix(false, true);
+}
+export const J = (ch, n) => ch.bones[n + '____head'].getWorldPosition(new THREE.Vector3());
