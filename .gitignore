@@ -1,0 +1,8 @@
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.webm
+node_modules/
+du_an/*/mau_goc/*
+!du_an/*/mau_goc/README.md
