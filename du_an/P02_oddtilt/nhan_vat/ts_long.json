@@ -1,0 +1,2 @@
+{"name":"ts_long","gender":1,"age":"young","muscle":0.65,"weight":0.55,"height":0.6,"race":{"caucasian":0.6,"asian":0.4},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/male_casualsuit01/male_casualsuit01.json","map":"vai/long_nau.png"},"hair/long01/long01.json","hair/Full_beard/Full_beard.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

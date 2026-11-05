@@ -32,7 +32,15 @@ Nguồn: lưới 1 khung/giây + 24 khung cận nhân vật (door 0,5/4,2/7,6/13
 | `tho` | `nhan_vat/tho.json` + `cong_cu/mh_doi_mau.py`: worksuit01 xanh đen/be, short01, shoes05 | khớp video 08 |
 Công cụ: `cong_cu/mh_bake.py` (áp macro targets giới tính/tuổi/cơ/cân/chủng tộc, khớp lại quần áo/tóc/mắt theo cơ thể, tính lại khung xương, xuất mét) + `engine/lib/mh.js` (nạp, SkinnedMesh, khung xương MakeHuman mặc định). Ảnh so sánh đã kiểm bằng mắt: dáng, quần áo, logo, màu da, tóc khớp mẫu; khác: tư thế mặc định chữ A (cần hệ tư thế mới), jean của `chinh` hơi đậm hơn mẫu dưới nắng.
 
-## 4. Việc còn lại để đủ bộ như mẫu
-1. Hệ tư thế/động tác cho khung xương MakeHuman (đứng thả tay, ngồi, giơ tay, chống nạnh, quỳ, nằm…) — bộ cũ của P01 dùng tên xương khác.
-2. Quần áo người tiền sử (da thú một vai, váy da, đồ lông, đồ da báo) — tự làm texture/mesh trên khung MakeHuman.
-3. Giấy phép: dữ liệu npm ghi AGPL3; MakeHuman công bố tài sản hệ thống và mô hình xuất ra được dùng tự do (CC0) — **cần chủ dự án/Claude kiểm lại trước khi đăng sản phẩm** [SL].
+## 4. Đã xử lý (05/11/2026) — nguồn GitHub
+| Vấn đề | Nguồn | Kết quả |
+|---|---|---|
+| 1. Tư thế/động tác | `una-dinosauria/cmu-mocap` (2.548 BVH CMU) + bảng khung xương `makehumancommunity/mpfb2` (rig.cmu_mb) | `engine/lib/mocap.js`: chuyển BVH CMU sang khung MakeHuman (khớp hướng từng đoạn xương + xoắn hông/ngực/đầu/tay + chân chạm đất). 25 đoạn đã chọn, danh mục `engine/assets/cmu/README.md`. Đã kiểm 8 nhân vật × 8 động tác bằng ảnh. |
+| 2. Quần áo người tiền sử | quần áo CC0 sẵn trong MakeHuman (Asymmetric_Tunic_and_Sash, ShortJeans, male_casualsuit01/04) + texture tự vẽ `cong_cu/mh_vai.py` (da nâu/be/cam/đốm, đồ lông, da báo) | `ts_da` (áo da lệch vai + khố da, tóc dài), `ts_long` (bộ lông + râu quai nón như mẫu 03), `ts_bao` (bộ da báo như bạn ở mẫu 01), `ts_nu` (váy da cam như mẫu 02). |
+| 3. Màu jean | — | `cong_cu/mh_jean_sang.py` (×1,18) cho `chinh`. |
+| 4. Giấy phép | `makehumancommunity/makehuman` LICENSE.md | Tài sản MakeHuman (thân, quần áo, texture, tư thế) **CC0 1.0**; mô hình xuất ra không bị giới hạn. Mã nguồn MakeHuman là AGPL nhưng dự án không dùng mã đó (bake bằng mã riêng). CMU mocap dùng tự do. |
+
+## 5. Còn lại
+- Biểu cảm mặt (face-poseunits) chưa nối.
+- Ngồi lên ghế thật cần đặt `ground:false` và ghế đúng độ cao; ngón tay theo BVH còn cứng.
+- Thân người tiền sử trong mẫu mặc đồ ôm liền (da thú dày, có nếp) — bản dựng là texture vẽ trên quần áo có sẵn, nhìn gần còn phẳng hơn mẫu.

@@ -105,7 +105,9 @@ def build(d, pos, keep=lambda vi, mat: True):
 
 # ---------- 3. quần áo / tóc / mắt (proxy refit) ----------
 proxies = []; delete = np.zeros(NV, bool)
+PXOPT = {}
 for p in spec.get('proxies', []):
+    if isinstance(p, dict): PXOPT[p['p']] = p; p = p['p']
     d = json.load(open(f'{DATA}/proxies/{p}'))
     md = d['metadata']
     ref = np.array(json.loads(md['ref_vIdxs']) if isinstance(md['ref_vIdxs'], str) else md['ref_vIdxs'])
@@ -171,6 +173,8 @@ for p, d, pos in proxies:
     if os.path.isdir(f'{pdir}/textures'):
         n = [f for f in os.listdir(f'{pdir}/textures') if 'normal' in f.lower()]
         nm = f'{pdir}/textures/{n[0]}' if n else None
+    po = PXOPT.get(p, {})
+    if po.get('map'): mp = os.path.join(os.path.dirname(os.path.abspath(SPEC)), po['map']); nm = nm if po.get('keepNormal') else None
     meshes.append(dict(name=os.path.basename(p)[:-5], kind=kind, pos=put(norm(D['pos'])), nrm=put(D['nrm']), uv=put(D['uv']), si=put(D['si']), sw=put(D['sw']), idx=put(D['idx']),
                        map=tex(mp), normalMap=tex(nm), alpha=kind in ('hair', 'eyebrows', 'eyelashes') or bool(mat.get('transparent')) and kind != 'clothes'))
 binf.close()

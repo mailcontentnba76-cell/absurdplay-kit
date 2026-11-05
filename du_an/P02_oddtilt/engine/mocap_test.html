@@ -1,0 +1,14 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="360" height="640"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {loadMH} from './lib/mh.js';import {loadBVH,applyMocap} from './lib/mocap.js';
+const q=new URLSearchParams(location.search);const W=+q.get('w')||360,H=Math.round(W*16/9);
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#9db7cf');s.add(new THREE.HemisphereLight('#eef4ff','#8a7656',1.6));const sun=new THREE.DirectionalLight('#fff0d8',3);sun.position.set(3,6,5);sun.castShadow=true;s.add(sun);
+const g=new THREE.Mesh(new THREE.PlaneGeometry(20,20),new THREE.MeshStandardMaterial({color:'#9b8466'}));g.rotation.x=-Math.PI/2;g.receiveShadow=true;s.add(g);
+const ch=await loadMH('./assets/mh/'+(q.get('n')||'chinh'),{heightM:1.8});s.add(ch.root);
+const mo=await loadBVH('./assets/cmu/'+q.get('clip')+'.bvh');
+await new Promise(r=>setTimeout(r,800));
+const cam=new THREE.PerspectiveCamera(32,9/16,.05,100);
+window.renderFrame=(t)=>{try{applyMocap(ch,mo,(+q.get('t')||0)+t,{yaw:+(q.get('yaw')||0.4),inPlace:true,lock:(q.get('lock')||'').split(',').reduce((a,k)=>(a[k]=1,a),{}),faceAt:q.get('fa')!==null?+q.get('fa'):undefined});cam.position.set(0.6,1.2,4.6);cam.lookAt(0,0.9,0);r.render(s,cam);}catch(e){console.log('ERR '+e.stack)}};window.ready=true;
+</script></body></html>
