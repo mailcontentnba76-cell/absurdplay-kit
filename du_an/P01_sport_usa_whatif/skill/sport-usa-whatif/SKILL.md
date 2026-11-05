@@ -84,8 +84,8 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 → cắt thử: nomb 540x960, 15 khung/s + gfx + phụ đề + giọng (ffmpeg) → duyệt
 → đủ: node render.js epXX.html out 30 f0 f1 720 1280 (2 tiến trình, ≈4,4 s/khung)
 → dohoa_render.js → qtrle .mov; tao_phu_de.py; tron_am_thanh.py (nhạc CC0 + SFX theo mốc; tiếng sân đấu thật ưu tiên `magnific/*`: crowd_cheer/roar/boo/gasp/laugh/ambience, ref_whistle, buzzer, sneaker_squeak, ball_dribble, swish, rim_dunk, backboard_bang, stadium_horn, football_hit, football_kick; stinger sad_trombone, organ_charge; crowd_ooh_aah, chant_defense, clap_rhythm, airball_chant, silence_cough, stadium_crowd_outdoor, drumline, camera_flashes — nền khán giả crowd_ambience trải suốt video)
-→ hinh.mp4 (lanczos 1080x1920, eq=saturation=0.86:brightness=0.02, unsharp) → tao_kdenlive.py
-→ melt ... -consumer avformat:out.mp4 width=1080 height=1920 progressive=1 frame_rate_num=30 frame_rate_den=1 → loudnorm 2 lượt −14 LUFS/TP −1,5 → QA.md
+→ hinh.mp4 (lanczos 1080x1920, eq=saturation chỉnh sao cho bão hoà HSV đo được ≥ 95, unsharp) → tao_kdenlive.py
+→ melt -profile cong_cu/v1080.profile ... -consumer avformat:out.mp4 width=1080 height=1920 progressive=1 frame_rate_num=30 frame_rate_den=1 → loudnorm 2 lượt −14 LUFS/TP −1,5 → QA.md
 ```
 
 ## 6. Lỗi đã gặp (chi tiết ở NHAT_KY_LOI.md)
