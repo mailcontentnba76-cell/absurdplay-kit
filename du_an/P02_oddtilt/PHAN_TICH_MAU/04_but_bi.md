@@ -1,0 +1,105 @@
+# PHÂN TÍCH VIDEO MẪU 04 — Bút bi
+File: `How.you.invented.the.ball.point.pen.mp4` (tên file do chủ dự án đặt khi tải; thứ tự trên kênh và ngày đăng: chưa biết) · md5 9d2fc910
+Dự án: P02 oddtilt · Ngày: 05/11/2026 · Người phân tích: Claude · Công cụ: ffprobe/ffmpeg (ebur128, silencedetect), `phan_tich_mau.py`, OpenCV (cắt cảnh, phụ đề, optical flow), librosa (F0, nhịp), Parakeet-TDT 0.6B v2 qua sherpa-onnx (chép lời + mốc từ)
+Nhãn: **[QS]** quan sát bằng mắt trên lưới 1 khung/giây + ảnh điểm cắt (mốc ±0,5 s) · **[ĐO]** đo bằng công cụ · **[SL]** suy luận chưa kiểm chứng
+
+> Giới hạn chung: Claude **không nghe được âm thanh** trong môi trường này. Mọi nhận định về giọng, nhạc, SFX chỉ dựa trên số đo tín hiệu; danh sách SFX theo mốc **chưa làm được** (xem mục 8).
+
+## A. Kỹ thuật [ĐO]
+| Mục | Giá trị |
+|---|---|
+| Thời lượng / khung / fps | 46,35 s / 720×1280 (9:16) / 30,0 fps; mã hoá AV1 + AAC 44,1 kHz stereo (bản tải về) |
+| Loudness / true peak / LRA | -16,1 LUFS / -1,6 dBFS / 2,5 LU (đo trên bản đã qua TikTok nén lại) |
+| Side − Mid | -21,8 dB |
+| Khoảng lặng > 0,35 s (−40 dB) | 0 |
+| Bão hoà / sáng trung vị (HSV 0–255) | 33,0 / 221,0 |
+| Độ nét tương đối (tỉ lệ chi tiết mịn) | 0,45 |
+
+## 1. Kịch bản
+- Lời đầy đủ (ASR Parakeet, chưa sửa tay; có thể sai vài từ) [ĐO]:
+
+> Your tip runs dry halfway through every word while you write your shopping list. So you, being a genius inventor, decide to hollow out the stick and fill it with ink instead of just coating the tip. But a puddle spreads across the paper and covers everything you needed for dinner. So you put a tiny ball on the tip, fitted closely enough to hold the ink back while still turning. As you write, it rolls ink from inside onto the paper. Clever fix! But while writing, you put the pen down to check the fridge. And when you return, thin ink has seeped around the ball and left another puddle. You make the ink thick enough so it stays put until the rolling ball carries it out. It works, but when you need it a week later, the ink is dried out. So you make another one and cover the tip with a cap. Congratulations! You've invented the ballpoint pen!
+
+- 161 từ; lời từ 0,0 s đến ≈45,79 s; **211,0 từ/phút** [ĐO]. Lời bắt đầu ngay khung đầu, kết thúc sát cuối file (không có đoạn đuôi im) [ĐO].
+- Câu mở đầu (hook) = **một vấn đề đời thường viết bằng ngôi "you"**, thường là câu nước đôi tình dục/thô tục [QS].
+- Vòng "vấn đề → giải pháp": các câu mở bằng "But/Except" ở 10,4 s (22%), 25,5 s (55%), 37,2 s (80%) → **3 vòng vấn đề** [ĐO trên lời].
+- Cụm nhận diện "genius" ở 5,28 s (11%) [ĐO].
+- Câu khen ngắn chen giữa: genius (5,3 s), Clever (24,1 s), Congratulations! (43,0 s) [ĐO].
+- Kết: "Congratulations! You've invented …" ở 42,96 s (93%) [ĐO].
+- Đặc biệt: Biến thể: không có người tiền sử, không có bạn, không hạt nhân; "genius inventor" thay "genius caveman". Chữ phụ đề nằm trên nền trắng nên bộ đo chữ tự động sai ở video này. F0 thấp (125 Hz) [ĐO] → có thể giọng khác [SL].
+
+## 2. Hình ảnh [QS]
+- Bối cảnh: Bếp hiện đại sáng: mặt bàn đá trắng, tủ xanh mint, tường gạch trắng, cửa sổ. Cảnh giải thích cơ chế trên nền gradient xanh dương sạch.
+- Kiểu render: 3D thời gian thực bán tả thực (nhân vật & đạo cụ kiểu tài sản game, nền texture ảnh chụp), ánh sáng ban ngày, bóng đổ rõ; không có hậu kỳ màu mạnh. Engine/phần mềm gốc: **chưa xác định** [SL: giống engine game thời gian thực].
+- Màu: bão hoà trung vị 33,0, sáng 221,0 [ĐO].
+
+## 3. Nhân vật [QS]
+- Không phải người tiền sử: nữ hiện đại tóc búi nâu, áo thể thao xanh có logo hình người cam. Nhiều shot chỉ có bàn tay.
+- Diễn xuất: tư thế/hoạt ảnh cứng, khớp lời ở mức hành động (không khớp môi rõ), biểu cảm mặt hạn chế; cảm xúc chủ yếu truyền qua icon 2D (tim, Zzz, mồ hôi, sóng mùi) và cử chỉ lớn [QS].
+
+## 4. Shot / máy quay
+- 17 shot; độ dài trung vị **2,7 s** [ĐO: OpenCV, cắt = đỉnh chênh lệch điểm ảnh/histogram; đã xem lại bằng ảnh điểm cắt hoặc lưới 1 khung/giây].
+- Máy (optical flow, ảnh 180×320) [ĐO]: đứng yên 81,8% · đẩy vào 5,8% · lùi 5,5% · lia ngang 0,9% · lia dọc 0,6% · tốc độ trung vị 0,1 px/s, p90 5,2 px/s. (Phân loại thô; zoom của vật lớn dễ bị tính là đẩy/lùi.)
+
+### Bảng theo nhịp truyện
+| t (s) | Lời (rút gọn) | Hình | Cỡ cảnh / máy | Chữ / đồ hoạ | Chức năng | Nhãn |
+|---|---|---|---|---|---|---|
+| 0,0–4,3 | Your tip runs dry… shopping list | Cận từ trên xuống: tay cầm que gỗ chấm lọ mực viết danh sách đi chợ | cận góc trên xuống, máy đứng | phụ đề trắng 1–3 từ | hook nước đôi | [QS] mốc lời [ĐO] |
+| 4,3–10,4 | genius inventor → hollow out the stick, fill with ink | Trung cảnh nhân vật ở bàn; cắt sang que gỗ trên nền xanh, mặt cắt lộ ống mực | cận vật, xoay quanh | nền gradient xanh | giải pháp 1 | [QS] mốc lời [ĐO] |
+| 10,4–14,8 | puddle spreads across the paper | Vũng mực lan phủ giấy | máy đứng, mực mở rộng | phụ đề trắng 1–3 từ | vấn đề 1 | [QS] mốc lời [ĐO] |
+| 14,8–24,1 | tiny ball on the tip… rolls ink → "Clever fix!" | Siêu cận đầu bi thép, mũi tên cong xanh lá chỉ chiều quay, vòng sáng xanh quanh bi; bi lăn chữ trên giấy | siêu cận, xoay quanh | mũi tên cong + viền highlight xanh lá | giải thích cơ chế | [QS] mốc lời [ĐO] |
+| 25,5–32,9 | put the pen down to check the fridge… puddle | Nhân vật quay đi mở tủ lạnh; cận bi rỉ mực thành vũng xanh | trung cảnh rồi cận | phụ đề trắng 1–3 từ | vấn đề 2 | [QS] mốc lời [ĐO] |
+| 32,9–40,3 | ink thick … dried out a week later | Mặt cắt ống mực đặc; chữ trên giấy; đầu bi khô xám | cận | chú thích "a week later" | vấn đề 3 | [QS] mốc lời [ĐO] |
+| 40,3–46,3 | cap → Congratulations! You've invented the ballpoint pen! | Bút có nắp xanh nằm trên danh sách "Dinner: eggs, milk, pasta…" | máy đứng nhẹ trôi | phụ đề trắng 1–3 từ | kết | [QS] mốc lời [ĐO] |
+
+### Bảng shot tự động [ĐO]
+| # | Vào–ra (s) | Dài | Lời trong shot |
+|---|---|---|---|
+| 1 | 0–4,3 | 4,3 | Your tip runs dry halfway through every word while you write your shopping list. |
+| 2 | 4,3–5,5 | 1,2 | So you, being a genius |
+| 3 | 5,5–10,4 | 4,9 | inventor, decide to hollow out the stick and fill it with ink instead of just coating the tip. |
+| 4 | 10,4–14,8 | 4,4 | But a puddle spreads across the paper and covers everything you needed for dinner. |
+| 5 | 14,8–20,7 | 5,9 | So you put a tiny ball on the tip, fitted closely enough to hold the ink back while still turning. |
+| 6 | 20,7–24,07 | 3,37 | As you write, it rolls ink from inside onto the paper. |
+| 7 | 24,07–25,5 | 1,43 | Clever fix! |
+| 8 | 25,5–29,17 | 3,67 | But while writing, you put the pen down to check the fridge. And when you return, |
+| 9 | 29,17–32,9 | 3,73 | thin ink has seeped around the ball and left another puddle. |
+| 10 | 32,9–34,2 | 1,3 | You make the ink thick enough so |
+| 11 | 34,2–35,27 | 1,07 | it stays put until |
+| 12 | 35,27–36,47 | 1,2 | the rolling ball carries it |
+| 13 | 36,47–37,27 | 0,8 | out. It works, |
+| 14 | 37,27–38,87 | 1,6 | but when you need it a week later, the |
+| 15 | 38,87–40,27 | 1,4 | ink is dried out. |
+| 16 | 40,27–42,97 | 2,7 | So you make another one and cover the tip with a cap. |
+| 17 | 42,97–46,35 | 3,38 | Congratulations! You've invented the ballpoint pen! |
+
+## 5. Chuyển động
+- Máy gần như không bao giờ đứng hẳn trong shot người: trôi/đẩy/lùi chậm; shot giải thích cơ chế thường máy đứng hoặc quay quanh vật [QS + số đo mục 4].
+- Vật thể biến đổi tức thời theo lời (đồ vật "hiện ra", đổi hình dạng, mọc thêm bộ phận) — chuyển động "minh hoạ" hơn là vật lý thật [QS].
+
+## 6. Dựng
+- Đổi hình theo nhịp lời: mỗi "so you …" (giải pháp) và mỗi "But/Except" (vấn đề) thường kèm một shot mới [QS đối chiếu bảng shot].
+- Chuyển cảnh: cắt cứng là chính; không thấy hoà hình/lóa trắng; một số video dùng máy chạy liền hoặc whip pan thay cho cắt [QS].
+
+## 7. Chữ trên màn hình
+- Bộ đo chữ tự động **không dùng được** cho video này (nền giấy/bàn trắng trùng màu chữ). Quan sát [QS]: cùng kiểu chữ trắng viền tối, cùng vị trí giữa ~60% chiều cao như các video khác.
+- Cụm hiện cả cụm một lúc, có 1 khung trống giữa hai cụm, hơi "nảy" khi xuất hiện [QS ở video giường 2,0–3,6 s, 15 khung/s]. Từ nhấn (LOVE) và từ chửi (FUCKING) viết HOA [QS]. Font: **chưa xác định** [SL: dạng Poppins/Montserrat đậm].
+- Không có tiêu đề, logo hay chữ trang trí khác ngoài phụ đề và icon 2D [QS].
+
+## 8. Âm thanh
+- Một giọng kể ngôi "you", nói liên tục, nhanh 211,0 từ/phút, không lặng > 0,35 s [ĐO]. F0 trung vị 125,0 Hz [ĐO: librosa pyin; có thể lẫn nền]. Giới tính/giọng: **chưa nghe kiểm** [SL: một người kể nam, năng lượng cao].
+- Mức nền giữa câu (0,02–0,12 s trước câu kế) trung vị -33,1 dBFS so với lời -19,7 dBFS → nền thấp hơn lời ≈13,0 dB [ĐO]. Có lớp nền (nhạc/hiệu ứng/đuôi vang) nhưng **không xác định được loại** [SL].
+- Độ đều nhịp phần percussive (tự tương quan onset) 0,08 [ĐO: rất thấp] → không có nhạc nền nhịp trống rõ ở mức nghe được [SL].
+- SFX theo mốc: **chưa phân tích được** (không nghe được; chưa có công cụ tách nguồn chạy được offline).
+
+## F. Vì sao hiệu quả [SL trừ khi ghi khác]
+| Giai đoạn | Yếu tố | Mốc | Nhãn |
+|---|---|---|---|
+| 0–3 s | Câu đầu là vấn đề cá nhân, thô/nước đôi, nói ngay từ khung 0; hình đã có nhân vật đang làm hành động lạ | 0,0 s | [ĐO] mốc lời, [SL] tác dụng |
+| Giữa | Vòng lặp "vấn đề → giải pháp" mỗi ~11,6 s, mỗi vòng có hình mới + câu khen ngắn → luôn có câu hỏi "lỗi tiếp theo là gì?" | 10,4 s (22%), 25,5 s (55%), 37,2 s (80%) | [ĐO] mốc, [SL] tác dụng |
+| Leo thang | Giải pháp phi lý (nhà máy hạt nhân, máy laser, quả tạ phá nhà, PC chơi game) đặt ở nửa sau | xem bảng nhịp | [QS] |
+| Kết | "Congratulations! You've invented …" (thoả mãn tri thức) hoặc câu nước đôi về người bạn (để chia sẻ/bình luận) | cuối | [QS] |
+
+## G. Chưa xác minh
+- Thứ tự trên kênh, ngày đăng, số view/like/share; caption gốc (trừ tên file); font chữ; engine 3D; giọng thật hay TTS; nhạc/SFX cụ thể.
+- Lời là bản ASR chưa sửa tay; một số từ có thể sai.

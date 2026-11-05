@@ -1,10 +1,13 @@
-# BẢNG KIỂM CÔNG CỤ — P02 oddtilt (05/11/2026, phiên cloud)
+# BẢNG KIỂM CÔNG CỤ — P02 (05/11/2026, phiên cloud)
 | Thành phần | Mục đích | Bắt buộc | Trạng thái | Bằng chứng / ghi chú |
 |---|---|---|---|---|
-| Truy cập www.tiktok.com + CDN TikTok | tải 26 video mẫu | có | **THIẾU — CẦN NGƯỜI DÙNG** | `yt-dlp` và `curl` → proxy trả `connect_rejected` (403) cho www.tiktok.com, m.tiktok.com, *.tiktokv.com. Chính sách mạng của môi trường chặn |
-| yt-dlp 2026.10.26 | tải video | có | CÀI ĐƯỢC, chưa chạy được tác vụ thật | bị chặn mạng |
-| ffmpeg / ffprobe | đo kỹ thuật, loudness | có | ĐÃ KIỂM | tạo video thử 576x1024 4 s, chạy `phan_tich_mau.py` ra bao_cao.md, lưới, do_luong.json |
-| numpy 2.5.3 + opencv-python-headless | đo màu, độ nét, chuyển động | nên có | ĐÃ KIỂM | như trên |
-| cong_cu/phan_tich_mau.py | đo tự động G2 | có | ĐÃ KIỂM | như trên |
-| faster-whisper (pip) | chép lời có mốc từ | có | **CÓ NHƯNG CHƯA HỢP** | thư viện cài được; tải mô hình từ huggingface.co bị proxy chặn (403) |
-| Magnific (MCP) | phân tích/sản xuất | tùy chọn | chưa kiểm | không nhận URL TikTok trực tiếp |
+| Truy cập www.tiktok.com | tải mẫu trực tiếp | không (đã có cách khác) | THIẾU — chính sách mạng chặn | proxy `connect_rejected`; thay bằng Release GitHub do chủ dự án tải lên |
+| GitHub Release (gh api) | nhận video mẫu | có | ĐÃ KIỂM | tải 14/14 file từ `mau-oddtilt` |
+| ffmpeg/ffprobe (có libdav1d) | đọc AV1, đo loudness, chuyển mã | có | ĐÃ KIỂM | 14 video → H.264, ebur128 |
+| numpy + opencv-python-headless | đo hình | có | ĐÃ KIỂM | không đọc trực tiếp AV1 → chuyển H.264 trước |
+| cong_cu/phan_tich_mau.py | đo G2 | có | ĐÃ KIỂM | 14/14 |
+| sherpa-onnx + Parakeet-TDT 0.6B v2 int8 (GitHub k2-fsa) | chép lời + mốc từ | có | ĐÃ KIỂM | 14/14 bản chép; chất lượng tốt trên mẫu (đọc lại thấy hợp lý) |
+| faster-whisper | chép lời | không | CÓ NHƯNG CHƯA HỢP | huggingface.co bị chặn |
+| librosa 0.11 | F0, onset | nên có | ĐÃ KIỂM (trừ beat_track segfault) | |
+| Nghe âm thanh | nhạc/SFX/giọng | có | **CẦN NGƯỜI DÙNG** | Claude không nghe được trong môi trường này |
+| Công cụ sản xuất (engine 3D, TTS, dựng) | G4 | có | CHƯA KIỂM | làm sau khi duyệt hồ sơ |

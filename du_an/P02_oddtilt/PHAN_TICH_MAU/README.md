@@ -1,3 +1,3 @@
-# PHÂN TÍCH MẪU — CHƯA THỰC HIỆN
-Chưa có video mẫu (TikTok bị chặn trong môi trường, xem `../NHAT_KY_LOI.md`). Không có số đo hay nhận định nào về kênh @oddtilt được ghi ở đây cho tới khi tải được video — không suy đoán.
-Khi có video: mỗi video một file `<STT>_<ngay>_<id>.md` theo `mau/MAU_02`, 8 mục, mốc thời gian, nhãn [QS]/[ĐO]/[SL]; sau đó `TONG_HOP.md`.
+# PHÂN TÍCH MẪU — 14 video @oddtilt
+`TONG_HOP.md` (đọc trước) + `01_ghe.md` … `14_bong_ro.md`. Mỗi file: A kỹ thuật, 1 kịch bản, 2 hình ảnh, 3 nhân vật, 4 shot/máy (bảng nhịp + bảng shot tự động), 5 chuyển động, 6 dựng, 7 chữ, 8 âm thanh, F vì sao hiệu quả, G chưa xác minh.
+Không lưu khung hình hay video mẫu trong kho (chỉ dùng nội bộ).
