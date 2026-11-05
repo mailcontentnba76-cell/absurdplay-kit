@@ -2,11 +2,11 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.5 (05/11/2026)
+# Sport USA "What If" — v0.6 (05/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11.
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11.
 
 ## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
 - **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA".
@@ -42,6 +42,7 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 
 ## 3. Bối cảnh — bài học E01/E02
 - Mẫu NBA: nhà thi đấu SÁNG, màu đội rực (ghế 3D từng hàng màu đội + khán giả low-poly ngồi thưa, bậc bê tông sáng, LED giữa 2 tầng); nhiều tập đưa sao sang thế giới thứ hai (rừng tiền sử, La Mã, sân đường phố trời xanh, vũ trụ). Không dùng lại khán đài texture chấm màu của E01.
+- Bối cảnh xa (thành phố, khán đài...) phải dựng chi tiết thật, không dùng hộp một màu (chủ dự án yêu cầu, E05).
 - Đã dùng: E01 sân NFL trong nhà kiểu AT&T (khán đài texture), E02 nhà thi đấu Bucks ghế xanh–kem (`lib/nba.js`), E03 sân ngoài trời ban đêm (`lib/ngoaitroi.js`: trời sao, 6 tháp đèn pha, khán đài nhôm + chòi bình luận, cỏ bàn cờ, đường chạy đỏ, cột gôn vàng, bảng điểm 2 cột). Tập sau chọn khác: sân ban ngày/tuyết/mưa, sân đường phố, bối cảnh lịch sử/vũ trụ/thành phố…
 - Ánh sáng: hemi ≥ 2,5 + key có bóng + đèn phụ gắn máy quay (nhân vật da tối/áo tối vẫn rõ). Kiểm số đo bão hòa/sáng trên ảnh xem trước.
 - Khán giả phải cử động: vertex shader nhún + giơ tay + ngủ gục, điều khiển theo shot (`A.crowd.uCheer/uSleep/uT`).
@@ -80,7 +81,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Đồ hoạ không được đè mặt ở shot cận (đặt top ~90–250 hoặc dưới phụ đề y≈1420).
 - Render: gộp khán đài thành 1 lưới tĩnh; motion blur bỏ lượt render tư thế trước khi khung liền trước vừa render; PCFShadowMap. Đo 12 khung trước khi chạy cả video.
 - Tiến trình nền có thể chết khi máy khởi động lại: kiểm `ps`, render tiếp các khung thiếu. Không dùng `pkill -f` với chuỗi có trong lệnh của chính mình.
-- melt thiếu thuộc tính consumer → ra 720x576. Trang đồ hoạ dùng module → server phải trả Content-Type .js.
+- melt thiếu thuộc tính consumer → ra 720x576. Thiếu `-profile <file 1080x1920, sar 1, dar 9/16>` → viền đen 34 px hai bên: luôn `melt -profile cong_cu/v1080.profile ...` và kiểm điểm ảnh mép (x=2) sau khi xuất. Trang đồ hoạ dùng module → server phải trả Content-Type .js.
 - faster-whisper với av mới: truyền mảng numpy thay vì đường dẫn.
 - Link tải Magnific có chữ ký bị chặn → nhờ người dùng tải và đính kèm.
 
@@ -91,11 +92,13 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E02 | NBA | Giannis (Heat #7, áo trắng HEAT) | đội cũ Bucks, ném phạt lâu, fan áo #34 | nhà thi đấu Bucks ghế 3D xanh–kem, jumbotron | alvana hiphop/legends |
 | E03 | NFL | Chargers 0–7: Herbert #10, Dicker #11 (áo nhà xanh bột) | 11 ma-nơ-canh, bóng dội tay vào tay, mác SALE, khán đài khách toàn ma-nơ-canh | sân ngoài trời ban đêm, đèn pha, khán đài nhôm | alvana funk/make-money |
 | E04 | NFL | Eagles 2–6: Barkley #26, McKee #16, Elliott #4 (áo nhà midnight green) | 11 người hơi vẫy tay (gập đè Barkley, 5 lần sack McKee, đá trúng cột) | bãi xe hàng xe hơi ban ngày "MEGA DEALS AUTO" | alvana upbeat/bouncing |
+| E05 | NBA | Bulls 1–7: Powell #24, Wilson #8, Giddey #3 (+Jones #30, Williams #44; áo đỏ CHICAGO) | 5 người tuyết (tay que dài ra úp rổ, lướt băng, tan dần) | sân ngoài trời mùa đông bên hồ đóng băng + thành phố xa nhiều kiểu nhà | alvana chiptune/ice-temple |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.6 (05/11): E05 — hook bíp (câm chữ + bíp 1 kHz, phụ đề ****, giọng gốc không chửi); đối chiếu box score Sportradar trước khi tạo giọng; `lib/tuyet.js` (sân tuyết, người tuyết, tuyết rơi, thành phố xa thật); melt PHẢI có `-profile` 1080x1920 (thiếu → viền đen 34 px hai bên, E04 bản đầu bị).
 - v0.5 (05/11): mục Khởi động ở tài khoản/máy mới; E04 (người hơi vẫy tay, bãi xe ban ngày, đồ hoạ tờ rơi bán xe).
 - v0.4 (04/11): E03 — quy tắc NHÂN VẬT LUÔN CỬ ĐỘNG (`liven`, `qbSignal`), sân ngoài trời ban đêm `lib/ngoaitroi.js`, ma-nơ-canh + tư thế NFL `lib/bongbau.js`, `backNameMax`, đồ hoạ khối xiên Anton.
 - v0.1 (03/11): bản đầu.

@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 5: đồ hoạ "băng giá" — khối băng xanh nhạt viền trắng có nhũ băng rủ, khối đỏ Bulls, chữ trắng viền xanh băng.
+   Khác E01 (thẻ thẳng), E02 (thẻ vàng + pixel), E03 (khối xiên ánh kim), E04 (tờ rơi bán xe). */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.ice{position:absolute;background:linear-gradient(180deg,#f4fbff 0%,#cdeefc 55%,#a9dcf5 100%);color:#0f2a44;border:6px solid #ffffff;border-radius:18px;
+  box-shadow:0 0 0 5px #6fc3ec,0 14px 22px rgba(10,30,60,.35),inset 0 6px 0 rgba(255,255,255,.8);padding:8px 36px 12px;white-space:nowrap;text-align:center}
+.ice::after{content:'';position:absolute;left:24px;right:24px;bottom:-34px;height:34px;background:#dff4ff;
+  clip-path:polygon(0 0,4% 70%,8% 0,13% 100%,18% 0,23% 55%,28% 0,34% 85%,40% 0,46% 60%,52% 0,58% 100%,64% 0,70% 50%,76% 0,82% 90%,88% 0,94% 65%,100% 0)}
+.red{background:linear-gradient(180deg,#e2283f 0%,#CE1141 60%,#a40d33 100%);color:#fff;-webkit-text-stroke:3px #5a0018;paint-order:stroke fill}
+.red::after{background:#f0f8ff}
+.big{font-size:150px;line-height:1}.mid{font-size:92px;line-height:1.05}.sm{font-size:64px;line-height:1.1}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:4px;color:#2a6f96;margin-bottom:2px;-webkit-text-stroke:0}
+.red .lab{color:#ffd6de}
+.bug{top:300px;display:flex;height:84px;filter:drop-shadow(0 6px 10px rgba(0,20,40,.35))}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 22px;letter-spacing:1px}
+.bA{background:#CE1141;color:#fff;min-width:170px;border-radius:16px 0 0 16px;border:4px solid #fff;border-right:0}.bS{background:#0f2a44;color:#fff;min-width:96px;border-top:4px solid #fff;border-bottom:4px solid #fff}
+.bB{background:#dff4ff;color:#0f2a44;min-width:190px;border-top:4px solid #fff;border-bottom:4px solid #fff}.bC{background:#6fc3ec;color:#0f2a44;min-width:170px;font-size:40px!important;border-radius:0 16px 16px 0;border:4px solid #fff;border-left:0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #0f2a44;paint-order:stroke fill;text-shadow:0 0 30px #6fc3ec,0 12px 0 #CE1141}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#0f2a44;background:#ffe14a;border:6px solid #0f2a44;padding:6px 26px;border-radius:12px}
+#flash{position:absolute;inset:0;background:#e9f7ff;opacity:0}
+.frost{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at center,rgba(255,255,255,0) 55%,rgba(220,242,255,.85) 100%)}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(15,42,68,.8);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="frost" id="frost"></div>
+<div class="el bug" id="bug"><div class="bA">CHI</div><div class="bS" id="sA">0</div><div class="bB">SNOW</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST 12:00</div></div>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el ice mid" id="title" style="top:1440px">BULLS <span style="color:#CE1141">vs</span> 5 SNOWMEN</div>
+<div class="el ice red sm" id="nba" style="top:420px">NBA PLAYERS</div>
+<div class="el ice mid" id="vert" style="top:420px"><span class="lab">SNOWMAN VERTICAL</span>0"</div>
+<div class="el ice sm" id="melt" style="top:420px">LITERALLY MELTING</div>
+<div class="el ice" id="prob" style="top:400px"><span class="lab">BULLS WIN PROBABILITY</span><span class="big">99%</span></div>
+<div class="el ice red big" id="rec" style="top:1280px;font-size:230px">1–7</div>
+<div class="el ice red" id="skid" style="top:1400px"><span class="lab">LOSING STREAK</span><span class="mid">6 STRAIGHT</span></div>
+<div class="el ice sm" id="tip" style="top:420px">TIP-OFF · NOBODY JUMPS</div>
+<div class="el ice sm" id="sball" style="top:420px">SNOWMEN BALL</div>
+<div class="el ice red sm" id="pow" style="top:420px">POWELL #24 · MISS</div>
+<div class="el ice red sm" id="wil" style="top:420px">WILSON #8 · MISS</div>
+<div class="el ice red" id="miss" style="top:420px"><span class="lab">BULLS 3PT MISSED</span><span class="big" id="missN">0</span></div>
+<div class="el ice" id="s22" style="top:420px"><span class="lab">SNOWMAN #22 · 1ST QUARTER</span><span class="big" id="s22N">0</span> <span class="sm">PTS</span></div>
+<div class="el ice" id="q1" style="top:400px"><span class="lab">1ST QUARTER</span><span class="mid">SNOWMAN 22 · <span style="color:#CE1141">BULLS 21</span></span></div>
+<div class="el ice" id="half" style="top:1400px"><span class="lab">HALFTIME</span><span class="big">84–52</span></div>
+<div class="el ice sm" id="half2" style="top:420px">50% MELTED</div>
+<div class="el ice red mid" id="plus" style="top:420px">STILL +30</div>
+<div class="el ice red big" id="fin" style="top:1150px">FINAL</div>
+<div class="el ice" id="fin2" style="top:400px"><span class="mid">SNOWMEN 135 · <span style="color:#CE1141">BULLS 105</span></span></div>
+<div class="el ice" id="worst" style="top:400px"><span class="lab">NBA RECORD</span><span class="mid" style="color:#CE1141">WORST (T-1ST)</span></div>
+<div class="el ice red" id="next" style="top:400px"><span class="lab">NEXT UP</span><span class="mid">vs PHILADELPHIA 8–1</span></div>
+<div class="el ice mid" id="ready" style="top:420px">SNOWMEN: "WE'LL PLAY"</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep05_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:(b<0?SH[k][1]+b:SH[k][0]+b)];
+const TL=[['wtf',BEEP[0],SH.s1[1]],['bug',SH.s2[0],SH.s7[0]],['title',SH.s2[0]+0.25,SH.s2[1]],['nba',...at('s3',0.3)],['vert',...at('s4',0.45)],['melt',...at('s5',0.3)],['prob',...at('s6',0.35)],
+ ['rec',SH.s7[0]+0.3,SH.s7[1]],['skid',...at('s8',0.4)],['bug',SH.s9[0],SH.s15[0]],['tip',...at('s9',0.3)],['sball',...at('s10',0.6)],['pow',...at('s11',0.5)],['wil',...at('s12',0.4)],['miss',...at('s13',0)],
+ ['s22',...at('s14',0.2)],['q1',...at('s15',0.3)],['half',...at('s16',0.3)],['half2',...at('s18',0.4)],['plus',...at('s19',0.3)],['fin',SH.s20[0]+0.15,SUB.s20],['fin2',SH.s20[0]+0.4,SH.s20[1]],
+ ['worst',...at('s21',0.4)],['next',...at('s22',0.3)],['ready',...at('s23',0.3)]];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;
+    e.style.opacity=on?Math.min(1,(t-a)/0.06):0;const pop=['rec','fin','wtf'].includes(e.id);const sc=e.id==='bug'?1:(pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k);
+    const rot=pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  // ô BEEP nháy đúng lúc tiếng bíp
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  // tỉ số bug: Snowmen 2 sau khi lấy bóng, 8 trong chuỗi trượt, tăng tới 43 ở s14; Bulls 21 cuối quý 1
+  let a=0,b=0;if(t>=SH.s10[1])b=2;if(t>=SH.s13[0])b=8;if(t>=SH.s14[0]){const q=(t-SH.s14[0])/(SH.s14[1]-SH.s14[0]);b=Math.min(43,8+Math.floor(q*36));a=Math.min(21,Math.floor(q*21));}
+  $('sA').textContent=a;$('sB').textContent=b;$('clk').textContent=t<SH.s9[0]?'1ST 12:00':t<SH.s14[0]?'1ST 9:12':'1ST 0:41';
+  $('missN').textContent=t<SH.s13[0]?0:Math.min(34,Math.max(1,Math.round(2+(t-SH.s13[0])/(SH.s13[1]-SH.s13[0]-0.35)*32)));
+  $('s22N').textContent=Math.min(22,Math.floor(Math.max(0,(t-SH.s14[0]-0.2)/(SH.s14[1]-SH.s14[0]-0.6))*22));
+  const f=(t-SH.s7[0])*30;$('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;
+  $('frost').style.opacity=t>=SH.s21[0]&&t<SH.s23[0]?0.4+0.3*Math.min(1,(t-SH.s21[0])/3):0;
+};
+</script></body></html>
