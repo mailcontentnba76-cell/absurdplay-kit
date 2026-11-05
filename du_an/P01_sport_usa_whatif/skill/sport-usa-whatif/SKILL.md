@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.6 (05/11/2026)
+# Sport USA "What If" — v0.7 (05/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -19,7 +19,14 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 ## 0. Cách nhận việc (yêu cầu cố định của chủ dự án)
 - **Chờ yêu cầu.** Người dùng nói môn (vd "NFL", "NBA") → tự tìm tin MỚI NHẤT của môn đó (WebSearch + `mcp__widgets__fetch_sports_data` scores/standings/game_stats), chọn tin đáng làm, đề xuất 3 ý tưởng + 1 kịch bản. Chưa dựng video khi kịch bản chưa duyệt.
 - **Nguồn tin (theo yêu cầu chủ dự án):** chỉ dùng nguồn lớn, uy tín, mới nhất. Thứ tự ưu tiên: (1) trang chính thức NBA.com / NFL.com và trang chính thức của đội; dữ liệu trận `fetch_sports_data`; (2) hãng tin & báo thể thao lớn: AP, Reuters, ESPN, The Athletic, CBS Sports, NBC Sports, Yahoo Sports, Bleacher Report, USA Today; (3) tài khoản mạng xã hội có tích xanh của giải/đội/phóng viên tin nóng (vd Shams Charania, Adam Schefter, Ian Rapoport) — chỉ qua bài báo/nhúng mà WebSearch/WebFetch đọc được. Mỗi số liệu/tin dùng trong kịch bản phải khớp ≥ 2 nguồn (hoặc 1 nguồn chính thức), ghi nguồn + ngày trong bảng "Tin đã chọn". Không dùng blog/tin đồn/trang tổng hợp không rõ nguồn.
-- **Ưu tiên kịch bản TROLL ĐỘI THUA (chủ dự án yêu cầu):** nhóm này có view trung vị 1,4M (mẫu: Cowboys vs 50 babies 5,8M; Herbert 20 O-line 1,5M; Packers vs babies 1,4M). Khuôn 5 bước: (1) Hook "Could [đội đang thảm hại] beat [đối thủ yếu vô lý]?" (2) thổi phồng lợi thế "This should be the easiest win…" (3) "Except" + nỗi đau THẬT của fan (chuỗi thua, thống kê tệ) (4) trận ảo thua đúng kiểu lỗi thật, tên cầu thủ thật (5) Final score như bản tin + câu troll để fan đối thủ chia sẻ. Không chép premise kênh mẫu đã làm; không đùa về chấn thương/bệnh.
+- **MỞ RỘNG CHỦ ĐỀ (chủ dự án yêu cầu 05/11, theo mẫu Drake Maye vs 11 folding chairs 1,1M/18 h):** không chỉ troll đội thua. Mỗi lần đề xuất 3 ý thuộc 3 KIỂU khác nhau, chọn kiểu chưa dùng gần nhất:
+  (a) troll đội thua (khuôn 5 bước cũ: Hook "Could [đội thảm hại] beat [đối thủ yếu]?" → thổi phồng → "Except" + nỗi đau thật → trận ảo thua đúng lỗi thật → Final + câu troll; nhóm này trung vị 1,4M);
+  (b) chọc đội/ngôi sao ĐANG THÀNH CÔNG bằng số liệu nghịch lý (lịch dễ, đối thủ yếu, thắng kiểu kỳ quặc);
+  (c) kỷ lục kỳ quặc/lịch sử (lần đầu từ năm X);
+  (d) phá kỷ lục/cột mốc (chọc kiểu khen);
+  (e) ông lớn sa sút (thua liên tiếp sân khách…).
+  Ghi kiểu đã dùng vào bảng "đã dùng". Không chép premise kênh mẫu; không đùa về chấn thương/bệnh.
+- **Khuôn lời MỞ RỘNG (mặc định từ E06, ~55–70 s, 150–190 từ):** (1) Hook "Could [X] beat 11 [vật vô tri]?" (2) **cú xoay đảo vai** ("Except these chairs have a winning record" / "Except last Sunday he couldn't…") (3) 1–2 câu **số liệu thật** có thẻ/biểu đồ (4) chuyển vào trận (chơi chữ tên nếu có) (5) trận ảo dùng **thuật ngữ chiến thuật thật** (cover two, prevent, motion, man coverage, check down, blitz, protection, rolls right, throws it away…) + **1 câu đùa lặp ≥2 lần** ("Nobody follows.") (6) nếu có: **gọi lại câu nói thật** của cầu thủ bằng thẻ trích dẫn rồi lật ngược (7) **châm biếm truyền hình/giờ nghỉ** (bình luận viên khen điều vô lý) (8) cao trào cuối trận → **cú đảo/tự thua ngớ ngẩn** (9) Final score ~80–88 % (10) **đuôi kết 2 câu** kéo người/đội khác vào (fan đổ lỗi HLV, cựu cầu thủ xin việc lại, đội đối thủ thật ký hợp đồng với vật vô tri…). Chi tiết: `PHAN_TICH_MAU/20261105_drake_maye_folding_chairs.md`.
 - **Hai điểm duyệt:** (1) kịch bản, (2) bản cắt thử. Sau đó mới render đủ.
 - **Không lặp:** mỗi tập khác hẳn các tập trước về đối thủ/gag VÀ bối cảnh. Trước khi dựng, ghi vào kịch bản bảng "đã dùng" (mục 7) và chọn bối cảnh chưa có.
 - **Nhận diện đúng tuyệt đối:** đội HIỆN TẠI, số áo HIỆN TẠI, bản áo (trắng/màu), chữ trên ngực, tóc, râu, màu da, chiều cao/dáng — tra web mỗi lần, không dựa trí nhớ (cầu thủ có thể vừa đổi đội/đổi số; ảnh người dùng gửi có thể là ảnh cũ → kiểm rồi giải thích). Ghi bảng nhận diện có nguồn vào kịch bản.
@@ -47,6 +54,11 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - Ánh sáng: hemi ≥ 2,5 + key có bóng + đèn phụ gắn máy quay (nhân vật da tối/áo tối vẫn rõ). Kiểm số đo bão hòa/sáng trên ảnh xem trước.
 - Khán giả phải cử động: vertex shader nhún + giơ tay + ngủ gục, điều khiển theo shot (`A.crowd.uCheer/uSleep/uT`).
 
+- **Nhiều bối cảnh trong 1 video (mẫu 05/11):** ngoài sân chính, dựng thêm 3–5 bối cảnh phụ ngắn theo lời: phòng phân tích (màn hình lớn, biểu đồ cột, bảng chiến thuật), **sơ đồ chiến thuật nhìn thẳng từ trên** (vòng tròn/mũi tên trên sân), khu fan trên khán đài, bàn bình luận trường quay (bình luận viên hư cấu), đường hầm/biên với HLV đeo tai nghe, nhà/phòng khách của nhân vật đuôi kết. Mỗi bối cảnh phụ là module riêng trong `lib/` để tái dùng.
+- **Đồ hoạ kiểu truyền hình thật:** lower-third tên + số áo + vị trí khi giới thiệu cầu thủ, thẻ trích dẫn, thẻ chỉ số lớn, biểu đồ cột, bug tỉ số cố định trên cùng, màn đồng hồ "Q4 — 0:11" trên bảng điện tử sân. Vẫn đổi phong cách màu mỗi tập.
+- **Màu:** mẫu mới bão hoà trung vị ~117 (E04/E05 chỉ 65–77) → chỉnh màu bản cuối để bão hoà ≥ 95, không để cảnh nhạt.
+- **Nhịp:** 35–45 shot, trung vị ~1,4–1,6 s; câu đùa ngắn ("Handoff. Handoff. Handoff.") = mỗi từ một cắt.
+
 ## 4. Nhân vật & động tác
 - **NHÂN VẬT LUÔN CỬ ĐỘNG (chủ dự án yêu cầu, áp dụng mọi tập):** không nhân vật người nào đứng yên tuyệt đối trong khung hình, nhất là shot mở đầu (0–3 s quyết định giữ chân người xem). Mỗi nhân vật trong khung có tối thiểu: thở + đổi trọng tâm + quay đầu/nhìn quanh (`liven(ch,t,seed,amt,headAmt)` trong `lib/bongbau.js`, hoặc `alive()` trong `tuthe.js`), gọi SAU khi đặt tư thế; seed khác nhau để lệch nhịp. Nhân vật chính có thêm cử chỉ theo lời (chỉ tay hô tín hiệu `qbSignal`, giơ ngón cái có nhún, lắc đầu khi thua, giật mình ở "Except"). Ngoại lệ duy nhất: thứ đứng im là CHÍNH gag (vd ma-nơ-canh) — khi đó cho chi tiết phụ chuyển động (mác giá đung đưa, khán giả, máy quay trôi). Kiểm: render 3 khung cách 0,5 s mỗi shot, so thấy khác nhau mới đạt.
 - `lib/nhanvat2.js`: `tank`, `shorts`, `sockAt`, `shortsTo`, `wordmark`, `wordmarkColor`, `backName`, `collar`, `pantsStripes`, `edgeSoft:1`, số chiếu phẳng trước/sau. `lib/cast2.js`: mẫu cấu hình (HEAT trắng Association, BUCKS xanh, fan, trọng tài). Tay dài: scale `upperarm`. **Chiều cao: luôn dùng `heightM` = chiều cao thật (m) tra web** (thân gốc nam 1,81 m, nữ 1,767 m); không dùng `scale` đoán. E02 sai: Giannis 1,99 m (thật 2,11), Herro 1,77 m (thật 1,96), Bucks 1,81 m.
@@ -59,6 +71,8 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - NFL (E03): `lib/bongbau.js` — `CAST3` (herbert/dicker/bolt), mẫu áo `CHARGERS`; `makeMannequin` (ma-nơ-canh bóng, khớp tròn, cọc inox, mác giá); tư thế `qbHold, qbSignal, qbThrow, kick, yawn, thumbsUp, sadWalk, sprint, mannequinPose`; `liven`. Mũ NFL: `helmet, helmetStripe, mask`.
 - Tên sau lưng (`backName`) tự co chữ; đặt `backNameMax` (px trên texture 256, NFL ≈150) để tên không tràn qua vai (E03 lỗi "ERBER"). Luôn render 1 ảnh cận lưng áo để kiểm.
 - Ảnh kiểm nhân vật trước/sau (test_nba.html) trước khi dựng shot.
+
+- **Động tác mới cần có (mẫu 05/11):** QB giả ném (pump fake) ×2, chạy lùi né, lăn ra biên rồi ném bỏ, OL đẩy vật vô tri không nhúc nhích, trọng tài ra hiệu (safety: hai tay chụm trên đầu; touchdown; incomplete), trọng tài trượt ngã, fan đứng chỉ trỏ/la ó, nhân vật ở nhà nghe điện thoại hốt hoảng, bình luận viên ngồi bàn gật gù vỗ tay. Vật vô tri đứng im là gag, sự sống động đến từ người + máy quay + cắt nhanh.
 
 ## 5. Chuỗi công cụ
 ```
@@ -98,6 +112,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.7 (05/11): mẫu mới Drake Maye vs 11 folding chairs (1,1M/18 h) — mở rộng 5 kiểu chủ đề, khuôn lời 10 bước (~55–70 s), nhiều bối cảnh phụ, đồ hoạ kiểu truyền hình, bão hoà ≥ 95, nhịp 35–45 shot.
 - v0.6 (05/11): E05 — hook bíp (câm chữ + bíp 1 kHz, phụ đề ****, giọng gốc không chửi); đối chiếu box score Sportradar trước khi tạo giọng; `lib/tuyet.js` (sân tuyết, người tuyết, tuyết rơi, thành phố xa thật); melt PHẢI có `-profile` 1080x1920 (thiếu → viền đen 34 px hai bên, E04 bản đầu bị).
 - v0.5 (05/11): mục Khởi động ở tài khoản/máy mới; E04 (người hơi vẫy tay, bãi xe ban ngày, đồ hoạ tờ rơi bán xe).
 - v0.4 (04/11): E03 — quy tắc NHÂN VẬT LUÔN CỬ ĐỘNG (`liven`, `qbSignal`), sân ngoài trời ban đêm `lib/ngoaitroi.js`, ma-nơ-canh + tư thế NFL `lib/bongbau.js`, `backNameMax`, đồ hoạ khối xiên Anton.
