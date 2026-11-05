@@ -28,3 +28,16 @@ Công cụ: ffmpeg ebur128/showspectrumpic, librosa 0.11 (HPSS, chroma CQT, pyin
 - Không dùng lại file này (âm thanh của kênh khác, lại lẫn giọng).
 - Nhạc mới cần: F trưởng (hoặc C), không trống, nhạc cụ gảy có cao độ + bass tròn, năng lượng đều, đặt thấp hơn lời ~16–19 dB; SFX ngắn ở các câu "But/Except" và câu khen.
 - Đã tạo 2 bản ứng viên bằng Magnific (ElevenLabs Music v2, 60 s, instrumental, 1.200 credit/bản): A = pizzicato + marimba, B = ukulele + glockenspiel. Chưa đo được vì máy chủ tải file của Magnific (`pikaso.cdnpk.net`) bị chặn trong phiên.
+
+## So sánh 2 bản ứng viên (đo 05/11/2026, file chủ dự án tải từ Magnific)
+| Chỉ số [ĐO] | Nền mẫu (video 02) | "Inventing Winks and Giggles" (A, pizzicato+marimba) | "The Curious Ukulele Conundrum" (B, ukulele+glock) |
+|---|---|---|---|
+| Thời lượng / loudness | 34,2 s / −33,1 LUFS (đã bị hạ dưới lời) | 60,0 s / −19,1 LUFS | 60,0 s / −14,9 LUFS |
+| Giọng (Krumhansl top 2) | C trưởng 0,78 · F trưởng 0,72 | C trưởng 0,78 · F trưởng 0,73 | C trưởng 0,82 · La thứ 0,55 |
+| Độ đều nhịp (0–1) | 0,13 | 0,87 (~92 bpm) | 0,86 (~96 bpm) |
+| Hài âm − bộ gõ | 2,2 dB | 8,3 dB | 12,5 dB |
+| Tâm phổ | 707 Hz | 480 Hz | 939 Hz |
+| Phân bố năng lượng bass <150 / mid 150–2k / cao >4k (dB so tổng) | −7,2 / −1,4 / −12,7 | −1,5 / −5,4 / −49,8 | −5,2 / −1,6 / −29,7 |
+
+**Chọn B** [CHỌN]: phân bố phổ gần mẫu nhất (năng lượng dồn ở dải giữa, bass phụ), tâm phổ 939 Hz gần 707 Hz; A nặng bass, gần như không có dải cao → dễ đục và lấn lời. Giọng nhạc của A khớp hơn, nhưng dưới lời điều này ít quan trọng hơn âm sắc. Khác biệt còn lại của cả hai: có nhịp gảy đều (~0,86) trong khi nền mẫu không có nhịp đều → khi trộn đặt thấp hơn lời 16–19 dB; nếu nghe vẫn "nhịp" hơn mẫu thì tạo lại với yêu cầu "rubato, no steady pulse".
+File lưu cục bộ ở `tai_nguyen/nhac/` (không đẩy mp3 lên kho).
