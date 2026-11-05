@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 6: đồ hoạ KIỂU TRUYỀN HÌNH THẬT (theo mẫu mới): thẻ tối bo góc chữ trắng Inter, lower-third tên + số + vị trí,
+   thẻ chỉ số lớn, thẻ đỏ Bucs / đen–đỏ Atlanta; giọt mưa trượt trên "ống kính" ở các shot ngoài trời. Khác E01–E05. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.card{position:absolute;background:rgba(14,17,22,.92);color:#fff;border-radius:22px;padding:18px 40px 22px;text-align:center;white-space:nowrap;box-shadow:0 14px 30px rgba(0,0,0,.45);border-top:8px solid #d50a0a}
+.card .k{display:block;font-size:34px;letter-spacing:5px;color:#9fb3c8;margin-bottom:4px}
+.card .v{display:block;font-size:110px;line-height:1.02;letter-spacing:-1px}
+.card .m{display:block;font-size:64px;line-height:1.08}
+.card.atl{border-top-color:#a71930;background:rgba(10,10,12,.94)}
+.lt{position:absolute;left:60px!important;transform:none!important;display:flex;align-items:stretch;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.lt .n{background:#d50a0a;color:#fff;font-size:70px;padding:10px 24px;display:flex;align-items:center;border-radius:14px 0 0 14px}
+.lt .t{background:rgba(14,17,22,.94);color:#fff;padding:10px 30px 12px;border-radius:0 14px 14px 0}
+.lt .t b{display:block;font-size:56px;line-height:1.05}.lt .t i{display:block;font-style:normal;font-size:30px;letter-spacing:4px;color:#9fb3c8}
+.bug{top:300px;display:flex;height:80px;border-radius:14px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:40px;padding:0 20px;color:#fff}
+.bA{background:#3a3f48;min-width:150px}.bB{background:#d50a0a;min-width:120px}.bS{background:#0e1116;min-width:80px}.bC{background:#0e1116;color:#ffd23a!important;font-size:34px!important;min-width:170px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.drop{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,.08) 45%,rgba(200,215,230,.18) 70%,rgba(255,255,255,0) 72%);opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div id="drops"></div>
+<div class="el bug" id="bug"><div class="bA">UMB</div><div class="bS" id="sA">0</div><div class="bB">TB</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST 15:00</div></div>
+<div class="el card" id="match" style="top:1380px"><span class="k">TODAY · TAMPA</span><span class="m">11 UMBRELLAS <span style="color:#9fb3c8">vs</span> TAMPA BAY</span></div>
+<div class="el card" id="prev" style="top:420px"><span class="k">UMBRELLAS DEFENSE</span><span class="m">PREVENT</span></div>
+<div class="el lt" id="irv" style="top:1380px"><div class="n">7</div><div class="t"><b>BUCKY IRVING</b><i>RUNNING BACK · TAMPA BAY</i></div></div>
+<div class="el card" id="ho" style="top:420px"><span class="k">HANDOFFS</span><span class="v" id="hoN">1</span></div>
+<div class="el lt" id="anl" style="top:1380px"><div class="n" style="background:#123f8c">HT</div><div class="t"><b>HALFTIME SHOW</b><i>BUCS 16 · UMBRELLAS 0</i></div></div>
+<div class="el card" id="int" style="top:420px;border-top-color:#ffd23a"><span class="k">TURNOVER</span><span class="m">INTERCEPTED BY</span><span class="m" style="color:#ffd23a">UMBRELLA #5</span></div>
+<div class="el lt" id="bak" style="top:1380px"><div class="n">6</div><div class="t"><b>BAKER MAYFIELD</b><i>QB · DOWNFIELD BLOCKER</i></div></div>
+<div class="el card" id="ref" style="top:420px"><span class="k">FIELD CONDITIONS</span><span class="m">REFEREE DOWN</span></div>
+<div class="el card" id="fin1" style="top:1380px"><span class="k">COMP / ATT</span><span class="v">0 – 1</span></div>
+<div class="el card atl" id="sign" style="top:420px"><span class="k">ATLANTA · BREAKING</span><span class="m">SIGNED: 11 UMBRELLAS</span></div>
+<div class="el card atl" id="catch" style="top:420px"><span class="k">FALCONS · FIRST TIME THIS SEASON</span><span class="m">PASS CAUGHT ✓</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB} from './ep06_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['bug',SH.s1[0],SH.s3[0]],['match',SH.s2[0]+0.2,SH.s2[1]],['bug',SH.s7[0],SH.s16[0]],['prev',...at('s9',0.3)],['irv',...at('s10',0.2)],['ho',SH.s12[0],SH.s16[0]],['anl',...at('s16',0.3)],
+ ['bug',SH.s18[0],SH.s27[0]],['int',...at('s23',0.1)],['bak',SH.s24[0]+0.2,SH.s24[1]],['ref',...at('s25',0.6)],['fin1',...at('s28',0.2)],['sign',...at('s29',0.3)],['catch',SH.s30[0]+2.0,SH.s30[1]]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+// giọt mưa trên ống kính
+const D=[];let sd=9;const rr=()=>((sd=(sd*16807)%2147483647)/2147483647);
+for(let i=0;i<26;i++){const d=document.createElement('div');d.className='drop';const s=14+rr()*46;d.style.width=d.style.height=s+'px';$('drops').appendChild(d);D.push({d,x:rr()*1080,y:rr()*1920,v:20+rr()*90,s});}
+const OUT=k=>!['s3','s4','s5','s6','s16','s17','s29','s30'].includes(k);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.2)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt'))e.style.transform=`translateX(${(1-k)*-700}px)`;else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.85+0.15*k})`;}
+  let sk='s1';for(const k in SH)if(t>=SH[k][0])sk=k;const out=OUT(sk);
+  D.forEach(o=>{o.d.style.opacity=out?0.9:0;const y=(o.y+t*o.v)%2000-40;o.d.style.left=o.x+'px';o.d.style.top=y+'px';});
+  // bug
+  const b=t>=SH.s15[0]?Math.min(16,Math.floor((t-SH.s15[0])/(SH.s15[1]-SH.s15[0])*17)):0;$('sB').textContent=t>=SH.s16[0]?16:b;$('sA').textContent=0;
+  $('clk').textContent=t<SH.s15[0]?'1ST 15:00':t<SH.s16[0]?'2ND 0:41':'4TH 2:00';
+  // đếm giao bóng
+  let h=1;if(t>=SH.s13[0])h=2;if(t>=SH.s14[0])h=3;if(t>=SH.s15[0])h=Math.min(52,3+Math.floor((t-SH.s15[0])/(SH.s15[1]-SH.s15[0]-0.4)*49));$('hoN').textContent=h;
+  const f=(t-SH.s3[0])*30;$('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:(t>=SH.s29[0]&&t<SH.s30[1]&&(Math.sin(t*23)>0.85||Math.sin(t*17+1)>0.92)?0.35:0);
+};
+</script></body></html>

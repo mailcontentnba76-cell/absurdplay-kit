@@ -6,7 +6,7 @@ description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11.
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11. E06 "Baker Mayfield vs 11 umbrellas" (NFL, 65,8 s): đã giao 06/11.
 
 ## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
 - **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA".
@@ -77,7 +77,7 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 ## 5. Chuỗi công cụ
 ```
 kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced narrator]) → người dùng tải mp3, đính kèm
-→ cong_cu/rut_nghi.py → am_thanh/giong.wav (atempo chỉ khi < 155 từ/phút)
+→ am_thanh/giong.wav = giọng GỐC chỉ chuẩn hoá âm lượng (từ E06 chủ dự án yêu cầu KHÔNG rút khoảng nghỉ, KHÔNG atempo; video PHẢI dài > 60 s — kịch bản viết ≥ 170 từ để giọng ≥ 62 s)
 → faster-whisper small.en (truyền mảng numpy 16 kHz; initial_prompt tên riêng) → words_raw.json → sửa số/tên → words.json
 → engine/epXX_shots.js (mốc shot + SUB điểm cắt phụ) → epXX.html + epXX_gfx.html (đồ hoạ đọc mốc từ shots.js)
 → xem nhanh: node render.js "epXX.html#nomb" out 30 0 1 540 960 <danh sách khung>
@@ -107,6 +107,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E03 | NFL | Chargers 0–7: Herbert #10, Dicker #11 (áo nhà xanh bột) | 11 ma-nơ-canh, bóng dội tay vào tay, mác SALE, khán đài khách toàn ma-nơ-canh | sân ngoài trời ban đêm, đèn pha, khán đài nhôm | alvana funk/make-money |
 | E04 | NFL | Eagles 2–6: Barkley #26, McKee #16, Elliott #4 (áo nhà midnight green) | 11 người hơi vẫy tay (gập đè Barkley, 5 lần sack McKee, đá trúng cột) | bãi xe hàng xe hơi ban ngày "MEGA DEALS AUTO" | alvana upbeat/bouncing |
 | E05 | NBA | Bulls 1–7: Powell #24, Wilson #8, Giddey #3 (+Jones #30, Williams #44; áo đỏ CHICAGO) | 5 người tuyết (tay que dài ra úp rổ, lướt băng, tan dần) | sân ngoài trời mùa đông bên hồ đóng băng + thành phố xa nhiều kiểu nhà | alvana chiptune/ice-temple |
+| E06 | NFL | Bucs (kỷ lục kỳ quặc của đội THẮNG): Mayfield #6, Irving #7 (áo đỏ, quần pewter) | 11 chiếc ô (lật ngược hứng bóng), Falcons ký hợp đồng với ô | sân NFL mưa lớn ban chiều + phòng phân tích, sơ đồ từ trên, trường quay, phòng họp báo | alvana hiphop/hard-mode |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.

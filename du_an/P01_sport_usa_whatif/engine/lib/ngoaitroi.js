@@ -17,10 +17,12 @@ function canvasTex(w, h, draw, { repeat = [1, 1], aniso = 8, wrap = true } = {})
 }
 
 // cỏ cắt kiểu bàn cờ (sọc 5 yard × 2 dải dọc) — E01 chỉ có sọc ngang
-function fieldTexture(o) {
+export function fieldTexture(o) {
   return canvasTex(4096, 1820, (g, W, H) => {
     const px = W / 120;
-    for (let i = 0; i < 24; i++) for (let j = 0; j < 4; j++) { g.fillStyle = (i + j) % 2 ? '#3b8436' : '#46943e'; g.fillRect(i * 5 * px, j * H / 4, 5 * px + 1, H / 4 + 1); }
+    for (let i = 0; i < 24; i++) for (let j = 0; j < 4; j++) { g.fillStyle = (o.plain ? i % 2 : (i + j) % 2) ? (o.g1 || '#3b8436') : (o.g2 || '#46943e'); g.fillRect(i * 5 * px, j * H / 4, 5 * px + 1, H / 4 + 1); }
+    // bùn (sân mưa): vệt nâu giữa sân + quanh vạch giữa
+    if (o.mud) { let sd = 7; const rr = () => ((sd = (sd * 16807) % 2147483647) / 2147483647); for (let k = 0; k < 140; k++) { const x = (30 + rr() * 60) * px, y = H * (0.25 + rr() * 0.5), r = px * (0.6 + rr() * 2.4); const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(92,70,44,0.75)'); gr.addColorStop(1, 'rgba(92,70,44,0)'); g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, r * 1.6, r, rr() * 3, 0, 7); g.fill(); } }
     // nhiễu cỏ nhẹ
     for (let k = 0; k < 60000; k++) { g.fillStyle = Math.random() < 0.5 ? 'rgba(20,60,20,0.08)' : 'rgba(170,230,140,0.07)'; g.fillRect(Math.random() * W, Math.random() * H, 2, 2); }
     for (const [x, bg, txt, fg, stroke] of [[0, o.endLeft, o.endLeftText, '#ffffff', o.endLeftStroke], [110, o.endRight, o.endRightText, o.endRightFg, null]]) {
@@ -109,12 +111,12 @@ function lightTower(h = 30) {
 }
 
 // khán đài nhôm bậc thang + khán giả cử động (shader, cùng nguyên lý tập 2 nhưng không có ghế, người ngồi thẳng trên ván, mặc áo khoác/mũ len)
-function bleachers(G, side, o) {
-  const ROWS = o.rows ?? 16, ROW = 0.78, RISE = 0.42, LEN = o.len ?? 72, z0 = side * (TR.R + TR.W + 1.6);
+export function bleachers(G, side, o) {
+  const ROWS = o.rows ?? 16, ROW = o.row ?? 0.78, RISE = o.rise ?? 0.42, LEN = o.len ?? 72, z0 = o.z0 ?? side * (TR.R + TR.W + 1.6);
   const box = (w, h, d, x, y, z) => new THREE.BoxGeometry(w, h, d).translate(x, y, z).toNonIndexed();
-  const alu = new THREE.MeshStandardMaterial({ color: '#c3c9d1', metalness: 0.75, roughness: 0.32 });
-  const frameM = new THREE.MeshStandardMaterial({ color: '#7d848e', metalness: 0.7, roughness: 0.5 });
-  const g = new THREE.Group(); g.position.set(0, 0, z0); g.rotation.y = side < 0 ? 0 : Math.PI; G.add(g); g.updateMatrixWorld(true);
+  const alu = o.seatColor ? new THREE.MeshStandardMaterial({ color: o.seatColor, roughness: 0.55 }) : new THREE.MeshStandardMaterial({ color: '#c3c9d1', metalness: 0.75, roughness: 0.32 });
+  const frameM = o.frameColor ? new THREE.MeshStandardMaterial({ color: o.frameColor, roughness: 0.9 }) : new THREE.MeshStandardMaterial({ color: '#7d848e', metalness: 0.7, roughness: 0.5 });
+  const g = new THREE.Group(); g.position.set(o.x0 ?? 0, o.y0 ?? 0, z0); g.rotation.y = o.rotY ?? (side < 0 ? 0 : Math.PI); G.add(g); g.updateMatrixWorld(true);
   const plank = [], frame = [];
   for (let r = 0; r < ROWS; r++) { const y = 0.9 + r * RISE, d = r * ROW;
     plank.push(box(LEN, 0.05, 0.32, 0, y + 0.45, -d - 0.5)); // ván ngồi
