@@ -1,0 +1,2 @@
+{"name":"e3_chinh","gender":1,"age":"young","muscle":0.72,"weight":0.45,"height":0.58,"race":{"caucasian":0.7,"african":0.1,"asian":0.2},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/ShortJeans/ShortJeans.json","map":"vai/long_thu.png"},"hair/short02/short02.json","hair/Full_beard/Full_beard.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

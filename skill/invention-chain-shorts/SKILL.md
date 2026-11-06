@@ -69,6 +69,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 
 ## 6. Lỗi đã gặp — cách phòng (chi tiết `NHAT_KY_LOI.md`)
 - **Z-fighting → nhấp nháy đen:** mọi khối (khung cửa, nẹp, rèm) lệch khỏi mặt khối khác ≥ 1,5 cm; không đặt mặt cạnh trùng mặt cắt tường.
+- **Texture ảnh quá chi tiết (đá hang, đất sỏi) lấp lánh khi máy chạy** (E03: nhấp nháy 3 khung gấp ~10× bản door): bản texture dùng cho tường/sàn chính = thu về 768 px + làm mờ 0,6 px (`<x>_m_col/_nrm.jpg`), normalScale ≤ 0,8 (đá 0,45), sàn không normal map. Ngưỡng QA: tỉ lệ điểm "tối–sáng–tối" qua 3 khung ≤ 20/10 000 điểm ảnh (bản door duyệt: 6–8).
 - **Nền xa lấp lánh:** texture đất/cỏ xa lặp ≤ 30 lần/400 m, không normal map, anisotropy 16 + mipmap.
 - **Sọc đen ở nếp gập vật mỏng:** do GTAO → không dùng AO màn hình.
 - **Lộ nhân vật ngoài cửa qua khe:** rèm/tấm che phải trùm rộng hơn lỗ và sát tường.
@@ -83,6 +84,14 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 - `python3 -I cong_cu/qa_may_nhapnhay.py <khung> 30 "<t0,t1;…>" heat.jpg`: mỗi shot đứng yên ≤ 10 %, tốc độ đẩy ±30 % so mẫu; bản đồ nhấp nháy không có điểm nóng mới (vùng nóng = sửa vật liệu/z-fighting vùng đó).
 - Soi 4–6 khung liền nhau ở 100 % tại mép khung cửa/tường và nền xa.
 - Ghép **mẫu | bản thử** cùng mốc (`so_sanh*.mp4`) gửi chủ dự án; liệt kê trung thực điểm còn khác.
+
+## 7b. Mỗi tập phải MỚI (chủ dự án 06/11/2026)
+- Nhân vật mới mỗi tập (spec `nhan_vat/eXX_*.json`): đổi dáng (béo/gầy/cơ bắp), tóc, râu, trang phục hợp kịch bản và "bựa" (khố lông, áo da báo lệch vai, …). **Không dùng quần áo có chữ/logo MakeHuman** (casualsuit06…) — chủ dự án tự xử lý logo sau.
+- Bối cảnh mới mỗi tập, hợp kịch bản, không trùng tập trước; tạo texture Magnific riêng cho tập. Bảng đã dùng:
+| Tập | Nhân vật | Bối cảnh |
+|---|---|---|
+| DEMO door | chinh (áo trắng logo), ban (sơ mi xanh than) | chòi đá xám + đồng cỏ ô-liu |
+| E03 giấy vệ sinh | e3_chinh (cơ bắp, râu, khố lông thú), e3_ban (béo, áo + khố da báo) | hang đá vàng nâu, bụi rậm, thung lũng rừng |
 
 ## 8. Công cụ
 `du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).

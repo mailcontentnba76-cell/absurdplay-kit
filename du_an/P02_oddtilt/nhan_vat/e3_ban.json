@@ -1,0 +1,2 @@
+{"name":"e3_ban","gender":1,"age":"young","muscle":0.35,"weight":1.0,"height":0.45,"race":{"caucasian":1},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/Asymmetric_Tunic_and_Sash/Asymmetric_Tunic_and_Sash.json","map":"vai/da_bao_that.png"},{"p":"clothes/ShortJeans/ShortJeans.json","map":"vai/da_bao_that.png"},"hair/short04/short04.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"blue"}

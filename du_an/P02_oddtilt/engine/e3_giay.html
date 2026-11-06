@@ -1,0 +1,190 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="720" height="1280"></canvas>
+<!-- E03 "How you invented toilet paper" — dựng theo skill invention-chain-shorts v1.0 (khung MAU_CANH_CHUAN).
+     Bối cảnh MỚI: hang đá vàng nâu + bụi rậm ngoài cửa hang nhìn ra thung lũng. Nhân vật MỚI: e3_chinh (người tiền sử khố lông, tóc dài, râu), e3_ban (béo, áo da báo lệch vai).
+     Mốc lời: ../tap/E03_giay_ve_sinh/am_thanh/words.json -->
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadMH} from './lib/mh.js';
+import {loadBVH,applyMocap,armIK,rotWorld,J} from './lib/mocap.js';
+import {loadFace,applyFace,EXPR,blink,mix} from './lib/face.js';
+import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+const q=new URLSearchParams(location.search); const W=+q.get('w')||720, H=Math.round(W*16/9);
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
+const TL=new THREE.TextureLoader();
+const s=new THREE.Scene();s.background=new THREE.Color('#a8c8ea');
+s.add(new THREE.HemisphereLight('#fff1dc','#5a4026',0.55));
+{const pm=new THREE.PMREMGenerator(r);const hdr=await new RGBELoader().loadAsync('./assets/hdri/park.hdr');s.environment=pm.fromEquirectangular(hdr).texture;s.environmentIntensity=0.5;}
+function T(name,rep=[1,1],srgb=true){const t=TL.load('./assets/tex/mag/'+name+'.jpg');t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...rep);t.anisotropy=16;t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;return t;}
+const mat=(n,rep,o={})=>{const nn=o.noN;delete o.noN;return new THREE.MeshStandardMaterial(Object.assign({map:T(n+'_col',rep),normalMap:nn?null:T(n+'_nrm',rep,false),roughness:.92,normalScale:new THREE.Vector2(.8,.8)},o));};
+const V=(x,y,z)=>new THREE.Vector3(x,y,z),UP=V(0,1,0);
+let seed=11;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+const add=(m,x,y,z)=>{m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;s.add(m);return m;};
+// ---------- BỐI CẢNH: hang đá (trong z∈[-3,2.6], x∈[-3.2,3.2]) + cửa hang mở ra thung lũng (z>2.6)
+const ROCK=mat('hang_da_m',[2,1.3],{roughness:1,normalScale:new THREE.Vector2(.45,.45)}),DIRT=mat('dat_hang_m',[3,3],{roughness:1,noN:true}),GRASS=(()=>{const m=mat('co',[24,24],{roughness:1,noN:true});return m;})();
+const floor=add(new THREE.Mesh(new THREE.PlaneGeometry(7,6.2),DIRT),0,0.012,-0.3);floor.rotation.x=-Math.PI/2;
+const out=add(new THREE.Mesh(new THREE.PlaneGeometry(300,300),GRASS),0,-0.03,150);out.rotation.x=-Math.PI/2;
+// vách hang: hộp méo đỉnh (bóp ngẫu nhiên) cho mặt đá gồ ghề
+function rockWall(w,h,d,x,y,z,ry=0,amp=.18){const g=new THREE.BoxGeometry(w,h,d,18,12,4);const p=g.attributes.position;for(let i=0;i<p.count;i++){const X=p.getX(i),Y=p.getY(i),Z=p.getZ(i);const n=Math.sin(X*2.1+Y*1.3)*Math.cos(Y*1.7-Z*2.3)+Math.sin(X*5.3-Y*4.1)*.4;p.setXYZ(i,X+n*amp*.3,Y+n*amp*.2,Z+n*amp);}g.computeVertexNormals();const m=new THREE.Mesh(g,ROCK);m.rotation.y=ry;return add(m,x,y,z);}
+rockWall(7.2,3.6,.8,0,1.8,-3.3);rockWall(6.6,3.6,.8,-3.5,1.8,-.2,Math.PI/2);rockWall(6.6,3.6,.8,3.5,1.8,-.2,Math.PI/2);
+rockWall(7.6,.8,6.8,0,3.6,-.3,0,.25);                                          // trần
+rockWall(2.5,3.6,.9,-2.3,1.8,2.9,0,.22);rockWall(2.5,3.6,.9,2.3,1.8,2.9,0,.22);rockWall(2.4,1.2,.9,0,3.2,2.9,0,.2); // vách trước + miệng hang
+for(let i=0;i<9;i++){const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.25+rnd()*.35,1),ROCK);b.scale.y=.6;const a=rnd()*6.28;add(b,(rnd()-.5)*5.4,.1,-2.6+rnd()*.5+(i>5?3.2:0));}
+// phông thung lũng ngoài miệng hang
+{const bt=TL.load('./assets/tex/mag/nen_thung_lung_col.jpg');bt.colorSpace=THREE.SRGBColorSpace;const bg=new THREE.Mesh(new THREE.PlaneGeometry(120,67),new THREE.MeshBasicMaterial({map:bt}));bg.position.set(0,16,55);bg.rotation.y=Math.PI;s.add(bg);}
+// bụi rậm ngoài hang (khối lá rêu xanh)
+const LEAF=mat('reu',[1,1],{roughness:1});
+function bush(x,z,sz){const g=new THREE.Group();for(let k=0;k<7;k++){const b=new THREE.Mesh(new THREE.IcosahedronGeometry(sz*(.45+rnd()*.3),2),LEAF);b.position.set((rnd()-.5)*sz,sz*(.35+rnd()*.45),(rnd()-.5)*sz*.7);b.castShadow=b.receiveShadow=true;g.add(b);}g.position.set(x,0,z);s.add(g);return g;}
+bush(1.55,5.75,1.05);bush(-1.9,4.4,1.0);bush(2.9,5.9,.9);
+// ánh sáng: nắng chiếu xiên qua miệng hang + đèn ấm trong hang
+const sun=new THREE.DirectionalLight('#fff0d6',3.6);sun.position.set(3,7,12);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:40});s.add(sun);
+const warm=new THREE.PointLight('#ffcf98',14,9,1.6);warm.position.set(0,2.6,-.4);s.add(warm);
+const fill=new THREE.PointLight('#ffe8cc',5,7,1.6);fill.position.set(1.5,1.6,1.6);s.add(fill);
+// ---------- ĐẠO CỤ
+const SEAT=add(new THREE.Mesh(new THREE.CylinderGeometry(.34,.4,.44,20),ROCK),-1.7,.22,-1.9);           // bệ đá có lỗ
+const hole=add(new THREE.Mesh(new THREE.CircleGeometry(.16,20),new THREE.MeshBasicMaterial({color:'#120a05'})),-1.7,.445,-1.9);hole.rotation.x=-Math.PI/2;
+const MOSSROCK=add(new THREE.Mesh(new THREE.SphereGeometry(.5,24,16,0,Math.PI*2,0,Math.PI/2),mat('reu',[1.2,1.2])),2.05,0,-1.6);MOSSROCK.scale.y=.9;
+const SLAB=add(new THREE.Mesh(new THREE.BoxGeometry(.9,.25,.6),ROCK),.55,.125,-2.15);
+const PAPER=mat('giay_tho',[1,1],{roughness:.85,side:THREE.DoubleSide,normalScale:new THREE.Vector2(.5,.5)});
+// lá độc (ba thuỳ) vẽ canvas
+const leafTex=(()=>{const cv=document.createElement('canvas');cv.width=cv.height=256;const g=cv.getContext('2d');g.fillStyle='#2f7a22';for(const [cx,cy,a] of [[128,70,0],[70,170,-.9],[186,170,.9]]){g.save();g.translate(cx,cy);g.rotate(a);g.beginPath();g.ellipse(0,0,46,70,0,0,7);g.fill();g.restore();}g.strokeStyle='#8fd16a';g.lineWidth=4;g.beginPath();g.moveTo(128,250);g.lineTo(128,30);g.moveTo(128,160);g.lineTo(70,175);g.moveTo(128,160);g.lineTo(186,175);g.stroke();const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;})();
+const LEAFP=add(new THREE.Mesh(new THREE.PlaneGeometry(.32,.32),new THREE.MeshStandardMaterial({map:leafTex,alphaTest:.5,transparent:false,side:THREE.DoubleSide,roughness:.6})),0,0,0);
+// cục rêu cầm tay + mẩu rêu rơi/dính
+const MOSS=add(new THREE.Mesh(new THREE.IcosahedronGeometry(.09,2),mat('reu',[.4,.4])),0,0,0);
+const bits=[];for(let i=0;i<14;i++){const b=add(new THREE.Mesh(new THREE.IcosahedronGeometry(.02+rnd()*.025,1),mat('reu',[.2,.2])),0,0,0);b.userData={ox:(rnd()-.5)*.2,oy:(rnd()-.5)*.14,v:.6+rnd()*.8,stick:i<6};bits.push(b);}
+// tờ giấy (ép trên phiến đá rồi bị gió thổi)
+const sheets=[];for(let i=0;i<9;i++){const p=new THREE.Mesh(new THREE.PlaneGeometry(.34,.26,6,4),PAPER);p.castShadow=true;s.add(p);p.userData={a:rnd()*6.28,b:rnd()*6.28,r:.8+rnd()*1.6,h:.6+rnd()*1.5,sp:.6+rnd()*.8};sheets.push(p);}
+// que + cuộn giấy (bán kính tăng dần) + dải giấy kéo ra + đường đục lỗ
+const STICK=add(new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.42,10),new THREE.MeshStandardMaterial({color:'#6b4a2a',roughness:.9})),0,0,0);
+const ROLL=add(new THREE.Mesh(new THREE.CylinderGeometry(1,1,.26,40,1,false),PAPER),0,0,0);
+const STRIP=add(new THREE.Mesh(new THREE.PlaneGeometry(.26,1,1,30),PAPER),0,0,0);
+const perf=new THREE.Group();for(let k=0;k<6;k++){const ring=new THREE.Mesh(new THREE.TorusGeometry(1,.012,6,40),new THREE.MeshBasicMaterial({color:'#5be24c'}));ring.rotation.y=Math.PI/2;ring.position.x=-.11+k*.044;perf.add(ring);}s.add(perf);
+const SQUARE=add(new THREE.Mesh(new THREE.PlaneGeometry(.12,.12),PAPER),0,0,0);
+const WAD=add(new THREE.Mesh(new THREE.IcosahedronGeometry(.3,3),PAPER),0,0,0);
+{const p=WAD.geometry.attributes.position;for(let i=0;i<p.count;i++){const v=V(p.getX(i),p.getY(i),p.getZ(i));v.multiplyScalar(1+Math.sin(v.x*30)*Math.cos(v.y*27)*.08);p.setXYZ(i,v.x,v.y,v.z);}WAD.geometry.computeVertexNormals();}
+// giá treo gỗ cạnh bệ
+const HOLD=new THREE.Group();{const wm=new THREE.MeshStandardMaterial({color:'#6b4a2a',roughness:.9});for(const z of [-.17,.17]){const p=new THREE.Mesh(new THREE.CylinderGeometry(.03,.035,.75,8),wm);p.position.set(0,.375,z);p.castShadow=true;HOLD.add(p);}const bar=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.42,8),wm);bar.rotation.x=Math.PI/2;bar.position.y=.7;HOLD.add(bar);}HOLD.position.set(-1.12,0,-1.9);s.add(HOLD);
+const HROLL=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.26,32),PAPER);HROLL.rotation.x=Math.PI/2;HROLL.position.set(0,.7,0);HROLL.castShadow=true;HOLD.add(HROLL);
+// icon 2D: lấp lánh, vết gãi, vòng đỏ ngứa
+function spriteTex(fn){const cv=document.createElement('canvas');cv.width=cv.height=128;fn(cv.getContext('2d'));const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const STAR=spriteTex(g=>{g.fillStyle='#fff7b0';g.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,R=k%2?18:60;g.lineTo(64+Math.cos(a)*R,64+Math.sin(a)*R);}g.fill();});
+const RASH=spriteTex(g=>{const gr=g.createRadialGradient(64,64,4,64,64,62);gr.addColorStop(0,'rgba(255,40,30,.85)');gr.addColorStop(1,'rgba(255,40,30,0)');g.fillStyle=gr;g.fillRect(0,0,128,128);});
+const SCR=spriteTex(g=>{g.strokeStyle='#ff3b2f';g.lineWidth=9;g.lineCap='round';for(let k=0;k<3;k++){g.beginPath();g.moveTo(26+k*30,24);g.lineTo(40+k*30,104);g.stroke();}});
+const sp=(tex,sz)=>{const m=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));m.scale.set(sz,sz,1);m.renderOrder=9;s.add(m);return m;};
+const stars=[...Array(7)].map(()=>sp(STAR,.12)),rash=sp(RASH,.3),scr=[sp(SCR,.16),sp(SCR,.16)];
+// ---------- NHÂN VẬT
+const A=await loadMH('./assets/mh/e3_chinh',{heightM:1.78}),F=await loadMH('./assets/mh/e3_ban',{heightM:1.72});s.add(A.root,F.root);
+const MO={};for(const k of ['111_28','77_02','07_01','62_07','120_15','22_03','13_26','79_73'])MO[k]=await loadBVH('./assets/cmu/'+k+'.bvh');
+await loadFace('./assets/face-poseunits.bvh','./assets/face-poseunits.json');
+await new Promise(r=>setTimeout(r,1500));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2, cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), rp=(t,a,b)=>cl((t-a)/(b-a)), E=(t,a,b)=>ease(rp(t,a,b));
+const lerpV=(a,b,k)=>a.clone().lerp(b,k);
+const BL=(t,sd)=>({LeftUpperLidClosed:1,RightUpperLidClosed:1,_w:blink(t,sd)});
+function face(ch,t,sd,...parts){applyFace(ch,mix(...parts,[{LeftUpperLidClosed:1,RightUpperLidClosed:1},blink(t,sd)]));}
+function sideOf(ch){return V(1,0,0).applyQuaternion(ch.root.quaternion);} function fwdOf(ch){return V(0,0,1).applyQuaternion(ch.root.quaternion);}
+function squat(ch,k,t){const side=sideOf(ch);for(const sd of ['L','R']){rotWorld(ch.bones['upperleg01.'+sd+'____head'],side,-1.45*k);rotWorld(ch.bones['lowerleg01.'+sd+'____head'],side,2.3*k);rotWorld(ch.bones['foot.'+sd+'____head'],side,-.85*k);}
+  rotWorld(ch.bones['spine05____head'],side,.45*k+Math.sin(t*2.5)*.03);rotWorld(ch.bones['neck01____head'],side,-.35*k);ground(ch);}
+function ground(ch,y=0){ch.root.updateMatrixWorld(true);let mn=9;for(const n of ['toe3-1.L','toe3-1.R','foot.L','foot.R'])mn=Math.min(mn,J(ch,n).y);ch.root.position.y-=mn-0.035-y;ch.root.updateMatrixWorld(true);}
+const butt=(ch)=>J(ch,'pelvis.L').lerp(J(ch,'pelvis.R'),.5).add(fwdOf(ch).multiplyScalar(-.16)).add(V(0,-.05,0));
+// ---------- MÁY QUAY (chéo ¾, luôn chạy; skill v1.0)
+const SH=[
+ [0,3.9,  V(-1.0,1.35,10.2),V(-.6,1.2,8.1), V(.45,.8,5.3),V(.5,1.05,5.35),40],      // ngoài hang: chồm hổm cạnh bụi → nhảy gãi (nhìn mặt)
+ [3.9,6.4,V(1.3,1.5,-2.5),V(1.22,1.47,-2.2), V(.3,1.3,-.1),V(.6,1.25,-.5),52],       // đi tới tảng rêu (đón trước mặt)
+ [6.4,9.6,V(2.85,1.45,-2.55),V(2.75,1.42,-2.3),V(1.45,1.15,-1.0),V(1.5,1.2,-1.05),50],  // bứt rêu → "Clever!"
+ [9.6,12.0,V(1.45,1.05,.45),V(1.6,1.0,.1),  V(1.95,.85,-.85),V(1.95,.85,-.9),48],    // sau lưng: rêu vỡ dính mông, ngoái lại
+ [12.0,14.96,V(1.75,1.75,-2.7),V(1.55,1.65,-2.55),V(.45,.75,-1.75),V(.45,.72,-1.8),56],   // ép sợi thành giấy (nhìn mặt)
+ [14.96,17.1,V(2.45,1.6,-2.4),V(2.15,1.5,-2.05),V(0,1.2,-.5),V(.1,1.15,-.6),58],     // gió thổi giấy bay khắp hang
+ [17.1,19.5,V(.05,1.45,-2.4),V(.15,1.45,-2.1),V(.45,1.25,-.6),V(.45,1.22,-.6),46],   // cuộn vào que → "Much better."
+ [19.5,21.8,V(1.65,1.6,-2.4),V(1.45,1.5,-2.15),V(-.1,.45,-.3),V(-.2,.4,-.3),54],     // kéo nửa cuộn trải dài sàn
+ [21.8,24.5,V(.95,.75,-1.15),V(.78,.72,-1.4),V(.45,.62,-2.05),V(.45,.62,-2.05),38],  // cận cuộn: đục lỗ, xé ô
+ [24.5,27.9,V(-.95,1.35,.65),V(-1.2,1.22,.2),V(-1.55,.85,-1.7),V(-1.6,.8,-1.75),48], // bạn béo xài nguyên cuộn
+ [27.9,30.5,V(-.45,1.2,.45),V(-.8,1.15,.05),V(-1.3,.7,-1.85),V(-1.3,.7,-1.9),46],    // giá treo cạnh bệ
+ [30.5,33.0,V(-.75,1.35,.85),V(-1.1,1.25,.3),V(-1.6,.9,-1.8),V(-1.55,.95,-1.85),48]];// bạn ngồi sướng, lấp lánh
+const cam=new THREE.PerspectiveCamera(45,9/16,.05,400);
+const comp=new EffectComposer(r,new THREE.WebGLRenderTarget(W,H,{samples:4,type:THREE.HalfFloatType}));comp.setSize(W,H);comp.addPass(new RenderPass(s,cam));comp.addPass(new OutputPass());
+function hide(...o){o.forEach(x=>x.visible=false);}
+window.renderFrame=(t)=>{try{
+  const sh=SH.find(x=>t>=x[0]&&t<x[1])||SH[SH.length-1];const p=rp(t,sh[0],sh[1]);const u=sh[0]===0?1-Math.pow(1-rp(t,0.35,3.9),2.2):0.15*p*p+0.85*p;
+  cam.position.copy(lerpV(sh[2],sh[3],u));cam.lookAt(lerpV(sh[4],sh[5],u));cam.fov=sh[6];cam.updateProjectionMatrix();
+  hide(LEAFP,MOSS,STICK,ROLL,STRIP,perf,SQUARE,WAD,rash,...stars,...scr,...bits,...sheets);HOLD.visible=t>=28.3;HROLL.visible=t>=28.7;
+  A.root.visible=true;F.root.visible=t>=24.5;
+  // ===== S1 0–3.9: chồm hổm sau bụi, chùi bằng lá → lá độc → bật dậy gãi
+  if(t<3.9){
+    const k=t<2.7?1:1-E(t,2.7,3.0);
+    applyMocap(A,MO['111_28'],1+t*.5,{pos:V(.55,0,5.35),yaw:-0.6,faceAt:1,inPlace:true});
+    if(k>0.01)squat(A,k,t);
+    const jump=t>3.0?Math.abs(Math.sin((t-3.0)*9))*.12:0;A.root.position.y+=jump;A.root.updateMatrixWorld(true);
+    const b=butt(A);
+    if(t<2.7){LEAFP.visible=true;const w=Math.sin(t*9)*.06;const hp=b.clone().add(V(w,.02,0));armIK(A,'R',hp,V(0,-1,0).add(fwdOf(A)));LEAFP.position.copy(J(A,'wrist.R'));LEAFP.lookAt(cam.position);armIK(A,'L',J(A,'lowerleg01.L').add(V(0,.05,0)),V(1,0,0));
+      face(A,t,1,[EXPR.ngai,.4]);}
+    else{const sc=Math.sin(t*28)*.05;armIK(A,'R',b.clone().add(sideOf(A).multiplyScalar(-.08)).add(V(0,sc,0)),V(0,-1,.3));armIK(A,'L',b.clone().add(sideOf(A).multiplyScalar(.08)).add(V(0,-sc,0)),V(0,-1,.3));
+      face(A,t,1,[EXPR.ngac_nhien,1],[EXPR.kho_chiu,.6]);rash.visible=true;rash.position.copy(b);const sc2=.24+.06*Math.sin(t*20);rash.scale.set(sc2,sc2,1);
+      scr.forEach((x,i)=>{x.visible=true;x.position.copy(b).add(V((i?.18:-.18),.12+Math.sin(t*14+i)*.03,0));});}
+  }
+  // ===== S2 3.9–6.4: đi tới tảng rêu, mặt tự đắc
+  else if(t<6.4){const k=rp(t,3.9,6.3);applyMocap(A,MO['07_01'],1+(t-3.9),{pos:lerpV(V(-.2,0,.6),V(1.35,0,-1.05),k),yaw:2.35,faceAt:1,inPlace:true});
+    rotWorld(A.bones['neck01____head'],sideOf(A),-.12);face(A,t,1,[EXPR.tu_hao,.9]);}
+  // ===== S3 6.4–9.6: bứt nắm rêu, giơ lên "Clever!"
+  else if(t<9.6){applyMocap(A,MO['111_28'],1+(t-6.4)*.5,{pos:V(1.45,0,-1.1),yaw:2.3,faceAt:1,inPlace:true});
+    MOSS.visible=true;const rockP=V(1.85,.42,-1.45);
+    if(t<7.1){const kk=E(t,6.45,6.9);rotWorld(A.bones['spine05____head'],sideOf(A),.5*kk);armIK(A,'R',lerpV(J(A,'spine01').add(V(.1,-.3,.1)),rockP,kk),V(0,-1,0));MOSS.position.copy(t<6.9?rockP:J(A,'wrist.R'));}
+    else{const up=E(t,7.1,7.6)+E(t,8.6,8.9)*.4;rotWorld(A.bones['spine05____head'],sideOf(A),.5*(1-E(t,7.1,7.5)));armIK(A,'R',J(A,'neck01').add(fwdOf(A).multiplyScalar(.3)).add(V(.1,-.25+up*.45,0)),V(1,-1,0));MOSS.position.copy(J(A,'wrist.R')).add(V(0,.06,0));}
+    face(A,t,1,[EXPR.tu_hao,E(t,7.4,7.9)],[EXPR.cuoi,E(t,8.6,8.9)]);
+    if(t>8.75)stars.forEach((x,i)=>{x.visible=true;const a=i/7*6.28+t*3;x.position.copy(MOSS.position).add(V(Math.cos(a)*.22,Math.sin(a*1.3)*.15+.05,Math.sin(a)*.22));const ss=.06+.05*Math.abs(Math.sin(t*9+i));x.scale.set(ss,ss,1);});}
+  // ===== S4 9.6–12.0: chùi bằng rêu → vụn rơi, dính lông mông; ngoái lại kinh tởm
+  else if(t<12.0){applyMocap(A,MO['111_28'],2+(t-9.6)*.4,{pos:V(1.95,0,-.85),yaw:2.85,faceAt:1,inPlace:true});
+    rotWorld(A.bones['spine05____head'],sideOf(A),.28);const b=butt(A);const w=Math.sin(t*10)*.05;
+    armIK(A,'R',b.clone().add(V(w,0,0)),V(0,-1,0).add(fwdOf(A)));
+    const tw=E(t,10.6,11.0)*1.2;rotWorld(A.bones['neck01____head'],UP,tw*.5);rotWorld(A.bones['head____head'],UP,tw*.5);
+    face(A,t,1,[EXPR.kho_chiu,1],[EXPR.ngai,.6]);
+    bits.forEach((x,i)=>{x.visible=true;const d=x.userData;const f=Math.max(0,t-9.9-i*.05);
+      if(d.stick){x.position.copy(b).add(sideOf(A).multiplyScalar(d.ox)).add(V(0,d.oy,0)).add(fwdOf(A).multiplyScalar(-.03));}
+      else{x.position.copy(b).add(sideOf(A).multiplyScalar(d.ox)).add(V(0,d.oy-4.9*f*f*d.v,0));if(x.position.y<.02)x.position.y=.02;}});}
+  // ===== S5 12.0–14.96: quỳ đập sợi cây trên phiến đá → tờ giấy hiện dần
+  else if(t<14.96){applyMocap(A,MO['62_07'],2+(t-12)*1.1,{pos:V(.55,0,-1.45),yaw:Math.PI,faceAt:3,inPlace:true});
+    squat(A,.55,t);const hit=Math.abs(Math.sin(t*7));armIK(A,'R',V(.55,.32+hit*.35,-2.1),V(0,-1,0).add(sideOf(A).multiplyScalar(-1)));armIK(A,'L',V(.75,.3,-2.05),V(1,-1,0));
+    face(A,t,1,[EXPR.kho_chiu,.5],[EXPR.to_mo,.4]);
+    const nShow=Math.floor(rp(t,12.6,14.6)*5);for(let i=0;i<nShow;i++){const p=sheets[i];p.visible=true;p.rotation.set(-Math.PI/2,0,i*.15);p.position.set(.45+i*.04,.255+i*.004,-2.15);}}
+  // ===== S6 14.96–17.1: gió thổi giấy bay khắp hang, nhân vật chụp hụt
+  else if(t<17.1){const k=rp(t,14.96,17.1);applyMocap(A,MO['120_15'],3.8+(t-14.96)*1.1,{pos:V(.4,0,-1.2),yaw:2.7,faceAt:4,inPlace:true});
+    face(A,t,1,[EXPR.ngac_nhien,1]);
+    sheets.forEach((p,i)=>{p.visible=true;const d=p.userData;const f=Math.min(1,k*1.6);const a=d.a+t*d.sp*3;
+      p.position.set(.5+Math.cos(a)*d.r*f,.26+d.h*f+Math.sin(t*4+i)*.15*f,-1.8+Math.sin(a)*d.r*.8*f);p.rotation.set(t*d.sp*4+d.b,t*d.sp*3,d.b+t*2);});}
+  // ===== S7 17.1–19.5: cuộn giấy quanh que → "Much better."
+  else if(t<19.5){applyMocap(A,MO['111_28'],1+(t-17.1)*.5,{pos:V(.45,0,-.6),yaw:Math.PI+.25,faceAt:1,inPlace:true});
+    const c=J(A,'spine01').add(fwdOf(A).multiplyScalar(.38)).add(V(0,-.15,0));const spin=t*9;
+    armIK(A,'L',c.clone().add(sideOf(A).multiplyScalar(.2)),V(1,-1,0));armIK(A,'R',c.clone().add(sideOf(A).multiplyScalar(-.2)).add(V(0,Math.sin(spin)*.05,Math.cos(spin)*.05)),V(-1,-1,0));
+    STICK.visible=ROLL.visible=true;const rr=.03+E(t,17.3,18.6)*.07;STICK.position.copy(c);STICK.quaternion.setFromUnitVectors(UP,sideOf(A));ROLL.position.copy(c);ROLL.quaternion.copy(STICK.quaternion);ROLL.scale.set(rr,1,rr);ROLL.rotateY(spin);
+    face(A,t,1,[EXPR.tu_hao,E(t,18.6,19.0)],[EXPR.cuoi,E(t,18.8,19.2)*.7]);
+    if(t>18.75)stars.forEach((x,i)=>{x.visible=true;const a=i/7*6.28+t*3;x.position.copy(c).add(V(Math.cos(a)*.25,Math.sin(a*1.4)*.15,Math.sin(a)*.25));const ss=.05+.05*Math.abs(Math.sin(t*9+i));x.scale.set(ss,ss,1);});}
+  // ===== S8 19.5–21.8: kéo một phát nửa cuộn trải dài sàn
+  else if(t<21.8){applyMocap(A,MO['111_28'],2+(t-19.5)*.5,{pos:V(.3,0,-.8),yaw:Math.PI-.4,faceAt:1,inPlace:true});
+    const c=J(A,'spine01').add(fwdOf(A).multiplyScalar(.35)).add(V(0,-.2,0));armIK(A,'L',c.clone().add(sideOf(A).multiplyScalar(.15)),V(1,-1,0));
+    const L=.1+E(t,19.7,21.0)*2.4;const hand=c.clone().add(sideOf(A).multiplyScalar(-.15)).add(fwdOf(A).multiplyScalar(.1));armIK(A,'R',hand.clone().add(fwdOf(A).multiplyScalar(.15*E(t,19.7,20.2))),V(-1,-1,0));
+    ROLL.visible=STICK.visible=STRIP.visible=true;ROLL.position.copy(c);STICK.position.copy(c);STICK.quaternion.setFromUnitVectors(UP,sideOf(A));ROLL.quaternion.copy(STICK.quaternion);ROLL.scale.set(.1-.035*E(t,19.7,21.0),1,.1-.035*E(t,19.7,21.0));
+    // dải giấy rủ từ cuộn xuống sàn rồi chạy dài
+    const dir=fwdOf(A).multiplyScalar(-1).add(V(-.4,0,.3)).normalize();STRIP.scale.set(1,L,1);STRIP.position.copy(V(c.x,0.02,c.z)).add(dir.clone().multiplyScalar(L/2));STRIP.rotation.set(-Math.PI/2,0,Math.atan2(dir.x,dir.z)+Math.PI);
+    face(A,t,1,[EXPR.ngai,.6],[EXPR.ngac_nhien,E(t,20.5,21.0)*.6]);}
+  // ===== S9 21.8–24.5: cận cuộn trên phiến đá — đục lỗ (vòng xanh), xé gọn 1 ô
+  else if(t<24.5){A.root.visible=false;ROLL.visible=STICK.visible=perf.visible=true;const c=V(.45,.36,-2.08);ROLL.position.copy(c);STICK.position.copy(c);STICK.quaternion.setFromUnitVectors(UP,V(1,0,0));ROLL.quaternion.copy(STICK.quaternion);ROLL.scale.set(.1,1,.1);ROLL.rotateY(t*.6);
+    perf.position.copy(c);perf.scale.setScalar(.103);perf.children.forEach((r2,k)=>{r2.visible=t>22.2+k*.12;r2.material.color.set(t<23.6?'#5be24c':'#2a2018');});
+    SQUARE.visible=true;const tear=E(t,23.5,24.0);SQUARE.position.copy(c).add(V(.15+tear*.25,-.06+tear*.12,.11+tear*.1));SQUARE.rotation.set(-.3,.2+tear*.8,tear*.6);}
+  // ===== S10 24.5–27.9: bạn béo ngồi bệ xài nguyên cuộn → cục giấy khổng lồ; nhân vật chính sững sờ
+  else if(t<27.9){applyMocap(F,MO['22_03'],2+(t-24.5)*.3,{pos:V(-1.7,0,-1.75),yaw:.35,faceAt:2,inPlace:true});
+    const g=E(t,24.9,26.8);WAD.visible=true;const hp=J(F,'spine01').add(fwdOf(F).multiplyScalar(.35)).add(V(0,-.25,0));WAD.position.copy(hp);WAD.scale.setScalar(.25+g*.9);WAD.rotation.y=t*2;
+    const yank=Math.sin(t*16)*.06*(1-g);armIK(F,'R',hp.clone().add(sideOf(F).multiplyScalar(-.2)).add(V(0,yank,0)),V(-1,-1,0));armIK(F,'L',hp.clone().add(sideOf(F).multiplyScalar(.2)).add(V(0,-yank,0)),V(1,-1,0));
+    face(F,t,2,[EXPR.cuoi,.8]);
+    applyMocap(A,MO['79_73'],1.5+(t-24.5)*.8,{pos:V(-.45,0,-2.25),yaw:-1.2,faceAt:2,inPlace:true});face(A,t,1,[EXPR.ngac_nhien,1]);}
+  // ===== S11 27.9–30.5: dựng giá treo cạnh bệ, cuộn quay
+  else if(t<30.5){applyMocap(F,MO['22_03'],3+(t-27.9)*.3,{pos:V(-1.7,0,-1.75),yaw:.35,faceAt:2,inPlace:true});face(F,t,2,[EXPR.to_mo,.8]);
+    applyMocap(A,MO['13_26'],2+(t-27.9)*.6,{pos:V(-.35,0,-2.3),yaw:-1.2,faceAt:2,inPlace:true});face(A,t,1,[EXPR.tu_hao,.9]);
+    HOLD.scale.y=E(t,28.0,28.4)||.001;HROLL.rotation.y=t*4;}
+  // ===== S12 30.5–33: bạn ngồi sướng, mông hết ngứa — lấp lánh
+  else {applyMocap(F,MO['22_03'],3.5+(t-30.5)*.3,{pos:V(-1.7,0,-1.75),yaw:.35,faceAt:2,inPlace:true});face(F,t,2,[EXPR.cuoi,1],[EXPR.tu_hao,.5]);
+    applyMocap(A,MO['111_28'],2+(t-30.5)*.5,{pos:V(-.45,0,-2.3),yaw:-1.0,faceAt:1,inPlace:true});face(A,t,1,[EXPR.cuoi,.8]);
+    const bb=J(F,'pelvis.L').lerp(J(F,'pelvis.R'),.5);stars.forEach((x,i)=>{x.visible=true;const a=i/7*6.28+t*2.5;x.position.copy(bb).add(V(Math.cos(a)*.45,.1+Math.sin(a*1.3)*.25,Math.sin(a)*.45));const ss=.07+.06*Math.abs(Math.sin(t*8+i));x.scale.set(ss,ss,1);});}
+  comp.render();}catch(e){console.log('ERR '+e.stack)}};
+window.ready=true;
+</script></body></html>

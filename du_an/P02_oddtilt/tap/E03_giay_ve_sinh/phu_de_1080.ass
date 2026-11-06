@@ -1,0 +1,73 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,105,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,4.5,3.75,5,45,45,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}You just
+Dialogue: 0,0:00:00.32,0:00:00.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}took a
+Dialogue: 0,0:00:00.64,0:00:01.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}shit,
+Dialogue: 0,0:00:01.04,0:00:01.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and the
+Dialogue: 0,0:00:01.28,0:00:01.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}leaf you
+Dialogue: 0,0:00:01.76,0:00:02.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wiped with
+Dialogue: 0,0:00:02.40,0:00:03.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}was poison ivy.
+Dialogue: 0,0:00:03.92,0:00:04.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you,
+Dialogue: 0,0:00:04.64,0:00:04.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}being a
+Dialogue: 0,0:00:04.96,0:00:06.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}genius caveman,
+Dialogue: 0,0:00:06.40,0:00:06.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}grab a
+Dialogue: 0,0:00:06.88,0:00:07.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}handful of
+Dialogue: 0,0:00:07.28,0:00:08.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}soft moss
+Dialogue: 0,0:00:08.08,0:00:08.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}instead.
+Dialogue: 0,0:00:08.80,0:00:09.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Clever!
+Dialogue: 0,0:00:09.60,0:00:09.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But it
+Dialogue: 0,0:00:09.84,0:00:10.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}falls apart
+Dialogue: 0,0:00:10.48,0:00:10.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and gets
+Dialogue: 0,0:00:10.80,0:00:11.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stuck in
+Dialogue: 0,0:00:11.20,0:00:11.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your ass
+Dialogue: 0,0:00:11.60,0:00:11.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hair,
+Dialogue: 0,0:00:11.92,0:00:12.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:12.16,0:00:12.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}press plant
+Dialogue: 0,0:00:12.72,0:00:13.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fibers into
+Dialogue: 0,0:00:13.44,0:00:14.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}thin sheets
+Dialogue: 0,0:00:14.08,0:00:14.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of paper.
+Dialogue: 0,0:00:14.96,0:00:15.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except the
+Dialogue: 0,0:00:15.36,0:00:16.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sheets blow
+Dialogue: 0,0:00:16.08,0:00:16.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}all over
+Dialogue: 0,0:00:16.48,0:00:17.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your cave,
+Dialogue: 0,0:00:17.12,0:00:17.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:17.36,0:00:17.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}roll them
+Dialogue: 0,0:00:17.76,0:00:18.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}around a
+Dialogue: 0,0:00:18.24,0:00:18.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stick.
+Dialogue: 0,0:00:18.80,0:00:19.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Much better.
+Dialogue: 0,0:00:19.52,0:00:19.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But you
+Dialogue: 0,0:00:19.84,0:00:20.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}unroll half
+Dialogue: 0,0:00:20.56,0:00:20.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of it
+Dialogue: 0,0:00:20.88,0:00:21.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}for one
+Dialogue: 0,0:00:21.36,0:00:21.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wipe,
+Dialogue: 0,0:00:21.76,0:00:22.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:22.08,0:00:22.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}punch little
+Dialogue: 0,0:00:22.64,0:00:23.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}holes to
+Dialogue: 0,0:00:23.20,0:00:23.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}tear off
+Dialogue: 0,0:00:23.68,0:00:24.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}squares.
+Dialogue: 0,0:00:24.48,0:00:24.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except your
+Dialogue: 0,0:00:24.96,0:00:25.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fat-ass friend
+Dialogue: 0,0:00:25.68,0:00:26.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}uses the
+Dialogue: 0,0:00:26.08,0:00:26.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}whole FUCKING
+Dialogue: 0,0:00:26.64,0:00:27.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}roll in
+Dialogue: 0,0:00:27.20,0:00:27.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}one go,
+Dialogue: 0,0:00:27.92,0:00:28.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:28.24,0:00:28.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hang it
+Dialogue: 0,0:00:28.56,0:00:28.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}on a
+Dialogue: 0,0:00:28.80,0:00:29.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}holder right
+Dialogue: 0,0:00:29.52,0:00:29.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}next to
+Dialogue: 0,0:00:29.84,0:00:30.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your seat.
+Dialogue: 0,0:00:30.56,0:00:30.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now your
+Dialogue: 0,0:00:30.88,0:00:31.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend's ass
+Dialogue: 0,0:00:31.52,0:00:32.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}never itches
+Dialogue: 0,0:00:32.24,0:00:32.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}again.
