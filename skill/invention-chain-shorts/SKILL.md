@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực, phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v0.2 (06/11/2026)
+# Invention-chain shorts (P02) — v0.3 (06/11/2026)
 
 > **Trạng thái:** xong G2; G4 đã kiểm chuỗi công cụ thật trên demo "the door" 0–11 s (bản thử 4, chờ duyệt). Mọi mục ghi [CHỌN] là đề xuất chờ chủ dự án duyệt. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline` — đọc trước.
 
@@ -65,6 +65,11 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 - Nhân vật phụ không bao giờ đứng thẳng bất động: khom/nhún/lắc/quay đầu + chớp mắt.
 - Texture vẽ bằng code trông "hoạt hình" — luôn dùng ảnh thật; crop bỏ viền tối của ảnh AI (repeat 0,32, offset 0,34).
 - Mốc cử chỉ khớp từ trong lời (quay đầu bắt đầu ~0,5 s trước "Clever!").
+- **Máy quay shot mở đầu**: bắt đầu GÓC RỘNG thấy toàn thân cả 2 nhân vật và hành động, giữ ~0,35 s rồi mới đẩy vào (đường cong ease-out), kết shot khi khung cửa gần đầy khung, nhân vật phụ còn ở mép.
+- **Nhìn từ trong nhà, trục x của vật treo trên cửa bị lật** (bên trái màn hình = +x thế giới): kiểm hướng bằng ảnh thử trước khi render đủ.
+- **Tấm da/rèm trùm rộng hơn lỗ cửa và treo sát mặt tường trong**, nếu không sẽ lộ nhân vật bên ngoài qua khe ở góc máy chéo. Nhân vật bên ngoài chỉ được thấy qua phần màn bị gió lật.
+- **Không dùng GTAO cho vật mỏng gập** (tấm da): AO tạo sọc đen răng cưa ở nếp gập. Thay bằng HDRI + bóng nắng.
+- **Độ nét**: render 1080×1920, MSAA (`WebGLRenderTarget samples:4`), JPEG chất lượng 0,97 (`JPEGQ=0.97 node render.js …`), mã hoá crf ≤ 16, không `unsharp`. 720p + JPEG 0,93 + không MSAA bị chủ dự án đánh giá "nhoè khi chuyển động".
 
 ## 6. QA tối thiểu
 - Lời bắt đầu ≤ 0,3 s; 185–235 từ/phút; 0 khoảng lặng > 0,35 s.
@@ -77,5 +82,6 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 `du_an/P02_oddtilt/cong_cu/` — `asr_parakeet.py` (chép lời + mốc từ), `do_bo_sung.py` (máy, phụ đề, nền âm, F0), `do_cat.py` (cắt cảnh), `tong_hop_so_do.py`. Dùng lại cho QA bản xuất.
 
 ## Thay đổi
+- v0.3 (06/11/2026): bài học máy mở đầu, hướng x khi nhìn từ trong, rèm trùm tường, bỏ GTAO cho vật mỏng, render 1080 + MSAA.
 - v0.2 (06/11/2026): chuỗi sản xuất đã kiểm — MakeHuman, mocap CMU, biểu cảm mặt, texture ảnh thật Magnific + HDRI, SFX Magnific theo mốc, bài học 4 vòng sửa.
 - v0.1 (05/11/2026): bản đầu từ phân tích 14 mẫu; chưa duyệt.

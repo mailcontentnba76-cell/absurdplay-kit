@@ -7,3 +7,7 @@
 | 05/11/2026 | G2 đo | librosa `beat_track` segfault | numba gufunc lỗi trong môi trường | Bỏ beat_track, dùng tự tương quan onset | — |
 | 05/11/2026 | G2 phụ đề | Đếm cụm phụ đề sai (1 từ/cụm) | Chữ hiện có hiệu ứng nảy → chênh lệch khung tạo đỉnh giả | Đếm cụm theo khung trống giữa cụm | Kiểm 15 khung/s một đoạn trước khi tin số |
 | 05/11/2026 | G2 phụ đề | Video bút bi đo chữ sai | Nền giấy/bàn trắng trùng màu chữ | Ghi [QS], loại khỏi thống kê | — |
+| 06/11/2026 | Demo door | Sọc đen răng cưa ở nếp gập tấm da | GTAO tính che khuất giữa 2 lớp mỏng | Bỏ GTAO, giữ HDRI + bóng nắng | Không dùng AO màn hình cho vật mỏng gập |
+| 06/11/2026 | Demo door | Thấy người bên ngoài qua khe màn | Màn treo trong lỗ cửa, hẹp hơn khung, máy chéo | Màn rộng 1,36 m treo sát mặt tường trong | Kiểm khung máy chéo trước khi render |
+| 06/11/2026 | Demo door | Hướng gió lật màn bị ngược | Nhìn từ trong nhà, +x thế giới nằm bên trái màn hình | Soi gương x trong hàm biến dạng | Render 1 khung thử hướng trước |
+| 06/11/2026 | Demo door | Hình nhoè khi chuyển động | 720p, không MSAA, JPEG 0,93, unsharp | 1080p, MSAA 4×, JPEG 0,97, crf 15 | Mặc định render 1080 |
