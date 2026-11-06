@@ -2,9 +2,9 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực, phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v0.1 NHÁP (05/11/2026)
+# Invention-chain shorts (P02) — v0.2 (06/11/2026)
 
-> **Trạng thái:** đã xong G2 (phân tích 14 mẫu). **Chưa** duyệt hồ sơ, chưa kiểm công cụ sản xuất (G4), chưa có bản thử (G6). Mọi mục ghi [CHỌN] là đề xuất chờ chủ dự án duyệt. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline` — đọc trước.
+> **Trạng thái:** xong G2; G4 đã kiểm chuỗi công cụ thật trên demo "the door" 0–11 s (bản thử 4, chờ duyệt). Mọi mục ghi [CHỌN] là đề xuất chờ chủ dự án duyệt. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline` — đọc trước.
 
 Kho: GitHub `mailcontentnba76-cell/absurdplay-kit`, nhánh `du-an-moi`. Hồ sơ đầy đủ: `du_an/P02_oddtilt/` (đọc `HO_SO_DU_AN.md`, `PHAN_TICH_MAU/TONG_HOP.md`, `NHAT_KY_LOI.md` trước khi làm). Trả lời người dùng bằng tiếng Việt.
 
@@ -47,13 +47,24 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 - Nền giữa câu thấp hơn lời ~16 dB (9–20); không có nhịp trống đều → nhạc rất nhẹ hoặc không nhạc [SL]. **Hỏi chủ dự án** về nhạc/SFX/giọng trước khi chốt.
 - Xuất −14 LUFS, TP ≤ −1 dBTP [CHỌN].
 
-## 5. Chuỗi sản xuất đề xuất [CHỌN — chưa kiểm G4]
-1. Chọn đồ vật mới → tra 4–6 bước tiến hoá có thật (≥ 2 nguồn) → kịch bản theo mục 1 → **duyệt**.
-2. Giọng: TTS/giọng clone (Magnific Voice khả dụng qua MCP — chưa chạy thử) → chép lời có mốc từ (Parakeet-TDT qua sherpa-onnx, đã chạy được trong phiên 05/11).
-3. Shot list theo mốc câu (1 shot/bước, 2,5–3,5 s).
-4. 3D: engine three.js của dự án P01 (nhánh `main`, nhân vật CC0) là phương án nhanh nhất có sẵn; cần đạo cụ cơ khí riêng mỗi tập. Phương án khác: AI tạo ảnh/video (Magnific) cho cảnh nền — kém kiểm soát khi vật phải biến hình theo câu.
-5. Phụ đề + icon 2D (ffmpeg/ASS hoặc lớp đồ hoạ HTML) → trộn âm → QA theo bảng ngưỡng trong `PHAN_TICH_MAU/TONG_HOP.md`.
-6. **Bản thử 10–15 s** (hook + 1 vòng vấn đề + 1 cảnh cơ chế cận) đặt cạnh mẫu → **duyệt** → mới làm đủ.
+## 5. Chuỗi sản xuất — ĐÃ KIỂM (demo "the door" 0–11 s, bản thử 4, 06/11/2026)
+Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải file Magnific). Engine: `du_an/P02_oddtilt/engine/` (`npm install` + `python3 patches/va_realism_effects_three170.py`). Render: `node render.js "<cảnh>.html?w=720" <ra> 30 f0 f1 720 1280` (2 tiến trình, ≈2,4 s/khung có GTAO).
+1. **Nhân vật = MakeHuman** (mẫu dùng đúng bộ quần áo mặc định MakeHuman): `cong_cu/mh_bake.py <makehuman-data> nhan_vat/<x>.json engine/assets/mh` → `lib/mh.js loadMH()`. Bộ có sẵn: `chinh` (áo trắng logo + jean), `ban` (sơ mi xanh than), `nu`, `tho`, người tiền sử `ts_da/ts_long/ts_bao/ts_nu` (texture `cong_cu/mh_vai.py`). Thêm nhân vật = thêm JSON spec. Tài sản MakeHuman CC0.
+2. **Động tác = mocap CMU** (`engine/assets/cmu/*.bvh`, danh mục README) qua `lib/mocap.js applyMocap(ch,mo,t,{pos,yaw,faceAt,inPlace})`, rồi chỉnh tay bằng `armIK(ch,'L'|'R',đích,pole)`, xoay bằng `rotWorld()`. Khom chống gối: xoay `upperleg01/lowerleg01/foot` + `spine05` rồi hạ chân chạm đất, `armIK` tay tới gối.
+3. **Biểu cảm** `lib/face.js` (face-poseunits MakeHuman, 60 đơn vị): `applyFace(ch, mix([EXPR.tu_hao,k],[{LeftUpperLidClosed:1,RightUpperLidClosed:1},blink(t,seed)]))` — gọi SAU tư thế. Có: cuoi, tu_hao, ngac_nhien, to_mo, ngai, kho_chiu + chớp mắt ~3,2 s. Mọi nhân vật trong khung luôn chớp mắt + thở/lắc nhẹ.
+4. **Vật liệu ảnh thật**: tạo bằng Magnific text-to-image ("seamless tileable texture, photograph of …", 1:1, ~65 credit/ảnh) → `engine/assets/tex/mag/<x>_col.jpg` + normal sinh từ độ sáng. HDRI `assets/hdri/park.hdr` (CC0) làm ánh sáng môi trường; phông ảnh đồng cỏ làm nền xa; GTAO radius 0,12.
+5. **Vật biến hình theo lời** dựng bằng code trong cảnh (vd tấm da: lưới 26×40 đỉnh, `len` trải xuống từ cuộn, `flap` gió hất VÀO TRONG phía máy theo góc chéo, `slide` gom thành dải nếp; cửa: ván rơi vào chỗ lần lượt rồi nẹp ngang + nẹp chéo).
+6. **Máy quay** mỗi shot một dòng `[t0,t1, vị trí đầu, cuối, nhìn đầu, cuối, fov]`, đặt theo khung mẫu: thấy toàn thân nhân vật chính, nhân vật phụ sát mép khung; trôi chậm (đẩy ≤ 0,9 m/shot).
+7. **Âm thanh**: giọng → rút nghỉ >0,15 s về 0,12 s + `atempo` tới ~218 từ/phút → Parakeet lấy mốc từ; nhạc −19 dB; SFX Magnific theo mốc (`tai_nguyen/sfx/README.md`, mẫu trộn `tap/DEMO_door/cong_cu/tron_am.sh`): ding ở câu khen, whoosh ở cắt cảnh, "uh-oh" ở But/Except, tiếng vật theo hành động → loudnorm −14 LUFS.
+8. **Phụ đề** `tap/DEMO_door/cong_cu/tao_phu_de.py` (Poppins ExtraBold 70 ở khung 720, tâm y 767, cụm 1–3 từ, nảy 90 ms) → ffmpeg `ass=`.
+9. **Đối chiếu**: ghép mẫu | bản thử cùng mốc, xem 5 khung/giây từng shot của mẫu TRƯỚC khi đặt máy/động tác; chủ dự án duyệt từng bản.
+
+### Bài học từ 4 vòng sửa demo door
+- Xem mẫu ở 5 khung/giây trước khi dựng; ảnh 1 khung/giây bỏ sót hướng vật bay, tay nhân vật, máy trôi.
+- Hướng tác động vật lý phải đúng mẫu (gió thổi VÀO nhà, rèm tốc về phía máy).
+- Nhân vật phụ không bao giờ đứng thẳng bất động: khom/nhún/lắc/quay đầu + chớp mắt.
+- Texture vẽ bằng code trông "hoạt hình" — luôn dùng ảnh thật; crop bỏ viền tối của ảnh AI (repeat 0,32, offset 0,34).
+- Mốc cử chỉ khớp từ trong lời (quay đầu bắt đầu ~0,5 s trước "Clever!").
 
 ## 6. QA tối thiểu
 - Lời bắt đầu ≤ 0,3 s; 185–235 từ/phút; 0 khoảng lặng > 0,35 s.
@@ -66,4 +77,5 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 `du_an/P02_oddtilt/cong_cu/` — `asr_parakeet.py` (chép lời + mốc từ), `do_bo_sung.py` (máy, phụ đề, nền âm, F0), `do_cat.py` (cắt cảnh), `tong_hop_so_do.py`. Dùng lại cho QA bản xuất.
 
 ## Thay đổi
+- v0.2 (06/11/2026): chuỗi sản xuất đã kiểm — MakeHuman, mocap CMU, biểu cảm mặt, texture ảnh thật Magnific + HDRI, SFX Magnific theo mốc, bài học 4 vòng sửa.
 - v0.1 (05/11/2026): bản đầu từ phân tích 14 mẫu; chưa duyệt.

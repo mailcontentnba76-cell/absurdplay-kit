@@ -1,0 +1,11 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="360" height="640"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {loadMH} from './lib/mh.js';import {loadFace,applyFace,EXPR} from './lib/face.js';
+const q=new URLSearchParams(location.search);const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(360,640,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#9db7cf');s.add(new THREE.HemisphereLight('#fff','#887',1.8));const l=new THREE.DirectionalLight('#fff',2);l.position.set(1,2,3);s.add(l);
+const ch=await loadMH('./assets/mh/'+(q.get('n')||'chinh'),{});s.add(ch.root);const F=await loadFace('./assets/face-poseunits.bvh','./assets/face-poseunits.json');
+console.log('units',Object.keys(F.units).length,Object.keys(F.units.JawDrop||{}).join(','));
+await new Promise(r=>setTimeout(r,1000));const cam=new THREE.PerspectiveCamera(20,9/16,.05,50);
+window.renderFrame=(t)=>{for(const [n,b] of Object.entries(ch.bones))b.quaternion.copy(ch.rest[n]);const e=q.get('e');if(e)applyFace(ch,EXPR[e]||{[e]:1});cam.position.set(0,1.72,1.1);cam.lookAt(0,1.7,0);r.render(s,cam);};window.ready=true;
+</script></body></html>
