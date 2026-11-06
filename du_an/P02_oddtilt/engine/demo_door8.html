@@ -27,7 +27,7 @@ const box=(w,h,d,m,x,y,z,ry=0)=>{const b=new THREE.Mesh(new THREE.BoxGeometry(w,
 let seed=3;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
 const gcv=document.createElement('canvas');gcv.width=gcv.height=512;{const g=gcv.getContext('2d');g.fillStyle='#a99a52';g.fillRect(0,0,512,512);for(let k=0;k<9000;k++){g.strokeStyle=`hsl(${48+rnd()*22},${35+rnd()*25}%,${36+rnd()*26}%)`;g.beginPath();const x=rnd()*512,y=rnd()*512;g.moveTo(x,y);g.lineTo(x+(rnd()-.5)*3,y-3-rnd()*7);g.stroke();}}
 const gt=new THREE.CanvasTexture(gcv);gt.colorSpace=THREE.SRGBColorSpace;gt.wrapS=gt.wrapT=THREE.RepeatWrapping;gt.repeat.set(70,70);
-const gnd=new THREE.Mesh(new THREE.PlaneGeometry(400,400),mat('co',[120,120],{roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.04;gnd.receiveShadow=true;s.add(gnd);
+const gnd=new THREE.Mesh(new THREE.PlaneGeometry(400,400),(()=>{const m=mat('co',[28,28],{roughness:1,noN:true});m.map.anisotropy=16;m.map.minFilter=THREE.LinearMipmapLinearFilter;return m;})());gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.04;gnd.receiveShadow=true;s.add(gnd);
 // CHÒI ĐÁ: trong 3,2 x 3,2 m, tường dày .3, cửa ở tường trước z=+1.6 rộng 1,0 cao 2,0
 const SX=mat('da_xam',[.8,.55]),SXo=mat('da_toi',[.9,.6],{color:'#d8dce4'}),HW=2.6,TW=.3;
 const wall=(w,h,x,y,z,m,ry=0)=>{const b=box(w,h,TW,m,x,y,z,ry);return b;};

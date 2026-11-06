@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực, phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v0.5 (06/11/2026)
+# Invention-chain shorts (P02) — v0.6 (06/11/2026)
 
 > **Trạng thái:** xong G2; G4 đã kiểm chuỗi công cụ thật trên demo "the door" 0–11 s (bản thử 4, chờ duyệt). Mọi mục ghi [CHỌN] là đề xuất chờ chủ dự án duyệt. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline` — đọc trước.
 
@@ -73,6 +73,7 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 - **Chiều sâu không gian**: KHÔNG đặt máy nhìn thẳng vuông góc vào mặt tường/vật phẳng (ra hình "mặt phẳng"). Mỗi shot trong phòng đặt máy chéo ¾ (30–45° so với mặt tường), có tiền cảnh/hậu cảnh (góc tường, khung cửa, nhân vật) và máy vừa đẩy vừa trôi ngang để có thị sai (parallax). Ngoại lệ: shot cận vật cần đọc rõ (cửa ván) — vẫn trôi ngang 0,3–0,5 m.
 - **Vật mềm treo (rèm/tấm da) bị gió**: cả tấm quay quanh thanh treo, hất vào trong; một bên bay cao hơn bên kia (góc 0,3→1,15 rad theo bề ngang) nên mép dưới xiên — KHÔNG lật một góc. Nhân vật bên ngoài lộ ra dưới phần bay cao. Đặt máy ở phía bên mép bay thấp để tấm da không trùm ống kính.
 - **Không để hai mặt trùng nhau (z-fighting → nhấp nháy đen khi máy chạy)**: khung cửa, nẹp, vật dán tường phải lệch khỏi mặt tường ≥ 1,5 cm (không đặt cạnh khối đúng bằng mặt cắt tường). Kiểm: soi 4–6 khung liền nhau ở 100 % tại mép khung cửa/tường trước khi render đủ.
+- **Nền xa không được lấp lánh**: texture mặt đất xa (cỏ, cát) lặp ≤ 30 lần trên 400 m, KHÔNG normal map, anisotropy 16 + mipmap. Lặp 120 lần gây răng cưa nháy tối/sáng khi máy chạy. QA: đếm điểm ảnh "tối rồi sáng lại" (ΔY < −35 rồi > +35) qua 48 khung liên tiếp; vùng nào nổi bật trên bản đồ nhiệt thì sửa vật liệu vùng đó.
 - **Độ nét**: render 1080×1920, MSAA (`WebGLRenderTarget samples:4`), JPEG chất lượng 0,97 (`JPEGQ=0.97 node render.js …`), mã hoá crf ≤ 16, không `unsharp`. 720p + JPEG 0,93 + không MSAA bị chủ dự án đánh giá "nhoè khi chuyển động".
 
 ## 6. QA tối thiểu
@@ -87,6 +88,7 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 `du_an/P02_oddtilt/cong_cu/` — `asr_parakeet.py` (chép lời + mốc từ), `do_bo_sung.py` (máy, phụ đề, nền âm, F0), `do_cat.py` (cắt cảnh), `tong_hop_so_do.py`. Dùng lại cho QA bản xuất.
 
 ## Thay đổi
+- v0.6 (06/11/2026): chống nhấp nháy: không z-fighting, nền xa ít lặp + không normal map; QA bản đồ nhấp nháy.
 - v0.5 (06/11/2026): máy chéo ¾ + parallax cho chiều sâu; rèm bay cả tấm.
 - v0.4 (06/11/2026): quy tắc máy luôn chuyển động + ngưỡng đo tốc độ máy theo mẫu.
 - v0.3 (06/11/2026): bài học máy mở đầu, hướng x khi nhìn từ trong, rèm trùm tường, bỏ GTAO cho vật mỏng, render 1080 + MSAA.
