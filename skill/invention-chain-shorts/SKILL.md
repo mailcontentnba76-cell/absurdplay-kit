@@ -22,7 +22,8 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 ```
 - Mỗi cải tiến là **bước kỹ thuật có thật** của đồ vật (tra nguồn); gag nằm ở cách vấp lỗi và câu chữ.
 - Lời ~210 từ/phút (185–235), **không khoảng lặng > 0,35 s**, bắt đầu ≤ 0,3 s.
-- Video để đăng: không chép đồ vật/gag/lời của 14 mẫu; không dùng "dấu hiệu" kênh mẫu (tháp hạt nhân…). Mức thô tục: hỏi chủ dự án.
+- Video để đăng: không chép đồ vật/gag/lời của 14 mẫu; không dùng "dấu hiệu" kênh mẫu (tháp hạt nhân…).
+- **Giọng văn ĐÃ CHỐT (chủ dự án 06/11/2026): "bựa" như mẫu** — hook kiểu B (khó chịu cơ thể: ass, sweaty, smell like shit) hoặc D (toilet: taking a shit), có "ass/shit" trong hook và 1 lần "fucking" ở vòng cuối do "your friend"; kết "Now your friend …" nước đôi gọi lại hook. Tham khảo khung demo "the door". Đề xuất đồ vật gắn với cơ thể/vệ sinh/đời sống (giấy vệ sinh, khử mùi, vòi rửa…).
 
 ## 2. Thông số đích (đo trên mẫu)
 | Mục | Đích |
