@@ -13,13 +13,16 @@ const load = (u) => (cache[u] ??= L.loadAsync(u));
 const ROOT = './assets/';
 
 export async function loadLibrary() {
-  const [male, female, ual2] = await Promise.all([
-    load(ROOT + 'ubc/Superhero_Male_FullBody.gltf'), load(ROOT + 'ubc/Superhero_Female_FullBody.gltf'), load(ROOT + 'ual2/UAL2_Standard.glb')]);
+  const [male, female, ual2, ual1] = await Promise.all([
+    load(ROOT + 'ubc/Superhero_Male_FullBody.gltf'), load(ROOT + 'ubc/Superhero_Female_FullBody.gltf'), load(ROOT + 'ual2/UAL2_Standard.glb'), load(ROOT + 'ual1.glb')]);
   const acc = {};
   for (const n of ['Hair_Buzzed', 'Hair_SimpleParted', 'Hair_Long', 'Hair_Buns', 'Hair_BuzzedFemale', 'Hair_Beard', 'Eyebrows_Regular', 'Eyebrows_Female'])
     acc[n] = await load(ROOT + 'ubc/' + n + '.gltf');
   const mh = await loadMHHairs();
-  return { male, female, clips: ual2.animations, acc, mh };
+  // UAL1 dùng xương Rigify (DEF-*) → retarget sang xương UBC (pelvis, spine_01…) bằng SkeletonUtils, đổi tên track về 'bone.prop'
+  const names = new Set(ual2.animations.map((c) => c.name));
+  const extra = retargetUAL1(male, ual1).filter((c) => !names.has(c.name));
+  return { male, female, clips: [...ual2.animations, ...extra], acc, mh };
 }
 
 const REGION = (b) => {
@@ -131,7 +134,7 @@ function paintFace(mesh, eyeBox, P0) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; U.faceU.value = t;
   const draw = (o = {}) => { const P = Object.assign({}, P0, o); g.clearRect(0, 0, N, N);
   const X = (x) => (x / S + 0.5) * N, Y = (y) => (0.5 - y / S) * N, R = (r) => r / S * N; // y lên trên -> canvas xuống dưới (flipY mặc định)
-  const k = P.eyeScale / 1.7, rx = 0.019 * k, ry = 0.017 * k, sep = Math.max(ew * 0.29, rx * 1.05);
+  const k = P.eyeScale / 1.7 * (1 + 0.18 * (P.eyeWide || 0)), rx = 0.019 * k, ry = 0.017 * k * (1 + 0.15 * (P.eyeWide || 0) - 0.35 * (P.squint || 0)), sep = Math.max(ew * 0.29, rx * 1.05);
   for (const side of [-1, 1]) {
     const cx = side * sep, cy = (P.eyeY || 0) * ry;
     g.save(); g.translate(X(cx), Y(cy));
@@ -150,13 +153,95 @@ function paintFace(mesh, eyeBox, P0) {
     }
     g.restore();
   }
-    if (P.mouth) { g.save(); g.translate(X(0), Y(-(P.mouthY ?? 0.062))); g.lineCap = 'round'; g.strokeStyle = '#2a120c'; g.lineWidth = R(0.0035); const w = R(P.mouthW ?? 0.018);
+    if (P.mouth) { g.save(); g.translate(X(0), Y(-(P.mouthY ?? 0.062))); g.lineCap = 'round';
+      const sk = new THREE.Color(P.skin || '#a06a45'); const dark = (0.3 * sk.r + 0.59 * sk.g + 0.11 * sk.b) < 0.12; // da tối -> viền môi sáng cho rõ biểu cảm
+      g.strokeStyle = P.lipColor || (dark ? '#d29486' : '#2a120c'); g.lineWidth = R(dark ? 0.0045 : 0.0035); const w = R((P.mouthW ?? 0.018) * 1.2);
       if (P.mouth === 'smile') { g.beginPath(); g.arc(0, -w * 0.6, w, Math.PI * 0.2, Math.PI * 0.8); g.stroke(); }
       else if (P.mouth === 'frown') { g.beginPath(); g.arc(0, w * 0.9, w, Math.PI * 1.25, Math.PI * 1.75); g.stroke(); }
-      else if (P.mouth === 'o') { g.beginPath(); g.ellipse(0, 0, w * 0.45, w * 0.6, 0, 0, Math.PI * 2); g.fillStyle = '#3a1410'; g.fill(); }
+      else if (P.mouth === 'o') { const mo = P.mouthOpen ?? 1; g.beginPath(); g.ellipse(0, 0, w * (0.3 + 0.2 * mo), w * (0.25 + 0.45 * mo), 0, 0, Math.PI * 2); g.fillStyle = '#3a1410'; g.fill(); g.stroke(); }
+      else if (P.mouth === 'grin') { const mo = P.mouthOpen ?? 0.6; g.beginPath(); g.moveTo(-w * 1.05, -w * 0.15); g.quadraticCurveTo(0, w * (0.35 + 0.9 * mo), w * 1.05, -w * 0.15); g.quadraticCurveTo(0, w * 0.15, -w * 1.05, -w * 0.15); g.closePath(); g.fillStyle = '#3a1410'; g.fill();
+        g.save(); g.clip(); g.fillStyle = '#f7f4ee'; g.fillRect(-w * 1.1, -w * 0.2, w * 2.2, w * 0.32); g.restore(); g.stroke(); }
+      else if (P.mouth === 'grimace') { g.beginPath(); g.rect(-w * 0.85, -w * 0.18, w * 1.7, w * 0.36); g.fillStyle = '#f7f4ee'; g.fill(); g.stroke(); g.beginPath(); g.moveTo(-w * 0.85, 0); g.lineTo(w * 0.85, 0); g.lineWidth = R(0.0018); g.stroke(); }
+      else if (P.mouth === 'talk') { const mo = P.mouthOpen ?? 0.5; g.beginPath(); g.ellipse(0, 0, w * 0.6, w * (0.08 + 0.42 * mo), 0, 0, Math.PI * 2); g.fillStyle = '#3a1410'; g.fill(); g.stroke(); }
       else { g.beginPath(); g.moveTo(-w * 0.7, 0); g.lineTo(w * 0.7, 0); g.stroke(); } g.restore(); }
     t.needsUpdate = true; };
   draw(); return draw;
+}
+
+const UAL1_MAP = (() => { const m = { pelvis: 'DEF-hips', spine_01: 'DEF-spine.001', spine_02: 'DEF-spine.002', spine_03: 'DEF-spine.003', neck_01: 'DEF-neck', Head: 'DEF-head' };
+  for (const [s, S] of [['l', 'L'], ['r', 'R']]) { Object.assign(m, { ['clavicle_' + s]: 'DEF-shoulder.' + S, ['upperarm_' + s]: 'DEF-upper_arm.' + S, ['lowerarm_' + s]: 'DEF-forearm.' + S, ['hand_' + s]: 'DEF-hand.' + S,
+    ['thigh_' + s]: 'DEF-thigh.' + S, ['calf_' + s]: 'DEF-shin.' + S, ['foot_' + s]: 'DEF-foot.' + S, ['ball_' + s]: 'DEF-toe.' + S });
+    for (const f of ['index', 'middle', 'pinky', 'ring']) for (const i of [1, 2, 3]) m[`${f}_0${i}_${s}`] = `DEF-f_${f}.0${i}.${S}`;
+    for (const i of [1, 2, 3]) m[`thumb_0${i}_${s}`] = `DEF-thumb.0${i}.${S}`; }
+  return m; })();
+const RT_CACHE = {};
+const RT_WANT = new Set(['Walk_Loop', 'Walk_Formal_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Idle_Loop', 'Idle_Talking_Loop', 'Sitting_Talking_Loop', 'Sitting_Idle_Loop',
+  'Crouch_Idle_Loop', 'Crouch_Fwd_Loop', 'Push_Loop', 'Death01', 'Hit_Chest', 'Hit_Head', 'Dance_Loop', 'Jump_Start', 'Jump_Loop', 'Jump_Land', 'Interact', 'PickUp_Table', 'Punch_Jab', 'Roll']);
+// Retarget thủ công: giữ hướng xương theo không gian thế giới (world-delta) + bù khác biệt tư thế nghỉ (T/A-pose) theo hướng xương
+function retargetUAL1(male, ual1) {
+  const V = THREE.Vector3, Q = THREE.Quaternion;
+  const sRoot = ual1.scene, tRoot = SU.clone(male.scene);
+  const sB = {}, tB = {}; sRoot.traverse((n) => { if (n.isBone) { sB[n.name] = n; sB[n.name.replace(/\./g, '')] = n; } });
+  for (const k of Object.keys(UAL1_MAP)) { const sn = UAL1_MAP[k]; if (!sB[sn]) sB[sn] = sB[THREE.PropertyBinding.sanitizeNodeName(sn)] || sB[sn.replace(/\./g, '')]; } tRoot.traverse((n) => { if (n.isBone) tB[n.name] = n; });
+  sRoot.updateMatrixWorld(true); tRoot.updateMatrixWorld(true);
+  const wq = (b) => b.getWorldQuaternion(new Q()), wp = (b) => b.getWorldPosition(new V());
+  // thứ tự cha→con của xương đích
+  const order = []; (function walk(n) { if (n.isBone) order.push(n); n.children.forEach(walk); })(tRoot);
+  const tRestLocal = new Map(order.map((b) => [b, b.quaternion.clone()]));
+  const tRestW = new Map(order.map((b) => [b, wq(b)]));
+  const firstChild = (b, map) => b.children.find((c) => c.isBone && (!map || map(c)));
+  const childOf = { pelvis: 'spine_01', spine_01: 'spine_02', spine_02: 'spine_03', spine_03: 'neck_01', neck_01: 'Head' };
+  const align = {};
+  const sRestW = {};
+  for (const [tn, sn] of Object.entries(UAL1_MAP)) {
+    const tb = tB[tn], sb = sB[sn]; if (!tb || !sb) continue;
+    sRestW[tn] = wq(sb);
+    const tc = childOf[tn] ? tB[childOf[tn]] : firstChild(tb, (c) => UAL1_MAP[c.name]);
+    const sc = tc && sB[UAL1_MAP[tc.name]];
+    let qa = new Q();
+    if (tc && sc && !/pelvis|spine|neck|Head/.test(tn)) {
+      const dt = wp(tc).sub(wp(tb)).normalize(), ds = wp(sc).sub(wp(sb)).normalize();
+      qa.setFromUnitVectors(dt, ds);
+    }
+    align[tn] = qa;
+  }
+  const hipS = wp(sB['DEF-hips']), hipT = wp(tB.pelvis);
+  const scale = hipT.y / hipS.y;
+  const pelvisParentInv = tB.pelvis.parent.matrixWorld.clone().invert();
+  const out = [];
+  const mixer = new THREE.AnimationMixer(sRoot);
+  for (const clip of ual1.animations) {
+    if (!RT_WANT.has(clip.name)) continue;
+    if (RT_CACHE[clip.name]) { out.push(RT_CACHE[clip.name]); continue; }
+    mixer.stopAllAction(); const act = mixer.clipAction(clip); act.reset().play();
+    const N = Math.max(2, Math.round(clip.duration * 30) + 1), times = new Float32Array(N);
+    const qv = {}, pv = new Float32Array(N * 3);
+    for (const b of order) if (UAL1_MAP[b.name] && sB[UAL1_MAP[b.name]]) qv[b.name] = new Float32Array(N * 4);
+    const curW = new Map();
+    for (let f = 0; f < N; f++) {
+      const t = Math.min(clip.duration, f / 30); times[f] = t;
+      act.time = t; mixer.update(0); sRoot.updateMatrixWorld(true);
+      for (const b of order) {
+        const parentW = b.parent && curW.get(b.parent) || (b.parent ? wq(b.parent) : new Q());
+        let w;
+        if (UAL1_MAP[b.name] && sB[UAL1_MAP[b.name]]) {
+          const d = wq(sB[UAL1_MAP[b.name]]).multiply(sRestW[b.name].clone().invert());
+          w = d.multiply(align[b.name]).multiply(tRestW.get(b));
+          const loc = parentW.clone().invert().multiply(w).normalize();
+          loc.toArray(qv[b.name], f * 4);
+        } else w = parentW.clone().multiply(tRestLocal.get(b));
+        curW.set(b, w);
+      }
+      const hp = wp(sB['DEF-hips']).sub(hipS).multiplyScalar(scale).add(hipT).applyMatrix4(pelvisParentInv);
+      hp.toArray(pv, f * 3);
+    }
+    const tracks = [new THREE.VectorKeyframeTrack('pelvis.position', times, pv)];
+    for (const [n, a] of Object.entries(qv)) tracks.push(new THREE.QuaternionKeyframeTrack(n + '.quaternion', times, a));
+    const rc = new THREE.AnimationClip(clip.name, clip.duration, tracks);
+    RT_CACHE[clip.name] = rc; out.push(rc);
+  }
+  mixer.stopAllAction();
+  return out;
 }
 
 export function makeCharacter(lib, o = {}) {

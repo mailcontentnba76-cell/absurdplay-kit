@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.7 (05/11/2026)
+# Sport USA "What If" — v0.8 (06/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -60,6 +60,14 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - **Nhịp:** 35–45 shot, trung vị ~1,4–1,6 s; câu đùa ngắn ("Handoff. Handoff. Handoff.") = mỗi từ một cắt.
 
 ## 4. Nhân vật & động tác
+- **CHUYỂN ĐỘNG MƯỢT KIỂU MOCAP + BIỂU CẢM THEO LỜI (chủ dự án yêu cầu 06/11, áp dụng mọi tập — video mẫu nhân vật bước đi linh hoạt, không cứng):**
+  - Đi/chạy/chạy lùi/ngồi/ngã **bắt buộc dùng clip mocap** qua `lib/dongtac.js`, KHÔNG dùng tư thế viết tay `sprint/sadWalk/runCarry/knockedDown/benchSit` cho cảnh di chuyển.
+  - `loco(ch,lib,t,path,{t0,face,back,seed,phase})`: pha bước tính theo quãng đường thật ÷ sải chân đo từ clip → chân không trượt; tự trộn Walk_Loop (1,5 m/s) ↔ Jog_Fwd_Loop (3,4) ↔ Sprint_Loop (6,5) theo tốc độ; đứng lại tự về Idle; `back:true` = lùi (QB drop-back). Đường đi: `seg(A,B,ta,tb)` (tăng/giảm tốc mượt), `run(A,B,ta,tb)` (bứt tốc rồi chạy đều).
+  - Đứng: `Idle_Loop` (+ `Crouch_Idle_Loop` trộn 0,2–0,55 cho tư thế chờ bóng, + `Idle_Talking_Loop` khi nói). Ngồi: `Sitting_Idle_Loop` / `Sitting_Talking_Loop` (người đang nói), canh hông theo ghế. Ném: `OverhandThrow` (thả bóng ở 24 % clip). Bị húc bay: `Hit_Knockback` (≤ 70 % clip, nằm đất). Trượt ngã: `Slide_Start`. Ngã ngửa: `Death01` (≤ 90 %). Gật: `Yes`; lắc: `Idle_No_Loop`; khoanh tay: `Idle_FoldArms_Loop`.
+  - Cử chỉ riêng (ôm bóng, kẹp bóng, chỉ tay, vẫy, ngón cái) = lớp IK/aim đặt SAU clip (`holdBall`, `tuck`, `point`, `wave`, `thumb` trong ep06.html) — thân dưới vẫn là mocap.
+  - Clip UAL1 (xương Rigify DEF-*) được retarget sang xương UBC trong `loadLibrary` (giữ hướng xương theo thế giới + bù tư thế nghỉ). Tên xương trong three bị bỏ dấu chấm (`DEF-spine.001` → `DEF-spine001`).
+  - **Biểu cảm theo từng chữ lời thoại:** mỗi nhân vật thấy mặt có khoá `expr(ch,t,[[giây,'preset'],…],{seed})` gắn mốc từ `words_tw.json` (vd "Except" → wince, "still won" → surprised→proud, "throws" → determined, bị húc → panic→wince). Preset: neutral smug confident shock surprised wince proud laugh sad determined panic shrug talk cheer. Chuyển 0,22 s, chớp mắt, liếc mắt, miệng mấp máy khi `talk`. Da tối tự có viền môi sáng để thấy miệng.
+  - Kiểm: `test_dt.html` (bảng 36 khung đi→chạy, nhìn chân không trượt) + render khung then chốt mỗi shot trước khi cắt thử.
 - **NHÂN VẬT LUÔN CỬ ĐỘNG (chủ dự án yêu cầu, áp dụng mọi tập):** không nhân vật người nào đứng yên tuyệt đối trong khung hình, nhất là shot mở đầu (0–3 s quyết định giữ chân người xem). Mỗi nhân vật trong khung có tối thiểu: thở + đổi trọng tâm + quay đầu/nhìn quanh (`liven(ch,t,seed,amt,headAmt)` trong `lib/bongbau.js`, hoặc `alive()` trong `tuthe.js`), gọi SAU khi đặt tư thế; seed khác nhau để lệch nhịp. Nhân vật chính có thêm cử chỉ theo lời (chỉ tay hô tín hiệu `qbSignal`, giơ ngón cái có nhún, lắc đầu khi thua, giật mình ở "Except"). Ngoại lệ duy nhất: thứ đứng im là CHÍNH gag (vd ma-nơ-canh) — khi đó cho chi tiết phụ chuyển động (mác giá đung đưa, khán giả, máy quay trôi). Kiểm: render 3 khung cách 0,5 s mỗi shot, so thấy khác nhau mới đạt.
 - `lib/nhanvat2.js`: `tank`, `shorts`, `sockAt`, `shortsTo`, `wordmark`, `wordmarkColor`, `backName`, `collar`, `pantsStripes`, `edgeSoft:1`, số chiếu phẳng trước/sau. `lib/cast2.js`: mẫu cấu hình (HEAT trắng Association, BUCKS xanh, fan, trọng tài). Tay dài: scale `upperarm`. **Chiều cao: luôn dùng `heightM` = chiều cao thật (m) tra web** (thân gốc nam 1,81 m, nữ 1,767 m); không dùng `scale` đoán. E02 sai: Giannis 1,99 m (thật 2,11), Herro 1,77 m (thật 1,96), Bucks 1,81 m.
 - `lib/bongro.js`: stance, dribble, wingspan, holdChest, shoot, dunk, flex, seated (ngủ), slump, toss, defend. NFL: `lib/tuthe.js` (benchSit, pushup, akimbo, alive…).
@@ -113,6 +121,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.8 (06/11): chuyển động mocap mượt (`lib/dongtac.js`: loco/clipPose/expr, retarget UAL1→UBC), biểu cảm theo mốc lời cho mọi nhân vật thấy mặt; E06 dựng lại theo quy tắc này.
 - v0.7 (05/11): mẫu mới Drake Maye vs 11 folding chairs (1,1M/18 h) — mở rộng 5 kiểu chủ đề, khuôn lời 10 bước (~55–70 s), nhiều bối cảnh phụ, đồ hoạ kiểu truyền hình, bão hoà ≥ 95, nhịp 35–45 shot.
 - v0.6 (05/11): E05 — hook bíp (câm chữ + bíp 1 kHz, phụ đề ****, giọng gốc không chửi); đối chiếu box score Sportradar trước khi tạo giọng; `lib/tuyet.js` (sân tuyết, người tuyết, tuyết rơi, thành phố xa thật); melt PHẢI có `-profile` 1080x1920 (thiếu → viền đen 34 px hai bên, E04 bản đầu bị).
 - v0.5 (05/11): mục Khởi động ở tài khoản/máy mới; E04 (người hơi vẫy tay, bãi xe ban ngày, đồ hoạ tờ rơi bán xe).

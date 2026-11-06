@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose} from './lib/tuthe.js';
+import {clipPose,clipDur} from './lib/dongtac.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight,false);r.outputColorSpace=THREE.SRGBColorSpace;
+const s=new THREE.Scene();s.background=new THREE.Color('#9ab');s.add(new THREE.HemisphereLight('#fff','#454',3));
+s.add(new THREE.GridHelper(40,40,'#333','#555'));
+const lib=await loadLibrary();
+const A=makeCharacter(lib,{...EAGLES,jersey:'#d50a0a',number:7,heightM:1.85,skin:'#ecc3a0',helmet:null,hair:'Hair_Buzzed'});s.add(A.root);resetPose(A);
+const L=['OverhandThrow','Hit_Knockback','Death01','Slide_Start','Sitting_Talking_Loop','Sitting_Idle_Loop','Hit_Chest','Yes'];
+for(const n of L)console.log(n,clipDur(A,lib,n).toFixed(2));
+{const d=clipDur(A,lib,'OverhandThrow');let out=[];for(let i=0;i<=20;i++){clipPose(A,lib,[{name:'OverhandThrow',time:d*i/20,w:1,loop:false}]);A.root.updateMatrixWorld(true);const p=A.bones.hand_r.getWorldPosition(new THREE.Vector3());out.push(`${(i/20).toFixed(2)}:${p.y.toFixed(2)},${p.z.toFixed(2)}`);}console.log('throw hand',out.join(' '));}
+const cam=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,.05,200);cam.position.set(4.5,1.3,2.5);cam.lookAt(0,0.8,0);
+window.renderFrame=t=>{const i=Math.round(t*10);const n=L[Math.floor(i/8)%L.length];const k=(i%8)/7;resetPose(A);clipPose(A,lib,[{name:n,time:clipDur(A,lib,n)*k*0.999,w:1,loop:false}]);r.render(s,cam);};
+window.ready=true;
+</script></body></html>

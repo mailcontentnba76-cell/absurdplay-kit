@@ -7,3 +7,7 @@
 - Nhận diện: Mayfield #6 1,85 m; Irving #7 1,78 m; áo đỏ sân nhà + quần pewter (chưa có ảnh xác nhận màu áo); không logo cờ cướp biển/chim ưng
 - Không nhắc chấn thương (ngón cái Mayfield, Diaby, Branch, Ebukam)
 - Nhạc alvana hiphop/hard-mode (CC0); dấu AbsurdPlay suốt video
+
+## Bản v2 (06/11) — chuyển động mocap + biểu cảm theo lời
+- 1080x1920, 30 khung/s, 65,77 s, −13,9 LUFS, đỉnh −1,5 dBFS, bão hoà eq 1,12
+- Đi/chạy/lùi/ngồi/ném/húc bay/trượt ngã bằng clip mocap (lib/dongtac.js), biểu cảm expr() theo mốc lời

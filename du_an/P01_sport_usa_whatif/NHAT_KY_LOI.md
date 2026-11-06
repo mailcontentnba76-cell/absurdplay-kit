@@ -38,3 +38,6 @@
 | 05/11 | E06 | Chạy 2 tiến trình render sân mưa (6 khán đài ≈ 10.000 khán giả + 7.000 vệt mưa) → "Target crashed" (hết RAM 8 GB, mỗi trang ~3 GB) | Cảnh nặng: đo RAM 1 tiến trình trước (`ps -eo rss`); > 2,5 GB thì chạy 1 tiến trình, cắt thử 15 khung/s; giảm `fill` khán đài tầng trên/sau end zone |
 | 05/11 | E06 | `pkill -f "render.js ep06"` giết luôn shell của chính lệnh (exit 144) | Đã có trong skill: dùng `ps ... | grep -v grep` lấy PID rồi `kill PID` |
 | 05/11 | E06 | Màn hình ngang (phòng phân tích/trường quay/bảng điện tử) bị cắt chữ trong khung dọc | Nội dung màn hình chỉ đặt trong cột giữa ~30–35 % bề ngang; bảng điện tử xa thì đặt máy ≥ 60 m |
+| 06/11 | E06 | Chủ dự án chê nhân vật đi/chạy cứng, biểu cảm thô (tư thế viết tay `sprint`/`runCarry`, mặt 1 kiểu) | Dùng mocap `loco()` + clip UAL1/UAL2, biểu cảm `expr()` theo mốc lời; quy tắc ở skill mục 4 |
+| 06/11 | E06 | Clip UAL1 không chạy trên nhân vật (xương Rigify DEF-* ≠ UBC); `SkeletonUtils.retargetClip` cho dáng nghiêng cứng; tên xương bị bỏ dấu chấm | Retarget tự viết (delta hướng xương thế giới + bù tư thế nghỉ), tra xương bằng tên đã bỏ dấu chấm |
+| 06/11 | E06 | Khung giống hệt khung trước → `PropertyMixer` bỏ qua ghi xương, `resetPose` để lại tư thế đứng (Baker "đứng dậy" khi đang nằm) | `clipPose` xoá bộ đệm mixer (NaN) trước `mixer.update(0)`; `resetPose` trả cả vị trí hông |

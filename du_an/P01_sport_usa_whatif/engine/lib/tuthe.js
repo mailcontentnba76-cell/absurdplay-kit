@@ -19,8 +19,9 @@ export function aim(bone, child, dir) {
 
 // đưa mọi xương về tư thế nghỉ (bind pose)
 export function resetPose(ch) {
-  if (!ch._rest) { ch._rest = {}; for (const [n, b] of Object.entries(ch.bones)) ch._rest[n] = b.quaternion.clone(); }
+  if (!ch._rest) { ch._rest = {}; for (const [n, b] of Object.entries(ch.bones)) ch._rest[n] = b.quaternion.clone(); ch._restP = ch.bones.pelvis && ch.bones.pelvis.position.clone(); }
   for (const [n, b] of Object.entries(ch.bones)) b.quaternion.copy(ch._rest[n]);
+  if (ch._restP) ch.bones.pelvis.position.copy(ch._restP); // clip mocap dời hông -> trả về khi dùng tư thế viết tay
 }
 
 // hướng trong hệ toạ độ của nhân vật (+z là phía trước, +y lên) -> thế giới
