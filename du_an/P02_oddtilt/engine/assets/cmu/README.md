@@ -21,3 +21,7 @@ Dùng qua `lib/mocap.js` (`loadBVH`, `applyMocap(ch, mo, t, {pos, yaw, faceAt, i
 | 17_01, 07_01 | đi bực bội, đi thường | đi lại |
 | 14_06 | nhảy, squat, vươn | vận động |
 Biểu cảm mặt: `assets/face-poseunits.bvh/.json` (MakeHuman, CC0) — chưa nối vào engine.
+
+# Texture ảnh thật & HDRI (06/11/2026)
+- `assets/tex/mag/*_col.jpg`: tạo bằng Magnific (text-to-image, tài khoản chủ dự án) — đá xám, đá phiến, ván gỗ xám, sàn gỗ, da thuộc, rơm, cỏ, phông đồng cỏ. `*_nrm.jpg` sinh từ độ sáng ảnh.
+- `assets/hdri/park.hdr, sky.hdr`: pmndrs/assets (CC0, gốc Poly Haven).
