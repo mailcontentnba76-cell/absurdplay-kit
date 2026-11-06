@@ -21,14 +21,22 @@ export const clipDur = (ch, lib, name) => clipOf(ch, lib, name).duration;
 
 // sải chân 1 chu kỳ (m, ở tỉ lệ 1): đo độ trượt lùi của bàn chân trong pha chạm đất
 const STRIDE = {};
+const OFF = {};
 export function measureStride(ch, lib, name) {
+  // quãng đường 1 chu kỳ = trung vị tốc độ lùi của bàn chân thấp hơn (đang đỡ người) × thời lượng; OFF = pha chân trái chạm đất (z trước nhất) để các dáng khớp pha khi trộn
   if (STRIDE[name]) return STRIDE[name]; const d = clipDur(ch, lib, name); const s0 = ch.root.scale.x; const rot = ch.root.rotation.y; ch.root.scale.setScalar(1); ch.root.rotation.set(0, 0, 0); ch.root.position.set(0, 0, 0);
-  const foot = ch.bones.foot_l || ch.bones.Foot_L || ch.bones['foot.l']; const v = new THREE.Vector3(); let minZ = 1e9, maxZ = -1e9, minY = 1e9; const S = [];
-  for (let i = 0; i <= 60; i++) { clipPose(ch, lib, [{ name, time: d * i / 60, w: 1 }]); ch.root.updateMatrixWorld(true); foot.getWorldPosition(v); S.push([v.y, v.z]); minY = Math.min(minY, v.y); }
-  for (const [y, z] of S) if (y < minY + 0.05) { minZ = Math.min(minZ, z); maxZ = Math.max(maxZ, z); } // chỉ lấy lúc chân chạm đất
-  ch.root.scale.setScalar(s0); ch.root.rotation.y = rot; return (STRIDE[name] = Math.max(0.6, 2 * (maxZ - minZ)));
+  const N = 120, bl = [], br = [], fl = [], v3 = new THREE.Vector3();
+  for (let i = 0; i <= N; i++) { clipPose(ch, lib, [{ name, time: d * i / N, w: 1 }]); ch.root.updateMatrixWorld(true);
+    ch.bones.ball_l.getWorldPosition(v3); bl.push([v3.y, v3.z]); ch.bones.ball_r.getWorldPosition(v3); br.push([v3.y, v3.z]); ch.bones.foot_l.getWorldPosition(v3); fl.push([v3.y, v3.z]); }
+  const m = Math.min(...bl.map((q) => q[0]), ...br.map((q) => q[0])); let sum = 0, n = 0;
+  for (const a of [bl, br]) for (let i = 0; i < N; i++) if (a[i][0] < m + 0.04 && a[i + 1][0] < m + 0.04) { sum += a[i][1] - a[i + 1][1]; n++; } // mũi chân chạm đất
+  const v = n ? (sum / n) * N / d : 1;
+  let im = 0; for (let i = 0; i <= N; i++) if (fl[i][1] > fl[im][1]) im = i; OFF[name] = im / N;
+  ch.root.scale.setScalar(s0); ch.root.rotation.y = rot; return (STRIDE[name] = Math.max(0.6, v * d));
 }
-const GAITS = [{ name: 'Walk_Loop', v: 1.5 }, { name: 'Jog_Fwd_Loop', v: 3.4 }, { name: 'Sprint_Loop', v: 6.5 }];
+export const gaitInfo = () => ({ STRIDE, OFF });
+// tốc độ tự nhiên đo từ clip (sau retarget, nhân vật 1,8 m): đi ~1,0 m/s, chạy ~6,3, nước rút ~9,2 → đường đi trong shot nên đúng các tốc độ này để chân khoá mặt đất
+const GAITS = [{ name: 'Walk_Loop', v: 1.0, to: 2.6 }, { name: 'Jog_Fwd_Loop', v: 6.3, to: 7.8 }, { name: 'Sprint_Loop', v: 9.2 }];
 const angLerp = (a, b, k) => { let d = ((b - a + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI; return a + d * k; };
 // path(t) -> [x,z]; o: {t0, face (hướng khi đứng), back (đi lùi), gait ép ('Walk_Loop'…), idle ('Idle_Loop'), extra:[layers…] }
 export function loco(ch, lib, t, path, o = {}) {
@@ -42,11 +50,10 @@ export function loco(ch, lib, t, path, o = {}) {
   // trọng số dáng
   let W = GAITS.map(() => 0); const gs = o.gait ? GAITS.filter((g) => g.name === o.gait) : GAITS;
   if (o.gait) W = GAITS.map((g) => (g.name === o.gait ? 1 : 0));
-  else if (v <= GAITS[0].v) W[0] = 1; else if (v >= GAITS[2].v) W[2] = 1;
-  else { const i = v < GAITS[1].v ? 0 : 1; const k = (v - GAITS[i].v) / (GAITS[i + 1].v - GAITS[i].v); W[i] = 1 - k; W[i + 1] = k; }
+  else { const vv = v / sc; const i = vv < (GAITS[0].to + GAITS[1].to) / 2 ? 0 : 1; const k = Math.min(1, Math.max(0, (vv - GAITS[i].to + 0.5) / 1.0)); W[i] = 1 - k; W[i + 1] = k; } // chọn 1 dáng, chỉ trộn trong dải 1 m/s quanh ngưỡng
   const D = GAITS.reduce((acc, g, i) => acc + W[i] * measureStride(ch, lib, g.name), 0) * sc; const phi = (o.back ? -1 : 1) * s / Math.max(0.3, D) + (o.phase ?? 0);
   const idleW = o.idleBelow === false ? 0 : 1 - Math.min(1, v / 0.35);
-  const layers = GAITS.map((g, i) => ({ name: g.name, time: phi * clipDur(ch, lib, g.name), w: W[i] * (1 - idleW) })).filter((L) => L.w > 0.001);
+  const layers = GAITS.map((g, i) => ({ name: g.name, time: (phi + (OFF[g.name] ?? 0)) * clipDur(ch, lib, g.name), w: W[i] * (1 - idleW) })).filter((L) => L.w > 0.001);
   if (idleW > 0.001) layers.push({ name: o.idle || 'Idle_Loop', time: t + (o.seed || 0), w: idleW });
   clipPose(ch, lib, [...layers, ...(o.extra || [])]);
   const p = P(t); ch.root.position.set(p[0], 0, p[1]); ch.root.rotation.set(0, yaw, 0);

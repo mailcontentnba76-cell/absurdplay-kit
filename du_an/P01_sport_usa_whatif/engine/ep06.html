@@ -89,7 +89,7 @@ Sp(SUB.s6,SH.s6[1],{pos:[0.15,2.25,AZ-0.4],look:[0,2.25,AZ-3.83]},{pos:[0.05,2.2
 S('s7',{pos:[6.5,1.5,-6.5],look:[1.6,1.6,-1]},{pos:[6.5,1.6,5.0],look:[1.6,1.6,1]},{fov:[48,46]});
 S('s8',{pos:[-38,30,46],look:[0,0,0]},{pos:[-30,25,38],look:[0,0,0]},{fov:[50,50],shake:0.004});
 rig.add({t0:SH.s9[0],t1:SH.s9[1],ease:'linear',from:{pos:[6,46,0.5],look:[6,0,0]},to:{pos:[6,42,0.5],look:[6,0,0]}}); // nhìn thẳng từ trên (đặt tay trong pose)
-S('s10',{pos:[-2.5,1.1,7.5],look:[-6.5,1.0,1.0]},{pos:[-3.5,1.1,7.0],look:[-6.5,1.0,-4.5]},{fov:[46,46]});
+S('s10',{pos:[-2.5,1.1,7.5],look:[-6.5,1.0,1.0]},{pos:[-3.5,1.1,7.0],look:[-6.5,1.0,-6.5]},{fov:[46,46]});
 S('s11',{pos:[4.2,1.25,-4.0],look:[1.6,1.3,-2]},{pos:[4.0,1.25,-3.8],look:[1.6,1.35,-2]},{fov:[44,44]});
 S('s12',{pos:[-12,3.2,0.4],look:[-2,0.9,0]},{pos:[-11.5,3.0,0.4],look:[-2,0.9,0]},{fov:[46,46]});
 S('s13',{pos:[-6.2,0.9,6.4],look:[-4.4,1.0,0.3]},{pos:[-6.6,0.9,6.2],look:[-4.2,1.0,0.3]},{fov:[46,46]});
@@ -159,20 +159,20 @@ const pose=t=>{
     const zz=lerp(46,42,K('s9',t));cam.up.set(1,0,0);cam.position.set(6,zz,0);cam.lookAt(6,0,0);cam.up.set(0,1,0);cam.fov=50;cam.updateProjectionMatrix();}
   if(IN('s10',t)){const u=U('s10',t);idle(BK,QX,0,Math.PI/2,t,1,{crouch:0.25,talk:0.6});const sw=Math.sin(t*2.4)*0.35;point(BK,Lc(BK,0.9,0.15,0.3+sw*0.3),'l');tuck(BK);bball(BK.bones.hand_r.getWorldPosition(V()));
     E(BK,t,[[SH.s10[0],'talk'],[25.6,'smug']],1);show(BK);
-    loco(IR,lib,t,seg([QX-1.5,1.4],[QX-1.5,-5.5],SH.s10[0]+0.1,SH.s10[1]+0.2),{t0:SH.s10[0],face:Math.PI/2,seed:3});E(IR,t,[[0,'determined']],3);show(IR);
+    loco(IR,lib,t,run([QX-1.5,1.4],[QX-1.5,-8.2],25.0,26.6),{t0:SH.s10[0],face:Math.PI/2,seed:3});E(IR,t,[[0,'determined']],3);show(IR);
     offense(t,{noWR:true});defense(t);}
   if(IN('s11',t)){defense(t,i=>({sway:0.3}));}
   for(const [kk,cut] of [['s12',0],['s13',1],['s14',2]]){if(!IN(kk,t))continue;const k=K(kk,t);idle(BK,QX+0.2*k,0.15,Math.PI/2,t,1,{crouch:0.35});rotW(B(BK,'spine_03'),Lc(BK,0,1,0),-0.5*sm(k*2));const hp=holdBall(BK,t,-0.12*sm(k*2));show(BK);
     E(BK,t,[[SH[kk][0],['confident','smug','proud'][cut]]],1);
-    const t0=SH[kk][0],t1=SH[kk][1];loco(IR,lib,t,(tt)=>[lerp(QX-2.4,QX+3.2,(tt-t0)/(t1-t0)),0.55],{t0:t0-0.6,phase:cut*0.37,seed:3});const bp=tuck(IR);E(IR,t,[[0,'determined']],3);show(IR);bball(k<0.42?hp:bp,0);offense(t);defense(t,i=>i<4?{lean:Math.sin(t*4+i)*0.06}:{});}
+    const t0=SH[kk][0],t1=SH[kk][1];loco(IR,lib,t,(tt)=>[lerp(QX-3.2,QX+4.6,(tt-t0)/(t1-t0)),0.55],{t0:t0-0.6,phase:cut*0.37,seed:3});const bp=tuck(IR);E(IR,t,[[0,'determined']],3);show(IR);bball(k<0.42?hp:bp,0);offense(t);defense(t,i=>i<4?{lean:Math.sin(t*4+i)*0.06}:{});}
   if(IN('s15',t)){const P=1/1.3,ui=U('s15',t),n=Math.floor(ui/P),k=(ui%P)/P;idle(BK,QX,0.15,Math.PI/2,t,1,{crouch:0.35});rotW(B(BK,'spine_03'),Lc(BK,0,1,0),-0.5*sm(k*2));const hp=holdBall(BK,t,-0.12*sm(k*2));show(BK);
     E(BK,t,[[SH.s15[0],'proud'],[31.6,'laugh']],1);const t0=SH.s15[0]+n*P;
-    loco(IR,lib,t,(tt)=>[lerp(QX-2.4,QX+3.2,(tt-t0)/P),0.55],{t0:t0-0.6,phase:n*0.29,seed:3});const bp=tuck(IR);E(IR,t,[[0,'determined']],3);show(IR);bball(k<0.42?hp:bp);offense(t);defense(t);}
+    loco(IR,lib,t,(tt)=>[lerp(QX-3.2,QX+4.6,(tt-t0)/P),0.55],{t0:t0-0.6,phase:n*0.29,seed:3});const bp=tuck(IR);E(IR,t,[[0,'determined']],3);show(IR);bball(k<0.42?hp:bp);offense(t);defense(t);}
   if(IN('s16',t)||IN('s17',t)){CM.forEach((ch,i)=>{const spk=IN('s16',t)?i===0:i===1;sitC(ch,SX+(i?0.75:-0.75),AZ-2.25,0,t,spk?'Sitting_Talking_Loop':'Sitting_Idle_Loop',0.62,i*1.7);
       rotW(B(ch,'Head'),Lc(ch,0,1,0),(i?-1:1)*0.35*(spk?0.4:1));
       E(ch,t,i===0?[[SH.s16[0],'talk'],[SH.s17[0],'surprised'],[38.6,'laugh']]:[[SH.s16[0],'smug'],[35.6,'laugh'],[SH.s17[0],'talk']],i+4,{look:[(i?-0.5:0.5),0.1]});show(ch);});
     if(IN('s16',t))scrDraw(ST.scrTex,'clean',S_CLEAN);else scrDraw(ST.scrTex,'zero',S_ZERO);}
-  if(IN('s19',t)){loco(BK,lib,t,seg([QX,0],[QX-3,0],SH.s19[0]+0.15,SH.s19[1]-0.05),{t0:SH.s19[0],face:Math.PI/2,back:true,seed:1});bball(holdBall(BK,t));show(BK);E(BK,t,[[SH.s19[0],'determined']],1);offense(t,{noWR:true});defense(t);}
+  if(IN('s19',t)){loco(BK,lib,t,seg([QX,0],[QX-3,0],SH.s19[0]+0.15,SH.s19[1]-0.05),{t0:SH.s19[0],face:Math.PI/2,back:true,seed:1,gait:'Walk_Loop'});bball(holdBall(BK,t));show(BK);E(BK,t,[[SH.s19[0],'determined']],1);offense(t,{noWR:true});defense(t);}
   if(IN('s20',t)){idle(BK,QX-3,0,Math.PI/2,t,1,{crouch:0.2});bball(holdBall(BK,t));show(BK);E(BK,t,[[SH.s20[0],'surprised']],1);offense(t,{noWR:true});defense(t,i=>({spin:t*0.4}));
     [[WR[0],12,-9],[WR[1],14,8],[IR,6,4]].forEach(([ch,x,z],i)=>{loco(ch,lib,t,seg([x+1.2,z-0.6*(i-1)],[x,z],SH.s20[0]-0.3,SH.s20[0]+0.9),{t0:SH.s20[0]-0.3,face:-Math.PI/2,seed:i*2});wave(ch,t,i*1.3);ch.root.position.y+=Math.max(0,Math.sin(t*7+i))*0.05;
       E(ch,t,[[0,'cheer']],i*2);show(ch);});}
@@ -184,11 +184,11 @@ const pose=t=>{
     bball(bp,u*20*(u<0.55?1:0));[[5,7,0],[8,18,-6]].forEach(([i,x,z])=>uAt(UM[i],x,z,t,{spin:t*0.3}));}
   if(IN('s23',t)){const u=U('s23',t);loco(RF,lib,t,seg([2,3.7],[2,3],SH.s23[0]-0.2,SH.s23[0]+0.5),{t0:SH.s23[0]-0.2,face:0,seed:5});point(RF,Lc(RF,-0.25,0.35+0.1*Math.sin(u*9),1),'r');point(RF,Lc(RF,0.6,-0.9,0.1),'l');
     E(RF,t,[[SH.s23[0],'shock']],7);show(RF);uAt(UM[4],5.5,-1.5,t,{invert:1});}
-  if(IN('s24',t)){const u=U('s24',t);const ry=Math.atan2(4.2,-1.8);if(u<1.1){loco(BK,lib,t,run([-2,0.8],[2.2,-1.0],SH.s24[0],SH.s24[0]+1.1),{t0:SH.s24[0],seed:1});}
+  if(IN('s24',t)){const u=U('s24',t);const ry=Math.atan2(4.2,-1.8);if(u<1.1){loco(BK,lib,t,run([-4.6,1.9],[2.2,-1.0],SH.s24[0]-0.2,SH.s24[0]+1.1),{t0:SH.s24[0],seed:1});}
     else{place(BK,2.2,-1.0,ry);CLIP(BK,'Hit_Knockback',0,{k:Math.min(0.7,(u-1.1)/0.83*0.84),loop:false});if(location.hash.includes('lg'))console.log('BKP',u.toFixed(2),f3(B(BK,'pelvis').getWorldPosition(V())),[...BK._acts].map(([n,a])=>n+':'+a.enabled+'/'+a.getEffectiveWeight().toFixed(2)+'/'+a.time.toFixed(2)+'/'+a.isRunning()).join(' '));if(u>2.0){rotW(B(BK,'Head'),Lc(BK,1,0,0),Math.sin(u*3)*0.12);}}
     E(BK,t,[[SH.s24[0],'determined'],[SH.s24[0]+1.1,'panic'],[SH.s24[0]+1.9,'wince']],1);show(BK);uAt(UM[0],3.6,-1.9,t,{lean:u>1.0?Math.sin((u-1.0)*9)*0.25*Math.exp(-(u-1.0)*1.5):0});
     if(u>1.35){const q=u-1.35;SPL.forEach((m,i)=>{const a=i*2.4,sp=1.4+(i%5)*0.5;m.position.set(2.0+Math.cos(a)*sp*q*0.8,Math.max(0.02,0.1+(2.5+(i%3))*q-4.9*q*q),-0.9+Math.sin(a)*sp*q*0.8);m.visible=q<1.0;});}}
-  if(IN('s25',t)){const u=U('s25',t);if(u<0.5){loco(RF,lib,t,(tt)=>{const k=(tt-SH.s25[0])/0.5;return [lerp(6.8,5.4,k),lerp(2.8,2.3,k)];},{t0:SH.s25[0]-0.4,seed:5});}
+  if(IN('s25',t)){const u=U('s25',t);if(u<0.5){loco(RF,lib,t,(tt)=>{const k=(tt-SH.s25[0])/0.5;return [lerp(8.6,5.4,k),lerp(3.4,2.3,k)];},{t0:SH.s25[0]-0.4,seed:5});}
     else{place(RF,5.4,2.3,Math.atan2(-1.4,-0.5));CLIP(RF,'Slide_Start',0,{k:Math.min(0.95,(u-0.5)/0.83),loop:false});}
     E(RF,t,[[SH.s25[0],'determined'],[SH.s25[0]+0.5,'panic']],7);show(RF);uAt(UM[6],7,6,t);}
   if(IN('s26',t)){defense(t,i=>({sway:0.2}));}
