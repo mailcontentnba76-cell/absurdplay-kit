@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực, phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v0.4 (06/11/2026)
+# Invention-chain shorts (P02) — v0.5 (06/11/2026)
 
 > **Trạng thái:** xong G2; G4 đã kiểm chuỗi công cụ thật trên demo "the door" 0–11 s (bản thử 4, chờ duyệt). Mọi mục ghi [CHỌN] là đề xuất chờ chủ dự án duyệt. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline` — đọc trước.
 
@@ -70,6 +70,8 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 - **Tấm da/rèm trùm rộng hơn lỗ cửa và treo sát mặt tường trong**, nếu không sẽ lộ nhân vật bên ngoài qua khe ở góc máy chéo. Nhân vật bên ngoài chỉ được thấy qua phần màn bị gió lật.
 - **Không dùng GTAO cho vật mỏng gập** (tấm da): AO tạo sọc đen răng cưa ở nếp gập. Thay bằng HDRI + bóng nắng.
 - **MÁY KHÔNG BAO GIỜ ĐỨNG YÊN** (mẫu "the door": tỉ lệ khung đứng yên 7–17 %, mọi shot đều đẩy vào liên tục) [ĐO optical flow]. Quy tắc: mọi shot có đường máy riêng, chạy gần tuyến tính `u = 0,15p² + 0,85p` (không ease-in-out dừng ở đầu/cuối shot); shot mở đầu ease-out sau 0,35 s. Tốc độ đẩy (divergence trung vị, ảnh 180×320) bám mẫu: shot 1 ≈ 23, shot 2 ≈ 10, các shot sau ≈ 5; đứng yên ≤ 10 % mỗi shot. Kiểm bằng `cong_cu/do_bo_sung.py` trên bản render 360p trước khi render 1080 (mục 6 QA). Thường cần quãng đẩy 0,35–0,7 m/shot trong phòng 3 m, cộng trôi ngang/lên 3–10 cm; khi đẩy gần, mở fov để chủ thể không tràn khung.
+- **Chiều sâu không gian**: KHÔNG đặt máy nhìn thẳng vuông góc vào mặt tường/vật phẳng (ra hình "mặt phẳng"). Mỗi shot trong phòng đặt máy chéo ¾ (30–45° so với mặt tường), có tiền cảnh/hậu cảnh (góc tường, khung cửa, nhân vật) và máy vừa đẩy vừa trôi ngang để có thị sai (parallax). Ngoại lệ: shot cận vật cần đọc rõ (cửa ván) — vẫn trôi ngang 0,3–0,5 m.
+- **Vật mềm treo (rèm/tấm da) bị gió**: cả tấm quay quanh thanh treo, hất vào trong; một bên bay cao hơn bên kia (góc 0,3→1,15 rad theo bề ngang) nên mép dưới xiên — KHÔNG lật một góc. Nhân vật bên ngoài lộ ra dưới phần bay cao. Đặt máy ở phía bên mép bay thấp để tấm da không trùm ống kính.
 - **Độ nét**: render 1080×1920, MSAA (`WebGLRenderTarget samples:4`), JPEG chất lượng 0,97 (`JPEGQ=0.97 node render.js …`), mã hoá crf ≤ 16, không `unsharp`. 720p + JPEG 0,93 + không MSAA bị chủ dự án đánh giá "nhoè khi chuyển động".
 
 ## 6. QA tối thiểu
@@ -84,6 +86,7 @@ Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tự tải
 `du_an/P02_oddtilt/cong_cu/` — `asr_parakeet.py` (chép lời + mốc từ), `do_bo_sung.py` (máy, phụ đề, nền âm, F0), `do_cat.py` (cắt cảnh), `tong_hop_so_do.py`. Dùng lại cho QA bản xuất.
 
 ## Thay đổi
+- v0.5 (06/11/2026): máy chéo ¾ + parallax cho chiều sâu; rèm bay cả tấm.
 - v0.4 (06/11/2026): quy tắc máy luôn chuyển động + ngưỡng đo tốc độ máy theo mẫu.
 - v0.3 (06/11/2026): bài học máy mở đầu, hướng x khi nhìn từ trong, rèm trùm tường, bỏ GTAO cho vật mỏng, render 1080 + MSAA.
 - v0.2 (06/11/2026): chuỗi sản xuất đã kiểm — MakeHuman, mocap CMU, biểu cảm mặt, texture ảnh thật Magnific + HDRI, SFX Magnific theo mốc, bài học 4 vòng sửa.
