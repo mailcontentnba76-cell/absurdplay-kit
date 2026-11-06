@@ -11,3 +11,4 @@
 | 06/11/2026 | Demo door | Thấy người bên ngoài qua khe màn | Màn treo trong lỗ cửa, hẹp hơn khung, máy chéo | Màn rộng 1,36 m treo sát mặt tường trong | Kiểm khung máy chéo trước khi render |
 | 06/11/2026 | Demo door | Hướng gió lật màn bị ngược | Nhìn từ trong nhà, +x thế giới nằm bên trái màn hình | Soi gương x trong hàm biến dạng | Render 1 khung thử hướng trước |
 | 06/11/2026 | Demo door | Hình nhoè khi chuyển động | 720p, không MSAA, JPEG 0,93, unsharp | 1080p, MSAA 4×, JPEG 0,97, crf 15 | Mặc định render 1080 |
+| 06/11/2026 | Demo door | Vệt đen nhấp nháy ngoài cửa bên phải (8–11 s) | Mặt trong khung gỗ sẫm trùng đúng mặt cắt tường (x=±0,50) → z-fighting | Khung rộng 0,16, mặt trong 0,485; khung trong lùi 1,5 cm | Không đặt mặt khối trùng mặt khối khác; soi khung liền nhau ở 100 % |
