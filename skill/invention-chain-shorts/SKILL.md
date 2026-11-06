@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực (MakeHuman + mocap), phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v1.0 (06/11/2026)
+# Invention-chain shorts (P02) — v1.1 (06/11/2026)
 
 > **Trạng thái:** chuỗi dựng đã được chủ dự án DUYỆT trên demo "the door" 0–11 s (bản thử 8, 06/11/2026) sau 8 vòng sửa. Mọi quy tắc trong mục 5–7 là chuẩn bắt buộc cho video sau. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline`.
 > **Cách làm việc chủ dự án đã cho phép (06/11/2026):** tự quyết các bước kỹ thuật và làm tiếp không chờ; chỉ hỏi trước khi tiêu nhiều credit Magnific, xoá dữ liệu, hoặc đăng/chia sẻ ra ngoài. Không làm bản sao video của kênh khác để đăng.
@@ -85,6 +85,23 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 - Soi 4–6 khung liền nhau ở 100 % tại mép khung cửa/tường và nền xa.
 - Ghép **mẫu | bản thử** cùng mốc (`so_sanh*.mp4`) gửi chủ dự án; liệt kê trung thực điểm còn khác.
 
+## 7a. Mở đầu hài & chuyển động mượt (chủ dự án 06/11/2026 — áp dụng mọi tập)
+**Shot mở đầu phải có "biểu cảm hài hước" đúng tình huống hook, mỗi tập một kiểu khác nhau** — không chỉ đứng/ngồi. Công thức:
+1. **Hành động cơ thể khoa trương** đúng câu hook (rặn, gãi, quạt mồ hôi, bịt mũi, run lạnh…), người run nhẹ (biên độ ≤ 0,012 rad, ~14 rad/s) khi gồng.
+2. **Mặt khoa trương** bằng đơn vị face-poseunits (trọng số tới 1,35–1,5): ví dụ rặn = `NoseWrinkler, BrowDown, UpperLidClosed .85, LowerLidUp, CheeksPump, lowerLipUp, UpperLipStretched, MouthPullDown` (+ nhấp nháy cường độ sin 5 rad/s); nhẹ nhõm = `OuterBrowUp, LidClosed .5, MouthPullUp, JawDrop .12`; rồi chuyển sang `ngac_nhien` khi biến cố.
+3. **≥ 2 lớp phụ trợ 2D/3D quanh nhân vật**: ruồi 3D cánh đập (nhóm `flyAround`), giọt mồ hôi rơi, sóng mùi xanh, vòng đỏ + vạch gãi, sao lấp lánh… đặt phía sau/cạnh, không che mặt.
+4. **SFX riêng cho gag** (ruồi vo ve −17 dB, tiếng rặn −16 dB, gãi…) từ giây 0.
+5. Máy đủ gần để thấy mặt ngay từ đầu (≈ 2,5–3,5 m, fov 38), nhân vật xoay người khi cần khoe chỗ gag (mông/nách…).
+Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông.
+
+**Chuyển động mượt (không "giật/vụng"):**
+- Dùng `ease = smootherstep` (6x⁵−15x⁴+10x³); chuyển tư thế ≥ 0,5–0,8 s (đứng dậy từ ngồi xổm 0,7 s, quay đầu 0,8 s).
+- Không có dao động nhanh > 11 rad/s cho tay/thân (gãi 11, chùi 6–7, vo giấy 8); nhún dùng `(1−cos)/2`, không `|sin|`.
+- Clip mocap không được quấn vòng giữa shot: kiểm độ dài clip (07_01 = 2,64 s) và chọn khoảng thời gian nằm trong clip; clip mạnh (120_15) phát chậm 0,7×.
+- Dịch chuyển nhân vật dùng ease, không dừng gấp.
+- Đồ vật khi đổi tay/đổi chỗ phải nội suy vị trí (`lerpV`), không nhảy.
+- QA giật: optical flow phân vị 95 mỗi khung; khung nào > 2,2× trung vị lân cận (trừ điểm cắt ±0,1 s) là chỗ giật → sửa.
+
 ## 7b. Mỗi tập phải MỚI (chủ dự án 06/11/2026)
 - Nhân vật mới mỗi tập (spec `nhan_vat/eXX_*.json`): đổi dáng (béo/gầy/cơ bắp), tóc, râu, trang phục hợp kịch bản và "bựa" (khố lông, áo da báo lệch vai, …). **Không dùng quần áo có chữ/logo MakeHuman** (casualsuit06…) — chủ dự án tự xử lý logo sau.
 - Bối cảnh mới mỗi tập, hợp kịch bản, không trùng tập trước; tạo texture Magnific riêng cho tập. Bảng đã dùng:
@@ -97,5 +114,6 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 `du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
 
 ## Thay đổi
+- v1.1 (06/11/2026): mở đầu hài theo tình huống (mặt khoa trương + ruồi/mồ hôi/mùi + SFX), quy tắc chuyển động mượt + QA giật.
 - v1.0 (06/11/2026): chủ dự án duyệt bản thử 8; gom toàn bộ cách dựng/chuyển động/âm thanh đã sửa thành chuẩn; cảnh mẫu `MAU_CANH_CHUAN.html`; công cụ QA `qa_may_nhapnhay.py`; phụ đề 1080.
 - v0.6: chống nhấp nháy (z-fighting, nền xa). v0.5: máy chéo ¾ + parallax; rèm bay cả tấm. v0.4: máy luôn chuyển động + ngưỡng đo. v0.3: máy mở đầu góc rộng, hướng x, rèm trùm tường, bỏ GTAO, 1080 + MSAA. v0.2: chuỗi MakeHuman/mocap/biểu cảm/texture Magnific/SFX. v0.1: phân tích 14 mẫu.

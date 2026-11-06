@@ -13,3 +13,4 @@
 | 06/11/2026 | Demo door | Hình nhoè khi chuyển động | 720p, không MSAA, JPEG 0,93, unsharp | 1080p, MSAA 4×, JPEG 0,97, crf 15 | Mặc định render 1080 |
 | 06/11/2026 | Demo door | Vệt đen nhấp nháy ngoài cửa bên phải (8–11 s) | Mặt trong khung gỗ sẫm trùng đúng mặt cắt tường (x=±0,50) → z-fighting | Khung rộng 0,16, mặt trong 0,485; khung trong lùi 1,5 cm | Không đặt mặt khối trùng mặt khối khác; soi khung liền nhau ở 100 % |
 | 06/11/2026 | Demo door | Nền cỏ ngoài cửa nháy tối/sáng khi máy đẩy | Texture cỏ lặp 120× + normal map → răng cưa | Lặp 28×, bỏ normal map, anisotropy 16 | QA bản đồ nhấp nháy trước khi giao |
+| 06/11/2026 | E03 | Chuyển động giật/vụng (13 điểm) | Đổi đích tay tức thì ở ranh giới pha, clip đi bộ quấn vòng (07_01 dài 2,64 s), vật rơi/giấy bay quá nhanh, dao động tay 16–28 rad/s | smootherstep, nội suy đích tay 0,3–0,45 s, giới hạn thời gian clip, giảm tốc vật, dao động ≤ 11 rad/s | QA giật bằng optical flow (skill 7a) |

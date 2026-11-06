@@ -3,7 +3,7 @@ import subprocess, sys, os
 P = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')); X = P + '/tai_nguyen/sfx'; T = P + '/tap/E03_giay_ve_sinh'
 DUR = 33.0
 cues = [(c - .15, 'whoosh', -14) for c in [3.9, 6.4, 9.6, 12.0, 14.96, 17.1, 19.5, 21.8, 24.5, 27.9, 30.5]]
-cues += [(2.65, 'gai_ngua', -10), (6.55, 'bung_reu', -10), (8.74, 'ding', -9), (9.55, 'uh_oh', -15), (12.5, 'dap_soi', -11),
+cues += [(0.0, 'ruoi', -17), (0.05, 'ran', -16), (3.05, 'gai_ngua', -10), (6.55, 'bung_reu', -10), (8.74, 'ding', -9), (9.55, 'uh_oh', -15), (12.5, 'dap_soi', -11),
          (15.0, 'gio_giay', -11), (18.74, 'ding', -9), (19.75, 'cuon_giay', -11), (23.55, 'xe_giay', -9), (24.45, 'uh_oh', -15),
          (25.0, 'vo_giay', -10), (30.6, 'ding', -12)]
 inp = ['-i', T + '/am_thanh/giong.wav', '-i', P + '/tai_nguyen/nhac/the_curious_ukulele_conundrum.mp3']
