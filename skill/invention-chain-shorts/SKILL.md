@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem ('you', người tiền sử hoặc người hiện đại) giải từng lỗi một cho tới khi phát minh ra đồ vật, hài bựa, kết khép vòng, 3D bán tả thực (MakeHuman + mocap), phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented', hoặc khi chuyển dự án sang máy/tài khoản khác (đọc QUY_TRINH_DAY_DU.md)."
 ---
-# Invention-chain shorts (P02) — v1.3 (07/11/2026)
+# Invention-chain shorts (P02) — v1.4 (07/11/2026)
 
 > **Trạng thái:** chuỗi dựng đã được chủ dự án DUYỆT trên demo "the door" 0–11 s (bản thử 8, 06/11/2026) sau 8 vòng sửa. Mọi quy tắc trong mục 5–7 là chuẩn bắt buộc cho video sau. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline`.
 > **Cách làm việc chủ dự án đã cho phép (06/11/2026):** tự quyết các bước kỹ thuật và làm tiếp không chờ; chỉ hỏi trước khi tiêu nhiều credit Magnific, xoá dữ liệu, hoặc đăng/chia sẻ ra ngoài. Không làm bản sao video của kênh khác để đăng.
@@ -29,6 +29,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 ## 1b. Bài học 2 mẫu VIRAL (golf ball, trampoline — chủ dự án gửi 07/11/2026; chi tiết `PHAN_TICH_MAU/15_bong_golf.md`, `16_trampoline.md`) — ƯU TIÊN khi viết tập mới
 **Kịch bản**
 - Không bắt buộc "caveman": bối cảnh **hiện đại đời thường** (sân sau, công viên, phòng tắm, bãi biển…) cũng được và đang viral; nhân vật ăn mặc thường ngày.
+- **Khuôn trampoline 9 câu (chủ dự án yêu cầu bám theo, 07/11/2026):** You want to [động cơ bựa], but [vật cản] → So you [đồ tạm] → Except it barely…, and your friend [phản đòn "his fucking …"], so you … → Genius! → Now when you …, [cơ chế thật], launching you … → But the [bộ phận] … under your fat ass, so … → But on your next …, [chấn thương], so … → Except your little cousin … [bay/bắn mất], so … → Now you can [động cơ] every day! (mở rộng 140–150 từ được).
 - 2 kiểu hook mới, mạnh nhất:
   - **E – chơi chữ tên đồ vật** (golf: "Your brass balls are too heavy…") → câu kết lặp lại đúng chữ nước đôi ("…now your balls are aerodynamic!").
   - **F – động cơ bựa/cấm kỵ**, đồ vật chỉ là phương tiện (trampoline: "You want to watch your friend shower, but he put up a fence") → kết "**Now you can [động cơ] every day!**" khép vòng.
@@ -60,6 +61,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 `tap/DEMO_door/cong_cu/tao_phu_de.py <words.json> <ra.ass> [t_max]` (K=1,5 cho 1080): Poppins ExtraBold 105 px trắng, viền 4,5 + bóng 3,75 tối, tâm (540, 1150) ≈ 60 % chiều cao, cụm 1–3 từ (trung vị 2), hiện cả cụm + nảy 90 ms, 1 khung trống giữa cụm, từ cảm xúc/chửi viết HOA. Ghép: `ffmpeg … -vf "ass=<file>:fontsdir=engine/fonts"`.
 
 ## 4. Âm thanh
+0. **Giọng nhấn nhá hài như mẫu viral (từ 07/11/2026 — bắt buộc):** `audio_tts {model:"eleven_v3", stability:0, speed:1, voiceId:197595, source:"mine"}`; trong lời: **CHỮ HOA** các từ đắt (động cơ, vật cản, FUCKING, FAT ASS, kết quả bay/ngã, EVERY DAY), `...` trước cú nảy, chỉ 2 tag `[excited]` trước "Genius!" và `[mischievously]` trước câu kết (không chồng tag). Đo bằng `cong_cu/do_giong.py`: dải cao độ p10–p90 ≥ 14 bán cung (mẫu 15,2), từ nhấn rơi vào từ đắt, không vào "your/he's". Bản Creative có thể đọc chệch 1–2 từ → phụ đề theo ASR; chệch nặng thì tạo lại. 160 credit/lần; thường ~220 từ/phút sẵn → chỉ rút nghỉ, atempo ≈ 1. Chi tiết đo: `KICH_BAN/Y_TUONG_DOT6.md`.
 1. Giọng (Magnific Voice, chủ dự án tạo) → `silenceremove` rút nghỉ > 0,15 s về 0,12 s → `atempo` tới ~218 từ/phút → Parakeet (`cong_cu/asr_parakeet.py`) lấy mốc từ → `words.json`.
 2. Nhạc: `tai_nguyen/nhac/the_curious_ukulele_conundrum.mp3` (đã chọn), −19 dB, fade 0,5 s cuối.
 3. SFX Magnific theo mốc (`tai_nguyen/sfx/README.md`): `ding` −9 dB ở câu khen (−0,06 s), `whoosh` −14 dB mỗi cắt cảnh (−0,15 s), `uh_oh` −15 dB ở "But/Except", tiếng vật theo hành động (gió, trải da, rèm, ván) −10…−12 dB. Mẫu lệnh: `tap/DEMO_door/cong_cu/tron_am.sh` (amix normalize=0 → loudnorm I=−14 TP=−1,5).
@@ -144,6 +146,7 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 `du_an/P02_oddtilt/cai_dat/`: `cai_dat.sh`, `kiem_tra.sh`. `du_an/P02_oddtilt/cong_cu/`: `tex_magnific.py` (ảnh Magnific → texture `_m`), `anh_ghep.py` (ảnh ghép khung), `qa_giat.py` (QA giật), `asr_parakeet.py <$P02_HOME/parakeet> <thư mục mp4> <ra>`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `legIK` (đạp xe, chạy thủ tục), `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
 
 ## Thay đổi
+- v1.4 (07/11/2026): khuôn kịch bản trampoline 9 câu; giọng eleven_v3 Creative + CHỮ HOA + 2 tag (đo: dải cao độ 15,4 ≈ mẫu 15,2); công cụ `do_giong.py`.
 - v1.3 (07/11/2026): đóng gói chuyển tài khoản — `QUY_TRINH_DAY_DU.md`, `cai_dat.sh`/`kiem_tra.sh`, công cụ `tex_magnific.py`, `anh_ghep.py`, `qa_giat.py`; đường dẫn mô hình/MakeHuman qua `$P02_HOME`.
 - v1.2.1 (07/11/2026): E05 xe đạp — mẫu cảnh `engine/e5_xe_dap.html` (đồ vật dựng theo tham số + biến hình, lắp ráp bật ra, đồ hoạ khoa học, máy neo theo x + neo điểm nhìn riêng `sh[8]`).
 - v1.2 (07/11/2026): thêm mục 1b từ 2 mẫu viral (golf ball, trampoline): hook chơi chữ/động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật + biến hình, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn.
