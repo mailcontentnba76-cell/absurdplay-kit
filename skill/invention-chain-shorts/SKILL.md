@@ -1,12 +1,13 @@
 ---
 name: "invention-chain-shorts"
-description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực (MakeHuman + mocap), phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
+description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem ('you', người tiền sử hoặc người hiện đại) giải từng lỗi một cho tới khi phát minh ra đồ vật, hài bựa, kết khép vòng, 3D bán tả thực (MakeHuman + mocap), phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented', hoặc khi chuyển dự án sang máy/tài khoản khác (đọc QUY_TRINH_DAY_DU.md)."
 ---
-# Invention-chain shorts (P02) — v1.2 (07/11/2026)
+# Invention-chain shorts (P02) — v1.3 (07/11/2026)
 
 > **Trạng thái:** chuỗi dựng đã được chủ dự án DUYỆT trên demo "the door" 0–11 s (bản thử 8, 06/11/2026) sau 8 vòng sửa. Mọi quy tắc trong mục 5–7 là chuẩn bắt buộc cho video sau. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline`.
 > **Cách làm việc chủ dự án đã cho phép (06/11/2026):** tự quyết các bước kỹ thuật và làm tiếp không chờ; chỉ hỏi trước khi tiêu nhiều credit Magnific, xoá dữ liệu, hoặc đăng/chia sẻ ra ngoài. Không làm bản sao video của kênh khác để đăng.
 
+**Quy trình thao tác đầy đủ (cài đặt, 14 bước 1 tập, lệnh chạy, chuyển tài khoản, thứ chủ dự án phải tự thêm): `QUY_TRINH_DAY_DU.md` cùng thư mục — đọc trước.** Cài môi trường mới: `bash du_an/P02_oddtilt/cai_dat/cai_dat.sh` rồi `kiem_tra.sh --render` (mô hình Parakeet + dữ liệu MakeHuman ở `$P02_HOME`, mặc định `~/.p02`).
 Kho: GitHub `mailcontentnba76-cell/absurdplay-kit`, nhánh `du-an-moi`. Hồ sơ: `du_an/P02_oddtilt/` (đọc `HO_SO_DU_AN.md`, `PHAN_TICH_MAU/TONG_HOP.md`, `PHAN_TICH_MAU/NHAN_VAT.md`, `NHAT_KY_LOI.md` trước khi làm). Môi trường cloud: `absurdplay-kit` (mở `pikaso.cdnpk.net` để tải file Magnific). Trả lời bằng tiếng Việt.
 
 ## 1. Công thức kịch bản (14/14 mẫu)
@@ -66,7 +67,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 ## 5. Chuỗi dựng hình — CHUẨN ĐÃ DUYỆT
 **Cảnh mẫu:** `du_an/P02_oddtilt/engine/MAU_CANH_CHUAN.html` — sao chép khi dựng cảnh mới. Engine: `cd engine && npm install && python3 patches/va_realism_effects_three170.py`.
 
-1. **Nhân vật = MakeHuman** (kênh mẫu dùng đúng bộ quần áo mặc định MakeHuman, CC0): `cong_cu/mh_bake.py <makehuman-data/public/data> nhan_vat/<x>.json engine/assets/mh` → `loadMH(dir,{heightM})`. Bộ sẵn: `chinh` (áo trắng logo MAKEHUMAN + jean sáng), `ban` (sơ mi xanh than, da đen), `nu`, `tho` (yếm), người tiền sử `ts_da / ts_long / ts_bao / ts_nu` (texture `cong_cu/mh_vai.py`). Đổi màu áo: `mh_doi_mau.py`, làm sáng jean: `mh_jean_sang.py`.
+1. **Nhân vật = MakeHuman** (kênh mẫu dùng đúng bộ quần áo mặc định MakeHuman, CC0): `cong_cu/mh_bake.py $P02_HOME/makehuman-data/package/public/data nhan_vat/<x>.json engine/assets/mh` → `loadMH(dir,{heightM})`. Bộ sẵn: `chinh` (áo trắng logo MAKEHUMAN + jean sáng), `ban` (sơ mi xanh than, da đen), `nu`, `tho` (yếm), người tiền sử `ts_da / ts_long / ts_bao / ts_nu` (texture `cong_cu/mh_vai.py`). Đổi màu áo: `mh_doi_mau.py`, làm sáng jean: `mh_jean_sang.py`.
 2. **Động tác = mocap CMU** (`engine/assets/cmu/*.bvh`, danh mục `README.md`): `applyMocap(ch, mo, t, {pos, yaw, faceAt, inPlace})` → chỉnh tay `armIK(ch,'L'|'R', đích, pole)` → xoay `rotWorld(bone, trục, góc)`.
    - Ngồi: clip 22_03 + gập spine05 về sau, tay lên miệng/cổ áo bằng `armIK` quanh `J(ch,'head')`.
    - Treo đồ: clip 111_28 + `armIK` hai tay giữ cuộn trên đầu → ép xuống → một tay chống hông, quay đầu (neck 45 %, head 55 %, spine01 15 %) bắt đầu ~0,5 s trước câu khen.
@@ -140,9 +141,10 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 | E05 xe đạp | e5_chinh (gầy cao, râu quai nón, ba lỗ xám, quần đùi caro), e5_ban (lùn béo, hói, ria, kính râm, áo hawaii bạc hà + jean) | phố ngoại ô hiện đại buổi chiều: nhựa đường, vỉa hè, bãi cỏ, nhà vách gỗ nhạt, hàng rào trắng, đoạn đá cuội |
 
 ## 8. Công cụ
-`du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `legIK` (đạp xe, chạy thủ tục), `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
+`du_an/P02_oddtilt/cai_dat/`: `cai_dat.sh`, `kiem_tra.sh`. `du_an/P02_oddtilt/cong_cu/`: `tex_magnific.py` (ảnh Magnific → texture `_m`), `anh_ghep.py` (ảnh ghép khung), `qa_giat.py` (QA giật), `asr_parakeet.py <$P02_HOME/parakeet> <thư mục mp4> <ra>`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `legIK` (đạp xe, chạy thủ tục), `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
 
 ## Thay đổi
+- v1.3 (07/11/2026): đóng gói chuyển tài khoản — `QUY_TRINH_DAY_DU.md`, `cai_dat.sh`/`kiem_tra.sh`, công cụ `tex_magnific.py`, `anh_ghep.py`, `qa_giat.py`; đường dẫn mô hình/MakeHuman qua `$P02_HOME`.
 - v1.2.1 (07/11/2026): E05 xe đạp — mẫu cảnh `engine/e5_xe_dap.html` (đồ vật dựng theo tham số + biến hình, lắp ráp bật ra, đồ hoạ khoa học, máy neo theo x + neo điểm nhìn riêng `sh[8]`).
 - v1.2 (07/11/2026): thêm mục 1b từ 2 mẫu viral (golf ball, trampoline): hook chơi chữ/động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật + biến hình, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn.
 - v1.1 (06/11/2026): mở đầu hài theo tình huống (mặt khoa trương + ruồi/mồ hôi/mùi + SFX), quy tắc chuyển động mượt + QA giật.

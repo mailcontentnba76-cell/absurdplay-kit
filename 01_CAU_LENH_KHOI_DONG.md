@@ -33,3 +33,13 @@ Dự án <MA_DU_AN> (thư mục du_an/<MA_DU_AN>_<ten>). Làm theo 00_HUONG_DAN_
 ```
 Tôi chuyển dự án <MA_DU_AN> sang môi trường mới. Đọc 00_HUONG_DAN_CHO_CLAUDE.md (mục 11, "Bộ bàn giao") và hồ sơ dự án. Kiểm tra lại toàn bộ BANG_KIEM_CONG_CU.md trên môi trường này. Liệt kê những gì không chuyển được (đăng nhập, giọng clone, kho âm thanh…) và hướng dẫn tôi thiết lập lại. Chạy bài kiểm tra tái lập nếu dự án có.
 ```
+
+## D. Dự án P02 "How you invented …" (@oddtilt) — chuyển sang tài khoản/máy khác
+Hướng dẫn đầy đủ: `skill/invention-chain-shorts/QUY_TRINH_DAY_DU.md` (nhánh `du-an-moi`) và `NHAP_TAI_KHOAN_MOI_P02.md`.
+```
+Đây là dự án P02 "How you invented …" (mẫu @oddtilt) chuyển từ tài khoản khác. Dùng skill invention-chain-shorts:
+đọc QUY_TRINH_DAY_DU.md và SKILL.md trước. Clone repo mailcontentnba76-cell/absurdplay-kit nhánh du-an-moi,
+chạy du_an/P02_oddtilt/cai_dat/cai_dat.sh, giải nén file AbsurdPlay_P02_am_thanh.zip đính kèm vào du_an/P02_oddtilt/,
+rồi chạy kiem_tra.sh --render. Kiểm tra kết nối Magnific (số dư + giọng "Odd Tilt") và quyền push GitHub.
+Liệt kê cho tôi mục nào còn THIẾU và tôi phải tự làm gì. Trả lời bằng tiếng Việt. Xong thì đợi tôi giao việc.
+```
