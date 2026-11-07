@@ -1,0 +1,2 @@
+{"name":"e4_ban","gender":1,"age":"young","muscle":0.4,"weight":0.85,"height":0.1,"race":{"caucasian":0.5,"african":0.5},"skin":"young_african_male/young_african_male.json",
+ "proxies":[{"p":"clothes/male_casualsuit04/male_casualsuit04.json","map":"vai/long_cuu.png"},"hair/ponytail01/ponytail01.json","hair/Moustache/Moustache.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

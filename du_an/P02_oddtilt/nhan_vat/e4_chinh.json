@@ -1,0 +1,2 @@
+{"name":"e4_chinh","gender":1,"age":"young","muscle":0.3,"weight":0.15,"height":0.9,"race":{"caucasian":0.6,"asian":0.4},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/Tank_Top_01/Tank_Top_01.json","map":"vai/da_nai.png"},{"p":"clothes/ShortJeans/ShortJeans.json","map":"vai/da_nai.png"},"hair/afro01/afro01.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"green"}

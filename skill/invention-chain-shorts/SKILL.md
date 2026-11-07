@@ -92,7 +92,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 3. **≥ 2 lớp phụ trợ 2D/3D quanh nhân vật**: ruồi 3D cánh đập (nhóm `flyAround`), giọt mồ hôi rơi, sóng mùi xanh, vòng đỏ + vạch gãi, sao lấp lánh… đặt phía sau/cạnh, không che mặt.
 4. **SFX riêng cho gag** (ruồi vo ve −17 dB, tiếng rặn −16 dB, gãi…) từ giây 0.
 5. Máy đủ gần để thấy mặt ngay từ đầu (≈ 2,5–3,5 m, fov 38), nhân vật xoay người khi cần khoe chỗ gag (mông/nách…).
-Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông.
+Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt.
 
 **Chuyển động mượt (không "giật/vụng"):**
 - Dùng `ease = smootherstep` (6x⁵−15x⁴+10x³); chuyển tư thế ≥ 0,5–0,8 s (đứng dậy từ ngồi xổm 0,7 s, quay đầu 0,8 s).
@@ -102,6 +102,13 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 - Đồ vật khi đổi tay/đổi chỗ phải nội suy vị trí (`lerpV`), không nhảy.
 - QA giật: optical flow phân vị 95 mỗi khung; khung nào > 2,2× trung vị lân cận (trừ điểm cắt ±0,1 s) là chỗ giật → sửa.
 
+## 7a2. Tách màu nhân vật – bối cảnh (chủ dự án 07/11/2026)
+- Trang phục nhân vật chính, người bạn, vật lớn trong bối cảnh (lều, nhà, tường) và nền (cỏ/đá) phải **khác nhau rõ về sắc độ (hue) hoặc độ sáng**. Không để áo da nâu đứng trước lều/tường da nâu, áo cam trước lều cam.
+- Quy tắc nhanh: nền cỏ xanh → áo nhân vật chính màu ấm rực (cam/đỏ/vàng); nhân vật bạn màu sáng/trắng hoặc tối hẳn; vật lớn (lều, nhà) màu trung tính lạnh (xám xanh, xám đá) hoặc tối hẳn.
+- Dùng `loadMH(dir,{tint:{clothes:'#màu'}})` để nhuộm trang phục; vật liệu bối cảnh dùng `color` để kéo về trung tính.
+- QA: soi 3–4 khung có nhân vật đứng trước vật lớn; nếu viền người "chìm" vào nền thì đổi màu trước khi render đủ.
+- E04: áo chính cam rực, bạn lông cừu trắng, lều xám xanh nhạt, cỏ xanh.
+
 ## 7b. Mỗi tập phải MỚI (chủ dự án 06/11/2026)
 - Nhân vật mới mỗi tập (spec `nhan_vat/eXX_*.json`): đổi dáng (béo/gầy/cơ bắp), tóc, râu, trang phục hợp kịch bản và "bựa" (khố lông, áo da báo lệch vai, …). **Không dùng quần áo có chữ/logo MakeHuman** (casualsuit06…) — chủ dự án tự xử lý logo sau.
 - Bối cảnh mới mỗi tập, hợp kịch bản, không trùng tập trước; tạo texture Magnific riêng cho tập. Bảng đã dùng:
@@ -109,6 +116,7 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 |---|---|---|
 | DEMO door | chinh (áo trắng logo), ban (sơ mi xanh than) | chòi đá xám + đồng cỏ ô-liu |
 | E03 giấy vệ sinh | e3_chinh (cơ bắp, râu, khố lông thú), e3_ban (béo, áo + khố da báo) | hang đá vàng nâu, bụi rậm, thung lũng rừng |
+| E04 khử mùi | e4_chinh (gầy cao, tóc xù, áo ba lỗ + quần đùi da nhuộm cam), e4_ban (lùn mập, tóc buộc, ria, bộ lông cừu trắng) | làng lều xám xanh giữa đồng hoa dại, trưa nắng, lửa trại, cây có chim |
 
 ## 8. Công cụ
 `du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).

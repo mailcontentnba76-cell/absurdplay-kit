@@ -1,0 +1,66 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,105,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,4.5,3.75,5,45,45,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Your armpits
+Dialogue: 0,0:00:00.80,0:00:01.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}smell like
+Dialogue: 0,0:00:01.20,0:00:01.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}shit and
+Dialogue: 0,0:00:01.68,0:00:02.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your friend
+Dialogue: 0,0:00:02.08,0:00:02.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}won't stand
+Dialogue: 0,0:00:02.56,0:00:03.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}next to you.
+Dialogue: 0,0:00:03.36,0:00:03.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you,
+Dialogue: 0,0:00:04.00,0:00:04.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}being a
+Dialogue: 0,0:00:04.24,0:00:05.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}genius caveman,
+Dialogue: 0,0:00:05.36,0:00:05.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}rub crushed
+Dialogue: 0,0:00:06.00,0:00:06.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}mint leaves
+Dialogue: 0,0:00:06.72,0:00:07.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}under your
+Dialogue: 0,0:00:07.04,0:00:07.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}arms.
+Dialogue: 0,0:00:07.60,0:00:08.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Clever!
+Dialogue: 0,0:00:08.24,0:00:08.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But the
+Dialogue: 0,0:00:08.48,0:00:08.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}smell is
+Dialogue: 0,0:00:08.96,0:00:09.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}gone by
+Dialogue: 0,0:00:09.36,0:00:09.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}lunch.
+Dialogue: 0,0:00:09.92,0:00:10.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:10.24,0:00:10.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}mix the
+Dialogue: 0,0:00:10.64,0:00:11.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}herbs into
+Dialogue: 0,0:00:11.20,0:00:11.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}animal fat
+Dialogue: 0,0:00:11.84,0:00:12.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}to make
+Dialogue: 0,0:00:12.08,0:00:12.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it stick.
+Dialogue: 0,0:00:12.96,0:00:13.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except you're
+Dialogue: 0,0:00:13.52,0:00:14.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}still sweating
+Dialogue: 0,0:00:14.24,0:00:15.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}like a pig.
+Dialogue: 0,0:00:15.12,0:00:15.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:15.36,0:00:15.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}add a
+Dialogue: 0,0:00:15.68,0:00:16.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}powder that
+Dialogue: 0,0:00:16.24,0:00:16.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}blocks the
+Dialogue: 0,0:00:16.80,0:00:17.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sweat.
+Dialogue: 0,0:00:17.36,0:00:18.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Much better.
+Dialogue: 0,0:00:18.16,0:00:18.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But scooping
+Dialogue: 0,0:00:18.80,0:00:19.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it out
+Dialogue: 0,0:00:19.12,0:00:19.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}with your
+Dialogue: 0,0:00:19.36,0:00:19.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fingers is
+Dialogue: 0,0:00:19.92,0:00:21.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}FUCKING disgusting.
+Dialogue: 0,0:00:21.20,0:00:21.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:21.52,0:00:21.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}put a
+Dialogue: 0,0:00:21.76,0:00:22.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}rolling ball
+Dialogue: 0,0:00:22.48,0:00:22.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}on top
+Dialogue: 0,0:00:22.80,0:00:23.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of the jar.
+Dialogue: 0,0:00:23.68,0:00:24.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except your
+Dialogue: 0,0:00:24.16,0:00:24.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend keeps
+Dialogue: 0,0:00:24.64,0:00:25.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stealing it,
+Dialogue: 0,0:00:25.44,0:00:25.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:25.76,0:00:26.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}pack it
+Dialogue: 0,0:00:26.16,0:00:26.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}into a
+Dialogue: 0,0:00:26.48,0:00:27.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}spray can.
+Dialogue: 0,0:00:27.36,0:00:27.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now your
+Dialogue: 0,0:00:27.84,0:00:28.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend can't
+Dialogue: 0,0:00:28.40,0:00:29.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stop sniffing
+Dialogue: 0,0:00:29.20,0:00:30.10,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your armpits!

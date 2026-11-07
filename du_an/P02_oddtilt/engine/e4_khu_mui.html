@@ -1,0 +1,202 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="720" height="1280"></canvas>
+<!-- E04 "How you invented deodorant" — skill invention-chain-shorts v1.1.
+     Bối cảnh MỚI: làng lều da thú giữa đồng hoa dại, trưa nắng gắt, lửa trại, cây có chim. Nhân vật MỚI: e4_chinh (gầy cao, tóc xù, áo ba lỗ + quần đùi da nai khoe nách), e4_ban (lùn mập, tóc buộc, ria, bộ lông cừu trắng).
+     Mốc lời: ../tap/E04_khu_mui/am_thanh/words.json -->
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadMH} from './lib/mh.js';
+import {loadBVH,applyMocap,armIK,rotWorld,J} from './lib/mocap.js';
+import {loadFace,applyFace,EXPR,blink,mix} from './lib/face.js';
+import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+const q=new URLSearchParams(location.search); const W=+q.get('w')||720, H=Math.round(W*16/9);
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.0;
+const TL=new THREE.TextureLoader();
+const s=new THREE.Scene();s.background=new THREE.Color('#8fc0ee');s.fog=new THREE.Fog('#cfe2f2',45,120);
+s.add(new THREE.HemisphereLight('#fff6e0','#6a7a3a',0.7));
+{const pm=new THREE.PMREMGenerator(r);const hdr=await new RGBELoader().loadAsync('./assets/hdri/park.hdr');s.environment=pm.fromEquirectangular(hdr).texture;s.environmentIntensity=0.55;}
+function T(name,rep=[1,1],srgb=true){const t=TL.load('./assets/tex/mag/'+name+'.jpg');t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...rep);t.anisotropy=16;t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;return t;}
+const mat=(n,rep,o={})=>{const nn=o.noN;delete o.noN;return new THREE.MeshStandardMaterial(Object.assign({map:T(n+'_col',rep),normalMap:nn?null:T(n+'_nrm',rep,false),roughness:.92,normalScale:new THREE.Vector2(.6,.6)},o));};
+const V=(x,y,z)=>new THREE.Vector3(x,y,z),UP=V(0,1,0);
+let seed=29;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+const add=(m,x,y,z)=>{m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;s.add(m);return m;};
+// ---------- BỐI CẢNH: đồng hoa + phông vòng quanh
+const gnd=add(new THREE.Mesh(new THREE.PlaneGeometry(240,240),mat('co_hoa_m',[30,30],{roughness:1,noN:true})),0,0,0);gnd.rotation.x=-Math.PI/2;gnd.castShadow=false;
+{const bt=TL.load('./assets/tex/mag/nen_dong_hoa_col.jpg');bt.colorSpace=THREE.SRGBColorSpace;bt.wrapS=THREE.MirroredRepeatWrapping;bt.repeat.set(4,1);
+ const cyl=new THREE.Mesh(new THREE.CylinderGeometry(70,70,44,64,1,true),new THREE.MeshBasicMaterial({map:bt,side:THREE.BackSide,fog:false}));cyl.position.y=17;s.add(cyl);}
+// lều da thú (nón)
+const TENT=mat('da_leu_m',[2,1.2],{side:THREE.DoubleSide,roughness:.85,color:'#a9b4bb'}); // lều xám xanh nhạt — tách màu khỏi nhân vật
+function tent(x,z,h,rad,ry){const g=new THREE.Group();const c2=new THREE.Mesh(new THREE.ConeGeometry(rad,h,16,1,true),TENT);c2.position.y=h/2;c2.castShadow=c2.receiveShadow=true;g.add(c2);
+ const pm=new THREE.MeshStandardMaterial({color:'#5a4026',roughness:.9});for(let k=0;k<5;k++){const p=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,h*.45,6),pm);const a=k/5*6.28;p.position.set(Math.cos(a)*.12,h+h*.12,Math.sin(a)*.12);p.rotation.set(Math.sin(a)*.4,0,-Math.cos(a)*.4);g.add(p);}
+ const door=new THREE.Mesh(new THREE.PlaneGeometry(rad*.7,h*.5),new THREE.MeshBasicMaterial({color:'#1a120a'}));door.position.set(0,h*.25,rad*.48);door.rotation.x=-.4;g.add(door);
+ g.position.set(x,0,z);g.rotation.y=ry;s.add(g);return g;}
+tent(-3.2,-3.0,3.2,1.6,.4);tent(3.4,-4.2,3.6,1.8,-.3);tent(-6.5,-1.0,2.8,1.4,1.1);tent(6.8,-.8,3.0,1.5,-1.2);
+// đá ngồi + lửa trại
+const GRAN=mat('da_granit_m',[.6,.6]);
+const ROCK1=add(new THREE.Mesh(new THREE.DodecahedronGeometry(.42,1),GRAN),1.6,.22,.4);ROCK1.scale.set(1.3,.55,1);
+const fire=new THREE.Group();{const lm=new THREE.MeshStandardMaterial({color:'#4a3018',roughness:1});for(let k=0;k<5;k++){const l=new THREE.Mesh(new THREE.CylinderGeometry(.05,.06,.7,8),lm);l.rotation.z=Math.PI/2;l.rotation.y=k/5*6.28;l.position.y=.06;l.castShadow=true;fire.add(l);}
+ for(let k=0;k<9;k++){const st=new THREE.Mesh(new THREE.DodecahedronGeometry(.11,0),GRAN);const a=k/9*6.28;st.position.set(Math.cos(a)*.45,.05,Math.sin(a)*.45);fire.add(st);}}
+fire.position.set(-.6,0,-1.4);s.add(fire);
+const flames=[...Array(5)].map((_,k)=>{const m=new THREE.Mesh(new THREE.ConeGeometry(.08+k*.015,.4+k*.05,10),new THREE.MeshBasicMaterial({color:k%2?'#ffb02e':'#ff6a14',transparent:true,opacity:.85,depthWrite:false}));m.position.set(-.6+Math.cos(k*1.3)*.08,.25,-1.4+Math.sin(k*1.3)*.08);s.add(m);return m;});
+const fireL=new THREE.PointLight('#ff9a40',4,5,1.8);fireL.position.set(-.6,.6,-1.4);s.add(fireL);
+// cây + chim
+const tree=new THREE.Group();{const tm=new THREE.MeshStandardMaterial({color:'#5b4632',roughness:.95});const tk=new THREE.Mesh(new THREE.CylinderGeometry(.13,.22,2.6,10),tm);tk.position.y=1.3;tk.castShadow=true;tree.add(tk);
+ const br=new THREE.Mesh(new THREE.CylinderGeometry(.05,.07,1.3,8),tm);br.position.set(.45,2.1,0);br.rotation.z=-1.1;tree.add(br);
+ const LEAF=mat('reu',[1,1],{roughness:1});for(let k=0;k<8;k++){const f=new THREE.Mesh(new THREE.IcosahedronGeometry(.6+rnd()*.35,2),LEAF);f.position.set((rnd()-.5)*1.6,2.9+rnd()*.8,(rnd()-.5)*1.4);f.castShadow=true;tree.add(f);}}
+tree.position.set(-1.9,0,.2);s.add(tree);
+const bird=new THREE.Group();{const bm=new THREE.MeshStandardMaterial({color:'#2f6fb8',roughness:.5});const b=new THREE.Mesh(new THREE.SphereGeometry(.07,12,8),bm);b.scale.set(1.3,1,1);bird.add(b);
+ const h=new THREE.Mesh(new THREE.SphereGeometry(.045,10,8),bm);h.position.set(.08,.05,0);bird.add(h);const bk=new THREE.Mesh(new THREE.ConeGeometry(.015,.05,6),new THREE.MeshStandardMaterial({color:'#f3b21b'}));bk.rotation.z=-Math.PI/2;bk.position.set(.14,.05,0);bird.add(bk);
+ const tl=new THREE.Mesh(new THREE.BoxGeometry(.08,.01,.04),bm);tl.position.set(-.1,.02,0);tl.rotation.z=.4;bird.add(tl);bird.traverse(o=>o.castShadow=true);}
+s.add(bird);
+// hoa dại (héo theo mùi)
+const flowers=[];{const stemM=new THREE.MeshStandardMaterial({color:'#3f7d2a'});const cols=['#f4d23c','#ffffff','#e95da8','#ff8a2a'];
+ for(let k=0;k<26;k++){const g=new THREE.Group();const st=new THREE.Mesh(new THREE.CylinderGeometry(.006,.008,.32,5),stemM);st.position.y=.16;g.add(st);
+  const hm=new THREE.MeshStandardMaterial({color:cols[k%4],roughness:.6,side:THREE.DoubleSide});const hd=new THREE.Mesh(new THREE.CircleGeometry(.045,10),hm);hd.position.y=.33;hd.rotation.x=-1.2;g.add(hd);
+  const a=rnd()*6.28,d=.6+rnd()*1.8;g.position.set(.3+Math.cos(a)*d,0,1.0+Math.sin(a)*d*.8);g.rotation.y=rnd()*6.28;g.userData={hm,base:new THREE.Color(cols[k%4]),d:d};s.add(g);flowers.push(g);}}
+// bụi bạc hà
+const MINT=mat('reu',[.8,.8],{color:'#9be38f'});const mintBush=new THREE.Group();for(let k=0;k<6;k++){const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.22+rnd()*.12,2),MINT);b.position.set((rnd()-.5)*.6,.2+rnd()*.2,(rnd()-.5)*.4);b.castShadow=true;mintBush.add(b);}mintBush.position.set(2.6,0,-.6);s.add(mintBush);
+// nắng gắt
+const sun=new THREE.DirectionalLight('#fff4dc',3.8);sun.position.set(2,10,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:40});s.add(sun);
+// ---------- ĐẠO CỤ
+const leafG=new THREE.Group();{const lm=new THREE.MeshStandardMaterial({color:'#5fc25a',side:THREE.DoubleSide,roughness:.6});for(let k=0;k<6;k++){const l=new THREE.Mesh(new THREE.CircleGeometry(.04,8),lm);l.scale.y=1.8;l.position.set((rnd()-.5)*.06,(rnd()-.5)*.05,(rnd()-.5)*.06);l.rotation.set(rnd()*3,rnd()*3,0);leafG.add(l);}}s.add(leafG);
+const CLAY=new THREE.MeshStandardMaterial({color:'#9a5a33',roughness:.85});
+const bowl=new THREE.Mesh(new THREE.LatheGeometry([V(0,0,0),V(.16,.01,0),V(.2,.08,0),V(.21,.14,0),V(.19,.14,0),V(.17,.09,0),V(0,.03,0)].map(p=>new THREE.Vector2(p.x,p.y)),32),CLAY);bowl.castShadow=true;bowl.position.set(1.6,.46,.4);s.add(bowl);
+const paste=new THREE.Mesh(new THREE.CircleGeometry(.175,32),new THREE.MeshStandardMaterial({color:'#e8e1c6',roughness:.35}));paste.rotation.x=-Math.PI/2;paste.position.set(1.6,.57,.4);s.add(paste);
+const stick=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.36,6),new THREE.MeshStandardMaterial({color:'#6b4a2a'}));stick.castShadow=true;s.add(stick);
+const pouch=new THREE.Mesh(new THREE.SphereGeometry(.09,14,10),mat('da_leu_m',[.3,.3]));pouch.scale.y=1.2;pouch.castShadow=true;s.add(pouch);
+const jar=new THREE.Group();{const j=new THREE.Mesh(new THREE.CylinderGeometry(.05,.055,.13,20),CLAY);jar.add(j);const ball=new THREE.Mesh(new THREE.SphereGeometry(.038,18,12),new THREE.MeshStandardMaterial({color:'#d9e8f2',roughness:.1,metalness:.1}));ball.position.y=.075;jar.add(ball);jar.traverse(o=>o.castShadow=true);}s.add(jar);
+const can=new THREE.Group();{const b=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.2,20),new THREE.MeshStandardMaterial({color:'#b8c4cc',roughness:.25,metalness:.8}));can.add(b);const cp=new THREE.Mesh(new THREE.CylinderGeometry(.018,.022,.03,12),new THREE.MeshStandardMaterial({color:'#e2453a'}));cp.position.y=.115;can.add(cp);can.traverse(o=>o.castShadow=true);}s.add(can);
+// sprite 2D
+function spriteTex(fn){const cv=document.createElement('canvas');cv.width=cv.height=128;fn(cv.getContext('2d'));const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const sp=(tex,sz)=>{const m=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));m.scale.set(sz,sz,1);m.renderOrder=9;s.add(m);return m;};
+const STAR=spriteTex(g=>{g.fillStyle='#fff7b0';g.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,R=k%2?18:60;g.lineTo(64+Math.cos(a)*R,64+Math.sin(a)*R);}g.fill();});
+const STINK=spriteTex(g=>{g.strokeStyle='#7fbf3a';g.lineWidth=9;g.lineCap='round';for(let k=0;k<3;k++){g.beginPath();for(let y=120;y>8;y-=4){const x=24+k*40+Math.sin(y*.09+k)*10;y===120?g.moveTo(x,y):g.lineTo(x,y);}g.stroke();}});
+const SWEAT=spriteTex(g=>{g.fillStyle='#bfe6ff';g.beginPath();g.moveTo(64,10);g.quadraticCurveTo(108,80,64,118);g.quadraticCurveTo(20,80,64,10);g.fill();g.fillStyle='#fff';g.beginPath();g.ellipse(52,72,8,14,0,0,7);g.fill();});
+const HEART=spriteTex(g=>{g.fillStyle='#ff3b6b';g.beginPath();g.moveTo(64,112);g.bezierCurveTo(-10,60,30,0,64,36);g.bezierCurveTo(98,0,138,60,64,112);g.fill();});
+const PUFF=spriteTex(g=>{const gr=g.createRadialGradient(64,64,4,64,64,62);gr.addColorStop(0,'rgba(255,255,255,.95)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,128,128);});
+const TEAR=SWEAT;
+const stars=[...Array(7)].map(()=>sp(STAR,.12)),stinks=[...Array(4)].map(()=>sp(STINK,.32)),sweats=[...Array(8)].map(()=>sp(SWEAT,.06)),hearts=[...Array(5)].map(()=>sp(HEART,.1)),puffs=[...Array(8)].map(()=>sp(PUFF,.3)),tears=[sp(TEAR,.045),sp(TEAR,.045)];
+// ---------- NHÂN VẬT
+const A=await loadMH('./assets/mh/e4_chinh',{heightM:1.86,tint:{clothes:'#ff7a3a'}}),F=await loadMH('./assets/mh/e4_ban',{heightM:1.6});s.add(A.root,F.root);
+const MO={};for(const k of ['111_28','111_32','07_01','17_01','120_15','77_02','22_03','79_73','111_25'])MO[k]=await loadBVH('./assets/cmu/'+k+'.bvh');
+await loadFace('./assets/face-poseunits.bvh','./assets/face-poseunits.json');
+await new Promise(r=>setTimeout(r,1500));
+const ease=x=>x*x*x*(x*(x*6-15)+10), cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), rp=(t,a,b)=>cl((t-a)/(b-a)), E=(t,a,b)=>ease(rp(t,a,b));
+const lerpV=(a,b,k)=>a.clone().lerp(b,k);
+const BLK=(t,sd)=>[{LeftUpperLidClosed:1,RightUpperLidClosed:1},blink(t,sd)];
+function sideOf(ch){return V(1,0,0).applyQuaternion(ch.root.quaternion);} function fwdOf(ch){return V(0,0,1).applyQuaternion(ch.root.quaternion);}
+function ground(ch,y=0){ch.root.updateMatrixWorld(true);let mn=9;for(const n of ['toe3-1.L','toe3-1.R','foot.L','foot.R'])mn=Math.min(mn,J(ch,n).y);ch.root.position.y-=mn-0.035-y;ch.root.updateMatrixWorld(true);}
+function squat(ch,k,t){const side=sideOf(ch);for(const sd of ['L','R']){rotWorld(ch.bones['upperleg01.'+sd+'____head'],side,-1.45*k);rotWorld(ch.bones['lowerleg01.'+sd+'____head'],side,2.3*k);rotWorld(ch.bones['foot.'+sd+'____head'],side,-.85*k);}
+  rotWorld(ch.bones['spine05____head'],side,.45*k+Math.sin(t*2.5)*.03);rotWorld(ch.bones['neck01____head'],side,-.35*k);ground(ch);}
+const pit=(ch,sd)=>J(ch,'upperarm01.'+sd).add(V(0,-.07,0)).add(sideOf(ch).multiplyScalar(sd==='L'?-.04:.04));
+// mặt
+const OE={NoseWrinkler:1.2,LeftBrowDown:.8,RightBrowDown:.8,LeftUpperLidClosed:.7,RightUpperLidClosed:.7,UpperLipUp:.8,MouthLeftPullDown:.8,MouthRightPullDown:.8,TongueOut:.5,JawDrop:.35};
+const SUONG={LeftUpperLidClosed:.8,RightUpperLidClosed:.8,LeftOuterBrowUp:.7,RightOuterBrowUp:.7,MouthLeftPullUp:1,MouthRightPullUp:1,LeftCheekUp:.8,RightCheekUp:.8,JawDrop:.15};
+const KHO={LeftInnerBrowUp:1,RightInnerBrowUp:1,MouthLeftPullDown:.8,MouthRightPullDown:.8,LeftUpperLidClosed:.3,RightUpperLidClosed:.3,JawDrop:.25};
+function face(ch,t,sd,...p){applyFace(ch,mix(...p,BLK(t,sd)));}
+function raiseArms(ch,k,t){ // giơ tay vươn vai, khoe nách
+  const sh=J(ch,'neck01');for(const [sd,sg] of [['L',1],['R',-1]]){const tgt=sh.clone().add(V(0,.45,0)).add(sideOf(ch).multiplyScalar(sg*.22)).add(fwdOf(ch).multiplyScalar(-.05));armIK(ch,sd,lerpV(J(ch,'spine01').add(sideOf(ch).multiplyScalar(sg*.3)).add(V(0,-.4,0)),tgt,k),V(0,1,0).add(sideOf(ch).multiplyScalar(sg)).add(fwdOf(ch).multiplyScalar(-.5)));}}
+function oneArmUp(ch,sd,k){const sg=sd==='L'?1:-1;const tgt=J(ch,'neck01').add(V(0,.4,0)).add(sideOf(ch).multiplyScalar(sg*.2));armIK(ch,sd,lerpV(J(ch,'spine01').add(sideOf(ch).multiplyScalar(sg*.3)).add(V(0,-.4,0)),tgt,k),V(0,1,0).add(sideOf(ch).multiplyScalar(sg)).add(fwdOf(ch).multiplyScalar(-.4)));}
+function stinkAt(list,pos,t,amt,sz=.32){list.forEach((x,i)=>{x.visible=amt>0.02;const f=((t*.8+i*.25)%1);x.position.copy(pos).add(V(Math.sin(i*2.1)*.1,.05+f*.35,Math.cos(i*1.7)*.06));const ss=sz*(.6+f*.6)*amt;x.scale.set(ss,ss,1);x.material.opacity=(1-f)*amt;});}
+function starsAt(c,t,R=.25){stars.forEach((x,i)=>{x.visible=true;const a=i/7*6.28+t*2.6;x.position.copy(c).add(V(Math.cos(a)*R,Math.sin(a*1.3)*.15,Math.sin(a)*R));const ss=.05+.05*Math.abs(Math.sin(t*8+i));x.scale.set(ss,ss,1);});}
+// ---------- MÁY QUAY (chéo ¾, luôn chạy)
+const SH=[
+ [0,3.36,  V(-2.6,1.55,6.6),V(-1.6,1.45,5.0), V(.6,1.25,.6),V(.6,1.3,.6),40],        // hook: vươn vai, mùi, hoa héo, chim rơi, bạn bịt mũi
+ [3.36,5.3, V(3.9,1.55,-2.0),V(3.45,1.5,-1.6),V(1.4,1.25,.6),V(1.9,1.25,-.1),48],        // đi tự đắc tới bụi bạc hà
+ [5.3,8.2,  V(3.35,1.6,-1.55),V(3.1,1.58,-1.25),V(2.05,1.35,-.25),V(2.05,1.4,-.25),44],     // vò lá chà nách → Clever!
+ [8.2,9.92, V(.4,1.45,3.6),V(.65,1.42,3.0),V(.6,1.2,.6),V(.7,1.2,.6),46],       // trưa: mùi trở lại, bạn nhăn
+ [9.92,12.96,V(2.4,1.25,1.75),V(2.15,1.15,1.4),V(1.62,.75,.1),V(1.6,.7,.15),42],       // trộn mỡ trong bát
+ [12.96,15.12,V(2.2,1.55,2.4),V(2.05,1.52,1.9),V(1.25,1.4,.3),V(1.25,1.38,.3),44],         // mồ hôi như heo
+ [15.12,18.16,V(2.95,1.55,1.2),V(2.55,1.5,.85),V(1.35,1.38,.2),V(1.35,1.42,.2),46],        // vỗ bột → Much better
+ [18.16,21.2,V(2.35,1.35,1.55),V(2.1,1.3,1.25),V(1.62,.95,0),V(1.62,1.0,0),40], // móc tay vào hũ, kinh tởm
+ [21.2,23.68,V(2.7,1.6,.95),V(2.35,1.55,.6),V(1.35,1.42,.2),V(1.35,1.42,.2),40], // lăn bi
+ [23.68,25.44,V(.1,1.5,4.0),V(1.4,1.45,4.4),V(.95,1.1,.7),V(2.5,1.0,1.6),48],          // bạn trộm hũ chạy
+ [25.44,27.36,V(2.55,1.45,1.25),V(2.3,1.48,.8),V(1.35,1.42,.2),V(1.35,1.42,.2),42],   // xịt
+ [27.36,30.35,V(3.0,1.55,1.5),V(2.65,1.5,1.05),V(1.5,1.35,.15),V(1.5,1.38,.15),46]]; // bạn hít nách say mê
+const cam=new THREE.PerspectiveCamera(45,9/16,.05,400);
+const comp=new EffectComposer(r,new THREE.WebGLRenderTarget(W,H,{samples:4,type:THREE.HalfFloatType}));comp.setSize(W,H);comp.addPass(new RenderPass(s,cam));comp.addPass(new OutputPass());
+const hide=(...o)=>o.forEach(x=>x.visible=false);
+const AP=V(1.2,0,.35); // chỗ nhân vật chính đứng ở các shot giữa (cạnh đá + bát)
+window.renderFrame=(t)=>{try{
+  const sh=SH.find(x=>t>=x[0]&&t<x[1])||SH[SH.length-1];const p=rp(t,sh[0],sh[1]);const u=sh[0]===0?1-Math.pow(1-rp(t,0.35,3.36),2.2):0.15*p*p+0.85*p;
+  cam.position.copy(lerpV(sh[2],sh[3],u));cam.lookAt(lerpV(sh[4],sh[5],u));cam.fov=sh[6];cam.updateProjectionMatrix();
+  hide(...stars,...stinks,...sweats,...hearts,...puffs,...tears,leafG,stick,pouch,jar,can);
+  flames.forEach((f,k)=>{f.scale.set(1,.8+.3*Math.sin(t*9+k*2),1);f.rotation.y=t*2+k;});fireL.intensity=3.6+.8*Math.sin(t*13);
+  // hoa héo + chim (theo hook)
+  const wilt=E(t,1.0,2.4);flowers.forEach(g=>{const w=wilt*cl(2.4-g.userData.d,0,1)*1.0+wilt*.4;g.rotation.z=w*1.1;g.children[1].material.color.copy(g.userData.base).lerp(new THREE.Color('#6b5a3a'),Math.min(1,w));});
+  {const fall=rp(t,1.6,2.3);const bp=V(-1.2,2.75,.2);bird.position.copy(bp).add(V(.15*fall,-2.7*fall*fall,0));bird.rotation.z=t<1.6?Math.sin(t*6)*.15:-fall*3.0;bird.visible=true;if(fall>=1)bird.position.y=.05;}
+  A.root.visible=true;F.root.visible=true;
+  // ===== S1 0–3.36: vươn vai → mùi xanh bốc → bạn bịt mũi lùi, ọe → tự ngửi nách, chảy nước mắt
+  if(t<3.36){
+    applyMocap(A,MO['111_32'],1.2+t*.55,{pos:V(.55,0,.55),yaw:-.15,faceAt:2,inPlace:true});
+    if(t<2.15){raiseArms(A,E(t,.05,.7),t);face(A,t,1,[SUONG,E(t,.2,.8)]);}
+    else{const k=E(t,2.15,2.6);oneArmUp(A,'L',1);armIK(A,'R',J(A,'spine01').add(sideOf(A).multiplyScalar(-.3)).add(V(0,-.4,0)),V(-1,-1,0));
+      rotWorld(A.bones['neck01____head'],UP,k*.7);rotWorld(A.bones['neck01____head'],sideOf(A),k*.35);
+      face(A,t,1,[OE,E(t,2.45,2.75)*1.3]);if(t>2.8)tears.forEach((x,i)=>{x.visible=true;const f=((t-2.8)*1.6+i*.4)%1;x.position.copy(J(A,'head')).add(V(i?.05:-.05,.08-f*.15,.09));});}
+    const sm=E(t,.55,1.0);stinkAt(stinks.slice(0,2),pit(A,'L'),t,sm);stinkAt(stinks.slice(2),pit(A,'R'),t+.4,sm);
+    applyMocap(F,t<1.3?MO['77_02']:MO['79_73'],t<1.3?2+t:1.2+(t-1.3)*.9,{pos:lerpV(V(-.35,0,.95),V(-1.05,0,1.5),E(t,1.2,2.4)),yaw:2.0,faceAt:2,inPlace:true});
+    if(t>1.15){const nose=J(F,'head').add(fwdOf(F).multiplyScalar(.1)).add(V(0,-.03,0));armIK(F,'R',lerpV(J(F,'spine01').add(sideOf(F).multiplyScalar(-.3)).add(V(0,-.35,0)),nose,E(t,1.15,1.45)),V(-1,-1,0));}
+    face(F,t,2,[EXPR.to_mo,1-E(t,1.0,1.3)],[OE,E(t,1.0,1.4)*1.3]);}
+  // ===== S2 3.36–5.3: đi tự đắc tới bụi bạc hà
+  else if(t<5.3){const k=E(t,3.36,5.3);applyMocap(A,MO['07_01'],.15+(t-3.36)*.95,{pos:lerpV(V(1.0,0,.9),V(2.05,0,-.35),k),yaw:2.45,faceAt:1,inPlace:true});face(A,t,1,[EXPR.tu_hao,1]);
+    applyMocap(F,MO['77_02'],3+t,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[OE,.8]);
+    stinkAt(stinks,pit(A,'L').lerp(pit(A,'R'),.5),t,.6);}
+  // ===== S3 5.3–8.2: bứt lá, vò, chà nách → giơ tay "Clever!"
+  else if(t<8.2){applyMocap(A,MO['111_28'],1+(t-5.3)*.5,{pos:V(2.1,0,-.3),yaw:2.0,faceAt:1,inPlace:true});
+    leafG.visible=true;
+    if(t<6.3){const kk=E(t,5.3,5.8);const bushP=V(2.55,.45,-.55);rotWorld(A.bones['spine05____head'],sideOf(A),.45*kk*(1-E(t,5.9,6.3)));armIK(A,'R',lerpV(J(A,'spine01').add(V(0,-.35,.1)),bushP,kk*(1-E(t,5.9,6.3))),V(-1,-1,0));leafG.position.copy(t<5.8?bushP:J(A,'wrist.R'));face(A,t,1,[EXPR.to_mo,.8]);}
+    else{oneArmUp(A,'L',E(t,6.3,6.6));const pl=pit(A,'L');const rub=Math.sin((t-6.3)*9)*.05;armIK(A,'R',pl.clone().add(fwdOf(A).multiplyScalar(.04)).add(V(0,rub,0)),V(-1,-1,.5));leafG.position.copy(J(A,'wrist.R'));
+      face(A,t,1,[SUONG,E(t,6.4,6.8)],[EXPR.tu_hao,E(t,7.4,7.8)]);if(t>7.55)starsAt(pl,t,.3);}
+    applyMocap(F,MO['77_02'],5+t,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[EXPR.to_mo,.7]);}
+  // ===== S4 8.2–9.92: mặt trời đứng bóng, mùi trở lại, bạn bịt mũi
+  else if(t<9.92){applyMocap(A,MO['111_25'],1+(t-8.2)*.8,{pos:AP,yaw:.7,faceAt:1,inPlace:true});face(A,t,1,[KHO,E(t,8.4,8.8)]);
+    stinkAt(stinks.slice(0,2),pit(A,'L'),t,E(t,8.3,8.9));stinkAt(stinks.slice(2),pit(A,'R'),t+.4,E(t,8.3,8.9));
+    applyMocap(F,MO['79_73'],2+(t-8.2)*.8,{pos:V(-.4,0,1.3),yaw:2.3,faceAt:2,inPlace:true});armIK(F,'R',J(F,'head').add(fwdOf(F).multiplyScalar(.1)).add(V(0,-.03,0)),V(-1,-1,0));face(F,t,2,[OE,1.2]);}
+  // ===== S5 9.92–12.96: ngồi đá, khuấy thảo mộc + mỡ trong bát
+  else if(t<12.96){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.6,0,-.05),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
+    stick.visible=true;const a=(t-9.92)*5;const tip=V(1.6+Math.cos(a)*.08,.6,.4+Math.sin(a)*.08);stick.position.copy(tip).add(V(0,.14,0));stick.rotation.set(Math.sin(a)*.25,0,Math.cos(a)*.25);
+    armIK(A,'R',tip.clone().add(V(0,.25,0)),V(-1,-.5,0));armIK(A,'L',V(1.7,.55,.3),V(1,-1,0));
+    paste.material.color.set(new THREE.Color('#e8e1c6').lerp(new THREE.Color('#7fbf5a'),E(t,10.4,12.0)));face(A,t,1,[EXPR.to_mo,.8],[EXPR.tu_hao,E(t,12,12.6)]);
+    F.root.visible=false;}
+  // ===== S6 12.96–15.12: nắng gắt, mồ hôi tuôn như heo
+  else if(t<15.12){applyMocap(A,MO['111_28'],2+(t-12.96)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',E(t,13.0,13.4));
+    armIK(A,'R',J(A,'head').add(fwdOf(A).multiplyScalar(.12)).add(sideOf(A).multiplyScalar(-.15)).add(V(0,.02+Math.sin(t*5)*.05,0)),V(-1,0,0));
+    face(A,t,1,[KHO,1.1],[{JawDrop:.4},.8]);
+    sweats.forEach((x,i)=>{x.visible=true;const f=((t*1.3+i*.17)%1);const src=i<4?pit(A,'L'):J(A,'head');x.position.copy(src).add(V(Math.sin(i*2.3)*.07,.02-f*.45,.08));});
+    F.root.visible=false;}
+  // ===== S7 15.12–18.16: bốc bột vỗ nách → mây bột → "Much better."
+  else if(t<18.16){applyMocap(A,MO['111_28'],3+(t-15.12)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);
+    pouch.visible=true;const pl=pit(A,'L');const slap=(1-Math.cos((t-15.12)*8))*.5;const hp=pl.clone().add(fwdOf(A).multiplyScalar(.04+.12*slap));armIK(A,'R',hp,V(-1,-1,.5));pouch.position.copy(J(A,'wrist.R'));
+    puffs.forEach((x,i)=>{const f=rp(t,15.6+i*.12,16.6+i*.12);x.visible=f>0&&f<1;x.position.copy(pl).add(V(Math.cos(i*1.9)*.25*f,.05+.25*f,Math.sin(i*1.9)*.2*f));const ss=.15+.35*f;x.scale.set(ss,ss,1);x.material.opacity=.9*(1-f);});
+    face(A,t,1,[EXPR.ngac_nhien,E(t,15.6,15.9)*(1-E(t,16.6,17.0))],[SUONG,E(t,17.2,17.6)]);if(t>17.35)starsAt(pl,t,.32);F.root.visible=false;}
+  // ===== S8 18.16–21.2: móc tay vào hũ mỡ nhầy → tởm, ọe
+  else if(t<21.2){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.6,0,-.05),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
+    const dig=(1-Math.cos((t-18.16)*5))*.5;armIK(A,'R',V(1.6,.6+dig*.08,.42),V(-1,-.5,0));armIK(A,'L',V(1.72,.55,.3),V(1,-1,0));
+    if(t>19.3){const k=E(t,19.3,19.8);armIK(A,'R',lerpV(V(1.6,.62,.42),J(A,'head').add(fwdOf(A).multiplyScalar(.28)).add(V(0,-.05,0)),k),V(-1,-.5,0));}
+    face(A,t,1,[OE,E(t,19.6,20.0)*1.35]);F.root.visible=false;}
+  // ===== S9 21.2–23.68: hũ đầu bi lăn trơn tru dưới nách
+  else if(t<23.68){applyMocap(A,MO['111_28'],1+(t-21.2)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);
+    jar.visible=true;const pl=pit(A,'L');const roll=Math.sin((t-21.2)*4)*.06;const hp=pl.clone().add(fwdOf(A).multiplyScalar(.03)).add(V(0,roll,0));armIK(A,'R',hp,V(-1,-1,.5));
+    jar.position.copy(J(A,'wrist.R'));jar.quaternion.setFromUnitVectors(UP,sideOf(A).multiplyScalar(-1));face(A,t,1,[SUONG,E(t,21.4,21.9)]);
+    if(t>22.6)starsAt(pl,t,.25);F.root.visible=false;}
+  // ===== S10 23.68–25.44: bạn trộm hũ, ôm chạy; nhân vật chính sững sờ
+  else if(t<25.44){applyMocap(A,MO['111_25'],1+(t-23.68)*.8,{pos:AP,yaw:.55,faceAt:1,inPlace:true});face(A,t,1,[EXPR.ngac_nhien,1]);
+    const k=E(t,23.68,25.44);applyMocap(F,MO['07_01'],.2+(t-23.68)*1.3,{pos:lerpV(V(.7,0,.9),V(3.2,0,1.8),k),yaw:1.22,faceAt:1,inPlace:true});
+    jar.visible=true;const hp=J(F,'spine01').add(fwdOf(F).multiplyScalar(.28)).add(V(0,-.1,0));armIK(F,'R',hp,V(-1,-1,0));armIK(F,'L',hp,V(1,-1,0));jar.position.copy(hp);jar.quaternion.identity();
+    face(F,t,2,[EXPR.cuoi,1],[EXPR.tu_hao,.5]);}
+  // ===== S11 25.44–27.36: bình xịt — mây sương
+  else if(t<27.36){applyMocap(A,MO['111_28'],2+(t-25.44)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);
+    can.visible=true;const pl=pit(A,'L');const hp=pl.clone().add(fwdOf(A).multiplyScalar(.2)).add(V(0,-.05,0));armIK(A,'R',hp,V(-1,-1,.5));can.position.copy(J(A,'wrist.R'));can.lookAt(pl);can.rotateX(Math.PI/2);
+    puffs.forEach((x,i)=>{const on=(t>25.7&&t<26.3)||(t>26.6&&t<27.2);const f=((t*3+i*.13)%1);x.visible=on;x.position.copy(hp).lerp(pl,f);const ss=.06+.18*f;x.scale.set(ss,ss,1);x.material.opacity=.6*(1-f*.6);});
+    face(A,t,1,[SUONG,1]);F.root.visible=false;}
+  // ===== S12 27.36–30.35: bạn dí mũi vào nách hít hà, tim bay
+  else {applyMocap(A,MO['111_28'],3+(t-27.36)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);face(A,t,1,[EXPR.ngai,.6],[EXPR.cuoi,.5]);
+    const pl=pit(A,'L');applyMocap(F,MO['77_02'],2+t,{pos:pl.clone().add(sideOf(A).multiplyScalar(.5)).add(fwdOf(A).multiplyScalar(.15)).setY(0),yaw:.75-Math.PI/2,faceAt:2,inPlace:true});
+    const sniff=(1-Math.cos((t-27.36)*5))*.5;rotWorld(F.bones['neck01____head'],UP,.2);rotWorld(F.bones['spine05____head'],sideOf(F),.15+sniff*.1);
+    armIK(F,'R',J(F,'spine01').add(sideOf(F).multiplyScalar(-.25)).add(fwdOf(F).multiplyScalar(.2)),V(-1,-1,0));armIK(F,'L',J(F,'spine01').add(sideOf(F).multiplyScalar(.25)).add(fwdOf(F).multiplyScalar(.2)),V(1,-1,0));
+    face(F,t,2,[SUONG,1.3]);hearts.forEach((x,i)=>{x.visible=t>27.6;const f=((t*.7+i*.2)%1);x.position.copy(J(F,'head')).add(V(Math.sin(i*2.4)*.15,.15+f*.4,.05));const ss=.07+.04*Math.sin(t*6+i);x.scale.set(ss,ss,1);x.material.opacity=1-f;});}
+  comp.render();}catch(e){console.log('ERR '+e.stack)}};
+window.ready=true;
+</script></body></html>
