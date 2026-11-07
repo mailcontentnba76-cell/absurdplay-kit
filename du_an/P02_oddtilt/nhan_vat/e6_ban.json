@@ -1,0 +1,2 @@
+{"name":"e6_ban","gender":1,"age":"young","muscle":0.35,"weight":0.2,"height":0.7,"race":{"african":0.7,"caucasian":0.3},"skin":"young_african_male/young_african_male.json",
+ "proxies":[{"p":"clothes/male_casualsuit04/male_casualsuit04.json","map":"vai/khan_trang.png"},"hair/afro01/afro01.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

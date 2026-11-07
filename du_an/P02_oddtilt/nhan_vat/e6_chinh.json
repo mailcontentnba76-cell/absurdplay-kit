@@ -1,0 +1,2 @@
+{"name":"e6_chinh","gender":1,"age":"young","muscle":0.45,"weight":0.75,"height":0.25,"race":{"caucasian":0.5,"asian":0.3,"african":0.2},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":["clothes/male_casualsuit05/male_casualsuit05.json","clothes/Fishing_Hat_01/Fishing_Hat_01.json","clothes/shoes04/shoes04.json","hair/curly/curly.json","hair/Moustache/Moustache.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

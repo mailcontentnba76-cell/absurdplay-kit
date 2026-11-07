@@ -1,0 +1,2 @@
+{"name":"e6_em","gender":1,"age":"child","muscle":0.4,"weight":0.6,"height":0.5,"race":{"caucasian":1},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/male_casualsuit01/male_casualsuit01.json","map":"vai/soc_xanh.png"},"clothes/shoes01/shoes01.json","hair/short02/short02.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"blue"}

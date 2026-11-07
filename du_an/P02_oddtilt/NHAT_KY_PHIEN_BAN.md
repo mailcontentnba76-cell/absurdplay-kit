@@ -19,3 +19,8 @@
 - 36,77 s, 1080×1920, 30 fps, 19 shot (trung vị ~1,8 s). Bối cảnh hiện đại (phố ngoại ô), nhân vật mới e5_chinh/e5_ban, khung xe đỏ là màu nhấn duy nhất.
 - Mới trong engine: `legIK` (lib/mocap.js), xe đạp dựng theo tham số (xe đẩy → bàn đạp bánh trước → bánh to → xe an toàn xích + lốp hơi), lắp ráp bật ra (easeOutBack), xích chạy theo đĩa, đồ hoạ x1/x3, chạy bộ thủ tục, ngã úp mặt bằng quay thân quanh hông.
 - 7 SFX mới (Magnific): giật lon bia, bánh gỗ lăn, ngã xe, xích, bơm lốp, xóc răng, chuông xe. Texture mới: nhựa đường, vỉa hè, cỏ sân, đá cuội, ngói, phông phố, vách gỗ (tự vẽ).
+
+## 07/11/2026 — E06 "How you invented the periscope" v1 (khuôn trampoline, chủ đề nhà tắm)
+- 41,58 s, 1080×1920, 20 shot. Giọng turbo stability 0,3 + CHỮ HOA (chủ dự án chọn). Nhân vật e6_chinh/e6_ban/e6_em mới, sân sau hoàng hôn mới, ống vàng chanh là màu nhấn duy nhất.
+- Mới trong engine: ShaderPass góc nhìn qua kính (vòng tròn, mờ, hơi nước), tia sáng + chấm sáng chạy theo đường gương, rèm 2 cánh, hộp khoá, ghế xếp + bỏng ngô; `jog(…, amp)`.
+- 7 SFX mới: gãy chổi, kéo rèm, vòi sen + hát, bé hét, gạt nước, khoá hộp, zoom kính.

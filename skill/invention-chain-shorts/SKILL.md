@@ -115,7 +115,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 3. **≥ 2 lớp phụ trợ 2D/3D quanh nhân vật**: ruồi 3D cánh đập (nhóm `flyAround`), giọt mồ hôi rơi, sóng mùi xanh, vòng đỏ + vạch gãi, sao lấp lánh… đặt phía sau/cạnh, không che mặt.
 4. **SFX riêng cho gag** (ruồi vo ve −17 dB, tiếng rặn −16 dB, gãi…) từ giây 0.
 5. Máy đủ gần để thấy mặt ngay từ đầu (≈ 2,5–3,5 m, fov 38), nhân vật xoay người khi cần khoe chỗ gag (mông/nách…).
-Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt. E05 = macro lon bia lạnh → tay bạn chộp mất, bọt văng lên mặt → nhân vật đứng hình, tay với vào khoảng không → bạn ôm lon chạy giơ khoe.
+Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt. E05 = macro lon bia lạnh → tay bạn chộp mất, bọt văng lên mặt → nhân vật đứng hình, tay với vào khoảng không → bạn ôm lon chạy giơ khoe. E06 = máy sát tường nhìn xuống: nhân vật nhảy tưng tưng dưới cửa sổ, cười nhe răng, nhướng mày lia lịa; bạn hát trong nhà tắm (nốt nhạc, hơi nước).
 
 **Chuyển động mượt (không "giật/vụng"):**
 - Dùng `ease = smootherstep` (6x⁵−15x⁴+10x³); chuyển tư thế ≥ 0,5–0,8 s (đứng dậy từ ngồi xổm 0,7 s, quay đầu 0,8 s).
@@ -141,6 +141,7 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 | E03 giấy vệ sinh | e3_chinh (cơ bắp, râu, khố lông thú), e3_ban (béo, áo + khố da báo) | hang đá vàng nâu, bụi rậm, thung lũng rừng |
 | E04 khử mùi | e4_chinh (gầy cao, tóc xù, áo ba lỗ + quần đùi da nhuộm cam), e4_ban (lùn mập, tóc buộc, ria, bộ lông cừu trắng) | làng lều xám xanh giữa đồng hoa dại, trưa nắng, lửa trại, cây có chim |
 | E05 xe đạp | e5_chinh (gầy cao, râu quai nón, ba lỗ xám, quần đùi caro), e5_ban (lùn béo, hói, ria, kính râm, áo hawaii bạc hà + jean) | phố ngoại ô hiện đại buổi chiều: nhựa đường, vỉa hè, bãi cỏ, nhà vách gỗ nhạt, hàng rào trắng, đoạn đá cuội |
+| E06 kính tiềm vọng | e6_chinh (lùn đậm, tóc xoăn dài, ria, mũ tai bèo, áo khoác rêu), e6_ban (cao gầy, afro, mũ tắm), e6_em (em họ nhỏ áo sọc xanh) | sân sau hoàng hôn vàng cam, tường vách gỗ xanh xám, cửa sổ nhà tắm cao kính mờ, sân lát đá, bụi tú cầu |
 
 ## 8. Công cụ
 `du_an/P02_oddtilt/cai_dat/`: `cai_dat.sh`, `kiem_tra.sh`. `du_an/P02_oddtilt/cong_cu/`: `tex_magnific.py` (ảnh Magnific → texture `_m`), `anh_ghep.py` (ảnh ghép khung), `qa_giat.py` (QA giật), `asr_parakeet.py <$P02_HOME/parakeet> <thư mục mp4> <ra>`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `legIK` (đạp xe, chạy thủ tục), `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
