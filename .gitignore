@@ -5,3 +5,4 @@ out_*/
 *.wav
 !**/magnific_sfx/*.wav
 *.zip
+*.fbx

@@ -22,7 +22,8 @@ export async function loadLibrary() {
   // UAL1 dùng xương Rigify (DEF-*) → retarget sang xương UBC (pelvis, spine_01…) bằng SkeletonUtils, đổi tên track về 'bone.prop'
   const names = new Set(ual2.animations.map((c) => c.name));
   const extra = retargetUAL1(male, ual1).filter((c) => !names.has(c.name));
-  return { male, female, clips: [...ual2.animations, ...extra], acc, mh };
+  const mx = await loadMixamo(male);
+  return { male, female, clips: [...ual2.animations, ...extra, ...mx], acc, mh };
 }
 
 const REGION = (b) => {
@@ -178,11 +179,11 @@ const RT_CACHE = {};
 const RT_WANT = new Set(['Walk_Loop', 'Walk_Formal_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Idle_Loop', 'Idle_Talking_Loop', 'Sitting_Talking_Loop', 'Sitting_Idle_Loop',
   'Crouch_Idle_Loop', 'Crouch_Fwd_Loop', 'Push_Loop', 'Death01', 'Hit_Chest', 'Hit_Head', 'Dance_Loop', 'Jump_Start', 'Jump_Loop', 'Jump_Land', 'Interact', 'PickUp_Table', 'Punch_Jab', 'Roll']);
 // Retarget thủ công: giữ hướng xương theo không gian thế giới (world-delta) + bù khác biệt tư thế nghỉ (T/A-pose) theo hướng xương
-function retargetUAL1(male, ual1) {
+function retargetSet(male, srcScene, anims, MAP, want, prefix = '', inPlace = null) {
   const V = THREE.Vector3, Q = THREE.Quaternion;
-  const sRoot = ual1.scene, tRoot = SU.clone(male.scene);
+  const sRoot = srcScene, tRoot = SU.clone(male.scene);
   const sB = {}, tB = {}; sRoot.traverse((n) => { if (n.isBone) { sB[n.name] = n; sB[n.name.replace(/\./g, '')] = n; } });
-  for (const k of Object.keys(UAL1_MAP)) { const sn = UAL1_MAP[k]; if (!sB[sn]) sB[sn] = sB[THREE.PropertyBinding.sanitizeNodeName(sn)] || sB[sn.replace(/\./g, '')]; } tRoot.traverse((n) => { if (n.isBone) tB[n.name] = n; });
+  for (const k of Object.keys(MAP)) { const sn = MAP[k]; if (!sB[sn]) sB[sn] = sB[THREE.PropertyBinding.sanitizeNodeName(sn)] || sB[sn.replace(/\./g, '')]; } tRoot.traverse((n) => { if (n.isBone) tB[n.name] = n; });
   sRoot.updateMatrixWorld(true); tRoot.updateMatrixWorld(true);
   const wq = (b) => b.getWorldQuaternion(new Q()), wp = (b) => b.getWorldPosition(new V());
   // thứ tự cha→con của xương đích
@@ -193,11 +194,11 @@ function retargetUAL1(male, ual1) {
   const childOf = { pelvis: 'spine_01', spine_01: 'spine_02', spine_02: 'spine_03', spine_03: 'neck_01', neck_01: 'Head' };
   const align = {};
   const sRestW = {};
-  for (const [tn, sn] of Object.entries(UAL1_MAP)) {
+  for (const [tn, sn] of Object.entries(MAP)) {
     const tb = tB[tn], sb = sB[sn]; if (!tb || !sb) continue;
     sRestW[tn] = wq(sb);
-    const tc = childOf[tn] ? tB[childOf[tn]] : firstChild(tb, (c) => UAL1_MAP[c.name]);
-    const sc = tc && sB[UAL1_MAP[tc.name]];
+    const tc = childOf[tn] ? tB[childOf[tn]] : firstChild(tb, (c) => MAP[c.name]);
+    const sc = tc && sB[MAP[tc.name]];
     let qa = new Q();
     if (tc && sc && !/pelvis|spine|neck|Head/.test(tn)) {
       const dt = wp(tc).sub(wp(tb)).normalize(), ds = wp(sc).sub(wp(sb)).normalize();
@@ -205,18 +206,18 @@ function retargetUAL1(male, ual1) {
     }
     align[tn] = qa;
   }
-  const hipS = wp(sB['DEF-hips']), hipT = wp(tB.pelvis);
+  const hipS = wp(sB[MAP.pelvis]), hipT = wp(tB.pelvis);
   const scale = hipT.y / hipS.y;
   const pelvisParentInv = tB.pelvis.parent.matrixWorld.clone().invert();
   const out = [];
   const mixer = new THREE.AnimationMixer(sRoot);
-  for (const clip of ual1.animations) {
-    if (!RT_WANT.has(clip.name)) continue;
-    if (RT_CACHE[clip.name]) { out.push(RT_CACHE[clip.name]); continue; }
+  for (const clip of anims) {
+    if (!clip.tracks.length || (want && !want.has(clip.name))) continue; const key = prefix + clip.name;
+    if (RT_CACHE[key]) { out.push(RT_CACHE[key]); continue; }
     mixer.stopAllAction(); const act = mixer.clipAction(clip); act.reset().play();
     const N = Math.max(2, Math.round(clip.duration * 30) + 1), times = new Float32Array(N);
-    const qv = {}, pv = new Float32Array(N * 3);
-    for (const b of order) if (UAL1_MAP[b.name] && sB[UAL1_MAP[b.name]]) qv[b.name] = new Float32Array(N * 4);
+    const qv = {}, pv = new Float32Array(N * 3), hpW = [];
+    for (const b of order) if (MAP[b.name] && sB[MAP[b.name]]) qv[b.name] = new Float32Array(N * 4);
     const curW = new Map();
     for (let f = 0; f < N; f++) {
       const t = Math.min(clip.duration, f / 30); times[f] = t;
@@ -224,23 +225,43 @@ function retargetUAL1(male, ual1) {
       for (const b of order) {
         const parentW = b.parent && curW.get(b.parent) || (b.parent ? wq(b.parent) : new Q());
         let w;
-        if (UAL1_MAP[b.name] && sB[UAL1_MAP[b.name]]) {
-          const d = wq(sB[UAL1_MAP[b.name]]).multiply(sRestW[b.name].clone().invert());
+        if (MAP[b.name] && sB[MAP[b.name]]) {
+          const d = wq(sB[MAP[b.name]]).multiply(sRestW[b.name].clone().invert());
           w = d.multiply(align[b.name]).multiply(tRestW.get(b));
           const loc = parentW.clone().invert().multiply(w).normalize();
           loc.toArray(qv[b.name], f * 4);
         } else w = parentW.clone().multiply(tRestLocal.get(b));
         curW.set(b, w);
       }
-      const hp = wp(sB['DEF-hips']).sub(hipS).multiplyScalar(scale).add(hipT).applyMatrix4(pelvisParentInv);
-      hp.toArray(pv, f * 3);
+      hpW.push(wp(sB[MAP.pelvis]).sub(hipS).multiplyScalar(scale).add(hipT));
     }
+    // vòng lặp chạy/đi: bỏ trôi ngang của hông (đưa về tại chỗ), ghi tốc độ tự nhiên = quãng trôi / thời lượng
+    let rootSpeed = 0;
+    if (inPlace && inPlace.has(clip.name) && N > 2) { const d = hpW[N - 1].clone().sub(hpW[0]); d.y = 0; rootSpeed = d.length() / clip.duration;
+      hpW.forEach((h, f) => h.sub(d.clone().multiplyScalar(f / (N - 1)))); }
+    hpW.forEach((h, f) => h.applyMatrix4(pelvisParentInv).toArray(pv, f * 3));
     const tracks = [new THREE.VectorKeyframeTrack('pelvis.position', times, pv)];
     for (const [n, a] of Object.entries(qv)) tracks.push(new THREE.QuaternionKeyframeTrack(n + '.quaternion', times, a));
-    const rc = new THREE.AnimationClip(clip.name, clip.duration, tracks);
-    RT_CACHE[clip.name] = rc; out.push(rc);
+    const rc = new THREE.AnimationClip(key, clip.duration, tracks); rc.userData = { rootSpeed };
+    RT_CACHE[key] = rc; out.push(rc);
   }
   mixer.stopAllAction();
+  return out;
+}
+function retargetUAL1(male, ual1) { return retargetSet(male, ual1.scene, ual1.animations, UAL1_MAP, RT_WANT); }
+
+// Mixamo (mixamorig*) → UBC. File FBX đặt ở assets/mixamo/<Tên>.fbx, clip tên 'MX_<Tên>'
+const MX_LOOPS = new Set(['Sprint', 'Running', 'Jogging', 'Slow_Jog_Backwards']);
+export const MIXAMO_FILES = ['Sprint', 'Running', 'Jogging', 'Run_To_Stop', 'Slow_Jog_Backwards', 'Quarterback_Pass', 'Receiver_Catch', 'Football_Catch', 'Football_Hike'];
+const MX_MAP = (() => { const m = { pelvis: 'mixamorigHips', spine_01: 'mixamorigSpine', spine_02: 'mixamorigSpine1', spine_03: 'mixamorigSpine2', neck_01: 'mixamorigNeck', Head: 'mixamorigHead' };
+  for (const [s, S] of [['l', 'Left'], ['r', 'Right']]) { Object.assign(m, { ['clavicle_' + s]: `mixamorig${S}Shoulder`, ['upperarm_' + s]: `mixamorig${S}Arm`, ['lowerarm_' + s]: `mixamorig${S}ForeArm`, ['hand_' + s]: `mixamorig${S}Hand`,
+    ['thigh_' + s]: `mixamorig${S}UpLeg`, ['calf_' + s]: `mixamorig${S}Leg`, ['foot_' + s]: `mixamorig${S}Foot`, ['ball_' + s]: `mixamorig${S}ToeBase` });
+    for (const [f, F] of [['index', 'Index'], ['middle', 'Middle'], ['pinky', 'Pinky'], ['ring', 'Ring'], ['thumb', 'Thumb']]) for (const i of [1, 2, 3]) m[`${f}_0${i}_${s}`] = `mixamorig${S}Hand${F}${i}`; }
+  return m; })();
+async function loadMixamo(male) {
+  const { FBXLoader } = await import('three/addons/loaders/FBXLoader.js'); const F = new FBXLoader(); const out = [];
+  for (const n of MIXAMO_FILES) { let o; try { o = await F.loadAsync(ROOT + 'mixamo/' + n + '.fbx'); } catch (e) { continue; }
+    const c = o.animations.find((a) => a.tracks.length); if (!c) continue; c.name = n; out.push(...retargetSet(male, o, [c], MX_MAP, null, 'MX_', MX_LOOPS)); }
   return out;
 }
 

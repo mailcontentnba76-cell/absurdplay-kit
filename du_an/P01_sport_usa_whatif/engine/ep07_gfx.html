@@ -1,0 +1,82 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+@font-face{font-family:SpaceMono;src:url(fonts/space-mono-latin-700-normal.woff2)}
+/* Tập 7: đồ hoạ KIỂU SÂN BAY — bảng giờ bay đen–vàng chữ lật từng ký tự (Space Mono), thẻ lên máy bay (boarding pass),
+   tag hành lý cho trích dẫn, lower-third teal Jaguars. Khác bảng màu E01–E06. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.fb{position:absolute;background:#0b0d10;border-radius:18px;padding:22px 34px 26px;box-shadow:0 16px 34px rgba(0,0,0,.5);border:4px solid #1e232b;white-space:nowrap;text-align:center}
+.fb .k{display:block;font-family:Inter;font-size:30px;letter-spacing:6px;color:#8a93a0;margin-bottom:10px}
+.fl{display:inline-flex;gap:6px}.fl span{display:inline-block;width:62px;height:96px;line-height:96px;background:#1e232b;border-radius:6px;font-family:SpaceMono;font-size:74px;color:#f6c90e;position:relative;text-align:center}
+.fl span:after{content:'';position:absolute;left:0;right:0;top:47px;height:3px;background:#000}
+.fl.s span{width:40px;height:62px;line-height:62px;font-size:46px}.fl.s span:after{top:30px}
+.fl.w span{color:#fff}.fl.r span{background:#b3001b;color:#fff}
+.bp{position:absolute;display:flex;border-radius:22px;overflow:hidden;box-shadow:0 16px 34px rgba(0,0,0,.45);white-space:nowrap}
+.bp .a{background:#006778;color:#fff;padding:22px 34px;text-align:left}.bp .b{background:#f4f1ea;color:#101820;padding:22px 30px;border-left:6px dashed #c9c2b6;text-align:center}
+.bp .a i,.bp .b i{display:block;font-style:normal;font-size:28px;letter-spacing:5px;opacity:.75}.bp .a b{display:block;font-size:84px;line-height:1.05}.bp .b b{display:block;font-size:84px;line-height:1.05;color:#d7a22a}
+.tag{position:absolute;background:#fdf6e3;color:#101820;border-radius:16px 16px 16px 60px;padding:26px 44px 30px 70px;box-shadow:0 16px 34px rgba(0,0,0,.45);white-space:normal;width:820px;text-align:left}
+.tag:before{content:'';position:absolute;left:24px;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;background:#0b0d10;box-shadow:0 0 0 6px #c9c2b6}
+.tag .q{font-size:62px;line-height:1.1}.tag .w{font-size:30px;letter-spacing:4px;color:#006778;margin-top:14px;display:block}
+.tag .top{position:absolute;left:0;right:0;top:0;height:16px;background:#c0392b;border-radius:16px 16px 0 0}
+.lt{position:absolute;left:60px!important;transform:none!important;display:flex;align-items:stretch;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.lt .n{background:#006778;color:#fff;font-size:70px;padding:10px 24px;display:flex;align-items:center;border-radius:14px 0 0 14px;border-right:8px solid #d7a22a}
+.lt .t{background:rgba(11,13,16,.95);color:#fff;padding:10px 30px 12px;border-radius:0 14px 14px 0}
+.lt .t b{display:block;font-size:56px;line-height:1.05}.lt .t i{display:block;font-style:normal;font-size:30px;letter-spacing:4px;color:#f6c90e}
+.bug{top:300px;display:flex;height:80px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4);font-family:SpaceMono}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:42px;padding:0 18px;color:#fff}
+.bA{background:#006778;min-width:120px}.bB{background:#2d3436;min-width:120px}.bS{background:#0b0d10;min-width:80px;color:#f6c90e!important}.bC{background:#f6c90e;color:#0b0d10!important;font-size:32px!important;min-width:200px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.bar{display:flex;align-items:center;gap:16px;margin:10px 0;font-size:40px;color:#fff;font-family:Inter}.bar u{display:block;height:46px;background:#f6c90e;border-radius:6px;text-decoration:none}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+.stamp{position:absolute;border:12px solid #c0392b;color:#c0392b;font-size:96px;padding:6px 30px;border-radius:18px;transform:translateX(-50%) rotate(-10deg);background:rgba(253,246,227,.92);white-space:nowrap}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">JAX</div><div class="bS" id="sA">0</div><div class="bB">BAG</div><div class="bS" id="sB">0</div><div class="bC" id="clk">GATE B12</div></div>
+<div class="el fb" id="match" style="top:1330px"><span class="k">TONIGHT · BAGGAGE CLAIM 2</span><div class="fl s w" data-t="JAGUARS VS 11 BAGS"></div></div>
+<div class="el bp" id="rec" style="top:430px"><div class="a"><i>PASSENGER</i><b>JAGUARS</b></div><div class="b"><i>RECORD</i><b>6–2</b></div></div>
+<div class="el fb" id="diff" style="top:430px"><span class="k">POINT DIFFERENTIAL</span><div class="bar"><span style="width:110px">JAX</span><u id="b1" style="width:0"></u><span id="b1t">+131</span></div><div class="bar"><span style="width:110px">SF</span><u id="b2" style="width:0;background:#8a93a0"></u><span>+58</span></div><span class="k" style="margin:10px 0 0">NO. 1 IN THE NFL</span></div>
+<div class="el fb" id="bil" style="top:1330px"><span class="k">STADIUM RENOVATION</span><div class="fl" data-t="$1.4B"></div></div>
+<div class="el fb" id="lon" style="top:430px"><span class="k">"HOME" GAMES PLAYED IN LONDON</span><div class="fl" data-t="2"></div></div>
+<div class="el fb" id="days" style="top:430px"><span class="k">DAYS WITHOUT A GAME IN JACKSONVILLE</span><div class="fl" id="dayN" data-t="00"></div></div>
+<div class="el tag" id="quote" style="top:1250px"><div class="top"></div><div class="q">“London is undoubtedly our home away from home.”</div><span class="w">— LIAM COEN, HEAD COACH</span></div>
+<div class="el lt" id="law" style="top:1330px"><div class="n">16</div><div class="t"><b>TREVOR LAWRENCE</b><i>QUARTERBACK · JACKSONVILLE</i></div></div>
+<div class="el fb" id="cov" style="top:430px"><span class="k">SUITCASES DEFENSE</span><div class="fl s" data-t="COVER 2"></div></div>
+<div class="el lt" id="was" style="top:1330px"><div class="n">11</div><div class="t"><b>PARKER WASHINGTON</b><i>WIDE RECEIVER · JACKSONVILLE</i></div></div>
+<div class="el fb" id="yds" style="top:430px"><div class="fl" data-t="50 YDS"></div></div>
+<div class="el fb" id="td" style="top:430px;border-color:#f6c90e"><div class="fl w" data-t="TOUCHDOWN"></div></div>
+<div class="el fb" id="nh" style="top:430px"><span class="k">SUITCASES OFFENSE</span><div class="fl s" data-t="NO-HUDDLE"></div></div>
+<div class="el lt" id="ht" style="top:1330px"><div class="n">HT</div><div class="t"><b>TERMINAL SPORTS</b><i>JAGUARS 7 · SUITCASES 0</i></div></div>
+<div class="el fb" id="sk" style="top:430px"><span class="k">SACKS ALLOWED</span><div class="fl" data-t="0"></div><span class="k" style="margin:12px 0 0">WEIGHT LIMIT EXCEEDED</span></div>
+<div class="el fb" id="fc" style="top:430px;border-color:#b3001b"><span class="k">NOW BOARDING · GATE B12</span><div class="fl s r" data-t="FINAL CALL"></div><div class="fl s" style="margin-top:8px" data-t="NASHVILLE"></div></div>
+<div class="el fb" id="road" style="top:430px"><span class="k">NEXT STOPS</span><div class="fl s" data-t="BAL TEN NYG"></div><span class="k" style="margin:12px 0 0">ROAD · ROAD · ROAD</span></div>
+<div class="el bp" id="fin" style="top:1300px"><div class="a"><i>FINAL</i><b>JAX 33</b></div><div class="b"><i>SUITCASES</i><b style="color:#101820">0</b></div></div>
+<div class="el stamp" id="ff" style="top:520px">FORFEIT · BAGS WIN</div>
+<div class="el fb" id="home" style="top:430px"><span class="k">HOME RECORD</span><div class="fl s" data-t="UNBEATEN*"></div><span class="k" style="margin:12px 0 0">*NEVER HOME</span></div>
+<div class="el fb" id="tdl" style="top:430px"><span class="k">TRADE DEADLINE · TUE 4 PM ET</span><div class="fl s" data-t="TITANS ASK"></div><div class="fl s w" style="margin-top:8px" data-t="11 SUITCASES?"></div></div>
+<div class="el tag" id="nyg" style="top:1250px"><div class="top" style="background:#0b2265"></div><div class="q">Giants: “Does it come with a home field?”</div><span class="w">— FRONT OFFICE (PROBABLY)</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep07_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['match',...at('s2',0.2)],['rec',...at('s5',0.15)],['diff',...at('s6',0.1)],['bil',SH.s8[0]+0.6,SH.s9[1]],['lon',...at('s10',0.3)],['days',...at('s11',0.2)],['quote',...at('s12',0.2)],
+ ['bug',SH.s14[0],SH.s22[0]],['law',...at('s14',0.05)],['cov',...at('s15',0.3)],['was',...at('s17',0.0)],['yds',...at('s18',0.1)],['td',...at('s19',0.05)],['nh',...at('s20',0.3)],
+ ['ht',...at('s26',0.3)],['sk',...at('s27',0.1)],['bug',SH.s27[0],SH.s30[0]],['fc',SH.s31[0],SH.s31[1]],['road',...at('s32',0.2)],['fin',...at('s36',0.3)],['ff',...at('s37',0.1)],['home',...at('s38',0.3)],['tdl',...at('s40',0.3)],['nyg',...at('s41',0.3)]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+const CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+// bảng lật: mỗi ký tự lật ngẫu nhiên rồi dừng đúng chữ, lệch nhau theo vị trí
+const flips=[...document.querySelectorAll('.fl')].map(e=>{const txt=e.dataset.t;e.innerHTML='';const sp=[...txt].map(c=>{const s=document.createElement('span');s.textContent=c===' '?' ':c;e.appendChild(s);if(c===' ')s.style.background='transparent';return s;});return {e,txt,sp,card:e.closest('.el')};});
+const setFlip=(f,a,t,txt)=>{const T=txt??f.txt;f.sp.forEach((s,i)=>{const c=T[i]??' ';if(c===' '){s.textContent=' ';return;}const done=t-a>0.12+i*0.045;s.textContent=done?c:CH[Math.floor((t*40+i*7))%CH.length];});};
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt'))e.style.transform=`translateX(${(1-k)*-700}px)`;else if(e.id==='ff')e.style.transform=`translateX(-50%) rotate(-10deg) scale(${on?Math.max(1,2.2-1.2*Math.min(1,(t-a)/0.15)):1})`;else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.86+0.14*k})`;}
+  for(const f of flips){const a=vis[f.card.id];if(a==null)continue;if(f.e.id==='dayN'){const n=Math.min(34,Math.floor(Math.max(0,t-a-0.2)*24));setFlip(f,-9,t,String(n).padStart(2,'0'));}else setFlip(f,a,t);}
+  if(vis.diff!=null){const k=ease(Math.min(1,(t-vis.diff-0.2)/0.6));$('b1').style.width=(k*560)+'px';$('b2').style.width=(k*560*58/131)+'px';}
+  // tỷ số
+  $('sA').textContent=t>=SH.s27[0]?33:t>=SH.s19[0]+0.2?7:0;$('sB').textContent=0;$('clk').textContent=t<SH.s27[0]?'1ST · B12':t<SH.s29[0]?'HALF':'4TH · B12';
+  const f=(t-SH.s3[0])*30,f2=(t-SH.s19[0])*30;$('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:f2>=0&&f2<4?[0.6,0.4,0.2,0.05][Math.floor(f2)]:0;
+  const fc=$('fc');if(vis.fc!=null)fc.style.borderColor=Math.floor(t*4)%2?'#b3001b':'#f6c90e';
+};
+</script></body></html>

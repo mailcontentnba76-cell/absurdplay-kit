@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose} from './lib/tuthe.js';
+import {loco,locoLock,expr,clipPose,clipDur} from './lib/dongtac.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight,false);r.outputColorSpace=THREE.SRGBColorSpace;r.shadowMap.enabled=true;
+const s=new THREE.Scene();s.background=new THREE.Color('#8fb7e0');s.add(new THREE.HemisphereLight('#fff','#4a6a3a',2.6));const d=new THREE.DirectionalLight('#fff',2.4);d.position.set(-6,12,8);d.castShadow=true;d.shadow.camera.left=-60;d.shadow.camera.right=60;d.shadow.camera.top=20;d.shadow.camera.bottom=-20;d.shadow.mapSize.set(4096,1024);s.add(d);s.add(d.target);
+// sân cỏ có vạch 5 yard + số để thấy chân bám đất
+const cv=document.createElement('canvas');cv.width=4096;cv.height=512;const g=cv.getContext('2d');for(let i=0;i<40;i++){g.fillStyle=i%2?'#3f8f3a':'#46993f';g.fillRect(i*102.4,0,102.4,512);}g.fillStyle='#fff';for(let i=0;i<=40;i++){g.fillRect(i*102.4-3,0,6,512);}for(let i=0;i<=40;i++)for(let k=0;k<512;k+=26)g.fillRect(i*102.4+49,k,4,10);
+const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;tx.anisotropy=8;const fl=new THREE.Mesh(new THREE.PlaneGeometry(180,22.5),new THREE.MeshStandardMaterial({map:tx,roughness:0.9}));fl.rotation.x=-Math.PI/2;fl.position.set(60,0,0);fl.receiveShadow=true;s.add(fl);
+for(let i=0;i<14;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(6,3+((i*7)%5),1),new THREE.MeshStandardMaterial({color:i%2?'#20526b':'#c9a227'}));b.position.set(-20+i*14,1.5,-14);s.add(b);}
+const lib=await loadLibrary();
+const A=makeCharacter(lib,{...EAGLES,jersey:'#006778',number:11,heightM:1.78,skin:'#5a3622',helmet:null,hair:'Hair_Buzzed',pants:'#f2f2f2'});s.add(A.root);resetPose(A);A.root.traverse(o=>{if(o.isMesh)o.castShadow=true;});
+// hồ sơ tốc độ: đứng → chạy bộ → tăng tốc → chạy nhanh → hãm (Run_To_Stop)
+const V=(t)=>t<0.5?0:t<0.8?1.9*(t-0.5)/0.3:t<1.7?1.9:t<2.5?1.9+4.0*(t-1.7)/0.8:5.9;
+const TS=4.4;const X=[0];for(let i=1;i<=600;i++){const t=i/100;X.push(X[i-1]+V(t)*0.01);}
+const px=(t)=>{t=Math.max(0,Math.min(TS,t));const i=Math.floor(t*100),f=t*100-i;return -10+X[i]+(X[Math.min(600,i+1)]-X[i])*f;};
+const path=(t)=>[px(t),0];
+const cam=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,.05,300);
+window.renderFrame=t=>{
+  let o;
+  if(t<TS){o=locoLock(A,lib,t,path,{t0:0,face:Math.PI/2,lock:true});}
+  else{const ds=clipDur(A,lib,'MX_Run_To_Stop');const u=t-TS;A.root.position.set(px(TS),0,0);A.root.rotation.set(0,Math.PI/2,0);
+    const k=Math.min(1,u/0.12);resetPose(A);
+    clipPose(A,lib,[{name:'MX_Run_To_Stop',time:Math.min(ds*0.999,u),w:k,loop:false},{name:'Idle_Loop',time:u,w:Math.max(0,(u-ds)/0.4)*1},{name:'MX_Running',time:(TS/1)%1*0.63+u,w:1-k}]);}
+  expr(A,t,[[0,'neutral'],[0.6,'determined'],[2.6,'shock'],[TS+0.6,'proud']]);
+  A.root.updateMatrixWorld(true);const p=A.bones.pelvis.getWorldPosition(new THREE.Vector3());
+  cam.position.set(p.x+0.4,1.15,6.2);cam.lookAt(p.x+0.4,0.95,0);r.render(s,cam);};
+window.ready=true;
+</script></body></html>

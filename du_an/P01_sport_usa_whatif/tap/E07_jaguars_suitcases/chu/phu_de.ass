@@ -1,0 +1,84 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.56,Cap,,0,0,0,,could the best
+Dialogue: 0,0:00:00.56,0:00:01.00,Cap,,0,0,0,,team in the
+Dialogue: 0,0:00:01.00,0:00:03.42,Cap,,0,0,0,,nfl beat 11 suitcases?
+Dialogue: 0,0:00:03.42,0:00:04.36,Cap,,0,0,0,,except the suitcases
+Dialogue: 0,0:00:04.36,0:00:05.04,Cap,,0,0,0,,have spent more
+Dialogue: 0,0:00:05.04,0:00:06.02,Cap,,0,0,0,,nights in jacksonville
+Dialogue: 0,0:00:06.02,0:00:07.40,Cap,,0,0,0,,than the jaguars.
+Dialogue: 0,0:00:07.40,0:00:07.94,Cap,,0,0,0,,the jaguars
+Dialogue: 0,0:00:07.94,0:00:09.26,Cap,,0,0,0,,are 6-2 with
+Dialogue: 0,0:00:09.26,0:00:09.62,Cap,,0,0,0,,a plus
+Dialogue: 0,0:00:09.62,0:00:11.80,Cap,,0,0,0,,131 point differential.
+Dialogue: 0,0:00:11.80,0:00:12.96,Cap,,0,0,0,,best in football.
+Dialogue: 0,0:00:12.96,0:00:13.58,Cap,,0,0,0,,but their stadium
+Dialogue: 0,0:00:13.58,0:00:14.76,Cap,,0,0,0,,is a $1.4
+Dialogue: 0,0:00:14.76,0:00:16.86,Cap,,0,0,0,,billion construction site.
+Dialogue: 0,0:00:16.86,0:00:17.48,Cap,,0,0,0,,two home games
+Dialogue: 0,0:00:17.48,0:00:18.76,Cap,,0,0,0,,were played in london.
+Dialogue: 0,0:00:18.76,0:00:19.64,Cap,,0,0,0,,they went 34
+Dialogue: 0,0:00:19.64,0:00:20.74,Cap,,0,0,0,,days without a
+Dialogue: 0,0:00:20.74,0:00:22.02,Cap,,0,0,0,,game in jacksonville.
+Dialogue: 0,0:00:22.02,0:00:22.66,Cap,,0,0,0,,head coach liam
+Dialogue: 0,0:00:22.66,0:00:24.04,Cap,,0,0,0,,coen called london our
+Dialogue: 0,0:00:24.04,0:00:25.42,Cap,,0,0,0,,home away from home.
+Dialogue: 0,0:00:25.42,0:00:26.28,Cap,,0,0,0,,so tonight's home game
+Dialogue: 0,0:00:26.28,0:00:28.12,Cap,,0,0,0,,is at gate b12.
+Dialogue: 0,0:00:28.12,0:00:28.56,Cap,,0,0,0,,trevor lawrence
+Dialogue: 0,0:00:28.56,0:00:29.12,Cap,,0,0,0,,in the shotgun.
+Dialogue: 0,0:00:29.12,0:00:30.14,Cap,,0,0,0,,the suitcases
+Dialogue: 0,0:00:30.14,0:00:31.48,Cap,,0,0,0,,show cover two.
+Dialogue: 0,0:00:31.48,0:00:31.90,Cap,,0,0,0,,lawrence finds
+Dialogue: 0,0:00:31.90,0:00:33.50,Cap,,0,0,0,,parker washington deep,
+Dialogue: 0,0:00:33.50,0:00:35.36,Cap,,0,0,0,,50 yards, touchdown.
+Dialogue: 0,0:00:35.36,0:00:36.50,Cap,,0,0,0,,the suitcases answer with
+Dialogue: 0,0:00:36.50,0:00:37.88,Cap,,0,0,0,,a no huddle offense.
+Dialogue: 0,0:00:37.88,0:00:38.82,Cap,,0,0,0,,they can't huddle.
+Dialogue: 0,0:00:38.82,0:00:39.02,Cap,,0,0,0,,they're
+Dialogue: 0,0:00:38.98,0:00:39.30,Cap,,0,0,0,,on a
+Dialogue: 0,0:00:39.30,0:00:40.96,Cap,,0,0,0,,carousel, carousel,
+Dialogue: 0,0:00:40.96,0:00:43.02,Cap,,0,0,0,,carousel, carousel.
+Dialogue: 0,0:00:43.02,0:00:43.96,Cap,,0,0,0,,at halftime, the
+Dialogue: 0,0:00:43.96,0:00:45.12,Cap,,0,0,0,,broadcast praises the
+Dialogue: 0,0:00:45.12,0:00:46.90,Cap,,0,0,0,,suitcases offensive line.
+Dialogue: 0,0:00:46.90,0:00:48.12,Cap,,0,0,0,,zero sacks allowed,
+Dialogue: 0,0:00:48.12,0:00:49.06,Cap,,0,0,0,,mostly because nobody
+Dialogue: 0,0:00:49.06,0:00:50.28,Cap,,0,0,0,,can lift them.
+Dialogue: 0,0:00:50.28,0:00:51.32,Cap,,0,0,0,,fourth quarter, jaguars
+Dialogue: 0,0:00:51.32,0:00:53.12,Cap,,0,0,0,,up 33 to nothing.
+Dialogue: 0,0:00:53.12,0:00:55.12,Cap,,0,0,0,,then the speakers crackle.
+Dialogue: 0,0:00:55.12,0:00:55.36,Cap,,0,0,0,,final boarding
+Dialogue: 0,0:00:55.36,0:00:56.18,Cap,,0,0,0,,call for nashville.
+Dialogue: 0,0:00:56.18,0:00:57.42,Cap,,0,0,0,,the jaguars have
+Dialogue: 0,0:00:57.42,0:00:58.32,Cap,,0,0,0,,three road games
+Dialogue: 0,0:00:58.32,0:00:59.28,Cap,,0,0,0,,in a row.
+Dialogue: 0,0:00:59.28,0:00:59.72,Cap,,0,0,0,,they grab their
+Dialogue: 0,0:00:59.72,0:01:01.36,Cap,,0,0,0,,bags, wrong bags.
+Dialogue: 0,0:01:01.36,0:01:02.92,Cap,,0,0,0,,they grab the defense.
+Dialogue: 0,0:01:02.92,0:01:04.10,Cap,,0,0,0,,final score, jaguars
+Dialogue: 0,0:01:04.10,0:01:06.50,Cap,,0,0,0,,33, suitcases zero.
+Dialogue: 0,0:01:06.50,0:01:07.10,Cap,,0,0,0,,the suitcases
+Dialogue: 0,0:01:07.10,0:01:08.48,Cap,,0,0,0,,win by forfeit.
+Dialogue: 0,0:01:08.48,0:01:09.26,Cap,,0,0,0,,the jaguars are
+Dialogue: 0,0:01:09.26,0:01:10.18,Cap,,0,0,0,,still unbeaten at
+Dialogue: 0,0:01:10.18,0:01:11.36,Cap,,0,0,0,,home, mostly because
+Dialogue: 0,0:01:11.36,0:01:12.54,Cap,,0,0,0,,they're never there.
+Dialogue: 0,0:01:12.54,0:01:13.20,Cap,,0,0,0,,the titans asked
+Dialogue: 0,0:01:13.20,0:01:14.02,Cap,,0,0,0,,if the suitcases
+Dialogue: 0,0:01:14.02,0:01:15.04,Cap,,0,0,0,,are available before
+Dialogue: 0,0:01:15.04,0:01:16.50,Cap,,0,0,0,,tuesday's trade deadline.
+Dialogue: 0,0:01:16.50,0:01:17.30,Cap,,0,0,0,,the giants just
+Dialogue: 0,0:01:17.30,0:01:17.70,Cap,,0,0,0,,want to know
+Dialogue: 0,0:01:17.70,0:01:18.12,Cap,,0,0,0,,if they come
+Dialogue: 0,0:01:18.12,0:01:19.12,Cap,,0,0,0,,with a home field.

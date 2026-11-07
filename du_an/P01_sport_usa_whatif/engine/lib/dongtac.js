@@ -24,19 +24,23 @@ const STRIDE = {};
 const OFF = {};
 export function measureStride(ch, lib, name) {
   // quãng đường 1 chu kỳ = trung vị tốc độ lùi của bàn chân thấp hơn (đang đỡ người) × thời lượng; OFF = pha chân trái chạm đất (z trước nhất) để các dáng khớp pha khi trộn
-  if (STRIDE[name]) return STRIDE[name]; const d = clipDur(ch, lib, name); const s0 = ch.root.scale.x; const rot = ch.root.rotation.y; ch.root.scale.setScalar(1); ch.root.rotation.set(0, 0, 0); ch.root.position.set(0, 0, 0);
+  if (STRIDE[name]) return STRIDE[name]; const d = clipDur(ch, lib, name);
+  { const c = lib.clips.find((q) => q.name === name); if (c && c.userData && c.userData.rootSpeed > 0.4) { measureOff(ch, lib, name, d); return (STRIDE[name] = c.userData.rootSpeed * d); } } // clip Mixamo có trôi gốc: tốc độ thật
+  const s0 = ch.root.scale.x; const rot = ch.root.rotation.y; ch.root.scale.setScalar(1); ch.root.rotation.set(0, 0, 0); ch.root.position.set(0, 0, 0);
   const N = 120, bl = [], br = [], fl = [], v3 = new THREE.Vector3();
   for (let i = 0; i <= N; i++) { clipPose(ch, lib, [{ name, time: d * i / N, w: 1 }]); ch.root.updateMatrixWorld(true);
     ch.bones.ball_l.getWorldPosition(v3); bl.push([v3.y, v3.z]); ch.bones.ball_r.getWorldPosition(v3); br.push([v3.y, v3.z]); ch.bones.foot_l.getWorldPosition(v3); fl.push([v3.y, v3.z]); }
   const m = Math.min(...bl.map((q) => q[0]), ...br.map((q) => q[0])); let sum = 0, n = 0;
-  for (const a of [bl, br]) for (let i = 0; i < N; i++) if (a[i][0] < m + 0.04 && a[i + 1][0] < m + 0.04) { sum += a[i][1] - a[i + 1][1]; n++; } // mũi chân chạm đất
+  for (const a of [bl, br]) for (let i = 0; i < N; i++) if (a[i][0] < m + 0.015 && a[i + 1][0] < m + 0.015) { sum += a[i][1] - a[i + 1][1]; n++; } // mũi chân chạm đất
   const v = n ? (sum / n) * N / d : 1;
   let im = 0; for (let i = 0; i <= N; i++) if (fl[i][1] > fl[im][1]) im = i; OFF[name] = im / N;
   ch.root.scale.setScalar(s0); ch.root.rotation.y = rot; return (STRIDE[name] = Math.max(0.6, v * d));
 }
+function measureOff(ch, lib, name, d) { const s0 = ch.root.scale.x, rot = ch.root.rotation.y; ch.root.scale.setScalar(1); ch.root.rotation.set(0, 0, 0); ch.root.position.set(0, 0, 0); const v = new THREE.Vector3(); let im = 0, best = -1e9;
+  for (let i = 0; i <= 60; i++) { clipPose(ch, lib, [{ name, time: d * i / 60, w: 1 }]); ch.root.updateMatrixWorld(true); ch.bones.foot_l.getWorldPosition(v); if (v.z > best) { best = v.z; im = i; } } OFF[name] = im / 60; ch.root.scale.setScalar(s0); ch.root.rotation.y = rot; }
 export const gaitInfo = () => ({ STRIDE, OFF });
 // tốc độ tự nhiên đo từ clip (sau retarget, nhân vật 1,8 m): đi ~1,0 m/s, chạy ~6,3, nước rút ~9,2 → đường đi trong shot nên đúng các tốc độ này để chân khoá mặt đất
-const GAITS = [{ name: 'Walk_Loop', v: 1.0, to: 2.6 }, { name: 'Jog_Fwd_Loop', v: 6.3, to: 7.8 }, { name: 'Sprint_Loop', v: 9.2 }];
+const GAITS = [{ name: 'Walk_Loop', v: 1.0, to: 1.25 }, { name: 'MX_Jogging', v: 1.9, to: 3.6 }, { name: 'MX_Running', v: 5.9 }, { name: 'MX_Sprint', v: 6.1, extra: true }, { name: 'MX_Slow_Jog_Backwards', v: 0.8, extra: true }]; // Mixamo (07/11): chạy bộ + nước rút người thật
 const angLerp = (a, b, k) => { let d = ((b - a + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI; return a + d * k; };
 // path(t) -> [x,z]; o: {t0, face (hướng khi đứng), back (đi lùi), gait ép ('Walk_Loop'…), idle ('Idle_Loop'), extra:[layers…] }
 export function loco(ch, lib, t, path, o = {}) {
@@ -92,4 +96,28 @@ export function expr(ch, t, keys, o = {}) {
   const sd = o.seed || 0; const p = ((t + sd * 1.37) % 3.3 + 3.3) % 3.3; const blink = p < 0.07 ? p / 0.07 : p < 0.15 ? (0.15 - p) / 0.08 : 0;
   const look = o.look || [+(Math.sin(t * 0.9 + sd) * 0.35 + Math.sin(t * 3.7 + sd) * 0.08).toFixed(2), +(Math.sin(t * 0.6 + sd * 1.3) * 0.15).toFixed(2)];
   ch.face({ ...F, blink: +Math.max(blink, F.squint > 0.6 ? 0 : 0).toFixed(2), look });
+}
+
+// ---- Khóa bàn chân (07/11): bàn chân đang chạm đất giữ nguyên điểm đặt (tính tất định: lùi thời gian tìm lúc chạm), IK chân kéo về ----
+import { ik2 } from './tuthe.js';
+const FOOT_Y = 0.02; // mũi chân (ball) thấp hơn ngưỡng này (m, nhân scale) = đang chạm đất
+export function locoLock(ch, lib, t, path, o = {}) {
+  const sc = ch.root.scale.y, thr = FOOT_Y * sc, V3 = THREE.Vector3;
+  const sample = (tt) => { loco(ch, lib, tt, path, o); ch.root.updateMatrixWorld(true); return { l: ch.bones.ball_l.getWorldPosition(new V3()), r: ch.bones.ball_r.getWorldPosition(new V3()) }; };
+  const now = sample(t), tgt = {};
+  for (const s of ['l', 'r']) {
+    if (now[s].y > thr) continue; let ts = t, p = now[s];
+    for (let k = 1; k <= 24; k++) { const q = sample(t - k / 60)[s]; if (q.y > thr) break; ts = t - k / 60; p = q; }
+    if (ts < t) tgt[s] = p;
+  }
+  if (!Object.keys(tgt).length) return sample(t);
+  sample(t); // tư thế thật tại t
+  for (const [s, p] of Object.entries(tgt)) {
+    const ball = ch.bones['ball_' + s].getWorldPosition(new V3()), foot = ch.bones['foot_' + s].getWorldPosition(new V3());
+    const w = Math.min(1, Math.max(0, (thr - ball.y) / (0.015 * sc))); // nhả dần khi nhấc chân
+    const d = new V3(p.x - ball.x, 0, p.z - ball.z).multiplyScalar(w); if (d.length() > 0.45 * sc) continue;
+    const knee = ch.bones['calf_' + s].getWorldPosition(new V3()), hip = ch.bones['thigh_' + s].getWorldPosition(new V3());
+    ik2(ch, 'thigh_' + s, 'calf_' + s, 'foot_' + s, foot.add(d), knee.sub(hip));
+  }
+  ch.root.updateMatrixWorld(true); return now;
 }

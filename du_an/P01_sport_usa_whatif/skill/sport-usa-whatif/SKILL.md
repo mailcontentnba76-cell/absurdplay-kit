@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.8 (06/11/2026)
+# Sport USA "What If" — v0.9 (07/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -67,7 +67,9 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
   - Cử chỉ riêng (ôm bóng, kẹp bóng, chỉ tay, vẫy, ngón cái) = lớp IK/aim đặt SAU clip (`holdBall`, `tuck`, `point`, `wave`, `thumb` trong ep06.html) — thân dưới vẫn là mocap.
   - Clip UAL1 (xương Rigify DEF-*) được retarget sang xương UBC trong `loadLibrary` (giữ hướng xương theo thế giới + bù tư thế nghỉ). Tên xương trong three bị bỏ dấu chấm (`DEF-spine.001` → `DEF-spine001`).
   - **Biểu cảm theo từng chữ lời thoại:** mỗi nhân vật thấy mặt có khoá `expr(ch,t,[[giây,'preset'],…],{seed})` gắn mốc từ `words_tw.json` (vd "Except" → wince, "still won" → surprised→proud, "throws" → determined, bị húc → panic→wince). Preset: neutral smug confident shock surprised wince proud laugh sad determined panic shrug talk cheer. Chuyển 0,22 s, chớp mắt, liếc mắt, miệng mấp máy khi `talk`. Da tối tự có viền môi sáng để thấy miệng.
-  - Kiểm: `test_dt.html` (bảng 36 khung đi→chạy, nhìn chân không trượt) + render khung then chốt mỗi shot trước khi cắt thử.
+  - **Mixamo (07/11, ưu tiên cho chạy/ném/bắt):** FBX chủ dự án tải (FBX Binary, Without Skin, 30 fps, In Place cho vòng lặp) đặt ở `assets/mixamo/<Tên>.fbx` (KHÔNG đưa lên GitHub), tự retarget sang UBC thành clip `MX_<Tên>`: Sprint, Running, Jogging, Run_To_Stop, Slow_Jog_Backwards, Quarterback_Pass (thả bóng ~5,42 s), Receiver_Catch, Football_Catch (bóng vào tay ~1,5 s), Football_Hike. Clip có trôi gốc tự đưa về tại chỗ và lấy tốc độ thật. Tốc độ tự nhiên: đi 1,0 · Jogging ~1,9 · Running 5,9 · Sprint ~5,6–6,1 m/s → đặt đường chạy gần các tốc độ này.
+  - **Khoá bàn chân:** dùng `locoLock()` thay `loco()` cho nhân vật thấy chân: mũi chân chạm đất (<2 cm) giữ nguyên điểm đặt, IK chân kéo về, nhả dần khi nhấc. Hãm lại: chuyển sang `MX_Run_To_Stop` (trộn 0,12 s). Máy quay chạy ngang song song khi có cảnh chạy (như video mẫu).
+  - Kiểm: `test_run6.html` (6 s đứng→chạy bộ→chạy nhanh→hãm, sân có vạch để thấy chân bám), `test_slide.html` (đo trượt), (bảng 36 khung đi→chạy, nhìn chân không trượt) + render khung then chốt mỗi shot trước khi cắt thử.
 - **NHÂN VẬT LUÔN CỬ ĐỘNG (chủ dự án yêu cầu, áp dụng mọi tập):** không nhân vật người nào đứng yên tuyệt đối trong khung hình, nhất là shot mở đầu (0–3 s quyết định giữ chân người xem). Mỗi nhân vật trong khung có tối thiểu: thở + đổi trọng tâm + quay đầu/nhìn quanh (`liven(ch,t,seed,amt,headAmt)` trong `lib/bongbau.js`, hoặc `alive()` trong `tuthe.js`), gọi SAU khi đặt tư thế; seed khác nhau để lệch nhịp. Nhân vật chính có thêm cử chỉ theo lời (chỉ tay hô tín hiệu `qbSignal`, giơ ngón cái có nhún, lắc đầu khi thua, giật mình ở "Except"). Ngoại lệ duy nhất: thứ đứng im là CHÍNH gag (vd ma-nơ-canh) — khi đó cho chi tiết phụ chuyển động (mác giá đung đưa, khán giả, máy quay trôi). Kiểm: render 3 khung cách 0,5 s mỗi shot, so thấy khác nhau mới đạt.
 - `lib/nhanvat2.js`: `tank`, `shorts`, `sockAt`, `shortsTo`, `wordmark`, `wordmarkColor`, `backName`, `collar`, `pantsStripes`, `edgeSoft:1`, số chiếu phẳng trước/sau. `lib/cast2.js`: mẫu cấu hình (HEAT trắng Association, BUCKS xanh, fan, trọng tài). Tay dài: scale `upperarm`. **Chiều cao: luôn dùng `heightM` = chiều cao thật (m) tra web** (thân gốc nam 1,81 m, nữ 1,767 m); không dùng `scale` đoán. E02 sai: Giannis 1,99 m (thật 2,11), Herro 1,77 m (thật 1,96), Bucks 1,81 m.
 - `lib/bongro.js`: stance, dribble, wingspan, holdChest, shoot, dunk, flex, seated (ngủ), slump, toss, defend. NFL: `lib/tuthe.js` (benchSit, pushup, akimbo, alive…).
@@ -116,11 +118,13 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E04 | NFL | Eagles 2–6: Barkley #26, McKee #16, Elliott #4 (áo nhà midnight green) | 11 người hơi vẫy tay (gập đè Barkley, 5 lần sack McKee, đá trúng cột) | bãi xe hàng xe hơi ban ngày "MEGA DEALS AUTO" | alvana upbeat/bouncing |
 | E05 | NBA | Bulls 1–7: Powell #24, Wilson #8, Giddey #3 (+Jones #30, Williams #44; áo đỏ CHICAGO) | 5 người tuyết (tay que dài ra úp rổ, lướt băng, tan dần) | sân ngoài trời mùa đông bên hồ đóng băng + thành phố xa nhiều kiểu nhà | alvana chiptune/ice-temple |
 | E06 | NFL | Bucs (kỷ lục kỳ quặc của đội THẮNG): Mayfield #6, Irving #7 (áo đỏ, quần pewter) | 11 chiếc ô (lật ngược hứng bóng), Falcons ký hợp đồng với ô | sân NFL mưa lớn ban chiều + phòng phân tích, sơ đồ từ trên, trường quay, phòng họp báo | alvana hiphop/hard-mode |
+| E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v0.9 (07/11): động tác Mixamo (retarget tự động, clip MX_*), khoá bàn chân `locoLock`, đoạn hãm Run_To_Stop; E07 sân bay.
 - v0.8 (06/11): chuyển động mocap mượt (`lib/dongtac.js`: loco/clipPose/expr, retarget UAL1→UBC), biểu cảm theo mốc lời cho mọi nhân vật thấy mặt; E06 dựng lại theo quy tắc này.
 - v0.7 (05/11): mẫu mới Drake Maye vs 11 folding chairs (1,1M/18 h) — mở rộng 5 kiểu chủ đề, khuôn lời 10 bước (~55–70 s), nhiều bối cảnh phụ, đồ hoạ kiểu truyền hình, bão hoà ≥ 95, nhịp 35–45 shot.
 - v0.6 (05/11): E05 — hook bíp (câm chữ + bíp 1 kHz, phụ đề ****, giọng gốc không chửi); đối chiếu box score Sportradar trước khi tạo giọng; `lib/tuyet.js` (sân tuyết, người tuyết, tuyết rơi, thành phố xa thật); melt PHẢI có `-profile` 1080x1920 (thiếu → viền đen 34 px hai bên, E04 bản đầu bị).
