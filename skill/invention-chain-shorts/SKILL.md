@@ -114,7 +114,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 2. **Mặt khoa trương** bằng đơn vị face-poseunits (trọng số tới 1,35–1,5): ví dụ rặn = `NoseWrinkler, BrowDown, UpperLidClosed .85, LowerLidUp, CheeksPump, lowerLipUp, UpperLipStretched, MouthPullDown` (+ nhấp nháy cường độ sin 5 rad/s); nhẹ nhõm = `OuterBrowUp, LidClosed .5, MouthPullUp, JawDrop .12`; rồi chuyển sang `ngac_nhien` khi biến cố.
 3. **≥ 2 lớp phụ trợ 2D/3D quanh nhân vật**: ruồi 3D cánh đập (nhóm `flyAround`), giọt mồ hôi rơi, sóng mùi xanh, vòng đỏ + vạch gãi, sao lấp lánh… đặt phía sau/cạnh, không che mặt.
 4. **SFX riêng cho gag** (ruồi vo ve −17 dB, tiếng rặn −16 dB, gãi…) từ giây 0.
-5. Máy đủ gần để thấy mặt ngay từ đầu (≈ 2,5–3,5 m, fov 38), nhân vật xoay người khi cần khoe chỗ gag (mông/nách…).
+5. **Shot mở đầu PHẢI GÓC RỘNG cho người xem hiểu ngay sự việc (chủ dự án 07/11/2026, E06):** mục tiêu/vật cản và nhân vật cùng trong khung, thấy bối cảnh. Cách chuẩn (như mẫu trampoline): mở sát mục tiêu (cửa sổ, đồ vật bị lấy…) rồi **kéo lùi 0–1,4 s ra toàn cảnh** thấy nhân vật đang làm gì; shot 2 vẫn rộng (toàn thân + vật cản). Cận mặt chỉ dùng SAU khi người xem đã hiểu tình huống (câu khen, phản ứng). Không mở đầu bằng cận mặt/cận tay.
 Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt. E05 = macro lon bia lạnh → tay bạn chộp mất, bọt văng lên mặt → nhân vật đứng hình, tay với vào khoảng không → bạn ôm lon chạy giơ khoe. E06 = máy sát tường nhìn xuống: nhân vật nhảy tưng tưng dưới cửa sổ, cười nhe răng, nhướng mày lia lịa; bạn hát trong nhà tắm (nốt nhạc, hơi nước).
 
 **Chuyển động mượt (không "giật/vụng"):**

@@ -23,3 +23,4 @@
 | 07/11/2026 | E06 | Giật ở cú nhảy mở đầu (27×) | Nảy kiểu `max(0,sin)` gãy đạo hàm + tay giơ ngang ống kính | Nảy `(1−cos)/2`, hạ tay khỏi vùng gần máy | Không dùng `max(0,sin)`/`abs(sin)` cho chuyển động gần máy |
 | 07/11/2026 | E06 | Bật pose khi đổi từ chạy sang đứng (em họ) | jog → standAt đột ngột | Thêm tham số `amp` cho `jog`, giảm sải chân về 0 trước khi đổi | Mọi chuyển trạng thái thân: hạ biên độ trước rồi mới đổi |
 | 07/11/2026 | E06 | Giọng turbo mới (CHỮ HOA, stability 0,3) chỉ 174 từ/phút | Chữ hoa kéo dài từ | atempo 1,18 → 206 từ/phút (bản chủ dự án nghe chọn đo được 209) | Đo từ/phút ngay sau khi rút nghỉ; atempo ≤ 1,2 |
+| 07/11/2026 | E06 | Mở đầu quá sát nhân vật — người xem không hiểu đang làm gì (chủ dự án góp ý) | Máy đặt sát tường cận mặt để thấy biểu cảm | Mở sát cửa sổ (bạn đang tắm hát) rồi kéo lùi ra toàn cảnh tường + cửa sổ cao + nhân vật với tay; shot 2 góc rộng từ trên cao | Skill 7a mục 5: shot 1–2 luôn góc rộng thấy sự việc |
