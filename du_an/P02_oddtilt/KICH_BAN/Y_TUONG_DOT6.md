@@ -39,4 +39,4 @@ Bước thật: bánh patin đóng dưới tấm ván (thập niên 1950) → b�
 | Turbo + CHỮ HOA, ổn định 0,3 | 12,0 | 4,6 | gần như không đổi | |
 | v3 + tag + CHỮ HOA, Natural | 13,9 | 5,5 | fucking, leaf blower, huge, Genius, launching, sky, Mexico | |
 | **v3 + tag + CHỮ HOA, Creative (stability 0)** | **15,4** | 5,9 | huge, Genius, crash, cousin, floats… + lên/xuống giọng cuối câu như mẫu | 151 từ / 41,2 s ≈ 220 từ/phút, không cần atempo |
-→ Chọn **eleven_v3, stability 0, speed 1**, viết lời có CHỮ HOA ở từ đắt + "..." trước cú nảy + 2 tag ([excited] trước "Genius!", [mischievously] trước câu kết). Bản Creative đôi khi đọc chệch 1–2 từ ("wanna", thêm "wood") → phụ đề lấy theo ASR nên vẫn khớp; nếu chệch nặng thì tạo lại. Giá 160 credit/lần (gấp đôi turbo).
+→ **Chủ dự án nghe và chọn TURBO** (eleven_turbo_v2_5, stability 0,3, CHỮ HOA, không tag) — hay hơn bản v3 dù v3 đo dải cao độ rộng hơn. Bài học: chỉ số cao độ không đo được "hay"; mọi thay đổi giọng phải gửi bản nghe thử cho chủ dự án chọn.

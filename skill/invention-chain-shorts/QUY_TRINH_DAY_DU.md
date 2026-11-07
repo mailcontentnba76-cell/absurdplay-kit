@@ -102,7 +102,7 @@ tap/DEMO_door/cong_cu/    tao_phu_de.py (dùng chung mọi tập)
 - Không trùng đồ vật đã làm/16 mẫu (ghế, điều hoà, đồng hồ báo thức, bút bi, giường, cửa, quạt, kẹp hạt, lò quay, vòi sen, thước cuộn, bồn cầu, ô, bóng rổ, bóng golf, bạt nhún, lều, cửa sổ, giấy vệ sinh, khử mùi, xe đạp).
 
 **B2. Giọng (Magnific).** `account_balance` trước. Gọi `audio_tts`:
-`{text:<lời có CHỮ HOA ở từ đắt + "..." + [excited] trước "Genius!" + [mischievously] trước câu kết>, voiceId:197595, source:"mine", model:"eleven_v3", stability:0, speed:1}` (≈ 160 credit; giọng nhấn nhá như mẫu viral — `SKILL.md` mục 4.0). Đo lại bằng `python3 cong_cu/do_giong.py giong.wav words.json ten` (dải cao độ ≥ 14 bán cung) → `creations_wait` → tải URL:
+`{text:<lời có CHỮ HOA ở từ đắt + "...", KHÔNG tag [..]>, voiceId:197595, source:"mine", model:"eleven_turbo_v2_5", stability:0.3, speed:0.97}` (≈ 77 credit; chủ dự án đã nghe và chọn cấu hình này — `SKILL.md` mục 4.0) → `creations_wait` → tải URL:
 `curl -sSf -o $T/am_thanh/giong_goc.mp3 '<url>'` (cần mạng tới `pikaso.cdnpk.net`).
 
 **B3. Rút nghỉ + chỉnh tốc độ.**
