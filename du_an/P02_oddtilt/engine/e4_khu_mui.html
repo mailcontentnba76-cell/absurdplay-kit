@@ -35,7 +35,7 @@ function tent(x,z,h,rad,ry){const g=new THREE.Group();const c2=new THREE.Mesh(ne
 tent(-3.2,-3.0,3.2,1.6,.4);tent(3.4,-4.2,3.6,1.8,-.3);tent(-6.5,-1.0,2.8,1.4,1.1);tent(6.8,-.8,3.0,1.5,-1.2);
 // đá ngồi + lửa trại
 const GRAN=mat('da_granit_m',[.6,.6]);
-const ROCK1=add(new THREE.Mesh(new THREE.DodecahedronGeometry(.42,1),GRAN),1.6,.22,.4);ROCK1.scale.set(1.3,.55,1);
+const ROCK1=add(new THREE.Mesh(new THREE.DodecahedronGeometry(.42,1),GRAN),1.95,.22,.4);ROCK1.scale.set(1.3,.55,1);
 const fire=new THREE.Group();{const lm=new THREE.MeshStandardMaterial({color:'#4a3018',roughness:1});for(let k=0;k<5;k++){const l=new THREE.Mesh(new THREE.CylinderGeometry(.05,.06,.7,8),lm);l.rotation.z=Math.PI/2;l.rotation.y=k/5*6.28;l.position.y=.06;l.castShadow=true;fire.add(l);}
  for(let k=0;k<9;k++){const st=new THREE.Mesh(new THREE.DodecahedronGeometry(.11,0),GRAN);const a=k/9*6.28;st.position.set(Math.cos(a)*.45,.05,Math.sin(a)*.45);fire.add(st);}}
 fire.position.set(-.6,0,-1.4);s.add(fire);
@@ -62,8 +62,8 @@ const sun=new THREE.DirectionalLight('#fff4dc',3.8);sun.position.set(2,10,6);sun
 // ---------- ĐẠO CỤ
 const leafG=new THREE.Group();{const lm=new THREE.MeshStandardMaterial({color:'#5fc25a',side:THREE.DoubleSide,roughness:.6});for(let k=0;k<6;k++){const l=new THREE.Mesh(new THREE.CircleGeometry(.04,8),lm);l.scale.y=1.8;l.position.set((rnd()-.5)*.06,(rnd()-.5)*.05,(rnd()-.5)*.06);l.rotation.set(rnd()*3,rnd()*3,0);leafG.add(l);}}s.add(leafG);
 const CLAY=new THREE.MeshStandardMaterial({color:'#9a5a33',roughness:.85});
-const bowl=new THREE.Mesh(new THREE.LatheGeometry([V(0,0,0),V(.16,.01,0),V(.2,.08,0),V(.21,.14,0),V(.19,.14,0),V(.17,.09,0),V(0,.03,0)].map(p=>new THREE.Vector2(p.x,p.y)),32),CLAY);bowl.castShadow=true;bowl.position.set(1.6,.46,.4);s.add(bowl);
-const paste=new THREE.Mesh(new THREE.CircleGeometry(.175,32),new THREE.MeshStandardMaterial({color:'#e8e1c6',roughness:.35}));paste.rotation.x=-Math.PI/2;paste.position.set(1.6,.57,.4);s.add(paste);
+const bowl=new THREE.Mesh(new THREE.LatheGeometry([V(0,0,0),V(.16,.01,0),V(.2,.08,0),V(.21,.14,0),V(.19,.14,0),V(.17,.09,0),V(0,.03,0)].map(p=>new THREE.Vector2(p.x,p.y)),32),CLAY);bowl.castShadow=true;bowl.position.set(1.95,.46,.4);s.add(bowl);
+const paste=new THREE.Mesh(new THREE.CircleGeometry(.175,32),new THREE.MeshStandardMaterial({color:'#e8e1c6',roughness:.35}));paste.rotation.x=-Math.PI/2;paste.position.set(1.95,.57,.4);s.add(paste);
 const stick=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.36,6),new THREE.MeshStandardMaterial({color:'#6b4a2a'}));stick.castShadow=true;s.add(stick);
 const pouch=new THREE.Mesh(new THREE.SphereGeometry(.09,14,10),mat('da_leu_m',[.3,.3]));pouch.scale.y=1.2;pouch.castShadow=true;s.add(pouch);
 const jar=new THREE.Group();{const j=new THREE.Mesh(new THREE.CylinderGeometry(.05,.055,.13,20),CLAY);jar.add(j);const ball=new THREE.Mesh(new THREE.SphereGeometry(.038,18,12),new THREE.MeshStandardMaterial({color:'#d9e8f2',roughness:.1,metalness:.1}));ball.position.y=.075;jar.add(ball);jar.traverse(o=>o.castShadow=true);}s.add(jar);
@@ -106,11 +106,11 @@ const SH=[
  [0,3.36,  V(-2.6,1.55,6.6),V(-1.6,1.45,5.0), V(.6,1.25,.6),V(.6,1.3,.6),40],        // hook: vươn vai, mùi, hoa héo, chim rơi, bạn bịt mũi
  [3.36,5.3, V(3.9,1.55,-2.0),V(3.45,1.5,-1.6),V(1.4,1.25,.6),V(1.9,1.25,-.1),48],        // đi tự đắc tới bụi bạc hà
  [5.3,8.2,  V(3.35,1.6,-1.55),V(3.1,1.58,-1.25),V(2.05,1.35,-.25),V(2.05,1.4,-.25),44],     // vò lá chà nách → Clever!
- [8.2,9.92, V(.4,1.45,3.6),V(.65,1.42,3.0),V(.6,1.2,.6),V(.7,1.2,.6),46],       // trưa: mùi trở lại, bạn nhăn
- [9.92,12.96,V(2.4,1.25,1.75),V(2.15,1.15,1.4),V(1.62,.75,.1),V(1.6,.7,.15),42],       // trộn mỡ trong bát
+ [8.2,9.92, V(-1.1,1.5,3.9),V(-.7,1.45,3.4),V(.35,1.15,.85),V(.45,1.15,.8),50],       // trưa: mùi trở lại, bạn nhăn
+ [9.92,12.96,V(2.75,1.25,1.75),V(2.5,1.15,1.4),V(1.97,.75,.1),V(1.95,.7,.15),42],       // trộn mỡ trong bát
  [12.96,15.12,V(2.2,1.55,2.4),V(2.05,1.52,1.9),V(1.25,1.4,.3),V(1.25,1.38,.3),44],         // mồ hôi như heo
  [15.12,18.16,V(2.95,1.55,1.2),V(2.55,1.5,.85),V(1.35,1.38,.2),V(1.35,1.42,.2),46],        // vỗ bột → Much better
- [18.16,21.2,V(2.35,1.35,1.55),V(2.1,1.3,1.25),V(1.62,.95,0),V(1.62,1.0,0),40], // móc tay vào hũ, kinh tởm
+ [18.16,21.2,V(2.7,1.35,1.55),V(2.45,1.3,1.25),V(1.97,.95,0),V(1.97,1.0,0),40], // móc tay vào hũ, kinh tởm
  [21.2,23.68,V(2.7,1.6,.95),V(2.35,1.55,.6),V(1.35,1.42,.2),V(1.35,1.42,.2),40], // lăn bi
  [23.68,25.44,V(.4,1.5,4.1),V(1.1,1.47,4.3),V(1.0,1.1,.75),V(2.1,1.0,1.4),50],          // bạn trộm hũ chạy
  [25.44,27.36,V(2.55,1.45,1.25),V(2.3,1.48,.8),V(1.35,1.42,.2),V(1.35,1.42,.2),42],   // xịt
@@ -155,9 +155,9 @@ window.renderFrame=(t)=>{try{
     stinkAt(stinks.slice(0,2),pit(A,'L'),t,E(t,8.3,8.9));stinkAt(stinks.slice(2),pit(A,'R'),t+.4,E(t,8.3,8.9));
     applyMocap(F,MO['79_73'],2+(t-8.2)*.8,{pos:V(-.4,0,1.3),yaw:2.3,faceAt:2,inPlace:true});armIK(F,'R',J(F,'head').add(fwdOf(F).multiplyScalar(.1)).add(V(0,-.03,0)),V(-1,-1,0));face(F,t,2,[OE,1.2]);}
   // ===== S5 9.92–12.96: ngồi đá, khuấy thảo mộc + mỡ trong bát
-  else if(t<12.96){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.6,0,-.05),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
-    stick.visible=true;const a=(t-9.92)*5;const tip=V(1.6+Math.cos(a)*.08,.6,.4+Math.sin(a)*.08);stick.position.copy(tip).add(V(0,.14,0));stick.rotation.set(Math.sin(a)*.25,0,Math.cos(a)*.25);
-    armIK(A,'R',tip.clone().add(V(0,.25,0)),V(-1,-.5,0));armIK(A,'L',V(1.7,.55,.3),V(1,-1,0));
+  else if(t<12.96){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.95,0,-.2),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
+    stick.visible=true;const a=(t-9.92)*5;const tip=V(1.95+Math.cos(a)*.08,.6,.4+Math.sin(a)*.08);stick.position.copy(tip).add(V(0,.14,0));stick.rotation.set(Math.sin(a)*.25,0,Math.cos(a)*.25);
+    armIK(A,'R',tip.clone().add(V(0,.25,0)),V(-1,-.5,0));armIK(A,'L',V(2.05,.55,.3),V(1,-1,0));
     paste.material.color.set(new THREE.Color('#e8e1c6').lerp(new THREE.Color('#7fbf5a'),E(t,10.4,12.0)));face(A,t,1,[EXPR.to_mo,.8],[EXPR.tu_hao,E(t,12,12.6)]);
     F.root.visible=false;}
   // ===== S6 12.96–15.12: nắng gắt, mồ hôi tuôn như heo
@@ -172,9 +172,9 @@ window.renderFrame=(t)=>{try{
     puffs.forEach((x,i)=>{const f=rp(t,15.6+i*.12,16.6+i*.12);x.visible=f>0&&f<1;x.position.copy(pl).add(V(Math.cos(i*1.9)*.25*f,.05+.25*f,Math.sin(i*1.9)*.2*f));const ss=.15+.35*f;x.scale.set(ss,ss,1);x.material.opacity=.9*(1-f);});
     face(A,t,1,[EXPR.ngac_nhien,E(t,15.6,15.9)*(1-E(t,16.6,17.0))],[SUONG,E(t,17.2,17.6)]);if(t>17.35)starsAt(pl,t,.32);F.root.visible=false;}
   // ===== S8 18.16–21.2: móc tay vào hũ mỡ nhầy → tởm, ọe
-  else if(t<21.2){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.6,0,-.05),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
-    const dig=(1-Math.cos((t-18.16)*5))*.5;armIK(A,'R',V(1.6,.6+dig*.08,.42),V(-1,-.5,0));armIK(A,'L',V(1.72,.55,.3),V(1,-1,0));
-    if(t>19.2){const k=E(t,19.2,20.0);armIK(A,'R',lerpV(V(1.6,.62,.42),J(A,'head').add(fwdOf(A).multiplyScalar(.28)).add(V(0,-.05,0)),k),V(-1,-.5,0));}
+  else if(t<21.2){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.95,0,-.2),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
+    const dig=(1-Math.cos((t-18.16)*5))*.5;armIK(A,'R',V(1.95,.6+dig*.08,.42),V(-1,-.5,0));armIK(A,'L',V(2.07,.55,.3),V(1,-1,0));
+    if(t>19.2){const k=E(t,19.2,20.0);armIK(A,'R',lerpV(V(1.95,.62,.42),J(A,'head').add(fwdOf(A).multiplyScalar(.28)).add(V(0,-.05,0)),k),V(-1,-.5,0));}
     face(A,t,1,[OE,E(t,19.6,20.0)*1.35]);F.root.visible=false;}
   // ===== S9 21.2–23.68: hũ đầu bi lăn trơn tru dưới nách
   else if(t<23.68){applyMocap(A,MO['111_28'],1+(t-21.2)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);
