@@ -10,3 +10,7 @@
 - 30,35 s, 1080×1920, 30 fps, −14,1 LUFS, 12 shot. Màu tách bạch (cam / trắng / xám-xanh / xanh cỏ).
 - Mở đầu hài: vươn vai → mùi nách làm hoa héo, chim rơi, bạn oẹ rồi tự ngửi nách mình mà khóc.
 - QA giật: còn các đỉnh do động tác thật (bạn oẹ, tay vỗ nách, sao lấp lánh), không còn bật pose.
+
+## 07/11/2026 — Phân tích 2 mẫu viral + skill v1.2
+- Thêm `PHAN_TICH_MAU/15_bong_golf.md`, `16_trampoline.md` (lời + mốc, cắt cảnh, máy, màu, gag, loudness).
+- Skill `invention-chain-shorts` v1.2: mục 1b (hook chơi chữ / động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn).

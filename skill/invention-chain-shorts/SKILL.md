@@ -2,7 +2,7 @@
 name: "invention-chain-shorts"
 description: "Sản xuất video dọc 30–50 s kiểu 'How you invented the X' (dự án P02, mẫu kênh TikTok @oddtilt): người xem là 'genius caveman' giải từng lỗi một cho tới khi phát minh ra đồ vật, 3D bán tả thực (MakeHuman + mocap), phụ đề trắng 2 từ giữa màn hình, lời kể nhanh liên tục. Dùng khi người dùng yêu cầu ý tưởng, kịch bản, bản thử hoặc video mới cho dự án P02, hoặc nhắc tới oddtilt / 'how you invented'."
 ---
-# Invention-chain shorts (P02) — v1.1 (06/11/2026)
+# Invention-chain shorts (P02) — v1.2 (07/11/2026)
 
 > **Trạng thái:** chuỗi dựng đã được chủ dự án DUYỆT trên demo "the door" 0–11 s (bản thử 8, 06/11/2026) sau 8 vòng sửa. Mọi quy tắc trong mục 5–7 là chuẩn bắt buộc cho video sau. Quy trình chung: `00_HUONG_DAN_CHO_CLAUDE.md` + skill `video-production-pipeline`.
 > **Cách làm việc chủ dự án đã cho phép (06/11/2026):** tự quyết các bước kỹ thuật và làm tiếp không chờ; chỉ hỏi trước khi tiêu nhiều credit Magnific, xoá dữ liệu, hoặc đăng/chia sẻ ra ngoài. Không làm bản sao video của kênh khác để đăng.
@@ -25,13 +25,33 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 - Video để đăng: không chép đồ vật/gag/lời của 14 mẫu; không dùng "dấu hiệu" kênh mẫu (tháp hạt nhân…).
 - **Giọng văn ĐÃ CHỐT (chủ dự án 06/11/2026): "bựa" như mẫu** — hook kiểu B (khó chịu cơ thể: ass, sweaty, smell like shit) hoặc D (toilet: taking a shit), có "ass/shit" trong hook và 1 lần "fucking" ở vòng cuối do "your friend"; kết "Now your friend …" nước đôi gọi lại hook. Tham khảo khung demo "the door". Đề xuất đồ vật gắn với cơ thể/vệ sinh/đời sống (giấy vệ sinh, khử mùi, vòi rửa…).
 
+## 1b. Bài học 2 mẫu VIRAL (golf ball, trampoline — chủ dự án gửi 07/11/2026; chi tiết `PHAN_TICH_MAU/15_bong_golf.md`, `16_trampoline.md`) — ƯU TIÊN khi viết tập mới
+**Kịch bản**
+- Không bắt buộc "caveman": bối cảnh **hiện đại đời thường** (sân sau, công viên, phòng tắm, bãi biển…) cũng được và đang viral; nhân vật ăn mặc thường ngày.
+- 2 kiểu hook mới, mạnh nhất:
+  - **E – chơi chữ tên đồ vật** (golf: "Your brass balls are too heavy…") → câu kết lặp lại đúng chữ nước đôi ("…now your balls are aerodynamic!").
+  - **F – động cơ bựa/cấm kỵ**, đồ vật chỉ là phương tiện (trampoline: "You want to watch your friend shower, but he put up a fence") → kết "**Now you can [động cơ] every day!**" khép vòng.
+- 31–36 s, ~220 từ/phút, **4–5 vòng lỗi→sửa** (mỗi vòng ~5 s), 1–2 câu khen, 1–2 câu "Now when you…, [cơ chế khoa học thật]".
+- Nguồn lỗi đổi liên tục để leo thang: **kẻ phản đòn** ("your friend makes his fucking fence taller") → **cơ thể** ("snaps underneath your fat ass") → **chấn thương** (kẹp chân) → **người thứ ba** ("your little cousin… gets launched") / **nạn nhân ngẫu nhiên** ("some fucking old man has the audacity…"). 1 lần "fucking", 1 lần "ass"/"balls".
+**Hình ảnh**
+- **Đồ vật là ngôi sao**: 35–50 % thời lượng là MACRO đồ vật (máy sát đất, vật chiếm 40–60 % khung, DOF nông, nền mờ chân người). Mỗi cải tiến = 1 **biến hình thấy được** của chính đồ vật (bóp méo squash/stretch, rách dần, vỏ khép lại, lỗ mọc dần, bộ phận thay vật liệu).
+- **Lắp ráp hiện dần đúng lúc đọc danh từ**: bộ phận bật ra lần lượt (scale 0→1 overshoot 0,25 s, cách nhau 0,05–0,1 s) trong khi máy trượt dọc theo.
+- **Thất bại phải có cú ngã/đau/bay**: ragdoll ngã ngửa, khung gãy sập, người thứ ba bị bắn thành chấm nhỏ trên trời (máy ngước theo), cận chân bị kẹp; giữ phản ứng 1–2 s.
+- **1 đồ hoạ khoa học/tập**: đường dòng khí trắng mảnh 3D, mũi tên lực, sóng… minh hoạ câu "Now…".
+- Máy: xen **macro vật ↔ rộng người** (golf, shot trung vị 1,5 s) hoặc **máy bay liên tục kể chuyện** (trampoline: kéo lùi từ mục tiêu về qua vai nhân vật trong 1,2 s; cẩu theo cú nhảy; median flow 0,8 px/khung, đứng yên ≤ 10 %). Nhiều góc qua vai/sau lưng → người xem "là" nhân vật. Vật bay thì máy bám theo.
+- Kết: shot gọi lại shot mở đầu (cùng mục tiêu/khung hình) khi đạt động cơ.
+**Màu** (khớp 7a2): nền tự nhiên dịu (bão hoà TB ≈ 78), nhân vật trung tính (áo trắng/xám, jean), **chỉ 1 màu rực = đồ vật phát minh** (bóng đỏ, đệm xanh dương) để mắt đi thẳng vào nó.
+**Mở đầu** (kết hợp 7a): 0–1,5 s cho thấy **động cơ/vấn đề bằng hình** (mục tiêu trong khung cửa, macro đồ vật lỗi), rồi tới phản ứng hài của nhân vật.
+**Cách làm trong engine hiện có** [SL, thử ở tập tới]: ngã ragdoll = xoay `root` quanh trục ngang bằng smootherstep 0,45 s + `squat`/tay vung, nảy nhẹ khi chạm đất (cos tắt dần); lắp ráp hiện dần = mảng mesh với `scale = overshoot(rp(t, t_từ + i·0,07, +0,25))`; streamlines = `THREE.Line` trắng mờ (opacity .7) từ đường cong uốn quanh vật, dịch pha theo t; macro = fov 28–32, máy cách vật 0,25–0,5 m, độ cao 0,05–0,2 m, thêm BokehPass nhẹ hoặc nền mờ bằng texture `_m`.
+**Không chép**: tháp làm mát hạt nhân (dấu hiệu kênh), logo MakeHuman, đề tài golf/trampoline/nhìn trộm tắm y hệt.
+
 ## 2. Thông số đích (đo trên mẫu)
 | Mục | Đích |
 |---|---|
 | Khung | 1080×1920, 30 fps |
 | Thời lượng | 30–50 s |
-| Shot | 10–18 shot, trung vị 2,5–3,5 s, cắt cứng; ≥ 1 shot mới mỗi "so you…"/"But/Except" |
-| Màu | ban ngày tự nhiên, bão hoà 60–130, sáng 95–165 (HSV) |
+| Shot | 10–18 shot, trung vị 2,5–3,5 s, cắt cứng; ≥ 1 shot mới mỗi "so you…"/"But/Except". Mẫu viral: 15 shot trung vị 1,5 s (golf) hoặc ~10 cắt + máy bay liên tục (trampoline) |
+| Màu | ban ngày tự nhiên, bão hoà 60–130, sáng 95–165 (HSV); mẫu viral TB 78 + 1 vật nhấn rực |
 | Âm | −14 LUFS, TP ≤ −1; nhạc −19 dB dưới lời |
 | Icon 2D | ≥ 2 loại/video: tim, Zzz, mồ hôi, sóng mùi, vòng âm, mũi tên cong, viền highlight xanh lá, confetti |
 
@@ -122,6 +142,7 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 `du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
 
 ## Thay đổi
+- v1.2 (07/11/2026): thêm mục 1b từ 2 mẫu viral (golf ball, trampoline): hook chơi chữ/động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật + biến hình, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn.
 - v1.1 (06/11/2026): mở đầu hài theo tình huống (mặt khoa trương + ruồi/mồ hôi/mùi + SFX), quy tắc chuyển động mượt + QA giật.
 - v1.0 (06/11/2026): chủ dự án duyệt bản thử 8; gom toàn bộ cách dựng/chuyển động/âm thanh đã sửa thành chuẩn; cảnh mẫu `MAU_CANH_CHUAN.html`; công cụ QA `qa_may_nhapnhay.py`; phụ đề 1080.
 - v0.6: chống nhấp nháy (z-fighting, nền xa). v0.5: máy chéo ¾ + parallax; rèm bay cả tấm. v0.4: máy luôn chuyển động + ngưỡng đo. v0.3: máy mở đầu góc rộng, hướng x, rèm trùm tường, bỏ GTAO, 1080 + MSAA. v0.2: chuỗi MakeHuman/mocap/biểu cảm/texture Magnific/SFX. v0.1: phân tích 14 mẫu.
