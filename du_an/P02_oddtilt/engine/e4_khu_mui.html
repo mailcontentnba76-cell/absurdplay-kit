@@ -112,7 +112,7 @@ const SH=[
  [15.12,18.16,V(2.95,1.55,1.2),V(2.55,1.5,.85),V(1.35,1.38,.2),V(1.35,1.42,.2),46],        // vỗ bột → Much better
  [18.16,21.2,V(2.35,1.35,1.55),V(2.1,1.3,1.25),V(1.62,.95,0),V(1.62,1.0,0),40], // móc tay vào hũ, kinh tởm
  [21.2,23.68,V(2.7,1.6,.95),V(2.35,1.55,.6),V(1.35,1.42,.2),V(1.35,1.42,.2),40], // lăn bi
- [23.68,25.44,V(.1,1.5,4.0),V(1.4,1.45,4.4),V(.95,1.1,.7),V(2.5,1.0,1.6),48],          // bạn trộm hũ chạy
+ [23.68,25.44,V(.4,1.5,4.1),V(1.1,1.47,4.3),V(1.0,1.1,.75),V(2.1,1.0,1.4),50],          // bạn trộm hũ chạy
  [25.44,27.36,V(2.55,1.45,1.25),V(2.3,1.48,.8),V(1.35,1.42,.2),V(1.35,1.42,.2),42],   // xịt
  [27.36,30.35,V(3.0,1.55,1.5),V(2.65,1.5,1.05),V(1.5,1.35,.15),V(1.5,1.38,.15),46]]; // bạn hít nách say mê
 const cam=new THREE.PerspectiveCamera(45,9/16,.05,400);
@@ -141,15 +141,15 @@ window.renderFrame=(t)=>{try{
     face(F,t,2,[EXPR.to_mo,1-E(t,1.0,1.3)],[OE,E(t,1.0,1.4)*1.3]);}
   // ===== S2 3.36–5.3: đi tự đắc tới bụi bạc hà
   else if(t<5.3){const k=E(t,3.36,5.3);applyMocap(A,MO['07_01'],.15+(t-3.36)*.95,{pos:lerpV(V(1.0,0,.9),V(2.05,0,-.35),k),yaw:2.45,faceAt:1,inPlace:true});face(A,t,1,[EXPR.tu_hao,1]);
-    applyMocap(F,MO['77_02'],3+t,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[OE,.8]);
+    applyMocap(F,MO['77_02'],2+(t-3.36)*.8,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[OE,.8]);
     stinkAt(stinks,pit(A,'L').lerp(pit(A,'R'),.5),t,.6);}
   // ===== S3 5.3–8.2: bứt lá, vò, chà nách → giơ tay "Clever!"
   else if(t<8.2){applyMocap(A,MO['111_28'],1+(t-5.3)*.5,{pos:V(2.1,0,-.3),yaw:2.0,faceAt:1,inPlace:true});
     leafG.visible=true;
     if(t<6.3){const kk=E(t,5.3,5.8);const bushP=V(2.55,.45,-.55);rotWorld(A.bones['spine05____head'],sideOf(A),.45*kk*(1-E(t,5.9,6.3)));armIK(A,'R',lerpV(J(A,'spine01').add(V(0,-.35,.1)),bushP,kk*(1-E(t,5.9,6.3))),V(-1,-1,0));leafG.position.copy(t<5.8?bushP:J(A,'wrist.R'));face(A,t,1,[EXPR.to_mo,.8]);}
-    else{oneArmUp(A,'L',E(t,6.3,6.6));const pl=pit(A,'L');const rub=Math.sin((t-6.3)*9)*.05;armIK(A,'R',pl.clone().add(fwdOf(A).multiplyScalar(.04)).add(V(0,rub,0)),V(-1,-1,.5));leafG.position.copy(J(A,'wrist.R'));
+    else{oneArmUp(A,'L',E(t,6.1,6.75));const pl=pit(A,'L');const rub=Math.sin((t-6.3)*9)*.05;armIK(A,'R',pl.clone().add(fwdOf(A).multiplyScalar(.04)).add(V(0,rub,0)),V(-1,-1,.5));leafG.position.copy(J(A,'wrist.R'));
       face(A,t,1,[SUONG,E(t,6.4,6.8)],[EXPR.tu_hao,E(t,7.4,7.8)]);if(t>7.55)starsAt(pl,t,.3);}
-    applyMocap(F,MO['77_02'],5+t,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[EXPR.to_mo,.7]);}
+    applyMocap(F,MO['77_02'],4+(t-5.3)*.8,{pos:V(-1.05,0,1.5),yaw:1.9,faceAt:2,inPlace:true});face(F,t,2,[EXPR.to_mo,.7]);}
   // ===== S4 8.2–9.92: mặt trời đứng bóng, mùi trở lại, bạn bịt mũi
   else if(t<9.92){applyMocap(A,MO['111_25'],1+(t-8.2)*.8,{pos:AP,yaw:.7,faceAt:1,inPlace:true});face(A,t,1,[KHO,E(t,8.4,8.8)]);
     stinkAt(stinks.slice(0,2),pit(A,'L'),t,E(t,8.3,8.9));stinkAt(stinks.slice(2),pit(A,'R'),t+.4,E(t,8.3,8.9));
@@ -161,7 +161,7 @@ window.renderFrame=(t)=>{try{
     paste.material.color.set(new THREE.Color('#e8e1c6').lerp(new THREE.Color('#7fbf5a'),E(t,10.4,12.0)));face(A,t,1,[EXPR.to_mo,.8],[EXPR.tu_hao,E(t,12,12.6)]);
     F.root.visible=false;}
   // ===== S6 12.96–15.12: nắng gắt, mồ hôi tuôn như heo
-  else if(t<15.12){applyMocap(A,MO['111_28'],2+(t-12.96)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',E(t,13.0,13.4));
+  else if(t<15.12){applyMocap(A,MO['111_28'],2+(t-12.96)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',E(t,12.96,13.65));
     armIK(A,'R',J(A,'head').add(fwdOf(A).multiplyScalar(.12)).add(sideOf(A).multiplyScalar(-.15)).add(V(0,.02+Math.sin(t*5)*.05,0)),V(-1,0,0));
     face(A,t,1,[KHO,1.1],[{JawDrop:.4},.8]);
     sweats.forEach((x,i)=>{x.visible=true;const f=((t*1.3+i*.17)%1);const src=i<4?pit(A,'L'):J(A,'head');x.position.copy(src).add(V(Math.sin(i*2.3)*.07,.02-f*.45,.08));});
@@ -174,7 +174,7 @@ window.renderFrame=(t)=>{try{
   // ===== S8 18.16–21.2: móc tay vào hũ mỡ nhầy → tởm, ọe
   else if(t<21.2){applyMocap(A,MO['111_28'],2+t*.3,{pos:V(1.6,0,-.05),yaw:.05,faceAt:1,inPlace:true});squat(A,.8,t);
     const dig=(1-Math.cos((t-18.16)*5))*.5;armIK(A,'R',V(1.6,.6+dig*.08,.42),V(-1,-.5,0));armIK(A,'L',V(1.72,.55,.3),V(1,-1,0));
-    if(t>19.3){const k=E(t,19.3,19.8);armIK(A,'R',lerpV(V(1.6,.62,.42),J(A,'head').add(fwdOf(A).multiplyScalar(.28)).add(V(0,-.05,0)),k),V(-1,-.5,0));}
+    if(t>19.2){const k=E(t,19.2,20.0);armIK(A,'R',lerpV(V(1.6,.62,.42),J(A,'head').add(fwdOf(A).multiplyScalar(.28)).add(V(0,-.05,0)),k),V(-1,-.5,0));}
     face(A,t,1,[OE,E(t,19.6,20.0)*1.35]);F.root.visible=false;}
   // ===== S9 21.2–23.68: hũ đầu bi lăn trơn tru dưới nách
   else if(t<23.68){applyMocap(A,MO['111_28'],1+(t-21.2)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);
@@ -193,10 +193,10 @@ window.renderFrame=(t)=>{try{
     face(A,t,1,[SUONG,1]);F.root.visible=false;}
   // ===== S12 27.36–30.35: bạn dí mũi vào nách hít hà, tim bay
   else {applyMocap(A,MO['111_28'],3+(t-27.36)*.5,{pos:AP,yaw:.75,faceAt:1,inPlace:true});oneArmUp(A,'L',1);face(A,t,1,[EXPR.ngai,.6],[EXPR.cuoi,.5]);
-    const pl=pit(A,'L');applyMocap(F,MO['77_02'],2+t,{pos:pl.clone().add(sideOf(A).multiplyScalar(.5)).add(fwdOf(A).multiplyScalar(.15)).setY(0),yaw:.75-Math.PI/2,faceAt:2,inPlace:true});
+    const pl=pit(A,'L');applyMocap(F,MO['77_02'],2+(t-27.36)*.6,{pos:pl.clone().add(sideOf(A).multiplyScalar(.5)).add(fwdOf(A).multiplyScalar(.15)).setY(0),yaw:.75-Math.PI/2,faceAt:2,inPlace:true});
     const sniff=(1-Math.cos((t-27.36)*5))*.5;rotWorld(F.bones['neck01____head'],UP,.2);rotWorld(F.bones['spine05____head'],sideOf(F),.15+sniff*.1);
     armIK(F,'R',J(F,'spine01').add(sideOf(F).multiplyScalar(-.25)).add(fwdOf(F).multiplyScalar(.2)),V(-1,-1,0));armIK(F,'L',J(F,'spine01').add(sideOf(F).multiplyScalar(.25)).add(fwdOf(F).multiplyScalar(.2)),V(1,-1,0));
-    face(F,t,2,[SUONG,1.3]);hearts.forEach((x,i)=>{x.visible=t>27.6;const f=((t*.7+i*.2)%1);x.position.copy(J(F,'head')).add(V(Math.sin(i*2.4)*.15,.15+f*.4,.05));const ss=.07+.04*Math.sin(t*6+i);x.scale.set(ss,ss,1);x.material.opacity=1-f;});}
+    face(F,t,2,[SUONG,1.3]);hearts.forEach((x,i)=>{x.visible=t>27.6;const f=((t*.7+i*.2)%1);x.position.copy(J(F,'head')).add(V(Math.sin(i*2.4)*.15,.15+f*.4,.05));const ss=.07+.04*Math.sin(t*6+i);x.scale.set(ss,ss,1);x.material.opacity=Math.min(1,f*6)*(1-f);});}
   comp.render();}catch(e){console.log('ERR '+e.stack)}};
 window.ready=true;
 </script></body></html>
