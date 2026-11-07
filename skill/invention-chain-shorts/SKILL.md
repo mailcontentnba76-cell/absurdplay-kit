@@ -112,7 +112,7 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 3. **≥ 2 lớp phụ trợ 2D/3D quanh nhân vật**: ruồi 3D cánh đập (nhóm `flyAround`), giọt mồ hôi rơi, sóng mùi xanh, vòng đỏ + vạch gãi, sao lấp lánh… đặt phía sau/cạnh, không che mặt.
 4. **SFX riêng cho gag** (ruồi vo ve −17 dB, tiếng rặn −16 dB, gãi…) từ giây 0.
 5. Máy đủ gần để thấy mặt ngay từ đầu (≈ 2,5–3,5 m, fov 38), nhân vật xoay người khi cần khoe chỗ gag (mông/nách…).
-Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt.
+Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ hôi + mùi → lá độc → gãi mông. E04 = vươn vai sung sướng → mùi nách xanh, hoa héo, chim rơi, bạn bịt mũi ọe → tự ngửi nách chảy nước mắt. E05 = macro lon bia lạnh → tay bạn chộp mất, bọt văng lên mặt → nhân vật đứng hình, tay với vào khoảng không → bạn ôm lon chạy giơ khoe.
 
 **Chuyển động mượt (không "giật/vụng"):**
 - Dùng `ease = smootherstep` (6x⁵−15x⁴+10x³); chuyển tư thế ≥ 0,5–0,8 s (đứng dậy từ ngồi xổm 0,7 s, quay đầu 0,8 s).
@@ -137,11 +137,13 @@ Bảng gag mở đầu đã dùng (không lặp): E03 = rặn + ruồi + mồ h�
 | DEMO door | chinh (áo trắng logo), ban (sơ mi xanh than) | chòi đá xám + đồng cỏ ô-liu |
 | E03 giấy vệ sinh | e3_chinh (cơ bắp, râu, khố lông thú), e3_ban (béo, áo + khố da báo) | hang đá vàng nâu, bụi rậm, thung lũng rừng |
 | E04 khử mùi | e4_chinh (gầy cao, tóc xù, áo ba lỗ + quần đùi da nhuộm cam), e4_ban (lùn mập, tóc buộc, ria, bộ lông cừu trắng) | làng lều xám xanh giữa đồng hoa dại, trưa nắng, lửa trại, cây có chim |
+| E05 xe đạp | e5_chinh (gầy cao, râu quai nón, ba lỗ xám, quần đùi caro), e5_ban (lùn béo, hói, ria, kính râm, áo hawaii bạc hà + jean) | phố ngoại ô hiện đại buổi chiều: nhựa đường, vỉa hè, bãi cỏ, nhà vách gỗ nhạt, hàng rào trắng, đoạn đá cuội |
 
 ## 8. Công cụ
-`du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
+`du_an/P02_oddtilt/cong_cu/`: `asr_parakeet.py`, `do_bo_sung.py`, `do_cat.py`, `tong_hop_so_do.py` (phân tích mẫu); `mh_bake.py`, `mh_vai.py`, `mh_doi_mau.py`, `mh_jean_sang.py` (nhân vật); `tex_thuc.py` (texture dự phòng tự sinh); `qa_may_nhapnhay.py` (QA máy + nhấp nháy). `engine/lib/`: `mh.js`, `mocap.js` (+ `armIK`, `legIK` (đạp xe, chạy thủ tục), `rotWorld`, `J`), `face.js`. Demo: `tap/DEMO_door/` (giọng, mốc từ, phụ đề, trộn âm).
 
 ## Thay đổi
+- v1.2.1 (07/11/2026): E05 xe đạp — mẫu cảnh `engine/e5_xe_dap.html` (đồ vật dựng theo tham số + biến hình, lắp ráp bật ra, đồ hoạ khoa học, máy neo theo x + neo điểm nhìn riêng `sh[8]`).
 - v1.2 (07/11/2026): thêm mục 1b từ 2 mẫu viral (golf ball, trampoline): hook chơi chữ/động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật + biến hình, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn.
 - v1.1 (06/11/2026): mở đầu hài theo tình huống (mặt khoa trương + ruồi/mồ hôi/mùi + SFX), quy tắc chuyển động mượt + QA giật.
 - v1.0 (06/11/2026): chủ dự án duyệt bản thử 8; gom toàn bộ cách dựng/chuyển động/âm thanh đã sửa thành chuẩn; cảnh mẫu `MAU_CANH_CHUAN.html`; công cụ QA `qa_may_nhapnhay.py`; phụ đề 1080.

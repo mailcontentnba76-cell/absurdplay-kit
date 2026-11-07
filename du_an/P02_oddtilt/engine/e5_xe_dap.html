@@ -1,0 +1,367 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="720" height="1280"></canvas>
+<!-- E05 "How you invented the bicycle" — skill invention-chain-shorts v1.2 (mục 1b: hook động cơ bựa, macro đồ vật biến hình, lắp ráp hiện dần, ngã ragdoll, đồ hoạ khoa học, 1 màu nhấn đỏ).
+     Bối cảnh MỚI: phố ngoại ô hiện đại buổi chiều (nhựa đường, vỉa hè, bãi cỏ, nhà vách gỗ nhạt, đoạn đá cuội). Nhân vật MỚI: e5_chinh (gầy cao, râu quai nón, ba lỗ xám, quần đùi caro), e5_ban (lùn béo, hói, ria, kính, áo hawaii bạc hà).
+     Mốc lời: ../tap/E05_xe_dap/am_thanh/words.json -->
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadMH} from './lib/mh.js';
+import {loadBVH,applyMocap,armIK,legIK,rotWorld,J} from './lib/mocap.js';
+import {loadFace,applyFace,EXPR,blink,mix} from './lib/face.js';
+import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+const q=new URLSearchParams(location.search); const W=+q.get('w')||720, H=Math.round(W*16/9);
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.0;
+const TL=new THREE.TextureLoader();
+const s=new THREE.Scene();s.background=new THREE.Color('#5d8ca6');s.fog=new THREE.Fog('#d6e6f2',50,140);
+s.add(new THREE.HemisphereLight('#fff3e2','#6b7a52',0.65));
+{const pm=new THREE.PMREMGenerator(r);const hdr=await new RGBELoader().loadAsync('./assets/hdri/park.hdr');s.environment=pm.fromEquirectangular(hdr).texture;s.environmentIntensity=0.55;}
+function T(name,rep=[1,1],srgb=true){const t=TL.load('./assets/tex/mag/'+name+'.jpg');t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...rep);t.anisotropy=16;t.colorSpace=srgb?THREE.SRGBColorSpace:THREE.NoColorSpace;return t;}
+const mat=(n,rep,o={})=>{const nn=o.noN;delete o.noN;return new THREE.MeshStandardMaterial(Object.assign({map:T(n+'_col',rep),normalMap:nn?null:T(n+'_nrm',rep,false),roughness:.92,normalScale:new THREE.Vector2(.6,.6)},o));};
+const V=(x,y,z)=>new THREE.Vector3(x,y,z),UP=V(0,1,0);
+let seed=31;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
+const add=(m,x,y,z,par=s)=>{m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;par.add(m);return m;};
+const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.7},o));
+// ---------- BỐI CẢNH: phố ngoại ô, đường chạy dọc trục x
+function strip(n,rep,x0,x1,z0,z1,y=0,o={}){const m=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,z1-z0),mat(n,rep,o));m.rotation.x=-Math.PI/2;m.position.set((x0+x1)/2,y,(z0+z1)/2);m.receiveShadow=true;s.add(m);return m;}
+strip('nhua_duong_m',[50,2.4],-60,90,-3,3,0,{roughness:.95});
+strip('da_cuoi_m',[7,3],45,63,-3,3,.004,{roughness:.9,normalScale:new THREE.Vector2(1.2,1.2)});
+strip('via_he_m',[50,.66],-60,90,-5,-3.15,.12);strip('via_he_m',[50,.66],-60,90,3.15,5,.12);
+strip('co_san_m',[38,6],-60,90,-30,-5,.11,{noN:true,roughness:1});strip('co_san_m',[38,6],-60,90,5,30,.11,{noN:true,roughness:1});
+{const cm=std('#c9c6bf',{roughness:.9});for(const z of [-3.075,3.075]){const k=add(new THREE.Mesh(new THREE.BoxGeometry(150,.14,.15),cm),15,.07,z);}}
+// vạch đường: vạch vàng đứt giữa + vạch trắng mép
+{const ym=std('#e8c24a',{roughness:.6}),wm=std('#efefe8',{roughness:.6});for(let x=-58;x<88;x+=4){const d=new THREE.Mesh(new THREE.PlaneGeometry(2,.12),ym);d.rotation.x=-Math.PI/2;d.position.set(x,.006,0);if(x<44||x>64)s.add(d);}
+ for(const z of [-2.7,2.7]){const d=new THREE.Mesh(new THREE.PlaneGeometry(150,.1),wm);d.rotation.x=-Math.PI/2;d.position.set(15,.006,z);s.add(d);}}
+// phông phố xa
+{const bt=TL.load('./assets/tex/mag/nen_pho_col.jpg');bt.colorSpace=THREE.SRGBColorSpace;bt.wrapS=THREE.MirroredRepeatWrapping;bt.repeat.set(4,1);
+ const cyl=new THREE.Mesh(new THREE.CylinderGeometry(95,95,72,72,1,true),new THREE.MeshBasicMaterial({map:bt,side:THREE.BackSide,fog:false}));cyl.position.set(15,24,0);s.add(cyl);}
+// nhà vách gỗ nhạt (màu trung tính, không đỏ/hồng để khung xe đỏ là màu nhấn duy nhất)
+const SID=['#f1efe9','#dfe6ea','#e9e3d2','#d9dfd6','#ece7df','#d6dde4'],ROOF=mat('ngoi_mai_m',[3,2],{roughness:.9});
+const GLASS=std('#2c3e52',{roughness:.15,metalness:.2}),TRIM=std('#fbfbf8',{roughness:.6});
+function house(x,z,w,d,h,col,face=1){const g=new THREE.Group();const wall=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat('vach_go_m',[w/2.4,h/2.4],{color:col,roughness:.85}));wall.position.y=h/2;wall.castShadow=wall.receiveShadow=true;g.add(wall);
+ const rh=w*.32,sl=Math.hypot(w/2,rh)+.3;for(const sg of [-1,1]){const rf=new THREE.Mesh(new THREE.BoxGeometry(sl,.12,d+.6),ROOF);rf.position.set(sg*w/4,h+rh/2,0);rf.rotation.z=-sg*Math.atan2(rh,w/2);rf.castShadow=true;g.add(rf);}
+ const gab=new THREE.Shape([new THREE.Vector2(-w/2,0),new THREE.Vector2(w/2,0),new THREE.Vector2(0,rh)]);for(const sg of [-1,1]){const gm=new THREE.Mesh(new THREE.ShapeGeometry(gab),wall.material);gm.position.set(0,h,sg*d/2);if(sg<0)gm.rotation.y=Math.PI;g.add(gm);}
+ const fz=d/2+.02;const win=(wx,wy)=>{const f=new THREE.Mesh(new THREE.BoxGeometry(1.0,1.2,.06),TRIM);f.position.set(wx,wy,fz);g.add(f);const gl=new THREE.Mesh(new THREE.PlaneGeometry(.84,1.04),GLASS);gl.position.set(wx,wy,fz+.035);g.add(gl);const mb=new THREE.Mesh(new THREE.BoxGeometry(.05,1.04,.02),TRIM);mb.position.set(wx,wy,fz+.045);g.add(mb);};
+ win(-w*.28,1.55);win(w*.28,1.55);if(h>4.5){win(-w*.28,4.2);win(w*.28,4.2);}
+ const door=new THREE.Mesh(new THREE.BoxGeometry(1.0,2.1,.08),std('#55636e',{roughness:.5}));door.position.set(0,1.05,fz);g.add(door);
+ const st=new THREE.Mesh(new THREE.BoxGeometry(1.8,.3,.9),std('#bdb8ae',{roughness:.9}));st.position.set(0,.15,fz+.45);st.receiveShadow=true;g.add(st);
+ g.position.set(x,.11,z);g.rotation.y=face>0?0:Math.PI;s.add(g);return g;}
+for(let i=0;i<11;i++){const x=-24+i*10.5+(rnd()-.5)*2;house(x,-17-rnd()*2,7+rnd()*2,7,3.2+(i%3==1?2.8:0),SID[i%6],1);house(x+5,17+rnd()*2,7+rnd()*2,7,3.2+(i%3==2?2.8:0),SID[(i+3)%6],-1);}
+// cây, hàng rào trắng, hộp thư, cột đèn
+const LEAF=mat('reu',[1,1],{roughness:1,color:'#8fbf6a'}),BARK=std('#6a5440',{roughness:.95});
+function tree(x,z,sc=1){const g=new THREE.Group();const tk=new THREE.Mesh(new THREE.CylinderGeometry(.14,.22,2.6,10),BARK);tk.position.y=1.3;tk.castShadow=true;g.add(tk);
+ for(let k=0;k<7;k++){const f=new THREE.Mesh(new THREE.IcosahedronGeometry(.9+rnd()*.5,2),LEAF);f.position.set((rnd()-.5)*1.8,3.0+rnd()*1.1,(rnd()-.5)*1.8);f.castShadow=true;g.add(f);}g.position.set(x,.11,z);g.scale.setScalar(sc);s.add(g);}
+for(let i=0;i<12;i++){tree(-20+i*9.3+(rnd()-.5)*3,-9.5-rnd()*2,1+rnd()*.3);tree(-16+i*9.7+(rnd()-.5)*3,9.5+rnd()*2,1+rnd()*.3);}
+{const pm=std('#f7f7f2',{roughness:.6});for(let x=-30;x<80;x+=.22){if(Math.abs(x+1)<2.2)continue;const p=new THREE.Mesh(new THREE.BoxGeometry(.08,.8,.03),pm);p.position.set(x,.51,-8.2);p.castShadow=true;s.add(p);}
+ for(const y of [.35,.7]){const rl=new THREE.Mesh(new THREE.BoxGeometry(110,.06,.03),pm);rl.position.set(25,y+.11,-8.23);s.add(rl);}}
+for(let x=-20;x<80;x+=12.6){const g=new THREE.Group();const p=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,1.1,8),std('#5d5d5d'));p.position.y=.55;g.add(p);const b=new THREE.Mesh(new THREE.BoxGeometry(.25,.25,.48),std('#3e5f8a',{roughness:.4,metalness:.3}));b.position.y=1.15;g.add(b);g.traverse(o=>o.castShadow=true);g.position.set(x+3,.11,-5.4);s.add(g);}
+for(let x=-26;x<86;x+=21){const p=new THREE.Mesh(new THREE.CylinderGeometry(.07,.09,5.5,8),std('#6b6b6b',{metalness:.4}));add(p,x,2.85,4.6);}
+// đá nhỏ trên đường (gây ngã)
+const ROCKM=mat('da_granit_m',[.3,.3],{color:'#8a867e'});const rock=add(new THREE.Mesh(new THREE.DodecahedronGeometry(.075,0),ROCKM),27.0,.05,.6);rock.scale.set(1.2,.8,1);
+// sân trước: bàn nhựa trắng + ghế nhựa (cảnh mở/kết)
+const PLA=std('#f4f4f0',{roughness:.45});
+const table=new THREE.Group();{const tp=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.03,32),PLA);tp.position.y=.72;table.add(tp);for(let k=0;k<4;k++){const l=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.72,8),PLA);const a=k*Math.PI/2+.78;l.position.set(Math.cos(a)*.3,.36,Math.sin(a)*.3);table.add(l);}table.traverse(o=>{o.castShadow=o.receiveShadow=true;});}
+table.position.set(-.95,.11,-7.3);s.add(table);
+function chair(x,z,ry){const g=new THREE.Group();const st=new THREE.Mesh(new THREE.BoxGeometry(.48,.04,.46),PLA);st.position.y=.44;g.add(st);const bk=new THREE.Mesh(new THREE.BoxGeometry(.48,.5,.04),PLA);bk.position.set(0,.7,-.23);bk.rotation.x=-.12;g.add(bk);
+ for(const [lx,lz] of [[-.21,-.2],[.21,-.2],[-.21,.2],[.21,.2]]){const l=new THREE.Mesh(new THREE.BoxGeometry(.04,.44,.04),PLA);l.position.set(lx,.22,lz);g.add(l);}for(const sx of [-.25,.25]){const a=new THREE.Mesh(new THREE.BoxGeometry(.04,.04,.42),PLA);a.position.set(sx,.62,0);g.add(a);}
+ g.traverse(o=>{o.castShadow=o.receiveShadow=true;});g.position.set(x,.11,z);g.rotation.y=ry;s.add(g);return g;}
+chair(-1.65,-7.55,0);chair(-.2,-7.75,-.4);
+// ---------- LON BIA (vàng kim, không đỏ)
+function beerCan(){const g=new THREE.Group();const b=new THREE.Mesh(new THREE.CylinderGeometry(.033,.033,.122,24),std('#d9ad3c',{roughness:.25,metalness:.85}));g.add(b);
+ const band=new THREE.Mesh(new THREE.CylinderGeometry(.0335,.0335,.04,24),std('#f6f2e6',{roughness:.4}));band.position.y=.005;g.add(band);
+ const top=new THREE.Mesh(new THREE.CylinderGeometry(.029,.033,.008,24),std('#c8c8c8',{roughness:.2,metalness:.9}));top.position.y=.065;g.add(top);g.traverse(o=>o.castShadow=true);s.add(g);return g;}
+const can1=beerCan(),can2=beerCan();
+// ---------- XE ĐẠP (dựng theo tham số mỗi khung)
+const WOOD=mat('san_go',[.4,1.5],{roughness:.75}),RED=std('#d3271b',{roughness:.32,metalness:.35}),BLK=std('#1d1d1f',{roughness:.6}),STEEL=std('#c7cbd0',{roughness:.25,metalness:.9}),RUB=std('#1a1a1a',{roughness:.85});
+const bike=new THREE.Group();s.add(bike);
+const tubeG=new THREE.CylinderGeometry(1,1,1,12);
+function tube(m){const x=new THREE.Mesh(tubeG,m);x.castShadow=true;x.receiveShadow=true;bike.add(x);return x;}
+function setTube(x,a,b,rad,k=1){if(k<=0.001){x.visible=false;return;}x.visible=true;const d=b.clone().sub(a);x.position.copy(a).add(b).multiplyScalar(.5);x.scale.set(rad*k,d.length()*k,rad*k);x.quaternion.setFromUnitVectors(UP,d.normalize());}
+function wheel(){const g=new THREE.Group();const rim=new THREE.Mesh(new THREE.TorusGeometry(1,.075,10,48),WOOD);g.add(rim);
+ for(let k=0;k<10;k++){const sp=new THREE.Mesh(new THREE.CylinderGeometry(.022,.022,1,6),WOOD);const a=k/10*Math.PI*2;sp.position.set(Math.cos(a)*.5,Math.sin(a)*.5,0);sp.rotation.z=a-Math.PI/2;g.add(sp);}
+ const hub=new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,.32,16),WOOD);hub.rotation.x=Math.PI/2;g.add(hub);
+ const mark=new THREE.Mesh(new THREE.BoxGeometry(.08,.9,.06),std('#ffd23a',{roughness:.5,emissive:'#5a4200'}));mark.position.y=.5;mark.visible=false;g.add(mark);
+ const tire=new THREE.Mesh(new THREE.TorusGeometry(1.05,.02,12,64),RUB);tire.visible=false;g.add(tire);
+ g.traverse(o=>{o.castShadow=true;o.receiveShadow=true;});bike.add(g);g.userData={tire,mark,tk:-1};return g;}
+const wF=wheel(),wR=wheel();
+function setTire(w,k){const tk=k<=0?0:.02+.1*k;w.userData.tire.visible=k>0.001;if(Math.abs(tk-w.userData.tk)>.002){w.userData.tire.geometry.dispose();w.userData.tire.geometry=new THREE.TorusGeometry(1.0+tk*.6,tk,12,64);w.userData.tk=tk;}}
+// khung gỗ (xe đẩy chân / xe bánh to)
+const wb={beam:tube(WOOD),forkL:tube(WOOD),forkR:tube(WOOD),stem:tube(WOOD),bar:tube(WOOD),stayL:tube(WOOD),stayR:tube(WOOD)};
+const saddleW=new THREE.Mesh(new THREE.BoxGeometry(.26,.06,.17),std('#4a3322',{roughness:.6}));saddleW.castShadow=true;bike.add(saddleW);
+// bàn đạp gắn bánh trước
+const crankF=[tube(STEEL),tube(STEEL)],pedF=[0,1].map(()=>{const p=new THREE.Mesh(new THREE.BoxGeometry(.1,.025,.07),BLK);p.castShadow=true;bike.add(p);return p;});
+// khung đỏ (xe an toàn) + xích
+const rb={seat:tube(RED),top:tube(RED),down:tube(RED),csL:tube(RED),csR:tube(RED),ssL:tube(RED),ssR:tube(RED),fkL:tube(RED),fkR:tube(RED),head:tube(RED),stem:tube(STEEL),bar:tube(STEEL),gL:tube(BLK),gR:tube(BLK)};
+const saddleR=new THREE.Mesh(new THREE.BoxGeometry(.26,.06,.15),BLK);saddleR.castShadow=true;bike.add(saddleR);
+const ring=new THREE.Mesh(new THREE.TorusGeometry(1,.09,8,40),STEEL),cog=new THREE.Mesh(new THREE.TorusGeometry(1,.16,8,24),STEEL);[ring,cog].forEach(m=>{m.castShadow=true;bike.add(m);});
+const teeth=new THREE.InstancedMesh(new THREE.BoxGeometry(.012,.012,.012),STEEL,60);bike.add(teeth);
+const crankS=[tube(STEEL),tube(STEEL)],pedS=[0,1].map(()=>{const p=new THREE.Mesh(new THREE.BoxGeometry(.1,.025,.07),BLK);p.castShadow=true;bike.add(p);return p;});
+const NL=64,chain=new THREE.InstancedMesh(new THREE.BoxGeometry(.016,.008,.012),std('#4a4c50',{roughness:.4,metalness:.8}),NL);chain.castShadow=true;bike.add(chain);
+const ease=x=>x*x*x*(x*(x*6-15)+10), cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), rp=(t,a,b)=>cl((t-a)/(b-a)), E=(t,a,b)=>ease(rp(t,a,b));
+const back=k=>{if(k<=0)return 0;if(k>=1)return 1;const c1=1.9,c3=c1+1;return 1+c3*Math.pow(k-1,3)+c1*Math.pow(k-1,2);};
+const POP=(t,a,d=.28)=>back(rp(t,a,a+d));
+const lerpV=(a,b,k)=>a.clone().lerp(b,k);
+const _m4=new THREE.Matrix4(),_q=new THREE.Quaternion(),_sv=new THREE.Vector3();
+// B: trạng thái xe. Toạ độ cục bộ: x tiến, y lên, z ngang (+z = bên phải người lái khi đi về +x).
+const B={x:0,z:.6,y:0,Rf:.35,Rr:.35,wood:1,ped:0,red:0,redPop:[],chainK:0,ringK:0,tire:0,dist:0,crank:0,shake:0,tilt:0,frontDetach:null,hide:false,mark:0};
+const geo={};
+function bikeGeo(){ // tính các điểm quan trọng (cục bộ) theo trạng thái
+  const g={};const penny=cl((B.Rf-.35)/.45);
+  if(B.red<0.5||B.wood>0){ // khung gỗ
+    g.fh=V(.3,B.Rf,0);g.rh=V(.3-(B.Rf+B.Rr+.45),B.Rr,0);
+    g.head=V(.25,Math.max(.95,2*B.Rf+.12),0);g.rtop=V(g.rh.x+.18,B.Rr+.3,0);
+    g.saddle=lerpV(g.rtop,g.head,.42+.43*penny).add(V(0,.05,0));g.grip=g.head.clone().add(V(-.02+.04*penny,.06,0));}
+  if(B.red>0){ // khung đỏ
+    g.fhS=V(.53,.35,0);g.rhS=V(-.53,.35,0);g.bb=V(-.02,.3,0);g.st=V(-.2,.86,0);g.htT=V(.38,.86,0);g.htB=V(.43,.7,0);g.saddleS=V(-.23,.93,0);g.gripS=V(.33,1.02,0);}
+  return g;}
+function drawBike(){
+  bike.visible=!B.hide;if(B.hide)return;bike.position.set(B.x,B.y,B.z);bike.rotation.set(0,0,B.tilt);
+  const g=bikeGeo();Object.assign(geo,g);
+  const useRed=B.red>=0.5,FH=useRed&&B.wood<=0?g.fhS:g.fh,RH=useRed&&B.wood<=0?g.rhS:g.rh;
+  // bánh xe
+  const shk=B.shake?Math.sin(B.dist*90)*B.shake:0;
+  if(B.frontDetach){wF.position.copy(B.frontDetach.p).sub(bike.position);wF.rotation.set(0,0,B.frontDetach.rot);wF.rotateX(B.frontDetach.lean||0);}else{wF.position.copy(FH).add(V(0,shk,0));wF.rotation.set(0,0,-B.dist/B.Rf);}
+  wF.scale.setScalar(B.Rf);wR.position.copy(RH).add(V(0,shk*.8,0));wR.rotation.set(0,0,-B.dist/B.Rr);wR.scale.setScalar(B.Rr);
+  setTire(wF,B.tire);setTire(wR,B.tire);wR.userData.mark.visible=B.mark>0;wF.userData.mark.visible=false;
+  // khung gỗ
+  const kW=B.wood;if(g.fh){
+    setTube(wb.beam,g.rtop,g.head,.035,kW*(B.beamPop??1));for(const [m,sz] of [[wb.forkL,-.07],[wb.forkR,.07]])setTube(m,g.fh.clone().setZ(sz),g.head.clone().setZ(sz*.6),.022,kW*(B.wheelPop??1));
+    setTube(wb.stem,g.head,g.head.clone().add(V(-.02,.07,0)),.025,kW*(B.beamPop??1));setTube(wb.bar,g.grip.clone().setZ(-.3),g.grip.clone().setZ(.3),.02,kW*(B.beamPop??1));
+    for(const [m,sz] of [[wb.stayL,-.07],[wb.stayR,.07]])setTube(m,g.rh.clone().setZ(sz),g.rtop.clone().setZ(sz*.4),.022,kW*(B.wheelPop2??B.wheelPop??1));
+    saddleW.visible=kW>0.01;saddleW.position.copy(g.saddle).add(V(0,-.02,0));saddleW.scale.setScalar(Math.max(.001,kW*(B.beamPop??1)));
+    // bàn đạp bánh trước
+    for(let i=0;i<2;i++){const a=B.crank+i*Math.PI,zz=i?.2:-.2;const p=g.fh.clone().add(V(Math.cos(a)*.13,Math.sin(a)*.13,zz));setTube(crankF[i],g.fh.clone().setZ(zz),p,.012,B.ped*kW);pedF[i].visible=B.ped*kW>.01;pedF[i].position.copy(p).add(V(0,0,i?.04:-.04));pedF[i].scale.setScalar(Math.max(.001,B.ped*kW));}
+  }else{Object.values(wb).forEach(m=>m.visible=false);saddleW.visible=false;crankF.forEach(m=>m.visible=false);pedF.forEach(m=>m.visible=false);}
+  // khung đỏ
+  const P=B.redPop;const k=i=>B.red>0?(P[i]??1):0;
+  if(g.fhS){setTube(rb.seat,g.bb,g.st,.022,k(0));setTube(rb.top,g.st,g.htT,.02,k(1));setTube(rb.down,g.bb,g.htB,.025,k(2));
+    setTube(rb.csL,g.bb.clone().setZ(-.05),g.rhS.clone().setZ(-.06),.014,k(3));setTube(rb.csR,g.bb.clone().setZ(.05),g.rhS.clone().setZ(.06),.014,k(3));
+    setTube(rb.ssL,g.st.clone().setZ(-.02),g.rhS.clone().setZ(-.06),.012,k(4));setTube(rb.ssR,g.st.clone().setZ(.02),g.rhS.clone().setZ(.06),.012,k(4));
+    setTube(rb.head,g.htB,g.htT,.028,k(5));setTube(rb.fkL,g.htB.clone().setZ(-.05),g.fhS.clone().setZ(-.06),.014,k(5));setTube(rb.fkR,g.htB.clone().setZ(.05),g.fhS.clone().setZ(.06),.014,k(5));
+    setTube(rb.stem,g.htT,g.gripS.clone().setZ(0),.016,k(6));setTube(rb.bar,g.gripS.clone().setZ(-.24),g.gripS.clone().setZ(.24),.013,k(6));setTube(rb.gL,g.gripS.clone().setZ(-.27),g.gripS.clone().setZ(-.17),.02,k(6));setTube(rb.gR,g.gripS.clone().setZ(.17),g.gripS.clone().setZ(.27),.02,k(6));
+    saddleR.visible=k(7)>.01;saddleR.position.copy(g.saddleS);saddleR.scale.setScalar(Math.max(.001,k(7)));
+    const rr=.1,rc=.034,zc=.075;ring.visible=cog.visible=B.ringK>.01;ring.position.copy(g.bb).setZ(zc);ring.scale.set(rr*B.ringK,rr*B.ringK,rr*B.ringK);ring.rotation.z=B.crank;cog.position.copy(g.rhS).setZ(zc);cog.scale.setScalar(rc*B.ringK);cog.rotation.z=B.crank*3;
+    // răng đĩa
+    let ti=0;for(let i=0;i<32;i++){const a=B.crank+i/32*Math.PI*2;_m4.compose(_sv.set(g.bb.x+Math.cos(a)*rr*1.09,g.bb.y+Math.sin(a)*rr*1.09,zc),_q.setFromAxisAngle(V(0,0,1),a),V(1,1,1).multiplyScalar(B.ringK));teeth.setMatrixAt(ti++,_m4);}
+    for(let i=0;i<11;i++){const a=B.crank*3+i/11*Math.PI*2;_m4.compose(_sv.set(g.rhS.x+Math.cos(a)*rc*1.2,g.rhS.y+Math.sin(a)*rc*1.2,zc),_q.setFromAxisAngle(V(0,0,1),a),V(1,1,1).multiplyScalar(B.ringK));teeth.setMatrixAt(ti++,_m4);}
+    for(;ti<60;ti++){_m4.makeScale(0,0,0);teeth.setMatrixAt(ti,_m4);}teeth.instanceMatrix.needsUpdate=true;teeth.visible=B.ringK>.01;
+    // xích: 2 đoạn thẳng tiếp tuyến trên/dưới + 2 cung
+    const A=g.bb,C=g.rhS,len1=A.distanceTo(C);const path=[];
+    const topA=V(A.x,A.y+rr,zc),topC=V(C.x,C.y+rc,zc),botA=V(A.x,A.y-rr,zc),botC=V(C.x,C.y-rc,zc);
+    const Ltop=topA.distanceTo(topC),Larc1=Math.PI*rc,Lbot=Ltop,Larc2=Math.PI*rr,Ltot=Ltop+Larc1+Lbot+Larc2;
+    const at=u=>{u=((u%Ltot)+Ltot)%Ltot;if(u<Ltop)return [lerpV(topA,topC,u/Ltop),0];u-=Ltop;if(u<Larc1){const a=Math.PI/2+u/rc;return [V(C.x+Math.cos(a)*rc,C.y+Math.sin(a)*rc,zc),a];}u-=Larc1;if(u<Lbot)return [lerpV(botC,botA,u/Lbot),Math.PI];u-=Lbot;const a=-Math.PI/2+u/rr;return [V(A.x+Math.cos(a)*rr,A.y+Math.sin(a)*rr,zc),a+Math.PI/2];};
+    const off=-B.crank*rr;for(let i=0;i<NL;i++){const vis=i/NL<B.chainK;const [p,a]=at(i/NL*Ltot+off);_m4.compose(p,_q.setFromAxisAngle(V(0,0,1),a),vis?V(1,1,1):V(0,0,0));chain.setMatrixAt(i,_m4);}chain.instanceMatrix.needsUpdate=true;chain.visible=B.chainK>0;
+    for(let i=0;i<2;i++){const a=B.crank+i*Math.PI,zz=i?.15:-.15;const p=g.bb.clone().add(V(Math.cos(a)*.17,Math.sin(a)*.17,zz));setTube(crankS[i],g.bb.clone().setZ(zz),p,.012,k(8));pedS[i].visible=k(8)>.01;pedS[i].position.copy(p).add(V(0,0,i?.04:-.04));pedS[i].scale.setScalar(Math.max(.001,k(8)));}
+  }else{Object.values(rb).forEach(m=>m.visible=false);saddleR.visible=false;ring.visible=cog.visible=teeth.visible=chain.visible=false;crankS.forEach(m=>m.visible=false);pedS.forEach(m=>m.visible=false);}
+  bike.updateMatrixWorld(true);}
+const W2=p=>p.clone().applyMatrix4(bike.matrixWorld); // cục bộ xe → thế giới
+// ---------- sprite 2D
+function spriteTex(fn,w=128,h=128){const cv=document.createElement('canvas');cv.width=w;cv.height=h;fn(cv.getContext('2d'));const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+const sp=(tex,sz,o={})=>{const m=new THREE.Sprite(new THREE.SpriteMaterial(Object.assign({map:tex,transparent:true,depthTest:false},o)));m.scale.set(sz,sz,1);m.renderOrder=9;s.add(m);return m;};
+const STAR=spriteTex(g=>{g.fillStyle='#fff7b0';g.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,R=k%2?18:60;g.lineTo(64+Math.cos(a)*R,64+Math.sin(a)*R);}g.fill();});
+const SWEAT=spriteTex(g=>{g.fillStyle='#bfe6ff';g.beginPath();g.moveTo(64,10);g.quadraticCurveTo(108,80,64,118);g.quadraticCurveTo(20,80,64,10);g.fill();g.fillStyle='#fff';g.beginPath();g.ellipse(52,72,8,14,0,0,7);g.fill();});
+const PUFF=spriteTex(g=>{const gr=g.createRadialGradient(64,64,4,64,64,62);gr.addColorStop(0,'rgba(255,255,255,.95)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,128,128);});
+const FOAM=spriteTex(g=>{g.fillStyle='#fffdf4';for(let k=0;k<7;k++){g.beginPath();g.arc(30+Math.cos(k*2.1)*28+28,64+Math.sin(k*1.7)*26,20+k%3*6,0,7);g.fill();}});
+const SPEED=spriteTex(g=>{g.strokeStyle='rgba(255,255,255,.9)';g.lineCap='round';for(let k=0;k<7;k++){g.lineWidth=3+k%3*2;g.beginPath();const y=12+k*17;g.moveTo(10+(k*37)%60,y);g.lineTo(250-(k*23)%50,y);g.stroke();}},256,128);
+const SHAKE=spriteTex(g=>{g.strokeStyle='#ffffff';g.lineWidth=7;g.lineCap='round';for(let k=0;k<3;k++){g.beginPath();g.arc(-20,64,40+k*22,-.5,.5);g.stroke();}});
+const ARROW=spriteTex(g=>{g.strokeStyle='#1d1d1f';g.lineWidth=22;g.lineCap='round';g.beginPath();g.arc(128,128,92,-.4,Math.PI*1.45);g.stroke();g.strokeStyle='#ffd23a';g.lineWidth=13;g.beginPath();g.arc(128,128,92,-.4,Math.PI*1.45);g.stroke();
+ const a=-.4,x=128+Math.cos(a)*92,y=128+Math.sin(a)*92;g.fillStyle='#ffd23a';g.strokeStyle='#1d1d1f';g.lineWidth=5;g.beginPath();g.moveTo(x+26,y+6);g.lineTo(x-24,y+22);g.lineTo(x-4,y-28);g.closePath();g.fill();g.stroke();},256,256);
+function label(txt){return spriteTex(g=>{g.font='900 150px sans-serif';g.textAlign='center';g.textBaseline='middle';g.lineWidth=22;g.strokeStyle='#1d1d1f';g.strokeText(txt,128,132);g.fillStyle='#ffd23a';g.fillText(txt,128,132);},256,256);}
+const stars=[...Array(7)].map(()=>sp(STAR,.12)),sweats=[...Array(8)].map(()=>sp(SWEAT,.06)),puffs=[...Array(10)].map(()=>sp(PUFF,.3,{depthTest:true})),foams=[...Array(8)].map(()=>sp(FOAM,.05)),
+  speeds=[...Array(4)].map(()=>sp(SPEED,.8)),shakes=[sp(SHAKE,.35),sp(SHAKE,.35)],arrows=[sp(ARROW,.3),sp(ARROW,.3)],lab1=sp(label('x1'),.22),lab3=sp(label('x3'),.22);
+puffs.forEach(p=>p.material.color.set('#e2d6bd'));
+// ---------- NHÂN VẬT
+const A=await loadMH('./assets/mh/e5_chinh',{heightM:1.86}),F=await loadMH('./assets/mh/e5_ban',{heightM:1.58});s.add(A.root,F.root);
+const MO={};for(const k of ['111_28','77_02','79_73','120_15','111_25'])MO[k]=await loadBVH('./assets/cmu/'+k+'.bvh');
+await loadFace('./assets/face-poseunits.bvh','./assets/face-poseunits.json');
+await new Promise(r=>setTimeout(r,1500));
+const BLKF=(t,sd)=>[{LeftUpperLidClosed:1,RightUpperLidClosed:1},blink(t,sd)];
+function face(ch,t,sd,...p){applyFace(ch,mix(...p,BLKF(t,sd)));}
+const sideOf=ch=>V(1,0,0).applyQuaternion(ch.root.quaternion),fwdOf=ch=>V(0,0,1).applyQuaternion(ch.root.quaternion);
+const hipMid=ch=>J(ch,'upperleg01.L').add(J(ch,'upperleg01.R')).multiplyScalar(.5);
+// đo chiều cao hông/cổ chân khi đứng
+for(const ch of [A,F]){applyMocap(ch,MO['111_28'],2,{pos:V(0,0,0),yaw:0,faceAt:1,inPlace:true});ch.root.updateMatrixWorld(true);ch.hipH=hipMid(ch).y;ch.ankY=(J(ch,'foot.L').y+J(ch,'foot.R').y)/2;}
+function base(ch,yaw,ct=2,mo='111_28'){applyMocap(ch,MO[mo],ct,{pos:V(0,0,0),yaw,faceAt:1,inPlace:true,ground:false});}
+function placeHip(ch,tg){ch.root.updateMatrixWorld(true);ch.root.position.add(tg.clone().sub(hipMid(ch)));ch.root.updateMatrixWorld(true);}
+function lean(ch,a,tw=0){rotWorld(ch.bones['spine05____head'],sideOf(ch),a*.55);rotWorld(ch.bones['spine03____head'],sideOf(ch),a*.45);if(tw)rotWorld(ch.bones['spine03____head'],UP,tw);}
+function headTurn(ch,yaw,pitch=0){rotWorld(ch.bones['neck01____head'],UP,yaw);if(pitch)rotWorld(ch.bones['neck01____head'],sideOf(ch),pitch);}
+// cưỡi xe: hông lên yên, tay lên ghi-đông, chân theo đích (mảng 2 điểm L,R)
+function ride(ch,saddleW,gripW,feet,lk=.35,tw=0){base(ch,Math.PI/2);placeHip(ch,saddleW.clone().add(V(0,.1,0)));lean(ch,lk,tw);
+  const pole=V(1,.7,0);legIK(ch,'L',feet[0],pole.clone().add(V(0,0,-.3)));legIK(ch,'R',feet[1],pole.clone().add(V(0,0,.3)));
+  if(gripW){armIK(ch,'L',gripW.clone().add(V(0,0,-.24)),V(-.3,-1,-1));armIK(ch,'R',gripW.clone().add(V(0,0,.24)),V(-.3,-1,1));}}
+function pedFeet(hub,a,rc,zo){return [0,1].map(i=>{const aa=a+i*Math.PI;return hub.clone().add(V(Math.cos(aa)*rc,Math.sin(aa)*rc+.07,i?zo:-zo));});}
+// chạy bộ thủ tục (bạn béo) — hông lắc, tay vung, tay phải có thể giơ lon
+function jog(ch,p,yaw,t,sp,armUp=0){base(ch,yaw);const fw=V(Math.sin(yaw),0,Math.cos(yaw)),sd=V(Math.cos(yaw),0,-Math.sin(yaw));
+  const T=Math.min(.62,1.15/Math.max(sp,.6)),ph=t/T*Math.PI*2;placeHip(ch,p.clone().setY(ch.hipH*.95+Math.abs(Math.sin(ph))*.045));
+  rotWorld(ch.bones['spine05____head'],UP,Math.sin(ph)*.16);rotWorld(ch.bones['spine05____head'],fw,Math.sin(ph)*.06);lean(ch,.12);
+  for(const [L,o,sg] of [['L',0,1],['R',Math.PI,-1]]){const u=(((ph+o)/(Math.PI*2))%1+1)%1;const st=u<.5;const k=st?u/.5:(u-.5)/.5;
+    const dx=st?THREE.MathUtils.lerp(.26,-.26,k):THREE.MathUtils.lerp(-.26,.26,ease(k));const y=ch.ankY+(st?0:Math.sin(Math.PI*k)*.17);
+    legIK(ch,L,V(p.x,0,p.z).addScaledVector(fw,dx).addScaledVector(sd,sg*.1).setY(y),fw.clone().add(V(0,.4,0)));
+    const sw=Math.sin(ph+o+Math.PI);const sh=J(ch,'upperarm01.'+L);
+    if(L==='R'&&armUp>0){armIK(ch,'R',lerpV(sh.clone().addScaledVector(fw,.25*sw).add(V(0,-.4,0)),sh.clone().add(V(0,.55,0)).addScaledVector(sd,-.1),armUp),sd.clone().multiplyScalar(-1).add(V(0,-.3,0)));}
+    else armIK(ch,L,sh.clone().addScaledVector(fw,.28*sw+.08).addScaledVector(sd,sg*.12).add(V(0,-.33,0)),V(0,-1,0).addScaledVector(fw,-.6));}}
+// ngồi ghế nhựa (cảnh mở đầu)
+function sitChair(ch,seat,yaw,t){base(ch,yaw);const fw=V(Math.sin(yaw),0,Math.cos(yaw)),sd=V(Math.cos(yaw),0,-Math.sin(yaw));placeHip(ch,seat.clone().add(V(0,.1,0)));lean(ch,-.08);
+  legIK(ch,'L',seat.clone().addScaledVector(fw,.42).addScaledVector(sd,.14).setY(.11+ch.ankY),fw.clone().add(V(0,.5,0)));legIK(ch,'R',seat.clone().addScaledVector(fw,.45).addScaledVector(sd,-.14).setY(.11+ch.ankY),fw.clone().add(V(0,.5,0)));}
+function standAt(ch,p,yaw,ct=2,mo='111_28'){applyMocap(ch,MO[mo],ct,{pos:p,yaw,faceAt:1,inPlace:true});}
+function starsAt(c,t,R=.25){stars.forEach((x,i)=>{x.visible=true;const a=i/7*6.28+t*2.6;x.position.copy(c).add(V(Math.cos(a)*R,Math.sin(a*1.3)*.12,Math.sin(a)*R));const ss=.05+.05*Math.abs(Math.sin(t*8+i));x.scale.set(ss,ss,1);});}
+function sweatAt(src,t){sweats.forEach((x,i)=>{x.visible=true;const f=((t*1.4+i*.17)%1);x.position.copy(src).add(V(Math.sin(i*2.3)*.12,.08-f*.4,Math.cos(i*1.9)*.12));});}
+function dust(p,t,t0,n=10,R=.5){puffs.slice(0,n).forEach((x,i)=>{const f=rp(t,t0+i*.03,t0+.9+i*.03);x.visible=f>0&&f<1;x.position.copy(p).add(V(Math.cos(i*2.4)*R*f,.05+.25*f,Math.sin(i*2.4)*R*.6*f));const ss=.18+.5*f;x.scale.set(ss,ss,1);x.material.opacity=.85*(1-f);});}
+function kickDust(p,t){puffs.slice(0,4).forEach((x,i)=>{const f=((t*1.6+i*.25)%1);x.visible=true;x.position.copy(p).add(V(-f*.6,.04+f*.2,(i%2?.15:-.15)));const ss=.1+.25*f;x.scale.set(ss,ss,1);x.material.opacity=.7*(1-f);});}
+// ---------- MÁY QUAY: mỗi shot [t0,t1, camA, camB, nhìnA, nhìnB, fov, neo(t) tuỳ chọn]
+const bx=t=>V(B.x,0,0);
+const SH=[
+ [0,1.3,   V(-1.2,.93,-6.55),V(-1.12,.92,-6.72),V(-.92,.95,-7.35),V(-.9,.98,-7.4),40],                // S1 macro lon bia bị giật
+ [1.3,2.88,V(-.75,1.3,-4.6),V(-.85,1.28,-4.9),V(-1.15,1.02,-7.9),V(-1.1,1.0,-8.1),44],               // S2 sững sờ, bạn chạy mất
+ [2.88,4.9,V(-1.5,1.0,4.6),V(-1.1,1.0,4.0),V(-.15,.85,.6),V(-.1,.85,.6),40],                               // S3 dầm gỗ + 2 bánh hiện ra, ngồi xuống
+ [4.9,6.4, V(1.6,.95,3.6),V(1.2,.95,3.3),V(.2,.9,.6),V(.2,.9,.6),42,bx],                            // S4 đẩy chân đuổi theo
+ [6.4,7.2, V(2.3,1.45,1.9),V(2.1,1.42,1.6),V(.1,1.3,.6),V(.1,1.32,.6),36,bx],                       // S5 "Clever!" mặt đắc ý
+ [7.2,8.88,V(-1.4,1.1,3.0),V(-1.0,1.05,2.6),V(.6,1.0,.4),V(.6,.95,.4),42,bx],                        // S6 hết sức, lè lưỡi
+ [8.88,11.1,V(.95,.5,1.75),V(1.25,.85,2.7),V(.3,.38,.55),V(.0,.6,.55),34,bx],                         // S7 macro trục bánh trước → bàn đạp
+ [11.1,13.2,V(-2.4,1.05,1.7),V(-2.2,1.02,1.6),V(3,.9,-.1),V(3.5,.9,-.1),40,bx],                          // S8 sau lưng: bạn mông bự chạy nhanh hơn
+ [13.2,15.5,V(.9,.45,2.2),V(.3,1.0,4.6),V(.3,.45,.6),V(-.1,1.2,.6),36,bx],                            // S9 bánh trước phình khổng lồ
+ [15.5,16.25,V(2.4,1.4,3.0),V(2.1,1.35,2.6),V(.0,1.2,.6),V(.0,1.2,.6),44,bx],                         // S10a phóng xe bánh to
+ [16.25,16.95,V(27.55,.14,1.15),V(27.45,.14,1.1),V(26.95,.1,.6),V(26.95,.12,.6),38],                  // S10b macro hòn đá
+ [16.95,19.36,V(27.4,1.45,6.0),V(28.8,1.2,5.1),V(27.9,1.1,.6),V(29.45,.5,.6),46],                        // S11 bay qua ghi-đông, úp mặt
+ [19.36,22.24,V(31.6,.9,2.4),V(32.6,.8,2.25),V(32,.6,.6),V(32,.55,.6),38],                            // S12 thu nhỏ bánh, khung đỏ + xích
+ [22.24,25.7,V(31.72,.62,3.5),V(31.78,.58,3.25),V(31.74,.5,.6),V(31.76,.5,.6),40],                    // S13 đồ hoạ: 1 vòng đạp = 3 vòng bánh
+ [25.7,27.2,V(36.8,.55,1.7),V(37.0,.6,1.85),V(.3,.85,.6),V(.3,.9,.6),44,null,t=>V(B.x,0,0)],                           // S14 phóng vụt đi
+ [27.2,28.24,V(2.3,1.4,1.9),V(2.1,1.38,1.6),V(.0,1.3,.6),V(.0,1.32,.6),36,bx],                         // S15 "Genius!"
+ [28.24,29.6,V(1.45,.45,1.95),V(1.3,.42,1.85),V(.3,.36,.6),V(.3,.36,.6),40,bx],                             // S16 macro bánh gỗ dội đá cuội
+ [29.6,30.96,V(1.55,1.6,1.95),V(1.45,1.58,1.85),V(-.1,1.42,.6),V(-.1,1.44,.6),40,bx],                        // S17 rung bần bật
+ [30.96,33.52,V(1.0,.42,1.7),V(1.6,.95,2.9),V(.5,.36,.6),V(.1,.75,.6),36,bx],                          // S18 lốp hơi phồng
+ [33.52,35.25,V(1.2,1.4,-1.3),V(1.15,1.4,-1.4),V(-.35,1.1,-5.0),V(-.2,1.1,-5.0),46],
+ [35.25,35.95,V(-.25,1.38,-3.75),V(-.3,1.37,-3.95),V(-.45,1.27,-5.35),V(-.45,1.27,-5.35),34],
+ [35.95,36.77,V(1.9,1.55,-2.6),V(1.8,1.52,-2.75),V(-.1,1.45,-4.35),V(.0,1.45,-4.35),40,bx]];                 // S19 giật lon của bạn
+const cam=new THREE.PerspectiveCamera(45,9/16,.03,400);
+const comp=new EffectComposer(r,new THREE.WebGLRenderTarget(W,H,{samples:4,type:THREE.HalfFloatType}));comp.setSize(W,H);comp.addPass(new RenderPass(s,cam));comp.addPass(new OutputPass());
+const sun=new THREE.DirectionalLight('#fff1d8',3.6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;Object.assign(sun.shadow.camera,{left:-9,right:9,top:9,bottom:-9,near:1,far:60});s.add(sun);s.add(sun.target);
+const SUND=V(-4,10,7).normalize();
+const hide=(...o)=>o.forEach(x=>x.visible=false);
+const SUONG={LeftUpperLidClosed:.6,RightUpperLidClosed:.6,LeftOuterBrowUp:.7,RightOuterBrowUp:.7,MouthLeftPullUp:1,MouthRightPullUp:1,LeftCheekUp:.8,RightCheekUp:.8,JawDrop:.2};
+const GIAN={LeftBrowDown:1,RightBrowDown:1,NoseWrinkler:.6,UpperLipUp:.6,MouthLeftPullDown:.4,MouthRightPullDown:.4,JawDrop:.12};
+const KIET={LeftInnerBrowUp:1,RightInnerBrowUp:1,LeftUpperLidClosed:.45,RightUpperLidClosed:.45,JawDrop:.55,TongueOut:.9,MouthLeftPullDown:.5,MouthRightPullDown:.5};
+const RUNG={LeftUpperLidClosed:1,RightUpperLidClosed:1,NoseWrinkler:.8,LeftBrowDown:.8,RightBrowDown:.8,UpperLipUp:.7,MouthLeftPullSide:.5,MouthRightPullSide:.5};
+const HOANG={JawDrop:.7,LeftInnerBrowUp:1,RightInnerBrowUp:1,LeftOuterBrowUp:1,RightOuterBrowUp:1,LeftUpperLidOpen:1,RightUpperLidOpen:1};
+window.renderFrame=(t)=>{try{
+  const sh=SH.find(x=>t>=x[0]&&t<x[1])||SH[SH.length-1];const p=rp(t,sh[0],sh[1]);const u=sh[0]===0?.5*p+.5*(1-Math.pow(1-p,2)):0.15*p*p+0.85*p;
+  hide(...stars,...sweats,...puffs,...foams,...speeds,...shakes,...arrows,lab1,lab3,can2);can1.visible=true;
+  Object.assign(B,{x:0,z:.6,y:0,Rf:.35,Rr:.35,wood:1,ped:0,red:0,redPop:[],chainK:0,ringK:0,tire:0,dist:0,crank:0,shake:0,tilt:0,frontDetach:null,hide:false,mark:0,beamPop:1,wheelPop:1,wheelPop2:undefined});
+  A.root.visible=F.root.visible=true;rock.visible=true;
+  // ===== S1 0–1.3: macro lon bia lạnh trên bàn → tay bạn chộp mất, bọt văng
+  if(t<1.3){B.hide=true;drawBike();
+    const canP=V(-.95,.11+.735+.061,-7.3);sitChair(A,V(-1.65,.11+.46,-7.55),.35,t);armIK(A,'R',J(A,'spine01').add(sideOf(A).multiplyScalar(-.3)).add(V(0,-.38,.05)),V(0,-1,0));armIK(A,'L',lerpV(J(A,'spine01').add(sideOf(A).multiplyScalar(.3)).add(V(0,-.38,.05)),V(-1.05,.98,-7.25),E(t,.8,1.2)),V(0,-1,-.3));face(A,t,1,[SUONG,1-E(t,.7,1.0)],[HOANG,E(t,.75,1.0)]);
+    const grab=E(t,.4,.7),pull=E(t,.76,1.15);const fP=V(-.5,.11,-7.62);standAt(F,fP,-1.75,2,'77_02');
+    const hand=lerpV(lerpV(J(F,'spine01').add(V(-.25,-.35,.1)),canP.clone().add(V(0,0,-.06)),grab),V(.05,1.4,-7.2),pull);armIK(F,'R',hand,V(0,-1,0));rotWorld(F.bones['spine05____head'],sideOf(F),.25*grab*(1-pull));face(F,t,2,[EXPR.cuoi,1]);
+    can1.position.copy(t<.75?canP:J(F,'wrist.R').add(V(0,-.02,0)));can1.rotation.set(0,0,t<.75?0:-.4*pull);
+    foams.forEach((x,i)=>{const f=rp(t,.8+i*.03,1.25+i*.03);x.visible=f>0&&f<1;x.position.copy(canP).add(V(-.12-f*.55+Math.sin(i)*.05,.08+f*.2+Math.sin(f*3.1)*.12,(i%3-1)*.05));const ss=.04+.05*f;x.scale.set(ss,ss,1);});}
+  // ===== S2 1.3–2.88: sững sờ (bọt dính mặt) → giận; bạn chạy mất giơ lon khoe
+  else if(t<2.88){B.hide=true;drawBike();
+    sitChair(A,V(-1.65,.11+.46,-7.55),.35,t);armIK(A,'L',lerpV(V(-1.05,.98,-7.25),V(-1.2,.85,-7.3),E(t,2.0,2.6)),V(0,-1,-.3));armIK(A,'R',J(A,'spine01').add(sideOf(A).multiplyScalar(-.3)).add(V(0,-.38,.05)),V(0,-1,0));
+    face(A,t,1,[HOANG,1-E(t,2.0,2.4)],[GIAN,E(t,2.0,2.4)*1.2]);
+    foams.slice(0,4).forEach((x,i)=>{x.visible=true;x.position.copy(J(A,'head')).add(V(.08*Math.cos(i*1.6),-.02+.06*Math.sin(i*2.2),.1));x.scale.set(.05,.05,1);});
+    const k=rp(t,1.3,2.88);const fp=lerpV(V(-.45,0,-7.05),V(.85,0,-10.8),k).setY(.11);jog(F,fp,2.81,t,2.6,E(t,1.5,1.9));can1.position.copy(J(F,'wrist.R').add(V(0,.04,0)));can1.rotation.set(0,0,0);face(F,t,2,[EXPR.cuoi,1.2]);}
+  // ===== S3 2.88–4.9: dầm gỗ hiện ra giữa 2 chân → ngồi; 2 bánh gỗ bật ra
+  else if(t<4.9){F.root.visible=false;can1.visible=false;B.x=0;B.beamPop=POP(t,3.55,.32);B.wheelPop=POP(t,4.4,.3);B.wheelPop2=POP(t,4.62,.3);
+    drawBike();wR.scale.setScalar(B.Rr*Math.max(.001,B.wheelPop2));wF.scale.setScalar(B.Rf*Math.max(.001,B.wheelPop));
+    const sd=W2(geo.saddle);const sit=E(t,3.75,4.25);base(A,Math.PI/2);placeHip(A,lerpV(V(sd.x,A.hipH*.97+.11,sd.z),sd.clone().add(V(0,.1,0)),sit));lean(A,.15*sit);
+    legIK(A,'L',V(sd.x+.12,.11+A.ankY,sd.z-.2),V(1,.6,-.3));legIK(A,'R',V(sd.x+.12,.11+A.ankY,sd.z+.2),V(1,.6,.3));
+    const gp=W2(geo.grip);armIK(A,'L',lerpV(J(A,'spine01').add(V(.1,-.45,-.3)),gp.clone().add(V(0,0,-.24)),E(t,4.0,4.5)),V(-.3,-1,-1));armIK(A,'R',lerpV(J(A,'spine01').add(V(.1,-.45,.3)),gp.clone().add(V(0,0,.24)),E(t,4.0,4.5)),V(-.3,-1,1));
+    face(A,t,1,[GIAN,1-E(t,4.2,4.6)],[EXPR.tu_hao,E(t,4.3,4.7)]);if(t>3.8&&t<4.4)starsAt(sd.clone().add(V(0,.05,0)),t,.35);}
+  // ===== S4/S5/S6 4.9–8.88: đẩy chân chạy (xe gỗ), rồi đuối dần
+  else if(t<8.88){F.root.visible=false;can1.visible=false;
+    const v=t<7.2?2.2:2.2*(1-E(t,7.2,8.55));const x0=(tt)=>tt<7.2?(tt-4.9)*2.2:(7.2-4.9)*2.2+2.2*((tt-7.2)-(()=>{let a=0;const n=30;for(let i=0;i<n;i++){const s2=7.2+(tt-7.2)*(i+.5)/n;a+=E(s2,7.2,8.55);}return a/n*(tt-7.2);})());
+    B.x=x0(t);B.dist=B.x;drawBike();const sd=W2(geo.saddle),gp=W2(geo.grip);
+    const fr=t<7.2?1.5:1.5*(1-.7*E(t,7.2,8.4));const ph=(t-4.9)*fr*Math.PI*2;const amp=t<7.2?1:1-E(t,7.3,8.5);
+    const feet=['L','R'].map((L,i)=>{const uu=(((ph+i*Math.PI)/(Math.PI*2))%1+1)%1;const st=uu<.5,k=st?uu/.5:(uu-.5)/.5;const dx=(st?THREE.MathUtils.lerp(.32,-.4,k):THREE.MathUtils.lerp(-.4,.32,ease(k)))*amp+(1-amp)*.05;
+      return V(sd.x+.05+dx,.11+A.ankY+(st?0:Math.sin(Math.PI*k)*.16*amp),sd.z+(i?.2:-.2));});
+    const bob=Math.abs(Math.sin(ph))*.03*amp;ride(A,sd.clone().add(V(0,bob,0)),gp,feet,t<7.2?.3:.3+.25*E(t,7.2,8.3));
+    if(t<6.4){face(A,t,1,[GIAN,1.1]);kickDust(V(sd.x-.2,.12,sd.z),t);}
+    else if(t<7.2){face(A,t,1,[EXPR.tu_hao,1.2]);if(t>6.55)starsAt(J(A,'head').add(V(0,.12,0)),t,.28);for(let i=0;i<2;i++){speeds[i].visible=true;speeds[i].position.copy(sd).add(V(-.9-i*.3,.25+i*.35,0));speeds[i].scale.set(.9,.45,1);}}
+    else{face(A,t,1,[KIET,E(t,7.3,7.8)*1.2]);sweatAt(J(A,'head').add(V(0,.05,0)),t);
+      // bạn ở xa nhảy múa trêu, giơ lon
+      F.root.visible=true;const fx=B.x+9;standAt(F,V(fx,.0,-.2),-1.4,2,'77_02');const w=Math.sin(t*7);rotWorld(F.bones['spine05____head'],UP,w*.35);armIK(F,'R',J(F,'upperarm01.R').add(V(0,.55,0)),V(0,0,-1));armIK(F,'L',J(F,'upperarm01.L').add(V(-.1,.45+.1*w,0)),V(0,0,1));
+      can1.visible=true;can1.position.copy(J(F,'wrist.R').add(V(0,.05,0)));face(F,t,2,[EXPR.cuoi,1.3]);}}
+  // ===== S7 8.88–11.1: macro trục trước: tay quay + bàn đạp bật ra → đạp
+  else if(t<11.1){F.root.visible=false;can1.visible=false;B.x=8.0+Math.max(0,t-10.3)*1.3;B.dist=B.x;B.ped=Math.min(POP(t,9.35,.3),1.05);B.crank=-B.dist/B.Rf+1.2;drawBike();
+    if(B.ped<1){const c=Math.min(1,B.ped);}
+    const sd=W2(geo.saddle),gp=W2(geo.grip);const hub=W2(geo.fh);const onP=E(t,9.9,10.35);
+    const pf=pedFeet(hub,B.crank,.13,.2);const rest=[V(sd.x+.15,.11+A.ankY,sd.z-.2),V(sd.x+.15,.11+A.ankY,sd.z+.2)];
+    ride(A,sd,gp,[lerpV(rest[0],pf[0],onP),lerpV(rest[1],pf[1],onP)],.2);face(A,t,1,[EXPR.tu_hao,E(t,9.4,9.9)]);if(t>9.45&&t<10.2)starsAt(hub,t,.2);}
+  // ===== S8 11.1–13.2: bạn mông bự chạy nhanh hơn, mình đạp ì ạch
+  else if(t<13.2){B.x=9+(t-11.1)*1.2;B.dist=B.x;B.ped=1;B.crank=-B.dist/B.Rf;drawBike();const sd=W2(geo.saddle),gp=W2(geo.grip),hub=W2(geo.fh);
+    ride(A,sd,gp,pedFeet(hub,B.crank,.13,.2),.25);face(A,t,1,[GIAN,1]);sweatAt(J(A,'head'),t);
+    const fx=B.x+2.4+(t-11.1)*1.4;jog(F,V(fx,.0,-.55),Math.PI/2,t,2.6,1);can1.position.copy(J(F,'wrist.R').add(V(0,.04,0)));if(t>12.2)headTurn(F,.9*E(t,12.2,12.6));face(F,t,2,[EXPR.cuoi,1.3]);}
+  // ===== S9 13.2–15.5: bánh trước phình "khổng lồ"
+  else if(t<15.5){F.root.visible=false;can1.visible=false;B.x=12.5;const g=back(rp(t,13.65,14.85));B.Rf=.35+.45*g;B.Rr=.35-.1*E(t,13.65,14.6);B.ped=1;B.crank=1.0;drawBike();
+    const sd=W2(geo.saddle),gp=W2(geo.grip),hub=W2(geo.fh);ride(A,sd,gp,pedFeet(hub,B.crank,.13,.2),.2);
+    face(A,t,1,[HOANG,E(t,13.7,14.0)*(1-E(t,14.9,15.2))],[SUONG,E(t,14.9,15.3)]);if(t>14.9)starsAt(hub,t,B.Rf*.9);}
+  // ===== S10 15.5–16.95: phóng xe bánh to → hòn đá nhỏ
+  else if(t<16.95){F.root.visible=false;can1.visible=false;B.Rf=.8;B.Rr=.25;B.ped=1;B.x=27.0-.3-B.Rf*.2-(16.95-t)*3.8;B.dist=B.x;B.crank=-B.dist/B.Rf;drawBike();
+    const sd=W2(geo.saddle),gp=W2(geo.grip),hub=W2(geo.fh);ride(A,sd,gp,pedFeet(hub,B.crank,.13,.2),.15);face(A,t,1,[SUONG,1.2]);
+    if(t<16.25)for(let i=0;i<3;i++){speeds[i].visible=true;speeds[i].position.copy(sd).add(V(-1.0-i*.4,-.3+i*.4,0));speeds[i].scale.set(1.0,.5,1);}}
+  // ===== S11 16.95–19.36: bay qua ghi-đông, úp mặt; bánh to lăn đi một mình
+  else if(t<19.36){F.root.visible=false;can1.visible=false;B.Rf=.8;B.Rr=.25;B.ped=1;const bx0=27.0-.3-B.Rf*.2;B.x=bx0;B.dist=bx0;B.crank=-bx0/B.Rf;
+    const tip=E(t,16.97,17.5);B.tilt=-.55*tip;
+    const det=rp(t,17.35,19.36);const fx0=bx0+.3;B.frontDetach={p:V(fx0+det*3.2,B.Rf,.6),rot:-(bx0+det*3.2)/B.Rf,lean:det>.85?(det-.85)/.15*.3:0};
+    drawBike();const sd0=V(bx0+.3-.25+.43*0+(-.03),0,0);
+    const fl=rp(t,16.97,17.85);const P0=W2(geo.saddle).add(V(0,.1,0)),P1=V(bx0+2.6,.11+.17,.6);const hipP=lerpV(P0,P1,fl).add(V(0,Math.sin(Math.PI*fl)*.9,0));
+    base(A,Math.PI/2);const pitch=1.42*E(t,16.97,17.85);A.root.updateMatrixWorld(true);
+    const qy=new THREE.Quaternion().setFromAxisAngle(UP,Math.PI/2),qp=new THREE.Quaternion().setFromAxisAngle(V(0,0,-1),pitch);A.root.quaternion.copy(qp.multiply(qy));A.root.updateMatrixWorld(true);placeHip(A,hipP);
+    const fw=V(1,0,0).applyAxisAngle(V(0,0,-1),0);armIK(A,'L',J(A,'head').add(V(.45,.05,-.25)),V(0,1,0));armIK(A,'R',J(A,'head').add(V(.45,.05,.25)),V(0,1,0));
+    if(t>17.85){const tw=Math.sin((t-17.85)*16)*Math.exp(-(t-17.85)*1.5)*.25;rotWorld(A.bones['lowerleg01.L____head'],V(0,0,1),tw);rotWorld(A.bones['lowerleg01.R____head'],V(0,0,1),-tw);}
+    face(A,t,1,[HOANG,1.3]);dust(V(bx0+2.9,.15,.6),t,17.82,8,.6);if(t>18.15)starsAt(J(A,'head').add(V(0,.25,0)),t,.3);}
+  // ===== S12 19.36–22.24: thu nhỏ bánh, khung đỏ lắp dần, xích chạy vòng
+  else if(t<22.24){A.root.visible=F.root.visible=false;can1.visible=false;B.x=32;rock.visible=false;
+    const sh2=E(t,19.6,20.3);B.Rf=.8-.45*sh2;B.Rr=.25+.1*sh2;B.ped=1-E(t,20.0,20.25);B.wood=1-E(t,20.15,20.45);B.red=t>20.3?1:0;
+    B.redPop=[0,1,2,3,4,5,6,7,8].map(i=>POP(t,20.35+i*.07,.26));B.ringK=POP(t,21.0,.25);B.chainK=rp(t,21.25,22.0);B.crank=t>22.0?(t-22.0)*-2:0;drawBike();
+    if(t>21.2&&t<22.1)starsAt(W2(geo.bb),t,.25);}
+  // ===== S13 22.24–25.7: đồ hoạ khoa học: 1 vòng đạp = 3 vòng bánh sau
+  else if(t<25.7){A.root.visible=F.root.visible=false;can1.visible=false;B.x=32;rock.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;B.mark=1;
+    const turn=E(t,22.7,24.75);B.crank=-turn*Math.PI*2;B.dist=-B.crank*3*B.Rr;drawBike();
+    const bb=W2(geo.bb),rh=W2(geo.rhS);arrows[0].visible=t>22.6;arrows[0].position.copy(bb).add(V(0,0,.12));const a0=POP(t,22.6,.3)*.55;arrows[0].scale.set(a0,a0,1);arrows[0].material.rotation=-turn*Math.PI*2;
+    arrows[1].visible=t>23.0;arrows[1].position.copy(rh).add(V(0,0,.12));const a1=POP(t,23.0,.3)*1.1;arrows[1].scale.set(a1,a1,1);arrows[1].material.rotation=-turn*Math.PI*6;
+    lab1.visible=t>23.2;lab1.position.copy(bb).add(V(.05,.3,.12));const l1=POP(t,23.2,.3)*.26;lab1.scale.set(l1,l1,1);
+    lab3.visible=t>24.85;lab3.position.copy(rh).add(V(0,.6,.12));const l3=POP(t,24.85,.3)*.32;lab3.scale.set(l3,l3,1);}
+  // ===== S14 25.7–27.2: phóng vụt đi
+  else if(t<27.2){F.root.visible=false;can1.visible=false;rock.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;const k=rp(t,25.7,27.2);B.x=32+Math.pow(k,1.8)*9;B.dist=B.x;B.crank=-B.dist/(B.Rr*3);drawBike();
+    const sd=W2(geo.saddleS),gp=W2(geo.gripS),bb=W2(geo.bb);ride(A,sd,gp,pedFeet(bb,B.crank,.17,.15),.4);face(A,t,1,[SUONG,1.2]);
+    for(let i=0;i<4;i++){speeds[i].visible=k>.2;speeds[i].position.copy(sd).add(V(-1.0-i*.35,-.4+i*.3,0));speeds[i].scale.set(1.1,.5,1);}}
+  // ===== S15 27.2–28.24: "Genius!"
+  else if(t<28.24){F.root.visible=false;can1.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;B.x=41+(t-27.2)*5;B.dist=B.x;B.crank=-B.dist/(B.Rr*3);drawBike();
+    const sd=W2(geo.saddleS),gp=W2(geo.gripS),bb=W2(geo.bb);ride(A,sd,gp,pedFeet(bb,B.crank,.17,.15),.35);face(A,t,1,[EXPR.tu_hao,1.3]);if(t>27.4)starsAt(J(A,'head').add(V(0,.12,0)),t,.28);
+    for(let i=0;i<2;i++){speeds[i].visible=true;speeds[i].position.copy(sd).add(V(-.9-i*.3,.2+i*.35,0));speeds[i].scale.set(.9,.45,1);}}
+  // ===== S16/S17 28.24–30.96: bánh gỗ trên đá cuội — rung bần bật
+  else if(t<30.96){F.root.visible=false;can1.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;B.x=t<29.6?46+(t-28.24)*3.2:51+(t-29.6)*3.2;B.dist=B.x;B.crank=-B.dist/(B.Rr*3);B.shake=.018;drawBike();
+    const sd=W2(geo.saddleS),gp=W2(geo.gripS),bb=W2(geo.bb);const j=Math.sin(t*95)*.022+Math.sin(t*61)*.012;
+    ride(A,sd.clone().add(V(0,Math.abs(j)*1.6,0)),gp.clone().add(V(0,j*.6,0)),pedFeet(bb,B.crank,.17,.15),.35);headTurn(A,Math.sin(t*70)*.12,Math.sin(t*83)*.1);
+    face(A,t,1,[RUNG,1.2],[{JawDrop:.35*(.5+.5*Math.sin(t*60))},1]);
+    shakes.forEach((x,i)=>{x.visible=true;x.position.copy(t<29.6?W2(geo.saddleS).add(V(0,-.05,i?.35:-.35)):J(A,'head').add(V(0,0,i?.32:-.32)));x.material.rotation=i?Math.PI:0;const ss=.22+.04*Math.sin(t*40+i);x.scale.set(ss,ss,1);});}
+  // ===== S18 30.96–33.52: ống cao su đầy hơi → êm ru
+  else if(t<33.52){F.root.visible=false;can1.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;B.x=55+(t-30.96)*1.6;B.dist=B.x;B.crank=-B.dist/(B.Rr*3);B.tire=back(rp(t,31.75,32.85));B.shake=.018*(1-E(t,32.3,32.9));drawBike();
+    const sd=W2(geo.saddleS),gp=W2(geo.gripS),bb=W2(geo.bb);const j=(Math.sin(t*95)*.022+Math.sin(t*61)*.012)*(1-E(t,32.3,32.9));
+    ride(A,sd.clone().add(V(0,Math.abs(j)*1.6,0)),gp,pedFeet(bb,B.crank,.17,.15),.3);face(A,t,1,[RUNG,1-E(t,32.4,32.9)],[SUONG,E(t,32.6,33.1)]);
+    puffs.slice(0,6).forEach((x,i)=>{const f=rp(t,31.8+i*.08,32.5+i*.08);x.visible=f>0&&f<1;x.position.copy(W2(geo.fhS)).add(V(Math.cos(i*1.1)*.4*(.6+f*.5),Math.sin(i*1.1)*.4*(.6+f*.5),.1));x.material.color.set('#ffffff');const ss=.08+.15*f;x.scale.set(ss,ss,1);x.material.opacity=.8*(1-f);});
+    if(t>32.9)starsAt(W2(geo.fhS),t,.42);}
+  // ===== S19 33.52–36.77: bạn khui lon mới → xe vụt qua giật lon; mình vừa đạp vừa tu
+  else{rock.visible=false;B.wood=0;B.red=1;B.ringK=1;B.chainK=1;B.tire=1;B.z=-4.35;B.y=.12;
+    const tg=34.55,dt=t-tg;B.x=-.55+(dt<0?dt*4.5:1.6*dt+2.9*(1-Math.exp(-dt*1.8))/1.8);B.dist=B.x;B.crank=-B.dist/(B.Rr*3);drawBike();
+    const sd=W2(geo.saddleS),gp=W2(geo.gripS),bb=W2(geo.bb);ride(A,sd,gp,pedFeet(bb,B.crank,.17,.15),.3);
+    const fP=V(-.45,.11,-5.35);standAt(F,fP,.15,2,'77_02');const fsh=J(F,'upperarm01.R');const raise=E(t,33.7,34.2);
+    const fh=lerpV(fsh.clone().add(V(-.05,-.45,.2)),fsh.clone().add(V(.08,.28,.28)),raise);armIK(F,'R',fh,V(0,-1,0));armIK(F,'L',fsh.clone().add(V(-.3,-.1,.25)),V(0,-1,0));
+    const grab=t>tg;const lh=J(A,'upperarm01.L');
+    if(t>tg-.45&&t<tg+.05){armIK(A,'L',lerpV(gp.clone().add(V(0,0,-.24)),J(F,'wrist.R'),E(t,tg-.45,tg)),V(0,-1,-.5));}
+    if(grab){const drink=E(t,tg+.5,tg+1.0);const mouth=J(A,'head').add(V(.12,-.08,-.02));const hp=lerpV(lh.clone().add(V(.2,.05,-.25)),mouth.clone().add(V(.04,0,-.06)),drink);armIK(A,'L',hp,V(0,-1,-1));
+      can2.visible=true;can2.position.copy(J(A,'wrist.L').add(V(0,.03,0)));can2.rotation.set(0,0,drink*1.9);}
+    else{can2.visible=t>33.6;can2.position.copy(J(F,'wrist.R').add(V(0,.05,0)));can2.rotation.set(0,0,0);}
+    can1.visible=false;face(A,t,1,[EXPR.tu_hao,grab?0:1],[SUONG,grab?1.2:0]);
+    face(F,t,2,[EXPR.cuoi,1-E(t,tg,tg+.3)],[HOANG,E(t,tg+.05,tg+.4)*1.3]);if(t>tg+.25)headTurn(F,.9*E(t,tg+.25,tg+.8));
+  }
+  // máy quay
+  const an=sh[7]?sh[7](t):V(0,0,0),an2=sh[8]?sh[8](t):an;cam.position.copy(lerpV(sh[2],sh[3],u)).add(an);cam.lookAt(lerpV(sh[4],sh[5],u).add(an2));cam.fov=sh[6];cam.updateProjectionMatrix();
+  // nắng bám theo vùng quay (bước lưới chống rung bóng)
+  const foc=lerpV(sh[4],sh[5],u).add(an2);const tx=18/2048;foc.x=Math.round(foc.x/tx)*tx;foc.z=Math.round(foc.z/tx)*tx;foc.y=0;sun.target.position.copy(foc);sun.position.copy(foc).addScaledVector(SUND,30);
+  comp.render();}catch(e){console.log('ERR '+e.stack)}};
+window.ready=true;
+</script></body></html>

@@ -1,0 +1,2 @@
+{"name":"e5_ban","gender":1,"age":"old","muscle":0.3,"weight":1.0,"height":0.05,"race":{"caucasian":0.7,"african":0.3},"skin":"middleage_caucasian_male/middleage_caucasian_male.json",
+ "proxies":[{"p":"clothes/male_casualsuit03/male_casualsuit03.json","map":"vai/hawaii_cs03.png","keepNormal":true},"clothes/shoes01/shoes01.json","hair/Moustache/Moustache.json","clothes/glasses/glasses.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

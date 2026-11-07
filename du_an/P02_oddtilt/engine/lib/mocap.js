@@ -133,3 +133,15 @@ export function rotWorld(bone, axis, ang) {
   bone.quaternion.copy(bone.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(wq)); bone.updateWorldMatrix(false, true);
 }
 export const J = (ch, n) => ch.bones[n + '____head'].getWorldPosition(new THREE.Vector3());
+// IK 2 đoạn cho chân MakeHuman (E05 đạp xe): đặt mắt cá (foot) tới target, gối hướng về pole (thế giới)
+export function legIK(ch, side, target, pole) {
+  const U = ch.bones['upperleg01.' + side + '____head'], L = ch.bones['lowerleg01.' + side + '____head'], F = ch.bones['foot.' + side + '____head'];
+  const Ue = ch.bones['upperleg02.' + side], Le = ch.bones['lowerleg02.' + side];
+  ch.root.updateMatrixWorld(true);
+  const S = U.getWorldPosition(new THREE.Vector3()), K0 = L.getWorldPosition(new THREE.Vector3()), A0 = F.getWorldPosition(new THREE.Vector3());
+  const a = S.distanceTo(K0), b = K0.distanceTo(A0); const dv = target.clone().sub(S); const d = Math.min(dv.length(), (a + b) * 0.999); const u = dv.normalize();
+  const cosA = THREE.MathUtils.clamp((a * a + d * d - b * b) / (2 * a * d), -1, 1), sinA = Math.sqrt(1 - cosA * cosA);
+  const pp = pole.clone().sub(u.clone().multiplyScalar(pole.dot(u))).normalize();
+  const knee = S.clone().addScaledVector(u, a * cosA).addScaledVector(pp, a * sinA);
+  aimMH(U, Ue, knee.clone().sub(S)); aimMH(L, Le, S.clone().addScaledVector(u, d).sub(knee));
+}

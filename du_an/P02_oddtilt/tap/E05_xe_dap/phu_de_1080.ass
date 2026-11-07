@@ -1,0 +1,82 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,105,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,4.5,3.75,5,45,45,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.16,0:00:00.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Your friend
+Dialogue: 0,0:00:00.64,0:00:01.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stole your
+Dialogue: 0,0:00:01.04,0:00:01.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}last beer
+Dialogue: 0,0:00:01.52,0:00:01.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and he's
+Dialogue: 0,0:00:01.92,0:00:02.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}running away
+Dialogue: 0,0:00:02.32,0:00:02.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}with it.
+Dialogue: 0,0:00:02.88,0:00:03.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:03.20,0:00:03.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sit on
+Dialogue: 0,0:00:03.52,0:00:03.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}a wooden
+Dialogue: 0,0:00:03.92,0:00:04.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}beam between
+Dialogue: 0,0:00:04.48,0:00:04.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}two wheels
+Dialogue: 0,0:00:04.96,0:00:05.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and kick
+Dialogue: 0,0:00:05.36,0:00:05.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the ground
+Dialogue: 0,0:00:05.68,0:00:06.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}to chase him.
+Dialogue: 0,0:00:06.48,0:00:07.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Clever!
+Dialogue: 0,0:00:07.20,0:00:07.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But your
+Dialogue: 0,0:00:07.52,0:00:07.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}legs give
+Dialogue: 0,0:00:08.00,0:00:08.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}up after
+Dialogue: 0,0:00:08.32,0:00:08.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}one block,
+Dialogue: 0,0:00:08.88,0:00:09.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:09.20,0:00:09.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}bolt pedals
+Dialogue: 0,0:00:09.92,0:00:10.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}onto the
+Dialogue: 0,0:00:10.24,0:00:11.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}front wheel.
+Dialogue: 0,0:00:11.12,0:00:11.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except you're
+Dialogue: 0,0:00:11.60,0:00:12.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}still slower
+Dialogue: 0,0:00:12.16,0:00:12.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}than his
+Dialogue: 0,0:00:12.48,0:00:13.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fat ass,
+Dialogue: 0,0:00:13.20,0:00:13.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:13.44,0:00:13.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}make the
+Dialogue: 0,0:00:13.68,0:00:14.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}front wheel
+Dialogue: 0,0:00:14.32,0:00:15.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}FUCKING huge.
+Dialogue: 0,0:00:15.52,0:00:15.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But you
+Dialogue: 0,0:00:15.76,0:00:16.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hit one
+Dialogue: 0,0:00:16.24,0:00:17.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}tiny rock
+Dialogue: 0,0:00:17.04,0:00:17.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and fly
+Dialogue: 0,0:00:17.52,0:00:18.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}face first
+Dialogue: 0,0:00:18.24,0:00:18.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}over the
+Dialogue: 0,0:00:18.56,0:00:19.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}handlebars,
+Dialogue: 0,0:00:19.36,0:00:19.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:19.60,0:00:20.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}shrink the
+Dialogue: 0,0:00:20.08,0:00:20.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wheels and
+Dialogue: 0,0:00:20.56,0:00:20.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}drive the
+Dialogue: 0,0:00:20.96,0:00:21.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back one
+Dialogue: 0,0:00:21.36,0:00:21.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}with the
+Dialogue: 0,0:00:21.68,0:00:22.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}chain.
+Dialogue: 0,0:00:22.24,0:00:22.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now one
+Dialogue: 0,0:00:22.80,0:00:23.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}turn of
+Dialogue: 0,0:00:23.20,0:00:23.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the pedals
+Dialogue: 0,0:00:23.76,0:00:24.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}spins the
+Dialogue: 0,0:00:24.24,0:00:24.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back wheel
+Dialogue: 0,0:00:24.88,0:00:25.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}three times,
+Dialogue: 0,0:00:25.76,0:00:26.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}launching you
+Dialogue: 0,0:00:26.48,0:00:27.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}forward.
+Dialogue: 0,0:00:27.20,0:00:28.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Genius!
+Dialogue: 0,0:00:28.24,0:00:28.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except the
+Dialogue: 0,0:00:28.64,0:00:29.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wooden wheels
+Dialogue: 0,0:00:29.44,0:00:29.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}shake your
+Dialogue: 0,0:00:29.84,0:00:30.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}balls like
+Dialogue: 0,0:00:30.24,0:00:30.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}a blender,
+Dialogue: 0,0:00:30.96,0:00:31.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:31.28,0:00:31.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}wrap them
+Dialogue: 0,0:00:31.68,0:00:32.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}in rubber
+Dialogue: 0,0:00:32.16,0:00:32.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}tubes full
+Dialogue: 0,0:00:32.72,0:00:33.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of air.
+Dialogue: 0,0:00:33.52,0:00:33.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now your
+Dialogue: 0,0:00:33.92,0:00:34.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}friend never
+Dialogue: 0,0:00:34.48,0:00:34.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}keeps a
+Dialogue: 0,0:00:34.88,0:00:35.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}beer for
+Dialogue: 0,0:00:35.36,0:00:35.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}more than
+Dialogue: 0,0:00:35.68,0:00:36.78,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}five seconds!

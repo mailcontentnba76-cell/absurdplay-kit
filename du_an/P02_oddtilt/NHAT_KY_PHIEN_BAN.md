@@ -14,3 +14,8 @@
 ## 07/11/2026 — Phân tích 2 mẫu viral + skill v1.2
 - Thêm `PHAN_TICH_MAU/15_bong_golf.md`, `16_trampoline.md` (lời + mốc, cắt cảnh, máy, màu, gag, loudness).
 - Skill `invention-chain-shorts` v1.2: mục 1b (hook chơi chữ / động cơ bựa + kết khép vòng, bối cảnh hiện đại, macro đồ vật, lắp ráp hiện dần, thất bại ragdoll, đồ hoạ khoa học, máy bay kể chuyện, 1 màu nhấn).
+
+## 07/11/2026 — E05 "How you invented the bicycle" v1 (theo skill v1.2 mục 1b)
+- 36,77 s, 1080×1920, 30 fps, 19 shot (trung vị ~1,8 s). Bối cảnh hiện đại (phố ngoại ô), nhân vật mới e5_chinh/e5_ban, khung xe đỏ là màu nhấn duy nhất.
+- Mới trong engine: `legIK` (lib/mocap.js), xe đạp dựng theo tham số (xe đẩy → bàn đạp bánh trước → bánh to → xe an toàn xích + lốp hơi), lắp ráp bật ra (easeOutBack), xích chạy theo đĩa, đồ hoạ x1/x3, chạy bộ thủ tục, ngã úp mặt bằng quay thân quanh hông.
+- 7 SFX mới (Magnific): giật lon bia, bánh gỗ lăn, ngã xe, xích, bơm lốp, xóc răng, chuông xe. Texture mới: nhựa đường, vỉa hè, cỏ sân, đá cuội, ngói, phông phố, vách gỗ (tự vẽ).

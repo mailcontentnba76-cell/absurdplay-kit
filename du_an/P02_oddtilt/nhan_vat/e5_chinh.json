@@ -1,0 +1,2 @@
+{"name":"e5_chinh","gender":1,"age":"young","muscle":0.2,"weight":0.08,"height":0.85,"race":{"caucasian":0.8,"asian":0.2},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/Tank_Top_01/Tank_Top_01.json","map":"vai/xam_ba_lo.png"},{"p":"clothes/ShortJeans/ShortJeans.json","map":"vai/ke_caro.png"},"clothes/shoes02/shoes02.json","hair/short04/short04.json","hair/Full_beard/Full_beard.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"blue"}

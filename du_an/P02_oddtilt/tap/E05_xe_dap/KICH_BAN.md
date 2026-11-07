@@ -1,0 +1,11 @@
+# E05 — "How you invented the bicycle" (chủ dự án duyệt 07/11/2026, theo skill v1.2 mục 1b)
+Lời (Magnific Voice "Odd Tilt", eleven_turbo_v2_5, speed 0,97 → rút nghỉ + atempo 1,07 → 36,77 s, ~220 từ/phút):
+> Your friend stole your last beer and he's running away with it. So you sit on a wooden beam between two wheels and kick the ground to chase him. Clever! But your legs give up after one block, so you bolt pedals onto the front wheel. Except you're still slower than his fat ass, so you make the front wheel fucking huge. But you hit one tiny rock and fly face-first over the handlebars, so you shrink the wheels and drive the back one with a chain. Now one turn of the pedals spins the back wheel three times, launching you forward. Genius! Except the wooden wheels shake your balls like a blender, so you wrap them in rubber tubes full of air. Now your friend never keeps a beer for more than five seconds!
+
+Bước thật: xe gỗ đẩy chân (draisine 1817) → bàn đạp bánh trước (1860s) → bánh trước to (penny-farthing) → xe an toàn xích + líp (1885) → lốp hơi (1888).
+Nhân vật MỚI: `e5_chinh` gầy cao, râu quai nón, ba lỗ xám chuột, quần đùi caro xanh than-kaki; `e5_ban` lùn béo, hói, ria, kính râm, áo hawaii bạc hà + jean.
+Bối cảnh MỚI: phố ngoại ô hiện đại buổi chiều — nhựa đường vạch vàng, vỉa hè bê tông, bãi cỏ, nhà vách gỗ nhạt mái ngói xám, hàng rào trắng, hộp thư xanh, đoạn đá cuội; phông phố xa (Magnific).
+Màu: nền trung tính dịu; **khung xe đỏ là màu nhấn duy nhất** (xuất hiện khi phát minh hoàn chỉnh); lon bia vàng kim.
+Mở đầu hài: macro lon bia lạnh → tay bạn chộp mất, bọt văng; nhân vật đứng hình, bọt dính mặt, tay với vào khoảng không → bạn ôm lon chạy, giơ khoe.
+19 shot: lon bị giật · sững sờ · dầm gỗ + 2 bánh bật ra · đẩy chân · "Clever!" · đuối, lè lưỡi (bạn nhảy trêu) · bàn đạp bật ra · bạn mông bự chạy nhanh hơn · bánh trước phình · phóng bánh to · macro hòn đá · bay qua ghi-đông úp mặt, bánh to lăn đi một mình · bánh thu nhỏ, khung đỏ + xích lắp dần · đồ hoạ x1/x3 · phóng vụt · "Genius!" · bánh gỗ dội đá cuội · rung bần bật · lốp hơi phồng · giật lon của bạn + mặt bạn sốc + vừa đạp vừa tu.
+Cảnh: `engine/e5_xe_dap.html`; âm: `cong_cu/tron_am.py`; phụ đề `phu_de_1080.ass`; vải nhân vật `cong_cu/mh_vai_e5.py`.
