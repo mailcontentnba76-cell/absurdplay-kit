@@ -22,7 +22,7 @@ if [ ! -f "$H/parakeet/tokens.txt" ]; then
 fi
 say "5/6 Dữ liệu MakeHuman (npm makehuman-data 0.0.2, CC0, ≈ 260 MB) → $H/makehuman-data"
 if [ ! -d "$H/makehuman-data/package/public/data" ]; then
-  ( mkdir -p "$H/makehuman-data" && cd "$H/makehuman-data" && npm pack makehuman-data@0.0.2 --silent >/dev/null && tar xzf makehuman-data-0.0.2.tgz && rm -f makehuman-data-0.0.2.tgz ) || echo "!! Tải makehuman-data lỗi (mạng chặn registry.npmjs.org?)"
+  ( mkdir -p "$H/makehuman-data" && cd "$H/makehuman-data" && npm pack makehuman-data@0.0.2 --silent >/dev/null 2>&1 && tar xzf makehuman-data-0.0.2.tgz && rm -f makehuman-data-0.0.2.tgz ) || echo "!! Tải makehuman-data lỗi (mạng chặn registry.npmjs.org?)"
 fi
 say "6/6 Âm thanh (không có trong git)"
 n=$(ls "$P/tai_nguyen/sfx/"*.mp3 2>/dev/null | wc -l); m=$(ls "$P/tai_nguyen/nhac/"*.mp3 2>/dev/null | wc -l)
