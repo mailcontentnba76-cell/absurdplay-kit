@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// Ảnh kiểm nhân vật E08: Wembanyama (2,24 m, rất gầy, tay dài, đầu cạo sát, ria + râu cằm) cạnh người 1,81 m để so chiều cao.
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {resetPose} from './lib/tuthe.js';
+import {clipPose} from './lib/dongtac.js';
+import {SPURS,WEMBY} from './lib/cast8.js';
+await Promise.all(['100px Anton','900 60px Inter'].map(f=>document.fonts.load(f)));
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#d9dde4');s.add(new THREE.HemisphereLight('#fff','#887',2.5));const dl=new THREE.DirectionalLight('#fff',2);dl.position.set(2,4,5);s.add(dl);
+const fill=new THREE.PointLight('#fff',6,0,1.2);s.add(fill);
+const lib=await loadLibrary();
+const _sk=(new URLSearchParams(location.search)).get('skin');const wem=WEMBY(lib,_sk?{skin:_sk}:{});const ref=makeCharacter(lib,{tank:false,shorts:false,jersey:'#7a8aa0',pants:'#3b3b3b',shoes:'#222',heightM:1.81,skin:'#c68c5f',hairStyle:'proc:fade',hairColor:'#2a1a10'});
+const h=location.hash;const side=h==='#side',head=h==='#head',back=h==='#back';
+for(const [ch,x] of [[wem,-0.45],[ref,0.55]]){s.add(ch.root);clipPose(ch,lib,[{name:'Idle_Loop',time:0.4,w:1}]);ch.root.position.set(x,0,0);ch.root.rotation.y=side?1.35:back?Math.PI:0;}
+if(head||back)ref.root.visible=false;
+const cam=new THREE.PerspectiveCamera(head?18:24,W/H,0.1,60);
+if(head){cam.position.set(-0.45,2.05,2.4);cam.lookAt(-0.45,2.05,0);}else{cam.position.set(0,1.25,7.5);cam.lookAt(0,1.2,0);}
+// vạch chiều cao 0,5 m
+for(let y=0.5;y<=2.5;y+=0.5){const m=new THREE.Mesh(new THREE.BoxGeometry(0.25,0.01,0.01),new THREE.MeshBasicMaterial({color:'#333'}));m.position.set(1.25,y,0);s.add(m);}
+fill.position.copy(cam.position);window.renderFrame=()=>r.render(s,cam);window.ready=true;
+</script></body></html>

@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// Kiểm động tác bóng rổ ghép (lib/bongro_mx.js): 0–2,4 dẫn bóng; 2,4–4,6 jump shot; 4,6–7,4 chạy + úp rổ; 7,4–10 layup.
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {resetPose} from './lib/tuthe.js';
+import {seg,expr} from './lib/dongtac.js';
+import {hoop,rimWorld,basketball} from './lib/nba.js';
+import {jumpShot,ballFlight,netSwish,dunk,layup,dribbleMove} from './lib/bongro_mx.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight,false);r.outputColorSpace=THREE.SRGBColorSpace;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;
+const s=new THREE.Scene();s.background=new THREE.Color('#9cc4ea');s.add(new THREE.HemisphereLight('#ffffff','#7a5a3a',2.6));const d=new THREE.DirectionalLight('#fff',2.6);d.position.set(4,14,10);d.castShadow=true;Object.assign(d.shadow.camera,{left:-20,right:20,top:12,bottom:-12});d.shadow.mapSize.set(2048,2048);s.add(d);
+// sàn gỗ có vạch 1 m để thấy chân bám
+const cv=document.createElement('canvas');cv.width=2048;cv.height=1024;const g=cv.getContext('2d');for(let i=0;i<64;i++){g.fillStyle=i%2?'#d9a066':'#cf9459';g.fillRect(0,i*16,2048,16);}g.fillStyle='rgba(255,255,255,.85)';for(let i=0;i<=32;i++)g.fillRect(i*64-2,0,4,1024);
+const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;const fl=new THREE.Mesh(new THREE.PlaneGeometry(32,16),new THREE.MeshStandardMaterial({map:tx,roughness:.6}));fl.rotation.x=-Math.PI/2;fl.position.set(0,0,0);fl.receiveShadow=true;s.add(fl);
+const H=hoop(1,{pad:'#222'});H.position.set(14,0,0);s.add(H);const RIM=rimWorld(H);
+const lib=await loadLibrary();
+const A=makeCharacter(lib,{edgeSoft:1,tank:true,shorts:true,sockAt:.74,shortsTo:.86,socks:'#f4f4f4',shoes:'#222',jersey:'#1b1b1b',pants:'#1b1b1b',numberColor:'#c4ced4',numberOutline:'#111',wordmark:'TEST',wordmarkColor:'#c4ced4',number:0,skin:'#6b4430',hair:'Hair_Buzzed',heightM:2.1,eyeScale:2.3});
+s.add(A.root);resetPose(A);A.root.traverse(o=>{if(o.isMesh)o.castShadow=true;});
+const ball=basketball();s.add(ball);const R=ball.userData.R;
+const cam=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,.05,200);const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+let camX=6;
+window.renderFrame=t=>{
+  let b=null;H.rotation.z=0;H.userData.net.scale.y=1;
+  if(t<2.4){ // dẫn bóng: đi bộ → chạy bộ → đứng dẫn
+    const path=seg([2,0],[7,0],0.2,2.0);b=dribbleMove(A,lib,t,path,{t0:0,face:Math.PI/2,R});expr(A,t,[[0,'confident']]);camX=A.root.position.x+1;
+  }else if(t<4.6){ const u=t-2.4;const o=jumpShot(A,lib,u,{x:7,z:0,yaw:Math.PI/2,R});
+    if(o.ball)b=o.ball;else{const T=1.0;const v=u-o.tRelease;b=ballFlight(o.releasePos,RIM,v,T,{apex:1.4,R});netSwish(H.userData.net,v-T);} expr(A,t,[[0,'determined'],[3.6,'proud']]);camX=7.6;
+  }else if(t<7.4){ const u=t-4.6;const tk=0.85;
+    if(u<tk){const path=seg([7.4,0.6],[11.2,0.25],0,tk,x=>x);b=dribbleMove(A,lib,u,path,{t0:0,R,crouch:0.15});}
+    else{const o=dunk(A,lib,u-tk,{from:[11.2,0.25],rim:RIM,R});b=o.ball;if(o.phase==='land')netSwish(H.userData.net,u-tk-1.2);}
+    expr(A,t,[[4.6,'determined'],[5.6,'cheer']]);camX=Math.min(12,A.root.position.x);
+  }else{ const u=t-7.4;const tk=0.8;
+    if(u<tk){const path=seg([8.4,2.2],[11.4,1.0],0,tk,x=>x);b=dribbleMove(A,lib,u,path,{t0:0,R,crouch:0.15});}
+    else{const o=layup(A,lib,u-tk,{from:[11.4,1.0],rim:RIM,R});if(o.ball)b=o.ball;else{const v=u-tk-o.tRelease;b=ballFlight(o.releasePos,RIM,v,0.35,{apex:0.15,R});netSwish(H.userData.net,v-0.35);}}
+    expr(A,t,[[7.4,'confident']]);camX=Math.min(12,A.root.position.x);
+  }
+  if(b){ball.position.copy(b);ball.rotation.x=t*6;}
+  A.root.updateMatrixWorld(true);
+  if(window.CLOSE){cam.position.set(7+window.CLOSE[0],2.2,window.CLOSE[1]);cam.lookAt(7,2.1,0);}else{cam.position.set(camX,1.7,8.6);cam.lookAt(camX,1.75,0);}r.render(s,cam);};
+window.CLOSE=location.hash==="#front"?[4.5,0.6]:[0.3,4.2];window.ready=true;
+</script></body></html>
