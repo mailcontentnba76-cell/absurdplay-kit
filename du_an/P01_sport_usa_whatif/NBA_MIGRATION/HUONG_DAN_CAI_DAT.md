@@ -35,11 +35,33 @@ Mạng: môi trường "Default" đã được bạn duyệt thêm huggingface (
 ## B. Tuỳ chọn — Mixamo động tác bóng rổ (bạn làm, ~15 phút)
 Dùng để: nhân vật dẫn bóng, ném, úp rổ bằng mocap mượt thay cho tư thế viết tay.
 1. Mở https://www.mixamo.com, đăng nhập Adobe ID (miễn phí).
-2. Tab **Animations**, tìm từng tên: Basketball Dribble (hoặc Dribbling), Jump Shot, Layup, Dunk, Free Throw, Bounce Pass, Chest Pass, Basketball Idle, Defensive Shuffle.
-3. Với vòng lặp (Dribble, Idle, Shuffle) tích **In Place**.
-4. Bấm **Download**: Format **FBX Binary (.fbx)**, Skin **Without Skin**, Frames per Second **30**.
-5. Đổi tên file đúng: `Dribble.fbx`, `Jump_Shot.fbx`, `Layup.fbx`, `Dunk.fbx`, `Free_Throw.fbx`, `Bounce_Pass.fbx`, `Chest_Pass.fbx`, `Basketball_Idle.fbx`, `Defense_Shuffle.fbx`.
-6. Gửi lại: nén 9 file thành zip và **đính kèm vào Release `goi-nba-v01`** (Edit release → kéo file vào → Update release), giống cách bạn đã đưa gói lên. Nhắn tôi "đã thêm Mixamo NBA".
+2. Tab **Animations**, gõ từ khoá tìm (tên Mixamo có thể khác chút, chọn cái gần nhất) và đặt tên file theo cột cuối:
+
+| # | Từ khoá tìm | In Place? | Tên file |
+|---|---|---|---|
+| 1 | basketball dribble / dribbling | CÓ | `Dribble.fbx` |
+| 2 | jump shot | — | `Jump_Shot.fbx` |
+| 3 | layup | — | `Layup.fbx` |
+| 4 | dunk | — | `Dunk.fbx` |
+| 5 | free throw / shooting | — | `Free_Throw.fbx` |
+| 6 | chest pass | — | `Chest_Pass.fbx` |
+| 7 | bounce pass | — | `Bounce_Pass.fbx` |
+| 8 | basketball idle | CÓ | `Basketball_Idle.fbx` |
+| 9 | defensive shuffle / side step | CÓ | `Defense_Shuffle.fbx` |
+| 10 | block (jump block) | — | `Block.fbx` |
+| 11 | rebound / jump catch | — | `Rebound.fbx` |
+| 12 | victory / cheering | — | `Celebrate.fbx` |
+| 13 | clapping | CÓ | `Clapping.fbx` |
+| 14 | defeated | — | `Defeated.fbx` |
+| 15 | angry / yelling | — | `Angry.fbx` |
+| 16 | shrugging | — | `Shrug.fbx` |
+| 17 | pointing | — | `Pointing.fbx` |
+
+Ưu tiên 1–9 (bắt buộc cho cảnh bóng rổ), 10–17 khuyên dùng (pha tranh bóng, phản ứng ăn mừng/thất vọng).
+3. Với dòng ghi "CÓ" tích ô **In Place** ở bảng bên phải.
+4. Bấm **Download**: Format **FBX Binary (.fbx)**, Skin **Without Skin**, Frames per Second **30**, Keyframe Reduction **none**.
+5. Đổi tên file đúng như cột cuối (phân biệt hoa/thường).
+6. Gửi lại: nén các file thành zip và **đính kèm vào Release `goi-nba-v01`** (Edit release → kéo file vào → Update release), giống cách bạn đã đưa gói lên. Nhắn tôi "đã thêm Mixamo NBA".
 Kiểm: Claude render `test_mx.html` thấy clip `MX_Dribble`… chạy.
 Không làm được: dùng động tác viết tay `lib/bongro.js` (đã dùng cho E02, E05).
 
