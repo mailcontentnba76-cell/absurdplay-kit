@@ -1,0 +1,86 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.40,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.40,0:00:02.30,Cap,,0,0,0,,michigan state didn't
+Dialogue: 0,0:00:02.30,0:00:03.60,Cap,,0,0,0,,score a single touchdown
+Dialogue: 0,0:00:03.60,0:00:05.16,Cap,,0,0,0,,and still beat michigan
+Dialogue: 0,0:00:05.16,0:00:06.46,Cap,,0,0,0,,in the big house.
+Dialogue: 0,0:00:06.46,0:00:06.66,Cap,,0,0,0,,so this
+Dialogue: 0,0:00:06.66,0:00:07.54,Cap,,0,0,0,,week, michigan
+Dialogue: 0,0:00:07.54,0:00:09.82,Cap,,0,0,0,,plays 11 goalposts.
+Dialogue: 0,0:00:09.82,0:00:11.04,Cap,,0,0,0,,goalposts don't run.
+Dialogue: 0,0:00:11.04,0:00:12.00,Cap,,0,0,0,,they don't tackle.
+Dialogue: 0,0:00:12.00,0:00:13.14,Cap,,0,0,0,,they just stand there.
+Dialogue: 0,0:00:13.14,0:00:14.20,Cap,,0,0,0,,and honestly, that's
+Dialogue: 0,0:00:14.20,0:00:14.78,Cap,,0,0,0,,still a tough
+Dialogue: 0,0:00:14.78,0:00:16.20,Cap,,0,0,0,,matchup for michigan.
+Dialogue: 0,0:00:16.20,0:00:17.10,Cap,,0,0,0,,last night, michigan
+Dialogue: 0,0:00:17.10,0:00:18.46,Cap,,0,0,0,,scored 6 points,
+Dialogue: 0,0:00:18.46,0:00:19.42,Cap,,0,0,0,,turned it over 4
+Dialogue: 0,0:00:19.42,0:00:20.38,Cap,,0,0,0,,times, and their
+Dialogue: 0,0:00:20.38,0:00:21.86,Cap,,0,0,0,,kick hit the upright.
+Dialogue: 0,0:00:21.86,0:00:22.98,Cap,,0,0,0,,michigan state's kicker,
+Dialogue: 0,0:00:22.98,0:00:23.80,Cap,,0,0,0,,liam boyd, went
+Dialogue: 0,0:00:23.80,0:00:25.38,Cap,,0,0,0,,5 for 5.
+Dialogue: 0,0:00:25.38,0:00:26.82,Cap,,0,0,0,,15 points.
+Dialogue: 0,0:00:26.82,0:00:27.82,Cap,,0,0,0,,all of them.
+Dialogue: 0,0:00:27.82,0:00:28.20,Cap,,0,0,0,,kickoff in
+Dialogue: 0,0:00:28.20,0:00:29.44,Cap,,0,0,0,,the north woods.
+Dialogue: 0,0:00:29.44,0:00:30.12,Cap,,0,0,0,,tommy carr, number
+Dialogue: 0,0:00:30.12,0:00:31.84,Cap,,0,0,0,,14, drops back.
+Dialogue: 0,0:00:31.84,0:00:33.30,Cap,,0,0,0,,the goalposts don't blitz.
+Dialogue: 0,0:00:33.30,0:00:34.24,Cap,,0,0,0,,they don't move.
+Dialogue: 0,0:00:34.24,0:00:34.92,Cap,,0,0,0,,he still checks
+Dialogue: 0,0:00:34.92,0:00:36.42,Cap,,0,0,0,,the protection twice.
+Dialogue: 0,0:00:36.42,0:00:37.38,Cap,,0,0,0,,play action, rolls
+Dialogue: 0,0:00:37.38,0:00:38.36,Cap,,0,0,0,,right, throws to
+Dialogue: 0,0:00:38.36,0:00:39.38,Cap,,0,0,0,,the end zone.
+Dialogue: 0,0:00:39.38,0:00:39.88,Cap,,0,0,0,,doink.
+Dialogue: 0,0:00:39.88,0:00:40.40,Cap,,0,0,0,,screen pass
+Dialogue: 0,0:00:40.40,0:00:41.50,Cap,,0,0,0,,to the flat.
+Dialogue: 0,0:00:41.50,0:00:42.06,Cap,,0,0,0,,doink.
+Dialogue: 0,0:00:42.06,0:00:44.12,Cap,,0,0,0,,field goal, 26 yards.
+Dialogue: 0,0:00:44.12,0:00:44.78,Cap,,0,0,0,,doink.
+Dialogue: 0,0:00:44.78,0:00:45.50,Cap,,0,0,0,,in the booth,
+Dialogue: 0,0:00:45.50,0:00:46.54,Cap,,0,0,0,,the announcer says,
+Dialogue: 0,0:00:46.54,0:00:47.52,Cap,,0,0,0,,the goalposts' defense
+Dialogue: 0,0:00:47.52,0:00:49.20,Cap,,0,0,0,,is so disciplined.
+Dialogue: 0,0:00:49.20,0:00:50.60,Cap,,0,0,0,,his partner says, they're
+Dialogue: 0,0:00:50.60,0:00:51.54,Cap,,0,0,0,,bolted to the ground.
+Dialogue: 0,0:00:51.54,0:00:53.20,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:53.20,0:00:53.78,Cap,,0,0,0,,goalposts lead
+Dialogue: 0,0:00:53.78,0:00:55.52,Cap,,0,0,0,,15 to nothing.
+Dialogue: 0,0:00:55.52,0:00:56.86,Cap,,0,0,0,,nobody knows how.
+Dialogue: 0,0:00:56.86,0:00:58.24,Cap,,0,0,0,,goalposts can't kick.
+Dialogue: 0,0:00:58.24,0:00:59.00,Cap,,0,0,0,,the scoreboard just
+Dialogue: 0,0:00:59.00,0:01:00.50,Cap,,0,0,0,,thought it was fair.
+Dialogue: 0,0:01:00.50,0:01:01.44,Cap,,0,0,0,,final drive.
+Dialogue: 0,0:01:01.44,0:01:01.82,Cap,,0,0,0,,fourth and goal
+Dialogue: 0,0:01:01.82,0:01:02.78,Cap,,0,0,0,,from the 1.
+Dialogue: 0,0:01:02.78,0:01:04.06,Cap,,0,0,0,,a giant lumberjack
+Dialogue: 0,0:01:04.06,0:01:04.70,Cap,,0,0,0,,walks out of
+Dialogue: 0,0:01:04.70,0:01:05.54,Cap,,0,0,0,,the forest and
+Dialogue: 0,0:01:05.54,0:01:07.94,Cap,,0,0,0,,chops down every goalpost.
+Dialogue: 0,0:01:07.94,0:01:09.26,Cap,,0,0,0,,touchdown, michigan!
+Dialogue: 0,0:01:09.26,0:01:09.80,Cap,,0,0,0,,then the referee
+Dialogue: 0,0:01:09.80,0:01:11.70,Cap,,0,0,0,,says, no goalposts,
+Dialogue: 0,0:01:11.70,0:01:12.94,Cap,,0,0,0,,no extra point.
+Dialogue: 0,0:01:12.94,0:01:14.22,Cap,,0,0,0,,final score, goalposts
+Dialogue: 0,0:01:14.22,0:01:16.42,Cap,,0,0,0,,15, michigan 6.
+Dialogue: 0,0:01:16.42,0:01:17.30,Cap,,0,0,0,,again.
+Dialogue: 0,0:01:17.30,0:01:18.18,Cap,,0,0,0,,michigan state tried
+Dialogue: 0,0:01:18.18,0:01:19.72,Cap,,0,0,0,,to sign the goalposts.
+Dialogue: 0,0:01:19.72,0:01:20.08,Cap,,0,0,0,,liam boyd
+Dialogue: 0,0:01:20.08,0:01:20.86,Cap,,0,0,0,,said no thanks.
+Dialogue: 0,0:01:20.86,0:01:22.04,Cap,,0,0,0,,he's been going right
+Dialogue: 0,0:01:22.04,0:01:23.36,Cap,,0,0,0,,through them all season.

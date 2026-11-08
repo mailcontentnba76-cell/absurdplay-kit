@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 10: đồ hoạ KIỂU TRẠM KIỂM LÂM — biển gỗ khắc chữ (vân gỗ CSS, chữ kem cháy), viền vàng ngô, nhãn xanh rừng,
+   chữ "DOINK!" kiểu truyện tranh, dấu đỏ "NO GOOD". Khác bảng màu E01–E07 (E07 là bảng giờ bay đen–vàng). */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.wd{position:absolute;white-space:nowrap;text-align:center;padding:22px 40px 26px;border-radius:16px;color:#f6ead2;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.10) 0 3px,rgba(255,255,255,.04) 3px 9px),linear-gradient(180deg,#8a5632,#6a3e22);
+  border:6px solid #ffcb05;box-shadow:0 18px 34px rgba(0,0,0,.5),inset 0 0 0 4px #3a2414}
+.wd .k{display:block;font-size:30px;letter-spacing:6px;color:#ffe08a;margin-bottom:6px}
+.wd .v{display:block;font-family:Anton;font-size:110px;line-height:1.02;text-shadow:0 4px 0 #3a2414}
+.wd .v.s{font-size:76px}.wd .n{display:block;font-size:28px;letter-spacing:4px;color:#e8d3a8;margin-top:8px}
+.nail{position:absolute;width:16px;height:16px;border-radius:50%;background:#c8c8c8;box-shadow:inset -3px -3px 0 #777}
+.lt{position:absolute;left:60px!important;transform:none!important;display:flex;align-items:stretch;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.lt .n{color:#fff;font-family:Anton;font-size:84px;padding:4px 26px;display:flex;align-items:center;border-radius:14px 0 0 14px;border-right:8px solid #ffcb05}
+.lt .t{background:rgba(26,20,14,.94);color:#f6ead2;padding:10px 30px 12px;border-radius:0 14px 14px 0}
+.lt .t b{display:block;font-size:56px;line-height:1.05}.lt .t i{display:block;font-style:normal;font-size:30px;letter-spacing:4px;color:#ffcb05}
+.bug{top:300px;display:flex;height:80px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4);font-family:Anton}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 18px;color:#fff}
+.bA{background:#0a3363;min-width:150px;color:#ffcb05!important}.bB{background:#1f4d36;min-width:150px}.bS{background:#1a140e;min-width:84px}.bC{background:#ffcb05;color:#1a140e!important;font-size:36px!important;min-width:150px}
+.doink{position:absolute;left:50%;top:520px;font-family:Anton;font-size:230px;color:#ffcb05;-webkit-text-stroke:14px #1a140e;paint-order:stroke fill;letter-spacing:4px;text-shadow:12px 14px 0 #c0392b}
+.stamp{position:absolute;border:12px solid #c0392b;color:#c0392b;font-family:Anton;font-size:104px;padding:6px 34px;border-radius:18px;transform:translateX(-50%) rotate(-9deg);background:rgba(246,234,210,.93);white-space:nowrap}
+.tag{position:absolute;background:#f6ead2;color:#1a140e;border-radius:18px;padding:24px 40px 28px;box-shadow:0 16px 34px rgba(0,0,0,.45);width:820px;text-align:left;border-left:16px solid #1f4d36}
+.tag .q{font-size:58px;line-height:1.12}.tag .w{font-size:30px;letter-spacing:4px;color:#1f4d36;margin-top:12px;display:block}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+.cnt{display:flex;gap:14px;justify-content:center;margin-top:6px}.cnt u{width:74px;height:74px;border-radius:50%;border:6px solid #ffe08a;text-decoration:none;display:flex;align-items:center;justify-content:center;font-family:Anton;font-size:50px;color:#1a140e}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">MICH</div><div class="bS" id="sA">0</div><div class="bB">POSTS</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST</div></div>
+<div class="el wd" id="res" style="top:430px"><span class="k">LAST NIGHT · THE BIG HOUSE</span><span class="v s">MICH STATE 15 · MICH 6</span><span class="n" id="tdn">TOUCHDOWNS: 0</span></div>
+<div class="el wd" id="wk" style="top:1330px"><span class="k">THIS WEEK · NORTH WOODS</span><span class="v s">MICHIGAN vs 11 GOALPOSTS</span></div>
+<div class="el wd" id="pts" style="top:430px"><span class="k">MICHIGAN POINTS</span><span class="v">6</span></div>
+<div class="el wd" id="to" style="top:430px"><span class="k">TURNOVERS</span><span class="v">4</span></div>
+<div class="el wd" id="up" style="top:430px"><span class="k">MICHIGAN FIELD GOAL</span><span class="v s">HIT THE UPRIGHT</span></div>
+<div class="el lt" id="boyd" style="top:1330px"><div class="n" style="background:#1f5a47">37</div><div class="t"><b>LIAM BOYD</b><i>KICKER · MICHIGAN STATE</i></div></div>
+<div class="el wd" id="fg" style="top:430px"><span class="k">FIELD GOALS</span><div class="cnt"><u id="c1"></u><u id="c2"></u><u id="c3"></u><u id="c4"></u><u id="c5"></u></div><span class="n" id="fgn">0 / 5</span></div>
+<div class="el wd" id="all" style="top:430px"><span class="k">MICHIGAN STATE POINTS FROM BOYD</span><span class="v">15 / 15</span></div>
+<div class="el lt" id="carr" style="top:1330px"><div class="n" style="background:#0a3363;color:#ffcb05">14</div><div class="t"><b>TOMMY CARR</b><i>QUARTERBACK · MICHIGAN</i></div></div>
+<div class="el wd" id="bl" style="top:430px"><span class="k">GOALPOST BLITZES</span><span class="v">0</span></div>
+<div class="el wd" id="mv" style="top:430px"><span class="k">GOALPOST TOP SPEED</span><span class="v s">0.0 MPH</span></div>
+<div class="el wd" id="chk" style="top:430px"><span class="k">PROTECTION CHECKS</span><span class="v">2</span></div>
+<div class="el doink" id="d1">DOINK!</div><div class="el doink" id="d2">DOINK!</div><div class="el doink" id="d3">DOINK!</div>
+<div class="el wd" id="fga" style="top:430px"><span class="k">FIELD GOAL ATTEMPT</span><span class="v s">26 YARDS</span></div>
+<div class="el lt" id="booth" style="top:1330px"><div class="n" style="background:#1f4d36">ON AIR</div><div class="t"><b>NORTH WOODS BOOTH</b><i>LIVE · SNOW FALLING</i></div></div>
+<div class="el wd" id="gk" style="top:430px"><span class="k">GOALPOST KICK ATTEMPTS</span><span class="v">0</span><span class="n">POINTS: 15 (???)</span></div>
+<div class="el wd" id="g1" style="top:430px"><span class="k">4TH QUARTER</span><span class="v s">4TH &amp; GOAL · 1</span></div>
+<div class="el wd" id="stand" style="top:430px"><span class="k">GOALPOSTS STANDING</span><span class="v" id="standN">11</span></div>
+<div class="el wd" id="td" style="top:430px;border-color:#ffcb05"><span class="v">TOUCHDOWN!</span></div>
+<div class="el stamp" id="ng" style="top:520px">NO GOALPOSTS · NO PAT</div>
+<div class="el wd" id="fin" style="top:1300px"><span class="k">FINAL</span><span class="v s">GOALPOSTS 15 · MICHIGAN 6</span></div>
+<div class="el stamp" id="again" style="top:560px">AGAIN.</div>
+<div class="el tag" id="msu" style="top:1250px"><div class="q">Contract offer: 11 goalposts, 1 year.</div><span class="w">— MICHIGAN STATE (PROBABLY)</span></div>
+<div class="el wd" id="thru" style="top:430px"><span class="k">LIAM BOYD'S PLAN</span><span class="v s">STRAIGHT THROUGH</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep10_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['res',0.1,SH.s3[1]],['wk',...at('s4b',0.05)],['pts',...at('s9',0.2)],['to',...at('s10',0.05)],['up',...at('s11',0.5)],['boyd',...at('s12',0.05)],['fg',SH.s13[0]+0.05,SH.s13b[0]],['all',SH.s13b[0]+0.1,SH.s13c[1]],
+ ['bug',SH.s14[0],SH.s24[0]],['carr',...at('s15',0.05)],['bl',...at('s16',0.3)],['mv',...at('s16b',0.05)],['chk',...at('s17',0.4)],['d1',...at('s19',0.0)],['d2',...at('s21',0.0)],['fga',...at('s22',0.1)],['d3',...at('s23',0.0)],
+ ['booth',SH.s24[0]+0.1,SH.s24[0]+2.4],['bug',SH.s26b[0],SH.s28[0]],['gk',...at('s27b',0.05)],['bug',SH.s29[0],SH.s35[0]],['g1',...at('s29',0.2)],['stand',SH.s31[0]+0.2,SH.s31b[1]],['td',...at('s32',0.1)],
+ ['ng',SH.s33[0]+0.9,SH.s34[1]],['fin',...at('s35',0.2)],['fin',...at('s35b',0)],['again',...at('s35c',0.0)],['msu',...at('s36',0.3)],['thru',...at('s38',0.3)]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt'))e.style.transform=`translateX(${(1-k)*-700}px)`;
+    else if(e.classList.contains('stamp'))e.style.transform=`translateX(-50%) rotate(-9deg) scale(${on?Math.max(1,2.2-1.2*Math.min(1,(t-a)/0.15)):1})`;
+    else if(e.classList.contains('doink')){const u=on?t-a:0;const sh=Math.sin(u*70)*Math.exp(-u*6)*14;e.style.transform=`translateX(calc(-50% + ${sh}px)) rotate(${-8+sh*0.4}deg) scale(${on?Math.max(1,1.8-0.8*Math.min(1,u/0.12)):1})`;}
+    else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.86+0.14*k})`;}
+  // đếm FG 5/5: mỗi lần ~0,6 s
+  if(vis.fg!=null){const n=Math.min(5,Math.floor((t-vis.fg)/0.38));for(let i=1;i<=5;i++){const u=$('c'+i);u.style.background=i<=n?'#ffcb05':'transparent';u.textContent=i<=n?'✓':'';}$('fgn').textContent=`${n} / 5`;}
+  if(vis.stand!=null){const ft=t-(SH.s31[0]+0.45);const n=Math.max(0,11-Math.max(0,Math.floor(ft/0.18)+1));$('standN').textContent=ft<0?11:n;}
+  // tỷ số bug
+  const q4=t>=SH.s26[0];$('sA').textContent=t>=SH.s32[0]+0.3?6:0;$('sB').textContent=q4?15:0;$('clk').textContent=q4?(t>=SH.s29[0]?'4TH 0:04':'4TH 2:10'):'1ST';
+  const fl=(k,n=5)=>{const f=(t-SH[k][0])*30;return f>=0&&f<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};
+  $('flash').style.opacity=Math.max(fl('s4'),fl('s30'),fl('s32'),fl('s35c'));
+};
+</script></body></html>

@@ -252,7 +252,7 @@ function retargetUAL1(male, ual1) { return retargetSet(male, ual1.scene, ual1.an
 
 // Mixamo (mixamorig*) → UBC. File FBX đặt ở assets/mixamo/<Tên>.fbx, clip tên 'MX_<Tên>'
 const MX_LOOPS = new Set(['Sprint', 'Running', 'Jogging', 'Slow_Jog_Backwards']);
-export const MIXAMO_FILES = ['Sprint', 'Running', 'Jogging', 'Run_To_Stop', 'Slow_Jog_Backwards', 'Quarterback_Pass', 'Receiver_Catch', 'Football_Catch', 'Football_Hike'];
+export const MIXAMO_FILES = ['Sprint', 'Running', 'Jogging', 'Run_To_Stop', 'Slow_Jog_Backwards', 'Quarterback_Pass', 'Receiver_Catch', 'Football_Catch', 'Football_Hike','Field_Goal'];
 const MX_MAP = (() => { const m = { pelvis: 'mixamorigHips', spine_01: 'mixamorigSpine', spine_02: 'mixamorigSpine1', spine_03: 'mixamorigSpine2', neck_01: 'mixamorigNeck', Head: 'mixamorigHead' };
   for (const [s, S] of [['l', 'Left'], ['r', 'Right']]) { Object.assign(m, { ['clavicle_' + s]: `mixamorig${S}Shoulder`, ['upperarm_' + s]: `mixamorig${S}Arm`, ['lowerarm_' + s]: `mixamorig${S}ForeArm`, ['hand_' + s]: `mixamorig${S}Hand`,
     ['thigh_' + s]: `mixamorig${S}UpLeg`, ['calf_' + s]: `mixamorig${S}Leg`, ['foot_' + s]: `mixamorig${S}Foot`, ['ball_' + s]: `mixamorig${S}ToeBase` });

@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildForestField,forestLights,makeGoalpost,makeAxe,addBeanie,UM,MSU} from './lib/rungthong.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {HEAT} from './lib/cast2.js';
+import {resetPose} from './lib/tuthe.js';
+import {clipPose} from './lib/dongtac.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildForestField(s);const LT=forestLights(s);const lib=await loadLibrary();
+const MICH={...EAGLES,jersey:UM.navy,numberColor:UM.maize,numberOutline:UM.navy,pants:UM.maize,pantsStripes:[UM.navy],socks:UM.navy,shoes:'#1b1b1b',gloves:'#1b1b1b',helmet:UM.navy,helmetMetal:0.25,helmetStripe:[],mask:UM.maize,collar:UM.maize,backNameMax:150,build:'fit',shoulders:'wide'};
+const QB=makeCharacter(lib,{...MICH,number:14,backName:'CARR',heightM:1.93,skin:'#f0c8a6',shoulders:null});
+const BOYD=makeCharacter(lib,{...MICH,jersey:MSU.green,numberColor:'#fff',numberOutline:MSU.green,pants:'#f4f4f2',pantsStripes:[MSU.green],socks:MSU.green,helmet:MSU.green,mask:'#f4f4f2',collar:'#fff',number:37,backName:'BOYD',heightM:1.85,skin:'#f0c8a6',shoulders:null});
+const LJ=makeCharacter(lib,{...HEAT,tank:false,shorts:false,jersey:'#b22a22',sleeveStripes:['#1b1b1b','#1b1b1b'],pants:'#2f4a6b',pantsStripes:null,socks:'#3a2a1a',shoes:'#3a2a1a',collar:'#1b1b1b',number:null,wordmark:null,frontNumberSize:0.0001,backNumberSize:0.0001,skin:'#e3b48c',beardStyle:'full',beardColor:'#6b3a1e',hair:null,heightM:8,build:'big'});
+[QB,BOYD,LJ].forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});});
+const BN=addBeanie(LJ,'#b22a22');const axe=makeAxe(4);s.add(axe);
+const GP=[];for(let i=0;i<11;i++){const g=makeGoalpost({number:i+1,seed:i+1});s.add(g.root);GP.push(g);}
+const cam=new THREE.PerspectiveCamera(50,W/H,.05,2500);s.add(cam);
+window.renderFrame=t=>{A.update(t);
+ GP.forEach((g,i)=>{g.root.position.set(-30+ (i%4)*3.5, 0, -6+Math.floor(i/4)*4);g.update(t,{doink:i===0?(t%2):null});});
+ for(const [ch,x,z,ry,cl] of [[QB,-36,0,Math.PI/2,'Idle_Loop'],[BOYD,-36,3,Math.PI/2,'Idle_Loop'],[LJ,-48,-12,0.6,'TreeChopping_Loop']]){ch.root.position.set(x,0,z);ch.root.rotation.set(0,ry,0);resetPose(ch);clipPose(ch,lib,[{name:cl,time:t,w:1}]);ch.root.updateMatrixWorld(true);}
+ const hr=LJ.bones.hand_r.getWorldPosition(new THREE.Vector3()),hl=LJ.bones.lowerarm_r.getWorldPosition(new THREE.Vector3());LJ.syncBeanie();axe.position.copy(hr);axe.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),hr.clone().sub(hl).normalize());
+ const v=(location.hash.match(/v=(\d)/)||[0,0])[1]*1;const V=[[[-20,3,12],[-32,2,-2]],[[-38,1.8,3.6],[-36,1.4,1]],[[-60,4,10],[-45,4,-10]],[[10,20,40],[-20,0,0]],[[-25,6.5,-14],[-34,6.3,-30]],[[-44,7.5,-5],[-48,7,-12]]][v];
+ cam.position.set(...V[0]);cam.lookAt(...V[1]);LT.follow(cam);A.board.set({home:15,away:0,q:4,clock:'2:10',face:true,look:0.5,smile:0.3});if(t>0.4&&!window._l){window._l=1;console.log('BN',JSON.stringify(BN.getWorldPosition(new THREE.Vector3())),JSON.stringify(LJ.bones.Head.getWorldPosition(new THREE.Vector3())),LJ.root.scale.x,BN.visible,BN.parent&&BN.parent.name);}r.render(s,cam);};
+window.ready=true;
+</script></body></html>

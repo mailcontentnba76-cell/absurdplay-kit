@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.0 (08/11/2026)
+# Sport USA "What If" — v1.1 (08/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -26,6 +26,13 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - Câu đầu tiên mở bằng "What the fuck?" (hoặc "Fuck.") + một hình ảnh vô lý thấy ngay ở giây 0, rồi mới vào câu "Could…?". Trong âm thanh luôn **bleep** tiếng chửi (BEEP 1 kHz hoặc sfx tone, dải [đầu, cuối] của từ theo words_tw.json); phụ đề ghi "f***". Đây là hook bất ngờ nhưng hài, không xúc phạm ai.
 - **Không dùng người thật ngoài thể thao** (chính trị gia, ca sĩ…) làm nhân vật hay đối thủ. Đối thủ vẫn là đồ vật / con vật nhựa / nhân vật hư cấu.
 - **Ưu tiên kịch bản theo KẾT QUẢ trận vừa đá** của đội đang hot (chủ dự án chốt 08/11): chờ trận xong, chọn kết quả sốc/viral nhất, viết ngay trong ngày. Giờ có kết quả NFL (giờ VN, tháng 11–3): Chủ nhật 13:00 ET → ~04:00 sáng thứ Hai; Sunday Night → ~11:30 trưa thứ Hai; Monday Night → ~11:30 trưa thứ Ba. Có thể đặt lịch tự kiểm (send_later / create_trigger) nếu người dùng muốn.
+
+## Chế độ NCAA — bóng bầu dục đại học (chủ dự án mở rộng 08/11)
+- **Phạm vi theo chat:** chủ dự án dùng chat Sport USA cho **NFL + NCAA bóng bầu dục**; NBA làm ở chat khác. Không tự sản xuất NBA ở chat này.
+- Tin: `fetch_sports_data` league `ncaafb` (scores, game_stats) + bài AP/ESPN. Trận thứ Bảy Mỹ xong vào sáng Chủ nhật giờ VN → kiểm trưa Chủ nhật. Ưu tiên trận kình địch có cúp tên riêng (Paul Bunyan, Little Brown Jug…), đội lớn thua sốc, tỉ số lạ (0 touchdown, 100+ điểm).
+- **Kiểm tuổi cầu thủ** trước khi đưa vào (không dùng ai dưới 18). Không nêu tên tân sinh viên mắc lỗi (vd cầu thủ đá hỏng); chế giễu ĐỘI, không nhắm cá nhân sinh viên.
+- Nhận diện: trang roster chính thức của trường (mgoblue.com, msuspartans.com…) = nguồn chính thức. Mũ trơn (cánh mũ/hoạ tiết mũ là nhận diện thương hiệu), không chữ "M"/"S" cách điệu, không linh vật, không hình cúp thật.
+- Bối cảnh NCAA đã dùng: E10 sân giữa rừng thông tuyết (`lib/rungthong.js`).
 
 ## Chế độ NBA (khi người dùng nói "NBA")
 - Đã có: E02 (nhà thi đấu Bucks, `ep02.html`), E05 (sân tuyết `lib/tuyet.js`); áo ba lỗ/quần đùi, động tác bóng rổ viết tay trong `lib/bongro*.js`/`tuthe.js` (xem file engine). Không lặp bối cảnh 2 tập này.
@@ -134,12 +141,14 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E04 | NFL | Eagles 2–6: Barkley #26, McKee #16, Elliott #4 (áo nhà midnight green) | 11 người hơi vẫy tay (gập đè Barkley, 5 lần sack McKee, đá trúng cột) | bãi xe hàng xe hơi ban ngày "MEGA DEALS AUTO" | alvana upbeat/bouncing |
 | E05 | NBA | Bulls 1–7: Powell #24, Wilson #8, Giddey #3 (+Jones #30, Williams #44; áo đỏ CHICAGO) | 5 người tuyết (tay que dài ra úp rổ, lướt băng, tan dần) | sân ngoài trời mùa đông bên hồ đóng băng + thành phố xa nhiều kiểu nhà | alvana chiptune/ice-temple |
 | E06 | NFL | Bucs (kỷ lục kỳ quặc của đội THẮNG): Mayfield #6, Irving #7 (áo đỏ, quần pewter) | 11 chiếc ô (lật ngược hứng bóng), Falcons ký hợp đồng với ô | sân NFL mưa lớn ban chiều + phòng phân tích, sơ đồ từ trên, trường quay, phòng họp báo | alvana hiphop/hard-mode |
+| E10 | NCAA | Michigan (thua Michigan State 6–15, đối thủ 0 TD, 5 FG của Liam Boyd #37): Carr #14 (áo navy, quần vàng ngô, mũ navy trơn); Boyd #37 (áo xanh MSU, quần trắng) | 11 cột gôn có mặt (DOINK x3, người khổng lồ đốn gỗ hư cấu chặt hết cột, không có cột → không PAT, MSU mời ký hợp đồng) | sân giữa rừng thông tuyết buổi sáng + chòi bình luận gỗ + bảng điểm gỗ có mặt + nhà gỗ khói | alvana upbeat/happy-dance |
 | E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v1.1 (08/11): chế độ NCAA (kiểm tuổi, không nêu tên tân sinh viên mắc lỗi, mũ trơn); chat Sport USA = NFL + NCAA; E10 Michigan vs 11 cột gôn (`lib/rungthong.js`: rừng thông instanced, cột gôn nhân vật, rìu, mũ len `addBeanie`+`syncBeanie`); Mixamo `Field_Goal` (Strike Forward Jog, chạm bóng 0,42 s); nhân vật `frustumCulled=false` (bị cắt mất khi máy quay gần); khung dọc chỉ ±14,6° ngang → điểm nhìn phải gần nhân vật.
 - v1.0 (08/11): gói chuyển tài khoản 1 file (kèm Mixamo FBX + tiếng Magnific), mục Khởi động kiểm từng bước, hook "What the f***" có bleep, ưu tiên kịch bản theo kết quả trận, chế độ NBA + danh sách Mixamo bóng rổ.
 - v0.9 (07/11): động tác Mixamo (retarget tự động, clip MX_*), khoá bàn chân `locoLock`, đoạn hãm Run_To_Stop; E07 sân bay.
 - v0.8 (06/11): chuyển động mocap mượt (`lib/dongtac.js`: loco/clipPose/expr, retarget UAL1→UBC), biểu cảm theo mốc lời cho mọi nhân vật thấy mặt; E06 dựng lại theo quy tắc này.
