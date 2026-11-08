@@ -58,7 +58,7 @@ const drawSB=(k,lab,a,an,b,bn)=>{if(sk===k)return;sk=k;const X=1024,Y=512;sg.fil
 const SPC={c:'#c4ced4'},GRC={c:'#2e7d32'},DLC={c:'#0064b1'};
 // màn hình trường quay
 {const g=ST.scrTex.userData.cv.getContext('2d');const X=1600,Y=900;g.fillStyle='#e9a56a';g.fillRect(0,0,X,Y);g.fillStyle='#2e7d32';g.fillRect(0,600,X,300);
-  g.font='900 150px Anton';g.fillStyle='#fff';g.textAlign='center';g.fillText('GIRAFFE D',X/2,250);g.font='900 90px Inter';g.fillStyle='#1b1410';g.fillText('#1 DEFENSE EVER?',X/2,420);
+  
   g.fillStyle='#c99a52';for(let i=0;i<5;i++){g.fillRect(200+i*260,700-120-i*40,140,120+i*40);}ST.scrTex.needsUpdate=true;}
 // ---------- máy quay ----------
 const cam=new THREE.PerspectiveCamera(50,W/H,.05,2500);s.add(cam);{const cf=new THREE.DirectionalLight('#fff3e6',0.9);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
@@ -107,7 +107,7 @@ S('s33',{pos:[RX-7.4,2.4,0.9],look:[RX,3.0,0]},{pos:[RX-7.0,2.5,0.8],look:[RX,3.
 Sp(SH.s34[0],SUB.s34,{pos:[0.6,2.4,-0.6],look:[0.2,3.0,SZ]},{pos:[0.4,2.6,-1.8],look:[0.2,3.2,SZ]},{fov:[50,48]});
 Sp(SUB.s34,SH.s34[1],{pos:[4.6,4.9,-2.6],look:[3.2,4.9,-4.3]},{pos:[4.4,4.9,-2.8],look:[3.2,4.9,-4.3]},{fov:[42,40]});
 S('s35',{pos:[-60,2.6,407.2],look:[-60,2.7,397.4]},{pos:[-60,2.6,406.2],look:[-60,2.7,397.4]},{fov:[56,52]});
-S('s36',{pos:[-3.2,2.0,2.4],look:[-4.0,2.0,6.6]},{pos:[-1.0,3.0,0.5],look:[-4.0,2.0,6.6]},{fov:[48,50],ease:'smoother'});
+S('s36',{pos:[1.4,2.4,7.6],look:[-3.3,2.0,10.2]},{pos:[1.0,2.6,7.0],look:[-3.3,2.0,10.2]},{fov:[48,50],ease:'smoother'});
 const CUTS=[...new Set([...Object.values(SH).map(v=>v[0]),...Object.values(SUB),SH.s36[1]])].sort((a,b)=>a-b);
 // ---------- tiện ích ----------
 const idle=(ch,t,x,z,yaw,clip='Idle_Loop',sd=0)=>{clipPose(ch,lib,[{name:clip,time:t+sd,w:1}]);place(ch,x,z,yaw,0);ch.root.visible=true;};
