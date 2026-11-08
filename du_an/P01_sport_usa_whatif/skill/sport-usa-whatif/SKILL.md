@@ -8,6 +8,8 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 
 Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11. E06 "Baker Mayfield vs 11 umbrellas" (NFL, 65,8 s): đã giao 06/11. E07 "Jaguars vs 11 suitcases" (NFL, 80,1 s, Mixamo + khoá bàn chân): đã giao 08/11. **Đang mở:** E08 — kịch bản dự phòng "Colts vs 11 garage sale items" (hook "What the f***"), chủ dự án muốn chờ kết quả trận tuần 9 (Chủ nhật 08/11 giờ Mỹ) rồi chọn trận hot nhất để viết; lịch hẹn cũ ở tài khoản cũ KHÔNG chuyển sang → hỏi người dùng có muốn đặt lại lịch kiểm tra kết quả không.
 
+> **Nhánh NBA (từ 08/11/2026):** mọi tập NBA theo `skill/nba-whatif/SKILL.md` (thắng khi mâu thuẫn với file này). E08 NFL ở trên không mang sang nhánh NBA. Môi trường Claude Code web: xem `NBA_MIGRATION/HUONG_DAN_CAI_DAT.md` (thêm `frei0r-plugins`, `fonts-montserrat`).
+
 ## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
 - **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA". Người dùng không rành kỹ thuật: mỗi thứ thiếu → nói rõ thiếu gì, vì sao cần, đề xuất 1 cách dễ nhất, làm từng bước, xong bước nào báo bước đó.
 - **Gói chuyển tài khoản (1 file):** `AbsurdPlay_SportUSA_goi_chuyen_v1.0.zip`. Giải nén: `mkdir -p /root/work && cd /root/work && unzip -q <file>.zip` → có `BO_HUONG_DAN_SAN_XUAT_VIDEO/` (bộ hồ sơ đầy đủ) và `BAT_DAU_DAY.md`. Hoặc clone GitHub `mailcontentnba76-cell/absurdplay-kit` nếu tài khoản có quyền (repo không có file FBX Mixamo và tiếng Magnific; gói zip thì có).
