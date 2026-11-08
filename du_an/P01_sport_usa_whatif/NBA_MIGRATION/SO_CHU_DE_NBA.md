@@ -1,6 +1,6 @@
 # Sổ chủ đề NBA (ứng viên · đã dùng · đã loại)
 
-Đã dùng (NBA): E02 Giannis (Heat) vs đội cũ Bucks · E05 Bulls 1–7 vs 5 snowmen. Bảng đầy đủ mọi tập: `skill/sport-usa-whatif/SKILL.md` §7.
+Đã dùng (NBA): E02 Giannis (Heat) vs đội cũ Bucks · E05 Bulls 1–7 vs 5 snowmen · **E08 Wembanyama vs 5 giraffes (giao 08/11)**. Bảng đầy đủ mọi tập: `skill/sport-usa-whatif/SKILL.md` §7.
 Không mang sang: E08 NFL "Colts vs 11 garage sale items" (dở, khác môn).
 
 ## Danh sách ngắn 08/11/2026 (dữ liệu tới hết ngày 06/11 giờ Mỹ; các trận 07/11 đang đá lúc lập)

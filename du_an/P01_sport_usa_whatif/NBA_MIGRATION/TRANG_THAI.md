@@ -2,10 +2,9 @@
 
 | Mục | Nội dung |
 |---|---|
-| Giai đoạn hiện tại | Vòng tập NBA đầu tiên (E08 NBA), **bước 1: chọn chủ đề** |
-| Đã xong | chuyển gói; kiểm môi trường; cài đặt; skill `nba-whatif` v1.1; dry run toàn đường ống (đạt sau khi sửa 2 lỗi); danh sách 3 chủ đề có nguồn |
-| Đầu vào có | giọng Sport USA (Magnific id 195176), engine + tài sản, 26 tiếng sân Magnific, 9 Mixamo chạy (trong zip Release), dữ liệu ESPN |
-| Đầu vào thiếu | **lựa chọn chủ đề của bạn**; (tuỳ chọn) Mixamo bóng rổ; thư viện nhạc CC0 (Claude tải khi cần) |
-| Bước tiếp theo chính xác | Bạn chọn 1/2/3 (SO_CHU_DE_NBA.md) → Claude kiểm lại kết quả mới nhất, viết kịch bản E08 NBA + bảng "Tin đã chọn" + nhận diện → bạn duyệt |
-| Không tiếp tục | E08 NFL Colts (khác môn) |
-| Câu hỏi còn mở | Độ dài tập NBA (mặc định > 60 s như từ E06); có muốn Claude tự kiểm kết quả mỗi trưa không (lịch hẹn) |
+| Tập NBA đã giao | **E08 "Could Victor Wembanyama beat 5 giraffes?"** — 68,5 s, 1080x1920, QA đạt (trừ khoảng nghỉ giọng gốc, theo yêu cầu) |
+| Hạ tầng mới | `lib/thaonguyen.js` (thảo nguyên + hươu cao cổ), `lib/bongro_mx.js` (jump shot, úp rổ, layup, dẫn bóng, bắt bóng bật bảng, chặn bóng, nhún vai — ghép mocap), `lib/cast8.js` (Wembanyama), mua.js có tham số |
+| Mạng đã mở | huggingface (+ lưu trữ), espn, nba.com, pikaso.cdnpk.net (tải giọng Magnific) |
+| Thư viện âm | alvana-audio + sfx-kit (tải lại mỗi phiên: `git clone --depth 1`), magnific_sfx trong repo |
+| Bước tiếp theo | Chủ dự án nghe/xem E08, đăng; tập NBA kế tiếp: nói "NBA" → danh sách chủ đề mới |
+| Tuỳ chọn còn mở | Mixamo bóng rổ (nếu có thì thay động tác ghép); quyết "Down one" (giữ) |
