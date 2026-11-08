@@ -47,6 +47,11 @@ KẾT B (30–40 s): "Now your friend …" câu nước đôi nối lại hook
 **Cách làm trong engine hiện có** [SL, thử ở tập tới]: ngã ragdoll = xoay `root` quanh trục ngang bằng smootherstep 0,45 s + `squat`/tay vung, nảy nhẹ khi chạm đất (cos tắt dần); lắp ráp hiện dần = mảng mesh với `scale = overshoot(rp(t, t_từ + i·0,07, +0,25))`; streamlines = `THREE.Line` trắng mờ (opacity .7) từ đường cong uốn quanh vật, dịch pha theo t; macro = fov 28–32, máy cách vật 0,25–0,5 m, độ cao 0,05–0,2 m, thêm BokehPass nhẹ hoặc nền mờ bằng texture `_m`.
 **Không chép**: tháp làm mát hạt nhân (dấu hiệu kênh), logo MakeHuman, đề tài golf/trampoline/nhìn trộm tắm y hệt.
 
+## 1d. NGUYÊN TẮC TỰ SÁNG TẠO (chủ dự án 08/11/2026 — ưu tiên cao nhất khi viết ý tưởng)
+- Video mẫu của kênh chỉ để **tham khảo hướng mở rộng chủ đề** (vd kênh đang mở sang đồ gia dụng/khoa học trong nhà). **KHÔNG bắt chước câu chữ, khuôn chơi chữ, câu khen, câu kết** của kênh — chép thì không viral.
+- Định dạng riêng đang đề xuất: **"Roommate War"** (`KICH_BAN/Y_TUONG_DOT10.md`): cặp bạn cùng phòng cố định, mỗi tập một trận chiến vặt; câu khen riêng "Big brain." / "Nailed it."; kết bằng "Score: you one, roommate zero." + 1 câu lật kèo mở tập sau; bảng tỷ số + dấu "PATENT PENDING" làm hình nhận diện. Bước phát minh vẫn là lịch sử thật.
+- Mục 1, 1b, 1c dưới đây = kiến thức phân tích mẫu (nhịp, độ dài, cách dựng), không phải khuôn để chép.
+
 ## 1c. Kiểu "giải thích đồ vật" — mẫu MỚI NHẤT của kênh (How you invented the fridge, 08/11/2026; `PHAN_TICH_MAU/17_tu_lanh.md`)
 - **Hook chơi chữ tục 1 từ** ("Your friend loves your meat…") → kết gọi lại đúng từ đó ("…crazy for your meat!"). Từ kiểu: meat, wiener, buns, nuts, melons, balls, underwear.
 - Khung: hook → So you [thô sơ] → Clever! → But your lazy ass … so you [bộ phận thật] → **As …, it …** (giải thích khoa học thật) → Genius! → Except now … damn … so you … → But … so you … → Except it's [tốn tiền/nguy hiểm] … so you … → Now your friend [chữ chơi chữ]! · 140–160 từ, ~220 từ/phút, chửi nhẹ (lazy ass, damn).
