@@ -1,0 +1,75 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.20,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.20,0:00:02.24,Cap,,0,0,0,,could victor wembanyama
+Dialogue: 0,0:00:02.24,0:00:03.88,Cap,,0,0,0,,beat five giraffes?
+Dialogue: 0,0:00:03.88,0:00:04.96,Cap,,0,0,0,,except these giraffes
+Dialogue: 0,0:00:04.96,0:00:05.86,Cap,,0,0,0,,are the only players
+Dialogue: 0,0:00:05.86,0:00:06.66,Cap,,0,0,0,,on earth who
+Dialogue: 0,0:00:06.66,0:00:07.86,Cap,,0,0,0,,look down at him.
+Dialogue: 0,0:00:07.86,0:00:08.86,Cap,,0,0,0,,on wednesday, wemby
+Dialogue: 0,0:00:08.86,0:00:10.50,Cap,,0,0,0,,dropped 52 points,
+Dialogue: 0,0:00:10.50,0:00:11.70,Cap,,0,0,0,,24 rebounds, and
+Dialogue: 0,0:00:11.70,0:00:13.54,Cap,,0,0,0,,eight blocks on dallas.
+Dialogue: 0,0:00:13.54,0:00:14.24,Cap,,0,0,0,,eight.
+Dialogue: 0,0:00:14.24,0:00:15.06,Cap,,0,0,0,,he went one for
+Dialogue: 0,0:00:15.06,0:00:16.08,Cap,,0,0,0,,eight from three and
+Dialogue: 0,0:00:16.08,0:00:17.86,Cap,,0,0,0,,still finished plus 23
+Dialogue: 0,0:00:17.86,0:00:19.48,Cap,,0,0,0,,in a one-point game.
+Dialogue: 0,0:00:19.48,0:00:20.48,Cap,,0,0,0,,so the spurs fly
+Dialogue: 0,0:00:20.48,0:00:21.18,Cap,,0,0,0,,him to the savanna
+Dialogue: 0,0:00:21.18,0:00:22.84,Cap,,0,0,0,,for a real test.
+Dialogue: 0,0:00:22.84,0:00:23.66,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:23.66,0:00:24.10,Cap,,0,0,0,,wemby wins
+Dialogue: 0,0:00:24.10,0:00:24.76,Cap,,0,0,0,,the jump ball.
+Dialogue: 0,0:00:24.76,0:00:26.46,Cap,,0,0,0,,the giraffe eats it.
+Dialogue: 0,0:00:26.46,0:00:27.24,Cap,,0,0,0,,pick-and-roll.
+Dialogue: 0,0:00:27.24,0:00:27.82,Cap,,0,0,0,,the giraffes
+Dialogue: 0,0:00:27.82,0:00:29.20,Cap,,0,0,0,,switch everything.
+Dialogue: 0,0:00:29.20,0:00:29.68,Cap,,0,0,0,,wemby rises
+Dialogue: 0,0:00:29.68,0:00:31.12,Cap,,0,0,0,,for his fadeaway.
+Dialogue: 0,0:00:31.12,0:00:31.66,Cap,,0,0,0,,blocked.
+Dialogue: 0,0:00:31.66,0:00:32.72,Cap,,0,0,0,,by a neck.
+Dialogue: 0,0:00:32.72,0:00:33.24,Cap,,0,0,0,,he tries a
+Dialogue: 0,0:00:33.24,0:00:34.38,Cap,,0,0,0,,lob to himself.
+Dialogue: 0,0:00:34.38,0:00:35.76,Cap,,0,0,0,,the giraffe eats it.
+Dialogue: 0,0:00:35.76,0:00:36.68,Cap,,0,0,0,,drop coverage?
+Dialogue: 0,0:00:36.68,0:00:37.76,Cap,,0,0,0,,they don't drop.
+Dialogue: 0,0:00:37.76,0:00:38.96,Cap,,0,0,0,,they're already up there.
+Dialogue: 0,0:00:38.96,0:00:39.86,Cap,,0,0,0,,at halftime, the
+Dialogue: 0,0:00:39.86,0:00:40.74,Cap,,0,0,0,,studio crew calls
+Dialogue: 0,0:00:40.74,0:00:41.44,Cap,,0,0,0,,it the greatest
+Dialogue: 0,0:00:41.44,0:00:43.64,Cap,,0,0,0,,defense in nba history.
+Dialogue: 0,0:00:43.64,0:00:44.50,Cap,,0,0,0,,the defense is
+Dialogue: 0,0:00:44.50,0:00:46.02,Cap,,0,0,0,,chewing a tree.
+Dialogue: 0,0:00:46.02,0:00:46.94,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:46.94,0:00:47.68,Cap,,0,0,0,,down one.
+Dialogue: 0,0:00:47.68,0:00:48.92,Cap,,0,0,0,,eight seconds left.
+Dialogue: 0,0:00:48.92,0:00:49.92,Cap,,0,0,0,,wemby drives baseline,
+Dialogue: 0,0:00:49.92,0:00:51.48,Cap,,0,0,0,,rises, and dunks on
+Dialogue: 0,0:00:51.48,0:00:52.10,Cap,,0,0,0,,a giraffe who
+Dialogue: 0,0:00:52.10,0:00:53.86,Cap,,0,0,0,,fell asleep standing up.
+Dialogue: 0,0:00:53.86,0:00:54.80,Cap,,0,0,0,,and one.
+Dialogue: 0,0:00:54.80,0:00:55.12,Cap,,0,0,0,,he walks
+Dialogue: 0,0:00:55.12,0:00:56.30,Cap,,0,0,0,,to the line.
+Dialogue: 0,0:00:56.30,0:00:56.82,Cap,,0,0,0,,19 for
+Dialogue: 0,0:00:56.82,0:00:58.60,Cap,,0,0,0,,23 on wednesday.
+Dialogue: 0,0:00:58.60,0:00:59.84,Cap,,0,0,0,,ice cold.
+Dialogue: 0,0:00:59.84,0:01:00.56,Cap,,0,0,0,,swish.
+Dialogue: 0,0:01:00.56,0:01:02.82,Cap,,0,0,0,,final score, wemby 52.
+Dialogue: 0,0:01:02.82,0:01:04.30,Cap,,0,0,0,,giraffes 51.
+Dialogue: 0,0:01:04.30,0:01:04.62,Cap,,0,0,0,,after the
+Dialogue: 0,0:01:04.62,0:01:05.46,Cap,,0,0,0,,game, the mavericks
+Dialogue: 0,0:01:05.46,0:01:06.96,Cap,,0,0,0,,sign two giraffes.
+Dialogue: 0,0:01:06.96,0:01:07.28,Cap,,0,0,0,,they still
+Dialogue: 0,0:01:07.28,0:01:07.98,Cap,,0,0,0,,lose by one.
