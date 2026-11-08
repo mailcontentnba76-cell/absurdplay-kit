@@ -1,0 +1,2 @@
+{"name":"e7_hang_xom","gender":1,"age":"old","muscle":0.3,"weight":1.0,"height":0.45,"race":{"caucasian":1},"skin":"old_caucasian_male/old_caucasian_male.json",
+ "proxies":[{"p":"clothes/Tank_Top_01/Tank_Top_01.json","map":"vai/ba_lo_o.png"},"clothes/ShortJeans/ShortJeans.json","clothes/shoes01/shoes01.json","hair/Moustache/Moustache.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"blue"}

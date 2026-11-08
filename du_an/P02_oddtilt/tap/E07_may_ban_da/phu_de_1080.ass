@@ -1,0 +1,89 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,105,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,4.5,3.75,5,45,45,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Your neighbor's
+Dialogue: 0,0:00:00.64,0:00:01.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}dog shits
+Dialogue: 0,0:00:01.28,0:00:01.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}on your
+Dialogue: 0,0:00:01.52,0:00:01.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}lawn every
+Dialogue: 0,0:00:02.00,0:00:02.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}morning,
+Dialogue: 0,0:00:02.56,0:00:02.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and he
+Dialogue: 0,0:00:02.88,0:00:03.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}just stands
+Dialogue: 0,0:00:03.36,0:00:04.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}there watching.
+Dialogue: 0,0:00:04.40,0:00:04.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:04.72,0:00:05.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}grab the
+Dialogue: 0,0:00:05.12,0:00:05.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}poop and
+Dialogue: 0,0:00:05.76,0:00:06.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}throw it
+Dialogue: 0,0:00:06.16,0:00:06.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back over
+Dialogue: 0,0:00:06.56,0:00:07.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the fence.
+Dialogue: 0,0:00:07.44,0:00:07.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except it
+Dialogue: 0,0:00:07.92,0:00:08.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}slips through
+Dialogue: 0,0:00:08.40,0:00:08.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your fingers
+Dialogue: 0,0:00:08.88,0:00:09.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and lands
+Dialogue: 0,0:00:09.36,0:00:09.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}in your
+Dialogue: 0,0:00:09.60,0:00:10.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}own hair,
+Dialogue: 0,0:00:10.32,0:00:10.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:10.80,0:00:11.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}swing it
+Dialogue: 0,0:00:11.36,0:00:11.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}in a
+Dialogue: 0,0:00:11.60,0:00:12.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sling made
+Dialogue: 0,0:00:12.16,0:00:12.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}from your
+Dialogue: 0,0:00:12.48,0:00:13.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}underwear.
+Dialogue: 0,0:00:13.20,0:00:13.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Bullseye!
+Dialogue: 0,0:00:14.00,0:00:14.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But the
+Dialogue: 0,0:00:14.32,0:00:14.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fence is
+Dialogue: 0,0:00:14.80,0:00:15.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}too far,
+Dialogue: 0,0:00:15.44,0:00:15.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:15.76,0:00:16.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}build a
+Dialogue: 0,0:00:16.08,0:00:16.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}giant wooden
+Dialogue: 0,0:00:16.88,0:00:17.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}arm with
+Dialogue: 0,0:00:17.28,0:00:17.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}ropes you
+Dialogue: 0,0:00:17.76,0:00:18.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}yank with
+Dialogue: 0,0:00:18.24,0:00:18.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}all your
+Dialogue: 0,0:00:18.48,0:00:18.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}weight.
+Dialogue: 0,0:00:18.96,0:00:19.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now,
+Dialogue: 0,0:00:19.28,0:00:19.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}when you
+Dialogue: 0,0:00:19.60,0:00:20.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}pull,
+Dialogue: 0,0:00:20.08,0:00:20.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the long
+Dialogue: 0,0:00:20.56,0:00:21.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}arm whips
+Dialogue: 0,0:00:21.52,0:00:22.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}around way
+Dialogue: 0,0:00:22.24,0:00:22.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}faster than
+Dialogue: 0,0:00:22.96,0:00:23.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your hand
+Dialogue: 0,0:00:23.36,0:00:24.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}ever could,
+Dialogue: 0,0:00:24.16,0:00:24.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}launching the
+Dialogue: 0,0:00:24.88,0:00:25.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}shit across
+Dialogue: 0,0:00:25.52,0:00:26.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the street.
+Dialogue: 0,0:00:26.32,0:00:26.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But your
+Dialogue: 0,0:00:26.64,0:00:27.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fat ass
+Dialogue: 0,0:00:27.28,0:00:27.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}gets yanked
+Dialogue: 0,0:00:28.00,0:00:28.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}into the
+Dialogue: 0,0:00:28.24,0:00:29.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sky with it,
+Dialogue: 0,0:00:29.04,0:00:29.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:29.36,0:00:29.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hang a
+Dialogue: 0,0:00:29.68,0:00:30.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}heavy box
+Dialogue: 0,0:00:30.24,0:00:30.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of rocks
+Dialogue: 0,0:00:30.72,0:00:30.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}on the
+Dialogue: 0,0:00:30.96,0:00:31.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}short end
+Dialogue: 0,0:00:31.52,0:00:32.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}instead.
+Dialogue: 0,0:00:32.16,0:00:32.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except your
+Dialogue: 0,0:00:32.72,0:00:33.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}first shot
+Dialogue: 0,0:00:33.28,0:00:33.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}lands on
+Dialogue: 0,0:00:33.68,0:00:34.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Grandma's FUCKING
+Dialogue: 0,0:00:34.72,0:00:35.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}barbecue,
+Dialogue: 0,0:00:35.60,0:00:35.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:35.92,0:00:36.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}put the
+Dialogue: 0,0:00:36.24,0:00:36.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}whole thing
+Dialogue: 0,0:00:36.80,0:00:37.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}on wheels
+Dialogue: 0,0:00:37.44,0:00:38.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}to aim.
+Dialogue: 0,0:00:38.08,0:00:38.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now your
+Dialogue: 0,0:00:38.48,0:00:39.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}neighbor gets
+Dialogue: 0,0:00:39.12,0:00:39.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}his shit
+Dialogue: 0,0:00:39.68,0:00:40.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back every
+Dialogue: 0,0:00:40.80,0:00:41.82,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}morning!
