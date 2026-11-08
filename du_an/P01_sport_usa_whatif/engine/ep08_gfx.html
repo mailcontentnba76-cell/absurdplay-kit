@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 8: đồ hoạ "safari" — thẻ kaki viền nâu đậm, dải vằn hươu trên đầu thẻ, chữ Anton nâu; thẻ Wemby bạc–đen Spurs; thẻ hươu xanh lá.
+   Khác E01–E07 (thẻ thẳng / vàng pixel / khối xiên ánh kim / tờ rơi bán xe / băng giá / ...). */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:#f5e6c4;color:#4a2c14;border:7px solid #4a2c14;border-radius:14px;box-shadow:0 12px 0 #2b190b,0 18px 28px rgba(40,20,5,.35);padding:30px 40px 12px;white-space:nowrap;text-align:center;overflow:hidden}
+.k::before{content:'';position:absolute;left:0;right:0;top:0;height:22px;background:#e9b04a;
+  background-image:radial-gradient(ellipse 18px 9px at 20px 11px,#8a4a1c 60%,transparent 62%),radial-gradient(ellipse 14px 8px at 58px 9px,#8a4a1c 60%,transparent 62%),radial-gradient(ellipse 16px 8px at 92px 13px,#8a4a1c 60%,transparent 62%);background-size:110px 22px}
+.sp{background:#e9edf0;color:#111;border-color:#111;box-shadow:0 12px 0 #000,0 18px 28px rgba(0,0,0,.35)}.sp::before{background:#111;background-image:linear-gradient(90deg,#c4ced4 0 50%,#111 50% 100%);background-size:60px 22px}
+.gr{background:#2e7d32;color:#fff;border-color:#123d16;box-shadow:0 12px 0 #0b2a0e,0 18px 28px rgba(0,0,0,.35);-webkit-text-stroke:2px #0b2a0e;paint-order:stroke fill}
+.or{background:#e8742c;color:#fff;border-color:#4a2c14;-webkit-text-stroke:3px #4a2c14;paint-order:stroke fill}
+.big{font-size:150px;line-height:1}.mid{font-size:96px;line-height:1.05}.sm{font-size:66px;line-height:1.1}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:4px;color:#9a5a24;margin-bottom:4px;-webkit-text-stroke:0}
+.sp .lab{color:#5a6670}.gr .lab{color:#c8f0c8}.or .lab{color:#ffe1c4}
+.bug{top:300px;display:flex;height:84px;filter:drop-shadow(0 6px 10px rgba(40,20,5,.4))}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:44px;padding:0 20px;letter-spacing:1px;border-top:5px solid #4a2c14;border-bottom:5px solid #4a2c14}
+.bA{background:#111;color:#e9edf0;min-width:180px;border-left:5px solid #4a2c14;border-radius:14px 0 0 14px}.bS{background:#f5e6c4;color:#4a2c14;min-width:92px}
+.bB{background:#2e7d32;color:#fff;min-width:210px}.bC{background:#e8742c;color:#fff;min-width:170px;font-size:40px!important;border-right:5px solid #4a2c14;border-radius:0 14px 14px 0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #4a2c14;paint-order:stroke fill;text-shadow:0 12px 0 #e8742c}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#4a2c14;background:#ffe14a;border:6px solid #4a2c14;padding:6px 26px;border-radius:12px}
+.stamp{top:600px;font-size:210px;color:#d62828;-webkit-text-stroke:10px #fff;paint-order:stroke fill;letter-spacing:4px;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{background:#111;color:#fff;font-size:64px;padding:4px 26px;border-left:14px solid #c4ced4}.lt .d{background:#f5e6c4;color:#4a2c14;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px;border-left:14px solid #e8742c}
+.brk .n{background:#0064b1;border-left-color:#d62828}.brk .d{border-left-color:#d62828}
+.zzz{top:560px;left:auto!important;right:120px;transform:none;font-size:120px;color:#fff;-webkit-text-stroke:8px #4a2c14;paint-order:stroke fill}
+#flash{position:absolute;inset:0;background:#fff3dc;opacity:0}
+.frost{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at center,rgba(255,255,255,0) 50%,rgba(205,236,255,.9) 100%)}
+#pnr{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(74,44,20,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="frost" id="frost"></div>
+<svg id="pnr" viewBox="0 0 1080 1920"><defs><marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#fff"/></marker></defs>
+  <g fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-dasharray="26 18"><path d="M330,980 C430,900 520,880 600,900" marker-end="url(#ah)"/><path d="M560,1060 C620,1000 700,990 780,1000" marker-end="url(#ah)"/></g>
+  <g fill="none" stroke="#ffe14a" stroke-width="10"><circle cx="300" cy="990" r="46"/><circle cx="640" cy="900" r="46"/></g>
+  <g stroke="#d62828" stroke-width="12"><path d="M690,760 l60,60 M750,760 l-60,60"/><path d="M820,940 l60,60 M880,940 l-60,60"/><path d="M700,1120 l60,60 M760,1120 l-60,60"/></g></svg>
+<div class="el bug" id="bug"><div class="bA">WEMBY</div><div class="bS" id="sA">0</div><div class="bB">GIRAFFES</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST 12:00</div></div>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">WEMBY <span style="color:#e8742c">vs</span> 5 GIRAFFES</div>
+<div class="el k" id="hgt" style="top:420px"><span class="lab">HEIGHT</span><span class="mid">GIRAFFE ~18 FT</span><br><span class="sm" style="color:#5a6670">WEMBY 7'4"</span></div>
+<div class="el lt" id="lt1"><div class="n">VICTOR WEMBANYAMA</div><div class="d">#1 · CENTER · SAN ANTONIO</div></div>
+<div class="el k sp" id="pts" style="top:420px"><span class="lab">WED vs DALLAS</span><span class="big">52 PTS</span></div>
+<div class="el k sp" id="reb" style="top:420px"><span class="lab">WED vs DALLAS</span><span class="big">24 REB</span></div>
+<div class="el k sp" id="blk" style="top:420px"><span class="lab">WED vs DALLAS</span><span class="big">8 BLK</span></div>
+<div class="el k or big" id="eight" style="top:1380px;font-size:260px">8</div>
+<div class="el k" id="tp" style="top:420px"><span class="lab">FROM THREE</span><span class="big">1 / 8</span></div>
+<div class="el k sp big" id="pm" style="top:420px">+23</div>
+<div class="el k" id="one" style="top:1430px"><span class="lab">ONE-POINT GAME</span><span class="mid">SPURS 112 · DALLAS 111</span></div>
+<div class="el k sm" id="loc" style="top:420px">SAN ANTONIO → SAVANNA</div>
+<div class="el k or sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el k gr sm" id="gball" style="top:420px">GIRAFFE BALL</div>
+<div class="el k sm" id="pnrl" style="top:420px">PICK-AND-ROLL</div>
+<div class="el k gr sm" id="switch" style="top:420px">SWITCH EVERYTHING</div>
+<div class="el stamp" id="blocked">BLOCKED</div>
+<div class="el k gr mid" id="neck" style="top:1430px">BY A NECK</div>
+<div class="el k mid" id="drop" style="top:420px">DROP COVERAGE?</div>
+<div class="el k sm" id="rim" style="top:1430px">RIM 10 FT · GIRAFFE ~18 FT</div>
+<div class="el k or sm" id="half" style="top:420px">HALFTIME</div>
+<div class="el lt" id="lt2"><div class="n">SAVANNA SPORTS DESK</div><div class="d">HALFTIME SHOW (FICTIONAL)</div></div>
+<div class="el k gr" id="best" style="top:1430px"><span class="lab">STUDIO VERDICT</span><span class="sm">GREATEST DEFENSE EVER</span></div>
+<div class="el k gr sm" id="tree" style="top:420px">THE DEFENSE: CHEWING A TREE</div>
+<div class="el k" id="q4" style="top:420px"><span class="lab">4TH QUARTER</span><span class="mid">DOWN 1</span></div>
+<div class="el k or big" id="clk8" style="top:420px">0:08</div>
+<div class="el zzz" id="zzz">Z z z</div>
+<div class="el k or mid" id="and1" style="top:420px">AND-ONE!</div>
+<div class="el k sp" id="ft" style="top:420px"><span class="lab">FREE THROWS · WED</span><span class="big">19 / 23</span></div>
+<div class="el k sp mid" id="ice" style="top:1430px">ICE COLD</div>
+<div class="el k or mid" id="swish" style="top:420px">SWISH</div>
+<div class="el k or big" id="fin" style="top:1150px">FINAL</div>
+<div class="el k" id="fin2" style="top:400px"><span class="mid">WEMBY 52 · <span style="color:#2e7d32">GIRAFFES 51</span></span></div>
+<div class="el lt brk" id="mavs"><div class="n">MAVS SIGN 2 GIRAFFES</div><div class="d">BREAKING · DALLAS</div></div>
+<div class="el k" id="lost" style="top:420px"><span class="lab">DALLAS · FINAL</span><span class="mid" style="color:#d62828">STILL LOST BY 1</span></div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep08_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',1.4,SH.s2[1]],['hgt',4.4,SH.s3[1]],['lt1',8.0,9.1],['pts',9.14,SH.s5[1]],['reb',10.5,SH.s6[1]],['blk',12.0,SH.s7[1]],['eight',13.54,SH.s8[1]],
+ ['tp',14.5,SH.s9[1]],['pm',16.86,SH.s10[1]],['one',18.1,SH.s10[1]],['loc',20.0,SH.s11[1]],['bug',SH.s12[0],SH.s27[0]],['tip',22.84,SH.s12[1]],['gball',25.14,SH.s14[1]],['pnrl',26.46,SH.s15[1]],
+ ['switch',27.82,SH.s16[1]],['blocked',31.12,SUB.s18],['neck',31.66,SH.s18[1]],['drop',35.76,SH.s21[1]],['rim',37.76,SH.s22[1]],['half',38.96,SUB.s23],['lt2',39.76,SUB.s23],['best',41.08,SH.s23[1]],
+ ['tree',44.5,SH.s24[1]],['q4',46.1,SH.s25[1]],['clk8',47.68,SH.s26[1]],['zzz',SUB.s28,SH.s28[1]],['and1',53.86,SH.s29[1]],['ft',56.3,SH.s31[1]],['ice',58.6,SH.s32[1]],['swish',59.84,SH.s33[1]],
+ ['fin',60.56,SUB.s34],['fin2',61.5,SH.s34[1]],['mavs',65.1,SH.s35[1]],['lost',67.0,SH.s36[1]]];
+const POP=['wtf','blocked','fin','eight','and1','swish','clk8'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    if(e.id==='zzz'){e.style.transform=`translateY(${-Math.sin(t*2)*20-(t-(a??0))*30}px) rotate(-8deg)`;continue;}
+    const pop=POP.includes(e.id);const sc=e.id==='bug'?1:(pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k);
+    const rot=e.id==='blocked'?-12+(1-k)*-20:pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  // bug: khớp bảng điểm 3D (trận ảo)
+  const a=t<SH.s16[0]?0:2,b=t<SH.s14[0]?0:t<SH.s20[0]?2:4;const q4=t>=SH.s25[0];$('sA').textContent=q4?50:a;$('sB').textContent=q4?51:b;
+  $('clk').textContent=q4?'4TH 0:08':t<SH.s14[0]?'1ST 12:00':t<SH.s17[0]?'1ST 10:41':'1ST 9:02';
+  const f=(t-SH.s3[0])*30;$('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;
+  $('frost').style.opacity=t>=SH.s32[0]&&t<SH.s33[1]?0.55:0;
+  $('pnr').style.opacity=t>=SH.s15[0]&&t<SH.s15[1]?Math.min(1,(t-SH.s15[0])/0.12):0;
+  {const k=Math.min(1,Math.max(0,(t-SH.s15[0])/0.6));for(const p of document.querySelectorAll('#pnr path[marker-end]'))p.style.strokeDashoffset=String(200*(1-k));}
+};
+</script></body></html>

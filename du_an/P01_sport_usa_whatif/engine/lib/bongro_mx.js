@@ -146,3 +146,31 @@ export function dribbleMove(ch, lib, t, path, o = {}) {
   hand(ch, 'r', hp, Lw(ch, -0.6, -0.2, -0.8));
   return ball;
 }
+
+// ======== BẮT BÓNG BẬT BẢNG: nhảy, bóng rơi từ trên vào hai tay ở đỉnh, kéo về ngực khi tiếp đất ========
+// o: {x, z, yaw, R, from: Vector3 (bóng bắt đầu rơi), J}
+export function rebound(ch, lib, u, o = {}) {
+  const R = o.R ?? 0.12, J = { h: 0.55 * ch.root.scale.y, tuck: 0.35, soft: 0.4, ...(o.J || {}) }, g = J.g ?? 0.3, air = J.air ?? 0.62;
+  const b = jumpBody(ch, lib, u, J); place(ch, o.x ?? 0, o.z ?? 0, o.yaw ?? 0, b.y);
+  const catchP = bp(ch, 'Head').addScaledVector(fwd(ch), 0.28); catchP.y += 0.5 * ch.root.scale.y; const tc = g + air * 0.5;
+  let ball; if (u < tc) { const k = sm(u / tc); ball = (o.from || catchP.clone().add(new V3(0, 2.5, 0))).clone().lerp(catchP, k); hand(ch, 'r', catchP.clone().addScaledVector(lat(ch, -1), R * 1.1), Lw(ch, -0.6, -0.5, 0)); hand(ch, 'l', catchP.clone().addScaledVector(lat(ch, 1), R * 1.1), Lw(ch, 0.6, -0.5, 0)); }
+  else { const k = sm((u - tc) / 0.5); ball = catchP.clone().lerp(setPoint(ch), k); twoHands(ch, ball, R); }
+  return { ball };
+}
+// ======== NHẢY CHẶN BÓNG: tay phải vươn tới điểm target (thế giới) ở đỉnh ========
+export function blockJump(ch, lib, u, o = {}) {
+  const J = { h: 0.6 * ch.root.scale.y, tuck: 0.3, soft: 0.4, ...(o.J || {}) }, g = J.g ?? 0.25, air = J.air ?? 0.65;
+  const b = jumpBody(ch, lib, u, J); place(ch, o.x ?? 0, o.z ?? 0, o.yaw ?? 0, b.y);
+  const k = sm((u - g * 0.5) / (g + air * 0.4)) * (1 - sm((u - g - air) / 0.4));
+  const nat = bp(ch, 'hand_r'); if (o.target) hand(ch, 'r', nat.lerp(o.target, k), Lw(ch, -0.5, -0.6, 0));
+  const natL = bp(ch, 'hand_l'); const up = bp(ch, 'upperarm_l').add(new V3(0, 0.55 * ch.root.scale.y, 0)).addScaledVector(lat(ch, 1), 0.2); hand(ch, 'l', natL.lerp(up, k * 0.8), Lw(ch, 0.6, -0.5, 0));
+  return { k };
+}
+// ======== NHÚN VAI hai tay ngửa ra (k 0..1), thân = clip đứng ========
+export function shrug(ch, lib, t, k, o = {}) {
+  clipPose(ch, lib, [{ name: o.base ?? 'Idle_Loop', time: t, w: 1 }]); place(ch, o.x ?? 0, o.z ?? 0, o.yaw ?? 0, 0);
+  for (const [s, q] of [['l', 1], ['r', -1]]) { const sh = bp(ch, 'upperarm_' + s); const nat = bp(ch, 'hand_' + s); const T = sh.clone().addScaledVector(lat(ch, q), 0.42 * ch.root.scale.y).addScaledVector(fwd(ch), 0.3 * ch.root.scale.y); T.y -= 0.32 * ch.root.scale.y;
+    hand(ch, s, nat.lerp(T, sm(k)), Lw(ch, q * 0.3, -1, -0.3)); }
+  const sp = ch.bones.spine_03; if (sp) { /* nhô vai nhẹ */ ch.bones.clavicle_l && ch.bones.clavicle_l.rotateZ(0.15 * sm(k)); ch.bones.clavicle_r && ch.bones.clavicle_r.rotateZ(-0.15 * sm(k)); }
+}
+export { place, twoHands };

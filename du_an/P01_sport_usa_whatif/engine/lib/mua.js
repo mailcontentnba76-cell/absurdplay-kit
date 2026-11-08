@@ -157,7 +157,7 @@ export function analysisRoom(at = new THREE.Vector3(0, 0, 400)) {
 }
 
 // ---------- bàn bình luận trường quay: nền màn LED xanh–đỏ, bàn cong, màn hình lớn sau lưng ----------
-export function studioDesk(at = new THREE.Vector3(60, 0, 400)) {
+export function studioDesk(at = new THREE.Vector3(60, 0, 400), o = {}) {
   const G = new THREE.Group(); G.position.copy(at);
   const floor = new THREE.Mesh(new THREE.CircleGeometry(9, 48), std('#14181f', { roughness: 0.25, metalness: 0.3 })); floor.rotation.x = -Math.PI / 2; G.add(floor);
   const bgTex = ctex(2048, 512, (g, W, H) => { const gr = g.createLinearGradient(0, 0, W, 0); gr.addColorStop(0, '#0b2d6b'); gr.addColorStop(0.5, '#123f8c'); gr.addColorStop(1, '#7a0f14'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
@@ -167,20 +167,20 @@ export function studioDesk(at = new THREE.Vector3(60, 0, 400)) {
   const scr = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 2.7), new THREE.MeshBasicMaterial({ map: scrTex, toneMapped: false })); scr.position.set(0, 2.6, -5.2); G.add(scr);
   const deskM = std('#e9edf2', { roughness: 0.25, metalness: 0.15 }); const desk = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.6, 0.95, 40, 1, false, -Math.PI * 0.2, Math.PI * 0.4), deskM); desk.position.set(0, 0.47, -4.1); desk.castShadow = true; G.add(desk);
   const top = new THREE.Mesh(new THREE.CylinderGeometry(2.75, 2.75, 0.05, 40, 1, false, -Math.PI * 0.22, Math.PI * 0.44), std('#20252e', { roughness: 0.3 })); top.position.set(0, 0.97, -4.1); G.add(top);
-  const stripe = new THREE.Mesh(new THREE.CylinderGeometry(2.61, 2.61, 0.12, 40, 1, true, -Math.PI * 0.2, Math.PI * 0.4), new THREE.MeshBasicMaterial({ color: '#d50a0a', toneMapped: false })); stripe.position.set(0, 0.6, -4.1); G.add(stripe);
+  const stripe = new THREE.Mesh(new THREE.CylinderGeometry(2.61, 2.61, 0.12, 40, 1, true, -Math.PI * 0.2, Math.PI * 0.4), new THREE.MeshBasicMaterial({ color: o.stripe || '#d50a0a', toneMapped: false })); stripe.position.set(0, 0.6, -4.1); G.add(stripe);
   const key = new THREE.PointLight('#ffffff', 10, 12, 1.5); key.position.set(0, 4, 3); G.add(key);
   return { group: G, scrTex };
 }
 
 // ---------- phòng họp báo (đỏ–đen, chữ ATLANTA, không logo): phông chữ lặp, bàn dài có micro, đèn flash ----------
-export function pressRoom(at = new THREE.Vector3(-60, 0, 400)) {
+export function pressRoom(at = new THREE.Vector3(-60, 0, 400), o = {}) { const TEAM = o.team || 'ATLANTA', C1 = o.c1 || '#a71930';
   const G = new THREE.Group(); G.position.copy(at);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 12), std('#1a1a1c', { roughness: 0.8 })); floor.rotation.x = -Math.PI / 2; G.add(floor);
   const bt = ctex(1024, 512, (g, W, H) => { g.fillStyle = '#111214'; g.fillRect(0, 0, W, H); g.font = '900 54px Anton, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    for (let y = 0; y < 5; y++) for (let x = 0; x < 4; x++) { g.fillStyle = (x + y) % 2 ? '#a71930' : '#e8e8e8'; g.fillText((x + y) % 2 ? 'ATLANTA' : 'SIGNING DAY', 140 + x * 250 + (y % 2) * 60, 60 + y * 100); } });
+    for (let y = 0; y < 5; y++) for (let x = 0; x < 4; x++) { g.fillStyle = (x + y) % 2 ? C1 : '#e8e8e8'; g.fillText((x + y) % 2 ? TEAM : 'SIGNING DAY', 140 + x * 250 + (y % 2) * 60, 60 + y * 100); } });
   const back = new THREE.Mesh(new THREE.PlaneGeometry(10, 5), new THREE.MeshStandardMaterial({ map: bt, roughness: 0.8 })); back.position.set(0, 2.5, -3.5); G.add(back);
   const table = new THREE.Mesh(new THREE.BoxGeometry(7, 0.08, 1.1), std('#0f0f11', { roughness: 0.4 })); table.position.set(0, 0.76, -1.6); table.castShadow = true; G.add(table);
-  const skirt = new THREE.Mesh(new THREE.BoxGeometry(7, 0.74, 0.04), std('#a71930', { roughness: 0.7 })); skirt.position.set(0, 0.38, -1.06); G.add(skirt);
+  const skirt = new THREE.Mesh(new THREE.BoxGeometry(7, 0.74, 0.04), std(C1, { roughness: 0.7 })); skirt.position.set(0, 0.38, -1.06); G.add(skirt);
   const micM = std('#202022', { metalness: 0.5 }); for (let i = 0; i < 5; i++) { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.3, 6), micM); m.position.set(-2.4 + i * 1.2, 0.95, -1.35); m.rotation.x = -0.4; G.add(m); }
   const flash = new THREE.PointLight('#ffffff', 0, 18, 1.2); flash.position.set(0, 2.5, 4); G.add(flash);
   const key = new THREE.PointLight('#fff2e2', 8, 14, 1.4); key.position.set(0, 4, 2); G.add(key);

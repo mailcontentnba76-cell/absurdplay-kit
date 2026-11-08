@@ -137,6 +137,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E05 | NBA | Bulls 1–7: Powell #24, Wilson #8, Giddey #3 (+Jones #30, Williams #44; áo đỏ CHICAGO) | 5 người tuyết (tay que dài ra úp rổ, lướt băng, tan dần) | sân ngoài trời mùa đông bên hồ đóng băng + thành phố xa nhiều kiểu nhà | alvana chiptune/ice-temple |
 | E06 | NFL | Bucs (kỷ lục kỳ quặc của đội THẮNG): Mayfield #6, Irving #7 (áo đỏ, quần pewter) | 11 chiếc ô (lật ngược hứng bóng), Falcons ký hợp đồng với ô | sân NFL mưa lớn ban chiều + phòng phân tích, sơ đồ từ trên, trường quay, phòng họp báo | alvana hiphop/hard-mode |
 | E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
+| E08 | NBA | Wembanyama #1 Spurs (áo trắng Association, cao 2,24 m, râu cằm) — chọc kiểu khen sau trận 52 điểm/24 bóng bật/8 chặn | 5 hươu cao cổ áo xanh SAVANNA (ăn bóng ×2, chặn bằng cổ, ngủ đứng), Mavericks ký 2 hươu | sân bóng thảo nguyên hoàng hôn (`lib/thaonguyen.js`) + trường quay + phòng họp báo DALLAS | (chọn khi trộn âm) |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.

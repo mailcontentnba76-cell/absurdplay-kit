@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildSavanna,savannaLights,makeGiraffe,CT} from './lib/thaonguyen.js';
+import {loadLibrary} from './lib/nhanvat2.js';import {WEMBY} from './lib/cast8.js';import {clipPose} from './lib/dongtac.js';
+await document.fonts.load('100px Anton');
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildSavanna(s);savannaLights(s,A.sunDir);
+const lib=await loadLibrary();const wm=WEMBY(lib);s.add(wm.root);clipPose(wm,lib,[{name:'Idle_Loop',time:0.3,w:1}]);wm.root.position.set(-1.2,0.06,0);wm.root.rotation.y=Math.PI/2;wm.root.traverse(o=>{if(o.isMesh)o.castShadow=true});
+const G=[0,1,2,3,4].map(i=>{const g=makeGiraffe({seed:i+1,jersey:i==4?{color:'#0064b1',number:2,text:'DALLAS'}:null});g.root.position.set(1.5+Math.abs(i-2)*0.6,0.06,-4+i*2);g.root.rotation.y=-Math.PI/2;s.add(g.root);return g;});
+const cam=new THREE.PerspectiveCamera(46,W/H,0.1,2000);const fill=new THREE.DirectionalLight('#fff4e8',0.8);cam.add(fill);s.add(cam);
+const v=location.hash;
+window.renderFrame=t=>{G.forEach((g,i)=>g.update(t,i==2?{neckTo:new THREE.Vector3(-0.9,2.6,0),headPitch:0.7,chew:0}:i==0?{chew:1,leaf:true,sleep:0}:i==3?{sleep:1}:{walk:t*1.5,walking:i==1}));
+  if(v==='#close'){cam.position.set(-3.8,2.3,3.4);cam.lookAt(0.2,2.6,0);}else if(v==='#wide'){cam.position.set(-20,6,26);cam.lookAt(0,2.5,0);}else{cam.position.set(-9.5,2.0,7.5);cam.lookAt(0.5,2.8,0);}
+  r.render(s,cam);};
+window.ready=true;
+</script></body></html>
