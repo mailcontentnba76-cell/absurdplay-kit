@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose} from './lib/tuthe.js';
+import {loco,run,seg,expr,clipPose} from './lib/dongtac.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight,false);r.outputColorSpace=THREE.SRGBColorSpace;
+const s=new THREE.Scene();s.background=new THREE.Color('#9ab');s.add(new THREE.HemisphereLight('#fff','#454',3));const d=new THREE.DirectionalLight('#fff',2);d.position.set(3,8,5);s.add(d);
+const g=new THREE.GridHelper(40,40,'#333','#555');s.add(g);
+const lib=await loadLibrary();console.log('clips',lib.clips.length);
+const A=makeCharacter(lib,{...EAGLES,jersey:'#d50a0a',number:7,heightM:1.78,skin:'#6b4026',helmet:null,hair:'Hair_Buzzed'});s.add(A.root);resetPose(A);
+const cam=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,.05,200);
+const path=run([-8,0],[12,0],0.3,3.3);
+window.renderFrame=t=>{const o=loco(A,lib,t,path,{t0:0,face:Math.PI/2});expr(A,t,[[0,'determined'],[1.5,'shock'],[2.5,'laugh']]);
+  const p=A.root.position;cam.position.set(p.x+1.6,1.6,0.5);cam.lookAt(p.x,1.5,0);r.render(s,cam);window._info=o;};
+window.ready=true;
+</script></body></html>

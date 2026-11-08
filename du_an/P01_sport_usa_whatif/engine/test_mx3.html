@@ -1,0 +1,14 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {FBXLoader} from 'three/addons/loaders/FBXLoader.js';
+const L=new FBXLoader();
+for(const n of ['Quarterback_Pass','Receiver_Catch','Football_Catch','Football_Hike']){
+ const o=await L.loadAsync('./assets/mixamo/'+n+'.fbx');const c=o.animations.find(a=>a.tracks.length)||o.animations[0];
+ const bones=[];o.traverse(x=>{if(x.isBone)bones.push(x.name)});
+ const hip=c.tracks.find(t=>/Hips.*position/.test(t.name));console.log('T',c.tracks.slice(0,3).map(t=>t.name).join(' '));if(!hip)continue;const v=hip.values,k=v.length/3;
+ console.log(n,'dur',c.duration.toFixed(2),'bones',bones.length,'tracks',c.tracks.length,'hipStart',[v[0],v[1],v[2]].map(x=>x.toFixed(1)).join(','),'hipEnd',[v[3*k-3],v[3*k-2],v[3*k-1]].map(x=>x.toFixed(1)).join(','), bones.slice(0,6).join(' '));
+}
+window.renderFrame=()=>{};window.ready=true;
+</script></body></html>

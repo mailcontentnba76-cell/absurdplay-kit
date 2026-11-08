@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildBaggageHall,hallLights,makeSuitcase,construction,london,gateB12,lounge} from './lib/sanbay.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight,false);r.outputColorSpace=THREE.SRGBColorSpace;r.shadowMap.enabled=true;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildBaggageHall(s);const LT=hallLights(s);
+const CO=construction();s.add(CO.G,CO.sky);const LO=london();s.add(LO.G,LO.sky);const GA=gateB12();s.add(GA.G);const LG=lounge();s.add(LG.G);
+const cols=['#c0392b','#2980b9','#27ae60','#8e44ad','#f39c12','#2c3e50','#e84393','#16a085','#d35400','#7f8c8d','#f1c40f'];
+const SC=cols.map((c,i)=>{const q=makeSuitcase({color:c,number:i+1,seed:i+1,w:0.45+(i%3)*0.08,h:0.68+(i%4)*0.06});q.root.position.set(4+(i%4)*1.5,0,-4+i*0.8);q.root.rotation.y=-Math.PI/2;s.add(q.root);return q;});
+const cam=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.05,2000);
+const views=[[[-10,4,14],[0,1,-6]],[[6,1.0,1.5],[4.5,0.5,-1]],[[-6,2.5,-4],[-6,0.6,-12.5]],[[0,12,560],[0,10,470]],[[530,2,10],[560,20,-40]],[[-500,1.7,6],[-500,2.5,-6]],[[0,1.6,-494],[0,1.2,-502]],[[-20,3,-14],[-20,4,-40]]];
+window.renderFrame=t=>{const i=Math.round(t*10)%views.length;const v=views[i];A.update(t*3);CO.update(t);LO.update(t);GA.update(t);SC.forEach((q,k)=>q.update(t+k,{}));cam.position.set(...v[0]);cam.lookAt(...v[1]);LT.follow(cam);r.render(s,cam);};
+window.ready=true;
+</script></body></html>

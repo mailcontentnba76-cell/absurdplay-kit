@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import * as SU from 'three/addons/utils/SkeletonUtils.js';
+import {loadLibrary} from './lib/nhanvat2.js';
+const lib=await loadLibrary();
+const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
+const u=await new GLTFLoader().loadAsync('./assets/ual1.glb').catch(async()=>null);
+const T=SU.clone(lib.male.scene); const B={};T.traverse(n=>{if(n.isBone)B[n.name]=n});
+const f=v=>v.toArray().map(x=>x.toFixed(2)).join(',');
+const dir=(a,b)=>b.getWorldPosition(new THREE.Vector3()).sub(a.getWorldPosition(new THREE.Vector3())).normalize();
+T.updateMatrixWorld(true);
+console.log('REST pelvis->Head',f(dir(B.pelvis,B.Head)),'thigh_l->calf',f(dir(B.thigh_l,B.calf_l)),'upperarm_l->lower',f(dir(B.upperarm_l,B.lowerarm_l)), 'pelvisW', f(B.pelvis.getWorldPosition(new THREE.Vector3())));
+const m=new THREE.AnimationMixer(T);const c=lib.clips.find(c=>c.name==='Idle_Loop');m.clipAction(c).play();m.update(0.01);T.updateMatrixWorld(true);
+console.log('IDLE pelvis->Head',f(dir(B.pelvis,B.Head)),'thigh_l->calf',f(dir(B.thigh_l,B.calf_l)),'upperarm_l->lower',f(dir(B.upperarm_l,B.lowerarm_l)),'pelvisW', f(B.pelvis.getWorldPosition(new THREE.Vector3())));
+console.log('tracks',c.tracks.slice(0,4).map(t=>t.name+':'+Array.from(t.values.slice(0,4)).map(x=>x.toFixed(2))).join(' | '));
+console.log('pelvis parent',B.pelvis.parent.name,B.pelvis.parent.type, f(B.pelvis.parent.quaternion), f(B.pelvis.quaternion));
+window.renderFrame=()=>{};window.ready=true;
+</script></body></html>

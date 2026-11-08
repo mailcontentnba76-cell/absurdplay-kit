@@ -14,7 +14,7 @@ const ground=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandar
 const cc=document.createElement('canvas');cc.width=1024;cc.height=256;const h=cc.getContext('2d');h.fillStyle='#2a3150';h.fillRect(0,0,1024,256);for(let y=0;y<256;y+=8)for(let x=0;x<1024;x+=6){h.fillStyle=`hsl(${Math.random()*360},55%,${45+Math.random()*30}%)`;h.fillRect(x+1,y+1,4,6);}
 const ct=new THREE.CanvasTexture(cc);ct.colorSpace=THREE.SRGBColorSpace;ct.wrapS=THREE.RepeatWrapping;ct.repeat.set(3,1);
 const stand=new THREE.Mesh(new THREE.PlaneGeometry(90,18),new THREE.MeshBasicMaterial({map:ct}));stand.position.set(0,10,-25);stand.rotation.x=-0.5;s.add(stand);
-const gl=await new GLTFLoader().loadAsync('./assets/ual/AnimationLibrary_Godot_Standard.gltf');
+const gl=await new GLTFLoader().loadAsync('./ual/AnimationLibrary_Godot_Standard.gltf');
 const A=makeAthlete(gl,{jersey:'#f4f4f4',pants:'#aeb4bf',socks:'#0b2a5b',shoes:'#ffffff',number:4,helmet:'#c9ced6',mask:'#0b2a5b',skin:'#7a4a30'});
 A.root.position.set(-0.55,0,0);A.root.rotation.y=0.15;s.add(A.root);A.play('Idle_Talking_Loop');
 const B=makeAthlete(gl,{jersey:'#ff6fae',pants:'#ffffff',socks:'#ff6fae',shoes:'#ffffff',number:1,numberColor:'#ffffff',numberOutline:'#c2185b',helmet:'#ffffff',mask:'#ff6fae',skin:'#c58c62',scale:0.5,headScale:1.5});

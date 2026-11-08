@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose} from './lib/tuthe.js';
+import {locoLock,loco,clipPose,clipDur,measureStride} from './lib/dongtac.js';
+const lib=await loadLibrary();window.LK=location.hash.includes('lk');
+const A=makeCharacter(lib,{...EAGLES,number:7,heightM:1.78,helmet:null});resetPose(A);
+const V=()=>new THREE.Vector3();
+for(const n of ['MX_Jogging','MX_Running','MX_Sprint','MX_Slow_Jog_Backwards','MX_Run_To_Stop']){const d=clipDur(A,lib,n);const r=[];for(let i=0;i<=12;i++){clipPose(A,lib,[{name:n,time:d*i/12,w:1}]);A.root.updateMatrixWorld(true);const p=A.bones.pelvis.getWorldPosition(V()),f=A.bones.foot_l.getWorldPosition(V());r.push(`p${p.z.toFixed(2)}/f${f.y.toFixed(2)},${f.z.toFixed(2)}`);}
+ console.log(n,d.toFixed(2),'stride',measureStride(A,lib,n).toFixed(2),'vnat',(measureStride(A,lib,n)/d).toFixed(2));}
+for(const n of ['MX_Jogging','MX_Running','MX_Sprint']){const d=clipDur(A,lib,n);const r=[];A.root.position.set(0,0,0);A.root.rotation.set(0,0,0);A.root.scale.setScalar(1);for(let i=0;i<30;i++){clipPose(A,lib,[{name:n,time:d*i/30,w:1}]);A.root.updateMatrixWorld(true);const b=A.bones.ball_l.getWorldPosition(V());r.push(b.y.toFixed(3)+'/'+b.z.toFixed(2));}console.log('Y',n,r.join(' '));}
+for(const [g,v] of [['MX_Jogging',1.14],['MX_Jogging',2.5],['MX_Running',5.8],['MX_Sprint',5.6],['MX_Sprint',7]]){let s=0,n=0;let prev=null;for(let t=0.5;t<3;t+=1/30){(window.LK?locoLock:loco)(A,lib,t,(tt)=>[v*tt,0],{t0:0,gait:g});A.root.updateMatrixWorld(true);
+ const fl=A.bones.ball_l.getWorldPosition(V()),fr=A.bones.ball_r.getWorldPosition(V());const f=fl.y<fr.y?fl:fr;const k=fl.y<fr.y?'l':'r';
+ if(prev&&prev.k===k&&f.y<0.06){s+=Math.abs(f.x-prev.x);n++;}prev={k,x:f.x};}console.log(g,'v',v,'avg planted-foot slip/frame m',(s/n).toFixed(3),'body/frame',(v/30).toFixed(3));}
+window.renderFrame=()=>{};window.ready=true;
+</script></body></html>

@@ -2,19 +2,35 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v0.9 (07/11/2026)
+# Sport USA "What If" — v1.0 (08/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
-Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11. E06 "Baker Mayfield vs 11 umbrellas" (NFL, 65,8 s): đã giao 06/11.
+Đã giao: E01 "Cowboys vs 50 Grandmas" (NFL), E02 "Giannis vs his old team" (NBA), E03 "Chargers vs 11 mannequins" (NFL). E04 "Eagles vs 11 inflatable tube men" (NFL): đã giao 05/11. E05 "Bulls vs 5 snowmen" (NBA): đã giao 05/11. E06 "Baker Mayfield vs 11 umbrellas" (NFL, 65,8 s): đã giao 06/11. E07 "Jaguars vs 11 suitcases" (NFL, 80,1 s, Mixamo + khoá bàn chân): đã giao 08/11. **Đang mở:** E08 — kịch bản dự phòng "Colts vs 11 garage sale items" (hook "What the f***"), chủ dự án muốn chờ kết quả trận tuần 9 (Chủ nhật 08/11 giờ Mỹ) rồi chọn trận hot nhất để viết; lịch hẹn cũ ở tài khoản cũ KHÔNG chuyển sang → hỏi người dùng có muốn đặt lại lịch kiểm tra kết quả không.
 
 ## Khởi động (đọc đầu tiên, nhất là ở tài khoản/máy mới)
-- **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA".
-- Bộ hồ sơ đầy đủ nằm ở `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO/`. Chưa có → (1) người dùng đính kèm `AbsurdPlay_P01_bo_ho_so.zip` → giải nén vào `/root/work/`, hoặc (2) clone GitHub `mailcontentnba76-cell/absurdplay-kit` nếu tài khoản có quyền.
-- Engine: `cp -r du_an/P01_sport_usa_whatif/engine /root/work/engine && cd /root/work/engine && npm install` (three r170, postprocessing, realism-effects, camera-controls, simplex-noise, @fontsource/*), rồi BẮT BUỘC `python3 patches/va_realism_effects_three170.py` (vá motion blur cho three r170; chạy lại sau mỗi lần npm install, thiếu thì render có motion blur báo `INVALID_OPERATION`); Playwright + Chromium có sẵn trong môi trường (không cài lại). Python: faster-whisper, numpy (`pip install --break-system-packages faster-whisper`); ffmpeg, melt (MLT) cho Kdenlive.
-- **Âm thanh KHÔNG có trong gói** (theo yêu cầu chủ dự án): nhạc/SFX CC0 tải lại theo `tai_nguyen/am_thanh/README.md` (git clone sfx-kit, alvana-audio, Free-SFX, Meta-open-sound vào `/root/work/assets/audio`); tiếng sân đấu Magnific (`magnific_sfx/`) → nhờ người dùng tạo lại bằng Magnific Sound Effects hoặc đính kèm. `tron_am_thanh.py` của mỗi tập ghi rõ file nào dùng ở giây nào.
-- Giọng clone "Sport USA" nằm trong tài khoản Magnific của người dùng (không chuyển được qua gói): tài khoản Claude mới chỉ cần Claude in Chrome đăng nhập sẵn Magnific, hoặc người dùng tự tạo giọng và đính kèm mp3.
-- Chạy thử engine: `node render.js "ep04.html#nomb" out_test 30 0 1 360 640 30,300,900` → có 3 ảnh là engine chạy đúng.
+- **Trả lời người dùng bằng tiếng Việt.** Kênh TikTok: **AbsurdPlay**; dự án P01 "Sport USA". Người dùng không rành kỹ thuật: mỗi thứ thiếu → nói rõ thiếu gì, vì sao cần, đề xuất 1 cách dễ nhất, làm từng bước, xong bước nào báo bước đó.
+- **Gói chuyển tài khoản (1 file):** `AbsurdPlay_SportUSA_goi_chuyen_v1.0.zip`. Giải nén: `mkdir -p /root/work && cd /root/work && unzip -q <file>.zip` → có `BO_HUONG_DAN_SAN_XUAT_VIDEO/` (bộ hồ sơ đầy đủ) và `BAT_DAU_DAY.md`. Hoặc clone GitHub `mailcontentnba76-cell/absurdplay-kit` nếu tài khoản có quyền (repo không có file FBX Mixamo và tiếng Magnific; gói zip thì có).
+- **Cài skill cho tài khoản mới:** đọc `BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P01_sport_usa_whatif/skill/sport-usa-whatif/SKILL.md` rồi đề xuất lưu bằng công cụ `propose_skills` (người dùng bấm lưu trên thẻ); trong lúc chờ cứ làm theo file này.
+- **Kiểm môi trường theo thứ tự — làm được thì tự làm, cần người dùng thì hỏi từng việc một:**
+  1. Công cụ hệ thống: `node -v` (≥18), `ffmpeg -version` (có libass), `melt --version`, `python3 -c "import numpy"`, Playwright/Chromium (`node -e "require('playwright')"` trong engine hoặc `npx playwright --version`). Thiếu → `apt-get install -y ffmpeg melt` / `pip install --break-system-packages faster-whisper numpy` / `npm i playwright && npx playwright install chromium`. Mạng bị chặn → báo người dùng bật tên miền trong Settings → Capabilities (npm, pypi, github, huggingface.co cho mô hình whisper).
+  2. Engine: `cp -r BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P01_sport_usa_whatif/engine /root/work/engine && cd /root/work/engine && npm install` (three r170, postprocessing, realism-effects, camera-controls, simplex-noise, @fontsource/*), rồi BẮT BUỘC `python3 patches/va_realism_effects_three170.py`. Mixamo FBX nằm ở `engine/assets/mixamo/` (gói zip có sẵn; nếu thiếu → nhờ người dùng tải lại theo mục 4 "Mixamo").
+  3. Chạy thử: `node render.js "test_run6.html" out_test 30 0 30 360 640` (người chạy Mixamo) và `node render.js "ep07.html#nomb" out_test2 30 0 1 360 640 30,600,1500` → có ảnh là đạt. Lỗi `INVALID_OPERATION` → chưa chạy bản vá.
+  4. Âm thanh: `magnific_sfx/` (tiếng sân đấu do chủ dự án tạo) có trong gói → `cp -r .../tai_nguyen/am_thanh/magnific_sfx /root/work/assets/audio/`. Thư viện CC0 (nhạc + SFX) KHÔNG có trong gói (≈1,8 GB) → `git clone --depth 1` 4 kho theo `tai_nguyen/am_thanh/README.md` vào `/root/work/assets/audio/` (GitHub phải được phép).
+  5. Giọng "Sport USA" nằm trong tài khoản Magnific của người dùng: cần Claude in Chrome (tiện ích trình duyệt) đã đăng nhập tài khoản Claude mới + trình duyệt đã đăng nhập Magnific → Claude nhập kịch bản, bấm Generate; người dùng tải mp3 và đính kèm. Không có Chrome → người dùng tự tạo giọng và gửi mp3.
+  6. GitHub (tuỳ chọn): kết nối GitHub và cấp quyền repo `absurdplay-kit` để lưu tiến độ cuối mỗi tập.
+  7. Báo người dùng bảng "đã sẵn sàng / còn thiếu / bạn cần làm gì", rồi chờ "NFL" hoặc "NBA".
+- Ổ đĩa/RAM: máy 2 CPU, ~8 GB RAM: render 1 tiến trình cho cảnh nặng (sân bay, mưa). Tiến trình nền chết khi phiên dừng → kiểm khung thiếu và render tiếp.
+
+## Hook "What the f***" (chủ dự án yêu cầu từ 08/11)
+- Câu đầu tiên mở bằng "What the fuck?" (hoặc "Fuck.") + một hình ảnh vô lý thấy ngay ở giây 0, rồi mới vào câu "Could…?". Trong âm thanh luôn **bleep** tiếng chửi (BEEP 1 kHz hoặc sfx tone, dải [đầu, cuối] của từ theo words_tw.json); phụ đề ghi "f***". Đây là hook bất ngờ nhưng hài, không xúc phạm ai.
+- **Không dùng người thật ngoài thể thao** (chính trị gia, ca sĩ…) làm nhân vật hay đối thủ. Đối thủ vẫn là đồ vật / con vật nhựa / nhân vật hư cấu.
+- **Ưu tiên kịch bản theo KẾT QUẢ trận vừa đá** của đội đang hot (chủ dự án chốt 08/11): chờ trận xong, chọn kết quả sốc/viral nhất, viết ngay trong ngày. Giờ có kết quả NFL (giờ VN, tháng 11–3): Chủ nhật 13:00 ET → ~04:00 sáng thứ Hai; Sunday Night → ~11:30 trưa thứ Hai; Monday Night → ~11:30 trưa thứ Ba. Có thể đặt lịch tự kiểm (send_later / create_trigger) nếu người dùng muốn.
+
+## Chế độ NBA (khi người dùng nói "NBA")
+- Đã có: E02 (nhà thi đấu Bucks, `ep02.html`), E05 (sân tuyết `lib/tuyet.js`); áo ba lỗ/quần đùi, động tác bóng rổ viết tay trong `lib/bongro*.js`/`tuthe.js` (xem file engine). Không lặp bối cảnh 2 tập này.
+- Động tác mocap bóng rổ: nhờ người dùng tải thêm ở Mixamo (FBX Binary, Without Skin, 30 fps; tích In Place cho vòng lặp) rồi đặt tên đúng: `Dribble` (Basketball Dribble/Dribbling), `Jump_Shot`, `Layup`, `Dunk`, `Free_Throw`, `Bounce_Pass`, `Chest_Pass`, `Basketball_Idle`, `Defense_Shuffle`; thêm tên vào `MIXAMO_FILES` trong `lib/nhanvat2.js` (clip thành `MX_<Tên>`). Chưa có thì dùng động tác viết tay cũ + chạy Mixamo cho di chuyển.
+- Tin NBA: `mcp__widgets__fetch_sports_data` (league nba: scores, standings, game_stats) + NBA.com/ESPN/AP; kiểm box score cầu thủ có ra sân.
 
 ## 0. Cách nhận việc (yêu cầu cố định của chủ dự án)
 - **Chờ yêu cầu.** Người dùng nói môn (vd "NFL", "NBA") → tự tìm tin MỚI NHẤT của môn đó (WebSearch + `mcp__widgets__fetch_sports_data` scores/standings/game_stats), chọn tin đáng làm, đề xuất 3 ý tưởng + 1 kịch bản. Chưa dựng video khi kịch bản chưa duyệt.
@@ -124,6 +140,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v1.0 (08/11): gói chuyển tài khoản 1 file (kèm Mixamo FBX + tiếng Magnific), mục Khởi động kiểm từng bước, hook "What the f***" có bleep, ưu tiên kịch bản theo kết quả trận, chế độ NBA + danh sách Mixamo bóng rổ.
 - v0.9 (07/11): động tác Mixamo (retarget tự động, clip MX_*), khoá bàn chân `locoLock`, đoạn hãm Run_To_Stop; E07 sân bay.
 - v0.8 (06/11): chuyển động mocap mượt (`lib/dongtac.js`: loco/clipPose/expr, retarget UAL1→UBC), biểu cảm theo mốc lời cho mọi nhân vật thấy mặt; E06 dựng lại theo quy tắc này.
 - v0.7 (05/11): mẫu mới Drake Maye vs 11 folding chairs (1,1M/18 h) — mở rộng 5 kiểu chủ đề, khuôn lời 10 bước (~55–70 s), nhiều bối cảnh phụ, đồ hoạ kiểu truyền hình, bão hoà ≥ 95, nhịp 35–45 shot.
