@@ -24,3 +24,8 @@
 - 41,58 s, 1080×1920, 20 shot. Giọng turbo stability 0,3 + CHỮ HOA (chủ dự án chọn). Nhân vật e6_chinh/e6_ban/e6_em mới, sân sau hoàng hôn mới, ống vàng chanh là màu nhấn duy nhất.
 - Mới trong engine: ShaderPass góc nhìn qua kính (vòng tròn, mờ, hơi nước), tia sáng + chấm sáng chạy theo đường gương, rèm 2 cánh, hộp khoá, ghế xếp + bỏng ngô; `jog(…, amp)`.
 - 7 SFX mới: gãy chổi, kéo rèm, vòi sen + hát, bé hét, gạt nước, khoá hộp, zoom kính.
+
+## 08/11/2026 — E07 "How you invented the trebuchet" v1 (ý tưởng tự sáng tạo)
+- 41,81 s, 11 shot (mở đầu + kết là 1 cú máy liền), motion blur ở đoạn nhanh, −14,3 LUFS. Tương quan ảnh quanh mọi điểm cắt ≤ 0,23 (không jump cut).
+- Mới: chó dựng bằng khối (`dogPose`: squat/sit/run/sniff), cục phân 3D, máy bắn đá tham số (kéo dây → đối trọng → bánh xe), quỹ đạo parabol `arc()`, đồ hoạ đòn bẩy slow/FAST!, 8 SFX mới.
+- Lưu ý: worker khởi động lại giết tiến trình render → dùng `setsid nohup` và render lại khung thiếu.
