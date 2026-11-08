@@ -1,0 +1,7 @@
+# E08 — "How you invented the bug zapper" (chủ dự án chốt 08/11/2026, đợt 12)
+Lời (turbo v2.5, stability 0,3, CHỮ HOA → rút nghỉ + atempo 1,03 → 41,82 s ≈ 218 từ/phút):
+> A mosquito keeps biting your ass every single night. So you slap it as hard as you can. Except you miss and slap your own face so hard you see stars, so you light a smoky fire to chase it out. Gotcha. But now you're coughing like a chimney and the mosquito is fine, so you hang a fine net over your bed. Except your fat ass rolls over in your sleep and tears right through it, so you build a box with a glowing blue light and a metal grid. Now the light lures them in, and when they touch the grid, a jolt of electricity fries them instantly. But the zap is so loud it wakes the whole fucking street, so you hang it out in the yard. Except grandpa leans on it to scratch his back, so you add a cage. Now every mosquito in town pops like popcorn!
+Bước thật: vỗ → hun khói → màn → đèn UV + lưới điện (1911/1930s) → lồng bảo vệ.
+Nhân vật MỚI: e8_chinh (béo, tóc dài, cởi trần, quần đùi vàng chấm bi), e8_ong (ông nội gầy, pyjama sọc xanh, kính) + muỗi khối hình (có kính râm).
+Bối cảnh MỚI: phòng ngủ đêm trăng (đèn ngủ ấm, cửa sổ trăng) → dãy nhà hàng xóm bật đèn → sân sau ban đêm, võng, cột treo đèn. Màu nhấn: ánh tím đèn bắt muỗi.
+15 shot; mở đầu + kết là cú máy liền; motion blur đoạn nhanh. Cảnh `engine/e8_den_bat_muoi.html`; âm `cong_cu/tron_am.py`; vải `cong_cu/mh_vai_e8.py`.

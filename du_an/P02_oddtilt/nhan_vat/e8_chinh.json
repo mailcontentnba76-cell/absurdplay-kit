@@ -1,0 +1,2 @@
+{"name":"e8_chinh","gender":1,"age":"young","muscle":0.2,"weight":0.85,"height":0.5,"race":{"caucasian":0.6,"african":0.2,"asian":0.2},"skin":"young_caucasian_male/young_caucasian_male.json",
+ "proxies":[{"p":"clothes/ShortJeans/ShortJeans.json","map":"vai/dui_cham_bi.png"},"hair/long01/long01.json","eyebrows/eyebrow001/eyebrow001.json","eyelashes/Eyelashes01/Eyelashes01.json","eyes/HighPolyEyes/HighPolyEyes.json"],"eye_texture":"brown"}

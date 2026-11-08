@@ -1,0 +1,90 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Poppins ExtraBold,105,&H00FFFFFF,&H00FFFFFF,&H00141414,&H96000000,0,0,0,0,100,100,0,0,1,4.5,3.75,5,45,45,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}A mosquito
+Dialogue: 0,0:00:00.72,0:00:01.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}keeps biting
+Dialogue: 0,0:00:01.28,0:00:01.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}your ass
+Dialogue: 0,0:00:01.84,0:00:02.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}every single
+Dialogue: 0,0:00:02.48,0:00:03.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}night.
+Dialogue: 0,0:00:03.12,0:00:03.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:03.44,0:00:03.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}slap it
+Dialogue: 0,0:00:04.00,0:00:04.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}as hard
+Dialogue: 0,0:00:04.56,0:00:05.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}as you can.
+Dialogue: 0,0:00:05.68,0:00:06.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except you
+Dialogue: 0,0:00:06.24,0:00:06.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}miss and
+Dialogue: 0,0:00:06.72,0:00:07.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}slap your
+Dialogue: 0,0:00:07.28,0:00:07.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}own face
+Dialogue: 0,0:00:07.84,0:00:08.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so hard,
+Dialogue: 0,0:00:08.72,0:00:09.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}you see
+Dialogue: 0,0:00:09.20,0:00:09.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}stars,
+Dialogue: 0,0:00:09.84,0:00:10.13,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:10.16,0:00:10.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}light a
+Dialogue: 0,0:00:10.48,0:00:11.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}smoky fire
+Dialogue: 0,0:00:11.20,0:00:11.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}to chase
+Dialogue: 0,0:00:11.60,0:00:11.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it out,
+Dialogue: 0,0:00:12.00,0:00:12.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Gotcha!
+Dialogue: 0,0:00:12.64,0:00:12.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But now
+Dialogue: 0,0:00:12.88,0:00:13.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}you're coughing
+Dialogue: 0,0:00:13.52,0:00:13.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}like a
+Dialogue: 0,0:00:13.76,0:00:14.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}chimney and
+Dialogue: 0,0:00:14.32,0:00:14.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the mosquito
+Dialogue: 0,0:00:14.88,0:00:15.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}is fine,
+Dialogue: 0,0:00:15.52,0:00:15.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so you
+Dialogue: 0,0:00:15.84,0:00:16.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hang a
+Dialogue: 0,0:00:16.24,0:00:16.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fine net
+Dialogue: 0,0:00:16.88,0:00:17.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}over your bed.
+Dialogue: 0,0:00:17.84,0:00:18.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except your
+Dialogue: 0,0:00:18.32,0:00:18.77,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fat ass
+Dialogue: 0,0:00:18.80,0:00:19.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}rolls over
+Dialogue: 0,0:00:19.28,0:00:19.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}in your
+Dialogue: 0,0:00:19.52,0:00:19.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}sleep and
+Dialogue: 0,0:00:20.00,0:00:20.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}tears right
+Dialogue: 0,0:00:20.64,0:00:21.09,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}through it.
+Dialogue: 0,0:00:21.12,0:00:21.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:21.44,0:00:21.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}build a
+Dialogue: 0,0:00:21.84,0:00:22.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}box with
+Dialogue: 0,0:00:22.40,0:00:22.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}a glowing
+Dialogue: 0,0:00:22.88,0:00:23.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}blue light
+Dialogue: 0,0:00:23.44,0:00:23.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and a
+Dialogue: 0,0:00:23.68,0:00:24.61,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}metal grid.
+Dialogue: 0,0:00:24.64,0:00:24.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now the
+Dialogue: 0,0:00:24.96,0:00:25.57,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}light lures
+Dialogue: 0,0:00:25.60,0:00:26.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}them in,
+Dialogue: 0,0:00:26.08,0:00:26.29,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}and when
+Dialogue: 0,0:00:26.32,0:00:26.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}they touch
+Dialogue: 0,0:00:26.72,0:00:27.25,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the grid,
+Dialogue: 0,0:00:27.28,0:00:27.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}a jolt
+Dialogue: 0,0:00:27.68,0:00:28.37,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}of electricity
+Dialogue: 0,0:00:28.40,0:00:29.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}fries them
+Dialogue: 0,0:00:29.04,0:00:29.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}instantly.
+Dialogue: 0,0:00:29.76,0:00:29.97,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}But the
+Dialogue: 0,0:00:30.00,0:00:30.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}zap is
+Dialogue: 0,0:00:30.56,0:00:30.93,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}so loud
+Dialogue: 0,0:00:30.96,0:00:31.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it wakes
+Dialogue: 0,0:00:31.36,0:00:31.73,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the whole
+Dialogue: 0,0:00:31.76,0:00:33.01,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}FUCKING street.
+Dialogue: 0,0:00:33.04,0:00:33.33,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:33.36,0:00:33.65,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}hang it
+Dialogue: 0,0:00:33.68,0:00:33.89,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}out in
+Dialogue: 0,0:00:33.92,0:00:34.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}the yard.
+Dialogue: 0,0:00:34.56,0:00:35.41,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Except grandpa
+Dialogue: 0,0:00:35.44,0:00:35.81,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}leans on
+Dialogue: 0,0:00:35.84,0:00:36.05,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}it to
+Dialogue: 0,0:00:36.08,0:00:36.53,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}scratch his
+Dialogue: 0,0:00:36.56,0:00:36.85,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}back.
+Dialogue: 0,0:00:36.88,0:00:37.17,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}So you
+Dialogue: 0,0:00:37.20,0:00:37.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}add a
+Dialogue: 0,0:00:37.52,0:00:38.21,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}cage.
+Dialogue: 0,0:00:38.24,0:00:38.69,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Now every
+Dialogue: 0,0:00:38.72,0:00:39.49,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}mosquito in
+Dialogue: 0,0:00:39.52,0:00:40.45,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}town pops.
+Dialogue: 0,0:00:40.48,0:00:41.82,Sub,,0,0,0,,{\pos(540,1150)\fscx86\fscy86\t(0,90,\fscx100\fscy100)}Like popcorn!
