@@ -29,3 +29,8 @@
 - 41,81 s, 11 shot (mở đầu + kết là 1 cú máy liền), motion blur ở đoạn nhanh, −14,3 LUFS. Tương quan ảnh quanh mọi điểm cắt ≤ 0,23 (không jump cut).
 - Mới: chó dựng bằng khối (`dogPose`: squat/sit/run/sniff), cục phân 3D, máy bắn đá tham số (kéo dây → đối trọng → bánh xe), quỹ đạo parabol `arc()`, đồ hoạ đòn bẩy slow/FAST!, 8 SFX mới.
 - Lưu ý: worker khởi động lại giết tiến trình render → dùng `setsid nohup` và render lại khung thiếu.
+
+## 08/11/2026 — E08 "How you invented the bug zapper" v1
+- 41,82 s, 15 shot, −14,7 LUFS; tương quan ảnh quanh điểm cắt ≤ 0,51 (không jump cut). Cảnh đêm (phòng ngủ trăng + sân sau), ánh tím đèn bắt muỗi là màu nhấn.
+- Mới: muỗi khối hình (cánh đập, kính râm), hàm `lie()` (nằm sấp/ngửa/lăn), màn chống muỗi xé đôi, đèn bắt muỗi tham số (khung/ống UV/lưới/lồng), tia lửa điện sprite, dãy nhà bật đèn từng ô cửa.
+- Worker khởi động lại vẫn giết cả tiến trình `setsid` → sau mỗi lần khởi động lại phải kiểm và render tiếp khung thiếu.
