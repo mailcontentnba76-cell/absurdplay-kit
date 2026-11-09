@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 10: đồ hoạ "giấy da trung cổ" — thẻ giấy da vàng úa viền nâu cháy, dải ruy băng đỏ thẫm, dấu sáp đỏ; thẻ Curry xanh hoàng gia viền vàng. Khác E01–E09. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:radial-gradient(ellipse at 50% 40%,#f4e4bc 0%,#e6cf98 70%,#c9a868 100%);color:#3a2410;border:6px solid #5a3a1a;border-radius:6px;box-shadow:0 0 0 4px #c9a868,0 14px 26px rgba(30,15,0,.45),inset 0 0 40px rgba(120,80,30,.45);padding:14px 44px 14px;white-space:nowrap;text-align:center}
+.k::after{content:'';position:absolute;right:-26px;top:-26px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#d8434a 0%,#9a1a22 60%,#6a0e14 100%);box-shadow:0 4px 8px rgba(0,0,0,.4)}
+.gs{background:linear-gradient(180deg,#2a55a8 0%,#1D428A 70%,#132e66 100%);color:#fff;border-color:#FFC72C;box-shadow:0 0 0 4px #132e66,0 14px 26px rgba(0,0,0,.4);-webkit-text-stroke:2px #0b1c40;paint-order:stroke fill}.gs::after{display:none}
+.rb{background:linear-gradient(180deg,#a5262e,#7a1a20);color:#f4e4bc;border-color:#3a0e10;-webkit-text-stroke:2px #3a0e10;paint-order:stroke fill}.rb::after{display:none}
+.big{font-size:150px;line-height:1}.mid{font-size:94px;line-height:1.05}.sm{font-size:64px;line-height:1.1}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:5px;color:#7a4e1e;margin-bottom:4px;-webkit-text-stroke:0}.gs .lab{color:#FFC72C}.rb .lab{color:#f0c8b0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#f4e4bc;-webkit-text-stroke:16px #3a2410;paint-order:stroke fill;text-shadow:0 12px 0 #9a1a22}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#3a2410;background:#f4e4bc;border:6px solid #3a2410;padding:6px 26px;border-radius:8px}
+.date{top:700px;font-size:120px;color:#f4f0e6;-webkit-text-stroke:6px #111;paint-order:stroke fill;letter-spacing:6px}
+.stamp{top:620px;font-size:190px;color:#FFC72C;-webkit-text-stroke:10px #132e66;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{background:#1D428A;color:#fff;font-size:64px;padding:4px 26px;border-left:14px solid #FFC72C}.lt .d{background:#f4e4bc;color:#3a2410;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px;border-left:14px solid #9a1a22}
+.lt.med .n{background:#5a3a1a;border-left-color:#9a1a22}
+#flash{position:absolute;inset:0;background:#fff8e6;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(40,20,5,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el lt" id="n1"><div class="n">STEPH CURRY</div><div class="d">#30 · GOLDEN STATE · AGE 38</div></div>
+<div class="el k mid" id="title" style="top:1440px">CURRY <span style="color:#9a1a22">vs</span> AGINCOURT</div>
+<div class="el k rb sm" id="deadly" style="top:420px">DEADLIEST SHOOTERS OF THE MIDDLE AGES</div>
+<div class="el k gs" id="pts" style="top:420px"><span class="lab">SAT vs ORLANDO</span><span class="big">41 PTS</span></div>
+<div class="el k gs" id="fg" style="top:420px"><span class="lab">FIELD GOALS</span><span class="big">13 / 19</span></div>
+<div class="el k gs" id="ft" style="top:420px"><span class="lab">FREE THROWS · IN OT</span><span class="big">10 / 10</span></div>
+<div class="el k gs" id="k4" style="top:420px"><span class="lab">CAREER MADE THREES · NBA RECORD</span><span class="big">4,000+</span></div>
+<div class="el date" id="date">OCTOBER 25, 1415</div>
+<div class="el k sm" id="field" style="top:1430px">NORTHERN FRANCE · A MUDDY FIELD</div>
+<div class="el k" id="rate" style="top:420px"><span class="lab">ENGLISH LONGBOWMEN</span><span class="mid">~10 ARROWS / MIN</span></div>
+<div class="el k sm" id="ball1" style="top:420px">1 BALL</div><div class="el k sm" id="hoop1" style="top:420px">1 HOOP</div><div class="el k rb sm" id="clock" style="top:420px">SHOT CLOCK: NONE</div>
+<div class="el k rb sm" id="vol1" style="top:420px">VOLLEY #1</div>
+<div class="el k gs" id="range" style="top:420px"><span class="lab">SHOT DISTANCE</span><span class="big">200 YDS</span></div>
+<div class="el stamp" id="sp1">SPLASH</div><div class="el stamp" id="sp2">SPLASH</div>
+<div class="el k sm" id="nn1" style="top:1430px">NIGHT NIGHT 😴</div><div class="el k sm" id="nn2" style="top:1430px">NIGHT NIGHT 😴</div>
+<div class="el k rb sm" id="knights" style="top:420px">FRENCH CAVALRY</div>
+<div class="el k gs mid" id="and1" style="top:420px">AND-ONE</div>
+<div class="el k rb sm" id="vols" style="top:420px">VOLLEY · VOLLEY · VOLLEY</div>
+<div class="el lt med" id="desk"><div class="n">MONK SPORTS DESK</div><div class="d">HALFTIME · FICTIONAL</div></div>
+<div class="el k sm" id="best" style="top:1430px">GREATEST SHOOTING OF THE 15TH CENTURY</div>
+<div class="el k rb sm" id="final" style="top:420px">FINAL VOLLEY</div>
+<div class="el k" id="fin" style="top:420px"><span class="lab">FINAL</span><span class="mid"><span style="color:#1D428A">CURRY 213</span> · ARCHERS 0</span></div>
+<div class="el k sm" id="nohoop" style="top:1430px">ARROWS: NO HOOP, NO POINTS</div>
+<div class="el lt" id="sir"><div class="n">SIR STEPHEN CURRY</div><div class="d">KNIGHTED · AGINCOURT 1415</div></div>
+<div class="el k gs sm" id="tip" style="top:420px">TIP-OFF TONIGHT · DON'T BE LATE</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep10_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['n1',1.3,SH.s2[1]],['title',3.4,SH.s3[1]],['deadly',6.3,SH.s4[1]],['pts',10.4,SH.s5[1]],['fg',12.7,SUB.s6],['ft',SUB.s6,SH.s6[1]],['k4',20.2,SH.s7[1]],
+ ['date',23.2,SH.s8[1]],['field',25.6,SH.s9[1]],['rate',30.0,SH.s10[1]],['ball1',SH.s12[0],SH.s12[1]],['hoop1',SH.s13[0],SH.s13[1]],['clock',SH.s14[0],SH.s14[1]],['vol1',37.6,SH.s15[1]],['range',41.6,SH.s17[1]],
+ ['sp1',SH.s18[0],SH.s18[1]],['nn1',SH.s19[0],SH.s19[1]],['knights',45.1,SH.s20[1]],['and1',SUB.s21,SH.s21[1]],['vols',51.6,SH.s23[1]],['sp2',SH.s25[0],SH.s25[1]],['nn2',SH.s26[0],SH.s26[1]],
+ ['desk',57.5,SUB.s27],['best',59.4,SH.s27[1]],['final',SH.s28[0],SH.s28[1]],['fin',67.3,SUB.s31],['nohoop',SUB.s31,SH.s31[1]],['sir',72.9,SH.s32[1]],['tip',75.5,SH.s33[1]]];
+const POP=['wtf','sp1','sp2','and1','date'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k;
+    const rot=e.id.startsWith('sp')?-8+(1-k)*-16:pop&&e.id!=='date'?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const fl=(t0)=>{const f=(t-t0)*30;return f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};$('flash').style.opacity=Math.max(fl(SH.s4[0]),fl(SH.s11[0]+0.3),fl(SH.s8[0]));
+};
+</script></body></html>

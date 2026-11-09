@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildBattlefield,battleLights,archerArmy,arrowStorm,makeKnight,castleHall} from './lib/chientruong.js';
+import {hoop} from './lib/nba.js';
+import {loadLibrary} from './lib/nhanvat2.js';import {CURRY,MONK} from './lib/cast10.js';import {clipPose} from './lib/dongtac.js';import {place} from './lib/bongro_mx.js';
+await Promise.all(['100px Anton','900 60px Inter'].map(f=>document.fonts.load(f)));
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const B=buildBattlefield(s);battleLights(s,B.sunDir);
+const AR=archerArmy(s,{n:1400,blocks:[[-16,-24,10,48]]});const ST=arrowStorm(s,AR.pos,{n:900});
+const hp=hoop(1,{pad:'#5b4632'});hp.position.set(12,0,0);s.add(hp);
+const K=[];for(let i=0;i<10;i++){const k=makeKnight({seed:i+1});k.root.rotation.y=Math.PI;k.root.position.set(30+(i%3)*3,0,-10+i*2.2);s.add(k.root);K.push(k);}
+const HALL=castleHall(new THREE.Vector3(0,0,500));s.add(HALL.group);
+const lib=await loadLibrary();const CU=CURRY(lib);s.add(CU.root);CU.root.traverse(o=>{if(o.isMesh)o.castShadow=true});clipPose(CU,lib,[{name:'Idle_Loop',time:0.4,w:1}]);place(CU,2,0,Math.PI/2,0);
+const M1=MONK(lib,0),M2=MONK(lib,1);[M1,M2].forEach((m,i)=>{s.add(m.root);clipPose(m,lib,[{name:'Idle_Talking_Loop',time:i,w:1}]);place(m,-0.8+i*1.6,500-4.0,0,0);});
+const cam=new THREE.PerspectiveCamera(50,W/H,0.1,2000);const f=new THREE.DirectionalLight('#fff',0.7);cam.add(f);s.add(cam);
+window.renderFrame=t=>{const v=location.hash;B.update(t,{dark:v==='#volley'?0.4:0});B.rainTick(t,cam.position.x,cam.position.z,1);AR.U.uT.value=t;AR.U.uDraw.value=v==='#draw'||v==='#volley'?1:0;AR.U.uAim.value=0.6;
+  ST.update(v==='#volley'?2.0:0,[{t0:0,T:2.4,target:[4,0],spread:[24,30],apex:40}]);K.forEach((k,i)=>k.update(t+i*0.2,{dist:t*7+i}));HALL.update(t);
+  if(v==='#hall'){cam.position.set(0,1.9,500+2.6);cam.lookAt(0,1.6,500-4);cam.fov=50;}
+  else if(v==='#draw'){cam.position.set(-6,1.2,6);cam.lookAt(-16,2.0,0);cam.fov=55;}
+  else if(v==='#volley'){cam.position.set(3,1.4,3);cam.lookAt(-4,14,0);cam.fov=62;}
+  else if(v==='#knights'){cam.position.set(22,1.6,8);cam.lookAt(31,1.6,-2);cam.fov=50;}
+  else if(v==='#curry'){CU.root.updateMatrixWorld(true);const h=CU.bones.Head.getWorldPosition(new THREE.Vector3());cam.position.set(h.x+1.0,h.y+0.08,h.z+0.05);cam.lookAt(h.x,h.y+0.08,h.z);cam.fov=34;}else if(v==='#curryS'){CU.root.updateMatrixWorld(true);const h=CU.bones.Head.getWorldPosition(new THREE.Vector3());cam.position.set(h.x+0.6,h.y+0.08,h.z+0.8);cam.lookAt(h.x,h.y+0.08,h.z);cam.fov=34;}
+  else{cam.position.set(-4,9,26);cam.lookAt(4,1.5,0);cam.fov=55;}
+  cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>
