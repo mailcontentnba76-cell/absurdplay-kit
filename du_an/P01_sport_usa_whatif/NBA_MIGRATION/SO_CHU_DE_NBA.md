@@ -14,3 +14,11 @@ Kiểm lúc ~09:50 giờ VN 08/11. Không đảm bảo viral; xếp theo: sức 
 | dự phòng | (c) kỷ lục | Luka Dončić 53 điểm vs Blazers 06/11 (ET), Lakers 8–2 | chỉ thấy trong ESPN JSON; tuyên bố "ngang Oscar Robertson" CHƯA kiểm được | ESPN JSON | — |
 
 **Đề xuất của Claude: #1 Wembanyama** (tin tích cực, hình ảnh chiều cao rất dễ hiểu trong 1 giây, đã đủ 2 nguồn). Cập nhật lại danh sách sau ~13:30 VN khi trận đêm 07/11 (ET) xong.
+
+## Danh sách ngắn 09/11/2026 (NBA + NCAA; dữ liệu tới hết 08/11 giờ Mỹ)
+| # | Kiểu | Ý | Sự thật đã kiểm | Nguồn | Ghi chú |
+|---|---|---|---|---|---|
+| 1 ⭐ | (a) troll đội thua | **"Could the four worst teams in the NBA beat 5 traffic cones?"** | Bucks/Kings/Jazz 1-9, Bulls 1-8 → 4-35; Jazz L8, Bulls L7, Bucks L6; Bulls thắng Bucks 132–125 | ESPN JSON (chính thức); báo chưa đăng | → E09, kịch bản v1 |
+| 2 | (d) cột mốc | Steph Curry (38 tuổi) 41 điểm, 13/19, 10/10 ném phạt, Warriors 126–119 Magic hiệp phụ (07/11) | ESPN box score | cần nguồn 2 |
+| 3 | (e) ông lớn sa sút (NCAA) | Oklahoma thua East Texas A&M 68–64 (02/11), đội bị dự đoán bét Southland, kèo chấp 28,5 | ESPN JSON + CBS Sports + NCAA.com | đủ nguồn |
+| loại | NCAA | Bethesda thua 143–49 / 116–43 / 130–56 | ESPN ghi 2 trận cùng giờ ở 2 bang → dữ liệu mâu thuẫn | KHÔNG dùng |
