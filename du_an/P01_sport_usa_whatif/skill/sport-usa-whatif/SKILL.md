@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.3 (09/11/2026)
+# Sport USA "What If" — v1.4 (09/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -24,6 +24,7 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 
 ## Hook "What the f***" (chủ dự án yêu cầu từ 08/11)
 - Câu đầu tiên mở bằng "What the fuck?" (hoặc "Fuck.") + một hình ảnh vô lý thấy ngay ở giây 0, rồi mới vào câu "Could…?". Trong âm thanh luôn **bleep** tiếng chửi (BEEP 1 kHz hoặc sfx tone, dải [đầu, cuối] của từ theo words_tw.json); phụ đề ghi "f***". Đây là hook bất ngờ nhưng hài, không xúc phạm ai.
+- **Hình mở đầu = pha lao vào tranh chấp (chủ dự án yêu cầu từ 09/11):** giây 0 không để cầu thủ đứng yên — đội chính chạy nước rút (`locoLock` gait `MX_Sprint`, xuất phát trước t=0 để đã đang chạy) lao vào hàng "đối thủ" vô lý; va chạm ~0,7 s; đối thủ bật/văng; 2 góc máy (thấp bám theo người chạy → cao nhìn chỗ va chạm), rung máy 0,012–0,02. Tiếng: football_hit mỗi cú chạm + crowd_roar + whoosh. Góc máy phải CÙNG HƯỚNG với shot sau (không lật 180°).
 - **Không dùng người thật ngoài thể thao** (chính trị gia, ca sĩ…) làm nhân vật hay đối thủ. Đối thủ vẫn là đồ vật / con vật nhựa / nhân vật hư cấu.
 - **Ưu tiên kịch bản theo KẾT QUẢ trận vừa đá** của đội đang hot (chủ dự án chốt 08/11): chờ trận xong, chọn kết quả sốc/viral nhất, viết ngay trong ngày. Giờ có kết quả NFL (giờ VN, tháng 11–3): Chủ nhật 13:00 ET → ~04:00 sáng thứ Hai; Sunday Night → ~11:30 trưa thứ Hai; Monday Night → ~11:30 trưa thứ Ba. Có thể đặt lịch tự kiểm (send_later / create_trigger) nếu người dùng muốn.
 
@@ -117,7 +118,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 → cắt thử: nomb 540x960, 15 khung/s + gfx + phụ đề + giọng (ffmpeg) → duyệt
 → đủ: node render.js epXX.html out 30 f0 f1 720 1280 (2 tiến trình, ≈4,4 s/khung)
 → dohoa_render.js → qtrle .mov; tao_phu_de.py; tron_am_thanh.py (nhạc CC0 + SFX theo mốc; tiếng sân đấu thật ưu tiên `magnific/*`: crowd_cheer/roar/boo/gasp/laugh/ambience, ref_whistle, buzzer, sneaker_squeak, ball_dribble, swish, rim_dunk, backboard_bang, stadium_horn, football_hit, football_kick; stinger sad_trombone, organ_charge; crowd_ooh_aah, chant_defense, clap_rhythm, airball_chant, silence_cough, stadium_crowd_outdoor, drumline, camera_flashes — nền khán giả crowd_ambience trải suốt video)
-→ hinh.mp4 (lanczos 1080x1920, eq=saturation chỉnh sao cho bão hoà HSV đo được ≥ 95, unsharp) → tao_kdenlive.py
+→ `cong_cu/hoa_cat.py` (làm mượt điểm cắt: 3 khung đầu mỗi shot hoà với khung cuối shot trước 0,55/0,8/0,95; bỏ qua mốc có chớp trắng) → hinh.mp4 (lanczos 1080x1920, eq=saturation chỉnh sao cho bão hoà HSV đo được ≥ 95, unsharp) → tao_kdenlive.py
 → melt -profile cong_cu/v1080.profile ... -consumer avformat:out.mp4 width=1080 height=1920 progressive=1 frame_rate_num=30 frame_rate_den=1 → loudnorm 2 lượt −14 LUFS/TP −1,5 → QA.md
 ```
 
@@ -150,6 +151,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v1.4 (09/11): hook mở bằng pha lao vào tranh chấp (E11 làm lại); cắt shot phải mượt — giữ hướng máy quay giữa các shot liền nhau (không lật 180°), `cong_cu/hoa_cat.py` hoà 0,1 s ở mỗi điểm cắt trước khi phóng 1080x1920.
 - v1.3 (09/11): E11 Packers vs 11 hình nộm bìa (`lib/trangtrai.js`: trang trại thu, kho thóc gambrel, si-lô, ruộng ngô instanced (2 mặt chéo alpha, không đổ bóng), kiện rơm instanced, bí ngô, `makeCutout` — bìa 2 mặt alphaTest + `customDepthMaterial` cho bóng đổ, chân chống `body.children[2]`, `makeCow` — nằm/đứng/đi, nhai, buồn); màu áo nhân vật bị tối/ngả cam sau tone map → dùng màu sáng hơn màu thật (xanh Packers #2f6f50, vàng #ffd84a); cảnh bóng bay dài: máy quay bám theo bóng (đặt cam trong pose sau rig.apply) thay vì đứng xa; hình nộm bìa nhìn từ biên là cạnh mỏng → máy quay phải ở phía mặt hình; tiếng "moo" tổng hợp bằng numpy khi thư viện thiếu tiếng động vật.
 - v1.2 (09/11): E08 Bears (`lib/sandlot.js`: sân bóng chày đất hoàng hôn, cây lá rộng instanced, nhà dân, `makeGlove` găng có mặt — `pocket()` cho bóng nằm trong găng, `close`/`clap`/`squash`); băng rôn khán đài phải NGẮN (6 bản lặp trên canvas 2048 px, chữ dài sẽ chồng nhau trông như chữ ngược); `flipBanner` tuỳ chọn trong `bleachers`.
 - v1.1 (08/11): chế độ NCAA (kiểm tuổi, không nêu tên tân sinh viên mắc lỗi, mũ trơn); chat Sport USA = NFL + NCAA; E10 Michigan vs 11 cột gôn (`lib/rungthong.js`: rừng thông instanced, cột gôn nhân vật, rìu, mũ len `addBeanie`+`syncBeanie`); Mixamo `Field_Goal` (Strike Forward Jog, chạm bóng 0,42 s); nhân vật `frustumCulled=false` (bị cắt mất khi máy quay gần); khung dọc chỉ ±14,6° ngang → điểm nhìn phải gần nhân vật.

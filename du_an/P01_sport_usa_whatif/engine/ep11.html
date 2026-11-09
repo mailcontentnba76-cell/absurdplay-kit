@@ -49,11 +49,13 @@ const rig=new CameraRig(cam,r.domElement,{seed:111});
 const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.006,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
 const LOS=10;const QX=LOS-4.5;
 const GD=[[LOS+2,-4.5],[LOS+2,-1.5],[LOS+2,1.5],[LOS+2,4.5],[LOS+6.5,-5],[LOS+6.5,0],[LOS+6.5,5],[LOS+5,-13],[LOS+5,13],[LOS+14,-5],[LOS+14,5]];
+const HOOK=[{z:-4.5,c:0},{z:-1.5,c:1},{z:0,c:5},{z:1.5,c:2},{z:4.5,c:3}].map((o,i)=>{o.d=[0.06,0,0,0.03,0.09][i];o.x0=o.c===5?LOS-3:LOS-5.5;o.tc=-0.4+o.d+(GD[o.c][0]-0.6-o.x0)/6.1;return o;});window.HOOK=HOOK;
 const FLY=[1,6,8];const FLYTO=[[LOS+3.5,FW/2+10.5],[LOS+6.5,FW/2+13],[LOS+5,FW/2+8.5]];const FLYT=[41.52,42.02,42.74];
 const ST=A.stands;const cowSpot=i=>{const row=[0,1,2,0,1,2,0,1,2,0,1,2][i];return [-15+i*2.6+(row%2)*0.6,(row+1)*0.45,ST.z0-row*0.62-0.05];};
 const WGX=-42,WGZ=-(FW/2+7);const BFX=BARN.x+12.2; // mặt trước kho thóc
 const TDX=FL/2-5,TDZ=-7; // điểm bắt bóng TD
-S('s1',{pos:[QX-5,1.4,3.6],look:[LOS+4,1.6,0]},{pos:[QX-4.4,1.3,3.0],look:[LOS+4,1.7,0]},{fov:[50,46]});
+S('s1',{pos:[LOS-8,0.95,-1.3],look:[LOS+4,1.15,0]},{pos:[LOS-4.2,1.0,-1.1],look:[LOS+5,1.15,0]},{fov:[54,52],shake:0.012,shakeHz:2.2});
+S('s1b',{pos:[LOS-2.6,3.2,-4.2],look:[LOS+3.5,0.7,0.3]},{pos:[LOS-0.8,3.0,-3.6],look:[LOS+5.5,0.7,0.3]},{fov:[54,54],shake:0.018,shakeHz:3});
 S('s2',{pos:[QX-3.2,1.9,1.4],look:[QX+3,2.2,0]},{pos:[QX-2.6,2.2,1.0],look:[QX+12,4.5,-2]},{fov:[48,48]});
 S('s3',{pos:[LOS-1.5,1.6,-5],look:[LOS+6,1.3,-1]},{pos:[LOS-1.5,1.6,3.5],look:[LOS+6,1.3,1.5]},{fov:[46,46],shake:0.003});
 S('s4',{pos:[QX+2.8,1.75,-1.8],look:[QX,1.6,0]},{pos:[QX+2.5,1.72,-1.6],look:[QX,1.6,0]},{fov:[46,44]});
@@ -124,7 +126,11 @@ const pose=t=>{
   rig.apply(t);hideAll();const windy=IN('s19',t)||IN('s20',t)?1:0.2;A.update(t,{wind:windy});LT.follow(cam);
   const sc=t<SH.s11[0]?{home:0,away:0,q:1,clock:'15:00'}:t<SH.s16[0]+0.3?{home:0,away:0,q:1,clock:'14:52'}:t<SH.s24[0]?{home:7,away:0,q:1,clock:'11:10'}:t<SH.s29[0]?{home:63,away:0,q:4,clock:'0:09'}:{home:63,away:0,q:4,clock:'0:00'};A.board.set(sc);
   // s1: Love đối mặt 11 hình nộm
-  if(IN('s1',t)){offense(t);bball(qbShot(t));E(QB,t,[[0,'surprised']],1);defense(t,()=>({wob:0}));}
+  // s1–s1b (HOOK): hàng tấn công Packers lao nước rút vào hàng hình nộm — va chạm, bìa văng ngửa
+  if(IN('s1',t)){bball(qbShot(t));E(QB,t,[[0,'determined']],1);
+    OL.forEach((ch,i)=>{const z=HOOK[i].z,x0=HOOK[i].x0,t0=-0.4+HOOK[i].d;locoLock(ch,lib,t,(tt)=>[x0+6.1*Math.max(0,tt-t0),z],{t0,gait:'MX_Sprint',face:Math.PI/2});E(ch,t,[[0,'determined']],i+2);show(ch);});
+    defense(t,i=>{const h=HOOK.findIndex(o=>o.c===i);if(h<0)return {wob:0};const tc=HOOK[h].tc;const k=cl((t-tc)/0.3);if(k<=0)return {wob:0.004};const [x,z]=GD[i];
+      const g=cAt(i,x+sm(k)*2.6,z+(h-2)*0.2*k,t,{y:Math.sin(Math.PI*k)*0.95,wob:0,kick:true});g.body.rotation.x=-sm(k)*Math.PI/2;g.body.rotation.z=(h%2?1:-1)*0.5*Math.sin(Math.PI*k);return {skip:true};});}
   // s2: Love ném xa (372 yard)
   if(IN('s2',t)){const u=U('s2',t);const w=throwAt(t,u);E(QB,t,[[0,'determined'],[SH.s2[0]+1.5,'proud']],1);offense(t);if(!w.rel)bball(w.hr);else{const q=cl(w.tr/1.6);bball(arc(w.hr,V(LOS+40,2,-6),q,10),q*20);}defense(t,()=>({wob:0}));}
   // s3: hàng thủ đứng im

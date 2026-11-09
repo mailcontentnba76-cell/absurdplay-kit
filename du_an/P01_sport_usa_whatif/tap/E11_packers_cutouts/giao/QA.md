@@ -4,3 +4,4 @@
 - Nhân vật thật: Jordan Love #10, 1,93 m (AP 08/11: 372 yd, 3 TD + 1 TD chạy, 45–27, Packers 6–3, Patriots 5–4; box score Sportradar: 23/29, 0 mất bóng). Cầu thủ khác: số hư cấu, không tên.
 - Không logo (mũ vàng trơn, không chữ G; hình nộm vẽ tay hư cấu, không logo Patriots), biển hư cấu "DAIRYLAND SPORTS RADIO", nhạc alvana upbeat/a-small-town-on-pluto (CC0). Tiếng "moo" tổng hợp. Bò chỉ là khán giả hoạt hình; Love ngã nhẹ, không chấn thương.
 - Sửa sau bản thử: máy quay bám bóng ở cảnh bóng bay (31 s); giấu chân chống khi hình nộm "biến mất" (34,4–37 s).
+- Làm lại hook (09/11 18:20): Packers lao nước rút vào hàng hình nộm, bìa văng; máy quay cùng hướng shot sau; hoà điểm cắt 0,1 s (hoa_cat.py). Âm −14,5 LUFS, đỉnh −1,3 dBFS.
