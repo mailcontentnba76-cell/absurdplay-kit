@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildBattlefield,battleLights,makeKnight,fleurPath,ARMS} from './lib/chientruong.js';
+import {loadLibrary} from './lib/nhanvat2.js';import {KNIGHT,knightKit} from './lib/cast10.js';import {clipPose,expr} from './lib/dongtac.js';import {place} from './lib/bongro_mx.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const B=buildBattlefield(s);battleLights(s,B.sunDir);
+const lib=await loadLibrary();
+const shieldTex=k=>{const cv=document.createElement('canvas');cv.width=128;cv.height=160;const g=cv.getContext('2d');const A=ARMS[k];g.fillStyle=A.f;g.beginPath();g.moveTo(4,4);g.lineTo(124,4);g.lineTo(124,80);g.quadraticCurveTo(124,140,64,156);g.quadraticCurveTo(4,140,4,80);g.closePath();g.fill();g.fillStyle=A.c;fleurPath(g,64,78,52);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;};
+const P=location.hash.slice(1).split(',');const AX=P[0]||'z',ANG=+(P[1]||0.4),VIEW=P[2]||'side';
+const RID=[];const ARM=['fleur','gules','checky','argent'];
+for(let i=0;i<3;i++){const k=makeKnight({seed:i+1,arms:ARM[i],rider:false});k.root.rotation.y=Math.PI;k.root.position.set(i*0.5,0,-i*2.6);s.add(k.root);
+  const ch=KNIGHT(lib,i,ARM[i]);s.add(ch.root);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});const kit=knightKit(ch,ARM[i],shieldTex(ARM[i]));s.add(kit.group);RID.push({k,ch,kit});}
+const fwd=new THREE.Vector3(-1,0,0);
+function seatRider(R,t){const {k,ch,kit}=R;k.update(t,{dist:t*7});clipPose(ch,lib,[{name:'Sitting_Idle_Loop',time:t,w:1}]);
+  for(const [n,sg] of [['thigh_l',1],['thigh_r',-1]]){const b=ch.bones[n];if(AX==='x')b.rotateX(sg*ANG);else if(AX==='y')b.rotateY(sg*ANG);else b.rotateZ(sg*ANG);}
+  place(ch,0,0,-Math.PI/2,0);k.root.updateMatrixWorld(true);ch.root.updateMatrixWorld(true);
+  const st=k.seat.getWorldPosition(new THREE.Vector3()),pv=ch.bones.pelvis.getWorldPosition(new THREE.Vector3());ch.root.position.add(st.sub(pv));ch.root.position.y+=0.1;kit.update(fwd,t);expr(ch,t,[[0,(P[3]||'determined,panic,shock').split(';')[0].split('.')[RID.indexOf(R)%3]||'panic']]);}
+const cam=new THREE.PerspectiveCamera(40,W/H,0.1,500);const fl=new THREE.DirectionalLight('#fff',0.8);cam.add(fl);s.add(cam);s.add(new THREE.HemisphereLight('#dde4ee','#4a3a2a',0.8));
+window.renderFrame=t=>{B.update(t,{});RID.forEach(R=>seatRider(R,t));const R0=RID[0];const h=R0.ch.bones.Head.getWorldPosition(new THREE.Vector3());
+  if(VIEW==='side'){cam.position.set(h.x-0.4,h.y-0.4,h.z+6.5);cam.lookAt(h.x,h.y-0.6,h.z);cam.fov=40;}
+  else if(VIEW==='face'){cam.position.set(h.x-1.3,h.y+0.05,h.z+0.5);cam.lookAt(h.x,h.y+0.02,h.z);cam.fov=32;}
+  else if(VIEW==='front'){cam.position.set(h.x-4,h.y-0.3,h.z+1.2);cam.lookAt(h.x,h.y-0.7,h.z);cam.fov=40;}
+  else {cam.position.set(h.x-6,h.y-0.5,h.z+3);cam.lookAt(h.x,h.y-0.9,h.z-2);cam.fov=50;}
+  cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>

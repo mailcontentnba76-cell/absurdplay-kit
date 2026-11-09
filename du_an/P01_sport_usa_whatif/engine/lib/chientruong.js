@@ -87,8 +87,10 @@ export function archerArmy(scene, o = {}) {
   const box = (w, h, d, x, y, z) => new THREE.BoxGeometry(w, h, d).translate(x, y, z).toNonIndexed();
   const parts = { body: box(0.42, 0.62, 0.26, 0, 1.12, 0), legs: box(0.36, 0.78, 0.22, 0, 0.42, 0), head: new THREE.IcosahedronGeometry(0.13, 1).translate(0, 1.6, 0).toNonIndexed(),
     hat: new THREE.CylinderGeometry(0.2, 0.24, 0.07, 10).translate(0, 1.72, 0).toNonIndexed(), cap: new THREE.SphereGeometry(0.14, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2).translate(0, 1.72, 0).toNonIndexed(),
+    eyeW: new THREE.IcosahedronGeometry(0.048, 0).toNonIndexed(), eyeP: new THREE.IcosahedronGeometry(0.024, 0).toNonIndexed(), brow: box(0.075, 0.018, 0.02, 0, 0, 0), nose: new THREE.IcosahedronGeometry(0.03, 0).toNonIndexed(), mouth: box(0.06, 0.014, 0.02, 0, 0, 0),
+    crossV: box(0.07, 0.4, 0.01, 0, 1.12, 0.135), crossH: box(0.3, 0.07, 0.01, 0, 1.2, 0.135),
     armL: box(0.09, 0.55, 0.09, 0, -0.27, 0), armR: box(0.09, 0.5, 0.09, 0, -0.25, 0), bow: new THREE.TorusGeometry(0.85, 0.018, 4, 18, Math.PI * 0.9).rotateZ(Math.PI * 0.55).rotateY(Math.PI / 2).toNonIndexed() };
-  const tunics = ['#6b5a3a', '#7a2d22', '#4f5a3a', '#8a7a5a', '#5a4a3a', '#6a6a5a', '#7a6040']; const skins = ['#e8c4a0', '#d9a57a', '#f0cbaa', '#c99266'];
+  const tunics = ['#6b5a3a', '#7a2d22', '#4f5a3a', '#8a7a5a', '#5a4a3a', '#cfc4a8', '#b8a888', '#e6e0d0']; const skins = ['#e8c4a0', '#d9a57a', '#f0cbaa', '#c99266'];
   const P = [], C = [], CP = [], PV = []; const v = V(0, 0, 0), cc = new THREE.Color();
   const add = (geo, m, color, cp, piv) => { cc.set(color).convertSRGBToLinear(); const n = geo.attributes.position.count; for (let i = 0; i < n; i++) { v.fromBufferAttribute(geo.attributes.position, i).applyMatrix4(m); P.push(v.x, v.y, v.z); C.push(cc.r, cc.g, cc.b); CP.push(...cp); PV.push(piv.x, piv.y, piv.z); } };
   const blocks = o.blocks ?? [[-20, -24, 6, 48], [-20, -24, 6, 48]];
@@ -97,6 +99,11 @@ export function archerArmy(scene, o = {}) {
   for (const [x, z] of pos) { const ph = r() * 40, s = 0.92 + r() * 0.16; const m = new THREE.Matrix4().compose(V(x, 0, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI / 2 + (r() - 0.5) * 0.15, 0)), V(s, s, s));
     const tun = tunics[Math.floor(r() * tunics.length)], sk = skins[Math.floor(r() * skins.length)]; const zero = V(0, 0, 0);
     add(parts.legs, m, '#3b3328', [0, ph, 0, 0], zero); add(parts.body, m, tun, [1, ph, 0, 0], zero); add(parts.head, m, sk, [1, ph, 0, 0], zero); add(r() < 0.6 ? parts.hat : parts.cap, m, '#8a8f96', [1, ph, 0, 0], zero);
+    // mặt hoạt hình (mắt to, lông mày, mũi, miệng) — cùng kiểu nhân vật chính; ~40% mặc áo dấu thập đỏ Thánh George
+    const T = (x, y, z, rz = 0) => new THREE.Matrix4().compose(V(x, y, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, rz)), V(1, 1, 1)).premultiply(m);
+    for (const k of [-1, 1]) { add(parts.eyeW, T(k * 0.05, 1.625, 0.1), '#f4f1ea', [1, ph, 0, 0], zero); add(parts.eyeP, T(k * 0.05, 1.62, 0.142), '#16110c', [1, ph, 0, 0], zero); add(parts.brow, T(k * 0.05, 1.685, 0.12, k * 0.25), '#2a1c12', [1, ph, 0, 0], zero); }
+    add(parts.nose, T(0, 1.578, 0.125), sk, [1, ph, 0, 0], zero); add(parts.mouth, T(0, 1.535, 0.118), '#4a1a14', [1, ph, 0, 0], zero);
+    if (r() < 0.4 && tun.startsWith('#e') || tun === '#cfc4a8') { add(parts.crossV, m, '#b0202a', [1, ph, 0, 0], zero); add(parts.crossH, m, '#b0202a', [1, ph, 0, 0], zero); }
     const shL = V(0.12, 1.36, 0.06).applyMatrix4(m), shR = V(-0.12, 1.36, 0.06).applyMatrix4(m);
     const mL = new THREE.Matrix4().makeTranslation(0.12, 1.36, 0.06).premultiply(m), mR = new THREE.Matrix4().makeTranslation(-0.12, 1.36, 0.06).premultiply(m);
     add(parts.armL, mL, tun, [2, ph, 0, 0], shL); add(parts.armR, mR, tun, [3, ph, 0, 0], shR);
@@ -142,36 +149,60 @@ export function arrowStorm(scene, src, o = {}) {
 }
 
 // ======================= KỴ SĨ PHÁP (ngựa phi bằng code) =======================
+// Huy hiệu (hư cấu, phong cách Pháp 1415): 'fleur' nền xanh hoa huệ vàng · 'gules' nền đỏ chữ V vàng · 'checky' ô vàng–xanh · 'argent' nền trắng dải chéo đỏ
+export const ARMS = { fleur: { f: '#1f3c8a', c: '#e5c040' }, gules: { f: '#9a1f26', c: '#e5c040' }, checky: { f: '#e5c040', c: '#1f3c8a' }, argent: { f: '#efece4', c: '#9a1f26' } };
+export function fleurPath(g, x, y, s) { g.save(); g.translate(x, y); g.scale(s, s); g.beginPath();
+  g.moveTo(0, -1); g.bezierCurveTo(0.32, -0.62, 0.3, -0.2, 0.08, 0.12); g.lineTo(-0.08, 0.12); g.bezierCurveTo(-0.3, -0.2, -0.32, -0.62, 0, -1); g.fill();
+  for (const k of [-1, 1]) { g.beginPath(); g.moveTo(k * 0.1, 0.1); g.bezierCurveTo(k * 0.5, 0.1, k * 0.95, -0.25, k * 0.62, -0.55); g.bezierCurveTo(k * 0.85, -0.15, k * 0.5, 0.0, k * 0.12, 0.22); g.fill(); }
+  g.fillRect(-0.42, 0.12, 0.84, 0.14); g.beginPath(); g.moveTo(-0.06, 0.26); g.lineTo(0.06, 0.26); g.lineTo(0.0, 0.62); g.fill(); g.restore(); }
+export function armsTex(kind, w = 512, h = 256, rep) { const A = ARMS[kind] || ARMS.fleur;
+  return ctex(w, h, (g, W, H) => { g.fillStyle = A.f; g.fillRect(0, 0, W, H); g.fillStyle = A.c;
+    if (kind === 'gules') { g.lineWidth = H * 0.1; g.strokeStyle = A.c; for (let x = 0; x < W; x += H) { g.beginPath(); g.moveTo(x + H * 0.1, H * 0.85); g.lineTo(x + H * 0.5, H * 0.3); g.lineTo(x + H * 0.9, H * 0.85); g.stroke(); } }
+    else if (kind === 'checky') { const q = H / 4; for (let y = 0; y < 4; y++) for (let x = 0; x < W / q; x++) if ((x + y) % 2) g.fillRect(x * q, y * q, q, q); }
+    else if (kind === 'argent') { g.fillStyle = A.c; for (let x = -H; x < W; x += H) { g.beginPath(); g.moveTo(x, H); g.lineTo(x + H * 0.25, H); g.lineTo(x + H * 1.25, 0); g.lineTo(x + H, 0); g.fill(); } }
+    else { const st = H / 2.2; for (let y = st * 0.6, row = 0; y < H + st; y += st, row++) for (let x = (row % 2) * st * 0.5 + st * 0.3; x < W; x += st) fleurPath(g, x, y, st * 0.34); }
+    g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(0, H - 10, W, 10); }, rep); }
+
+// ======================= NGỰA CHIẾN (kèm vải phủ huy hiệu) =======================
+// Kỵ binh cánh Pháp 1415: giáp tấm, ngựa phủ vải huy hiệu, mặt ngựa có giáp (chanfron). Người cưỡi dựng riêng bằng nhân vật đầy đủ (cast10.KNIGHT).
+// o.rider === false → không dựng người cưỡi khối đơn giản. Trả về seat (Object3D) = điểm yên ngựa để đặt người cưỡi.
 export function makeKnight(o = {}) {
   const r = rnd((o.seed ?? 1) * 31 + 7); const root = new THREE.Group();
-  const horseC = ['#3a2a1e', '#e8e2d6', '#6b4a2e', '#2a2a2a'][Math.floor(r() * 4)]; const hm = std(horseC, { roughness: 0.7 }); const cloth = std(o.caparison || (r() < 0.5 ? '#1f3c8a' : '#8a1f2a'), { roughness: 0.9 });
-  const steel = std('#c9ced4', { metalness: 0.85, roughness: 0.28 });
+  const horseC = ['#3a2a1e', '#d9d2c4', '#6b4a2e', '#2a2a2a', '#5a3a26'][Math.floor(r() * 5)]; const hm = std(horseC, { roughness: 0.7 }); const dark = std('#1a1410', { roughness: 0.8 });
+  const kind = o.arms || 'fleur'; const ctx_ = armsTex(kind, 512, 256); ctx_.wrapS = ctx_.wrapT = THREE.RepeatWrapping; ctx_.center.set(0.5, 0.5); ctx_.rotation = Math.PI / 2; ctx_.repeat.set(2.2, 3.4); const cloth = new THREE.MeshStandardMaterial({ map: ctx_, roughness: 0.9, side: THREE.DoubleSide });
+  const steel = std('#cfd4db', { metalness: 0.35, roughness: 0.3 });
   const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.42, 1.25, 6, 12), hm); body.rotation.z = Math.PI / 2; body.position.y = 1.45; root.add(body);
-  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.62, 1.5, 14, 1, true), cloth); cap.rotation.z = Math.PI / 2; cap.position.y = 1.32; cap.scale.set(1, 1, 1.05); root.add(cap);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.62, 1.5, 18, 1, false), cloth); cap.rotation.z = Math.PI / 2; cap.position.y = 1.3; cap.scale.set(1, 1, 1.05); root.add(cap);
+  const saddle = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.12, 0.5), std('#4a2e1a')); saddle.position.set(-0.05, 1.86, 0); root.add(saddle);
+  const cantle = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, 0.42), std('#4a2e1a')); cantle.position.set(-0.32, 1.98, 0); root.add(cantle);
   const neck = new THREE.Group(); neck.position.set(0.85, 1.75, 0); root.add(neck); const nm = new THREE.Mesh(new THREE.CapsuleGeometry(0.22, 0.6, 4, 8), hm); nm.rotation.z = -0.7; nm.position.set(0.22, 0.25, 0); neck.add(nm);
-  const head = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.26, 0.24), hm); head.position.set(0.62, 0.52, 0); head.rotation.z = -0.5; neck.add(head);
-  const chanfron = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.06, 0.26), steel); chanfron.position.set(0.62, 0.66, 0); chanfron.rotation.z = -0.5; neck.add(chanfron);
+  const mane = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.1, 0.06), dark); mane.rotation.z = 0.87; mane.position.set(0.06, 0.39, 0); neck.add(mane);
+  const head = new THREE.Group(); head.position.set(0.62, 0.52, 0); head.rotation.z = -0.5; neck.add(head);
+  head.add(new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.26, 0.24), hm));
+  const muzzle = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.22, 0.22), std(horseC === '#d9d2c4' ? '#8a7a6a' : '#1e1612')); muzzle.position.set(0.3, -0.02, 0); head.add(muzzle);
+  const chanfron = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.05, 0.2), steel); chanfron.position.set(0.04, 0.14, 0); head.add(chanfron);
+  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.12, 6), steel); spike.position.set(-0.06, 0.2, 0); spike.rotation.z = -0.4; head.add(spike);
+  for (const k of [-1, 1]) { // mắt ngựa (lòng trắng + tròng đen) + tai + lỗ mũi
+    const ew = new THREE.Mesh(new THREE.SphereGeometry(0.038, 10, 8), std('#f2eee6', { roughness: 0.3 })); ew.position.set(-0.08, 0.06, k * 0.115); head.add(ew);
+    const ep = new THREE.Mesh(new THREE.SphereGeometry(0.026, 10, 8), std('#0c0a08', { roughness: 0.15 })); ep.position.set(-0.075, 0.06, k * 0.14); head.add(ep);
+    const hl = new THREE.Mesh(new THREE.SphereGeometry(0.007, 6, 4), new THREE.MeshBasicMaterial({ color: '#ffffff' })); hl.position.set(-0.085, 0.072, k * 0.163); head.add(hl);
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.14, 6), hm); ear.position.set(-0.24, 0.19, k * 0.07); ear.rotation.z = 0.35; head.add(ear);
+    const ns = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 6), dark); ns.position.set(0.37, 0.0, k * 0.07); head.add(ns); }
+  const rein = new THREE.Mesh(new THREE.TorusGeometry(0.45, 0.012, 4, 20, Math.PI), std('#3a2414')); rein.position.set(0.55, 1.95, 0); rein.rotation.set(Math.PI / 2, 0, 0); root.add(rein);
   const legs = []; for (const [x, z, ph] of [[0.62, 0.2, 0], [0.62, -0.2, 0.5], [-0.62, 0.2, 0.25], [-0.62, -0.2, 0.75]]) { const hip = new THREE.Group(); hip.position.set(x, 1.15, z); root.add(hip);
     const up = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.07, 0.6, 6), hm); up.position.y = -0.3; hip.add(up); const kn = new THREE.Group(); kn.position.y = -0.6; hip.add(kn);
-    const lo = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.05, 0.55, 6), hm); lo.position.y = -0.27; kn.add(lo); const hf = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.08, 0.08, 8), std('#1a1410')); hf.position.y = -0.56; kn.add(hf); legs.push({ hip, kn, ph }); }
-  const tail = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.8, 6), hm); tail.position.set(-1.05, 1.4, 0); tail.rotation.z = -2.4; root.add(tail);
-  // kỵ sĩ giáp bạc + lông mũ + thương
-  const rider = new THREE.Group(); rider.position.set(-0.05, 1.85, 0); root.add(rider);
-  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.24, 0.5, 4, 10), steel); torso.position.y = 0.45; rider.add(torso);
-  const helm = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.19, 0.34, 12), steel); helm.position.y = 1.0; rider.add(helm);
-  const visor = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.3, 4), steel); visor.rotation.z = -Math.PI / 2; visor.position.set(0.18, 0.98, 0); rider.add(visor);
-  const plume = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 6), std(o.plume || '#e5c040')); plume.scale.set(1.4, 0.7, 0.6); plume.position.set(-0.12, 1.22, 0); rider.add(plume);
-  for (const s of [-1, 1]) { const lg = new THREE.Mesh(new THREE.CapsuleGeometry(0.08, 0.45, 4, 6), steel); lg.position.set(0.05, -0.05, s * 0.36); lg.rotation.x = s * 0.5; rider.add(lg); }
-  const lance = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.06, 3.6, 6), std('#d8c9a0')); lance.rotation.z = -Math.PI / 2 + 0.12; lance.position.set(1.3, 0.55, 0.32); rider.add(lance);
-  const shield = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.6, 0.45), cloth); shield.position.set(0.05, 0.45, -0.32); rider.add(shield);
+    const lo = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.05, 0.55, 6), hm); lo.position.y = -0.27; kn.add(lo); const hf = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.08, 0.08, 8), dark); hf.position.y = -0.56; kn.add(hf); legs.push({ hip, kn, ph }); }
+  const tail = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.8, 6), dark); tail.position.set(-1.05, 1.4, 0); tail.rotation.z = -2.4; root.add(tail);
+  const seat = new THREE.Object3D(); seat.position.set(-0.05, 1.92, 0); root.add(seat);
   root.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } });
-  // mud splash particles
   const sp = new THREE.InstancedMesh(new THREE.SphereGeometry(0.06, 5, 4), std('#3e3020'), 24); root.add(sp);
-  function update(t, c = {}) { const ph = (c.dist ?? t * 6) / 3.2; const run = c.run ?? 1;
+  let bob = 0;
+  function update(t, c = {}) { const ph = (c.dist ?? t * 6) / 3.2; const run = c.run ?? 1; bob = run * Math.abs(Math.sin(ph * Math.PI * 2));
     for (const L of legs) { const p = (ph + L.ph) * Math.PI * 2; L.hip.rotation.z = run * Math.sin(p) * 0.55; L.kn.rotation.z = run * Math.max(0, Math.sin(p + 1.2)) * 0.9; }
-    root.children[0].position.y = 1.45 + run * Math.abs(Math.sin(ph * Math.PI * 2)) * 0.08; neck.rotation.z = run * Math.sin(ph * Math.PI * 2) * 0.12; rider.position.y = 1.85 + run * Math.abs(Math.sin(ph * Math.PI * 2)) * 0.1;
+    body.position.y = 1.45 + bob * 0.08; cap.position.y = 1.3 + bob * 0.08; saddle.position.y = 1.86 + bob * 0.08; cantle.position.y = 1.98 + bob * 0.08; seat.position.y = 1.92 + bob * 0.09; rein.position.y = 1.95 + bob * 0.08;
+    neck.rotation.z = run * Math.sin(ph * Math.PI * 2) * 0.12;
     const m4 = new THREE.Matrix4(); for (let i = 0; i < 24; i++) { const k = ((ph * 2 + i / 24) % 1); const a = i * 2.4; m4.makeTranslation(-0.6 - k * 1.2, run * (k * 1.6 - k * k * 1.8), Math.sin(a) * 0.5); sp.setMatrixAt(i, m4); } sp.instanceMatrix.needsUpdate = true; sp.visible = run > 0.3; }
-  update(0, {}); return { root, update };
+  update(0, {}); return { root, update, seat, arms: kind };
 }
 
 // ======================= ĐẠI SẢNH LÂU ĐÀI =======================

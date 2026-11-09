@@ -6,9 +6,9 @@
 // Mốc shot: ep10_shots.js (giọng 77,32 s). Bối cảnh: lib/chientruong.js. Đoạn 1415 (BW) chuyển đen trắng khi ghép (ffmpeg).
 import * as THREE from 'three';
 import {basketball,rimWorld,hoop} from './lib/nba.js';
-import {buildBattlefield,battleLights,archerArmy,arrowStorm,makeKnight,castleHall} from './lib/chientruong.js';
+import {buildBattlefield,battleLights,archerArmy,arrowStorm,makeKnight,castleHall,fleurPath,ARMS} from './lib/chientruong.js';
 import {loadLibrary} from './lib/nhanvat2.js';
-import {CURRY,MONK,KING} from './lib/cast10.js';
+import {CURRY,MONK,KING,KNIGHT,knightKit} from './lib/cast10.js';
 import {jumpShot,ballFlight,netSwish,dribbleMove,place} from './lib/bongro_mx.js';
 import {clipPose,clipDur,expr,seg,locoLock} from './lib/dongtac.js';
 import {resetPose,ik2} from './lib/tuthe.js';
@@ -25,13 +25,20 @@ const s=new THREE.Scene();
 const B=buildBattlefield(s);const LT=battleLights(s,B.sunDir);
 const AR=archerArmy(s,{n:1600,blocks:[[-16,-26,12,52]]});const ST=arrowStorm(s,AR.pos,{n:2600});
 const HP=hoop(1,{pad:'#5b4632'});HP.position.set(14,0,0);s.add(HP);const RIM=rimWorld(HP);const NET=HP.userData.net;
-const KN=[];for(let i=0;i<12;i++){const k=makeKnight({seed:i+1,caparison:i%3?'#1f3c8a':'#8a1f2a',plume:i%2?'#e5c040':'#f2efe6'});k.root.rotation.y=Math.PI;s.add(k.root);KN.push(k);}
+const KARM=['fleur','gules','fleur','checky','argent','fleur'];const KN=[];for(let i=0;i<12;i++){const k=makeKnight({seed:i+1,arms:KARM[i%6],rider:false});k.root.rotation.y=Math.PI;s.add(k.root);KN.push(k);}
 const HALL=castleHall(new THREE.Vector3(0,0,500));s.add(HALL.group);const HC=new THREE.Vector3(0,0,500);
 const lib=await loadLibrary();
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};
 const IN=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const U=(k,t)=>t-SH[k][0];
 const CU=CURRY(lib),M1=MONK(lib,0),M2=MONK(lib,1),KG=KING(lib);const HUM=[CU,M1,M2,KG];
 HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});});
+/* kỵ sĩ Pháp: nhân vật hoạt hình (mắt to, biểu cảm cường điệu) + giáp tấm, bascinet kéo lưỡi lên, áo huy hiệu, thương */
+const shieldTex=k=>{const cv=document.createElement('canvas');cv.width=128;cv.height=160;const g=cv.getContext('2d');const A=ARMS[k];g.fillStyle=A.f;g.beginPath();g.moveTo(4,4);g.lineTo(124,4);g.lineTo(124,80);g.quadraticCurveTo(124,140,64,156);g.quadraticCurveTo(4,140,4,80);g.closePath();g.fill();g.strokeStyle=A.c;g.lineWidth=5;g.stroke();g.fillStyle=A.c;fleurPath(g,64,78,52);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;};
+const KR=KN.map((k,i)=>{const ch=KNIGHT(lib,i,k.arms);s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});const kit=knightKit(ch,k.arms,shieldTex(k.arms));s.add(kit.group);return {k,ch,kit};});
+const KFWD=new THREE.Vector3(-1,0,0);
+const seatRider=(R,t,face)=>{const {k,ch,kit}=R;clipPose(ch,lib,[{name:'Sitting_Idle_Loop',time:t,w:1}]);ch.bones.thigh_l.rotateZ(0.3);ch.bones.thigh_r.rotateZ(-0.3);
+  place(ch,0,0,-Math.PI/2,0);k.root.updateMatrixWorld(true);ch.root.updateMatrixWorld(true);const st=k.seat.getWorldPosition(new THREE.Vector3()),pv=ch.bones.pelvis.getWorldPosition(new THREE.Vector3());
+  ch.root.position.add(st.sub(pv));ch.root.position.y+=0.1;ch.root.visible=true;kit.group.visible=true;kit.update(KFWD,t);expr(ch,t,face);};
 const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.6},o));
 // đạo cụ: vương miện + gươm cho vua, mũ hiệp sĩ cho Curry (cảnh cuối)
 const crown=new THREE.Group();{const g=std('#d9b040',{metalness:0.85,roughness:0.25});const band=new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.13,0.07,16,1,true),g);crown.add(band);for(let i=0;i<6;i++){const p=new THREE.Mesh(new THREE.ConeGeometry(0.025,0.08,4),g);const a=i/6*Math.PI*2;p.position.set(Math.cos(a)*0.13,0.07,Math.sin(a)*0.13);crown.add(p);}}
@@ -98,7 +105,7 @@ S('s33',{pos:[CX+5.0,1.7,4.0],look:[CX+1.6,1.5,0]},{pos:[CX+6.5,2.2,5.2],look:[C
 const CUTS=[...new Set([...Object.values(SH).map(v=>v[0]),...Object.values(SUB),SH.s33[1]])].sort((a,b)=>a-b);
 // ---------- tiện ích ----------
 const idle=(ch,t,x,z,yaw,clip='Idle_Loop',sd=0)=>{clipPose(ch,lib,[{name:clip,time:t+sd,w:1}]);place(ch,x,z,yaw,0);ch.root.visible=true;};
-const hideAll=()=>{HUM.forEach(ch=>ch.root.visible=false);KN.forEach(k=>k.root.visible=false);ball.visible=false;NET.scale.y=1;crown.visible=false;sword.visible=false;helm.visible=false;};
+const hideAll=()=>{HUM.forEach(ch=>ch.root.visible=false);KN.forEach(k=>k.root.visible=false);KR.forEach(R=>{R.ch.root.visible=false;R.kit.group.visible=false;});ball.visible=false;NET.scale.y=1;crown.visible=false;sword.visible=false;helm.visible=false;};
 const putBall=p=>{if(p){ball.position.copy(p);ball.visible=true;}};
 const Lw=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
 const bp=(ch,n)=>ch.bones[n].getWorldPosition(V(0,0,0));
@@ -139,7 +146,7 @@ const pose=t=>{
   if(IN('s18',t)){const v=U('s18',t);putBall(ballFlight(V(RIM.x-1.6,7,0),RIM,v+0.18,0.2,{apex:0.2,R}));netSwish(NET,v);}
   if(IN('s19',t)){nightNight(CU,t,CX,CZ,Math.PI/2,U('s19',t)/0.25);expr(CU,t,[[0,'smug',{lid:0.6}]],{look:[0,0]});faceCam(CU,{d:1.45});}
   // kỵ sĩ Pháp phi qua bùn (từ +x về -x)
-  if(IN('s20',t)||IN('s21',t)){const u=t-SH.s20[0];KN.forEach((k,i)=>{const row=i%4,col=Math.floor(i/4);const x=40-u*7.5+col*4+row*1.2,z=-6+row*3.2+col*0.8;k.root.position.set(x,0,z);k.update(t,{dist:u*7.5+i});k.root.visible=true;});}
+  if(IN('s20',t)||IN('s21',t)){const u=t-SH.s20[0];KN.forEach((k,i)=>{const row=i%4,col=Math.floor(i/4);const x=40-u*7.5+col*4+row*1.2,z=-6+row*3.2+col*0.8;k.root.position.set(x,0,z);k.update(t,{dist:u*7.5+i});k.root.visible=true;const F=['determined','determined','panic','shock'][i%4];seatRider(KR[i],t+i*0.3,[[0,i%3?'determined':'confident'],[SH.s21[0]+0.25+(i%5)*0.12,F==='determined'?'panic':F]]);});}
   if(IN('s21',t)){const u=U('s21',t);const x=CX+2,z=0.6;const back=0.8*sm(cl((u-0.25)/0.5));const yaw=WY(x,z);const o=jumpShot(CU,lib,u,{x:x-Math.sin(yaw)*back,z:z-Math.cos(yaw)*back,yaw,R,J:{h:0.8,air:0.85}});CU.root.visible=true;expr(CU,t,[[SH.s21[0],'determined'],[SUB.s21,'proud']]);
     if(o.ball)putBall(o.ball);else{const v=u-o.tRelease;putBall(ballFlight(o.releasePos,RIM,v,1.05,{apex:2.4,R}));netSwish(NET,v-1.05);}}
   if(IN('s24',t)){const spots=[[2,0.2],[8.3,-1.5],[-1.6,-2]];const i=t<SUB.s24a?0:t<SUB.s24b?1:2;const t0=[SH.s24[0],SUB.s24a,SUB.s24b][i];const u=t-t0;const [x,z]=spots[i];
