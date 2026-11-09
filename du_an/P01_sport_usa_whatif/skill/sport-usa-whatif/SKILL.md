@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.4 (09/11/2026)
+# Sport USA "What If" — v1.7 (09/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -43,7 +43,10 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 ## 0. Cách nhận việc (yêu cầu cố định của chủ dự án)
 - **Chờ yêu cầu.** Người dùng nói môn (vd "NFL", "NBA") → tự tìm tin MỚI NHẤT của môn đó (WebSearch + `mcp__widgets__fetch_sports_data` scores/standings/game_stats), chọn tin đáng làm, đề xuất 3 ý tưởng + 1 kịch bản. Chưa dựng video khi kịch bản chưa duyệt.
 - **Nguồn tin (theo yêu cầu chủ dự án):** chỉ dùng nguồn lớn, uy tín, mới nhất. Thứ tự ưu tiên: (1) trang chính thức NBA.com / NFL.com và trang chính thức của đội; dữ liệu trận `fetch_sports_data`; (2) hãng tin & báo thể thao lớn: AP, Reuters, ESPN, The Athletic, CBS Sports, NBC Sports, Yahoo Sports, Bleacher Report, USA Today; (3) tài khoản mạng xã hội có tích xanh của giải/đội/phóng viên tin nóng (vd Shams Charania, Adam Schefter, Ian Rapoport) — chỉ qua bài báo/nhúng mà WebSearch/WebFetch đọc được. Mỗi số liệu/tin dùng trong kịch bản phải khớp ≥ 2 nguồn (hoặc 1 nguồn chính thức), ghi nguồn + ngày trong bảng "Tin đã chọn". Không dùng blog/tin đồn/trang tổng hợp không rõ nguồn.
-- **KHUÔN CHÍNH (chủ dự án chốt 09/11 19:43): ĐỘI THẮNG đấu ĐỘI THUA — đội thua bị troll thành 11 VẬT VÔ TRI.** Lấy một trận hot vừa đá: đội thắng là cầu thủ thật (nhận diện đúng), đội thua hiện thân thành 11 vật vô tri mặc màu áo đội thua (không logo, không tên/mặt cầu thủ thật) — vật phải ví đúng cách họ thua (vd E11: Patriots đứng nhìn → hình nộm bìa; ném hỏng → găng; sút trượt → cột gôn…). Hook "What the f***? [số liệu thật]… So this week, [đội thắng] play eleven [vật]." Mỗi tập vật + bối cảnh mới, không lặp bảng mục 7. Có thể thêm biến thể hài hơn quanh nỗi đau thật của đội thua khi chủ dự án bổ sung ý tưởng. Không đùa về chấn thương/bệnh; NCAA không chọc cá nhân sinh viên.
+- **KHUÔN CHÍNH = KHUÔN GỘP (chủ dự án duyệt 09/11 19:48):** đội THUA (cầu thủ thật, nhân vật chính) đấu 11 VẬT VÔ TRI ví đúng cách họ thua → vẫn thua đúng lỗi thật; đội THẮNG (cầu thủ thật) xuất hiện troll; cuối cùng đội thua HOÁ THÀNH chính vật đó. 10 nhịp, 60–70 s, mỗi nhịp ngắn:
+  (1) Hook 0–3 s: "What the f***? [số liệu thật trận thua]… Could [đội thua] even beat eleven [vật]?" + giây 0 là pha lao vào tranh chấp, vật không nhúc nhích; (2) số liệu thật (tỉ số, tên đội thắng, lỗi đội thua) có thẻ; (3) "Except…": vật có thành tích tốt hơn đội thua; (4) trận ảo: đội thua lặp đúng lỗi thật + 1 câu đùa lặp ≥2 lần; (5) châm biếm bình luận viên; (6) đội thắng góp mặt troll (khán đài/biên); (7) cao trào: sắp thắng thì tự phá như ngoài đời; (8) Final: vật thắng; (9) BIẾN HÌNH ~3 s: cầu thủ đội thua đứng sững hoá thành vật; (10) câu chốt do/về đội thắng.
+  Troll mạnh vào lỗi trên sân, thành tích, chuỗi thua, HLV, chiến thuật. KHÔNG: chấn thương/bệnh, gia đình/đời tư, chủng tộc/ngoại hình bẩm sinh, chuyện pháp lý chưa xác nhận. NCAA: không chọc cá nhân sinh viên (troll đội/chương trình).
+- **Dựng cầu thủ thật (chủ dự án 09/11):** màu áo + số áo đúng; tóc, râu, màu da, chiều cao, dáng theo ảnh thật MỚI NHẤT (tra web, ghi nguồn); mặt hoạt hình biếm hoạ giữ nét nhận ra (râu, kiểu tóc) nhưng không dựng mặt giống hệt ảnh chụp.
 - **(CŨ, chỉ tham khảo) MỞ RỘNG CHỦ ĐỀ (chủ dự án yêu cầu 05/11, theo mẫu Drake Maye vs 11 folding chairs 1,1M/18 h):** không chỉ troll đội thua. Mỗi lần đề xuất 3 ý thuộc 3 KIỂU khác nhau, chọn kiểu chưa dùng gần nhất:
   (a) troll đội thua (khuôn 5 bước cũ: Hook "Could [đội thảm hại] beat [đối thủ yếu]?" → thổi phồng → "Except" + nỗi đau thật → trận ảo thua đúng lỗi thật → Final + câu troll; nhóm này trung vị 1,4M);
   (b) chọc đội/ngôi sao ĐANG THÀNH CÔNG bằng số liệu nghịch lý (lịch dễ, đối thủ yếu, thắng kiểu kỳ quặc);
@@ -152,7 +155,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
-- v1.6 (09/11): khuôn chính = đội THẮNG đấu đội THUA hoá thành 11 vật vô tri (mặc màu đội thua, ví đúng cách họ thua); thay quy tắc v1.5.
+- v1.7 (09/11): KHUÔN GỘP 10 nhịp (đội thua thật vs 11 vật → vẫn thua; đội thắng troll; đội thua hoá vật); quy tắc dựng cầu thủ thật (tóc/râu/da/dáng theo ảnh thật, mặt biếm hoạ); thay v1.5–v1.6.
 - v1.5 (09/11): ngừng khuôn "vs 11 vật vô tri"; 7 định dạng mới xoay vòng, vẫn bám tin hot.
 - v1.4 (09/11): hook mở bằng pha lao vào tranh chấp (E11 làm lại); cắt shot phải mượt — giữ hướng máy quay giữa các shot liền nhau (không lật 180°), `cong_cu/hoa_cat.py` hoà 0,1 s ở mỗi điểm cắt trước khi phóng 1080x1920.
 - v1.3 (09/11): E11 Packers vs 11 hình nộm bìa (`lib/trangtrai.js`: trang trại thu, kho thóc gambrel, si-lô, ruộng ngô instanced (2 mặt chéo alpha, không đổ bóng), kiện rơm instanced, bí ngô, `makeCutout` — bìa 2 mặt alphaTest + `customDepthMaterial` cho bóng đổ, chân chống `body.children[2]`, `makeCow` — nằm/đứng/đi, nhai, buồn); màu áo nhân vật bị tối/ngả cam sau tone map → dùng màu sáng hơn màu thật (xanh Packers #2f6f50, vàng #ffd84a); cảnh bóng bay dài: máy quay bám theo bóng (đặt cam trong pose sau rig.apply) thay vì đứng xa; hình nộm bìa nhìn từ biên là cạnh mỏng → máy quay phải ở phía mặt hình; tiếng "moo" tổng hợp bằng numpy khi thư viện thiếu tiếng động vật.
