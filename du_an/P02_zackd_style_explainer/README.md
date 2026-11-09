@@ -12,4 +12,4 @@ Tạo ngày 09/11/2026. Dự án **độc lập hoàn toàn với P01**: không 
 
 ## Video mẫu
 - Video mẫu **không lưu trên GitHub** (repo công khai, video có bản quyền của kênh gốc). Chủ dự án gửi video trực tiếp trong chat; Claude chép vào `mau_goc/` (đã bị `.gitignore` bỏ qua). Trên GitHub chỉ lưu bản phân tích dạng văn bản.
-- 09/11/2026: đã nhận 5/10 video (Woman/Dolphin, Bug-Man/Purple Guy, Two Grapes Plasma, Farting Corner, Tattoo/Amputation). Chờ 5 video còn lại và yêu cầu rồi mới phân tích.
+- 09/11/2026: đã nhận đủ 10/10 video. Đợt 1: Woman/Dolphin, Bug-Man/Purple Guy, Two Grapes Plasma, Farting Corner, Tattoo/Amputation. Đợt 2: Hummingbird Hearts, Edge Of The Universe, Matchbox Camera, Butter/Relay Baton, Bug Disappears In A Blink. Chờ yêu cầu của chủ dự án rồi mới phân tích.
