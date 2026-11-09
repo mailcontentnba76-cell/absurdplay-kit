@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.1 (08/11/2026)
+# Sport USA "What If" — v1.3 (09/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -143,12 +143,14 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E06 | NFL | Bucs (kỷ lục kỳ quặc của đội THẮNG): Mayfield #6, Irving #7 (áo đỏ, quần pewter) | 11 chiếc ô (lật ngược hứng bóng), Falcons ký hợp đồng với ô | sân NFL mưa lớn ban chiều + phòng phân tích, sơ đồ từ trên, trường quay, phòng họp báo | alvana hiphop/hard-mode |
 | E08 | NFL | Bears (thắng Bucs 27–24 dù Caleb Williams 4 INT, Santos FG 38 yd hết giờ): Williams #18, Santos #8 (áo navy số trắng viền cam, mũ navy trơn sọc cam-trắng, không chữ C) | 11 găng bóng chày có mặt ("Caught." x4, mỗi găng 1 INT, găng không có chân nên không nhảy chặn FG, xin chữ ký → Caleb ném → bắt) | sân bóng chày đất (sandlot) hoàng hôn mùa hè + lều bình luận bạt sọc + bảng điểm lật tay + nhà dân/cột điện | alvana upbeat/back-in-the-80s |
 | E10 | NCAA | Michigan (thua Michigan State 6–15, đối thủ 0 TD, 5 FG của Liam Boyd #37): Carr #14 (áo navy, quần vàng ngô, mũ navy trơn); Boyd #37 (áo xanh MSU, quần trắng) | 11 cột gôn có mặt (DOINK x3, người khổng lồ đốn gỗ hư cấu chặt hết cột, không có cột → không PAT, MSU mời ký hợp đồng) | sân giữa rừng thông tuyết buổi sáng + chòi bình luận gỗ + bảng điểm gỗ có mặt + nhà gỗ khói | alvana upbeat/happy-dance |
+| E11 | NFL | Packers (thắng Patriots 45–27 ở Foxborough; Love 23/29, 372 yd, 3 TD + 1 TD chạy, 0 mất bóng): Love #10 (áo xanh lá đậm số trắng viền vàng, quần vàng, mũ vàng trơn không chữ G) | 11 hình nộm bìa cứng vẽ tay hư cấu ("Flat." x4: xoay ngang biến mất, gió thổi 3 tấm đáp trên ngọn ngô; nhãn $4.99; bò chán bỏ về; Love vấp tấm bìa nằm sàn; New England gọi mua về làm hàng thủ) | trang trại sữa Wisconsin chiều thu: kho thóc đỏ + bảng điểm sơn tay, si-lô, ruộng ngô, khán đài kiện rơm có bò, xe rơm bình luận | alvana upbeat/a-small-town-on-pluto |
 | E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v1.3 (09/11): E11 Packers vs 11 hình nộm bìa (`lib/trangtrai.js`: trang trại thu, kho thóc gambrel, si-lô, ruộng ngô instanced (2 mặt chéo alpha, không đổ bóng), kiện rơm instanced, bí ngô, `makeCutout` — bìa 2 mặt alphaTest + `customDepthMaterial` cho bóng đổ, chân chống `body.children[2]`, `makeCow` — nằm/đứng/đi, nhai, buồn); màu áo nhân vật bị tối/ngả cam sau tone map → dùng màu sáng hơn màu thật (xanh Packers #2f6f50, vàng #ffd84a); cảnh bóng bay dài: máy quay bám theo bóng (đặt cam trong pose sau rig.apply) thay vì đứng xa; hình nộm bìa nhìn từ biên là cạnh mỏng → máy quay phải ở phía mặt hình; tiếng "moo" tổng hợp bằng numpy khi thư viện thiếu tiếng động vật.
 - v1.2 (09/11): E08 Bears (`lib/sandlot.js`: sân bóng chày đất hoàng hôn, cây lá rộng instanced, nhà dân, `makeGlove` găng có mặt — `pocket()` cho bóng nằm trong găng, `close`/`clap`/`squash`); băng rôn khán đài phải NGẮN (6 bản lặp trên canvas 2048 px, chữ dài sẽ chồng nhau trông như chữ ngược); `flipBanner` tuỳ chọn trong `bleachers`.
 - v1.1 (08/11): chế độ NCAA (kiểm tuổi, không nêu tên tân sinh viên mắc lỗi, mũ trơn); chat Sport USA = NFL + NCAA; E10 Michigan vs 11 cột gôn (`lib/rungthong.js`: rừng thông instanced, cột gôn nhân vật, rìu, mũ len `addBeanie`+`syncBeanie`); Mixamo `Field_Goal` (Strike Forward Jog, chạm bóng 0,42 s); nhân vật `frustumCulled=false` (bị cắt mất khi máy quay gần); khung dọc chỉ ±14,6° ngang → điểm nhìn phải gần nhân vật.
 - v1.0 (08/11): gói chuyển tài khoản 1 file (kèm Mixamo FBX + tiếng Magnific), mục Khởi động kiểm từng bước, hook "What the f***" có bleep, ưu tiên kịch bản theo kết quả trận, chế độ NBA + danh sách Mixamo bóng rổ.

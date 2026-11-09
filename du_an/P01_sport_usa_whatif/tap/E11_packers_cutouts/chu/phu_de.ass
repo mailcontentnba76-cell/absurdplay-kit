@@ -1,0 +1,68 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.46,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.46,0:00:02.18,Cap,,0,0,0,,jordan love threw
+Dialogue: 0,0:00:02.18,0:00:04.70,Cap,,0,0,0,,for 372 yards,
+Dialogue: 0,0:00:04.70,0:00:05.38,Cap,,0,0,0,,and new england's
+Dialogue: 0,0:00:05.38,0:00:07.10,Cap,,0,0,0,,defense just stood there.
+Dialogue: 0,0:00:07.10,0:00:07.84,Cap,,0,0,0,,so this week,
+Dialogue: 0,0:00:07.84,0:00:08.58,Cap,,0,0,0,,the packers play
+Dialogue: 0,0:00:08.58,0:00:10.56,Cap,,0,0,0,,11 cardboard cutouts.
+Dialogue: 0,0:00:10.56,0:00:11.54,Cap,,0,0,0,,why cutouts?
+Dialogue: 0,0:00:11.54,0:00:12.70,Cap,,0,0,0,,because honestly, it's
+Dialogue: 0,0:00:12.70,0:00:13.82,Cap,,0,0,0,,the same energy,
+Dialogue: 0,0:00:13.82,0:00:15.28,Cap,,0,0,0,,and cutouts are cheaper.
+Dialogue: 0,0:00:15.28,0:00:16.56,Cap,,0,0,0,,last night, 45
+Dialogue: 0,0:00:16.56,0:00:18.32,Cap,,0,0,0,,points, 0 turnovers,
+Dialogue: 0,0:00:18.32,0:00:20.46,Cap,,0,0,0,,23 of 29 passing.
+Dialogue: 0,0:00:20.46,0:00:22.36,Cap,,0,0,0,,the packers are 6-3.
+Dialogue: 0,0:00:22.36,0:00:23.12,Cap,,0,0,0,,kickoff on a
+Dialogue: 0,0:00:23.12,0:00:24.74,Cap,,0,0,0,,dairy farm in wisconsin.
+Dialogue: 0,0:00:24.74,0:00:25.66,Cap,,0,0,0,,jordan love, number
+Dialogue: 0,0:00:25.66,0:00:26.80,Cap,,0,0,0,,10, takes the snap.
+Dialogue: 0,0:00:26.80,0:00:28.68,Cap,,0,0,0,,the cutouts don't rush.
+Dialogue: 0,0:00:28.68,0:00:29.70,Cap,,0,0,0,,they don't blink.
+Dialogue: 0,0:00:29.70,0:00:30.80,Cap,,0,0,0,,they're cardboard.
+Dialogue: 0,0:00:30.80,0:00:31.18,Cap,,0,0,0,,love throws
+Dialogue: 0,0:00:31.18,0:00:33.04,Cap,,0,0,0,,deep, touchdown.
+Dialogue: 0,0:00:33.04,0:00:33.46,Cap,,0,0,0,,then, a
+Dialogue: 0,0:00:33.46,0:00:34.02,Cap,,0,0,0,,cutout turns
+Dialogue: 0,0:00:34.02,0:00:36.40,Cap,,0,0,0,,sideways and disappears.
+Dialogue: 0,0:00:36.40,0:00:37.08,Cap,,0,0,0,,flat.
+Dialogue: 0,0:00:37.08,0:00:37.92,Cap,,0,0,0,,next play, a
+Dialogue: 0,0:00:37.92,0:00:39.06,Cap,,0,0,0,,gust of wind.
+Dialogue: 0,0:00:39.06,0:00:40.02,Cap,,0,0,0,,three cutouts fly
+Dialogue: 0,0:00:40.02,0:00:41.60,Cap,,0,0,0,,into the cornfield.
+Dialogue: 0,0:00:41.60,0:00:43.68,Cap,,0,0,0,,flat, flat, flat.
+Dialogue: 0,0:00:43.68,0:00:44.44,Cap,,0,0,0,,in the booth,
+Dialogue: 0,0:00:44.44,0:00:45.62,Cap,,0,0,0,,the announcer says,
+Dialogue: 0,0:00:45.62,0:00:46.18,Cap,,0,0,0,,the cutouts look
+Dialogue: 0,0:00:46.18,0:00:47.46,Cap,,0,0,0,,better than last week.
+Dialogue: 0,0:00:47.46,0:00:48.62,Cap,,0,0,0,,his partner says,
+Dialogue: 0,0:00:48.62,0:00:50.34,Cap,,0,0,0,,they're the same cutouts.
+Dialogue: 0,0:00:50.34,0:00:51.38,Cap,,0,0,0,,fourth quarter, packers
+Dialogue: 0,0:00:51.38,0:00:53.00,Cap,,0,0,0,,lead 63 to nothing.
+Dialogue: 0,0:00:53.00,0:00:53.98,Cap,,0,0,0,,a cow in the
+Dialogue: 0,0:00:53.98,0:00:55.54,Cap,,0,0,0,,stands has seen enough.
+Dialogue: 0,0:00:55.54,0:00:56.60,Cap,,0,0,0,,she leaves.
+Dialogue: 0,0:00:56.60,0:00:57.82,Cap,,0,0,0,,last play, the cutouts
+Dialogue: 0,0:00:57.82,0:00:59.28,Cap,,0,0,0,,finally make a stop.
+Dialogue: 0,0:00:59.28,0:01:00.16,Cap,,0,0,0,,because love trips
+Dialogue: 0,0:01:00.16,0:01:00.96,Cap,,0,0,0,,over one lying
+Dialogue: 0,0:01:00.96,0:01:02.48,Cap,,0,0,0,,flat on the ground.
+Dialogue: 0,0:01:02.48,0:01:03.62,Cap,,0,0,0,,final score, packers
+Dialogue: 0,0:01:03.62,0:01:06.14,Cap,,0,0,0,,63, cutouts, nothing.
+Dialogue: 0,0:01:06.14,0:01:06.90,Cap,,0,0,0,,after the game,
+Dialogue: 0,0:01:06.90,0:01:08.00,Cap,,0,0,0,,new england called.
+Dialogue: 0,0:01:08.00,0:01:08.38,Cap,,0,0,0,,they want the
+Dialogue: 0,0:01:08.38,0:01:10.06,Cap,,0,0,0,,cutouts for their defense.

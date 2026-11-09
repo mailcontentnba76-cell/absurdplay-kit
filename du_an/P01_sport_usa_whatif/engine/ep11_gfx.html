@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 11: đồ hoạ KIỂU HỘI CHỢ NÔNG TRẠI — giấy kem viền ca-rô đỏ trắng (gingham), ruy-băng giải thưởng xanh,
+   lower-third hình hộp sữa (milk carton), dấu "FLAT." cắt từ bìa các-tông gợn sóng, thẻ cuộc gọi đến. Khác E01–E10. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.gc{position:absolute;white-space:nowrap;text-align:center;padding:26px 50px 30px;color:#203731;background:#fbf5e6;border-radius:10px;
+  border:16px solid transparent;border-image:repeating-conic-gradient(#c8302a 0 25%,#fbf5e6 0 50%) 0 0/28px 28px;border-image-slice:16;border-image-width:16px;border-image-repeat:repeat;
+  box-shadow:0 18px 34px rgba(0,0,0,.45)}
+.gc{border-image:none;outline:14px solid transparent;background-clip:padding-box;
+  box-shadow:0 0 0 14px #fbf5e6,0 0 0 26px #c8302a,0 22px 40px rgba(0,0,0,.45)}
+.gc .k{display:block;font-size:30px;letter-spacing:6px;color:#c8302a;margin-bottom:6px}
+.gc .v{display:block;font-family:Anton;font-size:112px;line-height:1.02}
+.gc .v.s{font-size:78px}.gc .n{display:block;font-size:30px;letter-spacing:3px;color:#5a4a32;margin-top:8px}
+.rib{position:absolute;width:640px;padding:30px 40px 34px;background:#fbf5e6;border-radius:16px;box-shadow:0 0 0 12px #1f5fa8,0 22px 40px rgba(0,0,0,.45);text-align:left}
+.rib .k{display:flex;align-items:center;gap:16px;font-size:30px;letter-spacing:5px;color:#1f5fa8;margin-bottom:8px}
+.rib .k:before{content:'1st';display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:#1f5fa8;color:#fff;font-family:Anton;font-size:30px;letter-spacing:0;box-shadow:0 0 0 6px #ffd84a}
+.rib .row{display:flex;justify-content:space-between;align-items:baseline;border-top:4px dashed #d9cba8;padding:10px 0;opacity:0}
+.rib .row b{font-family:Anton;font-size:84px;color:#203731}.rib .row i{font-style:normal;font-size:32px;letter-spacing:3px;color:#5a4a32}
+.carton{position:absolute;left:60px!important;transform:none!important;width:500px;box-shadow:0 14px 28px rgba(0,0,0,.5);background:#fff;border-radius:6px 6px 14px 14px;overflow:hidden}
+.carton .roof{height:46px;background:linear-gradient(135deg,#203731 50%,#2f6f50 50%)}
+.carton .mid{display:flex;align-items:center;gap:18px;padding:14px 22px;background:#fff}
+.carton .mid b{font-family:Anton;font-size:96px;color:#203731;line-height:1}.carton .mid span{font-size:28px;letter-spacing:3px;color:#c8302a;line-height:1.3}
+.carton .bot{background:#ffd84a;color:#203731;padding:10px 22px;font-size:30px;letter-spacing:3px}
+.bug{top:300px;display:flex;height:80px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4);font-family:Anton}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 18px;color:#fff}
+.bA{background:#203731;min-width:110px;color:#ffd84a!important}.bB{background:#a87c4c;min-width:150px}.bS{background:#3a2a1a;min-width:90px}.bC{background:#fbf5e6;color:#c8302a!important;font-size:34px!important;min-width:150px}
+.stamp{position:absolute;color:#4a3216;font-family:Anton;font-size:150px;padding:4px 44px;border-radius:6px;transform:translateX(-50%) rotate(-6deg);white-space:nowrap;
+  background:repeating-linear-gradient(90deg,#c49a64 0 10px,#b8884f 10px 14px);box-shadow:0 14px 26px rgba(0,0,0,.45),inset 0 0 0 6px rgba(80,50,20,.35);clip-path:polygon(2% 6%,98% 0,100% 94%,1% 100%)}
+.stamp.red{color:#fff;background:#c8302a;font-size:118px;clip-path:none;border-radius:16px;box-shadow:0 0 0 10px #fbf5e6,0 14px 26px rgba(0,0,0,.45)}
+.tag{position:absolute;background:#fbf5e6;color:#203731;border-radius:18px;padding:24px 40px 28px;box-shadow:0 16px 34px rgba(0,0,0,.45);width:820px;text-align:left;border-left:16px solid #c8302a}
+.tag .q{font-size:58px;line-height:1.12}.tag .w{font-size:30px;letter-spacing:4px;color:#8a5a2e;margin-top:12px;display:block}
+.call{position:absolute;width:620px;border-radius:44px;background:linear-gradient(#2b2b30,#151518);color:#fff;text-align:center;padding:40px 30px 46px;box-shadow:0 22px 44px rgba(0,0,0,.55)}
+.call .k{font-size:28px;letter-spacing:6px;color:#9aa0aa}.call .v{font-family:Anton;font-size:96px;margin:10px 0 26px}
+.call .btns{display:flex;justify-content:space-around}.call .btns u{width:110px;height:110px;border-radius:50%;text-decoration:none;display:flex;align-items:center;justify-content:center;font-size:54px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">GB</div><div class="bS" id="sA">0</div><div class="bB">CUT</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST</div></div>
+<div class="el gc" id="res" style="top:440px"><span class="k">SUNDAY · FOXBOROUGH</span><span class="v s">PACKERS 45 · PATRIOTS 27</span><span class="n">JORDAN LOVE: 372 YARDS · 4 TOTAL TD</span></div>
+<div class="el gc" id="wk" style="top:1330px"><span class="k">THIS WEEK · THE DAIRY FARM</span><span class="v s">PACKERS vs 11 CUTOUTS</span></div>
+<div class="el rib" id="stat" style="top:440px"><div class="k">LAST NIGHT</div><div class="row" id="r1"><b>45</b><i>POINTS</i></div><div class="row" id="r2"><b>0</b><i>TURNOVERS</i></div><div class="row" id="r3"><b>23 / 29</b><i>PASSING</i></div></div>
+<div class="el gc" id="rec" style="top:440px"><span class="k">GREEN BAY PACKERS</span><span class="v">6–3</span></div>
+<div class="el gc" id="loc" style="top:440px"><span class="k">KICKOFF</span><span class="v s">WISCONSIN DAIRY FARM</span></div>
+<div class="el carton" id="love" style="top:1290px"><div class="roof"></div><div class="mid"><b>10</b><span>QUARTERBACK<br>GREEN BAY</span></div><div class="bot">JORDAN LOVE</div></div>
+<div class="el stamp red" id="td" style="top:470px">TOUCHDOWN!</div>
+<div class="el stamp" id="f0" style="top:520px">FLAT.</div>
+<div class="el stamp" id="f1" style="top:430px;margin-left:-120px">FLAT.</div><div class="el stamp" id="f2" style="top:640px;margin-left:110px">FLAT.</div><div class="el stamp" id="f3" style="top:850px;margin-left:-60px">FLAT.</div>
+<div class="el gc" id="radio" style="top:1330px"><span class="k">DAIRYLAND SPORTS RADIO</span><span class="v s">ON AIR</span></div>
+<div class="el tag" id="q1" style="top:1250px"><div class="q">“The cutouts look better than last week.”</div><span class="w">— THE ANNOUNCER</span></div>
+<div class="el tag" id="q2" style="top:1250px"><div class="q">“They're the same cutouts.”</div><span class="w">— HIS PARTNER</span></div>
+<div class="el gc" id="att" style="top:440px"><span class="k">ATTENDANCE UPDATE</span><span class="v">−1 COW</span></div>
+<div class="el gc" id="stop" style="top:440px"><span class="k">CUTOUT DEFENSE</span><span class="v s">FIRST STOP OF THE DAY</span></div>
+<div class="el gc" id="fin" style="top:1300px"><span class="k">FINAL</span><span class="v s">PACKERS 63 · CUTOUTS 0</span></div>
+<div class="el call" id="call" style="top:420px"><div class="k">INCOMING CALL…</div><div class="v">NEW ENGLAND</div><div class="btns"><u style="background:#d23a32">✕</u><u style="background:#2fb35a">✆</u></div></div>
+<div class="el stamp red" id="sold" style="top:480px">SOLD!</div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep11_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['res',0.1,SH.s3[1]],['wk',SH.s4[0]+0.3,SH.s5[0]],['stat',SH.s8[0]+0.1,SH.s8[1]],['rec',...at('s9',0.05)],['loc',SH.s10[0]+0.1,SH.s10b[1]],['bug',SH.s11[0],SH.s22[0]],['love',...at('s11',0.05)],
+ ['td',SH.s16[0]+0.1,SH.s16[1]],['f0',...at('s18',0)],['f1',41.56,SH.s21[1]],['f2',42.06,SH.s21[1]],['f3',42.78,SH.s21[1]],['radio',SH.s22[0]+0.1,SH.s22[0]+1.8],['q1',SH.s22b[0]+0.05,SH.s22b[1]],['q2',SH.s23[0]+0.3,SH.s23[1]],
+ ['bug',SH.s24[0],SH.s29[0]],['att',...at('s26',0.3)],['stop',SH.s28[0]+0.6,SH.s28b[1]],['fin',...at('s29',0.1)],['call',...at('s30',0.05)],['sold',SH.s31[0]+1.0,SH.s31[1]]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('carton'))e.style.transform=`translateX(${(1-k)*-700}px) rotate(${(1-k)*-6}deg)`;
+    else if(e.classList.contains('stamp'))e.style.transform=`translateX(-50%) rotate(-6deg) scale(${on?Math.max(1,2.2-1.2*Math.min(1,(t-a)/0.15)):1})`;
+    else if(e.classList.contains('call')){const sh=on?Math.sin((t-a)*40)*6*(((t-a)%0.9)<0.45?1:0):0;e.style.transform=`translateX(calc(-50% + ${sh}px)) scale(${0.86+0.14*k})`;}
+    else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.86+0.14*k})`;}
+  // ruy-băng số liệu: hiện theo lời
+  [['r1',16.1],['r2',17.24],['r3',18.24]].forEach(([id,t0])=>{const e=$(id);const k=Math.min(1,Math.max(0,(t-t0)/0.2));e.style.opacity=k;e.style.transform=`translateX(${(1-ease(k))*60}px)`;});
+  const td=t>=SH.s16[0]+0.3;const q4=t>=SH.s24[0];$('sA').textContent=q4?63:td?7:0;$('sB').textContent=0;$('clk').textContent=q4?'4TH':'1ST';
+  const fl=(k,n=5)=>{const f=(t-SH[k][0])*30;return f>=0&&f<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};
+  $('flash').style.opacity=Math.max(fl('s4b'),fl('s16'));
+};
+</script></body></html>
