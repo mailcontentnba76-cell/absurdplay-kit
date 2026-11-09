@@ -63,7 +63,7 @@ const SBP=A.SB.position; const STU=V(60,0,400),PRS=V(-60,0,400);
 const LINE=i=>[-1.8+i*1.2,-1.0]; const CL=i=>[-2.4+(i+1)*0.8,1.4]; // hàng 4 cầu thủ / hàng 5 cọc (mở màn)
 const DEF=[[4,-3],[6,-1.5],[8,0],[6,1.5],[4,3]]; // cọc dàn trận (phòng thủ rổ phải)
 S('s1',{pos:[-1.2,1.95,0.6],look:[-1.75,2.0,-1.0]},{pos:[-1.25,1.98,0.45],look:[-1.75,2.0,-1.0]},{fov:[40,38],shake:0.02,shakeHz:2.4});
-S('s2',{pos:[-6,4.2,9.5],look:[0.2,1.2,0]},{pos:[-3.5,2.6,7.4],look:[0.2,1.3,0]},{fov:[46,44],ease:'smoother'});
+S('s2',{pos:[-6,4.2,9.5],look:[0.2,0.7,0]},{pos:[-3.5,2.6,7.4],look:[0.2,0.85,0]},{fov:[46,44],ease:'smoother'});
 S('s3',{pos:[1.6,0.35,3.6],look:[0.6,0.4,1.4]},{pos:[1.0,0.32,2.9],look:[0.4,0.4,1.4]},{fov:[50,46]});
 S('s4',{pos:[0.2,0.6,3.0],look:[0.0,0.45,1.4]},{pos:[0.15,0.62,2.6],look:[0.0,0.45,1.4]},{fov:[44,42]});
 const cu=(i,k,d=1.25)=>{const [x,z]=LINE(i);S(k,{pos:[x+0.05,2.0,z+d],look:[x,1.95,z]},{pos:[x+0.03,2.0,z+d-0.15],look:[x,1.95,z]},{fov:[36,34]});};
@@ -75,11 +75,11 @@ S('s12',{pos:[-1.75,1.3,0.55],look:[-1.8,1.75,-1.0]},{pos:[-1.75,1.32,0.42],look
 S('s13',{pos:[0,1.8,6.5],look:[0,1.4,-1]},{pos:[0,1.85,5.6],look:[0,1.45,-1]},{fov:[46,44]});
 S('s14',{pos:[-1.2,1.9,2.6],look:[-1.2,1.6,-1]},{pos:[-1.1,1.9,2.2],look:[-1.2,1.65,-1]},{fov:[44,42]});
 S('s15',{pos:[-1.2,1.9,2.4],look:[-1.2,1.6,-1]},{pos:[-1.5,2.0,2.0],look:[-1.2,1.7,-1]},{fov:[42,42],ease:'smoother'});
-S('s16',{pos:[0,1.4,9.8],look:[0,1.5,2]},{pos:[0,1.5,8.6],look:[0,1.6,2]},{fov:[46,46]});
+S('s16',{pos:[0,1.6,6.8],look:[0,1.0,0.6]},{pos:[0,1.6,5.9],look:[0,1.05,0.6]},{fov:[48,48]});
 S('s17',{pos:[-5,2.4,1.8],look:[-5,1.0,GY.W/2+1.6]},{pos:[-2,2.4,2.2],look:[-2,1.0,GY.W/2+1.6]},{fov:[48,48]});
 S('s18',{pos:[6,1.7,4.4],look:[6,1.5,GY.W/2+0.6]},{pos:[6,1.7,4.9],look:[6,1.5,GY.W/2+0.6]},{fov:[44,42]});
 S('s19',{pos:[-1.2,1.7,4.6],look:[4.0,1.0,0]},{pos:[-0.8,1.7,4.2],look:[4.2,1.0,0]},{fov:[48,46]});
-S('s20',{pos:[0.1,1.3,6.0],look:[0.1,2.4,0]},{pos:[0.1,1.35,5.5],look:[0.1,2.6,0]},{fov:[52,50]});
+S('s20',{pos:[0.1,1.5,6.0],look:[0.1,1.7,0]},{pos:[0.1,1.55,5.5],look:[0.1,1.85,0]},{fov:[52,50]});
 S('s21',{pos:[-1.4,0.9,4.4],look:[0.2,2.6,0]},{pos:[-1.3,0.95,4.0],look:[0.2,3.0,0]},{fov:[56,56],shake:0.015});
 S('s22',{pos:[-2.6,1.6,4.2],look:[0.6,0.8,0.5]},{pos:[-2.2,1.5,3.6],look:[1.3,0.5,0.8]},{fov:[50,48]});
 S('s23',{pos:[4.5,8.7,0.01],look:[4.5,0,0]},{pos:[4.5,8.4,0.01],look:[4.5,0,0]},{fov:[62,60]});
@@ -97,10 +97,10 @@ Sp(SUB.s33,SH.s33[1],{pos:[60.75,1.75,399.0],look:[60.75,1.68,397.6]},{pos:[60.7
 Sp(SH.s34[0],SUB.s34,{pos:[0.1,3.4,0.4],look:[0,5.6,GY.Z]},{pos:[0.05,3.6,1.4],look:[0,5.6,GY.Z]},{fov:[60,58]});
 Sp(SUB.s34,SH.s34[1],{pos:[-3,2.6,-2.5],look:[-2,1.6,-GY.W/2-4]},{pos:[1,2.6,-2.5],look:[2,1.6,-GY.W/2-4]},{fov:[50,50]});
 S('s35',{pos:[0.1,4.0,GY.Z-8.0],look:[0,5.4,GY.Z]},{pos:[0.05,4.2,GY.Z-7.0],look:[0,5.4,GY.Z]},{fov:[56,54]});
-S('s36',{pos:[-5.6,1.9,6.2],look:[-8.6,2.0,0.4]},{pos:[-7.4,2.1,6.0],look:[-RX+1.0,2.4,0.2]},{fov:[52,52]});
+S('s36',{pos:[-5.6,1.9,6.2],look:[-8.6,1.4,0.4]},{pos:[-7.4,2.1,6.0],look:[-RX+1.0,1.9,0.2]},{fov:[52,52]});
 S('s37',{pos:[-RX+3.2,1.2,2.6],look:[-RX+0.3,3.0,0]},{pos:[-RX+3.6,1.4,3.4],look:[-RX+1.6,2.2,0]},{fov:[52,50],shake:0.02});
 S('s38',{pos:[0.1,3.4,0.6],look:[0,5.6,GY.Z]},{pos:[0.05,3.6,1.6],look:[0,5.6,GY.Z]},{fov:[60,58]});
-S('s39',{pos:[0,1.3,4.4],look:[0,1.0,-0.6]},{pos:[0,1.6,5.4],look:[0,1.2,-0.6]},{fov:[46,48]});
+S('s39',{pos:[0,1.5,4.4],look:[0,0.75,-0.4]},{pos:[0,1.7,5.4],look:[0,0.85,-0.4]},{fov:[46,48]});
 S('s40',{pos:[-60,1.5,401.2],look:[-60,1.25,398.4]},{pos:[-60,1.45,400.6],look:[-60,1.2,398.4]},{fov:[44,42]});
 S('s41',{pos:[0.4,1.5,3.6],look:[-0.1,1.1,0]},{pos:[0.3,1.4,3.1],look:[-0.1,1.0,0]},{fov:[48,46]});
 const CUTS=[...new Set([...Object.values(SH).map(v=>v[0]),...Object.values(SUB),SH.s41[1]])].sort((a,b)=>a-b);
@@ -115,6 +115,14 @@ const fourLine=(t,ex=()=>[[0,'neutral']])=>P4.forEach((ch,i)=>{const [x,z]=LINE(
 const slump=(ch,t,x,z,sd)=>{ch.root.rotation.set(0,0,0);BR.slump(ch,x,z,t,sd);ch.root.visible=true;};
 const crowd=(t,ch,sl=0)=>{CR.U.uT.value=t;CR.U.uCheer.value=ch;CR.U.uSleep.value=sl;};
 const yawTo=(x,z,tx,tz)=>Math.atan2(tx-x,tz-z);
+// máy quay cận/trung theo vị trí ĐẦU THẬT của nhân vật (chủ dự án 09/11: nội dung chính đặt giữa khung 9:16, mặt ở ~45 % chiều cao, trên phụ đề y 1310 và thẻ tên y 1430)
+// d: khoảng cách; fov; up: lệch điểm nhìn theo trục dọc (âm = đặt mặt cao hơn tâm); side: lệch ngang; drift: trôi máy (m/shot)
+const faceCam=(ch,o={})=>{ch.root.updateMatrixWorld(true);const h=ch.bones.Head.getWorldPosition(V());const yaw=ch.root.rotation.y;const fx=Math.sin(yaw),fz=Math.cos(yaw);
+  const d=o.d??1.3,k=o.k??0,dr=(o.drift??0.12)*k;const lx=h.x+fx*0.0,ly=h.y+(o.up??0.08)+(o.lookY??0),lz=h.z; /* xương Head ở gáy: +0,08 m ≈ giữa mặt → mặt ~45 % chiều cao */const sx=Math.cos(yaw),sz=-Math.sin(yaw),sd=o.side??0;
+  cam.position.set(lx+fx*(d-dr)+sx*sd,ly+(o.camY??0.02),lz+fz*(d-dr)+sz*sd);cam.lookAt(lx,ly,lz);cam.fov=o.fov??38;cam.updateProjectionMatrix();};
+const FC={s1:[()=>KU,{d:1.35,fov:40}],s5:[()=>KU,{}],s6:[()=>LV,{}],s7:[()=>HA,{d:1.4}],s8:[()=>GI,{}],
+  s10:[()=>HA,{d:1.25,camY:-0.35,up:0.03}],s11:[()=>GI,{d:1.2,camY:-0.35,up:0.03}],s12:[()=>KU,{d:1.2,camY:-0.35,up:0.03}],
+  s41:[()=>KU,{d:2.6,fov:46,up:-0.75,side:0.6}]};
 const pose=t=>{
   rig.apply(t);hideAll();
   // khán giả: hào hứng mở màn, lặng im khi cọc "không động đậy", ngủ gục lúc 0–0, bật dậy ở cú ghi nhầm rổ
@@ -182,6 +190,7 @@ const pose=t=>{
   if(IN('s39',t)){P4.forEach((c,i)=>{slump(c,t,-1.8+i*1.2,-0.6,i);expr(c,t,[[0,'sad']],{seed:i,look:[0,-0.6]});});CN.forEach((k,i)=>cAt(k,-2.0+i*1.0,1.0,t));}
   if(IN('s40',t)){const u=U('s40',t);cAt(CN[2],PRS.x,PRS.z-1.6,t,{});CN[2].root.position.y=0.8;idle(EXE,t,PRS.x-1.0,PRS.z-2.3,0.25,'Idle_Talking_Loop');expr(EXE,t,[[0,'talk']],{seed:3});PR.flash.intensity=((t*7.3)%1)<0.12?40:0;}
   if(IN('s41',t)){const u=U('s41',t);cAt(CB,0.2,0,t);KU.root.rotation.set(0,0,0);idle(KU,t,-0.6,-0.3,0.5,'Idle_Talking_Loop');expr(KU,t,[[0,'talk'],[66.6,'shrug']]);}
+  for(const [k,[f,o]] of Object.entries(FC))if(IN(k,t)){const ch=f();faceCam(ch,{...o,k:(t-SH[k][0])/(SH[k][1]-SH[k][0])});}
   const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=50;cam.updateProjectionMatrix();}
 };
 // ---------- hậu kỳ ----------
