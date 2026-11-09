@@ -21,7 +21,7 @@ const srv = http.createServer((q, s) => {
   const t0 = Date.now();
   for (const f of frames) {
     await pg.evaluate(t => window.renderFrame(t), f / +fps);
-    const d = await pg.evaluate(() => document.querySelector('canvas').toDataURL('image/jpeg', 0.93));
+    const d = await pg.evaluate(() => document.querySelector('canvas').toDataURL('image/jpeg', 0.98));
     fs.writeFileSync(path.join(outDir, `f_${String(f).padStart(5, '0')}.jpg`), Buffer.from(d.split(',')[1], 'base64'));
   }
   console.log('frames', frames.length, 'sec/frame', ((Date.now() - t0) / 1000 / Math.max(1, frames.length)).toFixed(3));
