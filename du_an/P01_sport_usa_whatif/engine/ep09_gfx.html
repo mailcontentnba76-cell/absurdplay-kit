@@ -1,0 +1,92 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 9: đồ hoạ "biển báo giao thông" — thẻ vàng biển báo viền đen, dải sọc cam–trắng (rào chắn) trên đầu thẻ, chữ đen Anton; thẻ đỏ "STOP" cho thất bại.
+   Khác E01–E08 (thẳng / vàng pixel / xiên ánh kim / tờ rơi / băng giá / ... / safari). */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:#ffcf1a;color:#111;border:8px solid #111;border-radius:16px;box-shadow:0 12px 0 #111,0 20px 30px rgba(0,0,0,.35);padding:34px 40px 12px;white-space:nowrap;text-align:center;overflow:hidden}
+.k::before{content:'';position:absolute;left:0;right:0;top:0;height:24px;background:repeating-linear-gradient(-45deg,#ff6a13 0 22px,#ffffff 22px 44px)}
+.rd{background:#d7261e;color:#fff;-webkit-text-stroke:3px #111;paint-order:stroke fill}.rd::before{background:repeating-linear-gradient(-45deg,#111 0 22px,#ffffff 22px 44px)}
+.wh{background:#f6f6f2}
+.big{font-size:150px;line-height:1}.mid{font-size:96px;line-height:1.05}.sm{font-size:66px;line-height:1.1}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:4px;color:#5a4300;margin-bottom:4px;-webkit-text-stroke:0}.rd .lab{color:#ffd9d6}
+.bug{top:300px;display:flex;height:84px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:44px;padding:0 20px;border-top:5px solid #111;border-bottom:5px solid #111}
+.bA{background:#ff6a13;color:#fff;min-width:170px;border-left:5px solid #111;border-radius:14px 0 0 14px;-webkit-text-stroke:2px #111;paint-order:stroke fill}.bS{background:#fff;color:#111;min-width:84px}
+.bB{background:#111;color:#ffcf1a;min-width:230px}.bC{background:#ffcf1a;color:#111;min-width:170px;font-size:40px!important;border-right:5px solid #111;border-radius:0 14px 14px 0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#ffcf1a;-webkit-text-stroke:16px #111;paint-order:stroke fill;text-shadow:0 12px 0 #ff6a13}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#111;background:#fff;border:6px solid #111;padding:6px 26px;border-radius:12px}
+.stamp{top:600px;font-size:200px;color:#d7261e;-webkit-text-stroke:10px #fff;paint-order:stroke fill;letter-spacing:4px;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{background:#111;color:#fff;font-size:64px;padding:4px 26px;border-left:14px solid #ff6a13}.lt .d{background:#ffcf1a;color:#111;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px;border-left:14px solid #111}
+#flash{position:absolute;inset:0;background:#fff7e0;opacity:0}
+#pnr{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.8);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<svg id="pnr" viewBox="0 0 1080 1920"><defs><marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffcf1a"/></marker></defs>
+  <g fill="none" stroke="#ffcf1a" stroke-width="12" stroke-linecap="round" stroke-dasharray="26 18"><path d="M380,1080 C460,980 540,940 620,930" marker-end="url(#ah)"/><path d="M640,1000 C700,940 760,900 820,880" marker-end="url(#ah)"/></g>
+  <g fill="none" stroke="#fff" stroke-width="10"><circle cx="360" cy="1110" r="44"/><circle cx="660" cy="960" r="44"/></g></svg>
+<div class="el bug" id="bug"><div class="bA">CONES</div><div class="bS" id="sA">0</div><div class="bB">WORST FOUR</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST 12:00</div></div>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">WORST 4 <span style="color:#d7261e">vs</span> 5 CONES</div>
+<div class="el k" id="recs" style="top:1430px"><span class="lab">THE WORST FOUR</span><span class="sm">MIL 1-9 · SAC 1-9 · UTA 1-9 · CHI 1-8</span></div>
+<div class="el lt" id="n1"><div class="n">KYLE KUZMA</div><div class="d">#18 · MILWAUKEE</div></div>
+<div class="el lt" id="n2"><div class="n">ZACH LAVINE</div><div class="d">#8 · SACRAMENTO</div></div>
+<div class="el lt" id="n3"><div class="n">JAXSON HAYES</div><div class="d">#11 · UTAH</div></div>
+<div class="el lt" id="n4"><div class="n">JOSH GIDDEY</div><div class="d">#3 · CHICAGO</div></div>
+<div class="el k rd" id="l8" style="top:420px"><span class="lab">UTAH</span><span class="big">8 STRAIGHT L</span></div>
+<div class="el k rd" id="l7" style="top:420px"><span class="lab">CHICAGO</span><span class="big">7 STRAIGHT L</span></div>
+<div class="el k rd" id="l6" style="top:420px"><span class="lab">MILWAUKEE</span><span class="big">6 STRAIGHT L</span></div>
+<div class="el k" id="w4" style="top:420px"><span class="lab">COMBINED WINS</span><span class="big">4</span></div>
+<div class="el k wh" id="h2h" style="top:420px"><span class="lab">ONE OF THE FOUR WINS</span><span class="mid">CHI 132 – 125 MIL</span></div>
+<div class="el k mid" id="super" style="top:1430px">THE SUPERTEAM</div>
+<div class="el k sm" id="p20" style="top:420px">20 PLAYERS</div>
+<div class="el k sm" id="c4" style="top:420px">4 COACHES</div>
+<div class="el k sm" id="g1" style="top:420px">1 GOAL</div>
+<div class="el k sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el k" id="vert" style="top:420px"><span class="lab">CONE VERTICAL</span><span class="big">0"</span></div>
+<div class="el k sm" id="cball" style="top:420px">CONES BALL</div>
+<div class="el k sm" id="pnrl" style="top:420px">PICK-AND-ROLL</div>
+<div class="el k" id="sw" style="top:420px"><span class="lab">CONE SWITCHES</span><span class="big">0</span></div>
+<div class="el k" id="open" style="top:420px"><span class="lab">PLAYERS OPEN</span><span class="big">0</span></div>
+<div class="el stamp" id="to">TURNOVER</div>
+<div class="el k sm" id="hesi" style="top:420px">HESI</div>
+<div class="el k" id="bite" style="top:420px"><span class="lab">CONE BITES</span><span class="big">0</span></div>
+<div class="el k sm" id="half" style="top:420px">HALFTIME</div>
+<div class="el lt" id="lt2"><div class="n">CONE TALK</div><div class="d">HALFTIME SHOW (FICTIONAL)</div></div>
+<div class="el k sm" id="q1" style="top:1430px">PERFECT POSITIONING</div>
+<div class="el k sm" id="q2" style="top:1430px">0 FOULS</div>
+<div class="el k sm" id="q3" style="top:1430px">0 COMPLAINTS TO REFS</div>
+<div class="el k rd big" id="clk4" style="top:1430px">0:04</div>
+<div class="el stamp" id="wrong">WRONG BASKET</div>
+<div class="el k big" id="fin" style="top:1430px">FINAL</div>
+<div class="el k" id="fin2" style="top:420px"><span class="mid">CONES 2 · <span style="color:#d7261e">WORST FOUR 0</span></span></div>
+<div class="el lt" id="max"><div class="n">CONES SIGN MAX DEAL</div><div class="d">BREAKING</div></div>
+<div class="el k sm" id="ctr" style="top:420px">MILWAUKEE: "CAN IT PLAY C?"</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep09_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',1.4,SH.s3[1]],['n1',SH.s5[0],SH.s5[1]],['n2',SH.s6[0],SH.s6[1]],['n3',SH.s7[0],SH.s7[1]],['n4',SH.s8[0],SH.s8[1]],['recs',9.0,SH.s9[1]],
+ ['l8',11.4,SH.s10[1]],['l7',12.6,SH.s11[1]],['l6',14.0,SH.s12[1]],['w4',15.8,SH.s13[1]],['h2h',16.9,SH.s14[1]],['super',21.6,SH.s16[1]],['p20',23.26,SH.s17[1]],['c4',24.3,SH.s18[1]],['g1',25.3,SH.s19[1]],
+ ['bug',SH.s20[0],SH.s36[0]],['tip',26.36,SH.s20[1]],['vert',27.5,SH.s21[1]],['cball',29.3,SH.s22[1]],['pnrl',30.6,SH.s23[1]],['sw',32.3,SH.s24[1]],['open',33.5,SH.s25[1]],['to',37.8,SH.s27[1]],
+ ['hesi',40.9,SH.s29[1]],['bite',42.0,SH.s30[1]],['half',44.34,SH.s32[1]],['lt2',45.2,SH.s32[1]],['q1',47.28,48.36],['q2',48.36,49.2],['q3',49.2,SH.s33[1]],['clk4',53.38,SH.s35[1]],
+ ['wrong',57.6,SH.s37[1]],['fin',59.48,61.26],['fin2',60.4,SH.s39[1]],['max',63.6,SH.s40[1]],['ctr',66.0,SH.s41[1]]];
+const POP=['wtf','to','wrong','fin','clk4','w4'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=e.id==='bug'?1:(pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k);
+    const rot=(e.id==='to'||e.id==='wrong')?-10+(1-k)*-20:pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const q4=t>=SH.s34[0];$('clk').textContent=q4?(t<SH.s35[0]?'4TH 0:21':'4TH 0:04'):t<SH.s23[0]?'1ST 12:00':t<SH.s26[0]?'1ST 9:47':'1ST 6:12';
+  const f=(t-SH.s4[0])*30;$('flash').style.opacity=f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;
+  $('pnr').style.opacity=t>=SH.s23[0]&&t<SH.s23[1]?Math.min(1,(t-SH.s23[0])/0.12):0;
+};
+</script></body></html>
