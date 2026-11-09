@@ -1,0 +1,76 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 12: đồ hoạ KIỂU ĐƯỜNG PHỐ NEW YORK — thẻ viền ca-rô đen vàng kiểu taxi, lower-third biển tên đường xanh lá chữ trắng,
+   dấu "FIELD GOAL." trên biển báo vàng hình thoi-chữ nhật, dấu đỏ "SACKED./STUFFED.", thẻ tick ✗ cho "no arms/legs/playbook". Khác E01–E11. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.cab{position:absolute;white-space:nowrap;text-align:center;padding:24px 48px 28px;color:#14161a;background:#ffd23f;border-radius:10px;
+  box-shadow:0 0 0 12px #14161a,0 0 0 24px #ffd23f,0 0 0 30px #14161a,0 22px 40px rgba(0,0,0,.5)}
+.cab .k{display:block;font-size:30px;letter-spacing:6px;color:#14161a;opacity:.8;margin-bottom:6px}
+.cab .v{display:block;font-family:Anton;font-size:108px;line-height:1.02}.cab .v.s{font-size:76px}
+.cab .n{display:block;font-size:30px;letter-spacing:3px;margin-top:8px}
+.street{position:absolute;left:60px!important;transform:none!important;background:#1f6b45;color:#fff;border-radius:10px;border:5px solid #fff;box-shadow:0 0 0 4px #1f6b45,0 14px 28px rgba(0,0,0,.5);padding:12px 26px 14px;min-width:460px}
+.street b{font-family:Anton;font-size:76px;line-height:1}.street i{font-style:normal;display:block;font-size:28px;letter-spacing:4px;opacity:.9}
+.street.red{background:#c8102e;box-shadow:0 0 0 4px #c8102e,0 14px 28px rgba(0,0,0,.5)}
+.bug{top:300px;display:flex;height:80px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4);font-family:Anton}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 18px;color:#fff}
+.bA{background:#1f6b45;min-width:110px}.bB{background:#f4f2ea;color:#2c4a7a!important;min-width:120px}.bS{background:#14161a;min-width:90px}.bC{background:#ffd23f;color:#14161a!important;font-size:34px!important;min-width:140px}
+.sign{position:absolute;transform:translateX(-50%) rotate(-5deg);background:#ffd23f;color:#14161a;font-family:Anton;font-size:128px;padding:10px 48px;border:12px solid #14161a;border-radius:22px;white-space:nowrap;box-shadow:0 16px 30px rgba(0,0,0,.45)}
+.stamp{position:absolute;border:12px solid #c8102e;color:#c8102e;font-family:Anton;font-size:124px;padding:4px 40px;border-radius:16px;transform:translateX(-50%) rotate(-8deg);background:rgba(250,248,240,.94);white-space:nowrap}
+.tag{position:absolute;background:#f6f4ee;color:#14161a;border-radius:18px;padding:24px 40px 28px;box-shadow:0 16px 34px rgba(0,0,0,.45);width:820px;text-align:left;border-left:16px solid #1f6b45}
+.tag .q{font-size:58px;line-height:1.12}.tag .w{font-size:30px;letter-spacing:4px;color:#1f6b45;margin-top:12px;display:block}
+.nos{position:absolute;width:560px;background:#f6f4ee;border-radius:16px;padding:22px 34px;box-shadow:0 0 0 10px #14161a,0 20px 38px rgba(0,0,0,.45)}
+.nos .r{display:flex;justify-content:space-between;align-items:center;font-family:Anton;font-size:72px;color:#14161a;opacity:0;border-bottom:4px dashed #cfcac0;padding:4px 0}
+.nos .r u{text-decoration:none;color:#c8102e;font-size:80px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">NYJ</div><div class="bS" id="sA">0</div><div class="bB">PLN</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST</div></div>
+<div class="el cab" id="res" style="top:440px"><span class="k">SUNDAY · KANSAS CITY</span><span class="v s">5 TRIPS · 0 TOUCHDOWNS</span><span class="n">JETS IN CHIEFS TERRITORY, FIRST HALF</span></div>
+<div class="el stamp" id="zero" style="top:900px">0 TD</div>
+<div class="el cab" id="wk" style="top:1330px"><span class="k">THIS WEEK · A NEW YORK ROOFTOP</span><span class="v s">JETS vs 11 PAPER AIRPLANES</span></div>
+<div class="el cab" id="fin0" style="top:440px"><span class="k">FINAL · KANSAS CITY</span><span class="v s">CHIEFS 35 · JETS 12</span></div>
+<div class="el cab" id="kick" style="top:440px"><span class="k">JETS POINTS FROM THE KICKER</span><span class="v">12 OF 12</span><span class="n">4 FIELD GOALS · 0 TOUCHDOWNS</span></div>
+<div class="el nos" id="nos" style="top:430px"><div class="r" id="n1">ARMS <u>✗</u></div><div class="r" id="n2">LEGS <u>✗</u></div><div class="r" id="n3">PLAYBOOK <u>✗</u></div></div>
+<div class="el sign" id="land" style="top:520px">END ZONE ✓</div>
+<div class="el cab" id="loc" style="top:440px"><span class="k">KICKOFF</span><span class="v s">ROOFTOP · NEW YORK</span></div>
+<div class="el street" id="geno" style="top:1290px"><b>7 · GENO SMITH</b><i>QUARTERBACK · NEW YORK</i></div>
+<div class="el stamp" id="sack" style="top:520px">SACKED.</div>
+<div class="el sign" id="fg1" style="top:520px">FIELD GOAL.</div><div class="el sign" id="fg2" style="top:520px">FIELD GOAL.</div><div class="el sign" id="fg3" style="top:520px">FIELD GOAL.</div>
+<div class="el stamp" id="td" style="top:520px">TOUCHDOWN!</div>
+<div class="el cab" id="radio" style="top:1330px"><span class="k">ROOFTOP SPORTS RADIO</span><span class="v s">ON AIR</span></div>
+<div class="el tag" id="q1" style="top:1250px"><div class="q">“The Jets are moving the ball really well.”</div><span class="w">— THE ANNOUNCER</span></div>
+<div class="el tag" id="q2" style="top:1250px"><div class="q">“They're losing to paper.”</div><span class="w">— HIS PARTNER</span></div>
+<div class="el street red" id="kc" style="top:1290px"><b>9 · WALKER III &nbsp;87 · KELCE</b><i>KANSAS CITY · JUST IN CASE</i></div>
+<div class="el cab" id="q4" style="top:440px"><span class="k">4TH QUARTER</span><span class="v s">JETS DOWN 2</span></div>
+<div class="el cab" id="goal" style="top:440px"><span class="k">4TH &amp; GOAL</span><span class="v s">FROM THE 1</span></div>
+<div class="el stamp" id="stuff" style="top:520px">STUFFED.</div>
+<div class="el cab" id="fin" style="top:1300px"><span class="k">FINAL · NEW YORK ROOFTOP</span><span class="v s">PLANES 14 · JETS 12</span></div>
+<div class="el cab" id="half" style="top:440px"><span class="k">KANSAS CITY AT HALFTIME</span><span class="v">14–12</span><span class="n">SAME SCORE</span></div>
+<div class="el stamp" id="signed" style="top:520px">SIGNED.</div>
+<div class="el cab" id="sign2" style="top:1330px"><span class="k">TRANSACTION</span><span class="v s">CHIEFS SIGN 11 PAPER AIRPLANES</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep12_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['res',0.1,SH.s3[1]],['zero',SH.s3[0]+0.4,SH.s3[1]],['wk',SH.s4b[0]+0.3,SH.s5[0]],['fin0',...at('s5',0.1)],['kick',...at('s6',0.1)],['nos',...at('s7',0.1)],['land',24.05,SH.s9[1]],
+ ['loc',SH.s10[0]+0.1,SH.s10b[1]],['bug',SH.s11[0],SH.s19[0]],['geno',SH.s11[0]+0.05,SH.s12[1]],['sack',29.62,SH.s12[1]],['fg1',33.95,SH.s14[1]],['fg2',35.62,SH.s16[1]],['td',39.0,SH.s18[1]],
+ ['radio',SH.s19[0]+0.05,SH.s19[0]+0.95],['q1',SH.s19[0]+0.95,SH.s19b[0]],['q2',SH.s19b[0]+0.05,SH.s19b[1]],['kc',SH.s20[0]+0.3,SH.s20b[1]],['bug',SH.s21[0],SH.s24[0]],['q4',...at('s21',0.1)],['goal',...at('s22',0.1)],
+ ['stuff',56.0,SH.s23b[1]],['fin',...at('s24',0.1)],['half',SH.s25[0]+0.1,SH.s25[1]],['fg3',71.02,SH.s28[1]],['signed',73.05,SH.s29[1]],['sign2',SH.s29[0]+0.2,SH.s29[1]]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('street'))e.style.transform=`translateX(${(1-k)*-700}px)`;
+    else if(e.classList.contains('stamp'))e.style.transform=`translateX(-50%) rotate(-8deg) scale(${on?Math.max(1,2.2-1.2*Math.min(1,(t-a)/0.15)):1})`;
+    else if(e.classList.contains('sign'))e.style.transform=`translateX(-50%) rotate(${on?-5+(1-k)*20:-5}deg) scale(${on?0.6+0.4*k:1})`;
+    else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.86+0.14*k})`;}
+  [['n1',18.2],['n2',19.2],['n3',20.08]].forEach(([id,t0])=>{const e=$(id);const k=Math.min(1,Math.max(0,(t-t0)/0.18));e.style.opacity=k;e.style.transform=`translateX(${(1-ease(k))*60}px)`;});
+  const sA=t>=SH.s21[0]?12:t>=SH.s16[0]+0.5?6:t>=SH.s14[0]+0.5?3:0;const sB=t>=SH.s18[0]+0.3?(t>=SH.s21[0]?14:7):0;$('sA').textContent=sA;$('sB').textContent=sB;$('clk').textContent=t>=SH.s21[0]?'4TH':t>=SH.s17[0]?'3RD':'1ST';
+  const fl=(k,n=5)=>{const f=(t-SH[k][0])*30;return f>=0&&f<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};
+  $('flash').style.opacity=Math.max(fl('s4b'),fl('s9'),fl('s18'),fl('s26'));
+};
+</script></body></html>

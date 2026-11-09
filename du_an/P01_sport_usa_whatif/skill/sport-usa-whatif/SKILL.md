@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.7 (09/11/2026)
+# Sport USA "What If" — v1.8 (09/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -149,12 +149,14 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E08 | NFL | Bears (thắng Bucs 27–24 dù Caleb Williams 4 INT, Santos FG 38 yd hết giờ): Williams #18, Santos #8 (áo navy số trắng viền cam, mũ navy trơn sọc cam-trắng, không chữ C) | 11 găng bóng chày có mặt ("Caught." x4, mỗi găng 1 INT, găng không có chân nên không nhảy chặn FG, xin chữ ký → Caleb ném → bắt) | sân bóng chày đất (sandlot) hoàng hôn mùa hè + lều bình luận bạt sọc + bảng điểm lật tay + nhà dân/cột điện | alvana upbeat/back-in-the-80s |
 | E10 | NCAA | Michigan (thua Michigan State 6–15, đối thủ 0 TD, 5 FG của Liam Boyd #37): Carr #14 (áo navy, quần vàng ngô, mũ navy trơn); Boyd #37 (áo xanh MSU, quần trắng) | 11 cột gôn có mặt (DOINK x3, người khổng lồ đốn gỗ hư cấu chặt hết cột, không có cột → không PAT, MSU mời ký hợp đồng) | sân giữa rừng thông tuyết buổi sáng + chòi bình luận gỗ + bảng điểm gỗ có mặt + nhà gỗ khói | alvana upbeat/happy-dance |
 | E11 | NFL | Packers (thắng Patriots 45–27 ở Foxborough; Love 23/29, 372 yd, 3 TD + 1 TD chạy, 0 mất bóng): Love #10 (áo xanh lá đậm số trắng viền vàng, quần vàng, mũ vàng trơn không chữ G) | 11 hình nộm bìa cứng vẽ tay hư cấu ("Flat." x4: xoay ngang biến mất, gió thổi 3 tấm đáp trên ngọn ngô; nhãn $4.99; bò chán bỏ về; Love vấp tấm bìa nằm sàn; New England gọi mua về làm hàng thủ) | trang trại sữa Wisconsin chiều thu: kho thóc đỏ + bảng điểm sơn tay, si-lô, ruộng ngô, khán đài kiện rơm có bò, xe rơm bình luận | alvana upbeat/a-small-town-on-pluto |
+| E12 | NFL (khuôn gộp) | Jets thua Chiefs 12–35 (5 lần vào sân KC hiệp 1, 0 TD, 4 FG): Geno Smith #7 (mũ xanh, áo trắng số xanh, quần xanh); Chiefs góp mặt Walker III #9, Kelce #87 (áo đỏ, không mũ) — KHÔNG Mahomes (rời sân vì pha strip-sack) | 11 máy bay giấy có mắt ("Field goal." x3, SACKED., STUFFED., Planes 14–12 = tỉ số hiệp 1 thật, Jets hoá máy bay giấy đáp vạch 1 yard, Chiefs ký 11 máy bay, bảng 40 PLAYS) | sân thượng toà nhà New York hoàng hôn: nhà chọc trời sáng đèn, tháp nước gỗ có bảng điểm, lán tôn bình luận, khán đài gấp | alvana hiphop/coins |
 | E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v1.8 (09/11): E12 Jets — tập đầu theo khuôn gộp (`lib/santhuong.js`: sân thượng NY, rừng nhà chọc trời instanced, tháp nước + bảng điểm, `makePlane` máy bay giấy có mắt, bay theo cung `fly()`, biến hình người→vật bằng thu nhỏ + giấy vụn); chọn đội thua: loại trận thua vì chấn thương (Ravens) để không thành đùa về chấn thương; đội thắng có ngôi sao vừa chấn thương thì không đưa người đó vào.
 - v1.7 (09/11): KHUÔN GỘP 10 nhịp (đội thua thật vs 11 vật → vẫn thua; đội thắng troll; đội thua hoá vật); quy tắc dựng cầu thủ thật (tóc/râu/da/dáng theo ảnh thật, mặt biếm hoạ); thay v1.5–v1.6.
 - v1.5 (09/11): ngừng khuôn "vs 11 vật vô tri"; 7 định dạng mới xoay vòng, vẫn bám tin hot.
 - v1.4 (09/11): hook mở bằng pha lao vào tranh chấp (E11 làm lại); cắt shot phải mượt — giữ hướng máy quay giữa các shot liền nhau (không lật 180°), `cong_cu/hoa_cat.py` hoà 0,1 s ở mỗi điểm cắt trước khi phóng 1080x1920.

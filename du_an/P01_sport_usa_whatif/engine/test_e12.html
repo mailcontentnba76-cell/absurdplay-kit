@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildRooftop,rooftopLights,makePlane,NYJ,KC,ROOF,FL,FW} from './lib/santhuong.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose} from './lib/tuthe.js';
+import {clipPose} from './lib/dongtac.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildRooftop(s);const LT=rooftopLights(s);const lib=await loadLibrary();
+const JETS={...EAGLES,jersey:'#ffffff',numberColor:NYJ.green,numberOutline:'#ffffff',pants:NYJ.green,pantsStripes:['#ffffff'],socks:NYJ.green,shoes:'#f4f4f4',gloves:'#f4f4f4',helmet:NYJ.green,helmetMetal:0.3,helmetStripe:['#ffffff'],mask:'#ffffff',collar:NYJ.green,backNameMax:150};
+const CHIEFS={...EAGLES,jersey:KC.red,numberColor:'#ffffff',numberOutline:KC.gold,pants:'#ffffff',pantsStripes:[KC.red,KC.gold],socks:KC.red,shoes:'#1b1b1b',gloves:'#1b1b1b',helmet:null,collar:KC.red,backNameMax:150};
+const QB=makeCharacter(lib,{...JETS,number:7,backName:'SMITH',heightM:1.91,skin:'#6b4026',beardStyle:'full',beardColor:'#141010',shoulders:null});
+const KE=makeCharacter(lib,{...CHIEFS,number:87,backName:'KELCE',heightM:1.96,skin:'#f0c8a6',hair:'Hair_Buzzed',hairColor:'#6a4a32',beardStyle:'full',beardColor:'#6a4a32',face:'hair'});
+const WK=makeCharacter(lib,{...CHIEFS,number:9,backName:'WALKER III',heightM:1.75,skin:'#5e3a26',hair:'Hair_Long',hairColor:'#141010',face:'hair'});
+for(const ch of [QB,KE,WK]){s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});}
+const PL=[];for(let i=0;i<11;i++){const p=makePlane({seed:i+1});s.add(p.root);PL.push(p);}
+const JP=makePlane({seed:20,paper:'#ffffff',line:'#cfe8da',stripe:NYJ.green});s.add(JP.root);
+const cam=new THREE.PerspectiveCamera(50,W/H,.05,3000);s.add(cam);
+window.renderFrame=t=>{A.update(t);A.board.set({home:12,away:14,q:4,clock:'0:00'});
+ PL.forEach((g,i)=>{g.root.position.set(14+(i%4)*3,0,-4+Math.floor(i/4)*3);g.root.rotation.y=-Math.PI/2;g.update(t);});
+ JP.root.position.set(4,0,4);JP.root.rotation.y=Math.PI/2;JP.update(t);
+ [[QB,0,0],[KE,2,-2],[WK,2,2]].forEach(([ch,x,z])=>{ch.root.position.set(x,0,z);ch.root.rotation.set(0,Math.PI/2,0);resetPose(ch);clipPose(ch,lib,[{name:'Idle_Loop',time:t,w:1}]);});
+ const v=(location.hash.match(/v=(\d)/)||[0,0])[1]*1;const V=[[[6,2.2,6],[16,0.8,0]],[[11.5,1.5,0.8],[14,0.7,-4]],[[-6,2.4,3],[1,1.4,0]],[[-90,60,90],[0,0,0]],[[FL/2-12,6,-6],[FL/2+8,9,-12]],[[-30,3,-4],[-38,1.8,-FW/2-3]],[[-10,6,30],[0,4,-30]],[[3.2,1.75,2.6],[2,1.6,2]]][v];
+ cam.position.set(...V[0]);cam.lookAt(...V[1]);LT.follow(cam);r.render(s,cam);};
+window.ready=true;
+</script></body></html>
