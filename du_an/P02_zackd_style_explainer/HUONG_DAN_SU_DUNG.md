@@ -56,6 +56,8 @@ Ghi ý kiến theo mốc thời gian, ví dụ "00:07 tay cầm sai", "00:15 thi
 4. Công cụ apt (Blender, Kdenlive, melt) mất khi container mới. Claude cài lại bằng lệnh ở `BANG_KIEM_CONG_CU.md` mục 4.
 
 ## 9. Cài skill (tuỳ chọn, để mọi phiên tự nhận ra)
+Mang sang **Claude Desktop**: làm theo `BAT_DAU_DAY.md` (gói 2 file zip, tạo bằng `cong_cu/dong_goi.sh`).
+
 Skill đã nằm trong repo: `du_an/P02_zackd_style_explainer/skill/zackdfilms-reference-production/`. Có 2 cách cài:
 - **Trong repo (Claude Code):** chép thư mục đó vào `.claude/skills/` ở gốc repo rồi commit. Phiên Claude Code mở repo này sẽ tự thấy skill. Muốn làm cách này thì bảo Claude "cài skill P02 vào repo".
 - **Trên claude.ai:** nén thư mục skill thành zip rồi tải lên ở mục Skills của tài khoản.

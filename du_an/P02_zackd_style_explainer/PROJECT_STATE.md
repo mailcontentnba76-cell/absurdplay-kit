@@ -9,6 +9,7 @@ Cập nhật: 09/11/2026 · Pha hiện tại: **PHÂN TÍCH XONG, ĐÃ SOẠN SK
 - [x] Đặc tả phong cách + skill: `skill/zackdfilms-reference-production/` (đã soạn, **chưa cài**).
 - [x] Kiểm công cụ: `BANG_KIEM_CONG_CU.md`; kết quả thử ở `kiem_thu/`.
 - [x] Hướng dẫn người dùng: `HUONG_DAN_SU_DUNG.md`.
+- [x] Gói chuyển sang Claude Desktop: `BAT_DAU_DAY.md`; tạo gói bằng `bash du_an/P02_zackd_style_explainer/cong_cu/dong_goi.sh` → `goi_chuyen/zackdfilms-reference-production.zip` (skill v0.2) + `goi_chuyen/P02_goi_chuyen_v1.0.zip` (không có video mẫu; file zip không lên GitHub).
 
 ## Vướng mắc
 | Vướng mắc | Ảnh hưởng | Cần |

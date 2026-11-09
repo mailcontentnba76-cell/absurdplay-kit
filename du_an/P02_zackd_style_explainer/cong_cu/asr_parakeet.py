@@ -2,7 +2,7 @@
 """Chép lời tiếng Anh có mốc từng từ bằng parakeet-tdt-0.6b-v2 (int8, sherpa-onnx), chạy trên CPU, không cần mạng.
 Mô hình: thư mục $PARAKEET_DIR (mặc định /root/.p02/parakeet) gồm encoder/decoder/joiner .int8.onnx + tokens.txt.
 Dùng: python3 asr_parakeet.py <file âm thanh/video> [...]  -> ghi <tên>.asr.json cạnh file: {"text", "words": [[word, t_start], ...]}
-Giới hạn: chỉ có mốc BẮT ĐẦU từ, bước 0,08 s; tiếng Anh; nên cắt file > 10 phút thành đoạn.
+Giới hạn: chỉ có mốc BẮT ĐẦU từ, bước 0,08 s; chỉ tiếng Anh. Theo README của mô hình, đoạn dài hơn ~60 s giải mã kém: cắt ở chỗ lặng thành đoạn 15–20 s rồi cộng mốc.
 """
 import sys, os, json, subprocess, tempfile, sherpa_onnx, soundfile as sf
 M = os.environ.get('PARAKEET_DIR', '/root/.p02/parakeet').rstrip('/') + '/'

@@ -1,4 +1,6 @@
-"""Bài thử render P02 (chạy: blender -b --factory-startup -P thu_render.py -- <engine> <out_dir> <w> <h> <samples>)
+"""Bài thử render P02 (chạy: blender -b --factory-startup -P thu_render.py -- <CYCLES|BLENDER_EEVEE> <out_dir> <w> <h> <samples>)
+Đã chạy trên Blender 4.0.2 (Linux, CPU). Bản mới hơn: tự đổi tên engine và bỏ qua thuộc tính không còn. Cycles có khử nhiễu: đặt P02_DENOISE=1 (cần bản có OIDN).
+Trên Linux không màn hình, chạy EEVEE qua: xvfb-run -a blender -b …
 Cảnh nhỏ có các yếu tố đặc trưng của mẫu: nền studio vô cực có vignette, quả cầu trong suốt (nho), vật có viền phát sáng
 (làm nổi), chữ 3D phát sáng (bộ đếm), độ sâu trường ảnh, máy đẩy vào. Render 3 khung để đo giây/khung.
 """
@@ -8,12 +10,18 @@ engine, out, W, H, S = argv[0], argv[1], int(argv[2]), int(argv[3]), int(argv[4]
 os.makedirs(out, exist_ok=True)
 sc = bpy.context.scene
 for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
-sc.render.engine = engine
+try:
+    sc.render.engine = engine
+except TypeError:  # Blender 4.2–4.x đổi tên EEVEE thành BLENDER_EEVEE_NEXT
+    sc.render.engine = 'BLENDER_EEVEE_NEXT' if engine == 'BLENDER_EEVEE' else engine
+engine = sc.render.engine
 sc.render.resolution_x, sc.render.resolution_y = W, H
 if engine == 'CYCLES':
     sc.cycles.device = 'CPU'; sc.cycles.samples = S; sc.cycles.use_denoising = os.environ.get('P02_DENOISE', '0') == '1'
 else:
-    sc.eevee.taa_render_samples = S; sc.eevee.use_bloom = True; sc.eevee.use_ssr = True; sc.eevee.use_ssr_refraction = True
+    sc.eevee.taa_render_samples = S
+    for k in ('use_bloom', 'use_ssr', 'use_ssr_refraction', 'use_raytracing'):  # có hay không tuỳ phiên bản Blender
+        if hasattr(sc.eevee, k): setattr(sc.eevee, k, True)
 # nền vô cực: mặt phẳng cong
 bpy.ops.mesh.primitive_plane_add(size=40, location=(0, 0, 0)); floor = bpy.context.object
 m = bpy.data.materials.new('nen'); m.use_nodes = True; m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (0.35, 0.62, 0.85, 1); floor.data.materials.append(m)
@@ -23,7 +31,9 @@ sc.world = bpy.data.worlds.new('w'); sc.world.use_nodes = True; sc.world.node_tr
 bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5, location=(-0.3, 0, 0.5), segments=48, ring_count=24); g = bpy.context.object; bpy.ops.object.shade_smooth()
 gm = bpy.data.materials.new('nho'); gm.use_nodes = True; p = gm.node_tree.nodes['Principled BSDF']
 p.inputs['Base Color'].default_value = (0.55, 0.8, 0.2, 1); p.inputs['Transmission Weight' if 'Transmission Weight' in p.inputs else 'Transmission'].default_value = 0.9; p.inputs['Roughness'].default_value = 0.15
-if engine != 'CYCLES': gm.blend_method = 'BLEND'; gm.use_screen_refraction = True
+if engine != 'CYCLES':
+    if hasattr(gm, 'blend_method'): gm.blend_method = 'BLEND'
+    if hasattr(gm, 'use_screen_refraction'): gm.use_screen_refraction = True
 g.data.materials.append(gm)
 # vật được làm nổi: viền phát sáng = vỏ phóng to, emission, backface
 bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5, location=(0.8, 0, 0.5)); t = bpy.context.object; bpy.ops.object.shade_smooth()

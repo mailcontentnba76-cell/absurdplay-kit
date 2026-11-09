@@ -3,28 +3,31 @@ name: zackdfilms-reference-production
 description: Phân tích, lên kế hoạch, sản xuất và QA video dọc ngắn 3D giải thích theo phong cách kênh mẫu @zackdfilms (dự án P02 trong repo absurdplay-kit). Dùng khi người dùng nhắc P02, Zack D. Films, "zackdfilms", video giải thích 3D kiểu "Imagine you / What if / How this…", hoặc yêu cầu làm tập mới, viết kịch bản, bảng shot, bản thử, QA cho dự án này. Không dùng cho P01 hay dự án khác.
 ---
 
-# zackdfilms-reference-production (v0.1, 09/11/2026)
+# zackdfilms-reference-production (v0.2, 09/11/2026)
 
 Skill này **không phải huấn luyện mô hình**. Nó là bộ quy trình kèm số đo lấy từ 10 video mẫu, để mọi phiên làm theo cùng một chuẩn.
 - Giải thích cho người dùng bằng **tiếng Việt**.
 - Viết prompt tạo ảnh, video, giọng bằng **tiếng Anh**.
 - Giữ nguyên transcript mẫu bằng ngôn ngữ gốc.
 
-## Thư mục dự án
-`du_an/P02_zackd_style_explainer/` (gọi tắt `P02/`). Đọc trước tiên: `P02/PROJECT_STATE.md`. Đọc file đó trước khi làm gì khác, và cập nhật nó sau mỗi bước.
+## Thư mục dự án và script
+- **Thư mục dự án (gọi tắt `P02/`)** là thư mục chứa `PROJECT_STATE.md` của P02. Nó có thể nằm ở `du_an/P02_zackd_style_explainer/` trong repo absurdplay-kit, hoặc ở nơi người dùng giải nén gói chuyển (ví dụ `…/BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P02_zackd_style_explainer/`). Tìm file đó, đọc trước khi làm gì khác, và cập nhật nó sau mỗi bước.
+- **Không tìm thấy thư mục dự án:** vẫn làm được nhờ `references/` và `templates/` trong skill. Hãy hỏi người dùng gói `P02_goi_chuyen_*.zip`.
+- **Script:** `scripts/` trong skill (bản đóng gói) và `P02/cong_cu/` (bản trong repo) là cùng một bộ. Dưới đây ghi `cong_cu/…`; nếu không có thì dùng `scripts/…`.
+- **Máy mới:** đọc `references/cai_dat.md` và kiểm công cụ trước khi làm việc.
 
 ## Thứ bậc mẫu
 1. **V10** (bọ biến mất): mẫu chính cho video giải thích cơ chế.
 2. **V01** (người phụ nữ và cá heo): mẫu phụ cho chuyện có thật.
 3. V02–V09: đặc điểm lặp lại; V07 (hư cấu, 68 s) và V08 (hướng dẫn tự làm) có quy tắc riêng.
-4. Bằng chứng: `P02/PHAN_TICH_MAU/TONG_HOP.md`, `V01…V10_*.md`, `do_tu_dong/`. Ảnh `bang_chung/` chỉ có ở máy (không lên GitHub); tạo lại từ video mẫu khi cần.
+4. Bằng chứng: `references/tong_hop_10_mau.md` (bản sao của `P02/PHAN_TICH_MAU/TONG_HOP.md`), `V01…V10_*.md`, `do_tu_dong/`. Ảnh `bang_chung/` chỉ có ở máy (không lên GitHub); tạo lại từ video mẫu khi cần.
 
 Không mang quy tắc từ dự án khác vào (NBA/NFL, Roblox, em bé, Halloween, trinh thám…).
 
 ## Chế độ làm việc
 | Chế độ | Khi nào | Làm gì | File hướng dẫn |
 |---|---|---|---|
-| PHÂN TÍCH | có video mẫu mới | đo bằng `P02/cong_cu/*`, xem lưới 4 khung/giây, kiểm từng khung ở chỗ chuyển cảnh, viết `Vxx_*.md`, cập nhật TONG_HOP | `references/phan_tich.md` |
+| PHÂN TÍCH | có video mẫu mới | đo bằng `cong_cu/*`, xem lưới 4 khung/giây, kiểm từng khung ở chỗ chuyển cảnh, viết `Vxx_*.md`, cập nhật TONG_HOP | `references/phan_tich.md` |
 | LÊN KẾ HOẠCH | người dùng đưa chủ đề hoặc kịch bản | BRIEF → nghiên cứu → kịch bản → bảng shot | `references/kich_ban.md`, `references/hinh_va_may.md`, `templates/` |
 | SẢN XUẤT | sau khi kịch bản được duyệt **và** mức credit được duyệt | giọng thật → mốc từ → tài nguyên → bản thử đoạn khó nhất → cả video → ráp, phối → xuất | `references/cong_cu.md`, `references/chu_va_am.md` |
 | QA | mỗi bản xuất | `templates/QA_CHECKLIST.md` + nhật ký lỗi; sửa ở đúng khâu gây lỗi | `templates/QA_CHECKLIST.md` |
@@ -65,4 +68,5 @@ A. BRIEF (`templates/BRIEF.md`) → B. nghiên cứu, ghi nguồn → C. kịch 
 `P02/PROJECT_STATE.md` (pha hiện tại, việc đã làm, vướng mắc, đường dẫn bằng chứng, bước tiếp). Mỗi tập lưu ở `P02/tap/<MA_TAP>_<ten>/` theo khung dự án.
 
 ## Thay đổi
+- v0.2 (09/11/2026): skill tự đủ dùng khi mang sang máy khác: có `scripts/`, `references/cai_dat.md`, `references/tong_hop_10_mau.md`; đường dẫn không còn phụ thuộc repo.
 - v0.1 (09/11/2026): bản đầu, dựng từ 10 mẫu V01–V10. Chưa sản xuất tập nào, nên chưa có bằng chứng từ sản xuất thật.
