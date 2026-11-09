@@ -7,6 +7,7 @@ Quy ước:
 | Phiên bản | Ngày | Áp dụng cho (hồ sơ / quy trình / skill / công cụ) | Thay đổi | Lý do / bằng chứng | Ai quyết | Video đầu tiên dùng bản này |
 |---|---|---|---|---|---|---|
 | v0.1 | 09/11/2026 | hồ sơ | Tạo thư mục dự án từ mẫu, ghi kênh mẫu | YC 09/11: dự án mới, tách riêng khỏi P01 | chủ dự án | — |
+| v0.2 | 09/11/2026 | hồ sơ + quy trình + skill + công cụ | Phân tích 10 mẫu V01–V10; đặc tả 21 quy tắc; skill zackdfilms-reference-production v0.1; công cụ đo, phụ đề, Kdenlive, Blender đã thử | PHAN_TICH_MAU/TONG_HOP.md, BANG_KIEM_CONG_CU.md | Claude (chờ chủ dự án xác nhận) | — |
 
 ## Mẫu skill riêng của dự án (khi dự án làm nhiều video)
 ```

@@ -1,0 +1,123 @@
+{
+ "thoi_luong_s": 38.917,
+ "so_tu": 116,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 37.599998474121094,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.97,
+ "tu_moi_phut_ca_video": 178.8,
+ "tu_moi_phut_doan_co_loi": 183.4,
+ "khoang_bat_dau_tu_trung_vi_s": 0.24,
+ "ngat_dai_hon_0_6s": [
+  [
+   3.12,
+   0.64,
+   "center.",
+   "Then"
+  ],
+  [
+   5.68,
+   0.64,
+   "sleeve,",
+   "color"
+  ],
+  [
+   6.88,
+   0.64,
+   "insides",
+   "black,"
+  ],
+  [
+   7.52,
+   0.64,
+   "black,",
+   "and"
+  ],
+  [
+   10.72,
+   0.64,
+   "hole.",
+   "Poke"
+  ],
+  [
+   12.96,
+   0.72,
+   "aluminum",
+   "and"
+  ],
+  [
+   15.2,
+   0.64,
+   "shutter.",
+   "In"
+  ],
+  [
+   17.2,
+   1.28,
+   "35mm",
+   "film"
+  ],
+  [
+   19.36,
+   0.64,
+   "box",
+   "and"
+  ],
+  [
+   22.0,
+   0.88,
+   "canister.",
+   "Slide"
+  ],
+  [
+   29.6,
+   0.8,
+   "subjects,",
+   "uncover"
+  ],
+  [
+   32.08,
+   0.72,
+   "seconds,",
+   "cover"
+  ],
+  [
+   35.04,
+   0.64,
+   "forward.",
+   "And"
+  ],
+  [
+   36.16,
+   0.64,
+   "developed,",
+   "you'll"
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -13.8,
+ "muc_khi_khong_loi_dBFS_trung_vi": -22.2,
+ "chenh_loi_so_nen_dB": 8.3,
+ "f0_trung_vi_Hz": 166.0,
+ "f0_p10_p90_Hz": [
+  108.3,
+  279.2
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  7.35,
+  7.91,
+  12.45,
+  13.32,
+  16.78,
+  17.75,
+  17.95,
+  19.71,
+  22.36,
+  23.64,
+  30.14,
+  30.82,
+  32.48,
+  33.15,
+  35.43,
+  36.62,
+  38.28
+ ]
+}

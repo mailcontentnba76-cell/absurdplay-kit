@@ -1,40 +1,17 @@
-# QUY TRÌNH RIÊNG — P02 (v0.1, <ngày>, trạng thái: NHÁP / ĐÃ DUYỆT)
+# QUY TRÌNH RIÊNG — P02 (v0.1, 09/11/2026, trạng thái: NHÁP, chưa chạy với tập thật)
 
-## 1. Phương pháp sản xuất đã chọn
-- Phương pháp: <ví dụ: 3D engine điều khiển bằng code + nền vẽ AI / 2D motion graphics trong NLE / ghép ảnh AI + chuyển động máy / quay thật…>
-- Lý do (gắn với số đo trong TONG_HOP.md):
-- Phương án đã cân nhắc và lý do loại:
-- Giới hạn đã biết khiến sản phẩm có thể khác mẫu:
+Quy trình chi tiết nằm trong skill: `skill/zackdfilms-reference-production/SKILL.md` và các file `references/`. File này chỉ tóm tắt và ghi lý do lựa chọn.
 
-## 2. Các bước
-Nhãn nguồn bước: **[TÁI DÙNG]** lấy nguyên từ quy trình chung · **[ĐIỀU CHỈNH]** khung chung, đổi thông số · **[MỚI]** xây riêng cho dự án.
+## Phương pháp
+Kết hợp ba nguồn hình:
+- ảnh khung đầu + tạo video từ ảnh (Magnific: Kling 2.5 / Seedance 2.5) cho nhân vật và bối cảnh;
+- Blender EEVEE cho cảnh cơ chế và chữ 3D;
+- ráp, phụ đề, phối và xuất bằng Kdenlive 23.08 + melt.
 
-| # | Bước | Nhãn | Đầu vào | Công việc | Công cụ (đã kiểm ở MAU_04) | Đầu ra (đường dẫn) | Tiêu chí qua bước (đo được) |
-|---|---|---|---|---|---|---|---|
-| 1 | Ý tưởng → kịch bản | | | | | | **chủ dự án duyệt** |
-| 2 | Giọng / lời | | | | | | nhịp trong dải mẫu: … |
-| 3 | Storyboard / shot list | | | | | | mọi câu có hình; mọi động từ chính có hành động |
-| 4 | Tài sản (nhân vật, nền, đạo cụ, chữ) | | | | | | |
-| 5 | Dựng cảnh, chuyển động, máy | | | | | | |
-| 6 | Màu, ánh sáng, hậu kỳ hình | | | | | | |
-| 7 | Bản thử | | | | | | **chủ dự án duyệt** (MAU_05) |
-| 8 | Render / xuất hình đầy đủ | | | | | | đủ khung, không hỏng |
-| 9 | Chữ / phụ đề | | | | | | vị trí, cỡ, nhịp theo mẫu |
-| 10 | Nhạc, SFX, mix | | | | | | loudness, mức nhạc giữa câu… |
-| 11 | Ráp + project chỉnh sửa được | | | | | | mở lại / render lại được |
-| 12 | QA + xem tay | | | | | | MAU_06 đạt |
-| 13 | Bàn giao + cập nhật hồ sơ | | | | | | |
+## Lý do (gắn với số đo)
+- Mẫu là 3D CG chất lượng cao (10/10). Blender CPU ở đây mất 27–33 s/khung, nên làm cả video bằng Blender không khả thi. Xem `BANG_KIEM_CONG_CU.md`.
+- Cảnh cơ chế cần hình khối và nhân quả chính xác (V03, V10). Tạo video từ ảnh không đảm bảo được điều này, nên phần đó làm bằng Blender hoặc ghép thêm lớp.
+- Chuyển cảnh giấu trong chuyển động (10/10) được làm ở khâu dựng, để chủ động thời điểm.
 
-(Thêm, bớt hoặc gộp bước theo phương pháp; không giữ bước không cần.)
-
-## 3. Ngưỡng QA của dự án
-| # | Chỉ số | Ngưỡng | Lấy từ (mẫu / yêu cầu) | Cách đo |
-|---|---|---|---|---|
-
-## 4. Rủi ro và đoạn thử
-| Rủi ro (khó tái tạo / dễ lỗi) | Vì sao | Cách thử ở G6 |
-|---|---|---|
-
-## 5. Ước tính chi phí và thời gian mỗi video
-| Hạng mục | Công cụ | Chi phí | Thời gian máy |
-|---|---|---|---|
+## Chưa kiểm
+Toàn bộ phần tạo video từ ảnh (chưa tiêu credit), viền sáng ghép lên clip AI, TTS. Bản thử đầu tiên sẽ kiểm các phần này.

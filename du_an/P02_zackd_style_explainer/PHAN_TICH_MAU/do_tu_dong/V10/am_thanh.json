@@ -1,0 +1,103 @@
+{
+ "thoi_luong_s": 38.313,
+ "so_tu": 116,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 37.599998474121094,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.36,
+ "tu_moi_phut_ca_video": 181.7,
+ "tu_moi_phut_doan_co_loi": 183.4,
+ "khoang_bat_dau_tu_trung_vi_s": 0.24,
+ "ngat_dai_hon_0_6s": [
+  [
+   1.6,
+   0.8,
+   "disappears",
+   "into"
+  ],
+  [
+   5.28,
+   0.72,
+   "camera,",
+   "you'll"
+  ],
+  [
+   10.48,
+   1.2,
+   "disappear?",
+   "It"
+  ],
+  [
+   12.48,
+   0.8,
+   "fork-shaped",
+   "body"
+  ],
+  [
+   13.92,
+   0.64,
+   "shoots",
+   "out,"
+  ],
+  [
+   20.72,
+   0.64,
+   "eye.",
+   "But"
+  ],
+  [
+   25.52,
+   0.8,
+   "area.",
+   "So"
+  ],
+  [
+   28.72,
+   0.72,
+   "tube.",
+   "And"
+  ],
+  [
+   32.4,
+   0.72,
+   "surface,",
+   "helping"
+  ],
+  [
+   34.96,
+   0.64,
+   "landing",
+   "before"
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -14.4,
+ "muc_khi_khong_loi_dBFS_trung_vi": -16.5,
+ "chenh_loi_so_nen_dB": 2.2,
+ "f0_trung_vi_Hz": 149.5,
+ "f0_p10_p90_Hz": [
+  94.8,
+  244.7
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  1.35,
+  1.95,
+  2.3,
+  5.71,
+  8.6,
+  10.87,
+  12.88,
+  13.15,
+  14.31,
+  16.37,
+  17.56,
+  18.65,
+  19.16,
+  28.52,
+  29.07,
+  30.7,
+  31.85,
+  32.78,
+  34.27,
+  37.06,
+  37.95
+ ]
+}

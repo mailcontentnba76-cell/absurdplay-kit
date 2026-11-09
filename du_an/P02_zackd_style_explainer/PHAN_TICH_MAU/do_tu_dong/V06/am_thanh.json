@@ -1,0 +1,108 @@
+{
+ "thoi_luong_s": 37.361,
+ "so_tu": 111,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 36.39999771118164,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.61,
+ "tu_moi_phut_ca_video": 178.3,
+ "tu_moi_phut_doan_co_loi": 181.2,
+ "khoang_bat_dau_tu_trung_vi_s": 0.24,
+ "ngat_dai_hon_0_6s": [
+  [
+   0.32,
+   0.64,
+   "hummingbird's",
+   "heart"
+  ],
+  [
+   1.36,
+   0.72,
+   "removed,",
+   "then"
+  ],
+  [
+   3.2,
+   0.64,
+   "chest,",
+   "and"
+  ],
+  [
+   5.92,
+   0.64,
+   "second,",
+   "could"
+  ],
+  [
+   9.84,
+   0.96,
+   "superhuman",
+   "endurance?"
+  ],
+  [
+   10.8,
+   0.96,
+   "endurance?",
+   "Well,"
+  ],
+  [
+   20.96,
+   0.72,
+   "hummingbird",
+   "hearts"
+  ],
+  [
+   22.64,
+   0.72,
+   "together",
+   "just"
+  ],
+  [
+   25.12,
+   0.88,
+   "oxygen,",
+   "meaning"
+  ],
+  [
+   29.28,
+   0.72,
+   "faster,",
+   "but"
+  ],
+  [
+   31.92,
+   0.8,
+   "vessels.",
+   "And"
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -13.1,
+ "muc_khi_khong_loi_dBFS_trung_vi": -16.0,
+ "chenh_loi_so_nen_dB": 2.9,
+ "f0_trung_vi_Hz": 168.4,
+ "f0_p10_p90_Hz": [
+  103.2,
+  271.2
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  0.81,
+  1.93,
+  3.55,
+  6.35,
+  7.32,
+  9.63,
+  10.41,
+  10.76,
+  11.22,
+  11.46,
+  12.7,
+  14.16,
+  15.81,
+  19.55,
+  20.6,
+  22.6,
+  24.36,
+  27.99,
+  32.39,
+  36.94
+ ]
+}

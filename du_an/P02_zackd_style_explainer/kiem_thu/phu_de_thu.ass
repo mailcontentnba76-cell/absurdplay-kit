@@ -1,0 +1,20 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P02,Inter ExtraBold,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,2.5,3,2,60,60,376,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.40,0:00:00.72,P02,,0,0,0,,Well
+Dialogue: 0,0:00:00.72,0:00:01.44,P02,,0,0,0,,I don't wish to
+Dialogue: 0,0:00:01.44,0:00:02.24,P02,,0,0,0,,see it any more
+Dialogue: 0,0:00:02.24,0:00:03.36,P02,,0,0,0,,observed Phebe
+Dialogue: 0,0:00:03.36,0:00:04.96,P02,,0,0,0,,turning away her eyes
+Dialogue: 0,0:00:04.96,0:00:06.00,P02,,0,0,0,,It is certainly very
+Dialogue: 0,0:00:06.00,0:00:07.24,P02,,0,0,0,,like the old portrait

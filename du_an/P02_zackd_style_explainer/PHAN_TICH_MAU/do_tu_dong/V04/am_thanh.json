@@ -1,0 +1,90 @@
+{
+ "thoi_luong_s": 23.754,
+ "so_tu": 68,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 22.959999084472656,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.44,
+ "tu_moi_phut_ca_video": 171.8,
+ "tu_moi_phut_doan_co_loi": 175.0,
+ "khoang_bat_dau_tu_trung_vi_s": 0.32,
+ "ngat_dai_hon_0_6s": [
+  [
+   1.44,
+   0.64,
+   "classroom",
+   "and"
+  ],
+  [
+   2.32,
+   0.64,
+   "farted",
+   "loudly,"
+  ],
+  [
+   2.96,
+   0.8,
+   "loudly,",
+   "but"
+  ],
+  [
+   4.56,
+   1.04,
+   "reacted.",
+   "You"
+  ],
+  [
+   8.08,
+   0.64,
+   "class,",
+   "the"
+  ],
+  [
+   11.28,
+   0.72,
+   "interrupting",
+   "the"
+  ],
+  [
+   12.16,
+   0.72,
+   "lesson.",
+   "So"
+  ],
+  [
+   15.04,
+   0.64,
+   "corner",
+   "and"
+  ],
+  [
+   17.6,
+   0.64,
+   "fart,",
+   "they"
+  ],
+  [
+   20.0,
+   1.04,
+   "permission",
+   "and"
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -14.8,
+ "muc_khi_khong_loi_dBFS_trung_vi": -19.3,
+ "chenh_loi_so_nen_dB": 4.5,
+ "f0_trung_vi_Hz": 158.4,
+ "f0_p10_p90_Hz": [
+  105.2,
+  280.7
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  5.09,
+  5.29,
+  7.65,
+  8.46,
+  9.83,
+  11.8,
+  18.04,
+  23.48
+ ]
+}

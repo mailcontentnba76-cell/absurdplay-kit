@@ -1,0 +1,90 @@
+{
+ "thoi_luong_s": 28.352,
+ "so_tu": 77,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 27.19999885559082,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.8,
+ "tu_moi_phut_ca_video": 163.0,
+ "tu_moi_phut_doan_co_loi": 167.7,
+ "khoang_bat_dau_tu_trung_vi_s": 0.28,
+ "ngat_dai_hon_0_6s": [
+  [
+   2.0,
+   0.8,
+   "microwave",
+   "and"
+  ],
+  [
+   4.56,
+   0.64,
+   "surprised",
+   "by"
+  ],
+  [
+   5.68,
+   0.72,
+   "happens.",
+   "You"
+  ],
+  [
+   10.24,
+   0.72,
+   "microwave",
+   "energy"
+  ],
+  [
+   10.96,
+   0.64,
+   "energy",
+   "inside"
+  ],
+  [
+   15.52,
+   1.12,
+   "concentrated",
+   "right"
+  ],
+  [
+   20.8,
+   0.8,
+   "electrons",
+   "away"
+  ],
+  [
+   22.96,
+   0.64,
+   "air,",
+   "turning"
+  ],
+  [
+   24.88,
+   0.8,
+   "plasma",
+   "that"
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -13.7,
+ "muc_khi_khong_loi_dBFS_trung_vi": -17.6,
+ "chenh_loi_so_nen_dB": 4.0,
+ "f0_trung_vi_Hz": 156.9,
+ "f0_p10_p90_Hz": [
+  114.3,
+  268.5
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  1.28,
+  2.52,
+  2.73,
+  5.06,
+  6.12,
+  8.22,
+  10.77,
+  14.92,
+  16.24,
+  21.43,
+  22.8,
+  25.4,
+  26.28,
+  27.69
+ ]
+}

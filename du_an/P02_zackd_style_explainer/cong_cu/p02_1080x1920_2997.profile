@@ -1,0 +1,11 @@
+description=P02 1080x1920 29.97
+frame_rate_num=30000
+frame_rate_den=1001
+width=1080
+height=1920
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=9
+display_aspect_den=16
+colorspace=709

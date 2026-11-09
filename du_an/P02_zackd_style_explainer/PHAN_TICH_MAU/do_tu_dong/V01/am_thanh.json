@@ -1,0 +1,145 @@
+{
+ "thoi_luong_s": 39.544,
+ "so_tu": 109,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 38.31999969482422,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.87,
+ "tu_moi_phut_ca_video": 165.4,
+ "tu_moi_phut_doan_co_loi": 169.1,
+ "khoang_bat_dau_tu_trung_vi_s": 0.32,
+ "ngat_dai_hon_0_6s": [
+  [
+   4.16,
+   0.64,
+   "dolphin",
+   "could"
+  ],
+  [
+   4.96,
+   0.8,
+   "swim.",
+   "Then"
+  ],
+  [
+   11.28,
+   0.72,
+   "black",
+   "so"
+  ],
+  [
+   14.4,
+   0.64,
+   "repeated",
+   "words."
+  ],
+  [
+   15.04,
+   0.8,
+   "words.",
+   "She"
+  ],
+  [
+   17.12,
+   0.64,
+   "dolphin",
+   "could"
+  ],
+  [
+   18.72,
+   0.64,
+   "human.",
+   "And"
+  ],
+  [
+   19.52,
+   0.72,
+   "slowly,",
+   "he"
+  ],
+  [
+   21.28,
+   0.72,
+   "copying",
+   "her"
+  ],
+  [
+   22.24,
+   0.96,
+   "sounds.",
+   "But"
+  ],
+  [
+   24.72,
+   0.72,
+   "funding.",
+   "But"
+  ],
+  [
+   26.64,
+   0.64,
+   "months,",
+   "they"
+  ],
+  [
+   28.0,
+   0.72,
+   "close.",
+   "The"
+  ],
+  [
+   31.6,
+   0.96,
+   "sunlight.",
+   "After"
+  ],
+  [
+   34.16,
+   0.72,
+   "worse.",
+   "And"
+  ],
+  [
+   36.48,
+   0.96,
+   "separated,",
+   "the"
+  ],
+  [
+   37.6,
+   0.72,
+   "dolphin",
+   "died."
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -17.0,
+ "muc_khi_khong_loi_dBFS_trung_vi": -21.4,
+ "chenh_loi_so_nen_dB": 4.4,
+ "f0_trung_vi_Hz": 182.9,
+ "f0_p10_p90_Hz": [
+  113.9,
+  285.8
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  1.66,
+  8.59,
+  10.44,
+  10.99,
+  11.76,
+  13.76,
+  14.89,
+  15.52,
+  21.69,
+  22.89,
+  24.28,
+  27.0,
+  28.45,
+  30.91,
+  32.03,
+  32.25,
+  33.75,
+  35.81,
+  36.85,
+  37.13,
+  38.15
+ ]
+}

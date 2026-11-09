@@ -1,71 +1,63 @@
-# HỒ SƠ DỰ ÁN — P02 Explainer 3D kiểu "Imagine you…" (theo mẫu @zackdfilms)
-Phiên bản hồ sơ: v0.1 · Ngày lập: 09/11/2026 · Trạng thái: NHÁP (chờ chủ dự án gửi yêu cầu và video mẫu)
+# HỒ SƠ DỰ ÁN — P02 video giải thích 3D (theo mẫu @zackdfilms)
+Phiên bản hồ sơ: v0.2 · Ngày lập: 09/11/2026 · Trạng thái: NHÁP (đã phân tích mẫu; còn chờ các câu trả lời ở mục 8)
 
-> Mọi thông số phải có cột **Nguồn**: `YC` = chủ dự án yêu cầu (ghi ngày); `ĐO` = đo trên mẫu (ghi file phân tích); `CHỌN` = Claude chọn khi thiếu dữ liệu (ghi lý do). Không chép thông số của dự án khác.
+> Nguồn: `YC` = chủ dự án yêu cầu · `ĐO` = đo trên mẫu (`PHAN_TICH_MAU/TONG_HOP.md`) · `CHỌN` = Claude đề xuất khi thiếu dữ liệu. Không chép thông số của dự án khác.
 
 ## 1. Mục tiêu
 | Mục | Nội dung | Nguồn |
 |---|---|---|
-| Mục tiêu sản xuất (giải trí / giáo dục / quảng cáo / bán hàng…) | video 3D giải thích ngắn theo phong cách kênh mẫu @zackdfilms (https://www.youtube.com/@zackdfilms); chi tiết chờ chủ dự án | YC 09/11 |
-| Đối tượng người xem (độ tuổi, quốc gia, mức hiểu biết) | | |
-| Nền tảng đăng (YouTube Shorts / TikTok / Reels / YouTube dài / khác) | | |
-| Ngôn ngữ lời / chữ | | |
-| Số video, tần suất | | |
-| Thước đo thành công chủ dự án quan tâm | | |
+| Mục tiêu | video 3D giải thích ngắn, sát nhất có thể với phong cách kênh @zackdfilms; "giống 100 %" là mục tiêu phấn đấu, không phải cam kết | YC 09/11 |
+| Đối tượng | người xem video ngắn nói tiếng Anh | CHỌN (theo ngôn ngữ mẫu) |
+| Nền tảng | chưa rõ (mẫu là YouTube Shorts) | hỏi |
+| Ngôn ngữ lời / chữ | tiếng Anh / tiếng Anh | ĐO |
+| Số video, tần suất | chưa rõ | hỏi |
 
 ## 2. Thông số kỹ thuật
 | Mục | Giá trị | Nguồn |
 |---|---|---|
-| Tỷ lệ khung, độ phân giải | | |
-| fps | | |
-| Thời lượng (min / mục tiêu / max) | | |
-| Loudness đích, true peak | | |
-| Mono / stereo | | |
-| Phụ đề: có/không, đốt vào hình hay file rời | | |
-| Định dạng giao (codec, container) | | |
-| Project chỉnh sửa được (phần mềm, phiên bản) | | |
+| Khung | 9:16, 1080×1920 | ĐO 10/10 |
+| fps | 29,97 | ĐO 9/10 |
+| Thời lượng | giải thích 28–52 s (đích ~38 s); hư cấu tới ~70 s | ĐO |
+| Loudness, true peak | −11 ±1 LUFS, ≤ −1 dBTP | ĐO (−13,2 tới −9,7) + CHỌN biên an toàn |
+| Phụ đề | đốt vào hình; nguồn ASS sửa được | ĐO + CHỌN |
+| Giao | MP4 H.264 + AAC 192 kb/s | CHỌN |
+| Project | Kdenlive 23.08 (đã thử mở được) | CHỌN |
 
-## 3. Phong cách (điền SAU khi phân tích mẫu — G2)
-| Nhóm | Quy tắc đã chốt | Dải số đo trên mẫu | Ngưỡng QA | Nguồn |
-|---|---|---|---|---|
-| Kịch bản: hook, cấu trúc, câu chốt, nhịp lời | | | | |
-| Hình: kiểu render, nhân vật, bối cảnh | | | | |
-| Màu, ánh sáng, độ nét | | | | |
-| Bố cục, cỡ cảnh | | | | |
-| Chữ trên màn hình | | | | |
-| Máy quay, chuyển động | | | | |
-| Dựng, chuyển cảnh | | | | |
-| Giọng | | | | |
-| Nhạc | | | | |
-| SFX | | | | |
+## 3. Phong cách
+Xem `skill/zackdfilms-reference-production/references/dac_ta_phong_cach.md` (21 quy tắc, mỗi quy tắc có bằng chứng, độ tin, cách làm, cách nghiệm thu).
 
 ## 4. Nội dung
-- Chủ đề được phép, chủ đề tránh:
-- Yêu cầu về độ mới lạ, sự thật, nguồn:
-- Giọng văn, ngôi kể:
-- Những gì tuyệt đối không làm:
+- Không dùng nhân vật, logo hay biểu tượng có bản quyền, kể cả khi đổi tên (mẫu V02 và V05 có dùng).
+- Nội dung khoa học, y học, lịch sử phải có nguồn và ghi rõ chỗ đơn giản hoá.
+- Không hướng dẫn việc nguy hiểm theo cách dễ làm theo (ví dụ nho trong lò vi sóng).
 
-## 5. Tài nguyên của chủ dự án
-| Tài nguyên | Đường dẫn / tài khoản | Quyền dùng | Ghi chú |
-|---|---|---|---|
-| Giọng (clone / voice actor / TTS) | | | |
-| Nhân vật, logo, sheet thiết kế | | | |
-| Nhạc, SFX có giấy phép | | | |
-| Font | | | |
+## 5. Tài nguyên
+| Tài nguyên | Tình trạng |
+|---|---|
+| Giọng | chưa chọn |
+| Nhân vật, logo | chưa có |
+| Nhạc, SFX | chưa có |
+| Font | Inter ExtraBold (thay thế, OFL) |
 
 ## 6. Ngân sách và mức tự chủ
-- Giới hạn chi phí mỗi video / mỗi tháng:
-- Điểm duyệt: (mặc định) nội dung + bản thử
-- Việc Claude được tự làm không cần hỏi:
+- Magnific: còn 62.320 credit (09/11/2026). Mức chi cho mỗi tập: **chờ chủ dự án**.
+- Điểm duyệt: kịch bản và bản thử.
 
-## 7. Quyết định đã chốt (không hỏi lại)
-| Ngày | Quyết định | Lý do / bằng chứng | Ai quyết |
+## 7. Quyết định đã chốt
+| Ngày | Quyết định | Lý do | Ai quyết |
 |---|---|---|---|
+| 09/11/2026 | Video mẫu không lưu trên GitHub; gửi trong chat | repo công khai, video có bản quyền | chủ dự án |
+| 09/11/2026 | Mẫu chính V10, mẫu phụ V01 | đề xuất trong TONG_HOP | Claude đề xuất, chờ xác nhận |
 
 ## 8. Câu hỏi còn mở
-| # | Câu hỏi | Phương án mặc định nếu không trả lời | Trạng thái |
-|---|---|---|---|
+| # | Câu hỏi | Mặc định nếu không trả lời |
+|---|---|---|
+| 1 | 5 câu về âm thanh mẫu (`HUONG_DAN_SU_DUNG.md` mục 3) | giọng nam Mỹ năng lượng vừa, nhạc nền nhẹ (chỉ là đề xuất) |
+| 2 | Mức credit cho bản thử và cho mỗi tập | không tiêu credit trước khi được duyệt |
+| 3 | Nền tảng đăng | YouTube Shorts |
+| 4 | Thương hiệu đặt trong cảnh | không đặt |
 
 ## 9. Trạng thái các video
-| Mã tập | Tên | Trạng thái (ý tưởng / kịch bản duyệt / thử duyệt / đã giao / đã loại + lý do) | Đường dẫn |
+| Mã tập | Tên | Trạng thái | Đường dẫn |
 |---|---|---|---|
+| — | (chưa có) | — | — |

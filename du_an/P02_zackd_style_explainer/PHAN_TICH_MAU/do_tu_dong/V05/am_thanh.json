@@ -1,0 +1,128 @@
+{
+ "thoi_luong_s": 35.341,
+ "so_tu": 92,
+ "tu_dau_s": 0.0,
+ "tu_cuoi_bat_dau_s": 34.39999771118164,
+ "duoi_sau_tu_cuoi_s_uoc_luong": 0.59,
+ "tu_moi_phut_ca_video": 156.2,
+ "tu_moi_phut_doan_co_loi": 158.8,
+ "khoang_bat_dau_tu_trung_vi_s": 0.32,
+ "ngat_dai_hon_0_6s": [
+  [
+   0.32,
+   0.64,
+   "tattoo",
+   "said,"
+  ],
+  [
+   2.64,
+   0.88,
+   "alone.",
+   "But"
+  ],
+  [
+   4.48,
+   1.04,
+   "Afghanistan,",
+   "he"
+  ],
+  [
+   6.4,
+   0.96,
+   "explosive,",
+   "which"
+  ],
+  [
+   8.8,
+   0.64,
+   "leg.",
+   "And"
+  ],
+  [
+   10.48,
+   0.72,
+   "amputated",
+   "it,"
+  ],
+  [
+   14.08,
+   0.88,
+   "alone.",
+   "Meaning"
+  ],
+  [
+   17.84,
+   0.96,
+   "walk.",
+   "The"
+  ],
+  [
+   22.64,
+   0.72,
+   "prosthetic",
+   "leg,"
+  ],
+  [
+   25.04,
+   0.64,
+   "again.",
+   "Then"
+  ],
+  [
+   26.56,
+   0.8,
+   "running,",
+   "eventually"
+  ],
+  [
+   29.28,
+   0.8,
+   "races",
+   "and"
+  ],
+  [
+   31.52,
+   0.8,
+   "medals,",
+   "proving"
+  ],
+  [
+   32.96,
+   0.72,
+   "tattoo",
+   "completely"
+  ],
+  [
+   33.68,
+   0.72,
+   "completely",
+   "wrong."
+  ]
+ ],
+ "muc_khi_co_loi_dBFS_trung_vi": -13.9,
+ "muc_khi_khong_loi_dBFS_trung_vi": -19.0,
+ "chenh_loi_so_nen_dB": 5.2,
+ "f0_trung_vi_Hz": 183.9,
+ "f0_p10_p90_Hz": [
+  109.6,
+  235.3
+ ],
+ "dinh_dai_cao_ngoai_loi_s": [
+  0.92,
+  1.88,
+  4.99,
+  6.03,
+  6.85,
+  7.18,
+  8.45,
+  14.67,
+  17.56,
+  18.31,
+  18.69,
+  23.72,
+  29.78,
+  32.04,
+  34.17,
+  35.15
+ ]
+}
