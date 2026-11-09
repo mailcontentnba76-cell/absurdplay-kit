@@ -19,18 +19,20 @@ N = int(DUR * SR); T = np.arange(N) / SR
 voice = np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', 'am_thanh/giong.wav', '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout, np.float32).copy()
 voice = np.pad(voice, (0, max(0, N - len(voice))))[:N]; LV = lufs(voice)
 sm = int(0.08 * SR)
+def ma(x, k):  # trung bình trượt nhanh (tổng tích luỹ), cùng kết quả np.convolve(x, ones(k)/k, 'same')
+    c = np.cumsum(np.pad(np.asarray(x, np.float64), (k // 2, k - 1 - k // 2))); c = np.concatenate([[0.0], c]); return (c[k:] - c[:-k]) / k
 def span(a, b): return (T >= a) & (T < b)
 # ---- nhạc: vào mạnh ngay khung 0; hạ trong đoạn 1415 đen trắng (s8–s10), khựng khi trời tối (s16), hạ ở đại sảnh (s27), dừng 0,5 s trước cú ném ngã ngửa (s29), vang ở FINAL
 m = load('alvana-audio/music/hiphop/final-level.mp3'); m = np.tile(m, N // len(m) + 1)[:N]
 m *= 10 ** ((LV - 10 - lufs(m)) / 20)
-env = np.abs(voice); k = int(0.25 * SR); env = np.convolve(env, np.ones(k) / k, 'same'); duck = 1 - 0.25 * np.clip(env / (env.max() * 0.3), 0, 1)
+env = np.abs(voice); k = int(0.25 * SR); env = ma(env, k); duck = 1 - 0.25 * np.clip(env / (env.max() * 0.3), 0, 1)
 gm = np.ones(N); gm[:int(0.05 * SR)] = np.linspace(0, 1, int(0.05 * SR))
 gm[span(SH['s8'][0], SH['s11'][0])] = 0.45
 gm[span(SH['s16'][0], SH['s16'][0] + 0.9)] = 0.15
 gm[span(SH['s27'][0], SH['s27'][1])] = 0.55
 gm[span(SH['s29'][0] + 0.6, SH['s30'][0] + 0.4)] = 0.2
 gm[T > DUR - 1.2] *= np.linspace(1, 0, int(np.sum(T > DUR - 1.2)))
-gm = np.convolve(gm, np.ones(sm) / sm, 'same'); m *= duck * gm
+gm = ma(gm, sm); m *= duck * gm
 # ---- SFX
 sfx = np.zeros(N, np.float32)
 def put(fn, t, db=0.0, n=None):
@@ -46,7 +48,7 @@ def volley(t0, n=14, spread=0.7, db=-14):  # mưa tên: tiếng rít rồi cắm
     for i in range(n): put(K + 'whooshes/whoosh-fast-soft.wav', t0 + rng.uniform(0, spread), db - 2, 0.5)
     for i in range(n): put(A + 'footsteps/wet-0%d.wav' % rng.integers(1, 4), t0 + spread + rng.uniform(0.1, 0.9), db + 2, 0.35); put(K + 'impacts/impact-light-firm.wav', t0 + spread + rng.uniform(0.1, 0.9), db, 0.3)
 # mưa nền trên chiến trường (tắt trong đại sảnh)
-g_rain = np.ones(N); g_rain[span(SH['s27'][0], SH['s27'][1])] = 0; g_rain = np.convolve(g_rain, np.ones(sm) / sm, 'same')
+g_rain = np.ones(N); g_rain[span(SH['s27'][0], SH['s27'][1])] = 0; g_rain = ma(g_rain, sm)
 sfx += bed(A + 'ambience/rain.wav', -18, g_rain) + bed(A + 'ambience/wind.wav', -26, g_rain)
 sfx += bed(A + 'ambience/room-tone.wav', -22, 1 - g_rain)
 # HOOK khung 0: trống lớn + tên đổ xuống quanh Curry
