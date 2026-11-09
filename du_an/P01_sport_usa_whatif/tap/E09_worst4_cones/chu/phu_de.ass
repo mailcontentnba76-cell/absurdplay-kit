@@ -1,0 +1,72 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.20,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.20,0:00:02.20,Cap,,0,0,0,,could the four worst
+Dialogue: 0,0:00:02.20,0:00:03.24,Cap,,0,0,0,,teams in the nba
+Dialogue: 0,0:00:03.24,0:00:05.40,Cap,,0,0,0,,beat five traffic cones?
+Dialogue: 0,0:00:05.40,0:00:06.66,Cap,,0,0,0,,except, combined, the
+Dialogue: 0,0:00:06.66,0:00:08.26,Cap,,0,0,0,,bucks, kings, jazz,
+Dialogue: 0,0:00:08.26,0:00:08.98,Cap,,0,0,0,,and bulls are
+Dialogue: 0,0:00:08.98,0:00:10.70,Cap,,0,0,0,,four and thirty-five.
+Dialogue: 0,0:00:10.70,0:00:11.26,Cap,,0,0,0,,utah has
+Dialogue: 0,0:00:11.26,0:00:12.60,Cap,,0,0,0,,lost eight straight.
+Dialogue: 0,0:00:12.60,0:00:14.00,Cap,,0,0,0,,chicago, seven.
+Dialogue: 0,0:00:14.00,0:00:15.38,Cap,,0,0,0,,milwaukee, six.
+Dialogue: 0,0:00:15.38,0:00:15.76,Cap,,0,0,0,,and one of
+Dialogue: 0,0:00:15.76,0:00:16.78,Cap,,0,0,0,,their four wins?
+Dialogue: 0,0:00:16.78,0:00:17.30,Cap,,0,0,0,,the bulls
+Dialogue: 0,0:00:17.30,0:00:18.44,Cap,,0,0,0,,beat the bucks.
+Dialogue: 0,0:00:18.44,0:00:18.78,Cap,,0,0,0,,they had to
+Dialogue: 0,0:00:18.78,0:00:19.36,Cap,,0,0,0,,play each other
+Dialogue: 0,0:00:19.36,0:00:20.28,Cap,,0,0,0,,to get one.
+Dialogue: 0,0:00:20.28,0:00:21.26,Cap,,0,0,0,,so the league merges
+Dialogue: 0,0:00:21.26,0:00:23.26,Cap,,0,0,0,,them into one superteam.
+Dialogue: 0,0:00:23.26,0:00:24.30,Cap,,0,0,0,,twenty players.
+Dialogue: 0,0:00:24.30,0:00:25.30,Cap,,0,0,0,,four coaches.
+Dialogue: 0,0:00:25.30,0:00:26.36,Cap,,0,0,0,,one goal.
+Dialogue: 0,0:00:26.36,0:00:27.16,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:27.16,0:00:28.68,Cap,,0,0,0,,the cone doesn't jump.
+Dialogue: 0,0:00:28.68,0:00:29.30,Cap,,0,0,0,,utah still
+Dialogue: 0,0:00:29.30,0:00:30.60,Cap,,0,0,0,,loses the tip.
+Dialogue: 0,0:00:30.60,0:00:31.02,Cap,,0,0,0,,milwaukee runs
+Dialogue: 0,0:00:31.02,0:00:31.98,Cap,,0,0,0,,a pick-and-roll.
+Dialogue: 0,0:00:31.98,0:00:33.44,Cap,,0,0,0,,the cone doesn't switch.
+Dialogue: 0,0:00:33.44,0:00:34.90,Cap,,0,0,0,,nobody gets open anyway.
+Dialogue: 0,0:00:34.90,0:00:35.58,Cap,,0,0,0,,chicago drives
+Dialogue: 0,0:00:35.58,0:00:36.70,Cap,,0,0,0,,baseline and dribbles
+Dialogue: 0,0:00:36.70,0:00:37.80,Cap,,0,0,0,,off the cone.
+Dialogue: 0,0:00:37.80,0:00:38.56,Cap,,0,0,0,,turnover.
+Dialogue: 0,0:00:38.56,0:00:40.02,Cap,,0,0,0,,the cone didn't move.
+Dialogue: 0,0:00:40.02,0:00:40.84,Cap,,0,0,0,,sacramento hits it
+Dialogue: 0,0:00:40.84,0:00:41.64,Cap,,0,0,0,,with a hesi.
+Dialogue: 0,0:00:41.64,0:00:43.00,Cap,,0,0,0,,the cone doesn't bite.
+Dialogue: 0,0:00:43.00,0:00:44.34,Cap,,0,0,0,,the cone didn't move.
+Dialogue: 0,0:00:44.34,0:00:45.60,Cap,,0,0,0,,at halftime, the studio
+Dialogue: 0,0:00:45.60,0:00:47.28,Cap,,0,0,0,,crew praises the cones.
+Dialogue: 0,0:00:47.28,0:00:48.62,Cap,,0,0,0,,perfect positioning, zero
+Dialogue: 0,0:00:48.62,0:00:49.86,Cap,,0,0,0,,fouls, no complaining
+Dialogue: 0,0:00:49.86,0:00:51.06,Cap,,0,0,0,,to the refs.
+Dialogue: 0,0:00:51.06,0:00:52.02,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:52.02,0:00:53.38,Cap,,0,0,0,,still zero to zero.
+Dialogue: 0,0:00:53.38,0:00:54.62,Cap,,0,0,0,,four seconds left.
+Dialogue: 0,0:00:54.62,0:00:55.44,Cap,,0,0,0,,utah grabs the
+Dialogue: 0,0:00:55.44,0:00:56.72,Cap,,0,0,0,,rebound, spins, and
+Dialogue: 0,0:00:56.72,0:00:57.38,Cap,,0,0,0,,lays it in
+Dialogue: 0,0:00:57.38,0:00:59.48,Cap,,0,0,0,,at the wrong basket.
+Dialogue: 0,0:00:59.48,0:01:00.44,Cap,,0,0,0,,final score, cones
+Dialogue: 0,0:01:00.44,0:01:02.72,Cap,,0,0,0,,two, worst four, zero.
+Dialogue: 0,0:01:02.72,0:01:03.64,Cap,,0,0,0,,after the game,
+Dialogue: 0,0:01:03.64,0:01:04.30,Cap,,0,0,0,,the cones sign
+Dialogue: 0,0:01:04.30,0:01:05.68,Cap,,0,0,0,,a max contract.
+Dialogue: 0,0:01:05.68,0:01:06.52,Cap,,0,0,0,,milwaukee asks if
+Dialogue: 0,0:01:06.52,0:01:07.26,Cap,,0,0,0,,one can play center.
