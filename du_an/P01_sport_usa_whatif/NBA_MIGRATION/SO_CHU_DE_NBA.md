@@ -29,3 +29,28 @@ Kiểm lúc ~09:50 giờ VN 08/11. Không đảm bảo viral; xếp theo: sức 
 | 1 ⭐ | (b) chọc ngôi sao đang thắng | **"Could 38-year-old Steph Curry beat 5 arcade basketball machines?"** | Curry 38 tuổi, 41 điểm 13/19, FT 10/10, thắng Magic hiệp phụ; Warriors 0-3 → thắng 7 liên tiếp | ESPN box + lịch + hồ sơ |
 | 2 | (d) cột mốc | Austin Reaves 43 điểm (14/27, FT 11/11), Lakers 121–116 Pistons, Lakers 9-2 (thắng 5 liên tiếp, đồng hạng tốt nhất) | ESPN box event 401909946 | cần nguồn 2 |
 | 3 | (e) ông lớn sa sút (NCAA) | Oklahoma thua East Texas A&M 68–64 (đội bị dự đoán bét Southland, kèo chấp 28,5) | ESPN + CBS + NCAA.com | đủ nguồn |
+
+## Lịch + tin 09/11/2026 tối VN (ESPN JSON chính thức, kiểm ~22:30 VN; giờ VN = giờ ET + 12 h)
+**Kết quả mới nhất (08/11 ET):** PHI 127–121 CHI (Bulls 1-8) · LAL 121–116 DET (Reaves 43, Lakers 9-2) · MIN 115–100 UTA (Jazz 1-9) · DAL 130–93 BKN (Flagg 25 điểm 12 kiến tạo) · BOS 117–97 MIL (Bucks 1-9) · LAC 139–123 NO (Clippers dứt chuỗi thua, 2-7) · MIA 114–108 SAC (Kings 1-9; tân binh Darius Acuff Jr. 32 điểm 10 kiến tạo; Giannis 29/14).
+NCAA (AP preseason: 1 Florida, 2 Duke, 3 Illinois, 4 UConn, 5 Arizona): #9 Virginia 91–72 #12 Arkansas (08/11); Duke 113–52 Coastal Carolina (05/11). Không có đội Top 25 nào thua đội ngoài Top 25 từ 03–08/11.
+
+**Trận đáng chú ý sắp tới (giờ VN):**
+| Ngày VN | Trận | Vì sao đáng theo dõi |
+|---|---|---|
+| 10/11 07:00 | Lakers (9-2) @ Hawks (7-4) | Lakers chuỗi thắng |
+| 10/11 09:00 | Spurs (8-2) @ Suns | Wembanyama |
+| 10/11 10:00 | Pelicans @ Warriors (7-3) | Curry (vừa làm E10) |
+| 11/11 07:00 | **NCAA Champions Classic: #2 Duke vs #6 Michigan State** | trận lớn đầu mùa NCAA |
+| 11/11 08:00 | NCAA #19 Texas Tech vs #3 Illinois | Top 25 đối đầu |
+| 11/11 08:00 | **Celtics (8-2) @ 76ers (9-2)** | đại chiến đầu bảng miền Đông |
+| 11/11 09:30 | **NCAA Champions Classic: #23 Kentucky vs #17 Kansas** | hai ông lớn |
+| 12/11 08:00 | Lakers @ Bucks (1-9) | đội mạnh vs đội đáy |
+| 12/11 09:30 | Warriors @ Rockets | Curry |
+| 14/11 07:00–10:30 | **NBA Cup bắt đầu vòng bảng (9 trận)** | Warriors @ Spurs 09:30 (**Curry vs Wembanyama**), Thunder @ Clippers, Bucks @ Magic |
+| 16/11 05:00 | Mavericks @ Celtics | Flagg |
+
+**Ý tưởng (luân phiên dạng, KHÔNG lặp "beat N objects"; E10 vừa dùng "ngôi sao vs lịch sử"):**
+1. ⭐ chờ kết quả 14/11: **Curry vs Wembanyama (NBA Cup)** — dạng giả định nghịch lý (vd. Wemby cao 2,24 m đứng trên vai… / Curry ném qua người cao nhất NBA); dùng lại `cast8` + `cast10`.
+2. chờ kết quả 11/11: **Champions Classic NCAA** (Duke–MSU / Kentucky–Kansas) — đội thắng/thua đậm hoặc cú lội ngược → dạng thần thoại.
+3. chờ kết quả 11/11: **76ers vs Celtics** — đội thắng lên đỉnh miền Đông.
+4. dùng ngay (tin đã có): **Darius Acuff Jr. tân binh Kings 32 điểm 10 kiến tạo nhưng đội 1-9** — dạng thần thoại (một mình gánh đội); **Austin Reaves 43 điểm, Lakers 9-2** (cần thêm nguồn báo nếu dùng trích dẫn ngoài số liệu); **Cooper Flagg 25 điểm 12 kiến tạo**.
