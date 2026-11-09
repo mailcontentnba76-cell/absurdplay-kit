@@ -88,3 +88,47 @@ export function makeCone(o = {}) {
   function update(t, c = {}) { const w = c.wobble ?? 0; body.rotation.set((c.tipX ?? 0) + w * Math.sin(t * 22) * 0.12, 0, (c.tipZ ?? 0) + w * Math.cos(t * 19) * 0.1); }
   return { root, body, update };
 }
+
+// ======================= KHÁN GIẢ trên khán đài gỗ (cùng kỹ thuật lib/nba.js: 1 lưới tĩnh, cử động trong vertex shader) =======================
+// Điều khiển: U.uT (thời gian), U.uCheer (0..1 cổ vũ: nhún + giơ 2 tay), U.uSleep (0..1 gục đầu ngủ). Thêm khán đài thứ 2 phía +z (sau ghế băng).
+export function gymCrowd(scene, o = {}) {
+  let rs = o.seed ?? 11; const R = () => ((rs = (rs * 16807) % 2147483647) / 2147483647);
+  const box = (w, h, d, x, y, z) => new THREE.BoxGeometry(w, h, d).translate(x, y, z).toNonIndexed();
+  const torsoG = box(0.4, 0.46, 0.26, 0, 0.72, -0.02), headG = new THREE.IcosahedronGeometry(0.12, 1).translate(0, 1.1, 0).toNonIndexed(), legG = box(0.38, 0.14, 0.42, 0, 0.5, 0.18), armG = box(0.09, 0.4, 0.09, 0, -0.2, 0);
+  const shirts = o.shirts || ['#00471B', '#5a2d81', '#CE1141', '#f4f4f2', '#4e008e', '#1f3566', '#c8a23a', '#ffffff', '#6b6b6b', '#e2c25a', '#1f3566', '#d9864f'];
+  const skins = ['#f1c9a5', '#d6a47a', '#b57e55', '#8d5a3b', '#e8b98f'];
+  const ppl = [];
+  // khán đài -z (8 bậc, trùng khán đài gỗ trong buildGym)
+  for (let k = 0; k < 8; k++) for (let x = -11.5; x <= 11.5; x += 0.56) { if (R() > (k < 4 ? 0.7 : 0.5)) continue; const z = -(GY.W / 2 + 2.2) - k * 0.62, y = 0.45 + k * 0.42 - 0.42;
+    ppl.push([new THREE.Matrix4().makeTranslation(x + (R() - 0.5) * 0.08, y, z), 0]); }
+  // khán đài +z (5 bậc, sau ghế băng) — dựng kèm bậc gỗ
+  const woodB = std('#b98a52', { roughness: 0.6 }), riser = std('#3b2b1c'); const G2 = new THREE.Group();
+  for (let k = 0; k < 5; k++) { const z = GY.W / 2 + 3.4 + k * 0.62, y = 0.45 + k * 0.42; const seat = new THREE.Mesh(new THREE.BoxGeometry(24, 0.08, 0.42), woodB); seat.position.set(0, y, z); seat.castShadow = seat.receiveShadow = true; G2.add(seat);
+    const rr = new THREE.Mesh(new THREE.BoxGeometry(24, y, 0.06), riser); rr.position.set(0, y / 2, z + 0.22); G2.add(rr);
+    for (let x = -11.5; x <= 11.5; x += 0.56) { if (Math.abs(x) < 2.2 && k < 2) continue; if (R() > 0.55) continue; ppl.push([new THREE.Matrix4().makeRotationY(Math.PI).premultiply(new THREE.Matrix4().makeTranslation(x, y - 0.42, z)), 1]); } }
+  scene.add(G2);
+  const P = [], C = [], CP = [], PV = [], FX = []; const v = new THREE.Vector3(), col = new THREE.Color(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), pos = new THREE.Vector3();
+  const add = (geo, m, color, cp, piv, fax) => { col.set(color).convertSRGBToLinear(); const n = geo.attributes.position.count;
+    for (let i = 0; i < n; i++) { v.fromBufferAttribute(geo.attributes.position, i).applyMatrix4(m); P.push(v.x, v.y, v.z); C.push(col.r, col.g, col.b); CP.push(...cp); PV.push(piv.x, piv.y, piv.z); FX.push(fax.x, fax.y, fax.z); } };
+  for (const [m] of ppl) { const r = R(), shirt = shirts[Math.floor(R() * shirts.length)], skin = skins[Math.floor(R() * skins.length)]; m.decompose(pos, q, sc); const fax = new THREE.Vector3(0, 0, 1).applyQuaternion(q);
+    const ph = r * 40, am = 0.55 + 0.45 * ((r * 7.3) % 1); const zero = new THREE.Vector3();
+    add(torsoG, m, shirt, [1, ph, am, 0], zero, fax); add(headG, m, skin, [1.5, ph, am, 0], zero, fax); add(legG, m, '#2b2f3a', [0, 0, 0, 0], zero, zero);
+    for (const sx of [-1, 1]) { const off = new THREE.Vector3(sx * 0.25, 0.94, -0.02); const sh = off.clone().applyMatrix4(m); const am4 = new THREE.Matrix4().makeTranslation(off.x, off.y, off.z).premultiply(m);
+      const ow = off.clone().setY(0).applyQuaternion(q); const d = new THREE.Vector3(0, -1, 0), sgn = Math.sign(new THREE.Vector3().crossVectors(fax, d).dot(ow)) || 1; add(armG, am4, shirt, [sgn > 0 ? 2 : 3, ph, am, 0], sh, fax); } }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(P, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(C, 3));
+  geo.setAttribute('cp', new THREE.Float32BufferAttribute(CP, 4)); geo.setAttribute('piv', new THREE.Float32BufferAttribute(PV, 3)); geo.setAttribute('fax', new THREE.Float32BufferAttribute(FX, 3)); geo.computeVertexNormals();
+  const U = { uT: { value: 0 }, uCheer: { value: 0.2 }, uSleep: { value: 0 } };
+  const mat = new THREE.MeshLambertMaterial({ vertexColors: true });
+  mat.onBeforeCompile = (sh) => { Object.assign(sh.uniforms, U);
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec4 cp; attribute vec3 piv; attribute vec3 fax; uniform float uT, uCheer, uSleep;')
+      .replace('#include <begin_vertex>', `#include <begin_vertex>
+      if (cp.x > 0.5) { float ch = clamp(uCheer * cp.z * (0.7 + 0.6 * fract(cp.y * 0.37)), 0.0, 1.0); float w = uT * (5.0 + cp.z * 3.0) + cp.y;
+        if (cp.x > 1.9) { float s = cp.x < 2.5 ? 1.0 : -1.0; float ang = s * (0.12 + ch * (2.5 + 0.35 * sin(w * 1.3)) + 0.06 * sin(uT * 1.7 + cp.y));
+          vec3 r = transformed - piv; r = r * cos(ang) + cross(fax, r) * sin(ang) + fax * dot(fax, r) * (1.0 - cos(ang)); transformed = piv + r; }
+        transformed.y += (0.012 + 0.12 * ch) * max(0.0, sin(w)) * (1.0 - uSleep);
+        if (cp.x > 1.4 && cp.x < 1.6) { transformed += fax * 0.07 * uSleep; transformed.y -= 0.13 * uSleep; }
+        if (cp.x > 1.9) transformed.y -= 0.05 * uSleep; }`); };
+  mat.customProgramCacheKey = () => 'gymcrowd';
+  const all = new THREE.Mesh(geo, mat); all.matrixAutoUpdate = false; all.frustumCulled = false; all.castShadow = true; all.receiveShadow = true; scene.add(all);
+  return { U, count: ppl.length };
+}
