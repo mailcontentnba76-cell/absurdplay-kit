@@ -1,0 +1,17 @@
+// Dàn nhân vật E09 (NBA): 4 đội đáy bảng. Nhận diện: số áo + chiều cao (ESPN), ngoại hình (ảnh chân dung chính thức ESPN, kiểm 09/11/2026).
+// Không logo; chỉ chữ thường trên áo. Màu da chọn sáng hơn thực tế một chút vì engine làm tối màu nhập (xem cast8.js).
+import { makeCharacter } from './nhanvat2.js';
+const BASE = { edgeSoft: 1, tank: true, shorts: true, sockAt: 0.78, shortsTo: 0.84, socks: '#f4f4f4', shoes: '#1c1c1c', skinMix: 1, brows: false, eyeScale: 2.3, frontNumberSize: 0.7, backNumberSize: 0.95, numberDrop: 0.16,
+  smooth: { jersey: 12, pants: 18, socks: 6, shoes: 10, skin: 4, head: 8 }, puff: { jersey: 0.022, pants: 0.055, socks: 0.006, shoes: 0.02, skin: 0, hand: 0 } };
+export const BUCKS9 = { ...BASE, jersey: '#00471B', pants: '#00471B', numberColor: '#EEE1C6', numberOutline: '#0a2412', wordmark: 'MILWAUKEE', wordmarkColor: '#EEE1C6', collar: '#EEE1C6', pantsStripes: ['#EEE1C6'] };
+export const KINGS9 = { ...BASE, jersey: '#5a2d81', pants: '#5a2d81', numberColor: '#ffffff', numberOutline: '#1d1d1d', wordmark: 'KINGS', wordmarkColor: '#ffffff', collar: '#1d1d1d', pantsStripes: ['#1d1d1d', '#ffffff'] };
+export const BULLS9 = { ...BASE, jersey: '#CE1141', pants: '#CE1141', numberColor: '#ffffff', numberOutline: '#111111', wordmark: 'CHICAGO', wordmarkColor: '#ffffff', collar: '#111111', pantsStripes: ['#111111', '#ffffff', '#111111'], socks: '#1a1a1a' };
+export const JAZZ9 = { ...BASE, jersey: '#f4f4f2', pants: '#f4f4f2', numberColor: '#4e008e', numberOutline: '#2a0050', wordmark: 'UTAH', wordmarkColor: '#4e008e', collar: '#4e008e', pantsStripes: ['#4e008e', '#79a3dc'] };
+export const KUZMA = (lib, o = {}) => makeCharacter(lib, { ...BUCKS9, number: 18, backName: 'KUZMA', heightM: 2.03, skin: '#d6a47a', hairStyle: 'proc:curlytop', hairColor: '#120c08', hairOpts: { puff: 1.2 },
+  beardStyle: 'goatee', beardColor: '#120c08', tattoo: 'both', ...o });
+export const LAVINE = (lib, o = {}) => makeCharacter(lib, { ...KINGS9, number: 8, backName: 'LAVINE', heightM: 1.96, skin: '#c49065', hairStyle: 'proc:buzz', hairColor: '#120c08', beardStyle: 'full', beardColor: '#120c08', ...o });
+export const GIDDEY = (lib, o = {}) => makeCharacter(lib, { ...BULLS9, number: 3, backName: 'GIDDEY', heightM: 2.01, skin: '#f0cbaa', hairStyle: 'proc:curlytop', hairColor: '#3a2516', hairOpts: { puff: 1.35, len: 1.4 }, build: 'slim', ...o });
+export const HAYES = (lib, o = {}) => makeCharacter(lib, { ...JAZZ9, number: 11, backName: 'HAYES', heightM: 2.13, skin: '#b07a52', hairStyle: 'proc:braids', hairColor: '#120c08', headband: '#ffffff', beardStyle: 'goatee', beardColor: '#120c08', build: 'slim', ...o });
+// cầu thủ phụ hư cấu (không số, không tên) và HLV (vest)
+export const EXTRA = (lib, team, sd = 0, o = {}) => makeCharacter(lib, { ...team, number: null, backName: null, heightM: 1.95 + (sd % 3) * 0.05, skin: ['#c99266', '#8a5634', '#e8b98f', '#a87454'][sd % 4], hairStyle: ['proc:buzz', 'proc:fade', 'proc:curlytop', 'proc:fade'][sd % 4], hairColor: '#120c08', ...o });
+export const COACH = (lib, color, sd = 0) => makeCharacter(lib, { tank: false, shorts: false, jersey: color, pants: '#1c1f26', socks: '#1c1f26', shoes: '#111', collar: '#ffffff', edgeSoft: 1, eyeScale: 2.2, heightM: 1.85, skin: ['#e8b98f', '#8a5634', '#c99266', '#f0cbaa'][sd % 4], hairStyle: ['proc:fade', 'proc:buzz', 'proc:fade', 'proc:buzz'][sd % 4], hairColor: ['#8a8a8a', '#120c08', '#3a2516', '#c9c9c9'][sd % 4] });

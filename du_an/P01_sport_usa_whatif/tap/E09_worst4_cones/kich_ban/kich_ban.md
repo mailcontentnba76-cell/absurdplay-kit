@@ -13,8 +13,14 @@ Logic trận ảo đã kiểm: 0–0 tới 4 giây cuối → Jazz ghi nhầm r�
 | Một trong 4 trận thắng: Bulls 132–125 Bucks | ESPN lịch Bulls và lịch Bucks (khớp nhau) | CHỜ |
 Phần hư cấu: giải đấu gộp 4 đội, 5 cọc giao thông, tỉ số 2–0, hợp đồng tối đa cho cọc. Không đùa chấn thương; không nhắc tên cầu thủ thật trong lời.
 
-## Nhận diện (dự kiến, chốt khi dựng)
-5 cầu thủ đại diện mặc áo 4 đội (MILWAUKEE xanh lá, SACRAMENTO tím, UTAH, CHICAGO đỏ) — tra áo + số + ngoại hình từng người từ box score trận gần nhất trước khi dựng; nếu không chắc nhận diện thì dùng cầu thủ không số, không tên.
+## Nhận diện (kiểm 09/11/2026: số áo + phút thi đấu từ box score ESPN trận gần nhất; chiều cao từ hồ sơ ESPN; ngoại hình từ ảnh chân dung chính thức ESPN)
+| Đội | Cầu thủ | Số | Cao | Ngoại hình | Áo trong video |
+|---|---|---|---|---|---|
+| Bucks | Kyle Kuzma (F, đá chính, 27 điểm vs BOS) | 18 | 6'8" ≈ 2,03 m | da nâu sáng, tóc đen xoăn bồng trên đỉnh, ria mỏng + râu cằm, xăm kín hai tay + cổ | xanh lá MILWAUKEE (như E02) |
+| Kings | Zach LaVine (G, đá chính) | 8 | 6'5" ≈ 1,96 m | da nâu, tóc cắt sát, râu quai nón ngắn | tím KINGS |
+| Bulls | Josh Giddey (G, đá chính) | 3 | 6'7" ≈ 2,01 m | da trắng, tóc nâu sẫm gợn sóng dài ngang tai, mặt nhẵn | đỏ CHICAGO (như E05) |
+| Jazz | Jaxson Hayes (C, đá chính) | 11 | 7'0" ≈ 2,13 m | da nâu, băng đô trắng, tóc tết dài sau gáy, ria + râu cằm | trắng viền tím UTAH (như ảnh chính thức) |
+Cầu thủ phụ / HLV / bình luận viên / giám đốc: hư cấu, không số, không tên. Lỗi "ghi nhầm rổ nhà" là hư cấu của trận ảo (Utah = đội, lời không nêu tên người).
 
 ## Bối cảnh / nhạc (không trùng bảng "đã dùng")
 - Chính: nhà thi đấu trường trung học ban đêm, khán đài gỗ gập trống, sàn gỗ cũ, 5 cọc cam xếp như bài tập dẫn bóng.

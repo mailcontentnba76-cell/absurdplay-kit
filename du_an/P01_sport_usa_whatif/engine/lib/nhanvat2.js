@@ -69,6 +69,15 @@ function numberTexture(num, fg, outline, word = null, wordColor = null, wordMax 
 }
 
 // bounding box (world, bind pose) of vertices whose dominant bone matches re
+// các đỉnh (thế giới, tư thế gốc) thuộc vùng xương re — bỏ lưới mắt
+function regionPoints(root, re) {
+  const out = [], v = new THREE.Vector3(); root.updateMatrixWorld(true);
+  root.traverse((n) => { if (!n.isSkinnedMesh || /Eye/i.test(n.material && n.material.name || '')) return;
+    const p = n.geometry.attributes.position, si = n.geometry.attributes.skinIndex, sw = n.geometry.attributes.skinWeight;
+    for (let i = 0; i < p.count; i++) { let best = 0, bw = -1; for (let k = 0; k < 4; k++) { const w = sw.getComponent(i, k); if (w > bw) { bw = w; best = si.getComponent(i, k); } }
+      if (re.test(n.skeleton.bones[best].name)) out.push(v.fromBufferAttribute(p, i).applyMatrix4(n.matrixWorld).clone()); } });
+  return out;
+}
 function regionBox(root, re) {
   const box = new THREE.Box3(), v = new THREE.Vector3();
   root.updateMatrixWorld(true);
@@ -452,7 +461,7 @@ export function makeCharacter(lib, o = {}) {
       const a0 = lo.getWorldPosition(new THREE.Vector3()), a1 = hd.getWorldPosition(new THREE.Vector3()); const ax = a1.clone().sub(a0); const len = ax.length();
       const wb = new THREE.Mesh(new THREE.CylinderGeometry(len * 0.17, len * 0.17, len * 0.22, 20, 1, true), std(P.wristband.color || '#ffffff', { roughness: 0.9, side: THREE.DoubleSide }));
       wb.position.copy(a0.clone().addScaledVector(ax, 0.78)); wb.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ax.normalize()); root.add(wb); lo.attach(wb); wb.castShadow = true; } }
-  if (P.beardStyle) { const bm = beardMesh(P.beardStyle, hb, P.beardColor || P.hairColor || '#141010'); if (bm) { root.add(bm); head.attach(bm); } }
+  if (P.beardStyle) { const bm = beardMesh(P.beardStyle, hb, P.beardColor || P.hairColor || '#141010', regionPoints(root, /^(Head|neck_01)$/)); if (bm) { root.add(bm); head.attach(bm); } }
   if (P.glasses) { // kính tròn gọng mảnh trước mắt
     const gm = std(P.glasses, { roughness: 0.3, metalness: 0.6 }); const lr = hs.x * 0.11, fz = hb.max.z + hs.z * 0.02, gy = hc.y + hs.y * 0.06;
     for (const sd of [-1, 1]) { const ring = new THREE.Mesh(new THREE.TorusGeometry(lr, lr * 0.09, 8, 28), gm); place(ring, new THREE.Vector3(hc.x + sd * hs.x * 0.17, gy, fz)); }
@@ -499,7 +508,7 @@ export function makeBaby(lib, o = {}) {
 }
 
 // râu dựng bằng code: goatee (râu dê), full (quai nón), stubble (lún phún), mustache (ria)
-function beardMesh(style, hb, color) {
+function beardMesh(style, hb, color, pts = null) {
   const c = hb.getCenter(new THREE.Vector3()), s = hb.getSize(new THREE.Vector3());
   const R = new THREE.Vector3(s.x * 0.5, s.y * 0.52, s.z * 0.5), C = c.clone(); C.y += s.y * 0.04; C.z -= s.z * 0.02;
   const lift = { goatee: 0.022, full: 0.02, stubble: 0.008, mustache: 0.018 }[style] ?? 0.015;
@@ -511,8 +520,18 @@ function beardMesh(style, hb, color) {
   const g = new THREE.SphereGeometry(1, 72, 48); const p = g.attributes.position, ix = g.index, keep = [];
   const tp = (i) => [Math.acos(Math.max(-1, Math.min(1, p.getY(i)))), Math.atan2(p.getX(i), p.getZ(i))];
   for (let i = 0; i < ix.count; i += 3) { let ok = true; for (let j = 0; j < 3; j++) { const [th, ph] = tp(ix.getX(i + j)); if (!inside(th, ph)) ok = false; } if (ok) keep.push(ix.getX(i), ix.getX(i + 1), ix.getX(i + 2)); }
+  // dán sát mặt (08/11, chủ dự án yêu cầu "râu gắn sát mặt"): mỗi điểm râu chiếu theo hướng từ tâm C xuống bề mặt đầu thật
+  // (đỉnh xa nhất trong nón 5°), cộng độ dày mỏng; không có điểm mặt thì dùng elip cũ.
+  const PD = pts && pts.length ? pts.map((q) => { const d = q.clone().sub(C); const L0 = d.length(); return [d.divideScalar(L0 || 1), L0]; }) : null;
+  const thick = { goatee: 0.014, full: 0.01, stubble: 0.004, mustache: 0.011 }[style] ?? 0.008;
+  const cosT = Math.cos(0.09), dv = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) { const [th, ph] = tp(i); const fwd = Math.max(0, Math.cos(ph)); const L = lift * s.y * (1 + 0.6 * fwd);
-    p.setXYZ(i, C.x + Math.sin(th) * Math.sin(ph) * (R.x + L), C.y + Math.cos(th) * (R.y + L), C.z + Math.sin(th) * Math.cos(ph) * (R.z * (1 + 0.12 * fwd) + L)); }
+    const ex = C.x + Math.sin(th) * Math.sin(ph) * (R.x + L), ey = C.y + Math.cos(th) * (R.y + L), ez = C.z + Math.sin(th) * Math.cos(ph) * (R.z * (1 + 0.12 * fwd) + L);
+    if (PD) { dv.set(ex - C.x, ey - C.y, ez - C.z).normalize(); const top = [[-2, 0], [-2, 0], [-2, 0]]; /* 3 điểm mặt gần hướng nhất (không lấy xa nhất: tránh chạm mũi) */
+      for (const [d, L0] of PD) { const k = d.x * dv.x + d.y * dv.y + d.z * dv.z; if (k > top[2][0]) { top[2] = [k, L0]; top.sort((u, w) => w[0] - u[0]); } }
+      const rs = top[2][0] > cosT ? (top[0][1] + top[1][1] + top[2][1]) / 3 : -1;
+      if (rs > 0) { const e0 = Math.hypot(ex - C.x, ey - C.y, ez - C.z); const r = Math.min(rs, e0 * 1.02) + thick * s.y * (1 + 0.5 * fwd); /* không vươn tới tai */ p.setXYZ(i, C.x + dv.x * r, C.y + dv.y * r, C.z + dv.z * r); continue; } }
+    p.setXYZ(i, ex, ey, ez); }
   g.setIndex(keep); g.computeVertexNormals();
   const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color, roughness: 0.95, side: THREE.DoubleSide, transparent: style === 'stubble', opacity: style === 'stubble' ? 0.55 : 1 })); m.castShadow = true; return m;
 }

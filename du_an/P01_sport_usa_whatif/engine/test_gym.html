@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {buildGym,gymLights,makeCone,GY} from './lib/nhathidau.js';
+import {loadLibrary} from './lib/nhanvat2.js';import {KUZMA,LAVINE,GIDDEY,HAYES} from './lib/cast9.js';import {clipPose} from './lib/dongtac.js';import {place} from './lib/bongro_mx.js';
+await Promise.all(['100px Anton','900 60px Inter'].map(f=>document.fonts.load(f)));
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#111');const A=buildGym(s);gymLights(s);
+const lib=await loadLibrary();const P=[KUZMA(lib),LAVINE(lib),GIDDEY(lib),HAYES(lib)];
+P.forEach((ch,i)=>{s.add(ch.root);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});clipPose(ch,lib,[{name:'Idle_Loop',time:0.3+i,w:1}]);place(ch,-1.8+i*1.2,-1,0,0);});
+const C=[1,2,3,4,5].map(i=>{const k=makeCone({number:i});k.root.position.set(-2.4+i*0.8,0,2.2);s.add(k.root);return k;});
+const cam=new THREE.PerspectiveCamera(46,W/H,0.1,200);const f=new THREE.DirectionalLight('#fff',0.8);cam.add(f);s.add(cam);
+window.renderFrame=t=>{const v=location.hash;const m=v.match(/#f(\d)/);if(m){const ch=P[+m[1]];ch.root.updateMatrixWorld(true);const h=ch.bones.Head.getWorldPosition(new THREE.Vector3());const sd=v.includes('s')?0.85:0;cam.position.set(h.x+sd,h.y+0.02,h.z+1.1-sd*0.6);cam.lookAt(h.x,h.y,h.z);cam.fov=30;}else if(v==='#wide'){cam.position.set(-12,6,12);cam.lookAt(0,1.5,0);cam.fov=50;}else{cam.position.set(0,1.6,8.5);cam.lookAt(0,1.2,0);cam.fov=46;}cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>
