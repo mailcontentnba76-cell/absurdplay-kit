@@ -140,7 +140,8 @@ export function arrowStorm(scene, src, o = {}) {
   function update(t, volleys) { let k = 0; const per = Math.floor(N / Math.max(1, volleys.length));
     volleys.forEach((v, vi) => { if (t < v.t0) return;
       for (let i = vi * per; i < (vi + 1) * per; i++) { const d = data[i]; const u = (t - v.t0 - d.dl) / v.T; if (u < 0) continue;
-        const tx = v.target[0] + (d.dx - 0.5) * v.spread[0], tz = v.target[1] + (d.dz - 0.5) * v.spread[1]; const H = (v.apex ?? 45) * d.ap; const uc = Math.min(1, u);
+        let tx = v.target[0] + (d.dx - 0.5) * v.spread[0], tz = v.target[1] + (d.dz - 0.5) * v.spread[1];
+        if (v.avoid) { const ax = tx - v.avoid[0], az = tz - v.avoid[1], dd = Math.hypot(ax, az); if (dd < v.avoid[2]) { const k = v.avoid[2] / Math.max(dd, 1e-3); tx = v.avoid[0] + ax * k; tz = v.avoid[1] + az * k; } } const H = (v.apex ?? 45) * d.ap; const uc = Math.min(1, u);
         const x = d.sx + (tx - d.sx) * uc, z = d.sz + (tz - d.sz) * uc, y = 1.5 + 4 * H * uc * (1 - uc) - 1.4 * uc;
         if (u < 1) dir.set(tx - d.sx, 4 * H * (1 - 2 * uc) - 1.4, tz - d.sz).normalize(); else dir.set((tx - d.sx) * 0.02, -1, (tz - d.sz) * 0.02).normalize();
         q.setFromUnitVectors(X, dir); m4.compose(V(x, u >= 1 ? 0.3 : y, z), q, V(1, 1, 1)); im.setMatrixAt(k++, m4); } });

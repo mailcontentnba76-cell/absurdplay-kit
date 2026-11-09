@@ -61,9 +61,10 @@ const rig=new CameraRig(cam,r.domElement,{seed:110});
 const Sp=(t0,t1,from,to,o={})=>rig.add(Object.assign({t0,t1,ease:'linear',shake:0.008,shakeHz:0.7,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
 const S=(k,from,to,o={})=>Sp(SH[k][0],SH[k][1],from,to,o);
 const CX=4,CZ=0; // vị trí Curry mặc định (giữa cánh đồng, nhìn +x về rổ)
-S('s1',{pos:[CX-0.35,1.78,2.1],look:[CX-0.18,1.62,-0.6]},{pos:[CX-0.3,1.78,1.75],look:[CX-0.18,1.64,-0.6]},{fov:[50,48],shake:0.02,shakeHz:2.4});
+S('s1',{pos:[CX+1.25,0.75,0.95],look:[CX-0.6,2.5,-0.35]},{pos:[CX+1.05,0.8,0.8],look:[CX-0.6,2.6,-0.35]},{fov:[62,58],shake:0.05,shakeHz:7});
 S('s2',{pos:[CX+1.4,2.0,0.2],look:[CX,1.8,0]},{pos:[CX+1.25,2.0,0.2],look:[CX,1.8,0]},{fov:[40,38]});
-S('s3',{pos:[-6,14,26],look:[-20,2,0]},{pos:[-9,8,18],look:[-21,2.2,0]},{fov:[52,50],ease:'smoother'});
+Sp(SH.s3[0],SUB.s3,{pos:[-13.6,1.45,18],look:[-17,1.7,10]},{pos:[-13.6,1.55,-1],look:[-17,1.75,-9]},{fov:[54,54],shake:0.02,shakeHz:4});
+Sp(SUB.s3,SH.s3[1],{pos:[-17.0,3.1,0.9],look:[CX,1.3,0]},{pos:[-17.0,3.1,0.9],look:[CX,1.3,0]},{fov:[34,13],ease:'smoother'});
 Sp(SH.s4[0],SUB.s4,{pos:[-10.2,0.8,5],look:[-17,2.2,1]},{pos:[-10.2,0.85,-3],look:[-17,2.2,-4]},{fov:[56,56]});
 Sp(SUB.s4,SH.s4[1],{pos:[-11.0,1.75,3.2],look:[-17,1.75,0.5]},{pos:[-11.2,1.75,2.6],look:[-17,1.8,0.5]},{fov:[44,42]});
 S('s5',{pos:[5.5,1.7,4.6],look:[8.0,2.0,0]},{pos:[7.0,1.9,4.4],look:[12,2.8,0]},{fov:[50,50]});
@@ -118,17 +119,20 @@ const faceCam=(ch,o={})=>{ch.root.updateMatrixWorld(true);const h=bp(ch,'Head');
   const sx=Math.cos(yaw),sz=-Math.sin(yaw),sd=o.side??0.25;cam.position.set(h.x+fx*d+sx*sd,ly+(o.camY??0.02),h.z+fz*d+sz*sd);cam.lookAt(h.x,ly,h.z);cam.fov=o.fov??38;cam.updateProjectionMatrix();};
 // loạt tên: bắn từ quân Anh, rơi xuống bùn quanh Curry (không trúng ai)
 const VOL=[{t0:SH.s15[0]+0.25,T:2.3,target:[CX+2,0],spread:[22,26],apex:42},{t0:SH.s23[0]-0.2,T:2.1,target:[CX+4,0],spread:[24,28],apex:40},{t0:SH.s23[0]+0.6,T:2.1,target:[CX+3,2],spread:[24,28],apex:44},{t0:SH.s28[0]+0.2,T:2.0,target:[CX+5,0],spread:[22,24],apex:40}];
+/* mở đầu (cold open): 2 loạt tên rơi quanh Curry ngay khung đầu — chỉ hiện trong s1–s3, không trúng người */
+const OPEN=[{t0:-1.6,T:2.3,target:[CX+0.4,CZ+0.8],spread:[8,8],apex:34,avoid:[CX,CZ,0.75]},{t0:-2.45,T:2.3,target:[CX-0.3,CZ+0.4],spread:[6,6],apex:34,avoid:[CX,CZ,0.75]},{t0:-0.55,T:2.2,target:[CX-0.6,CZ-0.4],spread:[7,7],apex:34,avoid:[CX,CZ,0.75]}];
 const WY=(x,z)=>Math.atan2(RIM.x-x,RIM.z-z);
 const pose=t=>{
   rig.apply(t);hideAll();
   // trời tối lại khi mưa tên; mưa phùn quanh máy quay; quân cung thủ giương/buông
   const dark=IN('s16',t)?0.55*sm((t-SH.s16[0])/0.5):IN('s23',t)?0.35:0;B.update(t,{dark});B.rainTick(t,cam.position.x,cam.position.z,t>=SH.s27[0]&&t<SH.s27[1]?0:1);HALL.update(t);
-  AR.U.uT.value=t;let draw=0.15,fire=0;for(const [k,lead] of [['s4',0],['s10',0],['s15',0],['s22',0],['s28',0]])if(IN(k,t)){const u=U(k,t);draw=sm(u/0.5);if(k==='s15'||k==='s28'){fire=sm((u-0.25)/0.1);draw=1;}}
+  AR.U.uT.value=t;let draw=0.15,fire=0;for(const [k,lead] of [['s2',0],['s3',0],['s4',0],['s10',0],['s15',0],['s22',0],['s28',0]])if(IN(k,t)){const u=U(k,t);draw=sm(u/0.5);if(k==='s15'||k==='s28'){fire=sm((u-0.25)/0.1);draw=1;}}
   AR.U.uDraw.value=draw;AR.U.uFire.value=fire;AR.U.uAim.value=IN('s22',t)?0.6+0.25*sm(U('s22',t)/1.0):0.6;
-  ST.update(t,VOL);
+  ST.update(t,t<SH.s4[0]?[...VOL,...OPEN]:VOL);
   if(t<SH.s31[0])drawSB('pre',0,0,'AGINCOURT · 1415');else drawSB('fin',213,0,'FINAL');
-  if(IN('s1',t)){idle(CU,t,CX,CZ,-Math.PI/2+0.7);expr(CU,t,[[0,'neutral'],[0.25,'shock']],{look:[0,0.1]});}
-  if(IN('s2',t)){idle(CU,t,CX,CZ,Math.PI/2,'Idle_Loop',0.3);expr(CU,t,[[0,'confident']]);faceCam(CU,{k:U('s2',t)});}
+  if(IN('s1',t)){idle(CU,t,CX,CZ,1.1);expr(CU,t,[[0,'surprised'],[0.2,'shock']],{look:[0,0.9]});CU.bones.Head.rotateX(-0.3);}
+  if(IN('s2',t)){const u=U('s2',t);idle(CU,t,CX,CZ,Math.PI/2,'Idle_Loop',0.3);expr(CU,t,[[0,'shock'],[SH.s2[0]+0.9,'determined']]);faceCam(CU,{d:1.05+0.9*sm(u/2.1),side:0.35,fov:40});}
+  if(IN('s3',t)){idle(CU,t,CX,CZ,-Math.PI/2,'Idle_Loop',0.6);expr(CU,t,[[0,'determined']]);}
   if(IN('s5',t)){const u=U('s5',t);const x=RIM.x-6.6,z=0.8;const o=jumpShot(CU,lib,u-0.6,{x,z,yaw:WY(x,z),R});CU.root.visible=true;
     if(u<0.6)putBall(dribbleMove(CU,lib,u,()=>[x,z],{t0:0,R,face:WY(x,z)}));else if(o.ball)putBall(o.ball);else{const v=u-0.6-o.tRelease;putBall(ballFlight(o.releasePos,RIM,v,0.85,{apex:1.3,R}));netSwish(NET,v-0.85);}expr(CU,t,[[0,'determined'],[11.2,'proud']]);}
   if(IN('s6',t)){const u=U('s6',t);const x=RIM.x-4.2,z=0;const uu=t<SUB.s6?u:t-SUB.s6;const o=jumpShot(CU,lib,uu-0.4,{x,z,yaw:WY(x,z),R,J:{g:0.18,air:0.3,h:0.12}});CU.root.visible=true;
