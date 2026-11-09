@@ -43,6 +43,14 @@ Giữ nguyên 10 bước, ~55–70 s, **≥ 170 từ** (giọng ≥ 62 s), hook 
 - Đuôi kết kéo đội/sao thật khác vào (vd đội đối thủ thật ký hợp đồng 10 ngày với vật vô tri) — không gán hành vi xấu bịa cho người thật.
 - Mẫu cấu trúc tham chiếu: `PHAN_TICH_MAU/20261105_drake_maye_folding_chairs.md` (NFL nhưng khuôn dùng chung), E05 `tap/E05_bulls_snowmen` (NBA).
 
+## 3b. LUÂN PHIÊN DẠNG KỊCH BẢN (chủ dự án yêu cầu 09/11: "đừng làm 1 mẫu kịch bản như vậy nữa")
+E05, E08, E09 đều là khuôn "Could [X] beat 5 [vật vô tri]?" → KHÔNG dùng khuôn này quá 1 lần trong 3 tập liên tiếp. Mỗi lần đề xuất phải có ≥ 3 DẠNG khác nhau (đo trên 23 mẫu, PHAN_TICH_MAU/TONG_HOP.md):
+1. **Ngôi sao vs LỊCH SỬ** (512K trung vị, share cao nhất): kỹ năng thật của sao đặt vào sự kiện/thế giới lịch sử (mẫu: Kawhi giữ Vạn Lý Trường Thành trước Thành Cát Tư Hãn, Derrick Henry vs quân La Mã, LeBron chặn thiên thạch diệt khủng long, Vick thoát Pompeii). Có flashback đen trắng. Tránh thảm kịch hiện đại có nạn nhân thật (Holocaust, 11/9, Astroworld…).
+2. **Ngôi sao vs HƯ CẤU / thần thoại** (mẫu: Durant vs Galactus, Calvin Johnson vs Megatron, Harden step-back xuyên thời gian) — dùng nhân vật thần thoại/công cộng (Hy Lạp, Bắc Âu…), KHÔNG dùng nhân vật có bản quyền (Marvel, Transformers…).
+3. **Kịch bản giả định NGHỊCH LÝ** quanh một điểm yếu thật (mẫu: "Could Herbert win with 20 offensive linemen?", "Could the Falcons blow a 50-point lead?", "Could Josh Allen beat the Chiefs if…").
+4. **Troll đội thua** (1,4M trung vị) — có thể dùng lại nhưng KHÔNG bằng khuôn "beat N đồ vật" nữa (vd thử thách, điều kiện vô lý, "50 babies" kiểu khác).
+Ghi dạng đã dùng vào bảng "đã dùng" (cột Đối thủ/gag ghi rõ dạng).
+
 ## 4. Giữ nguyên từ bản gốc (KEEP)
 - Thông số kỹ thuật, phụ đề, màu, nhịp, loudness: gốc §2–§3 + `QUY_TRINH_DU_AN.md` §3.
 - Hai điểm duyệt (kịch bản, bản cắt thử); không lặp đối thủ/gag/bối cảnh/nhạc; bảng "đã dùng".
