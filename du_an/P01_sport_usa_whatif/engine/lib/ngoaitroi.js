@@ -132,7 +132,7 @@ export function bleachers(G, side, o) {
   const pm = new THREE.Mesh(mergeGeometries(plank), alu); pm.receiveShadow = true; pm.castShadow = true; g.add(pm);
   const fm = new THREE.Mesh(mergeGeometries(frame), frameM); g.add(fm);
   // tường trước (băng rôn vải) dọc mép khán đài
-  if (o.banner) { const bt = canvasTex(2048, 64, (c, W, Hh) => { c.fillStyle = o.bannerBg; c.fillRect(0, 0, W, Hh); c.font = '900 44px Anton, sans-serif'; c.textBaseline = 'middle'; c.fillStyle = o.bannerFg; c.textAlign = 'center';
+  if (o.banner) { const bt = canvasTex(2048, 64, (c, W, Hh) => { c.fillStyle = o.bannerBg; c.fillRect(0, 0, W, Hh); c.font = '900 44px Anton, sans-serif'; c.textBaseline = 'middle'; c.fillStyle = o.bannerFg; c.textAlign = 'center'; if (o.flipBanner) { c.translate(W, 0); c.scale(-1, 1); }
       for (let k = 0; k < 6; k++) c.fillText(o.banner, (k + 0.5) * W / 6, Hh / 2 + 2); }, { wrap: false });
     const bn = new THREE.Mesh(new THREE.PlaneGeometry(LEN, 0.85), new THREE.MeshStandardMaterial({ map: bt, roughness: 0.9 })); bn.position.set(0, 0.5, 0.12); g.add(bn); }
   // chòi bình luận trên đỉnh khán đài nhà

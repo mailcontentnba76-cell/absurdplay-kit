@@ -1,0 +1,73 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 08: đồ hoạ KIỂU SÂN BÓNG CHÀY ĐẤT — bảng đen phấn trắng viền gỗ (chalkboard), chữ phấn hơi nhoè,
+   thẻ cầu thủ kiểu thẻ bóng chày (baseball card) navy/cam, dấu "CAUGHT!" hình quả bóng chày khâu chỉ đỏ. Khác E01–E10. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.ch{position:absolute;white-space:nowrap;text-align:center;padding:22px 44px 28px;border-radius:12px;color:#f4f1ea;
+  background:radial-gradient(ellipse at 30% 30%,rgba(255,255,255,.06),transparent 60%),linear-gradient(160deg,#25352b,#1a271f);
+  border:14px solid #8a5a34;box-shadow:0 18px 34px rgba(0,0,0,.5),inset 0 0 0 3px #5a3b22}
+.ch .k{display:block;font-size:30px;letter-spacing:6px;color:#ffd27a;margin-bottom:4px}
+.ch .v{display:block;font-family:Anton;font-size:116px;line-height:1.02;text-shadow:0 0 6px rgba(255,255,255,.35);filter:blur(.3px)}
+.ch .v.s{font-size:80px}.ch .n{display:block;font-size:28px;letter-spacing:4px;color:#d9d3c4;margin-top:6px}
+.card{position:absolute;left:60px!important;transform:none!important;width:470px;border-radius:18px;overflow:hidden;box-shadow:0 14px 28px rgba(0,0,0,.5);border:10px solid #f4efe2;background:#f4efe2}
+.card .top{background:#0b162a;color:#fff;padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
+.card .top b{font-family:Anton;font-size:64px}.card .top i{font-style:normal;font-size:26px;letter-spacing:3px;color:#e64100}
+.card .bot{background:#e64100;color:#fff;padding:10px 22px;font-size:30px;letter-spacing:3px}
+.bug{top:300px;display:flex;height:80px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.4);font-family:Anton}
+.bug>div{display:flex;align-items:center;justify-content:center;font-size:46px;padding:0 18px;color:#fff}
+.bA{background:#0b162a;min-width:150px;color:#e64100!important}.bB{background:#7a4a24;min-width:160px}.bS{background:#1a271f;min-width:84px}.bC{background:#f4efe2;color:#0b162a!important;font-size:34px!important;min-width:170px}
+.ct{position:absolute;left:50%;top:400px;width:400px;height:400px;border-radius:50%;background:#f8f5ee;box-shadow:0 18px 40px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.ct:before,.ct:after{content:'';position:absolute;top:40px;bottom:40px;width:120px;border:8px dashed #d2302c;border-radius:50%}
+.ct:before{left:-50px;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent}.ct:after{right:-50px;border-right-color:transparent;border-top-color:transparent;border-bottom-color:transparent}
+.ct span{font-family:Anton;font-size:100px;color:#0b162a;letter-spacing:2px}
+.stamp{position:absolute;border:12px solid #e64100;color:#e64100;font-family:Anton;font-size:104px;padding:6px 34px;border-radius:18px;transform:translateX(-50%) rotate(-8deg);background:rgba(244,239,226,.93);white-space:nowrap}
+.tag{position:absolute;background:#f4efe2;color:#0b162a;border-radius:18px;padding:24px 40px 28px;box-shadow:0 16px 34px rgba(0,0,0,.45);width:820px;text-align:left;border-left:16px solid #e64100}
+.tag .q{font-size:58px;line-height:1.12}.tag .w{font-size:30px;letter-spacing:4px;color:#7a4a24;margin-top:12px;display:block}
+.tally{display:flex;gap:10px;justify-content:center;margin-top:6px;flex-wrap:wrap;width:760px}.tally u{width:54px;height:54px;border-radius:50%;border:5px solid #ffd27a;text-decoration:none;font-family:Anton;font-size:34px;display:flex;align-items:center;justify-content:center;color:#1a271f}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div class="el bug" id="bug"><div class="bA">CHI</div><div class="bS" id="sA">0</div><div class="bB">GLOVES</div><div class="bS" id="sB">0</div><div class="bC" id="clk">1ST</div></div>
+<div class="el ch" id="res" style="top:430px"><span class="k">SUNDAY NIGHT · CHICAGO</span><span class="v s">BEARS 27 · BUCS 24</span><span class="n">CALEB WILLIAMS: 4 INTERCEPTIONS</span></div>
+<div class="el ch" id="wk" style="top:1330px"><span class="k">THIS WEEK · THE SANDLOT</span><span class="v s">BEARS vs 11 GLOVES</span></div>
+<div class="el ch" id="sl" style="top:430px"><span class="k">LAST NIGHT</span><span class="v s">4 INT · 5 TURNOVERS</span><span class="n">WON ON A FIELD GOAL AS TIME EXPIRED</span></div>
+<div class="el ch" id="rec" style="top:430px"><span class="k">CHICAGO BEARS</span><span class="v">7–2</span></div>
+<div class="el card" id="caleb" style="top:1300px"><div class="top"><b>18</b><i>QUARTERBACK</i></div><div class="bot">CALEB WILLIAMS · CHICAGO</div></div>
+<div class="el ct" id="c1"><span>CAUGHT!</span></div><div class="el ct" id="c2"><span>CAUGHT!</span></div><div class="el ct" id="c3"><span>CAUGHT!</span></div><div class="el ct" id="c4"><span>CAUGHT!</span></div>
+<div class="el ch" id="tent" style="top:1330px"><span class="k">SANDLOT SPORTS NETWORK</span><span class="v s">LIVE</span></div>
+<div class="el ch" id="tally" style="top:430px"><span class="k">CALEB'S INTERCEPTIONS</span><div class="tally" id="tl"></div><span class="n" id="tln">0</span></div>
+<div class="el ch" id="fair" style="top:430px"><span class="k">INTERCEPTIONS PER GLOVE</span><span class="v">1.0</span><span class="n">FAIR IS FAIR</span></div>
+<div class="el card" id="santos" style="top:1300px"><div class="top"><b>8</b><i>KICKER</i></div><div class="bot">CAIRO SANTOS · CHICAGO</div></div>
+<div class="el ch" id="fg" style="top:430px"><span class="k">LAST PLAY</span><span class="v s">38-YARD FIELD GOAL</span></div>
+<div class="el stamp" id="nolegs" style="top:560px">LEGS: 0</div>
+<div class="el ch" id="good" style="top:430px"><span class="v">IT'S GOOD!</span></div>
+<div class="el ch" id="fin" style="top:1300px"><span class="k">FINAL</span><span class="v s">BEARS 27 · GLOVES 24</span></div>
+<div class="el stamp" id="again" style="top:560px">SOMEHOW. AGAIN.</div>
+<div class="el tag" id="auto" style="top:1250px"><div class="q">“Can you sign it… and throw it to us?”</div><span class="w">— THE GLOVES</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep08_shots.js';
+const at=(k,a=0,b=null)=>[SH[k][0]+a,b==null?SH[k][1]:SH[k][0]+b];
+const TL=[['res',0.1,SH.s3[1]],['wk',...at('s4',0.3)],['sl',SH.s8[0]+0.1,SH.s9[1]],['rec',...at('s10',0.05)],['bug',SH.s11[0],SH.s22[0]],['caleb',...at('s12',0.05)],
+ ['c1',...at('s14',0)],['c2',...at('s17',0)],['c3',...at('s19',0)],['c4',...at('s21',0.3)],['tent',SH.s22[0]+0.1,SH.s22[0]+2.2],['tally',...at('s24',0.1)],['fair',...at('s25',0.1)],
+ ['bug',SH.s26[0],SH.s33[0]],['santos',...at('s26',0.05)],['nolegs',...at('s29',0.05)],['good',...at('s30',0.05)],['fin',...at('s31',0.1)],['again',...at('s32',0.1)],['auto',...at('s33',0.4)]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+for(let i=1;i<=11;i++){const u=document.createElement('u');u.id='t'+i;$('tl').appendChild(u);}
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('card'))e.style.transform=`translateX(${(1-k)*-700}px) rotate(${(1-k)*-8}deg)`;
+    else if(e.classList.contains('stamp'))e.style.transform=`translateX(-50%) rotate(-8deg) scale(${on?Math.max(1,2.2-1.2*Math.min(1,(t-a)/0.15)):1})`;
+    else if(e.classList.contains('ct')){const u=on?t-a:0;e.style.transform=`translateX(-50%) rotate(${on?(1-ease(Math.min(1,u/0.3)))*-200:0}deg) scale(${on?Math.min(1,0.3+u/0.18):0.3})`;}
+    else e.style.transform=`translateX(-50%) scale(${e.id==='bug'?1:0.86+0.14*k})`;}
+  if(vis.tally!=null){const n=Math.min(11,Math.floor((t-vis.tally)/0.16));for(let i=1;i<=11;i++){const u=$('t'+i);u.style.background=i<=n?'#ffd27a':'transparent';u.textContent=i<=n?'✓':'';}$('tln').textContent=n;}
+  const q4=t>=SH.s24[0];const ints=q4?11:t>=SH.s21[0]+0.3?4:t>=SH.s19[0]?3:t>=SH.s17[0]?2:t>=SH.s14[0]?1:0;
+  $('sA').textContent=t>=SH.s30[0]?27:q4?24:0;$('sB').textContent=q4?24:0;$('clk').textContent=q4?'4TH 0:03':'1ST · INT '+ints;
+  const fl=(k,n=5)=>{const f=(t-SH[k][0])*30;return f>=0&&f<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};
+  $('flash').style.opacity=Math.max(fl('s4'),fl('s30'));
+};
+</script></body></html>

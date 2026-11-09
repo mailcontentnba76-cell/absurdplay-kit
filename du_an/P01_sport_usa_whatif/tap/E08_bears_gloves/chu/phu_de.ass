@@ -1,0 +1,71 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.62,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.62,0:00:02.28,Cap,,0,0,0,,caleb williams threw
+Dialogue: 0,0:00:02.28,0:00:03.98,Cap,,0,0,0,,four interceptions, and
+Dialogue: 0,0:00:03.98,0:00:05.68,Cap,,0,0,0,,the bears still won!
+Dialogue: 0,0:00:05.68,0:00:06.46,Cap,,0,0,0,,so this week,
+Dialogue: 0,0:00:06.46,0:00:07.14,Cap,,0,0,0,,the bears play
+Dialogue: 0,0:00:07.14,0:00:08.98,Cap,,0,0,0,,eleven baseball gloves.
+Dialogue: 0,0:00:08.98,0:00:09.88,Cap,,0,0,0,,why gloves?
+Dialogue: 0,0:00:09.88,0:00:10.76,Cap,,0,0,0,,because if caleb's going
+Dialogue: 0,0:00:10.76,0:00:11.32,Cap,,0,0,0,,to throw it to
+Dialogue: 0,0:00:11.32,0:00:12.58,Cap,,0,0,0,,the other team anyway,
+Dialogue: 0,0:00:12.58,0:00:13.14,Cap,,0,0,0,,they might as well
+Dialogue: 0,0:00:13.14,0:00:14.40,Cap,,0,0,0,,be good at catching.
+Dialogue: 0,0:00:14.40,0:00:16.10,Cap,,0,0,0,,last night, four picks,
+Dialogue: 0,0:00:16.10,0:00:17.32,Cap,,0,0,0,,five turnovers, and a
+Dialogue: 0,0:00:17.32,0:00:18.28,Cap,,0,0,0,,win over tampa bay
+Dialogue: 0,0:00:18.28,0:00:19.14,Cap,,0,0,0,,on a field goal
+Dialogue: 0,0:00:19.14,0:00:20.60,Cap,,0,0,0,,with no time left.
+Dialogue: 0,0:00:20.60,0:00:21.36,Cap,,0,0,0,,the bears are
+Dialogue: 0,0:00:21.36,0:00:22.62,Cap,,0,0,0,,seven and two.
+Dialogue: 0,0:00:22.62,0:00:23.24,Cap,,0,0,0,,kickoff on a
+Dialogue: 0,0:00:23.24,0:00:24.98,Cap,,0,0,0,,sandlot at sunset.
+Dialogue: 0,0:00:24.98,0:00:25.98,Cap,,0,0,0,,caleb williams, number
+Dialogue: 0,0:00:25.98,0:00:27.86,Cap,,0,0,0,,18, drops back, throws
+Dialogue: 0,0:00:27.86,0:00:29.60,Cap,,0,0,0,,over the middle, caught.
+Dialogue: 0,0:00:29.60,0:00:30.92,Cap,,0,0,0,,by a glove.
+Dialogue: 0,0:00:30.92,0:00:32.22,Cap,,0,0,0,,next drive, deep shot
+Dialogue: 0,0:00:32.22,0:00:34.44,Cap,,0,0,0,,down the sideline, caught.
+Dialogue: 0,0:00:34.44,0:00:36.12,Cap,,0,0,0,,screen pass, caught.
+Dialogue: 0,0:00:36.12,0:00:38.66,Cap,,0,0,0,,a handoff, somehow caught.
+Dialogue: 0,0:00:38.66,0:00:39.76,Cap,,0,0,0,,on the broadcast, the
+Dialogue: 0,0:00:39.76,0:00:41.22,Cap,,0,0,0,,analyst says, he's just
+Dialogue: 0,0:00:41.22,0:00:42.72,Cap,,0,0,0,,not seeing the gloves.
+Dialogue: 0,0:00:42.72,0:00:43.90,Cap,,0,0,0,,his partner says,
+Dialogue: 0,0:00:43.90,0:00:44.38,Cap,,0,0,0,,they're the size
+Dialogue: 0,0:00:44.38,0:00:45.58,Cap,,0,0,0,,of a car.
+Dialogue: 0,0:00:45.58,0:00:46.60,Cap,,0,0,0,,fourth quarter,
+Dialogue: 0,0:00:46.60,0:00:47.16,Cap,,0,0,0,,caleb has thrown
+Dialogue: 0,0:00:47.16,0:00:49.14,Cap,,0,0,0,,eleven interceptions, one
+Dialogue: 0,0:00:49.14,0:00:50.66,Cap,,0,0,0,,to every glove.
+Dialogue: 0,0:00:50.66,0:00:51.58,Cap,,0,0,0,,fair is fair.
+Dialogue: 0,0:00:51.58,0:00:52.74,Cap,,0,0,0,,last play, cairo
+Dialogue: 0,0:00:52.74,0:00:53.82,Cap,,0,0,0,,santos lines up
+Dialogue: 0,0:00:53.82,0:00:55.22,Cap,,0,0,0,,a thirty-eight yarder.
+Dialogue: 0,0:00:55.22,0:00:56.32,Cap,,0,0,0,,all eleven gloves
+Dialogue: 0,0:00:56.32,0:00:57.48,Cap,,0,0,0,,jump to catch it,
+Dialogue: 0,0:00:57.48,0:00:59.06,Cap,,0,0,0,,but gloves can't jump.
+Dialogue: 0,0:00:59.06,0:01:00.18,Cap,,0,0,0,,they don't have legs.
+Dialogue: 0,0:01:00.18,0:01:01.32,Cap,,0,0,0,,it's good.
+Dialogue: 0,0:01:01.32,0:01:01.52,Cap,,0,0,0,,bears
+Dialogue: 0,0:01:01.32,0:01:02.44,Cap,,0,0,0,,win, twenty-seven
+Dialogue: 0,0:01:02.44,0:01:03.58,Cap,,0,0,0,,to twenty-four,
+Dialogue: 0,0:01:03.58,0:01:05.38,Cap,,0,0,0,,somehow, again.
+Dialogue: 0,0:01:05.38,0:01:06.22,Cap,,0,0,0,,after the game,
+Dialogue: 0,0:01:06.22,0:01:06.96,Cap,,0,0,0,,the gloves asked
+Dialogue: 0,0:01:06.96,0:01:08.40,Cap,,0,0,0,,caleb for an autograph.
+Dialogue: 0,0:01:08.40,0:01:08.70,Cap,,0,0,0,,he threw
+Dialogue: 0,0:01:08.70,0:01:09.50,Cap,,0,0,0,,it to them.
+Dialogue: 0,0:01:09.50,0:01:10.44,Cap,,0,0,0,,they caught it.

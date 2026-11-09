@@ -1,0 +1,186 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 08 (NFL) — "What if the Bears played eleven baseball gloves?" Mốc shot: ep08_shots.js. Mixamo (MX_*) + UAL, khoá bàn chân.
+import * as THREE from 'three';
+import {buildSandlot,sandlotLights,makeGlove,CHI,FL,FW} from './lib/sandlot.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {HEAT} from './lib/cast2.js';
+import {EAGLES,kick} from './lib/bongbau.js';
+import {football} from './lib/dovat.js';
+import {resetPose,rotW,aim,ik2} from './lib/tuthe.js';
+import {loco,locoLock,expr,clipPose,clipDur} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {SH} from './ep08_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildSandlot(s);const LT=sandlotLights(s);
+const lib=await loadLibrary();
+const GE=k=>(SH[k+'c']||SH[k+'b']||SH[k])[1];const IN=(k,t)=>t>=SH[k][0]&&t<GE(k);const U=(k,t)=>t-SH[k][0];const K=(k,t)=>Math.min(1,Math.max(0,(t-SH[k][0])/(GE(k)-SH[k][0])));
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+// ---------- đồng phục Bears (navy/cam, mũ trơn không chữ C) ----------
+const BEARS={...EAGLES,jersey:CHI.navy,numberColor:'#ffffff',numberOutline:CHI.orange,pants:'#ffffff',pantsStripes:[CHI.orange,CHI.navy],socks:CHI.navy,shoes:'#1b1b1b',gloves:'#1b1b1b',helmet:CHI.navy,helmetMetal:0.25,helmetStripe:[CHI.orange,'#ffffff'],mask:'#8a8f96',collar:CHI.orange,backNameMax:150};
+// Caleb Williams #18 (QB) — Cairo Santos #8 (K). Mặt cách điệu.
+const QB=makeCharacter(lib,{...BEARS,number:18,backName:'WILLIAMS',heightM:1.85,skin:'#7a4a2e',shoulders:null});
+const KS=makeCharacter(lib,{...BEARS,number:8,backName:'SANTOS',heightM:1.73,skin:'#d9a77a',shoulders:null});
+const OLS=['#8a5634','#f0c8a6','#5e3a26','#d8a37a','#6b4026'];
+const OL=OLS.map((sk,i)=>makeCharacter(lib,{...BEARS,number:[60,63,66,71,76][i],heightM:1.96,skin:sk,build:'big',backName:null}));
+const WR=makeCharacter(lib,{...BEARS,number:84,heightM:1.88,skin:'#6b4026',backName:null}); // không tên — cầu thủ hư cấu
+const RB=makeCharacter(lib,{...BEARS,number:23,heightM:1.78,skin:'#5e3a26',backName:null});
+const CAS={...HEAT,tank:false,shorts:false,pantsStripes:null,number:null,wordmark:null,frontNumberSize:0.0001,backNumberSize:0.0001,socks:'#222',shoes:'#2a2a2a',pants:'#3a3f4a',collar:'#222'};
+const CM=[makeCharacter(lib,{...CAS,jersey:'#f4efe2',skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#7a5a3a',heightM:1.83,glasses:'#222'}),makeCharacter(lib,{...CAS,jersey:CHI.orange,skin:'#6b4026',hair:'Hair_Buzzed',hairColor:'#111',beardStyle:'goatee',beardColor:'#111',heightM:1.9})];
+const ALL=[QB,KS,...OL,WR,RB,...CM];ALL.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+// ---------- 11 găng + bóng ----------
+const GV=[];for(let i=0;i<11;i++){const g=makeGlove({number:i+1,seed:i+1});s.add(g.root);GV.push(g);}
+const ball=football(0.29);s.add(ball);const balls=[];for(let i=0;i<11;i++){const b=football(0.29);b.visible=false;s.add(b);balls.push(b);}
+// cột gôn thật (vàng, không mặt) ở vạch cuối phải
+const GPX=FL/2;{const m=new THREE.MeshStandardMaterial({color:'#ffd21c',roughness:0.35,metalness:0.2});const G=new THREE.Group();
+ const nk=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,3.05,12),m);nk.position.y=1.52;G.add(nk);const bar=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.07,5.64,12),m);bar.rotation.x=Math.PI/2;bar.position.y=3.05;G.add(bar);
+ for(const z of [-2.82,2.82]){const u=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.06,9,10),m);u.position.set(0,7.55,z);G.add(u);}const pad=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,1.8,16),new THREE.MeshStandardMaterial({color:CHI.navy}));pad.position.y=0.9;G.add(pad);
+ G.position.set(GPX,0,0);G.traverse(o=>{if(o.isMesh)o.castShadow=true});s.add(G);}
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(50,W/H,.05,2500);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e0',0.6);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:88});
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.006,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const LOS=10;const GLX=FL/2-10*0.9144;const KX=GLX-28*0.9144; // điểm sút 38 yard
+const GD=[[LOS+2,-4.5],[LOS+2,-1.5],[LOS+2,1.5],[LOS+2,4.5],[LOS+6.5,-5],[LOS+6.5,0],[LOS+6.5,5],[LOS+5,-13],[LOS+5,13],[LOS+14,-5],[LOS+14,5]];
+const TX=-30,TZ=-(FW/2+4)-13; // lều
+S('s1',{pos:[LOS-9,1.5,3.2],look:[LOS+5,1.6,0]},{pos:[LOS-8,1.4,2.6],look:[LOS+5,1.7,0]},{fov:[50,46]});
+S('s2',{pos:[LOS-3,1.6,6],look:[LOS-4.5,1.4,0]},{pos:[LOS-1,1.8,6],look:[LOS+5,2.0,0]},{fov:[48,48]});
+S('s3',{pos:[LOS-6,1.6,-FW/2+6],look:[LOS-6,1.5,-FW/2+2]},{pos:[LOS-5,1.6,-FW/2+5.6],look:[LOS-6,1.5,-FW/2+2]},{fov:[48,46]});
+S('s4',{pos:[LOS-6,9,15],look:[LOS+6,1,0]},{pos:[LOS-7,7,12],look:[LOS+6,1.2,0]},{fov:[50,50]});
+S('s5',{pos:[LOS+4.2,1.7,0.5],look:[LOS+6.5,1.55,0]},{pos:[LOS+4.5,1.7,0.4],look:[LOS+6.5,1.55,0]},{fov:[44,40]});
+S('s6',{pos:[LOS-3.4,1.9,1.0],look:[LOS-4.5,1.75,0]},{pos:[LOS-3.5,1.88,0.8],look:[LOS-4.5,1.75,0]},{fov:[42,40]});
+S('s7',{pos:[LOS-1,1.8,3],look:[LOS+2,1.5,-1]},{pos:[LOS-0.6,1.7,2.4],look:[LOS+2,1.5,-1]},{fov:[46,44]});
+S('s8',{pos:[FL/2-7,4.4,-14],look:[FL/2+8.5,5,-14]},{pos:[FL/2-5.5,4.5,-14],look:[FL/2+8.5,5,-14]},{fov:[44,42]});
+S('s9',{pos:[KX-2.6,1.2,3.4],look:[KX-0.4,1.0,0]},{pos:[KX-2.3,1.4,3.2],look:[KX+1.2,2.2,0]},{fov:[50,50]});
+S('s10',{pos:[LOS-6,1.6,-FW/2+6.5],look:[LOS-6,1.6,-FW/2+2]},{pos:[LOS-6.6,1.6,-FW/2+6.3],look:[LOS-6,1.6,-FW/2+2]},{fov:[48,46]});
+S('s11',{pos:[-60,26,40],look:[0,0,0]},{pos:[-48,20,34],look:[5,0,0]},{fov:[52,52],shake:0.003});
+S('s12',{pos:[LOS-2,1.6,4.2],look:[LOS-4,1.3,0]},{pos:[LOS-3.4,1.6,4.0],look:[LOS-5.6,1.3,0]},{fov:[46,44]});
+S('s13',{pos:[LOS-3.5,1.7,4.6],look:[LOS-6,1.5,0]},{pos:[LOS-2.5,2.0,4.6],look:[LOS+1,2.2,0]},{fov:[48,48]});
+S('s14',{pos:[LOS+3.6,1.7,1.4],look:[LOS+6.5,1.5,0]},{pos:[LOS+3.9,1.65,1.2],look:[LOS+6.5,1.5,0]},{fov:[44,42]});
+S('s15',{pos:[LOS+4.6,1.65,0.3],look:[LOS+6.5,1.55,0]},{pos:[LOS+4.8,1.62,0.25],look:[LOS+6.5,1.55,0]},{fov:[42,40]});
+S('s16',{pos:[LOS-3,2,-6],look:[LOS-5,1.5,0]},{pos:[LOS+1,3,-9],look:[LOS+5,2,-13]},{fov:[50,50]});
+S('s17',{pos:[LOS+2.4,1.7,-10.6],look:[LOS+5,1.5,-13]},{pos:[LOS+2.6,1.68,-10.8],look:[LOS+5,1.5,-13]},{fov:[44,42]});
+S('s18',{pos:[LOS-2,1.5,5.5],look:[LOS-5,1.3,0]},{pos:[LOS-1,1.5,5.5],look:[LOS+2,1.4,4.5]},{fov:[48,48]});
+S('s19',{pos:[LOS+0.5,1.6,7],look:[LOS+2,1.5,4.5]},{pos:[LOS+0.7,1.58,6.8],look:[LOS+2,1.5,4.5]},{fov:[44,42]});
+S('s20',{pos:[LOS-3,1.4,-4],look:[LOS-5,1.2,0.5]},{pos:[LOS-3.2,1.4,-3.6],look:[LOS-5,1.2,0.5]},{fov:[46,44]});
+S('s21',{pos:[LOS-2.6,1.6,-3],look:[LOS-4.6,1.3,0.6]},{pos:[LOS-2.8,1.55,-2.6],look:[LOS-4.6,1.3,0.6]},{fov:[46,44]});
+S('s22',{pos:[TX-0.7,1.5,TZ+3.2],look:[TX-0.8,1.3,TZ+0.2]},{pos:[TX-0.6,1.5,TZ+3.0],look:[TX-0.8,1.3,TZ+0.2]},{fov:[42,40]});
+S('s23',{pos:[TX+0.7,1.5,TZ+3.2],look:[TX+0.8,1.3,TZ+0.2]},{pos:[TX+0.6,1.5,TZ+3.0],look:[TX+0.8,1.3,TZ+0.2]},{fov:[42,40]});
+S('s24',{pos:[FL/2-6,4.6,-12.5],look:[FL/2+8.5,5,-14]},{pos:[FL/2-4.5,4.7,-12.8],look:[FL/2+8.5,5,-14]},{fov:[44,42]});
+S('s25',{pos:[LOS-2,4.5,12],look:[LOS+7,1.3,0]},{pos:[LOS-1,4,10],look:[LOS+7,1.4,0]},{fov:[50,48]});
+S('s26',{pos:[KX-4,1.4,4],look:[KX,1.1,0]},{pos:[KX-3.5,1.4,3.6],look:[KX,1.1,0]},{fov:[46,44]});
+S('s27',{pos:[GLX-6,1.5,9],look:[GLX+1,2,0]},{pos:[GLX-5,1.5,8],look:[GLX+1,2.2,0]},{fov:[50,48]});
+S('s28',{pos:[GLX-1.5,1.6,1.4],look:[GLX+1,1.4,0]},{pos:[GLX-1.4,1.6,1.3],look:[GLX+1,1.4,0]},{fov:[44,42]});
+S('s29',{pos:[GLX-1.2,0.3,2.0],look:[GLX+1,0.35,0.3]},{pos:[GLX-1.0,0.3,1.8],look:[GLX+1,0.35,0.3]},{fov:[46,44]});
+S('s30',{pos:[GPX+6,1.0,4],look:[GPX,6,0]},{pos:[GPX+5.5,1.2,3.6],look:[GPX-2,9,0]},{fov:[52,52]});
+S('s31',{pos:[KX-1,1.7,5],look:[KX+1,1.5,0]},{pos:[KX,1.7,4.5],look:[KX+1,1.5,0]},{fov:[48,46]});
+S('s32',{pos:[KX+2.4,1.85,1.2],look:[KX+0.6,1.75,0]},{pos:[KX+2.5,1.82,1.0],look:[KX+0.6,1.75,0]},{fov:[42,40]});
+S('s33',{pos:[-6.5,1.7,4.2],look:[-3.0,1.4,0]},{pos:[-6.2,1.7,3.8],look:[-3.0,1.4,0]},{fov:[50,48]});
+S('s34',{pos:[-5.6,1.5,3.6],look:[-3.8,1.4,0]},{pos:[-5.0,1.6,3.6],look:[-1.5,1.8,0]},{fov:[50,50]});
+S('s35',{pos:[-0.5,1.7,2.4],look:[1.8,1.5,0]},{pos:[-0.3,1.68,2.2],look:[1.8,1.5,0]},{fov:[44,42]});
+S('s4b',{pos:[LOS+18,1.1,-3],look:[LOS+5,1.5,0]},{pos:[LOS+17,1.2,-2.4],look:[LOS+5,1.6,0]},{fov:[48,46]});
+S('s9b',{pos:[GPX-6,1.2,4],look:[GPX,5,0]},{pos:[GPX-5.5,1.3,3.6],look:[GPX,7,0]},{fov:[52,52]});
+S('s12b',{pos:[LOS-6.5,1.9,1.2],look:[LOS-5.2,1.7,0]},{pos:[LOS-6.7,1.88,1.0],look:[LOS-5.4,1.7,0]},{fov:[42,40]});
+S('s22b',{pos:[TX,2.0,TZ+5.5],look:[TX,1.2,TZ]},{pos:[TX,1.9,TZ+5.0],look:[TX,1.2,TZ]},{fov:[46,44]});
+S('s24b',{pos:[LOS-2,3.5,10],look:[LOS+7,1.3,0]},{pos:[LOS-1,3.2,9],look:[LOS+7,1.4,0]},{fov:[50,48]});
+S('s26b',{pos:[KX+5,0.8,-2.5],look:[KX,1.0,0]},{pos:[KX+4.8,0.9,-2.3],look:[KX,1.0,0]},{fov:[46,44]});
+S('s33b',{pos:[0.2,1.8,1.6],look:[1.8,1.5,0]},{pos:[0.4,1.78,1.4],look:[1.8,1.5,0]},{fov:[44,42]});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+// ---------- dàn dựng ----------
+const hideAll=()=>{for(const ch of ALL)ch.root.visible=false;GV.forEach(g=>g.root.visible=false);ball.visible=false;balls.forEach(b=>b.visible=false);};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry)=>{ch.root.position.set(x,0,z);ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const CLIP=(ch,name,time,o={})=>CP(ch,[{name,time,w:1,loop:o.loop}]);
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry);const c=o.crouch||0,tk=o.talk||0,no=o.no||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-no)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-no)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-no)},{name:'Idle_No_Loop',time:t+sd,w:no}]);};
+const sitC=(ch,x,z,ry,t,name,seatY,sd=0)=>{place(ch,x,z,ry);CP(ch,[{name,time:t+sd,w:1}]);const p=B(ch,'pelvis').getWorldPosition(V());ch.root.position.y+=seatY+0.1*ch.root.scale.y-p.y;ch.root.updateMatrixWorld(true);};
+const holdBall=(ch,t=0)=>{ch.root.updateMatrixWorld(true);const sc=ch.root.scale.x;const c=B(ch,'spine_03').getWorldPosition(V()).add(Lc(ch,0,-0.05*sc,0.3*sc)).add(V(0,Math.sin(t*2)*0.01,0));
+  for(const [sd,k] of [['l',1],['r',-1]])ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,c.clone().add(Lc(ch,k*0.06*sc,0,0)),Lc(ch,k,-0.4,-0.3));return c;};
+const tuck=(ch)=>{ch.root.updateMatrixWorld(true);const sc=ch.root.scale.x;const c=B(ch,'spine_03').getWorldPosition(V()).add(Lc(ch,-0.16*sc,-0.08*sc,0.18*sc));ik2(ch,'upperarm_r','lowerarm_r','hand_r',c,Lc(ch,-1,-0.5,-0.2));return c;};
+const armsUp=(ch,k=1,t=0)=>{for(const [s2,sg] of [['l',1],['r',-1]]){const w=Math.sin(t*8+(sg>0?0:1))*0.15*k;aim(B(ch,'upperarm_'+s2),B(ch,'lowerarm_'+s2),Lc(ch,sg*0.3,lerp(-0.6,1,k),0.05+w));aim(B(ch,'lowerarm_'+s2),B(ch,'hand_'+s2),Lc(ch,sg*0.05,lerp(-0.6,1,k),0.05+w));}};
+const shrug=(ch,k)=>{for(const [s2,sg] of [['l',1],['r',-1]]){aim(B(ch,'upperarm_'+s2),B(ch,'lowerarm_'+s2),Lc(ch,sg*0.7,-0.6,0.2*k));aim(B(ch,'lowerarm_'+s2),B(ch,'hand_'+s2),Lc(ch,sg*0.7*k,0.3*k,0.6));}};
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const bball=(p,spin=0,b=ball)=>{b.visible=true;b.position.copy(p);b.rotation.set(0,Math.PI/2,spin);};
+const arc=(p0,p1,k,h)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(Math.PI*k)*h,lerp(p0.z,p1.z,k));
+const gAt=(i,x,z,t,o={},ry=-Math.PI/2)=>{const g=GV[i];g.root.position.set(x,0,z);g.root.rotation.set(0,ry,0);g.update(t,o);g.root.visible=true;g.root.updateMatrixWorld(true);return g;};
+const defense=(t,c=()=>({}))=>GD.forEach(([x,z],i)=>gAt(i,x,z,t,{look:[Math.sin(t*0.8+i)*0.5,0.1],hop:Math.abs(Math.sin(t*3+i))*0.06,...c(i)}));
+const offense=(t,los=LOS)=>OL.forEach((ch,i)=>{idle(ch,los-0.9,-2.4+i*1.2,Math.PI/2,t,i*1.3,{crouch:0.75});show(ch);});
+const qbShot=(t,x=LOS-4.5)=>{idle(QB,x,0,Math.PI/2,t,1,{crouch:0.3});const hp=holdBall(QB,t);show(QB);return hp;};
+// ném (MX_Quarterback_Pass, thả bóng 5,42 s) → bóng bay vào túi găng i; trả về true khi đã bắt
+const passTo=(t,u,gi,qx=LOS-5,qz=0,ry=Math.PI/2,flight=0.7,h=1.2)=>{const ct=4.4+u*0.9;place(QB,qx,qz,ry);CLIP(QB,'MX_Quarterback_Pass',Math.min(7.6,ct),{loop:false});show(QB);
+  const hr=B(QB,'hand_r').getWorldPosition(V());const pk=GV[gi].pocket();const q=(ct-5.42)/(0.9*flight);if(ct<5.42){bball(hr,0);return false;}if(q<1){bball(arc(hr,pk,q,h),q*12);return false;}bball(pk,0);return true;};
+const kickAt=(ch,x,z,ry,u)=>{place(ch,x,z,ry);CLIP(ch,'MX_Field_Goal',Math.min(1.29,Math.max(0,0.42-0.6+u)),{loop:false});};
+const pose=t=>{
+  rig.apply(t);hideAll();A.update(t,{cheer:(IN('s3',t)||IN('s10',t)||IN('s30',t)||IN('s31',t))?1:IN('s14',t)||IN('s17',t)?0.6:0.25,boo:0});LT.follow(cam);
+  {const q4=t>=SH.s24[0];const ints=t>=SH.s24[0]?11:t>=SH.s21[0]+0.3?4:t>=SH.s19[0]?3:t>=SH.s17[0]?2:t>=SH.s14[0]?1:0;
+   A.board.set(t<SH.s11[0]?{home:27,away:24,q:4,int:4}:{home:t>=SH.s30[0]?27:24,away:q4?24:0,q:q4?4:1,int:ints});}
+  // s1: Bears đối mặt 11 găng
+  if(IN('s1',t)){offense(t);bball(qbShot(t));E(QB,t,[[0,'shock']],1);defense(t,i=>({look:[-0.8,0.1],browUp:0.6}));}
+  // s2: ném → găng bắt (minh hoạ 4 INT)
+  if(IN('s2',t)){const u=U('s2',t);const got=passTo(t,u,5);E(QB,t,[[0,'determined'],[SH.s2[0]+1.3,'wince']],1);offense(t);defense(t,i=>i===5?{close:got?1:0.05,look:[-0.6,0.3],browUp:got?1:0}:{});}
+  // s3: Bears vẫn thắng — ăn mừng ở biên
+  if(IN('s3',t)){[QB,...OL.slice(0,3),WR].forEach((ch,i)=>{idle(ch,LOS-8+i*1.3,-FW/2+2+(i%2)*0.8,0.2*(i%2?1:-1),t,i*1.1);armsUp(ch,0.8+0.2*Math.sin(t*6+i),t+i);E(ch,t,[[0,'cheer']],i+1);show(ch);});}
+  // s4: 11 găng nảy vào đội hình
+  if(IN('s4',t)){const u=U('s4',t);offense(t);bball(qbShot(t));GD.forEach(([x,z],i)=>{const k=sm((u-i*0.1)/1.3);const hop=Math.abs(Math.sin(k*Math.PI*4))*0.8*(1-k);gAt(i,lerp(x+14,x,k),lerp(z*1.3,z,k),t,{hop,squash:hop>0.05?0:0.3*(1-k),look:[-0.5,0]});});}
+  // s5: cận găng — "Why gloves?"
+  if(IN('s5',t)){defense(t,i=>i===5?{look:[0.9,0.2],browUp:1.2,brow:0.3}:{});}
+  // s6: Caleb nhìn găng; găng vỗ tay
+  if(IN('s6',t)){bball(qbShot(t,LOS-4.5));E(QB,t,[[0,'smug']],1,{look:[0.4,0]});defense(t,i=>i<4?{clap:true,look:[-0.7,0.1]}:{});offense(t);}
+  // s7: găng vỗ tay hào hứng
+  if(IN('s7',t)){defense(t,i=>({clap:true,look:[-0.6,0.2],browUp:0.8,hop:Math.abs(Math.sin(t*6+i))*0.15}));}
+  // s8: bảng điểm INT 4
+  // s9: Santos sút thắng (đêm qua)
+  if(IN('s9',t)){const u=U('s9',t);kickAt(KS,KX-0.6,0,Math.PI/2,u);show(KS);E(KS,t,[[0,'determined'],[SH.s9[0]+1.2,'cheer']],2);const tk=u-0.6;
+    if(tk<0)bball(V(KX,0.15,0),0);else{const q=cl(tk/1.6);bball(arc(V(KX,0.2,0),V(GPX+3,6,0),q,4),q*18);}}
+  // s10: Bears 7–2 ôm nhau
+  if(IN('s10',t)){[QB,KS,...OL.slice(0,2),RB].forEach((ch,i)=>{idle(ch,LOS-8+i*1.2,-FW/2+2.2+(i%2)*0.7,0.1*(i-2),t,i);armsUp(ch,0.7,t+i);E(ch,t,[[0,'cheer']],i+1);show(ch);});}
+  // s11: toàn cảnh hoàng hôn
+  if(IN('s11',t)){offense(t);bball(qbShot(t));defense(t);}
+  // s12: Caleb lùi (khoá chân)
+  if(IN('s12',t)){const t0=SH.s12[0];offense(t);locoLock(QB,lib,t,(tt)=>{const k=sm((tt-t0)/1.6);return [LOS-1.5-k*4,0];},{t0,back:true,face:Math.PI/2});show(QB);bball(holdBall(QB,t));E(QB,t,[[0,'determined']],1);defense(t);}
+  // s13–s15: ném giữa sân → găng #6 bắt
+  if(IN('s13',t)||IN('s14',t)||IN('s15',t)){const u=t-SH.s13[0];const got=passTo(t,u,5,LOS-5.5,0,Math.PI/2,0.8,1.0);if(IN('s13',t))E(QB,t,[[0,'determined']],1);offense(t);
+    defense(t,i=>i===5?{close:got?1:0.05,look:IN('s15',t)?[0.9,0.1]:[-0.5,0.3],browUp:got?0.8:0,squint:IN('s15',t)?0.35:0,hop:got&&IN('s14',t)?Math.max(0,Math.sin((t-SH.s14[0])*10))*0.25:0}:{look:[0,0.3]});}
+  // s16–s17: ném xa dọc biên → găng góc (#8) bắt
+  if(IN('s16',t)||IN('s17',t)){const u=t-SH.s16[0];const got=passTo(t,u,7,LOS-5.5,-0.5,Math.PI/2-0.6,1.5,4);E(QB,t,[[0,'determined']],1);const t0=SH.s16[0];
+    locoLock(WR,lib,t,(tt)=>{const k=Math.max(0,tt-t0+0.5);return [LOS+k*5.5,-14];},{t0:t0-0.5,face:Math.PI/2,gait:'MX_Running'});show(WR);defense(t,i=>i===7?{close:got?1:0.05,look:[0.3,0.6],browUp:1,hop:got?0.1:0}:{});}
+  // s18–s19: screen pass → găng #4 (ngang hàng) bắt
+  if(IN('s18',t)||IN('s19',t)){const u=t-SH.s18[0];place(QB,LOS-5,0,Math.PI/2+0.9);CLIP(QB,'OverhandThrow',Math.min(1.3,u*0.9),{loop:false});show(QB);E(QB,t,[[0,'determined'],[SH.s19[0],'shock']],1);
+    const hr=B(QB,'hand_r').getWorldPosition(V());gAt(3,LOS+2,4.5,t,{});const pk=GV[3].pocket();const q=(u-0.35)/0.7;if(u<0.35)bball(hr,0);else if(q<1)bball(arc(hr,pk,q,0.8),q*12);else bball(pk);
+    offense(t);defense(t,i=>i===3?{close:q>=1?1:0.1,look:[-0.4,0.2],browUp:q>=1?1:0}:{});}
+  // s20–s21: trao bóng → găng vươn tới "bắt" luôn
+  if(IN('s20',t)||IN('s21',t)){const u=t-SH.s20[0];idle(QB,LOS-4.6,0,Math.PI+0.3,t,1);const hp=holdBall(QB,t);show(QB);idle(RB,LOS-5,1.2,0,t,2,{crouch:0.3});show(RB);E(QB,t,[[0,'determined'],[SH.s21[0]+0.2,'shock']],1);E(RB,t,[[0,'determined'],[SH.s21[0]+0.2,'shock']],2);
+    const k=sm((t-SH.s21[0])/0.5);const g=gAt(2,lerp(LOS+2,LOS-4.0,k),lerp(1.5,0.8,k),t,{close:k>0.8?1:0.1,look:[-0.6,0.2],browUp:1,hop:Math.sin(k*Math.PI)*0.6},-Math.PI/2+0.3);
+    if(k<0.8)bball(hp);else bball(g.pocket());offense(t);}
+  // s22–s23: lều bình luận
+  if(IN('s22',t)||IN('s23',t)){const a=IN('s22',t);CM.forEach((ch,i)=>{const talk=(i===0)===a;sitC(ch,TX+(i?0.8:-0.8),TZ+0.1,0,t,talk?'Sitting_Talking_Loop':'Sitting_Idle_Loop',0.45,i*1.7);rotW(B(ch,'Head'),Lc(ch,0,1,0),(i?-1:1)*0.25);
+    E(ch,t,talk?[[0,'talk']]:[[0,'smug']],i+5,{look:[(i?-0.5:0.5),0.1]});show(ch);});}
+  // s25: mỗi găng ôm một quả bóng
+  if(IN('s25',t)||(IN('s24',t)&&t>=SH.s24b[0])){defense(t,i=>({close:1,look:[-0.5,0.2],squint:0.3,hop:Math.abs(Math.sin(t*4+i))*0.1}));GV.forEach((g,i)=>bball(g.pocket(),0,balls[i]));}
+  // s26: Santos chuẩn bị sút 38 yard; s27–s29 găng trên vạch cầu môn cố nhảy
+  if(IN('s26',t)){idle(KS,KX-1.4,-0.4,Math.PI/2,t,2);E(KS,t,[[0,'determined']],2);show(KS);bball(V(KX,0.15,0));offense(t,KX+0.4);}
+  if(IN('s27',t)||IN('s28',t)||IN('s29',t)){GV.forEach((g,i)=>{const sq=Math.max(0,Math.sin(t*9+i*0.7));gAt(i,GLX+1+(i%2)*0.8,-12.5+i*2.5,t,{squash:sq*0.8,hop:0,close:0.05,look:[-0.3,0.9],browUp:1.5,squint:IN('s28',t)?0.6:0});});}
+  // s30: bóng qua cột gôn
+  if(IN('s30',t)){const u=U('s30',t);const q=cl(0.5+u/1.2);bball(arc(V(KX,0.2,0),V(GPX+4,6,0),q,4),q*18);GV.forEach((g,i)=>gAt(i,GLX+1+(i%2)*0.8,-12.5+i*2.5,t,{look:[0.6,1],browUp:1.5,close:0.05}));}
+  // s31: Bears ăn mừng 27–24
+  if(IN('s31',t)){[KS,QB,...OL.slice(0,3),RB].forEach((ch,i)=>{idle(ch,KX-1+(i%3)*1.2,-1.2+Math.floor(i/3)*1.6,Math.PI/2+(i-2)*0.3,t,i);armsUp(ch,0.9,t+i);E(ch,t,[[0,'cheer']],i+1);show(ch);});}
+  // s32: Caleb nhún vai "Somehow… again."
+  if(IN('s32',t)){idle(QB,KX+0.6,0,Math.PI/2+0.6,t,1);shrug(QB,sm(K('s32',t)*2));E(QB,t,[[0,'smug']],1);show(QB);}
+  // s33–s35: sau trận — găng xin chữ ký, Caleb ném bóng, găng bắt
+  if(IN('s33',t)||IN('s34',t)||IN('s35',t)){const th=IN('s33',t);if(th){idle(QB,-4,0,Math.PI/2,t,1,{talk:0.5});bball(holdBall(QB,t));}else{const u=t-SH.s34[0];place(QB,-4,0,Math.PI/2);CLIP(QB,'OverhandThrow',Math.min(1.3,u*0.9),{loop:false});const hr=B(QB,'hand_r').getWorldPosition(V());const pk=GV[0].pocket();const q=(u-0.35)/0.8;if(u<0.35)bball(hr);else if(q<1)bball(arc(hr,pk,q,1.2),q*10);else bball(pk);}
+    show(QB);E(QB,t,[[0,'smug']],1);[[0,1.8,0],[1,2.6,-2.2],[2,2.6,2.2],[3,3.6,-0.6]].forEach(([i,x,z])=>{const caught=IN('s35',t);gAt(i,x,z,t,{look:[-0.6,0.1],browUp:1,close:i===0&&caught?1:0.15,hop:i===0&&caught?Math.abs(Math.sin((t-SH.s35[0])*8))*0.4:Math.abs(Math.sin(t*4+i))*0.08,clap:th&&i>0});});}
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=50;cam.updateProjectionMatrix();}
+};
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>
