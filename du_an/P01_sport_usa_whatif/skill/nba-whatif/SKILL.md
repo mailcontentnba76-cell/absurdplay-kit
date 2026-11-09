@@ -68,6 +68,12 @@ Không dùng prompt có tên cầu thủ thật để tạo khuôn mặt (quy t�
 ## 7. Bảng "đã dùng" — dùng chung với gốc §7 (một bảng duy nhất)
 Cập nhật bảng ở **gốc §7** sau mỗi tập (kể cả tập NBA). Sổ chủ đề NBA (ứng viên, đã loại, lý do): `NBA_MIGRATION/SO_CHU_DE_NBA.md`.
 
+## 7b. Bố cục khung 9:16 (chủ dự án yêu cầu 09/11 — áp dụng mọi shot)
+- Nội dung chính (mặt, cầu thủ, bóng, vật gag) đặt **giữa khung**: mắt ở ~40–50 % chiều cao (y ≈ 770–960 px trên 1920); nhóm người/vật ở 35–60 %.
+- Không để chủ thể tụt xuống đáy: vùng dưới y 1270 dành cho phụ đề (chân chữ 1310) + thẻ tên (1430) + giao diện TikTok; mép phải có cột nút TikTok → tránh chi tiết quan trọng sát mép phải.
+- Shot cận/trung: dùng máy quay bám **vị trí đầu thật** (`faceCam` trong ep09.html: điểm nhìn = xương Head + 0,08 m), không đặt toạ độ cố định (đầu cầu thủ cao/thấp khác nhau).
+- Kiểm: rút khung giữa mỗi shot, kẻ vạch 45 % và 1310 px, xem bằng mắt trước khi render đủ.
+
 ## 8. QA bổ sung cho NBA (ngoài QUY_TRINH §3)
 - Bảng "Tin đã chọn" đủ 2 nguồn/1 nguồn chính thức, có ngày kiểm.
 - Số áo/đội/bản áo khớp trận thật; chiều cao `heightM` đúng nguồn.
