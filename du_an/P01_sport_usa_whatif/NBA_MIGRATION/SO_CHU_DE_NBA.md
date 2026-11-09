@@ -22,3 +22,10 @@ Kiểm lúc ~09:50 giờ VN 08/11. Không đảm bảo viral; xếp theo: sức 
 | 2 | (d) cột mốc | Steph Curry (38 tuổi) 41 điểm, 13/19, 10/10 ném phạt, Warriors 126–119 Magic hiệp phụ (07/11) | ESPN box score | cần nguồn 2 |
 | 3 | (e) ông lớn sa sút (NCAA) | Oklahoma thua East Texas A&M 68–64 (02/11), đội bị dự đoán bét Southland, kèo chấp 28,5 | ESPN JSON + CBS Sports + NCAA.com | đủ nguồn |
 | loại | NCAA | Bethesda thua 143–49 / 116–43 / 130–56 | ESPN ghi 2 trận cùng giờ ở 2 bang → dữ liệu mâu thuẫn | KHÔNG dùng |
+
+## Danh sách ngắn 09/11/2026 tối (dữ liệu tới hết trận 08/11 giờ Mỹ; trận 09/11 chưa đá)
+| # | Kiểu | Ý | Sự thật đã kiểm | Nguồn |
+|---|---|---|---|---|
+| 1 ⭐ | (b) chọc ngôi sao đang thắng | **"Could 38-year-old Steph Curry beat 5 arcade basketball machines?"** | Curry 38 tuổi, 41 điểm 13/19, FT 10/10, thắng Magic hiệp phụ; Warriors 0-3 → thắng 7 liên tiếp | ESPN box + lịch + hồ sơ |
+| 2 | (d) cột mốc | Austin Reaves 43 điểm (14/27, FT 11/11), Lakers 121–116 Pistons, Lakers 9-2 (thắng 5 liên tiếp, đồng hạng tốt nhất) | ESPN box event 401909946 | cần nguồn 2 |
+| 3 | (e) ông lớn sa sút (NCAA) | Oklahoma thua East Texas A&M 68–64 (đội bị dự đoán bét Southland, kèo chấp 28,5) | ESPN + CBS + NCAA.com | đủ nguồn |
