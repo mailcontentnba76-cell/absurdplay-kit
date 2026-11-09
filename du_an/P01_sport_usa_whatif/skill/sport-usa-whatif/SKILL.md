@@ -139,6 +139,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E07 | NFL | Jaguars (đội mạnh nhất nhưng không có nhà): Lawrence #16, Washington #11 (áo teal, quần trắng) | 11 vali có mặt (băng chuyền "Carousel" x3, không ai nhấc nổi, thắng xử thua), Titans/Giants ở hạn chuyển nhượng | sảnh băng chuyền sân bay + công trường sân vận động + phố London + cổng B12 + phòng chờ bình luận | alvana funk/make-funk |
 | E08 | NBA | Wembanyama #1 Spurs (áo trắng Association, cao 2,24 m, râu cằm) — chọc kiểu khen sau trận 52 điểm/24 bóng bật/8 chặn | 5 hươu cao cổ áo xanh SAVANNA (ăn bóng ×2, chặn bằng cổ, ngủ đứng), Mavericks ký 2 hươu | sân bóng thảo nguyên hoàng hôn (`lib/thaonguyen.js`) + trường quay + phòng họp báo DALLAS | alvana funk/eat |
 | E09 | NBA | 4 đội đáy bảng gộp (4-35): Kuzma #18 MIL, LaVine #8 SAC, Hayes #11 UTA, Giddey #3 CHI | 5 cọc giao thông (đứng im, Jazz ghi nhầm rổ nhà, cọc ký max deal) | nhà thi đấu trung học ban đêm + khán giả (`lib/nhathidau.js`), trường quay, phòng ký hợp đồng | alvana upbeat/happy-dance |
+| E10 | NBA | Steph Curry #30 Warriors (38 tuổi, áo trắng không logo) — dạng NGÔI SAO vs LỊCH SỬ sau trận 41 điểm vs Magic | cung thủ Anh trận Agincourt 1415 (mưa tên, kỵ sĩ Pháp, Curry 213–0, được phong hiệp sĩ) | chiến trường bùn rừng thu mưa + đoạn 1415 đen trắng + đại sảnh lâu đài kính màu (`lib/chientruong.js`) | alvana hiphop/final-level |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
