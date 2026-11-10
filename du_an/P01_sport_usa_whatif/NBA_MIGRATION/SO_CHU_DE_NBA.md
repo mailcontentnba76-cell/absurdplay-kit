@@ -1,6 +1,6 @@
 # Sổ chủ đề NBA (ứng viên · đã dùng · đã loại)
 
-Đã dùng (NBA): E02 Giannis (Heat) vs đội cũ Bucks · E05 Bulls 1–7 vs 5 snowmen · **E08 Wembanyama vs 5 giraffes (giao 08/11)** · E09 4 đội đáy bảng vs 5 cọc (09/11) · **E10 Curry vs cung thủ Agincourt 1415 (giao 09/11, dạng ngôi sao vs lịch sử)**. Bảng đầy đủ mọi tập: `skill/sport-usa-whatif/SKILL.md` §7.
+Đã dùng (NBA): E02 Giannis (Heat) vs đội cũ Bucks · E05 Bulls 1–7 vs 5 snowmen · **E08 Wembanyama vs 5 giraffes (giao 08/11)** · E09 4 đội đáy bảng vs 5 cọc (09/11) · **E10 Curry vs cung thủ Agincourt 1415 (giao 09/11, dạng ngôi sao vs lịch sử)** · **E11 Pelicans vs 5 bồ nông thật (giao 10/11, troll đội thua)**. Bảng đầy đủ mọi tập: `skill/sport-usa-whatif/SKILL.md` §7.
 Không mang sang: E08 NFL "Colts vs 11 garage sale items" (dở, khác môn).
 
 ## Danh sách ngắn 08/11/2026 (dữ liệu tới hết ngày 06/11 giờ Mỹ; các trận 07/11 đang đá lúc lập)
