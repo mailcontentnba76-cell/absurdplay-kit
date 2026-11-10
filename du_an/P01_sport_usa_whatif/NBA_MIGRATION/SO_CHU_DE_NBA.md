@@ -59,3 +59,10 @@ NCAA (AP preseason: 1 Florida, 2 Duke, 3 Illinois, 4 UConn, 5 Arizona): #9 Virgi
 - Trận 09/11 ET đang đá/chưa đá: LAL–ATL (Luka trở lại, Reaves nghỉ ốm), CHA–CLE, DET–WSH, TOR–MEM; chưa đá: DAL–IND, **HOU–DEN (Nuggets: danh sách chấn thương chỉ còn Strawther OUT → suy ra 5 người đá chính đã kịp về từ Mexico City — CHƯA xác nhận bằng bài báo)**, PHX–SA, GS–NO. Kết quả đủ ~12:00 VN.
 - Tin mới: Doc Rivers xin lỗi Giannis (tránh làm — phát ngôn/mâu thuẫn); Bronny James đôi co với CĐV (tránh); Miami sắp được chọn đăng cai All-Star 2028; AP tuần 1: Florida #1, UCLA vào top 10; Kansas mất Melvin Council Jr. (gãy xương bàn chân — KHÔNG đùa chấn thương).
 - Tối nay (sáng 11/11 VN): Champions Classic #2 Duke–#5 Michigan St (07:00), #16 Texas Tech–#3 Illinois (08:00), #24 Kentucky–#15 Kansas (09:30); 76ers–Celtics (08:00, Jaylen Brown gặp đội cũ).
+
+## Cập nhật 11/11/2026 06:25 VN (ESPN JSON + bài ESPN)
+- Trận đêm 10/11 ET CHƯA đá lúc kiểm: 76ers–Celtics (Jaylen Brown gặp đội cũ lần đầu, 08:00 VN), Champions Classic (#2 Duke–#5 MSU 07:00, #24 UK–#15 KU 09:30), Knicks–Bucks, Kings–Magic, Thunder–Blazers…
+- ⭐ **Cooper Flagg (19 tuổi) ăn bánh mì bơ đậu phộng–mứt (PB&J) NGAY TRONG TRẬN** — bài ESPN 50437538 (10/11): 2 trận liên tiếp (thứ Sáu vs Jazz, Chủ nhật vs Nets, ngồi ghế dự bị sau khi rời sân) để TĂNG CÂN theo yêu cầu đội thể lực; thích bơ đậu mịn + mứt nho, cả kiểu chuối + mật ong. Bài ESPN 50440099: thứ Hai KHÔNG ăn mà vẫn 43 điểm, 10 bóng bật, 6 kiến tạo, 3 cướp, 1 chặn (16/25), Mavs 125–122 Pacers; cùng Kevin Durant là 2 thiếu niên duy nhất có 40 điểm–10 bóng bật; quên mang PB&J vào họp báo ("Dang it!" — trích dẫn thật). 2 nguồn ESPN + box score.
+- Wembanyama 40 điểm / 25 phút, 11 bóng bật, **9 chặn** (ESPN đã sửa từ 8), Spurs thắng 9 liên tiếp.
+- Warriors thắng 8 liên tiếp; phim tài liệu "Portrait of an Artist: Stephen Curry" ra mắt; bài ESPN "sự trường thọ phi lý" của Curry & Durant (cùng 38 tuổi) — **Warriors @ Rockets 12/11 09:30 VN = Curry vs Durant**.
+- NCAA: Tennessee công bố khung thoả thuận kiểu CBA với đội bóng rổ nam (khó hình hoá).
