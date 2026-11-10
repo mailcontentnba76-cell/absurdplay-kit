@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 11: đồ hoạ "bayou / Mardi Gras" — thẻ xanh navy viền vàng kim, dải hạt tím–xanh lá–vàng; thẻ chim màu gỗ đầm lầy. Khác E01–E10. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:linear-gradient(180deg,#183463 0%,#0C2340 75%,#081a30 100%);color:#fff;border:6px solid #B4975A;border-radius:14px;box-shadow:0 0 0 5px #0C2340,0 16px 28px rgba(0,0,0,.45);padding:12px 44px 20px;white-space:nowrap;text-align:center;-webkit-text-stroke:2px #06121f;paint-order:stroke fill}
+.k::after{content:'';position:absolute;left:18px;right:18px;bottom:-14px;height:12px;border-radius:6px;background:repeating-linear-gradient(90deg,#7a2a90 0 22px,#2f8a3a 22px 44px,#e8b52a 44px 66px)}
+.bd{background:linear-gradient(180deg,#8a6a44,#5e4630);border-color:#2a1d10;box-shadow:0 0 0 5px #c9a46a,0 16px 28px rgba(0,0,0,.45)}
+.rd{background:linear-gradient(180deg,#d2283a,#9a1222);border-color:#fff2d6}
+.big{font-size:150px;line-height:1}.mid{font-size:92px;line-height:1.05}.sm{font-size:62px;line-height:1.12}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:5px;color:#e8c77a;margin-bottom:4px;-webkit-text-stroke:0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #0C2340;paint-order:stroke fill;text-shadow:0 12px 0 #C8102E}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#0C2340;background:#e8b52a;border:6px solid #0C2340;padding:6px 26px;border-radius:8px}
+.stamp{top:600px;font-size:180px;color:#e8b52a;-webkit-text-stroke:10px #0C2340;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{background:#0C2340;color:#fff;font-size:64px;padding:4px 26px;border-left:14px solid #B4975A}.lt .d{background:#f6f1e4;color:#0C2340;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px;border-left:14px solid #C8102E}
+.lt.gs .n{background:#1D428A;border-left-color:#FFC72C}
+#flash{position:absolute;inset:0;background:#fff4dc;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(10,20,40,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">PELICANS <span style="color:#e8b52a">vs</span> PELICANS</div>
+<div class="el k sm" id="mon" style="top:420px">MONDAY · AT GOLDEN STATE</div>
+<div class="el stamp" id="m51" style="color:#ff4a4a">−51</div>
+<div class="el k" id="score" style="top:420px"><span class="lab">FINAL · MONDAY</span><span class="mid">GSW 138 · NOP 87</span></div>
+<div class="el k" id="fg" style="top:420px"><span class="lab">FIELD GOALS</span><span class="big">29 / 80</span></div>
+<div class="el k" id="tp" style="top:420px"><span class="lab">THREES</span><span class="big">8 / 28</span></div>
+<div class="el k" id="lead" style="top:420px"><span class="lab">BIGGEST LEAD ALL NIGHT</span><span class="big">+1</span></div>
+<div class="el lt gs" id="cur"><div class="n">STEPH CURRY</div><div class="d">21 MIN · 25 PTS · THEN THE BENCH</div></div>
+<div class="el k bd sm" id="bayou" style="top:1430px">THE BAYOU · LOUISIANA</div>
+<div class="el k sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el stamp" id="bb">BIRDS' BALL</div>
+<div class="el lt" id="nmur"><div class="n">DEJOUNTE MURRAY</div><div class="d">#5 · NEW ORLEANS</div></div>
+<div class="el k bd sm" id="pouch" style="top:420px">BALL: IN · BALL: NOT COMING OUT</div>
+<div class="el lt" id="nfea"><div class="n">JEREMIAH FEARS</div><div class="d">#0 · NEW ORLEANS</div></div>
+<div class="el stamp" id="air">AIRBALL</div>
+<div class="el k bd sm" id="b2" style="top:420px">BIRDS +2</div>
+<div class="el lt" id="nque"><div class="n">DERIK QUEEN</div><div class="d">#22 · NEW ORLEANS</div></div>
+<div class="el k rd sm" id="lead1" style="top:420px">NEW ORLEANS LEADS BY 1</div>
+<div class="el k sm" id="party" style="top:1430px">CELEBRATING A ONE-POINT LEAD</div>
+<div class="el k" id="half" style="top:420px"><span class="lab">HALFTIME</span><span class="mid">BIRDS +51</span></div>
+<div class="el k rd sm" id="same" style="top:420px">SAME AS MONDAY</div>
+<div class="el k sm" id="q4" style="top:420px">4TH QUARTER</div>
+<div class="el lt" id="njon"><div class="n">HERB JONES</div><div class="d">#2 · NEW ORLEANS</div></div>
+<div class="el k" id="fin" style="top:420px"><span class="lab">FINAL</span><span class="mid">PELICANS 138 · PELICANS 87</span></div>
+<div class="el k bd mid" id="who" style="top:420px">WHO WON?</div>
+<div class="el k sm" id="name" style="top:1430px">THE BIRDS KEEP THE NAME</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep11_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',1.9,SH.s3[1]],['mon',5.1,SH.s4[1]],['m51',SH.s4[1],8.3],['score',8.3,SH.s5[1]],['fg',11.0,SUB.s6],['tp',SUB.s6,SH.s6[1]],['lead',15.0,SH.s7[1]],
+ ['cur',17.3,SH.s8[1]],['bayou',24.6,SH.s9[1]],['tip',SH.s10[0],SH.s10[1]],['bb',29.3,SH.s11[1]],['nmur',SH.s12[0],SH.s13[0]+0.6],['pouch',34.4,SH.s15[1]],['nfea',SH.s16[0],SH.s16[1]],['air',SH.s17[0],SH.s17[1]],
+ ['b2',40.7,SH.s18[1]],['nque',SH.s19[0],43.2],['lead1',47.9,SH.s23[1]],['party',49.3,SH.s24[1]],['half',51.6,SH.s25[1]],['same',SH.s26[0],SH.s26[1]],['q4',SH.s27[0],SH.s27[1]],['njon',SH.s28[0],SH.s28[1]],
+ ['fin',60.1,SH.s30[1]],['who',64.7,SH.s31[1]],['name',66.4,SH.s32[1]]];
+const POP=['wtf','m51','bb','air','who'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k;
+    const rot=pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const fl=(t0)=>{const f=(t-t0)*30;return f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};$('flash').style.opacity=Math.max(fl(SH.s4[0]),fl(SH.s10[0]),fl(SH.s30[0]));
+};
+</script></body></html>
