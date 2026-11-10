@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#888"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {makePelican} from './lib/bayou.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.outputColorSpace=THREE.SRGBColorSpace;
+const s=new THREE.Scene();s.background=new THREE.Color('#9ab');s.add(new THREE.HemisphereLight('#fff','#666',2.5));const d=new THREE.DirectionalLight('#fff',2);d.position.set(3,5,4);s.add(d);
+const P=makePelican({seed:1});s.add(P.root);const cam=new THREE.PerspectiveCamera(40,W/H,0.05,50);
+window.renderFrame=t=>{const [v,fly]=location.hash.slice(1).split(',');P.update(t,{fly:+fly||0,flap:+fly||0,pouch:0});
+ const pos={side:[3.2,0.9,0],front:[0,0.9,3.2],top:[0.01,3.6,0],back:[0,0.9,-3.2],q:[2.2,1.6,2.2]}[v];cam.position.set(...pos);cam.lookAt(0,0.6,0);cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>

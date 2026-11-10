@@ -1,0 +1,75 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.28,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.28,0:00:01.66,Cap,,0,0,0,,could the new
+Dialogue: 0,0:00:01.66,0:00:02.70,Cap,,0,0,0,,orleans pelicans beat
+Dialogue: 0,0:00:02.70,0:00:04.74,Cap,,0,0,0,,five actual pelicans?
+Dialogue: 0,0:00:04.74,0:00:05.44,Cap,,0,0,0,,except on monday
+Dialogue: 0,0:00:05.44,0:00:06.42,Cap,,0,0,0,,night, the warriors
+Dialogue: 0,0:00:06.42,0:00:07.12,Cap,,0,0,0,,beat them by
+Dialogue: 0,0:00:07.12,0:00:10.50,Cap,,0,0,0,,51, 138 to 87.
+Dialogue: 0,0:00:10.50,0:00:11.16,Cap,,0,0,0,,new orleans shot
+Dialogue: 0,0:00:11.16,0:00:12.96,Cap,,0,0,0,,29 of 80, 8
+Dialogue: 0,0:00:12.96,0:00:14.60,Cap,,0,0,0,,of 28 from three.
+Dialogue: 0,0:00:14.60,0:00:15.00,Cap,,0,0,0,,their biggest
+Dialogue: 0,0:00:15.00,0:00:15.98,Cap,,0,0,0,,lead all night?
+Dialogue: 0,0:00:15.98,0:00:17.18,Cap,,0,0,0,,one point.
+Dialogue: 0,0:00:17.18,0:00:17.76,Cap,,0,0,0,,steph curry played
+Dialogue: 0,0:00:17.76,0:00:19.98,Cap,,0,0,0,,21 minutes, scored 25,
+Dialogue: 0,0:00:19.98,0:00:20.54,Cap,,0,0,0,,and watched the
+Dialogue: 0,0:00:20.54,0:00:21.72,Cap,,0,0,0,,rest from the bench.
+Dialogue: 0,0:00:21.72,0:00:22.32,Cap,,0,0,0,,so new orleans
+Dialogue: 0,0:00:22.32,0:00:23.26,Cap,,0,0,0,,takes on the birds
+Dialogue: 0,0:00:23.26,0:00:24.56,Cap,,0,0,0,,they're named after on
+Dialogue: 0,0:00:24.56,0:00:25.24,Cap,,0,0,0,,a court in the
+Dialogue: 0,0:00:25.24,0:00:26.60,Cap,,0,0,0,,middle of the bayou.
+Dialogue: 0,0:00:26.60,0:00:27.34,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:27.34,0:00:28.04,Cap,,0,0,0,,a pelican just
+Dialogue: 0,0:00:28.04,0:00:28.90,Cap,,0,0,0,,flies over the
+Dialogue: 0,0:00:28.90,0:00:30.64,Cap,,0,0,0,,jump ball, birds' ball.
+Dialogue: 0,0:00:30.64,0:00:31.72,Cap,,0,0,0,,murray drives the lane.
+Dialogue: 0,0:00:31.72,0:00:32.14,Cap,,0,0,0,,a pelican
+Dialogue: 0,0:00:32.14,0:00:33.28,Cap,,0,0,0,,opens its pouch.
+Dialogue: 0,0:00:33.28,0:00:34.40,Cap,,0,0,0,,the ball goes in.
+Dialogue: 0,0:00:34.40,0:00:35.84,Cap,,0,0,0,,it doesn't come out.
+Dialogue: 0,0:00:35.84,0:00:36.20,Cap,,0,0,0,,fears pulls
+Dialogue: 0,0:00:36.20,0:00:37.34,Cap,,0,0,0,,up from three.
+Dialogue: 0,0:00:37.34,0:00:37.98,Cap,,0,0,0,,air ball.
+Dialogue: 0,0:00:37.98,0:00:38.78,Cap,,0,0,0,,a pelican catches
+Dialogue: 0,0:00:38.78,0:00:39.56,Cap,,0,0,0,,it in mid-air
+Dialogue: 0,0:00:39.56,0:00:40.34,Cap,,0,0,0,,and flies it
+Dialogue: 0,0:00:40.34,0:00:41.44,Cap,,0,0,0,,to the other rim.
+Dialogue: 0,0:00:41.44,0:00:42.48,Cap,,0,0,0,,queen posts up.
+Dialogue: 0,0:00:42.48,0:00:43.38,Cap,,0,0,0,,two pelicans land
+Dialogue: 0,0:00:43.38,0:00:44.36,Cap,,0,0,0,,on his shoulders.
+Dialogue: 0,0:00:44.36,0:00:45.86,Cap,,0,0,0,,he still can't score.
+Dialogue: 0,0:00:45.86,0:00:46.74,Cap,,0,0,0,,new orleans finally
+Dialogue: 0,0:00:46.74,0:00:47.80,Cap,,0,0,0,,hits a layup.
+Dialogue: 0,0:00:47.80,0:00:49.04,Cap,,0,0,0,,they lead by one.
+Dialogue: 0,0:00:49.04,0:00:50.20,Cap,,0,0,0,,the bench celebrates like
+Dialogue: 0,0:00:50.20,0:00:51.34,Cap,,0,0,0,,they won a title.
+Dialogue: 0,0:00:51.34,0:00:52.24,Cap,,0,0,0,,at halftime, the
+Dialogue: 0,0:00:52.24,0:00:53.96,Cap,,0,0,0,,birds are up 51.
+Dialogue: 0,0:00:53.96,0:00:55.08,Cap,,0,0,0,,same as monday.
+Dialogue: 0,0:00:55.08,0:00:56.02,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:56.02,0:00:56.66,Cap,,0,0,0,,herb jones locks
+Dialogue: 0,0:00:56.66,0:00:57.88,Cap,,0,0,0,,one pelican up.
+Dialogue: 0,0:00:57.88,0:00:58.46,Cap,,0,0,0,,the other four
+Dialogue: 0,0:00:58.46,0:01:00.02,Cap,,0,0,0,,just fly over him.
+Dialogue: 0,0:01:00.02,0:01:01.06,Cap,,0,0,0,,final score, pelicans
+Dialogue: 0,0:01:01.06,0:01:03.72,Cap,,0,0,0,,138, pelicans 87.
+Dialogue: 0,0:01:03.72,0:01:04.66,Cap,,0,0,0,,after the game,
+Dialogue: 0,0:01:04.66,0:01:05.32,Cap,,0,0,0,,the league can't
+Dialogue: 0,0:01:05.32,0:01:06.32,Cap,,0,0,0,,tell who won.
+Dialogue: 0,0:01:06.32,0:01:06.72,Cap,,0,0,0,,the birds
+Dialogue: 0,0:01:06.72,0:01:07.82,Cap,,0,0,0,,keep the name.
