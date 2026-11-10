@@ -6,3 +6,4 @@
 - Kỹ thuật: 1080x1920 30fps, 75,30 s (> 60 s), −14,4 LUFS, đỉnh −1,4 dBFS; bíp đè "fuck"; hoa_cat bỏ qua s1b, s10b, s18, s21 (có flash).
 - Sửa sau bản cắt thử: cảnh sáng hơn (chạng vạng), màu da Cook/Williams/Jefferson sáng hơn, máy quay s7 (khu trả xe), s12 (phòng bình luận), s19 (field goal).
 - Nhạc: alvana-audio hiphop/final-level (CC0).
+- Sửa 10/11: 8 khung chớp nháy (z-fighting mặt sân khi motion blur) đã render lại; quét lại không còn khung lỗi.

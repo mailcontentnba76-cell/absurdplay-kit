@@ -53,7 +53,7 @@ const BAG=new THREE.Group();{const m=new THREE.MeshStandardMaterial({color:'#b58
 // bụi tuyết khi biến hình
 const CONF=90;const conf=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.06,0),new THREE.MeshStandardMaterial({color:'#f4f7ff',roughness:0.8}),CONF);{const c=new THREE.Color();for(let i=0;i<CONF;i++){c.set(i%4?'#f4f7ff':MIN.purple);conf.setColorAt(i,c);}}conf.frustumCulled=false;s.add(conf);
 // ---------- máy quay ----------
-const cam=new THREE.PerspectiveCamera(50,W/H,.05,3000);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.0);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const cam=new THREE.PerspectiveCamera(50,W/H,.1,2000);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.0);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
 const rig=new CameraRig(cam,r.domElement,{seed:131});
 const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.006,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
 const LOS=-6;const QX=LOS-4.5;const GL=FL/2-10*YD;const KX=GL-17*YD;const PX=FL/2;const TFX=4;
