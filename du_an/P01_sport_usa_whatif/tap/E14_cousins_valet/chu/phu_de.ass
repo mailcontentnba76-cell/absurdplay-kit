@@ -1,0 +1,74 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.36,Cap,,0,0,0,,are you
+Dialogue: 0,0:00:00.36,0:00:01.86,Cap,,0,0,0,,f***ing kidding me?
+Dialogue: 0,0:00:01.86,0:00:02.92,Cap,,0,0,0,,could kirk cousins beat
+Dialogue: 0,0:00:02.92,0:00:04.60,Cap,,0,0,0,,fernando mendoza for a
+Dialogue: 0,0:00:04.60,0:00:06.08,Cap,,0,0,0,,valet job in vegas?
+Dialogue: 0,0:00:06.08,0:00:06.84,Cap,,0,0,0,,the silver cactus
+Dialogue: 0,0:00:06.84,0:00:07.86,Cap,,0,0,0,,hotel has one
+Dialogue: 0,0:00:07.86,0:00:09.26,Cap,,0,0,0,,opening for valet.
+Dialogue: 0,0:00:09.26,0:00:10.46,Cap,,0,0,0,,two candidates, one
+Dialogue: 0,0:00:10.46,0:00:12.74,Cap,,0,0,0,,saturday night, 9:01 p.m.
+Dialogue: 0,0:00:12.74,0:00:13.98,Cap,,0,0,0,,first car, kirk
+Dialogue: 0,0:00:13.98,0:00:14.66,Cap,,0,0,0,,takes the keys
+Dialogue: 0,0:00:14.66,0:00:16.42,Cap,,0,0,0,,and drops them.
+Dialogue: 0,0:00:16.42,0:00:17.44,Cap,,0,0,0,,fumble, he recovers
+Dialogue: 0,0:00:17.44,0:00:18.78,Cap,,0,0,0,,his own fumble, then
+Dialogue: 0,0:00:18.78,0:00:19.46,Cap,,0,0,0,,hands the keys
+Dialogue: 0,0:00:19.46,0:00:20.98,Cap,,0,0,0,,to a total stranger.
+Dialogue: 0,0:00:20.98,0:00:22.78,Cap,,0,0,0,,the stranger drives away.
+Dialogue: 0,0:00:22.78,0:00:24.02,Cap,,0,0,0,,pick-six, fernando
+Dialogue: 0,0:00:24.02,0:00:25.06,Cap,,0,0,0,,mendoza sits in
+Dialogue: 0,0:00:25.06,0:00:26.12,Cap,,0,0,0,,the valet booth.
+Dialogue: 0,0:00:26.12,0:00:27.06,Cap,,0,0,0,,he watches,
+Dialogue: 0,0:00:27.06,0:00:27.44,Cap,,0,0,0,,he's been
+Dialogue: 0,0:00:27.44,0:00:28.70,Cap,,0,0,0,,watching since september.
+Dialogue: 0,0:00:28.70,0:00:29.42,Cap,,0,0,0,,by 10
+Dialogue: 0,0:00:29.42,0:00:30.22,Cap,,0,0,0,,p.m., kirk
+Dialogue: 0,0:00:30.22,0:00:30.68,Cap,,0,0,0,,has handed
+Dialogue: 0,0:00:30.68,0:00:31.36,Cap,,0,0,0,,three sets
+Dialogue: 0,0:00:31.36,0:00:31.76,Cap,,0,0,0,,of keys
+Dialogue: 0,0:00:31.76,0:00:32.14,Cap,,0,0,0,,to the
+Dialogue: 0,0:00:32.14,0:00:33.24,Cap,,0,0,0,,wrong people,
+Dialogue: 0,0:00:33.24,0:00:34.76,Cap,,0,0,0,,three interceptions.
+Dialogue: 0,0:00:34.76,0:00:36.22,Cap,,0,0,0,,five cars are missing.
+Dialogue: 0,0:00:36.22,0:00:36.88,Cap,,0,0,0,,the hotel pays
+Dialogue: 0,0:00:36.88,0:00:39.84,Cap,,0,0,0,,kirk $172 million.
+Dialogue: 0,0:00:39.84,0:00:40.94,Cap,,0,0,0,,fernando has not
+Dialogue: 0,0:00:40.94,0:00:42.68,Cap,,0,0,0,,touched a single car.
+Dialogue: 0,0:00:42.68,0:00:43.36,Cap,,0,0,0,,suddenly, the
+Dialogue: 0,0:00:43.36,0:00:45.00,Cap,,0,0,0,,lobby doors open.
+Dialogue: 0,0:00:45.00,0:00:45.72,Cap,,0,0,0,,minority owner tom
+Dialogue: 0,0:00:45.72,0:00:46.90,Cap,,0,0,0,,brady walks in.
+Dialogue: 0,0:00:46.90,0:00:47.16,Cap,,0,0,0,,he just
+Dialogue: 0,0:00:47.16,0:00:48.36,Cap,,0,0,0,,wants his car.
+Dialogue: 0,0:00:48.36,0:00:49.32,Cap,,0,0,0,,kirk grabs brady's
+Dialogue: 0,0:00:49.32,0:00:51.04,Cap,,0,0,0,,keys, drops them, recovers
+Dialogue: 0,0:00:51.04,0:00:51.94,Cap,,0,0,0,,them, hands them
+Dialogue: 0,0:00:51.94,0:00:52.60,Cap,,0,0,0,,to a guy in
+Dialogue: 0,0:00:52.60,0:00:54.22,Cap,,0,0,0,,a san francisco jersey.
+Dialogue: 0,0:00:54.22,0:00:55.00,Cap,,0,0,0,,brady watches his
+Dialogue: 0,0:00:55.00,0:00:56.84,Cap,,0,0,0,,car leave for california.
+Dialogue: 0,0:00:56.84,0:00:57.56,Cap,,0,0,0,,management reviews
+Dialogue: 0,0:00:57.56,0:00:58.12,Cap,,0,0,0,,the footage.
+Dialogue: 0,0:00:58.12,0:00:59.52,Cap,,0,0,0,,kirk cousins,
+Dialogue: 0,0:00:59.52,0:01:01.02,Cap,,0,0,0,,five cars gone.
+Dialogue: 0,0:01:01.02,0:01:02.28,Cap,,0,0,0,,fernando mendoza,
+Dialogue: 0,0:01:02.28,0:01:02.76,Cap,,0,0,0,,zero cars
+Dialogue: 0,0:01:02.76,0:01:04.62,Cap,,0,0,0,,parked, zero mistakes.
+Dialogue: 0,0:01:04.62,0:01:05.04,Cap,,0,0,0,,the job
+Dialogue: 0,0:01:05.04,0:01:06.56,Cap,,0,0,0,,goes to mendoza.
+Dialogue: 0,0:01:06.56,0:01:07.30,Cap,,0,0,0,,kirk cousins is
+Dialogue: 0,0:01:07.30,0:01:08.88,Cap,,0,0,0,,now the backup valet.
+Dialogue: 0,0:01:08.88,0:01:09.72,Cap,,0,0,0,,you like that?

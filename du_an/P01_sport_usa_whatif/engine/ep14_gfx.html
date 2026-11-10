@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+/* Tập 14: đồ hoạ KIỂU VEGAS — vé giữ xe (cuống giấy kem, lỗ xé, đầu đỏ, số lớn), chữ neon hồng/xanh ngọc phát sáng, khung camera an ninh REC. Khác E01–E13. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;opacity:0}
+.tk{left:60px;width:560px;background:#f6efdc;color:#1a1a1a;border-radius:10px;box-shadow:0 18px 32px rgba(0,0,0,.5);overflow:hidden;font-family:Mono}
+.tk .hd{background:#b0182a;color:#ffe8b8;font-family:Anton;font-size:30px;letter-spacing:6px;padding:10px 24px;display:flex;justify-content:space-between}
+.tk .bd{padding:10px 24px 18px;border-top:6px dotted #b0182a}
+.tk b{display:block;font-family:Anton;font-size:72px;line-height:1.05;font-weight:400}
+.tk i{font-style:normal;display:block;font-size:28px;opacity:.8}
+.tk.r{left:auto;right:60px}
+.neon{left:0;width:1080px;text-align:center;font-family:Anton;font-size:150px;color:#fff0fa;text-shadow:0 0 8px #ff3fb4,0 0 24px #ff3fb4,0 0 60px #ff3fb4,0 0 4px #fff}
+.neon.c{color:#effffd;text-shadow:0 0 8px #2fe8d8,0 0 24px #2fe8d8,0 0 60px #2fe8d8}
+.cnt{left:50%;transform:translateX(-50%);background:#f6efdc;border-radius:10px;box-shadow:0 18px 32px rgba(0,0,0,.5);font-family:Mono;color:#1a1a1a;padding:0 0 16px;text-align:center;min-width:620px;overflow:hidden}
+.cnt .hd{background:#b0182a;color:#ffe8b8;font-family:Anton;font-size:32px;letter-spacing:5px;padding:10px 20px}
+.cnt b{display:block;font-family:Anton;font-size:120px;font-weight:400;line-height:1.1}
+.cnt i{display:block;font-style:normal;font-size:28px}
+#rec{inset:0;opacity:0}
+#rec .bx{position:absolute;inset:60px;border:4px solid rgba(255,255,255,.85)}
+#rec .t{position:absolute;left:100px;top:300px;font-family:Mono;font-size:44px;color:#fff;text-shadow:0 2px 4px #000}
+#rec .t span{color:#ff2a2a}
+#rec .ts{position:absolute;right:100px;top:300px;font-family:Mono;font-size:40px;color:#fff;text-shadow:0 2px 4px #000}
+#rec .sl{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 5px)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div id="rec" class="el"><div class="sl"></div><div class="bx"></div><div class="t"><span>●</span> REC · CAM 02 · REPLAY</div><div class="ts" id="rts">SAT 10:47 PM</div></div>
+<div class="el tk" id="kc" style="top:1290px"><div class="hd"><span>VALET TICKET</span><span>№ 08</span></div><div class="bd"><b>KIRK COUSINS</b><i>QB · RAIDERS · $172M CONTRACT</i></div></div>
+<div class="el tk r" id="fm" style="top:1290px"><div class="hd"><span>VALET TICKET</span><span>№ 15</span></div><div class="bd"><b>F. MENDOZA</b><i>QB · NO. 1 OVERALL PICK</i></div></div>
+<div class="el neon c" id="clk1" style="top:520px">9:01 PM</div>
+<div class="el neon" id="fum" style="top:520px">FUMBLE!</div>
+<div class="el neon c" id="rec1" style="top:700px;font-size:110px">RECOVERED</div>
+<div class="el neon" id="p6" style="top:560px;font-size:180px">PICK-SIX</div>
+<div class="el cnt" id="sept" style="top:430px"><div class="hd">BOOTH LOG</div><b style="font-size:80px">WATCHING</b><i>SINCE: SEPTEMBER</i></div>
+<div class="el neon c" id="clk2" style="top:430px;font-size:120px">10:00 PM</div>
+<div class="el cnt" id="kts" style="top:620px"><div class="hd">KEYS TO STRANGERS</div><b id="ktn">1</b><i id="kti">INTERCEPTIONS</i></div>
+<div class="el cnt" id="miss" style="top:430px"><div class="hd">CARS MISSING</div><b>5</b><i>SILVER CACTUS VALET</i></div>
+<div class="el cnt" id="touch" style="top:430px"><div class="hd">CARS TOUCHED</div><b>0</b><i>F. MENDOZA · ALL NIGHT</i></div>
+<div class="el tk" id="tb" style="top:1290px"><div class="hd"><span>VIP TICKET</span><span>№ 12</span></div><div class="bd"><b>TOM BRADY</b><i>MINORITY OWNER · JUST WANTS HIS CAR</i></div></div>
+<div class="el neon" id="fum2" style="top:520px">FUMBLE!</div>
+<div class="el neon c" id="rec2" style="top:700px;font-size:110px">RECOVERED</div>
+<div class="el neon" id="int" style="top:600px;font-size:130px">INTERCEPTED</div>
+<div class="el neon c" id="cal" style="top:520px;font-size:96px">NEXT STOP:<br>CALIFORNIA</div>
+<div class="el cnt" id="r1" style="top:430px"><div class="hd">REVIEW · KIRK COUSINS</div><b>5</b><i>CARS GONE</i></div>
+<div class="el cnt" id="r2" style="top:430px"><div class="hd">REVIEW · FERNANDO MENDOZA</div><b>0 · 0</b><i>CARS PARKED · MISTAKES</i></div>
+<div class="el tk" id="hire" style="top:1290px"><div class="hd"><span>NEW HIRE</span><span>№ 15</span></div><div class="bd"><b>F. MENDOZA</b><i>HEAD VALET · SILVER CACTUS</i></div></div>
+<div class="el tk" id="bk" style="top:1290px"><div class="hd"><span>BACKUP VALET</span><span>№ 08</span></div><div class="bd"><b>KIRK COUSINS</b><i>SEE BOOTH · ASK FOR KIRK</i></div></div>
+<div class="el neon" id="ylt" style="top:520px;font-size:140px">YOU LIKE<br>THAT?</div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep14_shots.js';
+const TL=[['kc',1.90,SH.s1c[0]],['fm',2.92,SH.s1c[0]],['clk1',11.42,SH.s3[1]],['fum',16.42,17.0],['rec1',17.06,SH.s4[1]],['p6',22.78,SH.s5b[1]],['sept',27.06,SH.s6b[1]],
+ ['clk2',29.16,30.6],['kts',30.6,SH.s7b[1]],['miss',34.76,SH.s8[1]],['touch',40.94,SH.s9b[1]],['tb',45.34,SH.s10b[1]],['fum2',49.88,50.7],['rec2',50.76,SH.s11[1]],['int',51.6,52.8],['cal',55.8,SH.s12[1]],
+ ['rec',SH.s13[0],SH.s13b[1]],['r1',59.52,SH.s13[1]],['r2',62.28,SH.s13b[1]],['hire',64.62,SH.s14[1]],['bk',67.68,SH.s15[1]],['ylt',68.88,71.4]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;
+    const fl=on&&e.classList.contains('neon')?(((t-a)*30|0)%7===2&&t-a<0.6?0.35:1):1;e.style.opacity=on?Math.min(1,(t-a)/0.06)*fl:0;
+    if(e.classList.contains('tk'))e.style.transform=`translateX(${(1-k)*(e.classList.contains('r')?700:-700)}px)`;
+    else if(e.classList.contains('neon'))e.style.transform=`scale(${on?Math.max(1,1.6-0.6*Math.min(1,(t-a)/0.15)):1})`;
+    else if(e.classList.contains('cnt'))e.style.transform=`translateX(-50%) translateY(${(1-k)*-160}px)`;}
+  const n=t<31.6?1:t<33.24?2:3;$('ktn').textContent=n;$('kti').textContent=n===3?'THREE INTERCEPTIONS':'INTERCEPTIONS';
+  const sec=Math.floor((t-SH.s13[0])*1)%60;$('rts').textContent='SAT 10:47:'+String(sec).padStart(2,'0')+' PM';
+  const f=(k,n=5)=>{const x=(t-SH[k][0])*30;return x>=0&&x<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(x)]:0;};
+  $('flash').style.opacity=Math.max(f('s1b'),f('s5b'),f('s14'));
+};
+</script></body></html>
