@@ -1,0 +1,72 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.32,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.32,0:00:02.08,Cap,,0,0,0,,the vikings went
+Dialogue: 0,0:00:02.08,0:00:03.08,Cap,,0,0,0,,0 for 8
+Dialogue: 0,0:00:03.08,0:00:03.88,Cap,,0,0,0,,on 3rd down
+Dialogue: 0,0:00:03.88,0:00:05.28,Cap,,0,0,0,,on monday night football.
+Dialogue: 0,0:00:05.28,0:00:05.82,Cap,,0,0,0,,could they even
+Dialogue: 0,0:00:05.82,0:00:07.76,Cap,,0,0,0,,beat 11 shopping carts?
+Dialogue: 0,0:00:07.76,0:00:08.88,Cap,,0,0,0,,carson wentz, 8
+Dialogue: 0,0:00:08.88,0:00:11.42,Cap,,0,0,0,,of 25, 81 yards.
+Dialogue: 0,0:00:11.42,0:00:13.40,Cap,,0,0,0,,passer rating, 8 point 9.
+Dialogue: 0,0:00:13.40,0:00:15.00,Cap,,0,0,0,,not 89, eight.
+Dialogue: 0,0:00:15.00,0:00:16.52,Cap,,0,0,0,,point. nine.
+Dialogue: 0,0:00:16.52,0:00:17.56,Cap,,0,0,0,,except shopping carts
+Dialogue: 0,0:00:17.56,0:00:18.92,Cap,,0,0,0,,complete 100 percent
+Dialogue: 0,0:00:18.92,0:00:19.38,Cap,,0,0,0,,of their trips
+Dialogue: 0,0:00:19.38,0:00:20.80,Cap,,0,0,0,,back to the corral.
+Dialogue: 0,0:00:20.80,0:00:22.46,Cap,,0,0,0,,carts, undefeated.
+Dialogue: 0,0:00:22.46,0:00:23.26,Cap,,0,0,0,,3rd and 4,
+Dialogue: 0,0:00:23.26,0:00:24.98,Cap,,0,0,0,,short, 0 for 1.
+Dialogue: 0,0:00:24.98,0:00:25.92,Cap,,0,0,0,,3rd and 2,
+Dialogue: 0,0:00:25.92,0:00:27.82,Cap,,0,0,0,,short, 0 for 4.
+Dialogue: 0,0:00:27.82,0:00:28.54,Cap,,0,0,0,,3rd and inches,
+Dialogue: 0,0:00:28.54,0:00:30.70,Cap,,0,0,0,,the speed bump wins.
+Dialogue: 0,0:00:30.70,0:00:32.06,Cap,,0,0,0,,0 for 8.
+Dialogue: 0,0:00:32.06,0:00:33.96,Cap,,0,0,0,,justin jefferson is open.
+Dialogue: 0,0:00:33.96,0:00:34.70,Cap,,0,0,0,,again, 11
+Dialogue: 0,0:00:34.70,0:00:36.50,Cap,,0,0,0,,targets, 3 catches.
+Dialogue: 0,0:00:36.50,0:00:37.64,Cap,,0,0,0,,folks, the crowd is
+Dialogue: 0,0:00:37.64,0:00:40.20,Cap,,0,0,0,,booing every single throw.
+Dialogue: 0,0:00:40.20,0:00:41.08,Cap,,0,0,0,,then the backup walks
+Dialogue: 0,0:00:41.08,0:00:42.30,Cap,,0,0,0,,in and they cheer.
+Dialogue: 0,0:00:42.30,0:00:43.66,Cap,,0,0,0,,for the backup.
+Dialogue: 0,0:00:43.66,0:00:44.44,Cap,,0,0,0,,james cook ran
+Dialogue: 0,0:00:44.44,0:00:45.96,Cap,,0,0,0,,it 31 times.
+Dialogue: 0,0:00:45.96,0:00:46.34,Cap,,0,0,0,,that's not
+Dialogue: 0,0:00:46.34,0:00:47.22,Cap,,0,0,0,,a run game,
+Dialogue: 0,0:00:47.22,0:00:48.82,Cap,,0,0,0,,that's grocery shopping.
+Dialogue: 0,0:00:48.82,0:00:49.60,Cap,,0,0,0,,dorian williams picks
+Dialogue: 0,0:00:49.60,0:00:50.12,Cap,,0,0,0,,it off and
+Dialogue: 0,0:00:50.12,0:00:52.06,Cap,,0,0,0,,asks, paper or plastic?
+Dialogue: 0,0:00:52.06,0:00:53.02,Cap,,0,0,0,,4th down.
+Dialogue: 0,0:00:53.02,0:00:53.58,Cap,,0,0,0,,wentz looks left
+Dialogue: 0,0:00:53.58,0:00:55.64,Cap,,0,0,0,,and throws it backwards.
+Dialogue: 0,0:00:55.64,0:00:56.52,Cap,,0,0,0,,a lateral.
+Dialogue: 0,0:00:56.52,0:00:57.70,Cap,,0,0,0,,to nobody.
+Dialogue: 0,0:00:57.70,0:00:58.44,Cap,,0,0,0,,final.
+Dialogue: 0,0:00:58.44,0:01:00.38,Cap,,0,0,0,,carts 8, vikings, 6.
+Dialogue: 0,0:01:00.38,0:01:01.06,Cap,,0,0,0,,the vikings kicked
+Dialogue: 0,0:01:01.06,0:01:02.30,Cap,,0,0,0,,two field goals.
+Dialogue: 0,0:01:02.30,0:01:02.96,Cap,,0,0,0,,the carts scored
+Dialogue: 0,0:01:02.96,0:01:04.06,Cap,,0,0,0,,when the wind blew.
+Dialogue: 0,0:01:04.06,0:01:05.00,Cap,,0,0,0,,and slowly, the
+Dialogue: 0,0:01:05.00,0:01:05.94,Cap,,0,0,0,,vikings turned into
+Dialogue: 0,0:01:05.94,0:01:07.24,Cap,,0,0,0,,what they played like.
+Dialogue: 0,0:01:07.24,0:01:08.62,Cap,,0,0,0,,wobbly wheel.
+Dialogue: 0,0:01:08.62,0:01:09.68,Cap,,0,0,0,,rolling backwards.
+Dialogue: 0,0:01:09.68,0:01:10.68,Cap,,0,0,0,,josh allen.
+Dialogue: 0,0:01:10.68,0:01:12.20,Cap,,0,0,0,,bills, 7 and 1.
+Dialogue: 0,0:01:12.20,0:01:13.32,Cap,,0,0,0,,vikings clean up
+Dialogue: 0,0:01:13.32,0:01:14.42,Cap,,0,0,0,,on aisle 11.
