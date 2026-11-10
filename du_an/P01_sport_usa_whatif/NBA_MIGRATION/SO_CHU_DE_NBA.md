@@ -54,3 +54,8 @@ NCAA (AP preseason: 1 Florida, 2 Duke, 3 Illinois, 4 UConn, 5 Arizona): #9 Virgi
 2. chờ kết quả 11/11: **Champions Classic NCAA** (Duke–MSU / Kentucky–Kansas) — đội thắng/thua đậm hoặc cú lội ngược → dạng thần thoại.
 3. chờ kết quả 11/11: **76ers vs Celtics** — đội thắng lên đỉnh miền Đông.
 4. dùng ngay (tin đã có): **Darius Acuff Jr. tân binh Kings 32 điểm 10 kiến tạo nhưng đội 1-9** — dạng thần thoại (một mình gánh đội); **Austin Reaves 43 điểm, Lakers 9-2** (cần thêm nguồn báo nếu dùng trích dẫn ngoài số liệu); **Cooper Flagg 25 điểm 12 kiến tạo**.
+
+## Cập nhật 10/11/2026 08:05 VN (ESPN JSON + ESPN news)
+- Trận 09/11 ET đang đá/chưa đá: LAL–ATL (Luka trở lại, Reaves nghỉ ốm), CHA–CLE, DET–WSH, TOR–MEM; chưa đá: DAL–IND, **HOU–DEN (Nuggets: danh sách chấn thương chỉ còn Strawther OUT → suy ra 5 người đá chính đã kịp về từ Mexico City — CHƯA xác nhận bằng bài báo)**, PHX–SA, GS–NO. Kết quả đủ ~12:00 VN.
+- Tin mới: Doc Rivers xin lỗi Giannis (tránh làm — phát ngôn/mâu thuẫn); Bronny James đôi co với CĐV (tránh); Miami sắp được chọn đăng cai All-Star 2028; AP tuần 1: Florida #1, UCLA vào top 10; Kansas mất Melvin Council Jr. (gãy xương bàn chân — KHÔNG đùa chấn thương).
+- Tối nay (sáng 11/11 VN): Champions Classic #2 Duke–#5 Michigan St (07:00), #16 Texas Tech–#3 Illinois (08:00), #24 Kentucky–#15 Kansas (09:30); 76ers–Celtics (08:00, Jaylen Brown gặp đội cũ).
