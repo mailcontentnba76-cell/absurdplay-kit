@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v1.9 (10/11/2026)
+# Sport USA "What If" — v2.0 (10/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -27,6 +27,11 @@ Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng t�
 - **Hình mở đầu = pha lao vào tranh chấp (chủ dự án yêu cầu từ 09/11):** giây 0 không để cầu thủ đứng yên — đội chính chạy nước rút (`locoLock` gait `MX_Sprint`, xuất phát trước t=0 để đã đang chạy) lao vào hàng "đối thủ" vô lý; va chạm ~0,7 s; đối thủ bật/văng; 2 góc máy (thấp bám theo người chạy → cao nhìn chỗ va chạm), rung máy 0,012–0,02. Tiếng: football_hit mỗi cú chạm + crowd_roar + whoosh. Góc máy phải CÙNG HƯỚNG với shot sau (không lật 180°).
 - **Không dùng người thật ngoài thể thao** (chính trị gia, ca sĩ…) làm nhân vật hay đối thủ. Đối thủ vẫn là đồ vật / con vật nhựa / nhân vật hư cấu.
 - **Ưu tiên kịch bản theo KẾT QUẢ trận vừa đá** của đội đang hot (chủ dự án chốt 08/11): chờ trận xong, chọn kết quả sốc/viral nhất, viết ngay trong ngày. Giờ có kết quả NFL (giờ VN, tháng 11–3): Chủ nhật 13:00 ET → ~04:00 sáng thứ Hai; Sunday Night → ~11:30 trưa thứ Hai; Monday Night → ~11:30 trưa thứ Ba. Có thể đặt lịch tự kiểm (send_later / create_trigger) nếu người dùng muốn.
+
+## KHUÔN ĐỐI ĐẦU CÔNG SỞ (học từ video Subway 646K của @whatifbagel, 10/11)
+Hai cầu thủ đang có tin hot cùng giành MỘT vị trí ở một công việc đời thường (cửa hàng/chuỗi HƯ CẤU, không thương hiệu thật). Thói quen thi đấu thật (số liệu tuần này) biến thành hành động ngoài đời; mỗi pha kết bằng thuật ngữ bóng ("Interception!", "Sacked.").
+8 nhịp: (1) hook câu hỏi "Could X beat Y for [việc]?" + tranh chấp giây 0 (giữ "What the f***" nếu chủ dự án chưa đổi); (2) đặt luật: 1 vị trí, 2 ứng viên, 1 thử thách có hạn giờ; (3–4) mỗi người một hiệp, có giờ cụ thể "6:01 PM", phá đồ leo thang; (5) bảng đếm giả mà nghe như thật; (6) "Suddenly, the front door opens" — cầu thủ thứ ba nổi tiếng vào vai quản lý/khách, vai khớp tiếng tăm; (7) cao trào; (8) "Management reviews the footage" → kết quả bất ngờ + câu chốt. Giọng kể khô, câu 3–8 từ. Đồ hoạ theo phong cách của chính cửa hàng.
+Theo dõi video >500K của kênh mẫu: project doc `claude/whatifbagel_tren_500k.md` (bỏ qua dạng lấy thảm kịch/khuyết tật làm trò — Anne Frank, Pompeii, Helen Keller, cầu thủ khiếm thị).
 
 ## Chế độ NCAA — bóng bầu dục đại học (chủ dự án mở rộng 08/11)
 - **Phạm vi theo chat:** chủ dự án dùng chat Sport USA cho **NFL + NCAA bóng bầu dục**; NBA làm ở chat khác. Không tự sản xuất NBA ở chat này.
@@ -157,6 +162,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v2.0 (10/11): thêm KHUÔN ĐỐI ĐẦU CÔNG SỞ (từ video Subway 646K của kênh mẫu) + danh sách theo dõi video >500K; E14 Minshew vs Milton giành việc giao pizza.
 - v1.9 (10/11): E13 Vikings vs 11 xe đẩy siêu thị (`lib/baixetuyet.js`: bãi xe tuyết, `makeCart` xe đẩy có mắt + bánh lệch `wobble`, `basket()` đặt đồ trong giỏ, khu trả xe `corral.setLamp`, gờ giảm tốc `bumpX`). Bài học: (1) cảnh ĐÊM làm tối cả video — chủ dự án yêu cầu sáng hơn → dùng chạng vạng/hoàng hôn (hemi ≥2,5, key ≥4, trời xanh–tím–cam), không làm đêm tối; (2) da nâu sẫm dưới ánh tối thành mảng đen như mặt nạ → dùng tông #8a5634–#9a6040 và kiểm cận mặt trước khi render; (3) `locoLock` chỉ nhận gait trong GAITS (Walk_Loop, MX_Jogging, MX_Running, MX_Sprint, MX_Slow_Jog_Backwards) — 'Walk_Carry_Loop' làm nhân vật đứng im/biến mất; (4) bề ngang khung dọc ≈ 0,46 × khoảng cách (fov 44–50) → biển chữ/lán rộng 4 m cần máy quay cách ≥10 m; (5) đi kèm bản cắt thử, liệt kê shot chưa ưng để chủ dự án quyết. (6) Chớp nháy 1 khung (mặt sân biến mất, lộ nền) khi bật motion blur: bộ đệm độ sâu của composer kém chính xác, sân cách nền 4 mm → z-fighting cả mặt phẳng. Sửa: nền thấp hơn sân ≥6 cm + `polygonOffset` (factor −2, units −4) cho mặt sân, near ≥0,1. Sau render cuối luôn quét khung lỗi: so mỗi khung với 2 khung kề (ngoài điểm cắt), khung nào lệch > 1,8× độ lệch giữa 2 khung kề thì xoá và render lại.
 - v1.8 (09/11): E12 Jets — tập đầu theo khuôn gộp (`lib/santhuong.js`: sân thượng NY, rừng nhà chọc trời instanced, tháp nước + bảng điểm, `makePlane` máy bay giấy có mắt, bay theo cung `fly()`, biến hình người→vật bằng thu nhỏ + giấy vụn); chọn đội thua: loại trận thua vì chấn thương (Ravens) để không thành đùa về chấn thương; đội thắng có ngôi sao vừa chấn thương thì không đưa người đó vào.
 - v1.7 (09/11): KHUÔN GỘP 10 nhịp (đội thua thật vs 11 vật → vẫn thua; đội thắng troll; đội thua hoá vật); quy tắc dựng cầu thủ thật (tóc/râu/da/dáng theo ảnh thật, mặt biếm hoạ); thay v1.5–v1.6.
