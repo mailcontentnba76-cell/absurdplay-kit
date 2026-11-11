@@ -1,0 +1,76 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.28,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.28,0:00:02.04,Cap,,0,0,0,,could the philadelphia
+Dialogue: 0,0:00:02.04,0:00:04.26,Cap,,0,0,0,,76ers beat 50 babies
+Dialogue: 0,0:00:04.26,0:00:05.86,Cap,,0,0,0,,in a playoff game?
+Dialogue: 0,0:00:05.86,0:00:07.52,Cap,,0,0,0,,philly started 9-2.
+Dialogue: 0,0:00:07.52,0:00:08.26,Cap,,0,0,0,,they have tyrese
+Dialogue: 0,0:00:08.26,0:00:09.74,Cap,,0,0,0,,maxey, jaylen brown,
+Dialogue: 0,0:00:09.74,0:00:11.28,Cap,,0,0,0,,and lebron james.
+Dialogue: 0,0:00:11.28,0:00:11.98,Cap,,0,0,0,,the babies have
+Dialogue: 0,0:00:11.98,0:00:13.92,Cap,,0,0,0,,zero nba experience.
+Dialogue: 0,0:00:13.92,0:00:14.68,Cap,,0,0,0,,their starting center
+Dialogue: 0,0:00:14.68,0:00:16.10,Cap,,0,0,0,,can't even stand up.
+Dialogue: 0,0:00:16.10,0:00:16.48,Cap,,0,0,0,,this should be
+Dialogue: 0,0:00:16.48,0:00:17.42,Cap,,0,0,0,,the easiest win
+Dialogue: 0,0:00:17.42,0:00:18.94,Cap,,0,0,0,,in playoff history.
+Dialogue: 0,0:00:18.94,0:00:21.18,Cap,,0,0,0,,except it's the playoffs.
+Dialogue: 0,0:00:21.18,0:00:22.08,Cap,,0,0,0,,philadelphia hasn't
+Dialogue: 0,0:00:22.08,0:00:22.70,Cap,,0,0,0,,reached the conference
+Dialogue: 0,0:00:22.70,0:00:24.88,Cap,,0,0,0,,finals since 2001.
+Dialogue: 0,0:00:24.88,0:00:25.70,Cap,,0,0,0,,last spring, the
+Dialogue: 0,0:00:25.70,0:00:26.64,Cap,,0,0,0,,knicks swept them
+Dialogue: 0,0:00:26.64,0:00:27.72,Cap,,0,0,0,,in the second round.
+Dialogue: 0,0:00:27.72,0:00:28.70,Cap,,0,0,0,,the babies,
+Dialogue: 0,0:00:28.70,0:00:29.80,Cap,,0,0,0,,meanwhile, are undefeated
+Dialogue: 0,0:00:29.80,0:00:31.40,Cap,,0,0,0,,in the postseason.
+Dialogue: 0,0:00:31.40,0:00:32.24,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:32.24,0:00:32.48,Cap,,0,0,0,,a baby
+Dialogue: 0,0:00:32.48,0:00:34.14,Cap,,0,0,0,,grabs maxey's shoelace.
+Dialogue: 0,0:00:34.14,0:00:35.12,Cap,,0,0,0,,maxey trips.
+Dialogue: 0,0:00:35.12,0:00:36.38,Cap,,0,0,0,,babies' ball.
+Dialogue: 0,0:00:36.38,0:00:37.66,Cap,,0,0,0,,lebron drives the lane.
+Dialogue: 0,0:00:37.66,0:00:38.62,Cap,,0,0,0,,40 babies are
+Dialogue: 0,0:00:38.62,0:00:39.66,Cap,,0,0,0,,sitting in the paint.
+Dialogue: 0,0:00:39.66,0:00:39.96,Cap,,0,0,0,,they've been
+Dialogue: 0,0:00:39.96,0:00:41.08,Cap,,0,0,0,,there all quarter.
+Dialogue: 0,0:00:41.08,0:00:42.80,Cap,,0,0,0,,the refs call nothing.
+Dialogue: 0,0:00:42.80,0:00:43.48,Cap,,0,0,0,,jaylen brown is
+Dialogue: 0,0:00:43.48,0:00:44.90,Cap,,0,0,0,,wide open from 3.
+Dialogue: 0,0:00:44.90,0:00:46.54,Cap,,0,0,0,,a baby starts crying.
+Dialogue: 0,0:00:46.54,0:00:47.16,Cap,,0,0,0,,brown stops to
+Dialogue: 0,0:00:47.16,0:00:48.06,Cap,,0,0,0,,check on him.
+Dialogue: 0,0:00:48.06,0:00:49.32,Cap,,0,0,0,,shot clock violation.
+Dialogue: 0,0:00:49.32,0:00:51.38,Cap,,0,0,0,,at halftime, it's 0-0.
+Dialogue: 0,0:00:51.38,0:00:52.42,Cap,,0,0,0,,the broadcast calls it
+Dialogue: 0,0:00:52.42,0:00:53.90,Cap,,0,0,0,,a gritty defensive battle.
+Dialogue: 0,0:00:53.90,0:00:55.28,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:55.28,0:00:56.60,Cap,,0,0,0,,8 seconds left.
+Dialogue: 0,0:00:56.60,0:00:57.46,Cap,,0,0,0,,maxey crosses over
+Dialogue: 0,0:00:57.46,0:00:58.62,Cap,,0,0,0,,and steps back...
+Dialogue: 0,0:00:58.62,0:01:00.22,Cap,,0,0,0,,right onto a pacifier.
+Dialogue: 0,0:01:00.22,0:01:00.92,Cap,,0,0,0,,the ball rolls
+Dialogue: 0,0:01:00.92,0:01:02.32,Cap,,0,0,0,,into the baby pile.
+Dialogue: 0,0:01:02.32,0:01:03.52,Cap,,0,0,0,,nobody can find it.
+Dialogue: 0,0:01:03.52,0:01:04.26,Cap,,0,0,0,,one baby throws
+Dialogue: 0,0:01:04.26,0:01:05.44,Cap,,0,0,0,,it over his head.
+Dialogue: 0,0:01:05.44,0:01:06.42,Cap,,0,0,0,,off the glass.
+Dialogue: 0,0:01:06.42,0:01:07.14,Cap,,0,0,0,,in.
+Dialogue: 0,0:01:07.14,0:01:08.14,Cap,,0,0,0,,final score,
+Dialogue: 0,0:01:08.14,0:01:10.16,Cap,,0,0,0,,babies 2, sixers 0.
+Dialogue: 0,0:01:10.16,0:01:11.60,Cap,,0,0,0,,the babies advance.
+Dialogue: 0,0:01:11.60,0:01:13.38,Cap,,0,0,0,,philadelphia goes home.
+Dialogue: 0,0:01:13.38,0:01:14.18,Cap,,0,0,0,,after the game,
+Dialogue: 0,0:01:14.18,0:01:15.02,Cap,,0,0,0,,philly says the babies
+Dialogue: 0,0:01:15.02,0:01:16.38,Cap,,0,0,0,,had an easy schedule.

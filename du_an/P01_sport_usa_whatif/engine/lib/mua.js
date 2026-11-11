@@ -177,7 +177,7 @@ export function pressRoom(at = new THREE.Vector3(-60, 0, 400), o = {}) { const T
   const G = new THREE.Group(); G.position.copy(at);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 12), std('#1a1a1c', { roughness: 0.8 })); floor.rotation.x = -Math.PI / 2; G.add(floor);
   const bt = ctex(1024, 512, (g, W, H) => { g.fillStyle = '#111214'; g.fillRect(0, 0, W, H); g.font = '900 54px Anton, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    for (let y = 0; y < 5; y++) for (let x = 0; x < 4; x++) { g.fillStyle = (x + y) % 2 ? C1 : '#e8e8e8'; g.fillText((x + y) % 2 ? TEAM : 'SIGNING DAY', 140 + x * 250 + (y % 2) * 60, 60 + y * 100); } });
+    for (let y = 0; y < 5; y++) for (let x = 0; x < 4; x++) { g.fillStyle = (x + y) % 2 ? C1 : '#e8e8e8'; g.fillText((x + y) % 2 ? TEAM : (o.sub || 'SIGNING DAY'), 140 + x * 250 + (y % 2) * 60, 60 + y * 100); } });
   const back = new THREE.Mesh(new THREE.PlaneGeometry(10, 5), new THREE.MeshStandardMaterial({ map: bt, roughness: 0.8 })); back.position.set(0, 2.5, -3.5); G.add(back);
   const table = new THREE.Mesh(new THREE.BoxGeometry(7, 0.08, 1.1), std('#0f0f11', { roughness: 0.4 })); table.position.set(0, 0.76, -1.6); table.castShadow = true; G.add(table);
   const skirt = new THREE.Mesh(new THREE.BoxGeometry(7, 0.74, 0.04), std(C1, { roughness: 0.7 })); skirt.position.set(0, 0.38, -1.06); G.add(skirt);

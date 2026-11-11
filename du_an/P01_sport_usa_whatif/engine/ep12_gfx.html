@@ -1,0 +1,65 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 12: đồ hoạ "truyền hình playoffs" — thẻ xanh navy viền đỏ (76ers) + thẻ HỒNG bo tròn chấm bi cho đội em bé. Khác E01–E11. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:linear-gradient(180deg,#0e3f86 0%,#002B5C 100%);color:#fff;border-left:16px solid #ED174C;border-right:16px solid #ED174C;box-shadow:0 0 0 5px #ffffff,0 16px 28px rgba(0,0,0,.45);padding:12px 40px 16px;white-space:nowrap;text-align:center;-webkit-text-stroke:2px #001630;paint-order:stroke fill}
+.bb{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.25) 0 10px,transparent 11px) 0 0/44px 44px,linear-gradient(180deg,#ff5aa8,#ff2e8a);border:none;border-radius:40px;box-shadow:0 0 0 6px #ffffff,0 16px 28px rgba(90,10,48,.45);-webkit-text-stroke:2px #5a0a30}
+.big{font-size:150px;line-height:1}.mid{font-size:92px;line-height:1.05}.sm{font-size:62px;line-height:1.12}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:5px;color:#ffd0e2;margin-bottom:4px;-webkit-text-stroke:0}.k:not(.bb) .lab{color:#9cc6ff}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #002B5C;paint-order:stroke fill;text-shadow:0 12px 0 #ED174C}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#fff;background:#ff2e8a;border:6px solid #fff;padding:6px 26px;border-radius:30px}
+.stamp{top:600px;font-size:170px;color:#ffffff;-webkit-text-stroke:10px #ED174C;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{background:#002B5C;color:#fff;font-size:64px;padding:4px 26px;border-left:14px solid #ED174C}.lt .d{background:#ffffff;color:#002B5C;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px;border-left:14px solid #006BB6}
+#flash{position:absolute;inset:0;background:#ffffff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,20,50,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">SIXERS <span style="color:#ff7ab8">vs</span> 50 BABIES</div>
+<div class="el k" id="rec" style="top:420px"><span class="lab">PHILADELPHIA · START OF SEASON</span><span class="big">9 – 2</span></div>
+<div class="el lt" id="nmax"><div class="n">TYRESE MAXEY</div><div class="d">#0 · PHILADELPHIA</div></div>
+<div class="el lt" id="nbro"><div class="n">JAYLEN BROWN</div><div class="d">#7 · PHILADELPHIA</div></div>
+<div class="el lt" id="nleb"><div class="n">LEBRON JAMES</div><div class="d">#23 · PHILADELPHIA</div></div>
+<div class="el k bb" id="exp" style="top:420px"><span class="lab">BABIES · NBA EXPERIENCE</span><span class="big">0 YRS</span></div>
+<div class="el k bb sm" id="ctr" style="top:420px">STARTING CENTER · CAN STAND: NO</div>
+<div class="el stamp" id="plo">IT'S THE PLAYOFFS</div>
+<div class="el k" id="cf" style="top:420px"><span class="lab">LAST CONFERENCE FINALS</span><span class="big">2001</span></div>
+<div class="el k" id="nyk" style="top:420px"><span class="lab">2026 · SECOND ROUND</span><span class="mid">NYK 4 · PHI 0</span></div>
+<div class="el k bb" id="und" style="top:420px"><span class="lab">BABIES · POSTSEASON RECORD</span><span class="mid">0–0 · UNDEFEATED</span></div>
+<div class="el k sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el stamp" id="bball" style="color:#ff5aa8;-webkit-text-stroke-color:#fff">BABIES' BALL</div>
+<div class="el k bb sm" id="paint" style="top:420px">BABIES IN THE PAINT: 40</div>
+<div class="el k sm" id="nocall" style="top:420px">DEFENSIVE 3 SECONDS? NO CALL</div>
+<div class="el stamp" id="scv" style="font-size:120px">SHOT CLOCK VIOLATION</div>
+<div class="el k" id="half" style="top:420px"><span class="lab">HALFTIME</span><span class="mid">BABIES 0 · SIXERS 0</span></div>
+<div class="el lt" id="desk"><div class="n">"GRITTY DEFENSIVE BATTLE"</div><div class="d">HALFTIME SHOW · FICTIONAL</div></div>
+<div class="el k sm" id="q4" style="top:420px">4TH QUARTER · 0:08</div>
+<div class="el stamp" id="paci" style="color:#7ec8ff">PACIFIER!</div>
+<div class="el stamp" id="glass" style="font-size:150px">OFF THE GLASS</div>
+<div class="el k bb" id="fin" style="top:420px"><span class="lab">FINAL</span><span class="mid">BABIES 2 · SIXERS 0</span></div>
+<div class="el k bb sm" id="adv" style="top:1430px">BABIES ADVANCE</div>
+<div class="el k" id="sched" style="top:420px"><span class="lab">PHILLY'S OPPONENTS THIS SEASON</span><span class="mid">44 – 66</span></div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep12_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',2.0,SH.s2[1]],['rec',SH.s3[0]+0.2,SH.s3[1]],['nmax',SH.s4[0],SUB.s4a],['nbro',SUB.s4a,SUB.s4b],['nleb',SUB.s4b,SH.s4[1]],['exp',11.9,SH.s5[1]],['ctr',14.3,SH.s6[1]],
+ ['plo',19.2,SH.s8[1]],['cf',22.6,SH.s9[1]],['nyk',25.6,SH.s10[1]],['und',28.8,SH.s11[1]],['tip',SH.s12[0],SH.s12[1]],['bball',SH.s15[0],SH.s15[1]],['paint',38.0,SH.s17[1]],['nocall',SH.s19[0],SH.s19[1]],
+ ['scv',SH.s23[0],SH.s23[1]],['half',SH.s24[0]+0.2,SH.s24[1]],['desk',SH.s25[0],SH.s25[1]],['q4',SH.s27[0],SH.s27[1]],['paci',SH.s29[0]+0.6,SH.s29[1]],['glass',SH.s33[0],SH.s33[1]],['fin',67.3,SUB.s35],['adv',SH.s36[0],SH.s36[1]],['sched',74.4,SH.s38[1]]];
+const POP=['wtf','plo','bball','scv','paci','glass'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k;
+    const rot=pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const fl=(t0)=>{const f=(t-t0)*30;return f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};$('flash').style.opacity=Math.max(fl(SH.s8[0]),fl(SH.s34[0]),fl(SH.s35[0]));
+};
+</script></body></html>
