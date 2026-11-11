@@ -1,0 +1,76 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.48,Cap,,0,0,0,,are you
+Dialogue: 0,0:00:00.48,0:00:01.82,Cap,,0,0,0,,f***ing kidding me?
+Dialogue: 0,0:00:01.82,0:00:02.54,Cap,,0,0,0,,could kirk cousins
+Dialogue: 0,0:00:02.54,0:00:03.68,Cap,,0,0,0,,beat carson wentz
+Dialogue: 0,0:00:03.68,0:00:04.44,Cap,,0,0,0,,for the returns
+Dialogue: 0,0:00:04.44,0:00:05.92,Cap,,0,0,0,,desk job in minnesota?
+Dialogue: 0,0:00:05.92,0:00:06.82,Cap,,0,0,0,,the ten thousand lakes
+Dialogue: 0,0:00:06.82,0:00:08.74,Cap,,0,0,0,,mall has one opening.
+Dialogue: 0,0:00:08.74,0:00:09.58,Cap,,0,0,0,,customer returns.
+Dialogue: 0,0:00:09.58,0:00:10.76,Cap,,0,0,0,,two candidates.
+Dialogue: 0,0:00:10.76,0:00:12.34,Cap,,0,0,0,,one holiday rush.
+Dialogue: 0,0:00:12.34,0:00:13.50,Cap,,0,0,0,,monday night, carson
+Dialogue: 0,0:00:13.50,0:00:15.20,Cap,,0,0,0,,wentz opens his line.
+Dialogue: 0,0:00:15.20,0:00:16.64,Cap,,0,0,0,,twenty-five customers.
+Dialogue: 0,0:00:16.64,0:00:18.42,Cap,,0,0,0,,he accepts eight returns.
+Dialogue: 0,0:00:18.42,0:00:19.96,Cap,,0,0,0,,eight of twenty-five.
+Dialogue: 0,0:00:19.96,0:00:20.86,Cap,,0,0,0,,eight times, a
+Dialogue: 0,0:00:20.86,0:00:21.78,Cap,,0,0,0,,customer gets one
+Dialogue: 0,0:00:21.78,0:00:22.36,Cap,,0,0,0,,step from the
+Dialogue: 0,0:00:22.36,0:00:24.28,Cap,,0,0,0,,counter and walks away.
+Dialogue: 0,0:00:24.28,0:00:25.40,Cap,,0,0,0,,zero for eight.
+Dialogue: 0,0:00:25.40,0:00:26.16,Cap,,0,0,0,,then, he hands
+Dialogue: 0,0:00:26.16,0:00:27.64,Cap,,0,0,0,,a gift card backwards.
+Dialogue: 0,0:00:27.64,0:00:28.22,Cap,,0,0,0,,the guy behind
+Dialogue: 0,0:00:28.22,0:00:28.94,Cap,,0,0,0,,him takes it.
+Dialogue: 0,0:00:28.94,0:00:30.60,Cap,,0,0,0,,tuesday, kirk cousins
+Dialogue: 0,0:00:30.60,0:00:31.82,Cap,,0,0,0,,opens his line.
+Dialogue: 0,0:00:31.82,0:00:32.70,Cap,,0,0,0,,first receipt,
+Dialogue: 0,0:00:32.70,0:00:33.62,Cap,,0,0,0,,he drops it.
+Dialogue: 0,0:00:33.62,0:00:34.06,Cap,,0,0,0,,he picks it
+Dialogue: 0,0:00:34.06,0:00:35.24,Cap,,0,0,0,,up himself and hands
+Dialogue: 0,0:00:35.24,0:00:35.94,Cap,,0,0,0,,the refund to
+Dialogue: 0,0:00:35.94,0:00:36.54,Cap,,0,0,0,,a guy in a
+Dialogue: 0,0:00:36.54,0:00:37.90,Cap,,0,0,0,,red and gold jersey.
+Dialogue: 0,0:00:37.90,0:00:38.96,Cap,,0,0,0,,pick six.
+Dialogue: 0,0:00:38.96,0:00:39.72,Cap,,0,0,0,,then, justin
+Dialogue: 0,0:00:39.72,0:00:41.20,Cap,,0,0,0,,jefferson walks in.
+Dialogue: 0,0:00:41.20,0:00:41.64,Cap,,0,0,0,,kirk doesn't
+Dialogue: 0,0:00:41.64,0:00:42.50,Cap,,0,0,0,,even look up.
+Dialogue: 0,0:00:42.50,0:00:43.10,Cap,,0,0,0,,he knows this
+Dialogue: 0,0:00:43.10,0:00:44.42,Cap,,0,0,0,,receipt by heart.
+Dialogue: 0,0:00:44.42,0:00:46.56,Cap,,0,0,0,,5,348.
+Dialogue: 0,0:00:46.56,0:00:48.28,Cap,,0,0,0,,suddenly, the doors open.
+Dialogue: 0,0:00:48.28,0:00:49.14,Cap,,0,0,0,,las vegas walks
+Dialogue: 0,0:00:49.14,0:00:50.12,Cap,,0,0,0,,up to the counter.
+Dialogue: 0,0:00:50.12,0:00:50.42,Cap,,0,0,0,,they want
+Dialogue: 0,0:00:50.42,0:00:51.52,Cap,,0,0,0,,to return something.
+Dialogue: 0,0:00:51.52,0:00:52.12,Cap,,0,0,0,,they slide it
+Dialogue: 0,0:00:52.12,0:00:53.18,Cap,,0,0,0,,across the desk.
+Dialogue: 0,0:00:53.18,0:00:54.62,Cap,,0,0,0,,it's kirk cousins.
+Dialogue: 0,0:00:54.62,0:00:55.70,Cap,,0,0,0,,receipt attached.
+Dialogue: 0,0:00:55.70,0:00:56.48,Cap,,0,0,0,,price, one
+Dialogue: 0,0:00:56.48,0:00:57.28,Cap,,0,0,0,,third-round pick.
+Dialogue: 0,0:00:57.28,0:00:58.46,Cap,,0,0,0,,management reviews
+Dialogue: 0,0:00:58.46,0:00:59.38,Cap,,0,0,0,,the item.
+Dialogue: 0,0:00:59.38,0:00:59.86,Cap,,0,0,0,,kevin o'connell
+Dialogue: 0,0:00:59.86,0:01:00.96,Cap,,0,0,0,,signs for it.
+Dialogue: 0,0:01:00.96,0:01:01.44,Cap,,0,0,0,,he's bought this
+Dialogue: 0,0:01:01.44,0:01:03.00,Cap,,0,0,0,,exact item before.
+Dialogue: 0,0:01:03.00,0:01:04.36,Cap,,0,0,0,,kirk gets the job.
+Dialogue: 0,0:01:04.36,0:01:04.80,Cap,,0,0,0,,carson gets
+Dialogue: 0,0:01:04.80,0:01:05.86,Cap,,0,0,0,,the gift wrap.
+Dialogue: 0,0:01:05.86,0:01:06.14,Cap,,0,0,0,,the receipt
+Dialogue: 0,0:01:06.14,0:01:07.78,Cap,,0,0,0,,says, final sale.

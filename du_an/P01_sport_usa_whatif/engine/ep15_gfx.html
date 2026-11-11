@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+/* Tập 15: đồ hoạ KIỂU QUẦY ĐỔI TRẢ — hoá đơn giấy nhiệt (mép răng cưa, chữ mono), dấu mộc cao su xoay nghiêng (đỏ/xanh), thẻ giá. Khác E01–E14. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Inter;font-weight:900}
+.el{position:absolute;opacity:0}
+.rc{left:40px;width:420px;background:#fbf8f0;color:#1a1a1a;font-family:Mono;padding:22px 28px 30px;box-shadow:0 18px 34px rgba(0,0,0,.45);
+ -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/24px 100%}
+.rc.r{left:auto;right:40px}
+.rc:not(.big) b{font-size:62px}
+.rc .hd{font-size:26px;letter-spacing:4px;border-bottom:3px dashed #1a1a1a;padding-bottom:8px;display:flex;justify-content:space-between}
+.rc b{display:block;font-family:Anton;font-weight:400;font-size:74px;line-height:1.08;margin-top:8px}
+.rc i{display:block;font-style:normal;font-size:26px;opacity:.8}
+.big{left:50%;width:640px;margin-left:-320px;text-align:center}
+.big b{font-size:150px}
+.st{left:0;width:1080px;text-align:center}
+.st span{display:inline-block;font-family:Anton;font-size:150px;line-height:1;padding:10px 40px 14px;border:14px solid currentColor;border-radius:24px;transform:rotate(-8deg);
+ -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.7'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");background:rgba(255,255,255,.08)}
+.red{color:#d8263a}.grn{color:#2fae5a}.yel{color:#f0ff4a}.wht{color:#f6f2e6}
+.st.sm span{font-size:110px;border-width:11px}
+.tag{left:50%;width:600px;margin-left:-300px;background:#f6efd6;color:#1a1a1a;text-align:center;font-family:Anton;padding:30px 20px 34px;border-radius:0 0 18px 18px;clip-path:polygon(16% 0,84% 0,100% 13%,100% 100%,0 100%,0 13%);box-shadow:0 18px 34px rgba(0,0,0,.45)}
+.tag .h{width:34px;height:34px;border-radius:50%;background:#1a1a1a;margin:0 auto 8px}
+.tag b{display:block;font-weight:400;font-size:64px;color:#9e1b32}
+.tag i{display:block;font-style:normal;font-size:96px;color:#2f6a3a;line-height:1.05}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div class="el rc r" id="kc" style="top:1390px"><div class="hd"><span>APPLICANT</span><span>#8</span></div><b>KIRK COUSINS</b><i>QB · JUST TRADED · AGE 38</i></div>
+<div class="el rc" id="cw" style="top:1390px"><div class="hd"><span>APPLICANT</span><span>#11</span></div><b>CARSON WENTZ</b><i>QB · STARTED MONDAY NIGHT</i></div>
+<div class="el st sm yel" id="mon" style="top:470px"><span>MONDAY NIGHT</span></div>
+<div class="el rc big" id="c25" style="top:420px"><div class="hd"><span>LINE COUNT</span><span>REG 1</span></div><b>25</b><i>CUSTOMERS WAITING</i></div>
+<div class="el rc big" id="acc" style="top:420px"><div class="hd"><span>RETURNS ACCEPTED</span><span>WENTZ</span></div><b id="accn">1</b><i id="acci">OF 25</i></div>
+<div class="el st red" id="zero" style="top:470px"><span>0 FOR 8</span></div>
+<div class="el rc big" id="z3" style="top:740px;width:560px;margin-left:-280px"><div class="hd"><span>THIRD DOWN</span><span>MON</span></div><b style="font-size:96px">0 / 8</b><i>ONE STEP SHORT</i></div>
+<div class="el st sm red" id="bkw" style="top:480px"><span>BACKWARD PASS</span></div>
+<div class="el st red" id="tov" style="top:520px"><span>TURNOVER</span></div>
+<div class="el st sm yel" id="tue" style="top:470px"><span>TUESDAY</span></div>
+<div class="el st red" id="fum" style="top:470px"><span>FUMBLE</span></div>
+<div class="el st sm grn" id="rec" style="top:720px"><span>RECOVERED</span></div>
+<div class="el st red" id="p6" style="top:520px"><span>PICK-SIX</span></div>
+<div class="el rc" id="jj" style="top:1390px"><div class="hd"><span>CUSTOMER</span><span>#18</span></div><b>JUSTIN JEFFERSON</b><i>WR · VIKINGS</i></div>
+<div class="el rc big" id="yds" style="top:400px"><div class="hd"><span>RECEIPT · COUSINS → JEFFERSON</span></div><b style="font-size:132px">5,348</b><i>YARDS · 2020–23</i></div>
+<div class="el rc" id="lv" style="top:1390px"><div class="hd"><span>CUSTOMER</span><span>LV</span></div><b>LAS VEGAS</b><i>HERE TO RETURN AN ITEM</i></div>
+<div class="el tag" id="tag" style="top:420px"><div class="h"></div><b>RETURNED ITEM</b><i>1× THIRD-ROUND PICK</i></div>
+<div class="el rc" id="ko" style="top:1390px"><div class="hd"><span>MANAGEMENT</span><span>HC</span></div><b>KEVIN O'CONNELL</b><i>HEAD COACH · VIKINGS</i></div>
+<div class="el rc big" id="prev" style="top:420px"><div class="hd"><span>PURCHASE HISTORY</span></div><b style="font-size:110px">2022–23</b><i>SAME ITEM · SAME COACH</i></div>
+<div class="el rc" id="hire" style="top:1390px"><div class="hd"><span>NEW HIRE</span><span>#8</span></div><b>KIRK COUSINS</b><i>RETURNS DESK</i></div>
+<div class="el rc r" id="gw" style="top:1390px"><div class="hd"><span>REASSIGNED</span><span>#11</span></div><b>CARSON WENTZ</b><i>GIFT WRAP</i></div>
+<div class="el st red" id="fs" style="top:560px"><span>FINAL SALE</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep15_shots.js';
+const TL=[['kc',1.88,SH.s2[0]],['cw',2.86,SH.s2[0]],['mon',12.34,14.0],['c25',15.2,SH.s4b[1]],['acc',16.7,SH.s5b[1]],['zero',24.28,SH.s6b[1]],['z3',24.6,SH.s6b[1]],
+ ['bkw',26.72,SH.s7[1]],['tov',28.4,SH.s7b[1]],['tue',28.94,30.6],['fum',33.1,SH.s9[1]],['rec',34.16,SH.s9b[1]],['p6',37.9,SH.s10b[1]],['jj',39.36,SH.s11[1]],['yds',44.42,SH.s11c[1]],
+ ['lv',48.28,SH.s12b[1]],['tag',56.24,SH.s15[1]],['ko',59.38,SH.s16b[1]],['prev',61.1,SH.s17[1]],['hire',63.0,SH.s18[1]],['gw',64.36,SH.s18b[1]],['fs',66.86,70.4]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.22)):0;e.style.opacity=on?Math.min(1,(t-a)/0.05):0;
+    if(e.classList.contains('st')){const p=on?Math.min(1,(t-a)/0.12):0;e.style.transform=`scale(${1.9-0.9*p})`;}
+    else if(e.classList.contains('big')||e.classList.contains('tag'))e.style.transform=`translateY(${(1-k)*-180}px)`;
+    else if(e.classList.contains('rc'))e.style.transform=`translateX(${(1-k)*(e.classList.contains('r')?720:-720)}px)`;}
+  // đếm số hoá đơn được nhận: 1→8 trong 16,7–18,4 s, rồi "8 / 25"
+  const n=Math.max(1,Math.min(8,1+Math.floor((t-16.7)/0.2)));$('accn').textContent=t<18.42?n:'8 / 25';$('acci').textContent=t<18.42?'OF 25':'EIGHT OF TWENTY-FIVE';
+  const f=(k,n=5)=>{const x=(t-SH[k][0])*30;return x>=0&&x<n?[0.95,0.8,0.5,0.25,0.08][Math.floor(x)]:0;};
+  $('flash').style.opacity=Math.max(f('s1b'),f('s10b'),f('s19b'));
+};
+</script></body></html>
