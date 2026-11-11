@@ -16,7 +16,7 @@ function ctex(w, h, draw, repeat) {
 }
 const glow = (map, o = {}) => new THREE.MeshBasicMaterial(Object.assign({ map, toneMapped: false, transparent: true }, o));
 export const PAL = { moss: '#24392e', walnut: '#3a2418', char: '#2b2d31', amber: '#ffb44a', cran: '#9e1b32', brass: '#c9a04a', lemon: '#e8ff3a' };
-export const SPOT = { desk: [0, -1.0], staffW: [-0.9, -1.65], staffK: [0.9, -1.65], cust: -0.25, door: [-4.4, -3.2], stock: [3.6, -3.2], wrap: [3.9, 0.2], tree: [-3.2, 1.4] };
+export const SPOT = { desk: [0, -1.0], staffW: [-0.9, -1.65], staffK: [0.9, -1.65], cust: -0.25, door: [-4.4, -3.2], stock: [3.6, -3.2], wrap: [3.9, 0.2], tree: [-5.3, 3.2] };
 
 // chữ trên canvas luôn có maxWidth
 function label(txt, o = {}) {
@@ -43,8 +43,8 @@ function storefront(G, x, z, ry, name, col) {
   const frame = new THREE.Mesh(new THREE.BoxGeometry(3.6, 3.4, 0.2), std(PAL.walnut, { roughness: 0.5 })); frame.position.y = 1.7; S.add(frame);
   const win = ctex(256, 200, (g, W, H) => { g.fillStyle = '#4a3420'; g.fillRect(0, 0, W, H); const r = rnd(x * 7 + 3); for (let i = 0; i < 26; i++) { g.fillStyle = [col, '#e8d8b8', PAL.cran, '#6a8a6a'][i % 4]; g.fillRect(10 + r() * 220, 60 + r() * 120, 18 + r() * 20, 18 + r() * 30); }
     const gr = g.createRadialGradient(W / 2, 30, 0, W / 2, 30, 200); gr.addColorStop(0, 'rgba(255,214,150,0.55)'); gr.addColorStop(1, 'rgba(255,214,150,0)'); g.fillStyle = gr; g.fillRect(0, 0, W, H); });
-  const w = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 2.4), new THREE.MeshStandardMaterial({ map: win, emissive: '#ffffff', emissiveMap: win, emissiveIntensity: 0.55, roughness: 0.2 })); w.position.set(0, 1.4, 0.11); S.add(w);
-  const sg = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 0.5), glow(label(name, { color: '#ffe2b0', font: '900 120px Anton, Impact, sans-serif' }))); sg.position.set(0, 3.0, 0.12); S.add(sg);
+  const w = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 2.4), new THREE.MeshStandardMaterial({ map: win, emissive: '#ffffff', emissiveMap: win, emissiveIntensity: 0.55, roughness: 0.2 })); w.position.set(0, 1.4, 0.13); S.add(w);
+  const sg = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 0.5), glow(label(name, { color: '#ffe2b0', font: '900 120px Anton, Impact, sans-serif' }))); sg.position.set(0, 3.0, 0.15); S.add(sg);
 }
 function tree(G) {
   const T = new THREE.Group(); T.position.set(SPOT.tree[0], 0, SPOT.tree[1]); G.add(T);
@@ -63,7 +63,7 @@ function slidingDoor() {
   const G = new THREE.Group(); const gm = new THREE.MeshPhysicalMaterial({ color: '#cfe0ee', transparent: true, opacity: 0.28, roughness: 0.05 }); const fr = std(PAL.brass, { metalness: 0.8, roughness: 0.3 });
   const panes = [-1, 1].map((s) => { const p = new THREE.Group(); const g = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.7, 0.05), gm); g.position.y = 1.35; p.add(g); for (const y of [0.04, 2.7]) { const f = new THREE.Mesh(new THREE.BoxGeometry(1.24, 0.07, 0.08), fr); f.position.y = y; p.add(f); } p.position.x = s * 0.6; G.add(p); return { p, s }; });
   const hd = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.4, 0.3), std(PAL.char)); hd.position.y = 2.95; G.add(hd);
-  const ex = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 0.24), glow(label('ENTRANCE', { color: '#ffe2b0', font: '900 130px Anton, Impact' }))); ex.position.set(0, 2.95, 0.16); G.add(ex);
+  const ex = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 0.24), glow(label('ENTRANCE', { color: '#ffe2b0', font: '900 130px Anton, Impact' }))); ex.position.set(0, 2.95, 0.18); G.add(ex);
   return { G, set: (k) => panes.forEach(({ p, s }) => { p.position.x = s * (0.6 + 1.15 * k); }) };
 }
 function desk(G) {
@@ -74,7 +74,7 @@ function desk(G) {
   const plank = std('#4a2e1e', { roughness: 0.5 }); for (let i = 0; i < 11; i++) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.9, 0.02), plank); p.position.set(-2.0 + i * 0.4, 0.5, 0.36); D.add(p); }
   const top = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.06, 0.85), std('#1c1c1e', { roughness: 0.25, metalness: 0.2 })); top.position.y = 1.03; D.add(top);
   const rail = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.04, 0.04), std(PAL.brass, { metalness: 0.9, roughness: 0.25 })); rail.position.set(0, 0.12, 0.42); D.add(rail);
-  const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.42), new THREE.MeshStandardMaterial({ map: label('RETURNS & EXCHANGES', { color: '#f4e6c8', bg: PAL.cran, font: '900 100px Anton, Impact' }), roughness: 0.6 })); sign.position.set(0, 0.62, 0.37); D.add(sign);
+  const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.42), new THREE.MeshStandardMaterial({ map: label('RETURNS & EXCHANGES', { color: '#f4e6c8', bg: PAL.cran, font: '900 100px Anton, Impact' }), roughness: 0.6 })); sign.position.set(0, 0.62, 0.39); D.add(sign);
   // 2 máy tính tiền + máy in hoá đơn
   for (const x of [-0.9, 0.9]) { const reg = new THREE.Group(); reg.position.set(x, 1.06, -0.1);
     const base = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.1, 0.32), std('#2a2a2e')); base.position.y = 0.05; reg.add(base);
@@ -103,7 +103,7 @@ function shelving(G) {
     for (let bay = 0; bay < 3; bay++) { let x = -2.7 + bay * 1.87 + 0.08; const xe = x + 1.7;
       while (x < xe - 0.15) { const kind = r(); const w = 0.18 + r() * 0.32, h = 0.15 + r() * 0.42; const c = cols[Math.floor(r() * cols.length)]; let m;
         if (kind < 0.62) { m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.32 + r() * 0.15), std(c, { roughness: 0.65 })); m.position.set(x + w / 2, y + 0.02 + h / 2, (r() - 0.5) * 0.06); m.rotation.y = (r() - 0.5) * 0.2;
-          if (r() < 0.4) { const rib = new THREE.Mesh(new THREE.BoxGeometry(w + 0.01, 0.025, 0.02), std(c === '#e8e0d0' ? '#c8283a' : '#f4ead4')); rib.position.set(0, 0, 0.2); m.add(rib); } }
+          if (r() < 0.4) { const rib = new THREE.Mesh(new THREE.BoxGeometry(w + 0.01, 0.025, 0.02), std(c === '#e8e0d0' ? '#c8283a' : '#f4ead4')); rib.position.set(0, 0, m.geometry.parameters.depth / 2 + 0.006); m.add(rib); } }
         else if (kind < 0.75) { m = new THREE.Group(); const bd = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 10), std(['#a0704a', '#e8dcc4', '#c88a5a'][Math.floor(r() * 3)], { roughness: 1 })); bd.position.y = 0.12; m.add(bd); const hd = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 10), bd.material); hd.position.y = 0.3; m.add(hd); for (const sx of [-1, 1]) { const e = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), bd.material); e.position.set(sx * 0.065, 0.37, 0); m.add(e); } m.position.set(x + 0.13, y + 0.02, 0); }
         else if (kind < 0.86) { m = new THREE.Group(); const sh = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.14, 0.16, 14, 1, true), std(c, { side: THREE.DoubleSide })); sh.position.y = 0.36; m.add(sh); const st = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.3, 6), std(PAL.brass, { metalness: 0.8 })); st.position.y = 0.15; m.add(st); const bl = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), new THREE.MeshBasicMaterial({ color: '#ffd8a0', toneMapped: false })); bl.position.y = 0.32; m.add(bl); m.position.set(x + 0.12, y + 0.02, 0); }
         else { m = new THREE.Group(); const tv = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.28, 0.06), std('#141414', { roughness: 0.3 })); tv.position.y = 0.17; m.add(tv); const sc = new THREE.Mesh(new THREE.PlaneGeometry(0.38, 0.24), new THREE.MeshBasicMaterial({ color: ['#4a8ad8', '#e85a7a', '#5ad8a0'][Math.floor(r() * 3)], toneMapped: false })); sc.position.set(0, 0.17, 0.031); m.add(sc); m.position.set(x + 0.22, y + 0.02, 0); }
@@ -125,7 +125,7 @@ export function toyBox(name, sub, col = '#4f2683') {
   const bot = new THREE.Mesh(new THREE.BoxGeometry(W2, 0.12, D2), card); bot.position.y = 0.06; G.add(bot);
   const top = new THREE.Mesh(new THREE.BoxGeometry(W2 + 0.04, 0.55, D2 + 0.04), card); top.position.y = H2 + 0.25; G.add(top);
   const hdT = ctex(512, 300, (g, W, H) => { g.fillStyle = col; g.fillRect(0, 0, W, H); g.fillStyle = '#ffc62f'; g.fillRect(0, H - 34, W, 34); g.textAlign = 'center'; g.fillStyle = '#ffffff'; g.font = '900 120px Anton, Impact'; g.fillText(name, W / 2, 130, W * 0.9); g.fillStyle = '#ffc62f'; g.font = '900 64px Anton, Impact'; g.fillText(sub, W / 2, 222, W * 0.9); });
-  const hd = new THREE.Mesh(new THREE.PlaneGeometry(W2 + 0.04, 0.55), std('#fff', { map: hdT })); hd.position.set(0, H2 + 0.25, D2 / 2 + 0.022); G.add(hd);
+  const hd = new THREE.Mesh(new THREE.PlaneGeometry(W2 + 0.04, 0.55), std('#fff', { map: hdT })); hd.position.set(0, H2 + 0.25, D2 / 2 + 0.04); G.add(hd);
   const front = new THREE.Group(); front.position.set(0, 0.12, D2 / 2); G.add(front);
   const pl = new THREE.Mesh(new THREE.PlaneGeometry(W2 - 0.02, H2 - 0.12), new THREE.MeshPhysicalMaterial({ color: '#e8f4ff', transparent: true, opacity: 0.22, roughness: 0.05, side: THREE.DoubleSide, depthWrite: false })); pl.position.y = (H2 - 0.12) / 2; front.add(pl);
   const sh = new THREE.Mesh(new THREE.PlaneGeometry(0.08, H2 - 0.3), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.35, depthWrite: false })); sh.position.set(-0.25, (H2 - 0.12) / 2, 0.005); front.add(sh);
@@ -148,7 +148,7 @@ export function buildMall(scene) {
   const G = new THREE.Group(); scene.add(G); outside(G);
   // sàn đá xám than, ô lớn, hơi bóng (polygonOffset chống z-fighting với nền ngoài)
   const flT = ctex(512, 512, (g) => { g.fillStyle = '#34363b'; g.fillRect(0, 0, 512, 512); const r = rnd(9); for (let i = 0; i < 6000; i++) { const v = 40 + r() * 40; g.fillStyle = `rgba(${v},${v},${v + 4},0.35)`; g.fillRect(r() * 512, r() * 512, 2, 2); } g.strokeStyle = 'rgba(20,20,22,0.9)'; g.lineWidth = 4; for (let i = 0; i <= 512; i += 256) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 512); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(512, i); g.stroke(); } }, [16, 16]);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(32, 32), std('#ffffff', { map: flT, roughness: 0.32, metalness: 0.15, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 })); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, 4); floor.receiveShadow = true; G.add(floor);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(32, 24), std('#ffffff', { map: flT, roughness: 0.32, metalness: 0.15, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 })); floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, 8.6); floor.receiveShadow = true; G.add(floor);
   const runner = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 9), std(PAL.cran, { roughness: 0.9, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -6 })); runner.rotation.x = -Math.PI / 2; runner.position.set(SPOT.door[0], 0.005, 1.2); runner.receiveShadow = true; G.add(runner);
   // tường sau xanh rêu đậm, ốp gỗ chân tường, viền đồng
   const wallT = ctex(512, 256, (g, W, H) => { g.fillStyle = '#2a2826'; g.fillRect(0, 0, W, H); const r = rnd(12); for (let i = 0; i < 3000; i++) { const v = 34 + r() * 16; g.fillStyle = `rgba(${v + 6},${v + 2},${v},0.5)`; g.fillRect(r() * W, r() * H, 3, 3); } g.fillStyle = 'rgba(201,160,74,0.35)'; for (let y = 0; y < H; y += 128) g.fillRect(0, y, W, 2); }, [6, 2]);
@@ -160,16 +160,16 @@ export function buildMall(scene) {
   const D = slidingDoor(); D.G.position.set(SPOT.door[0], 0, -3.2); G.add(D.G);
   // cửa kho nhân viên
   const sd = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.2, 0.08), std('#4a2e1e', { roughness: 0.5 })); sd.position.set(SPOT.stock[0], 1.1, -3.17); G.add(sd);
-  const sdl = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.16), glow(label('STAFF ONLY', { color: '#ffe2b0', font: '900 130px Anton, Impact' }))); sdl.position.set(SPOT.stock[0], 2.4, -3.12); G.add(sdl);
+  const sdl = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.16), glow(label('STAFF ONLY', { color: '#ffe2b0', font: '900 130px Anton, Impact' }))); sdl.position.set(SPOT.stock[0], 2.4, -3.08); G.add(sdl);
   // KHO HÀNG TRẢ LẠI phía sau quầy: 3 khoang kệ gỗ tối cao 3 m, chất đầy đồ nhiều màu
   shelving(G);
   // mặt tiền cửa hàng trên tường sau (2 bên quầy) — cửa sổ sáng đèn vàng
   storefront(G, 8.7, -3.15, 0, 'COFFEE', '#a0784a'); storefront(G, -9.0, -3.15, 0, 'TEA', '#6a7a4a');
   // biển neon RETURNS vàng chanh (điểm neon duy nhất) + biển tên mall
-  const ret = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.44), glow(label('RETURNS', { color: '#f6ffb0', glowC: PAL.lemon, blur: 40, font: '900 170px Anton, Impact, sans-serif' }))); ret.position.set(0, 3.55, -2.62); G.add(ret);
+  const ret = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.44), glow(label('RETURNS', { color: '#f6ffb0', glowC: PAL.lemon, blur: 40, font: '900 170px Anton, Impact, sans-serif' }))); ret.position.set(0, 3.55, -2.4); G.add(ret);
   const nl = new THREE.PointLight(PAL.lemon, 2.2, 4, 2); nl.position.set(0, 3.0, -2.4); G.add(nl);
-  const banner = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 0.9), new THREE.MeshStandardMaterial({ map: label('TEN THOUSAND LAKES MALL', { color: '#f4e6c8', bg: PAL.walnut, font: '900 120px Anton, Impact' }), emissive: '#ffffff', emissiveMap: label('TEN THOUSAND LAKES MALL', { color: '#f4e6c8', bg: PAL.walnut, font: '900 120px Anton, Impact' }), emissiveIntensity: 0.25 })); banner.position.set(4.6, 4.8, -3.18); G.add(banner);
-  const hire = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.0), new THREE.MeshStandardMaterial({ map: ctex(600, 400, (g, W, H) => { g.fillStyle = '#f4ead4'; g.fillRect(0, 0, W, H); g.fillStyle = PAL.cran; g.fillRect(0, 0, W, 110); g.fillStyle = '#fff'; g.textAlign = 'center'; g.font = '900 90px Anton, Impact'; g.fillText('NOW HIRING', W / 2, 88, W * 0.9); g.fillStyle = '#1a1a1a'; g.font = '900 96px Anton, Impact'; g.fillText('RETURNS DESK', W / 2, 230, W * 0.9); g.font = '700 64px Anton, Impact'; g.fillText('1 OPENING', W / 2, 330, W * 0.9); }), roughness: 0.6 })); hire.position.set(-2.55, 1.75, -0.5); G.add(hire); { const st = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.25, 8), std(PAL.brass, { metalness: 0.9, roughness: 0.25 })); st.position.set(-2.55, 0.62, -0.53); G.add(st); const bs = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.03, 16), st.material); bs.position.set(-2.55, 0.015, -0.53); G.add(bs); }
+  const banner = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 0.9), new THREE.MeshStandardMaterial({ map: label('TEN THOUSAND LAKES MALL', { color: '#f4e6c8', bg: PAL.walnut, font: '900 120px Anton, Impact' }), emissive: '#ffffff', emissiveMap: label('TEN THOUSAND LAKES MALL', { color: '#f4e6c8', bg: PAL.walnut, font: '900 120px Anton, Impact' }), emissiveIntensity: 0.25 })); banner.position.set(4.6, 4.8, -3.12); G.add(banner);
+  const hire = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.0), new THREE.MeshStandardMaterial({ map: ctex(600, 400, (g, W, H) => { g.fillStyle = '#f4ead4'; g.fillRect(0, 0, W, H); g.fillStyle = PAL.cran; g.fillRect(0, 0, W, 110); g.fillStyle = '#fff'; g.textAlign = 'center'; g.font = '900 90px Anton, Impact'; g.fillText('NOW HIRING', W / 2, 88, W * 0.9); g.fillStyle = '#1a1a1a'; g.font = '900 96px Anton, Impact'; g.fillText('RETURNS DESK', W / 2, 230, W * 0.9); g.font = '700 64px Anton, Impact'; g.fillText('1 OPENING', W / 2, 330, W * 0.9); }), roughness: 0.6 })); hire.position.set(2.65, 1.75, -0.88); G.add(hire); { const st = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.25, 8), std(PAL.brass, { metalness: 0.9, roughness: 0.25 })); st.position.set(2.65, 0.62, -0.91); G.add(st); const bs = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.03, 16), st.material); bs.position.set(2.65, 0.015, -0.91); G.add(bs); }
   // trần tối + dây đèn hổ phách
   const ceil = new THREE.Mesh(new THREE.PlaneGeometry(32, 32), std('#1e1c20', { side: THREE.DoubleSide })); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, 6, 4); G.add(ceil);
   for (let i = 0; i < 5; i++) stringLights(G, -8, 8, -2.6 + i * 2.2, 5.2, 60, 0.6);
@@ -187,11 +187,12 @@ export function buildMall(scene) {
 }
 export function mallLights(scene) {
   const hemi = new THREE.HemisphereLight('#f0d8c0', '#3a3036', 1.55); scene.add(hemi);
-  const key = new THREE.DirectionalLight('#ffd0a0', 2.4); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
-  Object.assign(key.shadow.camera, { left: -10, right: 10, top: 10, bottom: -10, near: 1, far: 60 }); key.shadow.bias = -0.0004; scene.add(key); scene.add(key.target);
+  const key = new THREE.DirectionalLight('#ffd0a0', 2.4); key.castShadow = true; key.shadow.mapSize.set(4096, 4096);
+  Object.assign(key.shadow.camera, { left: -13, right: 13, top: 13, bottom: -13, near: 1, far: 60 }); key.shadow.bias = -0.0004; scene.add(key); scene.add(key.target);
   const fill = new THREE.DirectionalLight('#a8b8e0', 0.9); fill.position.set(-10, 8, -12); scene.add(fill);
   for (const [x, z] of [[-3, 0], [0, 1.5], [3, 0], [0, 5], [-4, 5], [4, 5]]) { const L = new THREE.PointLight('#ffcc90', 7, 9, 1.6); L.position.set(x, 4.8, z); scene.add(L); }
-  const follow = (cam) => { const d = new THREE.Vector3(); cam.getWorldDirection(d); const x = cam.position.x + d.x * 4, z = cam.position.z + d.z * 4; key.target.position.set(x, 0, z); key.position.set(x + 6, 14, z + 10); };
+  // đèn chính + bóng ĐỨNG YÊN (bám theo máy quay làm bóng 'bò' từng khung → nhấp nháy)
+  key.target.position.set(0, 0, 1.5); key.position.set(6, 14, 11.5); const follow = () => {};
   return { follow };
 }
 // ---------- đạo cụ ----------

@@ -6,3 +6,4 @@
 - Không chấn thương (Kyler Murray, Achilles), không release OBJ, không thương hiệu thật (mall hư cấu TEN THOUSAND LAKES MALL), không logo.
 - Sửa sau góp ý: (1) nền tường xanh rêu sọc gỗ xấu → kho hàng trả lại nhiều màu sau quầy + tường xám than ấm + cửa hàng sáng đèn; (2) mở đầu giống E14 (giành đồ ở quầy) → hộp đồ chơi khổng lồ; (3) nhân vật trượt → bước thật (walk + quay người mượt khi tới nơi).
 - Nhạc: alvana-audio funk/eat (CC0).
+- Sửa nhấp nháy (góp ý sau bản final 1): đèn chính + bóng đổ đứng yên (không bám máy quay; 4096², vùng ±13 m); tách các mặt trùng nhau (biển quầy vs ván gỗ, chữ đầu hộp đồ chơi, biển cửa hàng, ruy-băng hộp, sàn dưới tuyết ngoài cửa); rung máy ≤ 0,005 @ ≤ 1,2 Hz; dời cây thông và biển NOW HIRING khỏi đường nhìn. Đo dao động bằng `nhapnhay.py`: còn lại chỉ là chuyển động thật (pan nhanh s10b). Quét khung lỗi: 0. −14,5 LUFS, đỉnh −1,4 dBFS.
