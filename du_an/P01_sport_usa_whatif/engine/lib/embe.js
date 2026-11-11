@@ -7,12 +7,12 @@ const ctex = (w, h, draw) => { const cv = document.createElement('canvas'); cv.w
 const rnd = (s) => () => ((s = (s * 16807) % 2147483647) / 2147483647);
 const SKINS = ['#f6d3b5', '#e8b98f', '#d6a47a', '#c99266', '#f1c9a5'], HAIRS = ['#3a2516', '#8a5a2a', '#e0b860', '#1b120c', '#6b3a1a'];
 const numCache = {};
-function onesieTex(col, num, txt) { const k = col + num + txt; return numCache[k] ??= ctex(256, 256, (g, W, H) => { g.fillStyle = col; g.fillRect(0, 0, W, H); g.fillStyle = '#0b2a5b'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.font = '900 40px Anton, sans-serif'; g.fillText(txt, W / 2, 62); g.font = '900 110px Anton, sans-serif'; g.lineWidth = 8; g.strokeStyle = '#ffffff'; g.strokeText(String(num), W / 2, 160); g.fillText(String(num), W / 2, 160); }); }
+function onesieTex(col, num, txt) { const k = col + num + txt; return numCache[k] ??= ctex(256, 256, (g, W, H) => { g.fillStyle = col; g.fillRect(0, 0, W, H); g.fillStyle = '#ffffff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = '900 40px Anton, sans-serif'; g.lineWidth = 6; g.strokeStyle = '#5a0a30'; g.strokeText(txt, W / 2, 62); g.fillText(txt, W / 2, 62); g.font = '900 110px Anton, sans-serif'; g.lineWidth = 10; g.strokeStyle = '#5a0a30'; g.strokeText(String(num), W / 2, 160); g.fillText(String(num), W / 2, 160); }); }
 export function makeBaby(o = {}) {
   const r = rnd((o.seed ?? 1) * 131 + 17); const S = o.s ?? 1;
   const skinC = o.skin || SKINS[Math.floor(r() * SKINS.length)]; const skin = std(skinC, { roughness: 0.6 });
-  const onC = o.onesie || ['#ffe27a', '#ffd04a', '#fff0a8'][Math.floor(r() * 3)]; const onesie = std(onC, { roughness: 0.85 });
+  const onC = o.onesie || ['#ff3d9a', '#ff2e8a', '#ff4fa8'][Math.floor(r() * 3)]; const onesie = std(onC, { roughness: 0.85 });
   const front = new THREE.MeshStandardMaterial({ map: onesieTex(onC, o.number ?? Math.floor(r() * 50) + 1, 'BABIES'), roughness: 0.85 });
   const diaper = std('#ffffff', { roughness: 0.9 });
   const root = new THREE.Group(); const B = new THREE.Group(); root.add(B);

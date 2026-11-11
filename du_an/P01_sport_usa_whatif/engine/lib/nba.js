@@ -70,7 +70,7 @@ function courtTexture(o) {
     const px = X / (CL + 4), M = 2 * px; // biên 2 m quanh sân
     // gỗ thích: ván dọc theo chiều dài
     g.fillStyle = o.apron; g.fillRect(0, 0, X, Y);
-    for (let y = M; y < Y - M; y += px * 0.07) { for (let x = M; x < X - M;) { const l = px * (1.2 + Math.random() * 2.4); const v = Math.random(); g.fillStyle = `hsl(${31 + v * 5},${52 + v * 10}%,${66 + v * 9}%)`; g.fillRect(x, y, Math.min(l, X - M - x), px * 0.07 - 1); x += l; } }
+    for (let y = M; y < Y - M; y += px * 0.07) { for (let x = M; x < X - M;) { const l = px * (1.2 + Math.random() * 2.4); const v = Math.random(); g.fillStyle = `hsl(${(o.woodH ?? 31) + v * 5},${(o.woodS ?? 52) + v * 10}%,${(o.woodL ?? 66) + v * 9}%)`; g.fillRect(x, y, Math.min(l, X - M - x), px * 0.07 - 1); x += l; } }
     g.fillStyle = 'rgba(60,30,10,0.05)'; for (let i = 0; i < 9000; i++) g.fillRect(M + Math.random() * (X - 2 * M), M + Math.random() * (Y - 2 * M), px * 0.3, 1);
     const cx = X / 2, cy = Y / 2; const lw = px * 0.05;
     g.strokeStyle = '#ffffff'; g.lineWidth = lw * 1.0;
@@ -108,7 +108,7 @@ function crowdTex(o) {
 export function buildArena(scene, opts = {}) {
   const o = Object.assign({ paint: '#00471B', cream: '#EEE1C6', apron: '#00471B', mid: 'WHAT IF', baseText: 'MILWAUKEE', sideText: 'MILWAUKEE', fanA: ['#00471B', '#0b5a2a', '#EEE1C6', '#1d6b3a'], fanB: ['#98002E', '#c8102e'] }, opts);
   const G = new THREE.Group(); scene.add(G);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(CL + 4, CW + 4), new THREE.MeshStandardMaterial({ map: courtTexture(o), roughness: 0.32, metalness: 0.0 }));
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(CL + 4, CW + 4), new THREE.MeshStandardMaterial({ map: courtTexture(o), roughness: o.floorRough ?? 0.32, metalness: 0.0 }));
   floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; G.add(floor);
   const outer = new THREE.Mesh(new THREE.PlaneGeometry(90, 70), std('#1a1d24', { roughness: 0.9 })); outer.rotation.x = -Math.PI / 2; outer.position.y = -0.01; G.add(outer);
   const hoops = [hoop(1, { pad: o.paint }), hoop(-1, { pad: o.paint })]; hoops[0].position.set(CL / 2 - 1.22, 0, 0); hoops[1].position.set(-(CL / 2 - 1.22), 0, 0); hoops.forEach((h) => G.add(h));
