@@ -22,3 +22,11 @@ Kênh: 51,9k người theo dõi, 3,5M lượt thích. Danh sách phát: Basketba
 1. Hai công thức nhiều view nhất: (a) **đội/ngôi sao vs N đối thủ "yếu" phi lý** (babies, folding chairs) — gag chính: vẫn thua/khó; (b) **kỹ năng ĐẶC TRƯNG thành siêu năng lực theo nghĩa đen vs thảm hoạ/đội quân lịch sử** (LeBron chase-down → thiên thạch; Harden step-back → xuyên thời gian; Kawhi không cắn pump fake → Mông Cổ giả rút lui).
 2. Mô tả đăng kèm = câu hook + 2–3 câu số liệu ngắn ("45,000 MPH. Six miles wide. One LeBron James.").
 3. Video bóng rổ của kênh đều dùng "prime"/mốc lịch sử của sao, không cần trận mới nhất.
+
+## Chuyển công thức NFL viral sang NBA (11/11/2026)
+| Video NFL | View | Công thức | Bản NBA đề xuất (số liệu ESPN 11/11) |
+|---|---|---|---|
+| Cowboys vs 50 babies | 6,7M | đội "có mọi lợi thế" vs đối thủ yếu nhất trần đời, nhưng là playoffs → vẫn thua kiểu ngớ ngẩn | đội nổi tiếng hụt hơi playoffs/đầu mùa tệ (vd Clippers 2-7 dù đầy sao; chưa từng vào chung kết NBA) — KHÔNG copy "50 babies" (IP series của kênh mẫu) |
+| Drake Maye vs 11 folding chairs | 2,6M | "cuối cùng cũng gặp hàng thủ thật sự": lịch thi đấu dễ (số liệu thật) + ghế có thành tích tốt hơn đối thủ thật | **76ers 9-2 nhưng 11 đối thủ cộng lại 44-66 (.400)** — lịch dễ nhất trong nhóm dẫn đầu (Lakers .475, Spurs .455, Thunder .534) |
+| Herbert + 20 offensive linemen | 1,7M | cho ngôi sao trợ giúp vô hạn → "no excuses left" → vẫn thua | Bucks 1-9 / Kings 1-9: "giải cho đá với 10 người" |
+| Paul Revere called Tyreek Hill | 532K | "X cần Y. So they called [sao có kỹ năng đúng]" | Flagg (ăn PB&J để tăng cân) / Curry–Durant 38 tuổi |
