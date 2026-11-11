@@ -141,6 +141,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 | E09 | NBA | 4 đội đáy bảng gộp (4-35): Kuzma #18 MIL, LaVine #8 SAC, Hayes #11 UTA, Giddey #3 CHI | 5 cọc giao thông (đứng im, Jazz ghi nhầm rổ nhà, cọc ký max deal) | nhà thi đấu trung học ban đêm + khán giả (`lib/nhathidau.js`), trường quay, phòng ký hợp đồng | alvana upbeat/happy-dance |
 | E10 | NBA | Steph Curry #30 Warriors (38 tuổi, áo trắng không logo) — dạng NGÔI SAO vs LỊCH SỬ sau trận 41 điểm vs Magic | cung thủ Anh trận Agincourt 1415 (mưa tên, kỵ sĩ Pháp, Curry 213–0, được phong hiệp sĩ) | chiến trường bùn rừng thu mưa + đoạn 1415 đen trắng + đại sảnh lâu đài kính màu (`lib/chientruong.js`) | alvana hiphop/final-level |
 | E11 | NBA | Pelicans thua Warriors 87–138 (−51, dẫn tối đa 1 điểm): Murray #5, Fears #0, Queen #22, Herb Jones #2, Bey #41 (áo trắng NEW ORLEANS) | 5 bồ nông nâu thật (túi họng ngậm bóng, bay qua đầu, đậu lên vai; "Pelicans 138, Pelicans 87") | sân gỗ nổi giữa đầm lầy bayou hoàng hôn + bến gỗ Curry ngồi xem (`lib/bayou.js`) | alvana funk/breath |
+| E12 | NBA | 76ers khởi đầu 9-2 nhưng chưa vào chung kết miền từ 2001: Maxey #0, Jaylen Brown #7, LeBron #23 (áo xanh PHILADELPHIA) | 50 em bé áo hồng "BABIES" (ngồi kín vùng sơn, khóc, ném núm vú; thắng 2–0) | nhà thi đấu playoff Philadelphia LED đỏ-xanh + phòng phân tích + họp báo hư cấu (`lib/embe.js`) | alvana upbeat/back-in-the-80s |
 
 ## 8. Không làm
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
