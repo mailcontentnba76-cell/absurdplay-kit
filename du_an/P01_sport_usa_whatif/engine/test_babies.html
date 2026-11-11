@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {buildArena,arenaLights,basketball} from './lib/nba.js';import {makeBaby,pacifierProp} from './lib/embe.js';
+import {loadLibrary} from './lib/nhanvat2.js';import {MAXEY,BROWN,LEBRON} from './lib/cast12.js';import {clipPose,expr} from './lib/dongtac.js';import {place} from './lib/bongro_mx.js';
+await Promise.all(['100px Anton','900 60px Inter'].map(f=>document.fonts.load(f)));
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();const A=buildArena(s,{paint:'#006BB6',cream:'#f1e6d0',apron:'#006BB6',mid:'PHILADELPHIA',baseText:'PHILADELPHIA',sideText:'PLAYOFFS',seat:'#1d3f7a',seatHi:'#a51432',ledBg:'#0b3f7a',ledText:['PLAYOFFS','PHILADELPHIA','ROUND 1 · GAME 1','BABIES vs 76ERS'],shirts:['#ffffff','#ffffff','#ffffff','#006BB6','#ED174C','#ffffff','#f4f4f4','#002B5C','#ffffff'],fanA:['#006BB6','#ffffff','#ED174C','#f4f4f4'],fanB:['#ED174C','#002B5C']});arenaLights(s);
+const BB=[];const poses=['sit','crawl','stand','sit','throw','sit'];for(let i=0;i<6;i++){const b=makeBaby({seed:i+1,number:i*7+2,pacifier:i===3});b.root.position.set(-1.2+i*0.5,0,0.4*(i%2));s.add(b.root);BB.push(b);}
+const pc=pacifierProp();pc.position.set(1.8,0.02,0.6);s.add(pc);
+const lib=await loadLibrary();const PL=[MAXEY(lib),BROWN(lib),LEBRON(lib)];PL.forEach((ch,i)=>{s.add(ch.root);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});clipPose(ch,lib,[{name:'Idle_Loop',time:i,w:1}]);place(ch,-1+i*1.2,-1.6,0,0);});
+const cam=new THREE.PerspectiveCamera(45,W/H,0.05,500);s.add(cam);
+window.renderFrame=t=>{const v=location.hash;BB.forEach((b,i)=>b.update(t,{pose:poses[i],cry:i===5?1:0,throwK:(t%1.5)/1.5}));PL.forEach((ch,i)=>expr(ch,t,[[0,['smug','shock','determined'][i]]]));
+  if(v==='#pl'){cam.position.set(0.2,1.7,1.6);cam.lookAt(0.2,1.6,-1.6);}else if(v==='#wide'){cam.position.set(0,6,14);cam.lookAt(0,1,0);}else{cam.position.set(0.0,0.55,2.0);cam.lookAt(0.0,0.35,0.2);}cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>

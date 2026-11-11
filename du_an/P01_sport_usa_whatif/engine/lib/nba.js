@@ -137,8 +137,8 @@ export function buildArena(scene, opts = {}) {
 }
 let _led = null;
 export const ledTexture = () => _led;
-function ledTex(o) { return _led ??= canvasTex(2048, 128, (g, W, H) => { g.fillStyle = '#1f5f3a'; g.fillRect(0, 0, W, H); g.font = '900 78px Inter'; g.textBaseline = 'middle'; let x = 20; let k = 0;
-  while (x < W) { const t = ['MILWAUKEE', 'WHAT IF', 'GIANNIS vs 5', 'MIAMI'][k++ % 4]; g.fillStyle = k % 2 ? o.cream : '#ffffff'; g.fillText(t, x, H / 2 + 4); x += g.measureText(t).width + 70; } }, [1, 1]); }
+function ledTex(o) { return _led ??= canvasTex(2048, 128, (g, W, H) => { g.fillStyle = o.ledBg || '#1f5f3a'; g.fillRect(0, 0, W, H); g.font = '900 78px Inter'; g.textBaseline = 'middle'; let x = 20; let k = 0; const LT = o.ledText || ['MILWAUKEE', 'WHAT IF', 'GIANNIS vs 5', 'MIAMI'];
+  while (x < W) { const t = LT[k++ % LT.length]; g.fillStyle = k % 2 ? o.cream : '#ffffff'; g.fillText(t, x, H / 2 + 4); x += g.measureText(t).width + 70; } }, [1, 1]); }
 
 export function arenaLights(scene) {
   const hemi = new THREE.HemisphereLight('#ffffff', '#b8946a', 2.7); scene.add(hemi);
@@ -179,7 +179,7 @@ function stands(G, o, A, B) {
   const riserM = new THREE.MeshStandardMaterial({ color: '#b9b2a6', roughness: 0.9 });
   const ROW = 0.85, RISE = 0.44; let rnd = 7; const R = () => ((rnd = (rnd * 16807) % 2147483647) / 2147483647);
   const sides = [[0, -B, 0, A], [0, B, Math.PI, A], [-A, 0, Math.PI / 2, B], [A, 0, -Math.PI / 2, B]];
-  const shirts = [o.paint, '#2d6a45', o.cream, '#ffffff', '#5aa77a', '#98002E', '#5a7fc4', '#e2c25a', '#d9864f', '#8a6fb4', '#d8d8d8', '#333333', o.cream, '#ffffff'];
+  const shirts = o.shirts || [o.paint, '#2d6a45', o.cream, '#ffffff', '#5aa77a', '#98002E', '#5a7fc4', '#e2c25a', '#d9864f', '#8a6fb4', '#d8d8d8', '#333333', o.cream, '#ffffff'];
   const skins = ['#f1c9a5', '#c68c5f', '#8d5a3b', '#5a3a28', '#e8b98f'];
   for (const [sx, sz, ry, half] of sides) {
     const g = new THREE.Group(); g.position.set(sx, 0, sz); g.rotation.y = ry; G.add(g); g.updateMatrixWorld(true);
