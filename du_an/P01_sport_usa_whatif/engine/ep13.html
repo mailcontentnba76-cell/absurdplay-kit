@@ -1,0 +1,216 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 13 — "Could the 76ers beat the Celtics if Boston played in swim flippers?" (NBA, troll đội thua, có cả 2 đội). Mốc shot: ep13_shots.js (giọng 68,52 s).
+// Bối cảnh: nhà thi đấu Philadelphia (lib/nba.js) — khán đài áo trắng/xanh, LED "REMATCH". Celtics: lib/cast13.js + đạo cụ lib/boi.js (chân vịt, áo phao, xuồng, nước dâng). 76ers: lib/cast12.js + cast13.js.
+import * as THREE from 'three';
+import {buildArena,arenaLights,basketball,rimWorld} from './lib/nba.js';
+import {loadLibrary} from './lib/nhanvat2.js';
+import {MAXEY,BROWN,LEBRON} from './lib/cast12.js';
+import {GEORGE,TATUM,WHITE,QUETA,WALSH,EMBIID,EDGE} from './lib/cast13.js';
+import {addFlippers,addLifeJacket,flipperProp,makeCanoe,makePaddle,makeWater,makeBubbles} from './lib/boi.js';
+import {CAST} from './lib/cast2.js';
+import {jumpShot,ballFlight,netSwish,dribbleMove,shrug,place,twoHands} from './lib/bongro_mx.js';
+import {clipPose,expr,seg,locoLock} from './lib/dongtac.js';
+import {resetPose,ik2} from './lib/tuthe.js';
+import {CameraRig} from './lib/camera.js';
+import {SH,SUB} from './ep13_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+await Promise.all(['100px Anton','900 60px Inter'].map(f=>document.fonts.load(f)));
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=!location.hash.includes('nosh');r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;
+r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.0;
+const s=new THREE.Scene();
+const A=buildArena(s,{paint:'#0a4590',cream:'#ffffff',apron:'#0a4590',woodH:30,woodS:58,woodL:57,floorRough:0.5,mid:'76ERS',baseText:'PHILADELPHIA',sideText:'REMATCH',seat:'#1d3f7a',seatHi:'#a51432',ledBg:'#0b3f7a',
+  ledText:['REMATCH','CELTICS vs 76ERS','NEW RULES TONIGHT','PHILADELPHIA'],shirts:['#ffffff','#ffffff','#006BB6','#ED174C','#ffffff','#f4f4f4','#002B5C','#ffffff','#0a8a45'],fanA:['#006BB6','#ffffff','#ED174C','#f4f4f4'],fanB:['#ED174C','#002B5C']});
+const LT=arenaLights(s);
+const RIM=rimWorld(A.hoops[0]);const NET=A.hoops[0].userData.net;const RX=RIM.x;
+const lib=await loadLibrary();
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};
+const IN=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const U=(k,t)=>t-SH[k][0];
+// ---------- nhân vật ----------
+const GE=GEORGE(lib),TA=TATUM(lib),WH=WHITE(lib),QU=QUETA(lib),WA=WALSH(lib);const BOS5=[GE,TA,WH,QU,WA];
+const MX=MAXEY(lib),BR=BROWN(lib),LB=LEBRON(lib),EM=EMBIID(lib),ED=EDGE(lib);const PHI5=[MX,BR,LB,EM,ED];
+const RF=CAST.ref(lib,{heightM:1.83});
+const HUM=[...BOS5,...PHI5,RF];HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh)o.castShadow=true});});
+BOS5.forEach(ch=>{addFlippers(ch);addLifeJacket(ch);});
+const CN=makeCanoe();s.add(CN);const PAD=[makePaddle(1.3),makePaddle(1.3)];PAD.forEach(p=>s.add(p));
+const FP=[flipperProp(),flipperProp()];FP.forEach(f=>{f.scale.setScalar(1.25);s.add(f);});
+const WTR=makeWater();s.add(WTR);const BUB=makeBubbles(70);s.add(BUB);
+const ball=basketball();s.add(ball);const R=ball.userData.R;
+// ---------- jumbotron ----------
+const JT=A.jumbo.tex,jcv=JT.userData.cv,jg=jcv.getContext('2d');let jk='';
+const jt=(t,x,y,sz,col='#fff',f='Inter')=>{jg.font=`900 ${sz}px ${f}`;jg.fillStyle=col;jg.textAlign='center';jg.textBaseline='middle';jg.fillText(t,x,y);};
+const jl=(t,x,y,sz,col,al,f='Inter')=>{jg.font=`900 ${sz}px ${f}`;jg.fillStyle=col;jg.textAlign=al;jg.textBaseline='middle';jg.fillText(t,x,y);};
+const drawJ=(k,lab,an,a,bn,b,foot)=>{if(jk===k)return;jk=k;jg.fillStyle='#071a3a';jg.fillRect(0,0,1024,640);jg.fillStyle='#ED174C';jg.fillRect(0,0,1024,96);jt(lab,512,50,58,'#fff');
+  jl(an,60,230,84,'#3ee08a','left');jl(String(a),964,230,150,'#fff','right','Anton');jl(bn,60,400,84,'#7ec3ff','left');jl(String(b),964,400,150,'#fff','right','Anton');if(foot)jt(foot,512,565,54,'#ffd04a');JT.needsUpdate=true;};
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(50,W/H,.05,2500);s.add(cam);{const cf=new THREE.DirectionalLight('#fff3e6',0.7);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:1313});
+const Sp=(t0,t1,from,to,o={})=>rig.add(Object.assign({t0,t1,ease:'linear',shake:0.008,shakeHz:0.7,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const S=(k,from,to,o={})=>Sp(SH[k][0],SH[k][1],from,to,o);
+const JC=[{pos:[0,7.0,10.6],look:[0,10.9,1.7]},{pos:[0,7.2,9.8],look:[0,10.9,1.7]}];
+const CX=RX-7.5,CZ=0.6; // vị trí xuồng chính
+S('s1',{pos:[0.6,0.32,0.9],look:[-2.6,0.85,0.1]},{pos:[0.5,0.32,0.8],look:[-2.4,0.9,0.1]},{fov:[54,52],shake:0.02,shakeHz:2});
+Sp(SH.s2[0],SUB.s2,{pos:[0.2,2.7,8.8],look:[0,1.1,0]},{pos:[0.2,2.5,7.8],look:[0,1.1,0]},{fov:[50,48],ease:'smoother'});
+Sp(SUB.s2,SH.s2[1],{pos:[0.15,0.26,0.9],look:[1.15,0.1,0.15]},{pos:[0.25,0.26,0.75],look:[1.15,0.1,0.1]},{fov:[48,46]});
+S('s3',...JC,{fov:[46,44]});
+S('s5',{pos:[0,1.65,3.8],look:[0,1.55,0]},{pos:[0,1.65,3.4],look:[0,1.58,0]},{fov:[40,38]});
+S('s8',{pos:[-0.5,0.55,-3.3],look:[1.2,0.0,-1.4]},{pos:[-0.5,0.55,1.0],look:[1.2,0.0,2.9]},{fov:[48,48]});
+S('s9',{pos:[0.3,1.0,4.4],look:[0,2.4,0]},{pos:[0.3,1.0,4.1],look:[0,2.7,0]},{fov:[52,52]});
+S('s10',{pos:[-0.8,1.0,0.5],look:[3.0,1.1,0]},{pos:[-1.6,1.0,0.5],look:[2.0,1.1,0]},{fov:[50,50]});
+S('s12',{pos:[RX-8.8,1.3,3.6],look:[RX-5.6,1.9,0.4]},{pos:[RX-8.6,1.3,3.4],look:[RX-5.0,2.1,0.3]},{fov:[50,50]});
+S('s13',{pos:[RX-1.2,2.6,1.4],look:[RX,2.95,0]},{pos:[RX-1.1,2.6,1.3],look:[RX,2.95,0]},{fov:[38,36]});
+S('s14',{pos:[0,1.85,2.7],look:[0,1.82,0]},{pos:[0,1.85,2.5],look:[0,1.82,0]},{fov:[40,40]});
+S('s15',{pos:[0,1.35,4.4],look:[0,1.25,0]},{pos:[0,1.35,4.0],look:[0,1.25,0]},{fov:[48,46],shake:0.015,shakeHz:2});
+S('s16',{pos:[0.4,1.15,3.6],look:[0,1.0,0]},{pos:[0.3,1.15,3.3],look:[0,0.95,0]},{fov:[48,48]});
+S('s17',...JC,{fov:[46,44]});
+S('s19',{pos:[-1.1,1.75,2.5],look:[0.25,1.5,0.2]},{pos:[-1.0,1.75,2.3],look:[0.25,1.55,0.2]},{fov:[44,42]});
+S('s21',{pos:[CX-4.6,2.7,4.4],look:[CX,0.7,CZ]},{pos:[CX-4.1,2.5,4.0],look:[CX,0.7,CZ]},{fov:[50,48]});
+S('s22',{pos:[CX+0.9,1.55,CZ+2.5],look:[CX-0.4,0.75,CZ+0.4]},{pos:[CX+0.7,1.5,CZ+2.3],look:[CX-0.4,0.75,CZ+0.4]},{fov:[48,48]});
+S('s23',{pos:[CX+3.6,1.35,CZ+2.2],look:[CX+1.4,1.25,CZ]},{pos:[CX+3.4,1.35,CZ+2.0],look:[CX+1.4,1.35,CZ]},{fov:[46,46]});
+S('s24',{pos:[RX-1.2,2.6,1.4],look:[RX,2.95,0]},{pos:[RX-1.1,2.6,1.3],look:[RX,2.95,0]},{fov:[38,36]});
+S('s25',{pos:[RX-8.8,1.7,-4.4],look:[RX-1,2.4,-0.6]},{pos:[RX-8.5,1.7,-4.2],look:[RX-1,2.6,-0.6]},{fov:[50,48]});
+S('s26',...JC,{fov:[46,44]});
+Sp(SUB.s27,SH.s27[1],{pos:[0.95,1.95,4.3],look:[-0.4,1.0,-0.4]},{pos:[0.9,1.95,4.1],look:[-0.3,1.0,-0.4]},{fov:[46,46]});
+S('s28',{pos:[0.4,1.25,1.9],look:[-0.6,1.6,9.5]},{pos:[0.4,1.3,2.3],look:[-0.6,1.7,9.5]},{fov:[54,54]});
+Sp(SH.s29[0],SUB.s29,...JC,{fov:[46,44]});
+Sp(SUB.s29,SH.s29[1],{pos:[CX+3.2,1.6,CZ+3.0],look:[CX,1.2,CZ]},{pos:[CX+2.9,1.6,CZ+2.7],look:[CX,1.2,CZ]},{fov:[50,48]});
+S('s30',{pos:[0,1.98,2.8],look:[0,1.95,0]},{pos:[0,1.98,2.6],look:[0,1.95,0]},{fov:[42,40]});
+S('s31',{pos:[0,1.0,3.9],look:[0,0.95,0]},{pos:[0,1.0,3.6],look:[0,0.95,0]},{fov:[50,50]});
+S('s32',{pos:[0,1.1,3.7],look:[0,1.1,0]},{pos:[0,1.1,3.4],look:[0,1.1,0]},{fov:[48,48]});
+S('s33',{pos:[CX-6.0,1.8,4.6],look:[CX-1.5,0.7,CZ]},{pos:[CX-5.6,1.8,4.4],look:[CX+0.5,0.7,CZ]},{fov:[50,50]});
+S('s34',{pos:[-4.5,1.7,1.7],look:[-8.3,1.3,5.4]},{pos:[-4.9,1.7,1.9],look:[-8.8,1.3,5.8]},{fov:[48,48]});
+S('s35',{pos:[0,2.6,6.2],look:[0,0.9,-0.4]},{pos:[0,3.0,7.2],look:[0,0.9,-0.4]},{fov:[50,52],ease:'smoother'});
+const CUTS=[...new Set([...Object.values(SH).map(v=>v[0]),...Object.values(SUB),SH.s35[1]])].sort((a,b)=>a-b);
+// ---------- tiện ích ----------
+const idle=(ch,t,x,z,yaw,clip='Idle_Loop',sd=0)=>{clipPose(ch,lib,[{name:clip,time:t+sd,w:1}]);place(ch,x,z,yaw,0);ch.root.visible=true;};
+const hideAll=()=>{HUM.forEach(ch=>ch.root.visible=false);ball.visible=false;NET.scale.y=1;CN.visible=false;PAD.forEach(p=>p.visible=false);FP.forEach(f=>f.visible=false);WTR.visible=false;BUB.visible=false;};
+const putBall=p=>{if(p){ball.position.copy(p);ball.visible=true;}};
+const Lw=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+const bp=(ch,n)=>ch.bones[n].getWorldPosition(V(0,0,0));
+const hand=(ch,sd,T,pole)=>ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,T,pole);
+const faceCam=(ch,o={})=>{ch.root.updateMatrixWorld(true);const h=bp(ch,'Head');const yaw=ch.root.rotation.y;const fx=Math.sin(yaw),fz=Math.cos(yaw);const d=o.d??1.3;const ly=h.y+(o.up??0.08);
+  const sx=Math.cos(yaw),sz=-Math.sin(yaw),sd=o.side??0.25;cam.position.set(h.x+fx*d+sx*sd,ly+(o.camY??0.02),h.z+fz*d+sz*sd);cam.lookAt(h.x,ly-(o.low??0),h.z);cam.fov=o.fov??38;cam.updateProjectionMatrix();};
+const heroCam=(ch,u,o={})=>{ch.root.updateMatrixWorld(true);const h=bp(ch,'Head');const yaw=ch.root.rotation.y;const d=(o.d??2.6)-u*0.3;cam.position.set(h.x+Math.sin(yaw)*d+Math.cos(yaw)*0.5,o.y??0.9,h.z+Math.cos(yaw)*d-Math.sin(yaw)*0.5);cam.lookAt(h.x,h.y-(o.low??0.35),h.z);cam.fov=o.fov??44;cam.updateProjectionMatrix();};
+const sitC=(ch,seat,yaw,t,name='Sitting_Idle_Loop',sd=0)=>{place(ch,seat.x,seat.z,yaw,0);clipPose(ch,lib,[{name,time:t+sd,w:1}]);ch.root.updateMatrixWorld(true);const p=bp(ch,'pelvis');
+  ch.root.position.y+=seat.y+0.1*ch.root.scale.y-p.y;ch.root.position.x+=seat.x-p.x;ch.root.position.z+=seat.z-p.z;ch.root.visible=true;};
+const YW=(dx,dz)=>Math.atan2(dx,dz);const WY=(x,z)=>YW(RX-x,-z);
+const UPV=V(0,1,0);
+const gear=(t)=>{const last=t>=SH.s3[0]&&t<SH.s8[0];BOS5.forEach(ch=>{ch.flippers.forEach(f=>f.visible=!last);ch.jacket.visible=!last&&t>=SH.s15[0];});};
+// tay: giơ thẳng / dang ngang / chắp trước ngực / chỉ
+const armUp=(ch,sd,k=1,o={})=>{ch.root.updateMatrixWorld(true);const q=sd==='l'?1:-1;const sh=bp(ch,'upperarm_'+sd),nat=bp(ch,'hand_'+sd);const T=sh.clone().addScaledVector(UPV,0.6*ch.root.scale.y).add(Lw(ch,q*(o.out??0.12),0,o.fw??0.08));hand(ch,sd,nat.lerp(T,sm(k)),Lw(ch,q*0.6,-0.2,-0.6));};
+const armOut=(ch,sd,o={})=>{ch.root.updateMatrixWorld(true);const q=sd==='l'?1:-1;const sh=bp(ch,'upperarm_'+sd);const T=sh.clone().add(Lw(ch,q*(o.out??0.55),o.dy??-0.1,o.fw??0.12));hand(ch,sd,T,Lw(ch,q*0.2,-1,-0.4));};
+const plead=(ch,t)=>{ch.root.updateMatrixWorld(true);const c=bp(ch,'spine_03').add(Lw(ch,0,0.12+0.04*Math.sin(t*14),0.32));hand(ch,'r',c.clone().add(Lw(ch,-0.03,0,0)),Lw(ch,-0.6,-0.8,0));hand(ch,'l',c.clone().add(Lw(ch,0.03,0,0)),Lw(ch,0.6,-0.8,0));};
+const point=(ch,sd,dir)=>{ch.root.updateMatrixWorld(true);const sh=bp(ch,'upperarm_'+sd);hand(ch,sd,sh.clone().addScaledVector(dir.clone().normalize(),0.6*ch.root.scale.y),Lw(ch,sd==='l'?0.3:-0.3,-1,0));};
+// dáng "chim cánh cụt": đi chậm + lắc ngang + dang tay vỗ
+const waddle=(ch,t,u,x0,z0,yaw,v,ph=0)=>{const dx=Math.sin(yaw)*v,dz=Math.cos(yaw)*v;locoLock(ch,lib,u,tt=>[x0+dx*tt,z0+dz*tt],{t0:-1,gait:'Walk_Loop',phase:ph});ch.root.visible=true;
+  ch.root.rotateZ(0.16*Math.sin(Math.PI*2*(u*1.9+ph)));ch.root.updateMatrixWorld(true);
+  for(const [sd,q] of [['l',1],['r',-1]]){const sh=bp(ch,'upperarm_'+sd);const fl=Math.sin(Math.PI*2*(u*3.2+ph+(q>0?0:0.5)));hand(ch,sd,sh.clone().add(Lw(ch,q*0.5,-0.32+0.16*fl,-0.05)),Lw(ch,q*0.3,-1,-0.3));}};
+// xuồng + người ngồi + mái chèo
+const SEATS=[[WH,-1.3],[TA,0],[GE,1.3]];
+const canoe=(t,x,z,yaw,o={})=>{CN.visible=true;CN.position.set(x,o.y??0,z);CN.rotation.set(0,yaw,o.roll??0.02*Math.sin(t*2.1));CN.updateMatrixWorld(true);const cy=yaw+Math.PI/2;
+  const fw=V(1,0,0).applyQuaternion(CN.quaternion),sd=V(0,0,1).applyQuaternion(CN.quaternion);
+  SEATS.forEach(([ch,lx],i)=>{const st=CN.localToWorld(V(lx,0.33,0));sitC(ch,st,cy,t,'Sitting_Idle_Loop',i*0.7);expr(ch,t,[[0,o.mood??'determined']],{seed:i});});
+  if(o.paddle!==false){[[WH,0,1],[TA,1,-1]].forEach(([ch,pi,k])=>{const ph=(t*1.15+pi*0.5)%1;const st=CN.localToWorld(V(pi?0:-1.3,0.33,0));const pw=ph<0.6?ph/0.6:1-(ph-0.6)/0.4;
+      const top=st.clone().addScaledVector(UPV,0.95).addScaledVector(sd,k*0.12).addScaledVector(fw,0.35-0.5*pw);const bl=st.clone().addScaledVector(sd,k*0.62).addScaledVector(fw,0.75-1.3*pw);bl.y=ph<0.6?0.12:0.45;
+      const dir=bl.clone().sub(top).normalize();const P=PAD[pi];P.visible=true;P.position.copy(top);P.quaternion.setFromUnitVectors(V(0,-1,0),dir);
+      ch.root.updateMatrixWorld(true);const up=k>0?'r':'l',lo=k>0?'l':'r';hand(ch,up,top,Lw(ch,k>0?-0.5:0.5,-0.4,-0.6));hand(ch,lo,top.clone().addScaledVector(dir,0.6),Lw(ch,k>0?0.6:-0.6,-0.5,-0.3));});}
+  return {fw,sd};};
+const pose=t=>{
+  rig.apply(t);hideAll();gear(t);A.crowd.uT.value=t;A.crowd.uCheer.value=0.3;
+  LT.hemi.intensity=2.7;LT.key.intensity=3.2;
+  // jumbotron
+  if(t<SH.s3[0])drawJ('pre','REMATCH · NEW RULES','CELTICS',0,'76ERS',0,'BOSTON WEARS FLIPPERS');
+  else if(t<SH.s8[0])drawJ('ln','LAST NIGHT · FINAL','CELTICS',123,'76ERS',101,'BOSTON BY 22');
+  else if(t<SH.s17[0])drawJ('q0','REMATCH · 1ST QUARTER','CELTICS',0,'76ERS',0);
+  else if(t<SH.s26[0])drawJ('q1','REMATCH · 2ND QUARTER','CELTICS',30,'76ERS',20,'BOSTON UP 10');
+  else if(t<SH.s29[0])drawJ('q3','REMATCH · 3RD QUARTER','CELTICS',70,'76ERS',50,'BOSTON UP 20');
+  else drawJ('fin','REMATCH · FINAL','CELTICS',123,'76ERS',101,'SAME SCORE AS LAST NIGHT');
+  // s1: hook — George lạch bạch bằng chân vịt lao về ống kính, sau lưng 2 Celtics
+  if(IN('s1',t)){const u=U('s1',t);waddle(GE,t,u,-3.0,0.15,Math.PI/2,1.0,0);waddle(TA,t,u,-4.4,-1.3,Math.PI/2,1.0,0.3);waddle(WH,t,u,-4.7,1.45,Math.PI/2,1.0,0.6);expr(GE,t,[[0,'confident']]);expr(TA,t,[[0,'determined']]);expr(WH,t,[[0,'determined']]);
+    idle(MX,t,1.6,-1.9,-2.2);expr(MX,t,[[0,'shock']]);}
+  // s2: 2 đội đối mặt (Celtics đi chân vịt) → cận chân vịt
+  if(IN('s2',t)){BOS5.forEach((ch,i)=>{idle(ch,t,1.2+(i%2)*0.35,-2.0+i*1.0,-Math.PI/2,'Idle_Loop',i*0.4);expr(ch,t,[[0,['confident','smug','determined','smug','confident'][i]]],{seed:i});});
+    PHI5.forEach((ch,i)=>{idle(ch,t,-1.2-(i%2)*0.35,-2.0+i*1.0,Math.PI/2,'Idle_Loop',i*0.5);expr(ch,t,[[0,['surprised','shock','surprised','shock','surprised'][i]]],{seed:i+5});});
+    if(t>=SUB.s2){const k=Math.max(0,Math.sin(t*9));GE.bones.ball_r.rotateX(-0.5*k);}}
+  // s3: bảng điểm tối qua (đã vẽ ở trên)
+  // s4: Maxey giơ 1 tay "+1"
+  if(IN('s4',t)){const u=U('s4',t);idle(MX,t,0,0,0,'Idle_Loop');expr(MX,t,[[0,'proud']]);armUp(MX,'r',sm((u-0.9)/0.5));faceCam(MX,{d:2.1-0.2*u/2.7,fov:46,low:0.3,side:0.2});}
+  // s5: George + Tatum (+29)
+  if(IN('s5',t)){idle(GE,t,-0.42,0,0.15,'Idle_Loop');idle(TA,t,0.42,0,-0.15,'Idle_Loop',1);expr(GE,t,[[0,'smug']]);expr(TA,t,[[0,'smug']],{seed:2});}
+  // s6: LeBron chỉ tay đòi đấu lại
+  if(IN('s6',t)){const u=U('s6',t);idle(LB,t,0,0,0,'Idle_Loop');expr(LB,t,[[0,'determined']]);LB.root.updateMatrixWorld(true);if(u>0.4)point(LB,'r',Lw(LB,-0.5,0.15,0.85));faceCam(LB,{d:2.1,fov:44,low:0.3,side:0.25});}
+  // s7: trọng tài giơ đôi chân vịt khổng lồ
+  if(IN('s7',t)){const u=U('s7',t);idle(RF,t,0,0,0,'Idle_Loop');expr(RF,t,[[0,'proud']]);const k=sm(u/0.5);RF.root.updateMatrixWorld(true);
+    for(const [sd,q,i] of [['l',1,0],['r',-1,1]]){const sh=bp(RF,'upperarm_'+sd);const T=sh.clone().add(Lw(RF,q*0.38,0.3*k-0.25*(1-k),0.25));hand(RF,sd,T,Lw(RF,q*0.6,-0.6,-0.3));RF.root.updateMatrixWorld(true);
+      const hp=bp(RF,'hand_'+sd);FP[i].visible=true;FP[i].position.copy(hp).add(V(0,-0.05,0.04));FP[i].rotation.set(-Math.PI/2+0.25,0,q*0.3+0.08*Math.sin(t*6+i));}
+    faceCam(RF,{d:3.2,fov:52,low:0.1,side:0.1});}
+  // s8: hàng chân vịt Celtics (máy lướt sát sàn)
+  if(IN('s8',t)){BOS5.forEach((ch,i)=>{idle(ch,t,1.2,-2.0+i*1.0,-Math.PI/2,'Idle_Loop',i*0.4);const k=Math.max(0,Math.sin(t*8+i*1.3));ch.bones.ball_r.rotateX(-0.5*k);});}
+  // s9: nhảy tranh bóng
+  if(IN('s9',t)){const u=U('s9',t);idle(RF,t,0,-1.3,0,'Idle_Loop');idle(EM,t,-0.6,0,Math.PI/2,'Idle_Loop');idle(QU,t,0.6,0,-Math.PI/2,'Idle_Loop',1);expr(EM,t,[[0,'determined']]);expr(QU,t,[[0,'determined']]);
+    putBall(u<0.2?bp(RF,'hand_r').add(V(0,0.1,0)):V(0,1.9,-0.9).lerp(V(0,3.6,0),sm((u-0.2)/0.5)));}
+  // s10: 5 Celtics lạch bạch như chim cánh cụt về phía máy
+  if(IN('s10',t)){const u=U('s10',t);BOS5.forEach((ch,i)=>{waddle(ch,t,u,4.4+[0,0.7,0.5,1.2,1.0][i],[0,-1.3,1.3,-2.4,2.4][i],-Math.PI/2,0.95,i*0.21);expr(ch,t,[[0,'determined']],{seed:i});});}
+  // s11: Paul George (36 điểm tối qua) dẫn bóng — chân vịt
+  if(IN('s11',t)){const u=U('s11',t);const x=RX-9,z=0.6;putBall(dribbleMove(GE,lib,u,()=>[x,z],{t0:0,R,face:WY(x,z),hz:1.4}));GE.root.visible=true;expr(GE,t,[[0,'smug']]);heroCam(GE,u/2.5,{d:3.1,fov:48,y:1.0,low:0.55});}
+  // s12–s13: George ném — vào
+  if(IN('s12',t)||IN('s13',t)){const u=t-SH.s12[0];const x=RX-6.6,z=0.8;const o=jumpShot(GE,lib,u,{x,z,yaw:WY(x,z),R});GE.root.visible=true;expr(GE,t,[[0,'determined']]);
+    if(o.ball)putBall(o.ball);else{const v=u-o.tRelease;putBall(ballFlight(o.releasePos,RIM,v,0.8,{apex:1.3,R}));netSwish(NET,v-0.8);}}
+  // s14: Maxey + LeBron mặt đơ
+  if(IN('s14',t)){idle(MX,t,-0.42,0,0.12,'Idle_Loop');idle(LB,t,0.46,0,-0.12,'Idle_Loop',1);expr(MX,t,[[0,'neutral'],[26.9,'sad']]);expr(LB,t,[[0,'neutral'],[27.0,'sad']],{seed:3});}
+  // s15: áo phao xuất hiện
+  if(IN('s15',t)){[[GE,-0.95],[TA,0],[WH,0.95]].forEach(([ch,x],i)=>{idle(ch,t,x,(i===1?-0.3:0),-x*0.15,'Idle_Loop',i);armOut(ch,'l',{out:0.42,dy:-0.32});armOut(ch,'r',{out:0.42,dy:-0.32});expr(ch,t,[[0,'proud']],{seed:i});});}
+  // s16: Tatum tay cứng đờ, bóng nảy đi mất
+  if(IN('s16',t)){const u=U('s16',t);idle(TA,t,0,0,0,'Idle_Loop');armOut(TA,'l',{out:0.6,dy:0.0,fw:0.15});armOut(TA,'r',{out:0.6,dy:0.0,fw:0.15});expr(TA,t,[[0,'panic']]);
+    const w=Math.max(0,u-0.3);putBall(V(0.15+0.0*w,R+Math.abs(Math.sin(w*5.5))*0.9*Math.exp(-w*0.6),0.45+w*1.1));}
+  // s18: trọng tài ra hiệu hội ý (chữ T)
+  if(IN('s18',t)){idle(RF,t,0,0,0,'Idle_Loop');RF.root.updateMatrixWorld(true);const c=bp(RF,'spine_03').add(Lw(RF,0,0.28,0.35));hand(RF,'r',c.clone().add(Lw(RF,0,-0.12,0)),Lw(RF,-0.6,-0.8,0));hand(RF,'l',c.clone().add(Lw(RF,0.12,0.06,0)),Lw(RF,0.6,-0.6,0));expr(RF,t,[[0,'determined']]);
+    idle(LB,t,-1.0,-1.4,0.3,'Idle_Loop',1);idle(MX,t,1.0,-1.5,-0.3,'Idle_Loop',2);expr(LB,t,[[0,'sad']]);expr(MX,t,[[0,'sad']]);faceCam(RF,{d:3.0,fov:50,low:0.45,side:0.1});}
+  // s19: Maxey năn nỉ trọng tài
+  if(IN('s19',t)){idle(RF,t,0.95,0.55,YW(-0.95,-0.55),'Idle_Loop');expr(RF,t,[[0,'neutral']]);idle(MX,t,0,0,YW(0.95,0.55),'Idle_Loop',1);plead(MX,t);expr(MX,t,[[0,'sad'],[34.6,'panic']]);}
+  // s20: trọng tài thổi còi, chỉ lên — luật mới
+  if(IN('s20',t)){const u=U('s20',t);idle(RF,t,0,0,0,'Idle_Loop');armUp(RF,'r',sm(u/0.3),{fw:0.15});expr(RF,t,[[0,'determined']]);faceCam(RF,{d:2.2,fov:46,low:0.3,side:0.2});}
+  // s21–s24: Boston chơi trên xuồng; 2 người chèo, George ném
+  if(IN('s21',t)||IN('s22',t)){canoe(t,CX,CZ,0);GE.root.updateMatrixWorld(true);putBall(bp(GE,'hand_r').add(V(0,0.1,0.05)));}
+  if(IN('s23',t)||IN('s24',t)){const u=t-SH.s23[0];canoe(t,CX,CZ,0);GE.root.updateMatrixWorld(true);expr(GE,t,[[0,'determined'],[40.9,'smug']]);
+    const rel=0.45;const chest=bp(GE,'spine_03').add(Lw(GE,0,0.15,0.3)),over=bp(GE,'Head').add(Lw(GE,0,0.32,0.18));
+    if(u<rel){const b=chest.lerp(over,sm(u/rel));twoHands(GE,b,R);putBall(b);}else{armUp(GE,'r',1-sm((u-rel-0.6)/0.4),{fw:0.35});const v=u-rel;const p0=over;putBall(ballFlight(p0,RIM,v,0.95,{apex:1.6,R}));netSwish(NET,v-0.95);}}
+  // s25: Maxey ném trượt (xuồng đậu phía sau)
+  if(IN('s25',t)){const u=U('s25',t);canoe(t,RX-2.8,2.2,-0.6,{paddle:false,mood:'cheer'});SEATS.forEach(([ch])=>armUp(ch,'r',1));const x=RX-6.0,z=-2.4;const o=jumpShot(MX,lib,u,{x,z,yaw:WY(x,z),R});MX.root.visible=true;expr(MX,t,[[0,'determined'],[42.6,'wince']]);
+    if(o.ball)putBall(o.ball);else{const v=u-o.tRelease;putBall(ballFlight(o.releasePos,RIM,v,0.85,{apex:1.2,R,make:false}));}}
+  // s27: Jaylen Brown (lần đầu gặp đội cũ) → nhìn xuồng trôi qua
+  if(IN('s27',t)){if(t<SUB.s27){const u=t-SH.s27[0];idle(BR,t,-2.0,-1.0,0.2,'Idle_Loop');expr(BR,t,[[0,'neutral']],{look:[0.3,0]});heroCam(BR,u/2.7,{d:2.9,fov:46,y:1.05,low:0.45});}
+    else{const u=t-SUB.s27;idle(BR,t,0,2.4,Math.PI,'Idle_Loop');expr(BR,t,[[0,'neutral']]);canoe(t,-3.2+u*2.4,-0.4,0);}}
+  // s28: khán giả Philly cổ vũ chiếc xuồng
+  if(IN('s28',t)){const u=U('s28',t);canoe(t,-1.9+u*1.1,6.0,0,{mood:'proud'});A.crowd.uCheer.value=1;}
+  // s29: bảng điểm cuối → xuồng ăn mừng
+  if(IN('s29',t)&&t>=SUB.s29){canoe(t,CX,CZ,0,{paddle:false,mood:'cheer'});SEATS.forEach(([ch])=>{armUp(ch,'l',1);armUp(ch,'r',1);});A.crowd.uCheer.value=0.9;}
+  // s30: LeBron + Embiid sững sờ
+  if(IN('s30',t)){idle(LB,t,-0.45,0,0.12,'Idle_Loop');idle(EM,t,0.5,0,-0.12,'Idle_Loop',1);expr(LB,t,[[0,'shock']]);expr(EM,t,[[0,'shock']],{seed:2});}
+  // s31: chân vịt chẳng thay đổi gì — George nhún vai, gõ chân vịt
+  if(IN('s31',t)){const u=U('s31',t);shrug(GE,lib,t,sm((u-0.3)/0.4),{x:0,z:0,yaw:0});GE.root.visible=true;GE.bones.ball_r.rotateX(-0.45*Math.max(0,Math.sin(t*8)));expr(GE,t,[[0,'smug']]);}
+  // s32: áo phao chẳng thay đổi gì — Tatum nhún vai
+  if(IN('s32',t)){const u=U('s32',t);shrug(TA,lib,t,sm((u-0.2)/0.4),{x:0,z:0,yaw:0});TA.root.visible=true;expr(TA,t,[[0,'smug']]);}
+  // s33: xuồng chèo đi
+  if(IN('s33',t)){const u=U('s33',t);canoe(t,CX-2.0+u*1.3,CZ,0,{mood:'proud'});}
+  // s34: 76ers rời sân
+  if(IN('s34',t)){const u=U('s34',t);[MX,BR,LB].forEach((ch,i)=>{locoLock(ch,lib,u,seg([-6.5-i*0.6,3.4+i*0.4],[-9.0-i*0.6,6.2+i*0.4],0,2.0),{t0:0});ch.root.visible=true;ch.root.updateMatrixWorld(true);ch.bones.Head.rotateX(0.35);expr(ch,t,[[0,'sad']]);});}
+  // s35: lần sau — chơi dưới nước: nước dâng, xuồng nổi, 76ers ngập tới ngực
+  if(IN('s35',t)){const u=U('s35',t);const lvl=-0.05+1.35*sm((u-0.2)/2.2);WTR.visible=true;WTR.position.y=lvl;WTR.userData.update(t);
+    [[MX,-0.75,-0.6],[LB,0.0,-0.95],[BR,0.75,-0.6]].forEach(([ch,x,z],i)=>{idle(ch,t,x,z,0,'Idle_Loop',i);armUp(ch,'l',sm((u-0.8)/0.4)*0.8);armUp(ch,'r',sm((u-0.9)/0.4)*0.8);expr(ch,t,[[0,'surprised'],[66.0,'panic']],{seed:i});});
+    canoe(t,1.05,0.9,-0.6,{y:Math.max(0,lvl-0.22),paddle:false,mood:'cheer',roll:0.05*Math.sin(t*2.4)});SEATS.forEach(([ch])=>armUp(ch,'r',1));
+    BUB.visible=lvl>0.2;BUB.children.forEach(b=>{const [a,c,d]=b.userData.s;const yy=((t*0.6+a)%1)*Math.max(0,lvl);b.position.set(-1.6+c*3.2,yy,-1.2+d*1.6);});}
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=50;cam.updateProjectionMatrix();}
+};
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>

@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 13: đồ hoạ "đấu lại" — thẻ Celtics xanh lá viền vàng kim, thẻ 76ers xanh dương viền đỏ, tem cam "áo phao" cho luật mới. Khác E01–E12. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:linear-gradient(180deg,#0e3f86 0%,#002B5C 100%);color:#fff;border-left:16px solid #ED174C;border-right:16px solid #ED174C;box-shadow:0 0 0 5px #ffffff,0 16px 28px rgba(0,0,0,.45);padding:12px 40px 16px;white-space:nowrap;text-align:center;-webkit-text-stroke:2px #001630;paint-order:stroke fill;border-radius:6px}
+.g{background:linear-gradient(180deg,#0fa354 0%,#06612f 100%);border-left-color:#BA9653;border-right-color:#BA9653;-webkit-text-stroke-color:#023218}
+.o{background:linear-gradient(180deg,#ff8a2a 0%,#e85a00 100%);border-left-color:#141414;border-right-color:#141414;-webkit-text-stroke-color:#5a2300;border-radius:26px}
+.big{font-size:150px;line-height:1}.mid{font-size:92px;line-height:1.05}.sm{font-size:62px;line-height:1.12}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:5px;color:#9cc6ff;margin-bottom:4px;-webkit-text-stroke:0}.g .lab{color:#ffe7a8}.o .lab{color:#fff1e0}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #06612f;paint-order:stroke fill;text-shadow:0 12px 0 #ED174C}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#fff;background:#0fa354;border:6px solid #fff;padding:6px 26px;border-radius:30px}
+.stamp{top:600px;font-size:150px;text-align:center;line-height:1.05;color:#ffffff;-webkit-text-stroke:10px #06612f;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.stamp.p{-webkit-text-stroke-color:#ED174C}.stamp.or{color:#ff8a2a;-webkit-text-stroke-color:#fff}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{color:#fff;font-size:64px;padding:4px 26px}.lt .d{background:#ffffff;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px}
+.lt.gl .n{background:#06612f;border-left:14px solid #BA9653}.lt.gl .d{color:#06612f;border-left:14px solid #0fa354}
+.lt.bl .n{background:#002B5C;border-left:14px solid #ED174C}.lt.bl .d{color:#002B5C;border-left:14px solid #006BB6}
+.row{top:0;font-size:64px;line-height:1.1;padding:8px 34px 10px}
+#flash{position:absolute;inset:0;background:#ffffff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,20,50,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">SIXERS <span style="color:#3ee08a">vs</span> CELTICS</div>
+<div class="el k o sm" id="tsub" style="top:1600px">BOSTON IN SWIM FLIPPERS</div>
+<div class="el k" id="lead1" style="top:420px"><span class="lab">PHILLY · BIGGEST LEAD ALL NIGHT</span><span class="big">+1</span></div>
+<div class="el k g" id="lead29" style="top:420px"><span class="lab">BOSTON · BIGGEST LEAD</span><span class="big">+29</span></div>
+<div class="el stamp p" id="rem">REMATCH</div>
+<div class="el k o sm" id="chg" style="top:420px">ONE SMALL CHANGE</div>
+<div class="el stamp" id="flip" style="color:#3ee08a;-webkit-text-stroke-color:#fff">FLIPPERS</div>
+<div class="el k sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el stamp" id="peng" style="font-size:130px">PENGUIN MODE</div>
+<div class="el lt gl" id="ngeo"><div class="n">PAUL GEORGE</div><div class="d">#13 · BOSTON · 36 PTS LAST NIGHT</div></div>
+<div class="el stamp" id="inflip" style="font-size:130px">IN FLIPPERS</div>
+<div class="el stamp or" id="lj" style="font-size:130px">+ LIFE JACKETS</div>
+<div class="el k sm" id="to" style="top:420px">TIMEOUT · PHILADELPHIA</div>
+<div class="el k sm" id="help" style="top:420px">PHILLY REQUESTS MORE HELP</div>
+<div class="el stamp or" id="rule">NEW RULE</div>
+<div class="el k g sm" id="canoe" style="top:420px">BOSTON PLAYS FROM A CANOE</div>
+<div class="el stamp" id="swish">SWISH</div>
+<div class="el k" id="fg" style="top:420px"><span class="lab">SHOOTING TONIGHT</span><span class="mid">CANOE 1/1 · PHILLY 0/1</span></div>
+<div class="el lt bl" id="nbro"><div class="n">JAYLEN BROWN</div><div class="d">#7 · FIRST GAME VS. OLD TEAM</div></div>
+<div class="el k o sm" id="fans" style="top:420px">PHILLY FANS: TEAM CANOE</div>
+<div class="el k" id="same" style="top:400px"><span class="lab">LAST NIGHT</span><span class="mid">123 – 101</span><span class="lab" style="margin-top:14px">TONIGHT</span><span class="mid">123 – 101</span></div>
+<div class="el k o row" id="c1" style="top:420px">FLIPPERS → NOTHING</div>
+<div class="el k o row" id="c2" style="top:560px">LIFE JACKETS → NOTHING</div>
+<div class="el k o row" id="c3" style="top:700px">CANOE → NOTHING</div>
+<div class="el k" id="rec" style="top:420px"><span class="lab">PHILADELPHIA · RECORD</span><span class="big">9 – 3</span></div>
+<div class="el stamp" id="next" style="font-size:120px;color:#7ec8ff;-webkit-text-stroke-color:#fff;top:560px">NEXT TIME:<br>UNDERWATER</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep13_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',1.6,SUB.s2],['tsub',3.0,SUB.s2+1.2],['lead1',10.06,SH.s4[1]],['lead29',11.78,SH.s5[1]],['rem',14.1,SH.s6[1]],['chg',15.3,SH.s7[1]],['flip',17.5,SH.s8[1]],['tip',SH.s9[0],SH.s9[1]],
+ ['peng',20.9,SH.s10[1]],['ngeo',SH.s11[0],SH.s11[1]],['inflip',SH.s13[0],SH.s13[1]],['lj',27.7,SH.s15[1]],['to',SH.s18[0]+0.1,SH.s18[1]],['help',34.0,SH.s19[1]],['rule',SH.s20[0],SH.s20[1]],['canoe',SH.s21[0]+0.1,SH.s21[1]],
+ ['swish',SH.s24[0],SH.s24[1]],['fg',41.9,SH.s25[1]],['nbro',SH.s27[0],SUB.s27],['fans',49.9,SH.s28[1]],['same',56.2,SH.s30[1]],['c1',58.4,SH.s33[1]],['c2',60.1,SH.s33[1]],['c3',61.8,SH.s33[1]],['rec',64.3,SH.s34[1]],['next',65.6,SH.s35[1]]];
+const POP=['wtf','rem','flip','peng','inflip','lj','rule','swish','next'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k;
+    const rot=pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const fl=(t0)=>{const f=(t-t0)*30;return f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};$('flash').style.opacity=Math.max(fl(SH.s8[0]),fl(SH.s15[0]),fl(SH.s21[0]),fl(SH.s35[0]));
+};
+</script></body></html>
