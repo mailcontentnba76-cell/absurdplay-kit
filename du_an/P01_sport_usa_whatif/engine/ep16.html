@@ -208,6 +208,7 @@ const pose=t=>{
   if(ON('s14',t)){const u=U('s14',t);walk(KM,t,SH.s14[0],[VX+0.2,VZ+2.5],[VX,VZ-6],1.1);pack(t);A.V.mists.forEach((m,i)=>m.position.x=Math.sin(t*0.2+i)*2.5);}
   if(ON('s15',t)){pack(t);const blink=Math.sin(t*5)>0.92;PK.forEach(ch=>ch.root.traverse(o=>{if(o.material===eyeM)o.visible=!blink;}));}
   // s15b: Kirk quay lại nhìn ống kính, cười đắc ý — "Extremely predictable"
+  A.V.mists.forEach(m=>m.visible=!ON('s15b',t));
   if(ON('s15b',t)){const u=U('s15b',t);idle(KM,VX,VZ-3.0,PI*sm(u/0.6)*0+lerp(PI,0,sm(u/0.6))*0,t,1);place(KM,VX,VZ-3.0,lerp(PI,0,sm(u/0.6)));CP(KM,[{name:'Idle_Loop',time:t+1,w:1}]);show(KM);if(u>1.2)thumbs(KM,sm((u-1.2)/0.3));E(KM,t,[[0,'neutral'],[SH.s15b[0]+0.6,'smug'],[SH.s15b[0]+2.4,'laugh']],1,{look:[0,0]});pack(t);}
   // mây trôi cho các cảnh bay
   if(['s4b','s6','s10c'].some(k=>ON(k,t)))A.K.clouds.forEach((c,i)=>{c.position.x=((c.userData.x0??(c.userData.x0=c.position.x))+t*(i%2?3:5)+330)%220-110;});
