@@ -1,0 +1,71 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.28,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.28,0:00:01.76,Cap,,0,0,0,,could the bucks
+Dialogue: 0,0:00:01.76,0:00:02.74,Cap,,0,0,0,,beat the lakers if
+Dialogue: 0,0:00:02.74,0:00:03.50,Cap,,0,0,0,,the game was played
+Dialogue: 0,0:00:03.50,0:00:05.02,Cap,,0,0,0,,on a frozen lake?
+Dialogue: 0,0:00:05.02,0:00:05.70,Cap,,0,0,0,,last night,
+Dialogue: 0,0:00:05.70,0:00:06.02,Cap,,0,0,0,,the lakers
+Dialogue: 0,0:00:06.02,0:00:09.00,Cap,,0,0,0,,beat milwaukee 123–112.
+Dialogue: 0,0:00:09.00,0:00:10.62,Cap,,0,0,0,,seven straight wins.
+Dialogue: 0,0:00:10.62,0:00:11.00,Cap,,0,0,0,,best record
+Dialogue: 0,0:00:11.00,0:00:11.94,Cap,,0,0,0,,in the league.
+Dialogue: 0,0:00:11.94,0:00:12.76,Cap,,0,0,0,,the bucks?
+Dialogue: 0,0:00:12.76,0:00:13.80,Cap,,0,0,0,,1–11.
+Dialogue: 0,0:00:13.80,0:00:15.16,Cap,,0,0,0,,eight straight losses.
+Dialogue: 0,0:00:15.16,0:00:15.78,Cap,,0,0,0,,so, milwaukee
+Dialogue: 0,0:00:15.78,0:00:16.88,Cap,,0,0,0,,had an idea.
+Dialogue: 0,0:00:16.88,0:00:17.44,Cap,,0,0,0,,move the game
+Dialogue: 0,0:00:17.44,0:00:18.72,Cap,,0,0,0,,outside to a
+Dialogue: 0,0:00:18.72,0:00:20.36,Cap,,0,0,0,,frozen wisconsin lake.
+Dialogue: 0,0:00:20.36,0:00:21.52,Cap,,0,0,0,,in november, the
+Dialogue: 0,0:00:21.52,0:00:22.52,Cap,,0,0,0,,lakers fly in from
+Dialogue: 0,0:00:22.52,0:00:23.78,Cap,,0,0,0,,l.a., still in shorts.
+Dialogue: 0,0:00:23.78,0:00:25.10,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:25.10,0:00:26.08,Cap,,0,0,0,,luka slips.
+Dialogue: 0,0:00:26.08,0:00:27.14,Cap,,0,0,0,,luka slides.
+Dialogue: 0,0:00:27.14,0:00:28.52,Cap,,0,0,0,,luka still scores.
+Dialogue: 0,0:00:28.52,0:00:28.84,Cap,,0,0,0,,he dropped
+Dialogue: 0,0:00:28.84,0:00:30.34,Cap,,0,0,0,,32 last night.
+Dialogue: 0,0:00:30.34,0:00:31.28,Cap,,0,0,0,,on ice, he just
+Dialogue: 0,0:00:31.28,0:00:32.76,Cap,,0,0,0,,skates to the rim.
+Dialogue: 0,0:00:32.76,0:00:33.64,Cap,,0,0,0,,okay, bucks fans
+Dialogue: 0,0:00:33.64,0:00:35.10,Cap,,0,0,0,,bring ice fishing huts.
+Dialogue: 0,0:00:35.10,0:00:35.50,Cap,,0,0,0,,the bucks
+Dialogue: 0,0:00:35.50,0:00:37.06,Cap,,0,0,0,,bring snow shovels.
+Dialogue: 0,0:00:37.06,0:00:38.26,Cap,,0,0,0,,lakers up 10.
+Dialogue: 0,0:00:38.26,0:00:39.14,Cap,,0,0,0,,then, sandro
+Dialogue: 0,0:00:39.14,0:00:40.64,Cap,,0,0,0,,mamukelashvili, a former
+Dialogue: 0,0:00:40.64,0:00:41.82,Cap,,0,0,0,,buck, drills a
+Dialogue: 0,0:00:41.82,0:00:42.32,Cap,,0,0,0,,hole in the
+Dialogue: 0,0:00:42.32,0:00:43.40,Cap,,0,0,0,,ice and fishes
+Dialogue: 0,0:00:43.40,0:00:44.40,Cap,,0,0,0,,out a 3.
+Dialogue: 0,0:00:44.40,0:00:44.70,Cap,,0,0,0,,he hit
+Dialogue: 0,0:00:44.70,0:00:46.26,Cap,,0,0,0,,5 last night.
+Dialogue: 0,0:00:46.26,0:00:47.32,Cap,,0,0,0,,lakers up 20.
+Dialogue: 0,0:00:47.32,0:00:47.74,Cap,,0,0,0,,the bucks
+Dialogue: 0,0:00:47.74,0:00:48.88,Cap,,0,0,0,,ask for snow.
+Dialogue: 0,0:00:48.88,0:00:49.30,Cap,,0,0,0,,it snows.
+Dialogue: 0,0:00:49.30,0:00:51.60,Cap,,0,0,0,,nobody can see anything.
+Dialogue: 0,0:00:51.60,0:00:53.36,Cap,,0,0,0,,the lakers score anyway.
+Dialogue: 0,0:00:53.36,0:00:54.34,Cap,,0,0,0,,final score?
+Dialogue: 0,0:00:54.34,0:00:56.88,Cap,,0,0,0,,lakers 123, bucks 112.
+Dialogue: 0,0:00:56.88,0:00:57.96,Cap,,0,0,0,,same as last night.
+Dialogue: 0,0:00:57.96,0:00:58.48,Cap,,0,0,0,,turns out, the
+Dialogue: 0,0:00:58.48,0:00:59.24,Cap,,0,0,0,,lakers are really
+Dialogue: 0,0:00:59.24,0:01:00.42,Cap,,0,0,0,,good on lakes.
+Dialogue: 0,0:01:00.42,0:01:00.76,Cap,,0,0,0,,the bucks
+Dialogue: 0,0:01:00.76,0:01:02.42,Cap,,0,0,0,,are still 1–11.
+Dialogue: 0,0:01:02.42,0:01:03.44,Cap,,0,0,0,,next time, milwaukee
+Dialogue: 0,0:01:03.44,0:01:04.58,Cap,,0,0,0,,tries the forest.

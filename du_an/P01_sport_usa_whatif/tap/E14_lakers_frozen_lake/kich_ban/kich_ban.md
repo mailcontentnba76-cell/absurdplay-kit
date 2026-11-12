@@ -1,4 +1,4 @@
-# E14 — "Could the Bucks beat the Lakers if the game was played on a frozen lake?" (CHỜ DUYỆT)
+# E14 — "Could the Bucks beat the Lakers if the game was played on a frozen lake?" (ĐÃ DUYỆT 12/11, đang dựng)
 Trận thật: LAL 123–112 MIL, 11/11/2026 (giờ Mỹ), Fiserv Forum, khán giả 15.356. Nguồn: box score chính thức ESPN event 401909971 + bài AP trên ESPN + bảng xếp hạng ESPN.
 
 ## Bảng số liệu (chỉ dùng số trong box score)
@@ -21,3 +21,7 @@ Phần hư cấu: mặt hồ đóng băng Wisconsin, chòi câu cá trên băng,
 - Mamukelashvili khoan lỗ băng, kéo cần câu lên quả bóng → ném 3 điểm.
 - Bão tuyết trắng xoá, chỉ thấy bóng bay vào rổ.
 - Kết: bảng điểm gỗ 123–112, Lakers trượt băng ăn mừng, Bucks cầm xẻng đứng nhìn; chữ "NEXT TIME: THE FOREST".
+
+Ngày kiểm số liệu: 12/11/2026 ~11:20 giờ VN (sau khi trận Final). Số áo + chiều cao: ESPN roster LAL/MIL (Doncic #77 6'8", Reaves #15 6'5", Kessler #14 7'2", Mamukelashvili #54 6'9", Thybulle #4 6'5"; Herro #11 6'5", Kuzma #18 6'8", Ware #9 7'0", Jaquez #24 6'6", Rollins #13 6'3").
+Lưu ý nguồn lệch: bài AP ghi Herro 25 / Jaquez 23 điểm, box score ghi 27 / 25 → kịch bản KHÔNG dùng hai số này.
+Bối cảnh: hồ băng khác E05 (E05 = sân nhựa ngoài trời trời xám cạnh hồ, người tuyết); E14 = sân vẽ thẳng trên mặt băng, chiều nắng vàng hồng, rừng thông, chòi câu cá.

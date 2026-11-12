@@ -1,0 +1,76 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 14: đồ hoạ "trận trên hồ băng" — thẻ Lakers tím viền vàng, thẻ Bucks xanh lá đậm viền kem, tem chữ băng xanh nhạt viền xanh đậm. Khác E01–E13. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0;transform-origin:50% 50%}
+.k{position:absolute;background:linear-gradient(180deg,#6b34a3 0%,#3d1666 100%);color:#fff;border-left:16px solid #FDB927;border-right:16px solid #FDB927;box-shadow:0 0 0 5px #ffffff,0 16px 28px rgba(0,0,0,.45);padding:12px 40px 16px;white-space:nowrap;text-align:center;-webkit-text-stroke:2px #1e0638;paint-order:stroke fill;border-radius:6px}
+.g{background:linear-gradient(180deg,#0b6a30 0%,#00471B 100%);border-left-color:#EEE1C6;border-right-color:#EEE1C6;-webkit-text-stroke-color:#00240d}
+.o{background:linear-gradient(180deg,#bfe8ff 0%,#7cc4ef 100%);color:#0b2a4a;border-left-color:#ffffff;border-right-color:#ffffff;-webkit-text-stroke:0;border-radius:26px}
+.big{font-size:150px;line-height:1}.mid{font-size:92px;line-height:1.05}.sm{font-size:62px;line-height:1.12}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:5px;color:#FDB927;margin-bottom:4px;-webkit-text-stroke:0}.g .lab{color:#EEE1C6}.o .lab{color:#0b2a4a}
+.wtf{top:520px;font-size:300px;line-height:1;color:#fff;-webkit-text-stroke:16px #3d1666;paint-order:stroke fill;text-shadow:0 12px 0 #7cc4ef}
+.beep{position:absolute;left:50%;top:430px;transform:translateX(-50%);opacity:0;font-family:Inter;font-weight:900;font-size:58px;letter-spacing:6px;color:#fff;background:#552583;border:6px solid #FDB927;padding:6px 26px;border-radius:30px}
+.stamp{top:600px;font-size:150px;text-align:center;line-height:1.05;color:#dff4ff;-webkit-text-stroke:10px #0b3a66;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.35)}
+.stamp.p{color:#FDB927;-webkit-text-stroke-color:#3d1666}.stamp.gr{color:#EEE1C6;-webkit-text-stroke-color:#00471B}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{color:#fff;font-size:64px;padding:4px 26px}.lt .d{background:#ffffff;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:3px;padding:8px 26px}
+.lt.gl .n{background:#3d1666;border-left:14px solid #FDB927}.lt.gl .d{color:#3d1666;border-left:14px solid #552583}
+.lt.bl .n{background:#002B5C;border-left:14px solid #ED174C}.lt.bl .d{color:#002B5C;border-left:14px solid #006BB6}
+.row{top:0;font-size:64px;line-height:1.1;padding:8px 34px 10px}
+#flash{position:absolute;inset:0;background:#ffffff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,20,50,.85);paint-order:stroke fill;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+</style></head><body>
+<div class="el wtf" id="wtf">WTF?!</div><div class="beep" id="beep">BEEP</div>
+<div class="el k mid" id="title" style="top:1440px">BUCKS <span style="color:#FDB927">vs</span> LAKERS</div>
+<div class="el k o sm" id="tsub" style="top:1600px">ON A FROZEN LAKE</div>
+<div class="el k" id="w7" style="top:420px"><span class="lab">LAKERS · WIN STREAK</span><span class="big">7</span></div>
+<div class="el k" id="best" style="top:420px"><span class="lab">LAKERS · BEST RECORD IN THE NBA</span><span class="big">11 – 2</span></div>
+<div class="el k g" id="rec1" style="top:420px"><span class="lab">BUCKS · RECORD</span><span class="big">1 – 11</span></div>
+<div class="el k g" id="l8" style="top:420px"><span class="lab">BUCKS · LOSING STREAK</span><span class="big">8</span></div>
+<div class="el k g sm" id="idea" style="top:420px">MILWAUKEE HAS AN IDEA</div>
+<div class="el stamp" id="out">OUTSIDE</div>
+<div class="el k o sm" id="wis" style="top:420px">FROZEN LAKE · WISCONSIN</div>
+<div class="el stamp" id="nov">NOVEMBER</div>
+<div class="el k sm" id="shorts" style="top:420px">LAKERS: STILL IN SHORTS</div>
+<div class="el k o sm" id="tip" style="top:420px">TIP-OFF</div>
+<div class="el stamp" id="slip">SLIP</div>
+<div class="el stamp" id="slide">SLIDE</div>
+<div class="el stamp p" id="sw1">SWISH</div>
+<div class="el lt gl" id="nluka"><div class="n">LUKA DONCIC</div><div class="d">#77 · LOS ANGELES · 32 PTS LAST NIGHT</div></div>
+<div class="el stamp" id="skate" style="font-size:130px">SKATING</div>
+<div class="el k g sm" id="huts" style="top:420px">BUCKS FANS: ICE FISHING HUTS</div>
+<div class="el k g sm" id="shov" style="top:420px">BUCKS DEFENSE: SNOW SHOVELS</div>
+<div class="el lt gl" id="nmamu"><div class="n">SANDRO MAMUKELASHVILI</div><div class="d">#54 · LOS ANGELES · FORMER BUCK</div></div>
+<div class="el k o sm" id="drill" style="top:420px">ICE FISHING FOR A THREE</div>
+<div class="el k" id="five" style="top:420px"><span class="lab">MAMUKELASHVILI · LAST NIGHT</span><span class="mid">5 THREES</span></div>
+<div class="el k g sm" id="snowreq" style="top:420px">MILWAUKEE REQUESTS SNOW</div>
+<div class="el stamp" id="vis" style="font-size:120px">VISIBILITY:<br>ZERO</div>
+<div class="el stamp p" id="sw2">SWISH</div>
+<div class="el k" id="same" style="top:400px"><span class="lab">LAST NIGHT</span><span class="mid">123 – 112</span><span class="lab" style="margin-top:14px">ON THE LAKE</span><span class="mid">123 – 112</span></div>
+<div class="el stamp p" id="lakes" style="font-size:130px">GOOD ON<br>LAKES</div>
+<div class="el k g" id="rec2" style="top:420px"><span class="lab">BUCKS · STILL</span><span class="big">1 – 11</span></div>
+<div class="el stamp gr" id="next" style="font-size:120px;top:560px">NEXT TIME:<br>THE FOREST</div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH,SUB,BEEP} from './ep14_shots.js';
+const TL=[['wtf',BEEP[0],SH.s1[1]],['title',1.6,SUB.s2],['tsub',3.0,SH.s2[1]],['w7',9.0,10.62],['best',10.62,SH.s4[1]],['rec1',12.76,SUB.s5],['l8',SUB.s5,SH.s5[1]],['idea',15.4,SH.s6[1]],
+ ['out',17.2,SUB.s7],['wis',19.0,SH.s7[1]],['nov',20.4,21.5],['shorts',23.0,SH.s8[1]],['tip',SH.s9[0],SH.s9[1]],['slip',25.2,SH.s10[1]],['slide',26.15,SH.s11[1]],['sw1',28.0,SH.s12[1]],
+ ['nluka',SH.s13[0],SH.s13[1]],['skate',30.5,SH.s14[1]],['huts',33.2,SH.s15[1]],['shov',35.2,SH.s16[1]],['nmamu',SH.s18[0],SH.s18[1]],['drill',SH.s20[0],SH.s20[1]],['five',SH.s21[0]+0.1,SH.s21[1]],
+ ['snowreq',47.4,SH.s23[1]],['vis',SUB.s24,SH.s24[1]],['sw2',52.6,SH.s25[1]],['same',56.88,SH.s27[1]],['lakes',58.5,SH.s28[1]],['rec2',61.2,SH.s29[1]],['next',62.8,SH.s30[1]]];
+const POP=['wtf','out','nov','slip','slide','sw1','skate','vis','sw2','lakes','next'];
+const ease=x=>1-Math.pow(1-x,3);
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(Math.min(1,(t-a)/0.18)):0;e.style.opacity=on?Math.min(1,(t-a)/0.06):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${(1-k)*-700}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.35+0.65*k+(e.id==='wtf'?0.04*Math.sin(t*60):0):0.82+0.18*k;
+    const rot=pop?(1-k)*-18+(e.id==='wtf'?Math.sin(t*47)*3:Math.sin(t*3)*1.5):0;const jx=e.id==='wtf'?Math.sin(t*71)*10:0;
+    e.style.transform=`translateX(calc(-50% + ${jx}px)) scale(${sc}) rotate(${rot}deg)`;}
+  $('beep').style.opacity=t>=BEEP[0]&&t<BEEP[1]?1:0;$('beep').style.transform=`translateX(-50%) rotate(${Math.sin(t*50)*4}deg)`;
+  const fl=(t0)=>{const f=(t-t0)*30;return f>=0&&f<5?[0.95,0.8,0.5,0.25,0.08][Math.floor(f)]:0;};$('flash').style.opacity=Math.max(fl(SH.s7[0]),fl(SH.s24[0]),fl(SH.s26[0]),fl(SH.s30[0]));
+};
+</script></body></html>
