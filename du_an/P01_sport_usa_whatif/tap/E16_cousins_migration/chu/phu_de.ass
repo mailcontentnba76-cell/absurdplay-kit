@@ -1,0 +1,80 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.40,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.40,0:00:01.74,Cap,,0,0,0,,kirk cousins
+Dialogue: 0,0:00:01.74,0:00:02.40,Cap,,0,0,0,,just migrated
+Dialogue: 0,0:00:02.40,0:00:03.96,Cap,,0,0,0,,back to minnesota.
+Dialogue: 0,0:00:03.96,0:00:04.48,Cap,,0,0,0,,meet the veteran
+Dialogue: 0,0:00:04.48,0:00:05.96,Cap,,0,0,0,,quarterback, 38 years
+Dialogue: 0,0:00:05.96,0:00:07.66,Cap,,0,0,0,,old, four teams,
+Dialogue: 0,0:00:07.66,0:00:09.08,Cap,,0,0,0,,zero sense of direction.
+Dialogue: 0,0:00:09.08,0:00:10.04,Cap,,0,0,0,,for six seasons,
+Dialogue: 0,0:00:10.04,0:00:11.32,Cap,,0,0,0,,he lived in minnesota.
+Dialogue: 0,0:00:11.32,0:00:12.26,Cap,,0,0,0,,then, atlanta offered
+Dialogue: 0,0:00:12.26,0:00:14.30,Cap,,0,0,0,,him $180 million,
+Dialogue: 0,0:00:14.30,0:00:15.70,Cap,,0,0,0,,and he flew south.
+Dialogue: 0,0:00:15.70,0:00:16.02,Cap,,0,0,0,,six weeks
+Dialogue: 0,0:00:16.02,0:00:16.92,Cap,,0,0,0,,later, atlanta
+Dialogue: 0,0:00:16.92,0:00:18.46,Cap,,0,0,0,,drafted his replacement.
+Dialogue: 0,0:00:18.46,0:00:19.44,Cap,,0,0,0,,six weeks?
+Dialogue: 0,0:00:19.44,0:00:20.60,Cap,,0,0,0,,that's not a contract.
+Dialogue: 0,0:00:20.60,0:00:21.82,Cap,,0,0,0,,that's a free trial.
+Dialogue: 0,0:00:21.82,0:00:22.44,Cap,,0,0,0,,so, he flew
+Dialogue: 0,0:00:22.44,0:00:24.00,Cap,,0,0,0,,west to the desert.
+Dialogue: 0,0:00:24.00,0:00:25.68,Cap,,0,0,0,,las vegas, fresh start.
+Dialogue: 0,0:00:25.68,0:00:26.44,Cap,,0,0,0,,then, las vegas
+Dialogue: 0,0:00:26.44,0:00:28.12,Cap,,0,0,0,,drafted fernando mendoza,
+Dialogue: 0,0:00:28.12,0:00:29.06,Cap,,0,0,0,,number one overall.
+Dialogue: 0,0:00:29.06,0:00:30.20,Cap,,0,0,0,,this week, they
+Dialogue: 0,0:00:30.20,0:00:31.90,Cap,,0,0,0,,handed mendoza the keys.
+Dialogue: 0,0:00:31.90,0:00:32.34,Cap,,0,0,0,,kirk has now
+Dialogue: 0,0:00:32.34,0:00:33.04,Cap,,0,0,0,,been replaced by
+Dialogue: 0,0:00:33.04,0:00:33.68,Cap,,0,0,0,,a rookie in
+Dialogue: 0,0:00:33.68,0:00:35.52,Cap,,0,0,0,,two different time zones.
+Dialogue: 0,0:00:35.52,0:00:36.58,Cap,,0,0,0,,meanwhile, back north,
+Dialogue: 0,0:00:36.58,0:00:38.24,Cap,,0,0,0,,the herd was starving.
+Dialogue: 0,0:00:38.24,0:00:38.94,Cap,,0,0,0,,monday night, eight
+Dialogue: 0,0:00:38.94,0:00:41.12,Cap,,0,0,0,,completions, 25 attempts,
+Dialogue: 0,0:00:41.12,0:00:41.80,Cap,,0,0,0,,zero for eight
+Dialogue: 0,0:00:41.80,0:00:42.88,Cap,,0,0,0,,on third down.
+Dialogue: 0,0:00:42.88,0:00:43.62,Cap,,0,0,0,,so, minnesota
+Dialogue: 0,0:00:43.62,0:00:44.78,Cap,,0,0,0,,made a call.
+Dialogue: 0,0:00:44.78,0:00:45.32,Cap,,0,0,0,,price, one
+Dialogue: 0,0:00:45.32,0:00:46.38,Cap,,0,0,0,,third-round pick.
+Dialogue: 0,0:00:46.38,0:00:47.64,Cap,,0,0,0,,the cheapest migration in
+Dialogue: 0,0:00:47.64,0:00:49.10,Cap,,0,0,0,,the history of nature.
+Dialogue: 0,0:00:49.10,0:00:50.14,Cap,,0,0,0,,kirk lands.
+Dialogue: 0,0:00:50.14,0:00:50.48,Cap,,0,0,0,,justin jefferson
+Dialogue: 0,0:00:50.48,0:00:51.96,Cap,,0,0,0,,spots him instantly.
+Dialogue: 0,0:00:51.96,0:00:54.50,Cap,,0,0,0,,5,348 yards together.
+Dialogue: 0,0:00:54.50,0:00:55.76,Cap,,0,0,0,,he knows that throw.
+Dialogue: 0,0:00:55.76,0:00:56.78,Cap,,0,0,0,,now, minnesota's coach
+Dialogue: 0,0:00:56.78,0:00:57.98,Cap,,0,0,0,,is asked, will he start?
+Dialogue: 0,0:00:57.98,0:00:58.64,Cap,,0,0,0,,and the coach
+Dialogue: 0,0:00:58.64,0:00:59.70,Cap,,0,0,0,,says, it's too
+Dialogue: 0,0:00:59.70,0:01:00.66,Cap,,0,0,0,,early to commit.
+Dialogue: 0,0:01:00.66,0:01:00.98,Cap,,0,0,0,,but the green
+Dialogue: 0,0:01:00.98,0:01:01.94,Cap,,0,0,0,,bay coach says
+Dialogue: 0,0:01:01.94,0:01:02.76,Cap,,0,0,0,,it out loud.
+Dialogue: 0,0:01:02.76,0:01:03.72,Cap,,0,0,0,,he'll be starting.
+Dialogue: 0,0:01:03.72,0:01:03.94,Cap,,0,0,0,,so, the
+Dialogue: 0,0:01:03.94,0:01:04.48,Cap,,0,0,0,,only man
+Dialogue: 0,0:01:04.48,0:01:04.92,Cap,,0,0,0,,who knows
+Dialogue: 0,0:01:04.92,0:01:06.32,Cap,,0,0,0,,minnesota's quarterback,
+Dialogue: 0,0:01:06.32,0:01:07.46,Cap,,0,0,0,,coaches green bay.
+Dialogue: 0,0:01:07.46,0:01:08.22,Cap,,0,0,0,,on sunday, the
+Dialogue: 0,0:01:08.22,0:01:09.28,Cap,,0,0,0,,old quarterback walks
+Dialogue: 0,0:01:09.28,0:01:10.70,Cap,,0,0,0,,into lambeau field.
+Dialogue: 0,0:01:10.70,0:01:12.08,Cap,,0,0,0,,nature is cruel.
+Dialogue: 0,0:01:12.08,0:01:13.48,Cap,,0,0,0,,but kirk cousins?
+Dialogue: 0,0:01:13.48,0:01:14.40,Cap,,0,0,0,,extremely predictable.

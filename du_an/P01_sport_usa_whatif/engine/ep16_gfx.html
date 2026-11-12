@@ -1,0 +1,101 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+@font-face{font-family:Oswald;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2)}
+/* Tập 16: đồ hoạ PHIM TÀI LIỆU HOANG DÃ — ống nhòm, REC + mã thời gian, chú thích tên khoa học chữ serif nghiêng,
+   thẻ sổ ghi chép thực địa (giấy kẻ dòng, chữ mono), bản đồ di cư nét đứt, dấu mộc. Khác E01–E15. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+.el{position:absolute;opacity:0}
+#bino{left:0;top:0;width:1080px;height:1920px}
+#rec{position:absolute;left:60px;top:120px;font-family:Mono;font-size:34px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.8)}
+#rec i{display:inline-block;width:24px;height:24px;border-radius:50%;background:#e8283a;margin-right:12px;vertical-align:-2px}
+.sp{left:0;width:1080px;top:1390px}
+.sp .bar{margin:0 60px;background:rgba(244,236,214,.94);border-left:12px solid #2f5a3a;padding:20px 30px 22px;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.sp b{display:block;font-family:'DejaVu Serif',Georgia,serif;font-style:italic;font-weight:700;font-size:62px;color:#1f3a28;line-height:1.1}
+.sp span{display:block;font-family:Mono;font-size:30px;color:#3a3a32;letter-spacing:2px;margin-top:6px}
+.nt{left:50%;width:640px;margin-left:-320px;background:repeating-linear-gradient(#fbf6e6 0 46px,#c9d8e8 46px 48px);color:#1c2430;font-family:Mono;padding:22px 34px 26px 74px;box-shadow:0 16px 32px rgba(0,0,0,.45);border-left:4px solid #e08a8a;transform-origin:50% 0}
+.nt h{display:block;font-size:26px;letter-spacing:4px;color:#8a3a3a;margin-bottom:6px}
+.nt p{margin:0;font-size:44px;line-height:48px}
+.nt p.big{font-family:Anton;font-size:96px;line-height:1.05;color:#1c2430}
+.st{left:0;width:1080px;text-align:center}
+.st span{display:inline-block;font-family:Anton;font-size:128px;line-height:1;padding:10px 36px 14px;border:12px solid currentColor;border-radius:20px;transform:rotate(-7deg);color:#c8283a;background:rgba(255,255,255,.1)}
+.st.grn span{color:#2f8a4a}
+#map{left:50%;width:700px;margin-left:-350px;top:330px;background:#f1e6c8;border:6px solid #6a4a2c;box-shadow:0 16px 32px rgba(0,0,0,.45);padding:14px}
+#map svg{display:block}
+.qt{left:60px;width:960px;top:1390px;background:rgba(14,16,24,.88);color:#fff;padding:26px 34px;border-left:12px solid #ffc62f}
+.qt b{display:block;font-family:Anton;font-size:76px;line-height:1.05}
+.qt span{display:block;font-family:Mono;font-size:28px;letter-spacing:2px;margin-top:10px;opacity:.85}
+.qt.gb{border-left-color:#3a7a4a}
+.clk{left:50%;width:760px;margin-left:-380px;top:400px;display:flex;gap:40px;justify-content:center}
+.clk div{width:340px;text-align:center;font-family:Mono;color:#fff;text-shadow:0 2px 8px #000}
+.clk svg{display:block;margin:0 auto 10px}
+.clk b{display:block;font-family:Anton;font-weight:400;font-size:46px;color:#ffd27a}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Anton;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<svg class="el" id="bino" viewBox="0 0 1080 1920"><defs><mask id="m"><rect width="1080" height="1920" fill="#fff"/><circle cx="340" cy="860" r="470" fill="#000"/><circle cx="740" cy="860" r="470" fill="#000"/></mask></defs>
+ <rect width="1080" height="1920" fill="#06070a" mask="url(#m)"/><g stroke="rgba(255,255,255,.55)" stroke-width="3"><line x1="540" y1="640" x2="540" y2="1080"/><line x1="380" y1="860" x2="700" y2="860"/></g>
+ <g fill="rgba(255,255,255,.7)" font-family="Space Mono, monospace" font-size="30"><text x="560" y="700">N 46°</text><text x="560" y="1050">ZOOM ×12</text></g></svg>
+<div id="rec"><i></i><span id="tc">06:41:00:00</span></div>
+<div class="el sp" id="sp1"><div class="bar"><b>Quarterbackus veteranus</b><span>KIRK COUSINS · AGE 38</span></div></div>
+<div class="el nt" id="tm4" style="top:420px"><h>FIELD NOTES · NESTING</h><p class="big">4 TEAMS</p><p>WAS · MIN · ATL · LV</p></div>
+<div class="el nt" id="dir" style="top:420px"><h>FIELD NOTES · NAVIGATION</h><p>SENSE OF DIRECTION:</p><p class="big">0</p></div>
+<div class="el nt" id="yr" style="top:420px"><h>NEST #2 · MINNESOTA</h><p class="big">2018–2023</p><p>6 SEASONS</p></div>
+<div class="el nt" id="mon" style="top:420px"><h>BAIT OBSERVED · ATLANTA</h><p class="big">$180M</p><p>4 YEARS (2024)</p></div>
+<div class="el" id="map"><svg width="700" height="420" viewBox="0 0 100 60">
+ <path d="M8,12 L12,8 L40,9 L52,10 L58,12 L62,16 L66,14 L72,16 L78,15 L86,10 L92,9 L90,16 L86,20 L84,26 L82,32 L78,38 L76,44 L80,52 L78,56 L74,50 L70,46 L62,46 L56,48 L50,54 L46,52 L42,46 L34,46 L28,42 L20,40 L14,36 L10,30 L8,22 Z" fill="#d8c69a" stroke="#6a4a2c" stroke-width="0.6"/>
+ <path id="route" d="M82,27 L55,17 L72,40 L17,33 L55,17" fill="none" stroke="#c8283a" stroke-width="0.9" stroke-dasharray="2 1.2"/>
+ <g font-family="Space Mono, monospace" font-size="3.4" fill="#2a1a10"><circle cx="82" cy="27" r="1.1"/><text x="83.5" y="30">WAS</text><circle cx="55" cy="17" r="1.4" fill="#4f2683"/><text x="57" y="16">MIN</text><circle cx="72" cy="40" r="1.1"/><text x="73.5" y="43">ATL</text><circle cx="17" cy="33" r="1.1"/><text x="10" y="38">LV</text></g>
+ <g id="bird"><path d="M-2,0 L0,-1 L2,0 L0,-0.4 Z" fill="#1c2430" transform="scale(1.4)"/></g></svg></div>
+<div class="el st" id="ft" style="top:480px"><span style="font-size:96px">FREE TRIAL · EXPIRED</span></div>
+<div class="el sp" id="p1"><div class="bar" style="border-left-color:#8a9098"><b>Rookie, #1 overall</b><span>FERNANDO MENDOZA · LAS VEGAS · 2026 DRAFT</span></div></div>
+<div class="el st grn" id="keys" style="top:470px"><span>KEYS: HANDED OVER</span></div>
+<div class="el clk" id="tz"><div><svg width="220" height="220" viewBox="-1 -1 2 2"><circle r=".95" fill="#f4ecd8" stroke="#1c2430" stroke-width=".06"/><line id="h1" x2="0" y2="-.5" stroke="#1c2430" stroke-width=".07"/><line id="m1" x2="0" y2="-.8" stroke="#c8283a" stroke-width=".04"/></svg><b>ATLANTA · ET</b>REPLACED ✓</div>
+ <div><svg width="220" height="220" viewBox="-1 -1 2 2"><circle r=".95" fill="#f4ecd8" stroke="#1c2430" stroke-width=".06"/><line id="h2" x2="0" y2="-.5" stroke="#1c2430" stroke-width=".07"/><line id="m2" x2="0" y2="-.8" stroke="#c8283a" stroke-width=".04"/></svg><b>LAS VEGAS · PT</b>REPLACED ✓</div></div>
+<div class="el nt" id="st" style="top:420px"><h>MONDAY NIGHT · HERD STATUS</h><p id="st1">COMPLETIONS: 8</p><p id="st2">ATTEMPTS: 25</p><p id="st3">3RD DOWN: 0 / 8</p><p id="st4" style="color:#c8283a">STATUS: STARVING</p></div>
+<div class="el nt" id="pr" style="top:1400px"><h>TRADE · 10 NOV 2026</h><p>PRICE PAID:</p><p class="big">1× 3RD-ROUND PICK</p></div>
+<div class="el st grn" id="ch" style="top:1450px"><span style="font-size:84px">CHEAPEST MIGRATION EVER</span></div>
+<div class="el nt" id="yd" style="top:420px"><h>BOND · COUSINS + JEFFERSON</h><p class="big">5,348 YDS</p><p>TOGETHER · 2020–23</p></div>
+<div class="el qt" id="q1"><b>“TOO EARLY TO COMMIT.”</b><span>KEVIN O'CONNELL · VIKINGS HEAD COACH</span></div>
+<div class="el qt gb" id="q2"><b>“HE'LL BE STARTING.”</b><span>MATT LAFLEUR · PACKERS HEAD COACH</span></div>
+<div class="el sp" id="only"><div class="bar" style="border-left-color:#3a7a4a"><b>The only one who knows</b><span>…COACHES GREEN BAY</span></div></div>
+<div class="el sp" id="loc"><div class="bar" style="border-left-color:#3a7a4a"><b>Lambeau Field</b><span>SUNDAY · HUNTING GROUND OF THE GREEN BAY PACK</span></div></div>
+<div class="el sp" id="sp2"><div class="bar"><b>Quarterbackus predictabilis</b><span>BEHAVIOUR: EXTREMELY PREDICTABLE</span></div></div>
+<div class="el st" id="pred" style="top:520px"><span>PREDICTABLE</span></div>
+<div class="wm">AbsurdPlay</div>
+<div id="flash"></div>
+<script type="module">
+import {SH} from './ep16_shots.js';
+const TL=[['sp1',4.0,SH.s2b[0]],['tm4',6.5,SH.s2c[0]],['dir',7.66,SH.s3[0]],['yr',9.08,SH.s4[0]],['mon',12.44,SH.s4b[0]],
+ ['map',SH.s4b[0],SH.s4b[1]],['ft',20.84,SH.s6[0]],['map',SH.s6[0],SH.s6[1]],['p1',27.0,SH.s7b[0]],['keys',30.96,SH.s8[0]],['tz',32.48,SH.s9[0]],
+ ['st',38.24,SH.s10[0]],['pr',44.78,SH.s10c[0]],['map',SH.s10c[0],SH.s10c[1]],['ch',46.38,SH.s11[0]],['yd',51.96,SH.s12[0]],['q1',59.18,SH.s13[0]],['q2',62.76,SH.s13b[0]],
+ ['only',66.24,SH.s14[0]],['loc',69.58,SH.s15[0]],['sp2',72.08,76.4],['pred',73.48,76.4]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+// đường bay theo từng chặng: MIN→ATL, ATL→LV, LV→MIN (độ dài cộng dồn của path)
+const route=$('route');const L=route.getTotalLength();const d1=Math.hypot(27,10),d2=Math.hypot(17,23),d3=Math.hypot(55,7);const seg=[0,d1,d1+d2,d1+d2+d3,L]; // WAS→MIN | MIN→ATL | ATL→LV | LV→MIN
+route.style.strokeDasharray=`2 1.2`;
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(cl((t-a)/0.22)):0;e.style.opacity=on?cl((t-a)/0.06):0;
+    if(e.classList.contains('st')){const p=on?cl((t-a)/0.12):0;e.style.transform=`scale(${1.9-0.9*p})`;}
+    else if(e.classList.contains('nt'))e.style.transform=`rotate(${(1-k)*-8-1.5}deg) translateY(${(1-k)*-160}px)`;
+    else if(e.classList.contains('sp')||e.classList.contains('qt'))e.style.transform=`translateX(${(1-k)*-1100}px)`;
+    else if(e.id==='map')e.style.transform=`scale(${0.85+0.15*k})`;}
+  // mã thời gian máy quay tài liệu
+  const f=Math.floor(t*30),ss=Math.floor(t);$('tc').textContent=`06:${String(41+Math.floor(ss/60)).padStart(2,'0')}:${String(ss%60).padStart(2,'0')}:${String(f%30).padStart(2,'0')}`;
+  $('rec').style.opacity=(Math.floor(t*1.5)%2?0.55:1);
+  // bản đồ: vẽ dần chặng đang bay, chim chạy trên đường
+  let a0=seg[1],a1=seg[2];if(t>=SH.s6[0])[a0,a1]=[seg[2],seg[3]];if(t>=SH.s10c[0])[a0,a1]=[seg[3],seg[4]];
+  let k=0;for(const key of ['s4b','s6','s10c'])if(t>=SH[key][0]&&t<SH[key][1])k=cl((t-SH[key][0])/(SH[key][1]-SH[key][0])*1.15);
+  const cur=a0+(a1-a0)*k;route.style.strokeDasharray=`${cur} ${L}`;const p=route.getPointAtLength(cur),p2=route.getPointAtLength(Math.min(L,cur+0.5));
+  $('bird').setAttribute('transform',`translate(${p.x},${p.y}) rotate(${Math.atan2(p2.y-p.y,p2.x-p.x)*57.3})`);
+  // đồng hồ hai múi giờ (lệch 3 giờ)
+  const ang=(h,m)=>[h/12*360+m/2,m*6];const mm=(t*40)%60;const [ha,ma]=ang(4,mm),[hb,mb]=ang(1,mm);
+  $('h1').setAttribute('transform',`rotate(${ha})`);$('m1').setAttribute('transform',`rotate(${ma})`);$('h2').setAttribute('transform',`rotate(${hb})`);$('m2').setAttribute('transform',`rotate(${mb})`);
+  // sổ tay: từng dòng hiện theo lời đọc
+  [['st1',38.8],['st2',39.84],['st3',41.12],['st4',42.0]].forEach(([id,a])=>{$(id).style.opacity=t>=a?1:0;});
+  const fl=(k,n=5)=>{const x=(t-SH[k][0])*30;return x>=0&&x<n?[0.9,0.75,0.45,0.2,0.06][Math.floor(x)]:0;};
+  $('flash').style.opacity=0; // không chớp trắng khi chuyển cảnh (người dùng yêu cầu chuyển mượt)
+};
+</script></body></html>

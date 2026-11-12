@@ -1,0 +1,222 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 16 (NFL, dạng PHIM TÀI LIỆU HOANG DÃ, troll) — "Kirk Cousins just migrated back to Minnesota." Mốc shot: ep16_shots.js.
+import * as THREE from 'three';
+import {buildWild,moneyBag,bigKey,compass,snowPuff,C,SP} from './lib/hoangda.js';
+import {MIN} from './lib/baixetuyet.js';
+import {football} from './lib/dovat.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose,aim,ik2} from './lib/tuthe.js';
+import {locoLock,expr,clipPose} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {SH} from './ep16_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.1;
+const s=new THREE.Scene();const A=buildWild(s);
+const lib=await loadLibrary();
+const GE=k=>(SH[k+'c']||SH[k+'b']||SH[k])[1];const IN=(k,t)=>t>=SH[k][0]&&t<GE(k);const ON=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const U=(k,t)=>t-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));const PI=Math.PI;
+// ---------- nhân vật ----------
+// Kirk Cousins (1,91 m, tóc nâu nhạt rẽ ngôi, mặt cạo) có 3 bộ áo theo "tổ": Vikings tím #8, Atlanta đỏ-đen #18, Las Vegas đen-bạc #8 (áo trơn, không logo).
+const VIK={...EAGLES,jersey:MIN.purple,numberColor:'#ffffff',numberOutline:MIN.gold,pants:'#f6f6f6',pantsStripes:[MIN.purple,MIN.gold],socks:MIN.purple,shoes:'#f4f4f4',gloves:null,helmet:null,collar:MIN.gold,backNameMax:150};
+const ATL={...EAGLES,jersey:'#a71930',numberColor:'#ffffff',numberOutline:'#111111',pants:'#f4f4f4',pantsStripes:['#111111','#a71930'],socks:'#111111',shoes:'#f4f4f4',gloves:null,helmet:null,collar:'#111111',backNameMax:150};
+const RAID={...EAGLES,jersey:'#2e3038',numberColor:'#e6eaf0',numberOutline:'#8a9098',pants:'#c9ced6',pantsStripes:['#2e3038','#ffffff'],socks:'#2e3038',shoes:'#1a1a1a',gloves:null,helmet:null,collar:'#c9ced6',backNameMax:150};
+const KCP={backName:'COUSINS',heightM:1.91,skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#9a7650'};
+const KM=makeCharacter(lib,{...VIK,number:8,...KCP}),KA=makeCharacter(lib,{...ATL,number:18,...KCP}),KR=makeCharacter(lib,{...RAID,number:8,...KCP});
+const FM=makeCharacter(lib,{...RAID,number:15,backName:'MENDOZA',heightM:1.96,skin:'#e2b48c',hair:'Hair_SimpleParted',hairColor:'#1c1612'});
+const CW=makeCharacter(lib,{...VIK,number:11,backName:'WENTZ',heightM:1.96,skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#8a5232',beardStyle:'full',beardColor:'#8a5232'});
+const JJ=makeCharacter(lib,{...VIK,number:18,backName:'JEFFERSON',heightM:1.85,skin:'#8a5634',build:'slim',hair:'Hair_Buzzed',hairColor:'#141010',hairStyle:'proc:dreads'});
+const KO=makeCharacter(lib,{...EAGLES,jersey:'#2a1650',number:null,backName:null,pants:'#26262c',pantsStripes:null,socks:'#1a1a1a',shoes:'#141414',gloves:null,helmet:null,collar:'#2a1650',heightM:1.96,skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#6a4a2c'});
+// "đàn" Vikings (áo tím trơn không số) + bóng đen (QB trẻ ở Atlanta, HLV Green Bay, "bầy" Green Bay) — không dựng mặt người thật
+const V1=makeCharacter(lib,{...VIK,number:null,backName:null,heightM:1.88,skin:'#c68c5f',hair:'Hair_Buzzed',hairColor:'#141010',beardStyle:'stubble',beardColor:'#141010'});
+const V2=makeCharacter(lib,{...VIK,number:null,backName:null,heightM:1.93,skin:'#e8b98f',hair:'Hair_SimpleParted',hairColor:'#4a3020'});
+const SIL=()=>makeCharacter(lib,{...EAGLES,number:null,backName:null,heightM:1.93,skin:'#222',hair:'Hair_Buzzed',hairColor:'#111',helmet:null,gloves:null});
+const YNG=SIL(),GBC=SIL(),PK=[SIL(),SIL(),SIL(),SIL()];
+const ALL=[KM,KA,KR,FM,CW,JJ,KO,V1,V2,YNG,GBC,...PK];ALL.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+const silMat=new THREE.MeshBasicMaterial({color:'#0b0d14'});
+for(const ch of [YNG,GBC,...PK]){ch.root.traverse(o=>{if(o.isMesh)o.material=silMat;});}
+// mắt phát sáng cho "bầy" Green Bay
+const eyeM=new THREE.MeshBasicMaterial({color:'#ffe27a',toneMapped:false});
+for(const ch of PK){for(const sx of [-1,1]){const e=new THREE.Mesh(new THREE.SphereGeometry(0.018,8,6),eyeM);e.position.set(sx*0.035,0.06,0.09);B(ch,'Head').add(e);}}
+// tai nghe HLV cho bóng HLV Green Bay
+{const hs=new THREE.Mesh(new THREE.TorusGeometry(0.11,0.012,6,16,PI),silMat);hs.position.set(0,0.13,0);B(GBC,'Head').add(hs);}
+// đạo cụ
+const BAG=moneyBag();s.add(BAG);const KEY=bigKey();s.add(KEY);const CMP=compass();s.add(CMP.G);const PUF=snowPuff();s.add(PUF.G);const BALL=football(0.28);s.add(BALL);
+const SUIT=(()=>{const G=new THREE.Group();const b=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.68,0.24),new THREE.MeshStandardMaterial({color:'#2e3038',roughness:0.5}));b.position.y=-0.42;G.add(b);
+  const hd=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.04,0.04),new THREE.MeshStandardMaterial({color:'#111'}));hd.position.y=-0.06;G.add(hd);
+  const stk=(txt,c,x,y,rz)=>{const cv=document.createElement('canvas');cv.width=256;cv.height=128;const g=cv.getContext('2d');g.fillStyle=c;g.beginPath();g.ellipse(128,64,124,60,0,0,7);g.fill();g.fillStyle='#fff';g.font='900 60px Anton, Impact';g.textAlign='center';g.fillText(txt,128,86,230);
+    const tx=new THREE.CanvasTexture(cv);tx.colorSpace=THREE.SRGBColorSpace;const m=new THREE.Mesh(new THREE.PlaneGeometry(0.26,0.13),new THREE.MeshBasicMaterial({map:tx,transparent:true}));m.position.set(x,y,0.121);m.rotation.z=rz;G.add(m);};
+  stk('VEGAS','#c8283a',-0.1,-0.3,0.2);stk('ATL','#a71930',0.1,-0.55,-0.15);stk('MN ♥','#4f2683',0.08,-0.38,0.05);G.traverse(o=>{if(o.isMesh)o.castShadow=true;});s.add(G);return G;})();
+const CAC=(()=>{const G=new THREE.Group();const pot=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.07,0.12,12),new THREE.MeshStandardMaterial({color:'#c8683a'}));G.add(pot);const c=new THREE.Mesh(new THREE.CapsuleGeometry(0.045,0.16,4,8),new THREE.MeshStandardMaterial({color:'#5a7a5a'}));c.position.y=0.15;G.add(c);
+  const ar=new THREE.Mesh(new THREE.CapsuleGeometry(0.03,0.07,4,8),c.material);ar.position.set(0.06,0.17,0);G.add(ar);G.traverse(o=>{if(o.isMesh)o.castShadow=true;});s.add(G);return G;})();
+const RCV=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.2,0.05),new THREE.MeshStandardMaterial({color:'#4f2683',roughness:0.4}));s.add(RCV);
+const MEG=new THREE.Mesh(new THREE.ConeGeometry(0.12,0.32,14,1,true).rotateX(-PI/2),silMat);s.add(MEG);
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,2000);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',0.7);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:161});
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const [NX,NY,NZ]=C.north,[SX,,SZ]=C.south,[DX,,DZ]=C.desert,[VX,,VZ]=C.valley,[KX,KY,KZ]=C.sky;
+const RT=1.3; // đỉnh mỏm đá
+const NS=[SP.nest[0],SP.nest[1]],FI=[SP.fire[0],SP.fire[1]],ST=[SP.stump[0],SP.stump[1]],MI=[SP.mic[0],SP.mic[1]],BD=[SP.border[0],SP.border[1]];
+// tele qua ống nhòm → cận → trung
+S('s1',{pos:[-6.7,1.4,5.7],look:[-9.5,1.2,3.0]},{pos:[-0.7,1.4,5.6],look:[-3.5,1.2,2.9]},{fov:[46,46],shake:0.006,shakeHz:1.0});
+rig.add({t0:SH.s1b[0],t1:SH.s1b[1],ease:'linear',shake:0.006,shakeHz:1.0,fov:[46,44],path:[[-0.7,1.4,5.6],[4.0,1.45,5.1],[5.0,1.5,4.6]],lookPath:[[-3.5,1.2,2.5],[2.0,1.1,2.0],[3.2,0.8,1.6]]});
+S('s2',{pos:[1.4,2.5,4.4],look:[0,2.2,0]},{pos:[1.2,2.5,4.0],look:[0,2.2,0]},{fov:[42,40]});
+S('s2b',{pos:[-1.2,2.4,3.6],look:[0,2.3,0]},{pos:[-1.1,2.4,3.4],look:[0,2.3,0]},{fov:[42,40]});
+S('s2c',{pos:[0.6,2.6,2.3],look:[0,2.45,0]},{pos:[0.6,2.6,2.1],look:[0,2.45,0]},{fov:[42,40]});
+S('s3',{pos:[NS[0]+1.4,1.4,NS[1]+3.6],look:[NS[0],0.8,NS[1]]},{pos:[NS[0]+1.2,1.4,NS[1]+3.2],look:[NS[0],0.8,NS[1]]},{fov:[44,42]});
+S('s4',{pos:[4.6,1.7,7.2],look:[4.0,1.4,2.2]},{pos:[4.6,1.7,6.6],look:[4.2,1.4,2.6]},{fov:[44,44]});
+S('s4b',{pos:[KX+0.4,KY-0.5,KZ+5.0],look:[KX,KY+0.35,KZ]},{pos:[KX+0.2,KY-0.5,KZ+4.6],look:[KX,KY+0.35,KZ]},{fov:[46,46]});
+S('s5',{pos:[SX+2.4,1.6,SZ+6.2],look:[SX+1.5,0.9,SZ+0.5]},{pos:[SX+2.2,1.6,SZ+5.6],look:[SX+1.5,0.9,SZ+0.5]},{fov:[44,44]});
+S('s5b',{pos:[SX+1.9,1.5,SZ+4.2],look:[SX+1.5,1.0,SZ+0.5]},{pos:[SX+1.9,1.5,SZ+3.8],look:[SX+1.5,1.0,SZ+0.5]},{fov:[44,42]});
+S('s6',{pos:[KX-0.4,KY-0.5,KZ+5.2],look:[KX,KY+0.35,KZ]},{pos:[KX-0.2,KY-0.5,KZ+4.8],look:[KX,KY+0.35,KZ]},{fov:[46,46]});
+S('s6b',{pos:[DX+1.6,1.2,DZ+5.6],look:[DX+1.4,1.2,DZ+0.6]},{pos:[DX+1.6,1.2,DZ+5.0],look:[DX+1.4,1.0,DZ+0.6]},{fov:[46,44]});
+S('s7',{pos:[DX+3.4,1.5,DZ+5.8],look:[DX+2.8,1.3,DZ-2]},{pos:[DX+3.2,1.5,DZ+5.2],look:[DX+2.4,1.3,DZ-0.6]},{fov:[46,44]});
+S('s7b',{pos:[DX+2.4,1.65,DZ+4.0],look:[DX+2.2,1.55,DZ+0.6]},{pos:[DX+2.4,1.65,DZ+3.6],look:[DX+2.2,1.6,DZ+0.6]},{fov:[44,42]});
+S('s8',{pos:[DX+0.9,1.6,DZ+5.2],look:[DX+1.0,1.0,DZ+0.8]},{pos:[DX+0.9,1.6,DZ+4.6],look:[DX+1.0,1.0,DZ+0.8]},{fov:[46,44]});
+S('s9',{pos:[FI[0]+1.6,1.45,FI[1]+3.6],look:[FI[0],0.7,FI[1]]},{pos:[FI[0]+1.4,1.45,FI[1]+3.2],look:[FI[0],0.7,FI[1]]},{fov:[46,44]});
+S('s9b',{pos:[FI[0]+2.6,1.5,FI[1]+3.4],look:[FI[0]-0.6,1.0,FI[1]-0.4]},{pos:[FI[0]+2.4,1.5,FI[1]+3.1],look:[FI[0]-1.2,0.9,FI[1]-0.6]},{fov:[48,48]});
+S('s10',{pos:[ST[0]+0.6,1.4,ST[1]+3.4],look:[ST[0]-0.7,1.1,ST[1]+0.4]},{pos:[ST[0]+0.5,1.4,ST[1]+3.0],look:[ST[0]-0.6,1.15,ST[1]+0.3]},{fov:[46,44]});
+S('s10b',{pos:[ST[0]+0.2,1.8,ST[1]+2.0],look:[ST[0]-0.5,1.72,ST[1]+0.35]},{pos:[ST[0]+0.15,1.8,ST[1]+1.75],look:[ST[0]-0.5,1.72,ST[1]+0.35]},{fov:[40,38]});
+S('s10c',{pos:[KX+0.4,KY-0.5,KZ+5.2],look:[KX,KY+0.35,KZ]},{pos:[KX+0.2,KY-0.5,KZ+4.8],look:[KX,KY+0.35,KZ]},{fov:[46,46]});
+S('s11',{pos:[1.6,0.8,6.0],look:[0.6,1.0,2.6]},{pos:[1.6,0.8,5.8],look:[0.6,0.9,2.6]},{fov:[46,46]});
+S('s11b',{pos:[2.6,1.6,6.6],look:[-1.4,1.3,3.6]},{pos:[2.4,1.6,6.2],look:[-0.6,1.3,3.2]},{fov:[46,46]});
+S('s11c',{pos:[3.4,1.7,8.6],look:[-1.2,1.4,2.8]},{pos:[3.2,1.7,8.2],look:[-2.4,1.4,2.2]},{fov:[48,48]});
+S('s12',{pos:[MI[0],1.72,MI[1]+2.6],look:[MI[0],1.7,MI[1]-0.4]},{pos:[MI[0],1.72,MI[1]+2.2],look:[MI[0],1.7,MI[1]-0.4]},{fov:[42,40]});
+S('s13',{pos:[BD[0]-0.4,1.6,BD[1]+3.6],look:[BD[0]+1.6,1.5,BD[1]-2.4]},{pos:[BD[0]-0.3,1.6,BD[1]+3.2],look:[BD[0]+1.8,1.6,BD[1]-2.6]},{fov:[42,40]});
+S('s13b',{pos:[MI[0],1.72,MI[1]+2.4],look:[MI[0],1.7,MI[1]-0.4]},{pos:[MI[0],1.72,MI[1]+2.0],look:[MI[0],1.7,MI[1]-0.4]},{fov:[42,40]});
+S('s13c',{pos:[BD[0]-0.3,1.6,BD[1]+3.2],look:[BD[0]+1.8,1.6,BD[1]-2.6]},{pos:[BD[0]-0.2,1.6,BD[1]+2.6],look:[BD[0]+2.0,1.7,BD[1]-2.8]},{fov:[40,36]});
+S('s14',{pos:[VX+0.8,1.6,VZ+7],look:[VX,2.2,VZ-30]},{pos:[VX+0.6,1.6,VZ+5.6],look:[VX,2.2,VZ-30]},{fov:[48,48]});
+S('s15',{pos:[VX+5.0,2.2,VZ-5.0],look:[VX+9,2.6,VZ-14]},{pos:[VX+5.2,2.2,VZ-5.4],look:[VX+9,2.6,VZ-14]},{fov:[34,30]});
+S('s15b',{pos:[VX+0.2,1.72,VZ-0.6],look:[VX,1.66,VZ-3.0]},{pos:[VX+0.2,1.72,VZ-1.1],look:[VX,1.66,VZ-3.0]},{fov:[40,38]});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+const ENVS=[['s1','north'],['s4b','sky'],['s5','south'],['s6','sky'],['s6b','desert'],['s9','dusk'],['s10c','sky'],['s11','north'],['s14','valley']];
+const envAt=t=>{let e='north';for(const [k,n] of ENVS)if(t>=SH[k][0]-1e-6)e=n;return e;};
+// ---------- hàm dàn dựng ----------
+const PROPS=[BAG,KEY,CMP.G,PUF.G,BALL,RCV,MEG,SUIT,CAC];
+const hideAll=()=>{A.N.mic.visible=true;for(const ch of ALL)ch.root.visible=false;PROPS.forEach(p=>p.visible=false);A.N.phone.position.set(0,0.17,0);A.N.phone.rotation.set(0,0,0);};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,fo=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-fo)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-fo)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo}]);show(ch);};
+const sit=(ch,x,y0,z,ry,t,seatY,sd=0,name='Sitting_Idle_Loop')=>{place(ch,x,z,ry);CP(ch,[{name,time:t+sd,w:1}]);const p=B(ch,'pelvis').getWorldPosition(V());ch.root.position.y+=y0+seatY-p.y;ch.root.updateMatrixWorld(true);show(ch);};
+const walk=(ch,t,t0,p0,p1,spd,gait='Walk_Loop',endRy=null)=>{const d=Math.hypot(p1[0]-p0[0],p1[1]-p0[1]);const k=cl((t-t0)*spd/d);const face=Math.atan2(p1[0]-p0[0],p1[1]-p0[1]);
+  if(k<1){locoLock(ch,lib,t,(tt)=>{const kk=cl((tt-t0)*spd/d);return [lerp(p0[0],p1[0],kk),lerp(p0[1],p1[1],kk)];},{t0,face,gait});ch.root.position.y=0;show(ch);return false;}
+  let ry=face;if(endRy!=null){let dA=((endRy-face+PI)%(2*PI)+2*PI)%(2*PI)-PI;ry=face+dA*sm((t-t0-d/spd)/0.4);}idle(ch,p1[0],p1[1],ry,t,3);return true;};
+const hand=(ch,sd='r')=>B(ch,'hand_'+sd).getWorldPosition(V());
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const shrug=(ch,k)=>{for(const [sd,sg] of [['l',1],['r',-1]]){aim(B(ch,'upperarm_'+sd),B(ch,'lowerarm_'+sd),Lc(ch,sg*0.7,-0.5+0.2*k,0.3*k));aim(B(ch,'lowerarm_'+sd),B(ch,'hand_'+sd),Lc(ch,sg*0.6,0.5*k,0.6));}ch.root.updateMatrixWorld(true);};
+const thumbs=(ch,k)=>{aim(B(ch,'upperarm_r'),B(ch,'lowerarm_r'),Lc(ch,-0.5,-0.3*k,0.6*k+0.1));aim(B(ch,'lowerarm_r'),B(ch,'hand_r'),Lc(ch,-0.1,0.9*k,0.4));ch.root.updateMatrixWorld(true);};
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const head=ch=>B(ch,'Head').getWorldPosition(V());const chest=ch=>B(ch,'spine_03').getWorldPosition(V());
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const inHand=(obj,ch,sd='r',off=[0,-0.02,0.05])=>{at(obj,hand(ch,sd).add(Lc(ch,...off)),ch.root.rotation.y);};
+// BAY: nghiêng người về trước, dang tay như cánh, vỗ nhẹ
+const fly=(ch,x,y,z,yaw,t,sd=0)=>{CP(ch,[{name:'Idle_Loop',time:t+sd,w:1}]);ch.root.position.set(x,y,z);ch.root.rotation.order='YXZ';ch.root.rotation.set(1.25,yaw,0);ch.root.updateMatrixWorld(true);
+  const fl=Math.sin(t*7+sd)*0.35;for(const [sd2,sg] of [['l',1],['r',-1]]){aim(B(ch,'upperarm_'+sd2),B(ch,'lowerarm_'+sd2),Lc(ch,sg*1,fl,0.15));aim(B(ch,'lowerarm_'+sd2),B(ch,'hand_'+sd2),Lc(ch,sg*1,fl*1.3,0.1));}ch.root.updateMatrixWorld(true);show(ch);};
+const throwArm=(ch,k)=>{const back=Lc(ch,-0.25,0.25,-0.35),fwd=Lc(ch,-0.15,0.15,0.6);const p=head(ch).add(k<0.5?back.lerp(fwd,0):back.clone().lerp(fwd,sm((k-0.5)/0.3)));reach(ch,p);};
+const arc=(p0,p1,h,k)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(k*PI)*h,lerp(p0.z,p1.z,k));
+const pose=t=>{
+  rig.apply(t);hideAll();A.setEnv(envAt(t),cam);
+  // s1–s1b HOOK: ống nhòm nhìn Kirk đứng trên mỏm đá lúc bình minh, ngẩng đầu đánh hơi như hươu
+  // s1–s1b HOOK: Kirk (áo Las Vegas) kéo vali dán sticker, tay giơ chậu xương rồng lưu niệm, chạy hết tốc lực về tổ cũ ở Minnesota rồi nhào vào tổ
+  if(IN('s1',t)){const P0=[-9.5,3.0],P1=[NS[0]-1.6,NS[1]+0.5],TJ=2.45;A.N.mic.visible=false;
+    if(t<TJ){locoLock(KR,lib,t,(tt)=>{const k=cl(tt/TJ);return [lerp(P0[0],P1[0],k),lerp(P0[1],P1[1],k)];},{t0:-0.6,face:Math.atan2(P1[0]-P0[0],P1[1]-P0[1]),gait:'MX_Sprint'});KR.root.position.y=0;show(KR);
+      reach(KR,head(KR).add(Lc(KR,-0.28,0.32,0.12)));inHand(CAC,KR,'r',[0,0.05,0]);SUIT.visible=true;SUIT.position.copy(hand(KR,'l'));SUIT.rotation.set(Math.sin(t*14)*0.25,KR.root.rotation.y,Math.sin(t*9)*0.2);
+      E(KR,t,[[0,'laugh']],1,{look:[0.4,0.1]});}
+    else{const k=cl((t-TJ)/0.55);const x=lerp(P1[0],NS[0],k),z=lerp(P1[1],NS[1]-0.1,k);
+      if(k<1){place(KR,x,z,Math.atan2(NS[0]-P1[0],NS[1]-P1[1]),Math.sin(k*PI)*0.65);CP(KR,[{name:'Jump_Loop',time:0.3+k*0.4,w:1}]);show(KR);for(const sd of ['l','r'])reach(KR,head(KR).add(Lc(KR,sd==='l'?0.35:-0.35,0.35,0.15)),sd);
+        const sk=cl(k*1.2);SUIT.visible=true;SUIT.position.set(lerp(P1[0],NS[0]+1.4,sk),Math.sin(sk*PI)*1.6+0.7*(1-sk)+0.7,lerp(P1[1],NS[1]+1.2,sk));SUIT.rotation.set(sk*5,0,sk*3);}
+      else{sit(KR,NS[0],0,NS[1]-0.1,0.25,t,0.36,1);for(const sd of ['l','r'])reach(KR,head(KR).add(Lc(KR,sd==='l'?0.45:-0.45,0.3,0.1)),sd);SUIT.visible=true;SUIT.position.set(NS[0]+1.4,0.7,NS[1]+1.2);SUIT.rotation.set(0,0.4,PI/2);
+        PUF.G.visible=true;PUF.G.position.set(NS[0],0,NS[1]);PUF.set(cl((t-TJ-0.55)/0.8));PUF.G.children.forEach(c=>c.material.color.set('#ffffff'));}
+      at(CAC,V(NS[0]-0.8,0.06,NS[1]+0.9),0.3);E(KR,t,[[0,'laugh']],1,{look:[0,0.1]});}}
+  // máy quay bám theo Kirk (chạy trước, chéo 3/4 để thấy mặt) — tính trực tiếp từ vị trí Kirk
+  if(IN('s1',t)){const P0=[-9.5,3.0],P1=[NS[0]-1.6,NS[1]+0.5],TJ=2.45;const k=cl(t/TJ),kj=sm((t-TJ)/0.55);
+    const kx=lerp(lerp(P0[0],P1[0],k),NS[0],kj),kz=lerp(lerp(P0[1],P1[1],k),NS[1],kj);const zoom=sm((t-TJ-0.3)/1.0);
+    cam.position.set(kx+lerp(2.4,1.6,zoom)+Math.sin(t*6)*0.01,1.45-0.1*zoom,kz+lerp(2.9,3.2,zoom));cam.lookAt(kx-0.15,lerp(1.25,0.95,zoom),kz);cam.fov=46;cam.updateProjectionMatrix();}
+  // s2: "Meet the veteran QB"; s2b: 4 đội (giơ 4 ngón); s2c: la bàn quay vòng, Kirk xoay trái phải
+  if(ON('s2',t)){idle(KM,0,0.05,0.35,t,1,{y:RT});E(KM,t,[[0,'smug']],1,{look:[0.4,0]});}
+  if(ON('s2b',t)){idle(KM,0,0.05,-0.2,t,1,{y:RT});reach(KM,head(KM).add(Lc(KM,-0.25,0.15,0.35)));E(KM,t,[[0,'proud']],1,{look:[-0.3,0]});}
+  if(ON('s2c',t)){const u=U('s2c',t);idle(KM,0,0.05,0.4*Math.sin(u*4.2),t,1,{y:RT});reach(KM,chest(KM).add(Lc(KM,0,0.05,0.35)));inHand(CMP.G,KM,'r',[0,0.04,0.04]);CMP.G.rotation.x=-0.9;CMP.needle.rotation.z=u*18;E(KM,t,[[0,'surprised'],[SH.s2c[0]+0.7,'shrug']],1,{look:[Math.sin(u*4.2)*0.6,-0.2]});}
+  // s3: 6 mùa ở Minnesota — ngồi trong tổ gỗ trôi, an nhàn
+  if(ON('s3',t)){sit(KM,NS[0],0,NS[1]-0.15,0.2,t,0.38,1);E(KM,t,[[0,'smug']],1,{look:[0,0]});}
+  // s4: túi $180M thả xuống — Kirk đứng dậy đi theo
+  if(ON('s4',t)){const u=U('s4',t);const by=lerp(4.8,1.75,sm(u/1.0))+Math.sin(u*3)*0.05;at(BAG,V(4.4+Math.sin(u*2)*0.05,by,3.0),Math.sin(u*1.5)*0.3);
+    if(u<0.9){sit(KM,NS[0],0,NS[1]-0.15,0.2,t,0.38,1);E(KM,t,[[0,'smug'],[SH.s4[0]+0.4,'surprised']],1,{look:[0.4,0.5]});}
+    else{const arr=walk(KM,t,SH.s4[0]+0.9,[NS[0],NS[1]+0.4],[4.25,2.6],1.1,'Walk_Loop',0.2);if(arr)reach(KM,V(4.4,1.65,3.0));E(KM,t,[[0,'confident']],1,{look:[0.2,0.2]});}}
+  // s4b: bay về phía nam ôm túi tiền
+  if(ON('s4b',t)){const u=U('s4b',t);fly(KM,KX-0.95+u*0.15,KY+Math.sin(u*2)*0.12,KZ,PI/2,t,1);at(BAG,chest(KM).add(V(0,-0.35,0)),0);BAG.children.at(-1).visible=false;E(KM,t,[[0,'laugh']],1,{look:[0,0]});}
+  else BAG.children.at(-1).visible=true;
+  // s5: Atlanta — Kirk ngồi trong tổ lớn; QB trẻ (bóng đen) đi tới ngồi chen
+  const ANX=SX+1.5,ANZ=SZ+0.5;
+  if(ON('s5',t)){const u=U('s5',t);sit(KA,ANX+(u>2.0?0.45*sm((u-2.0)/0.4):0),0,ANZ,0,t,0.42,1);E(KA,t,[[0,'smug'],[SH.s5[0]+1.6,'surprised'],[SH.s5[0]+2.2,'shock']],1,{look:u<1.2?[0,0]:[-0.6,0]});
+    if(u>0.3){const arr=walk(YNG,t,SH.s5[0]+0.3,[SX-4.2,SZ+0.8],[ANX-0.55,ANZ+0.3],1.9,'Walk_Loop',0);if(arr){sit(YNG,ANX-0.45+0.25*sm((u-1.9)/0.4),0,ANZ,0,t,0.42,4);}}}
+  // s5b: bị chen ra khỏi tổ — Kirk đứng bên ngoài, nhún vai
+  if(ON('s5b',t)){const u=U('s5b',t);sit(YNG,ANX-0.1,0,ANZ,0,t,0.42,4);idle(KA,ANX+1.55,ANZ+0.35,-0.5,t,1);shrug(KA,sm(u/0.4));E(KA,t,[[0,'sad'],[SH.s5b[0]+1.6,'shrug']],1,{look:[-0.4,0]});}
+  // s6: bay về phía tây qua mây; s6b: đáp xuống tổ cỏ lăn ở sa mạc (bụi), giang tay "fresh start"
+  if(ON('s6',t)){const u=U('s6',t);fly(KA,KX+0.95-u*0.15,KY+Math.sin(u*2)*0.12,KZ,-PI/2,t,1);E(KA,t,[[0,'determined']],1,{look:[0,0]});}
+  const DNX=DX+1.4,DNZ=DZ+0.6;
+  if(ON('s6b',t)){const u=U('s6b',t);if(u<0.45){const k=u/0.45;place(KR,DNX,DNZ,0.3,lerp(3.2,0,k*k));CP(KR,[{name:'Jump_Loop',time:0.35+k*0.3,w:1}]);show(KR);}
+    else{idle(KR,DNX,DNZ,0.3,t,1,{crouch:1-sm((u-0.45)/0.4)});if(u>0.9)shrug(KR,sm((u-0.9)/0.3)*0.8);PUF.G.visible=true;PUF.G.position.set(DNX,0,DNZ);PUF.set(cl((u-0.45)/0.9));PUF.G.children.forEach(c=>c.material.color.set('#e8b890'));}
+    E(KR,t,[[0,'determined'],[SH.s6b[0]+0.6,'smug']],1,{look:[0,0]});}
+  // s7: Mendoza (lượt 1) bước ra từ hơi nóng sa mạc
+  if(ON('s7',t)){idle(KR,DNX,DNZ,0.3,t,1);E(KR,t,[[0,'smug'],[SH.s7[0]+1.2,'surprised']],1,{look:[0.4,0]});walk(FM,t,SH.s7[0],[DX+5.5,DZ-9],[DNX+0.9,DNZ+0.2],1.6,'Walk_Loop',-PI/2+0.4);E(FM,t,[[0,'confident']],5,{look:[0,0]});}
+  // s7b: trao chìa khoá vàng cho Mendoza
+  if(ON('s7b',t)){const u=U('s7b',t);idle(KR,DNX,DNZ,0.7,t,1);idle(FM,DNX+0.9,DNZ+0.2,-PI/2+0.4,t,5);E(FM,t,[[0,'confident'],[SH.s7b[0]+1.4,'proud']],5);E(KR,t,[[0,'sad']],1,{look:[0.5,0]});
+    const mid=chest(KR).add(chest(FM)).multiplyScalar(0.5).add(V(0,0.05,0.12));
+    if(u<1.2){reach(KR,mid);inHand(KEY,KR);}else{reach(FM,head(FM).add(Lc(FM,-0.25,0.35,0.1)));inHand(KEY,FM,'r',[0,0.12,0]);}}
+  // s8: Mendoza ngồi trong tổ, Kirk ngồi trên đá bên ngoài — bị thay ở 2 múi giờ
+  if(ON('s8',t)){sit(FM,DNX,0,DNZ,0,t,0.42,5);E(FM,t,[[0,'smug']],5);sit(KR,DNX-1.1,0,DNZ+0.9,0.5,t,0.45,1);E(KR,t,[[0,'sad']],1,{look:[0.4,-0.2]});}
+  // s9: chạng vạng — "đàn" Vikings ngồi quanh đống lửa tàn, run cầm cập
+  if(IN('s9',t)){const sh=Math.sin(t*38)*0.004;const herd=[[CW,0.0,-1.0,0,2],[V1,-1.0,-0.1,PI/2-0.3,6],[V2,1.0,0.0,-PI/2+0.3,7]];
+    herd.forEach(([ch,dx,dz,ry,sd])=>{sit(ch,FI[0]+dx+sh,0,FI[1]+dz,ry,t,0.4,sd);E(ch,t,[[0,'sad']],sd,{look:[0,-0.3]});});
+    if(ON('s9b',t)){const u=U('s9b',t);if(u>0.5){idle(CW,FI[0],FI[1]-1.0,0.6,t,2);const k=cl((u-0.6)/1.0);throwArm(CW,k);
+      if(k<0.8)inHand(BALL,CW);else{const p0=head(CW).add(Lc(CW,-0.1,0.1,0.4)),p1=V(FI[0]+1.6,0.12,FI[1]+1.4);const kk=cl((u-1.4)/0.9);at(BALL,arc(p0,p1,1.2,kk),0,kk*14,0.4);}
+      E(CW,t,[[0,'determined'],[SH.s9b[0]+2.4,'panic']],2,{look:[0.3,-0.2]});E(V1,t,[[0,'sad'],[SH.s9b[0]+2.4,'shock']],6,{look:[0.6,-0.3]});}}}
+  // s10: điện thoại reo trên gốc cây — O'Connell nhấc máy; s10b: cận nghe máy
+  if(ON('s10',t)){const u=U('s10',t);const ring=u<1.1?Math.sin(u*60)*0.02:0;A.N.phone.position.set(0,0.17+Math.abs(ring)*2,0);A.N.phone.rotation.z=ring*4;
+    const arr=walk(KO,t,SH.s10[0]-0.4,[ST[0]-2.6,ST[1]+1.8],[ST[0]-0.5,ST[1]+0.35],1.6,'Walk_Loop',PI*0.75);if(arr&&u>1.2){A.N.phone.visible=false;A.N.phone.visible=true;reach(KO,head(KO).add(Lc(KO,-0.14,0.0,0.06)));A.N.phone.position.set(0,-5,0);inHand(RCV,KO,'r',[0,0.04,0.02]);}
+    E(KO,t,[[0,'neutral']],6,{look:[0.4,-0.3]});}
+  if(ON('s10b',t)){idle(KO,ST[0]-0.5,ST[1]+0.35,0.5,t,6,{talk:1});reach(KO,head(KO).add(Lc(KO,-0.14,0.0,0.06)));A.N.phone.position.set(0,-5,0);inHand(RCV,KO,'r',[0,0.04,0.02]);E(KO,t,[[0,'talk'],[SH.s10b[0]+0.9,'smug']],6,{look:[0,0]});}
+  // s10c: Kirk (áo Las Vegas) bay ngược về phương bắc — cuộc di cư rẻ nhất lịch sử tự nhiên
+  if(ON('s10c',t)){const u=U('s10c',t);fly(KR,KX-0.95+u*0.15,KY+Math.sin(u*2)*0.12,KZ,PI/2,t,1);E(KR,t,[[0,'smug']],1,{look:[0,0]});}
+  // s11: đáp xuống tuyết (bụi tuyết); s11b: Jefferson nhận ra ngay, chạy tới; s11c: ném — bắt không cần nhìn
+  const LX=0.6,LZ=2.6;
+  if(ON('s11',t)){const u=U('s11',t);if(u<0.4){const k=u/0.4;place(KM,LX,LZ,0.3,lerp(3.0,0,k*k));CP(KM,[{name:'Jump_Loop',time:0.35+k*0.3,w:1}]);show(KM);}
+    else{idle(KM,LX,LZ,0.3,t,1,{crouch:1-sm((u-0.4)/0.4)});PUF.G.visible=true;PUF.G.position.set(LX,0,LZ);PUF.set(cl((u-0.4)/0.7));PUF.G.children.forEach(c=>c.material.color.set('#ffffff'));}E(KM,t,[[0,'determined'],[SH.s11[0]+0.6,'smug']],1);}
+  if(ON('s11b',t)){const u=U('s11b',t);idle(KM,LX,LZ,-0.5,t,1);E(KM,t,[[0,'smug']],1,{look:[-0.5,0]});
+    if(u<0.7){idle(JJ,-3.2,4.4,PI/2+0.3,t,8);reach(JJ,head(JJ).add(Lc(JJ,-0.3,0.05,0.5)));E(JJ,t,[[0,'surprised']],8);}else{walk(JJ,t,SH.s11b[0]+0.7,[-3.2,4.4],[-0.9,3.2],3.0,'MX_Jogging',PI/2);E(JJ,t,[[0,'laugh']],8);}}
+  if(ON('s11c',t)){const u=U('s11c',t);idle(KM,LX,LZ,-1.2,t,1);E(KM,t,[[0,'smug']],1,{look:[-0.4,0]});const k=cl(u/0.7);throwArm(KM,k);
+    const run=walk(JJ,t,SH.s11c[0],[-0.9,3.2],[-6.0,1.2],3.2,'MX_Running',-PI/2-0.4);E(JJ,t,[[0,'smug'],[SH.s11c[0]+1.6,'laugh']],8,{look:[0.6,0]});
+    const tc=1.9;if(u<0.55)inHand(BALL,KM);else if(u<tc){const p0=head(KM).add(Lc(KM,-0.1,0.1,0.4));const jp=hand(JJ,'r');at(BALL,arc(p0,jp,1.6,cl((u-0.55)/(tc-0.55))),0,u*12,0.3);}else{reach(JJ,head(JJ).add(Lc(JJ,-0.2,0.25,-0.2)));inHand(BALL,JJ);}}
+  // s12: "họp báo" giữa rừng bạch dương — O'Connell: "too early to commit"
+  if(ON('s12',t)){const u=U('s12',t);idle(KO,MI[0],MI[1]-0.45,0,t,6,{talk:u<3.3?1:0});if(u>3.3)shrug(KO,sm((u-3.3)/0.4));E(KO,t,[[0,'talk'],[SH.s12[0]+3.4,'shrug']],6,{look:[0,0]});}
+  // s13: bên kia biên giới — bóng HLV Green Bay đeo tai nghe hét qua loa: "He'll be starting"
+  const GX=BD[0]+2.4,GZ=BD[1]-3.0;
+  if(ON('s13',t)){const u=U('s13',t);idle(GBC,GX,GZ,-0.4,t,9);reach(GBC,head(GBC).add(Lc(GBC,-0.05,-0.02,0.2)));const mp=head(GBC).add(Lc(GBC,0,-0.05,0.32));at(MEG,mp,GBC.root.rotation.y);}
+  // s13b: O'Connell nhún vai bên micro (gần), bóng HLV Green Bay giơ ngón cái (xa)
+  if(ON('s13b',t)){idle(KO,MI[0],MI[1]-0.45,0,t,6);shrug(KO,0.8);E(KO,t,[[0,'shrug'],[SH.s13b[0]+1.0,'surprised']],6,{look:[0.6,0]});}
+  if(ON('s13c',t)){idle(GBC,GX,GZ,-0.4,t,9);thumbs(GBC,sm(U('s13c',t)/0.3));}
+  // s14: thung lũng Lambeau phủ sương đêm — Kirk bước vào, "bầy" Green Bay trên sống đồi, mắt sáng
+  const pack=(t)=>{[[VX-6,VZ-12,0.5],[VX+7,VZ-13,-0.4],[VX+9,VZ-14,-0.6],[VX-9,VZ-6,0.8]].forEach(([x,z,ry],i)=>{idle(PK[i],x,z,ry,t,i*1.7,{fold:i%2,y:[2.0,2.6,2.6,1.6][i]});});};
+  if(ON('s14',t)){const u=U('s14',t);walk(KM,t,SH.s14[0],[VX+0.2,VZ+2.5],[VX,VZ-6],1.1);pack(t);A.V.mists.forEach((m,i)=>m.position.x=Math.sin(t*0.2+i)*2.5);}
+  if(ON('s15',t)){pack(t);const blink=Math.sin(t*5)>0.92;PK.forEach(ch=>ch.root.traverse(o=>{if(o.material===eyeM)o.visible=!blink;}));}
+  // s15b: Kirk quay lại nhìn ống kính, cười đắc ý — "Extremely predictable"
+  if(ON('s15b',t)){const u=U('s15b',t);idle(KM,VX,VZ-3.0,PI*sm(u/0.6)*0+lerp(PI,0,sm(u/0.6))*0,t,1);place(KM,VX,VZ-3.0,lerp(PI,0,sm(u/0.6)));CP(KM,[{name:'Idle_Loop',time:t+1,w:1}]);show(KM);if(u>1.2)thumbs(KM,sm((u-1.2)/0.3));E(KM,t,[[0,'neutral'],[SH.s15b[0]+0.6,'smug'],[SH.s15b[0]+2.4,'laugh']],1,{look:[0,0]});pack(t);}
+  // mây trôi cho các cảnh bay
+  if(['s4b','s6','s10c'].some(k=>ON(k,t)))A.K.clouds.forEach((c,i)=>{c.position.x=((c.userData.x0??(c.userData.x0=c.position.x))+t*(i%2?3:5)+330)%220-110;});
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();A.setEnv(envAt(t),cam);}
+};
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>
