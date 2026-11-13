@@ -1,0 +1,76 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.72,Cap,,0,0,0,,no f***ing way.
+Dialogue: 0,0:00:01.72,0:00:02.34,Cap,,0,0,0,,could harry kane
+Dialogue: 0,0:00:02.34,0:00:03.02,Cap,,0,0,0,,kick for the
+Dialogue: 0,0:00:03.02,0:00:04.42,Cap,,0,0,0,,patriots in munich?
+Dialogue: 0,0:00:04.42,0:00:05.28,Cap,,0,0,0,,this sunday, the
+Dialogue: 0,0:00:05.28,0:00:06.34,Cap,,0,0,0,,patriots play the lions
+Dialogue: 0,0:00:06.34,0:00:07.88,Cap,,0,0,0,,at the allianz arena,
+Dialogue: 0,0:00:07.88,0:00:09.72,Cap,,0,0,0,,harry kane's home stadium.
+Dialogue: 0,0:00:09.72,0:00:11.02,Cap,,0,0,0,,kane is 33,
+Dialogue: 0,0:00:11.02,0:00:12.42,Cap,,0,0,0,,england captain, bayern
+Dialogue: 0,0:00:12.42,0:00:13.82,Cap,,0,0,0,,striker, and such a
+Dialogue: 0,0:00:13.82,0:00:14.98,Cap,,0,0,0,,big patriots fan,
+Dialogue: 0,0:00:14.98,0:00:15.48,Cap,,0,0,0,,he named his
+Dialogue: 0,0:00:15.48,0:00:17.26,Cap,,0,0,0,,dogs brady and wilson.
+Dialogue: 0,0:00:17.26,0:00:17.86,Cap,,0,0,0,,he says he wants
+Dialogue: 0,0:00:17.86,0:00:18.66,Cap,,0,0,0,,to be an nfl
+Dialogue: 0,0:00:18.66,0:00:19.80,Cap,,0,0,0,,kicker one day, and
+Dialogue: 0,0:00:19.80,0:00:20.64,Cap,,0,0,0,,drake maye just told
+Dialogue: 0,0:00:20.64,0:00:21.96,Cap,,0,0,0,,him, go for it.
+Dialogue: 0,0:00:21.96,0:00:23.14,Cap,,0,0,0,,so, try out.
+Dialogue: 0,0:00:23.14,0:00:24.08,Cap,,0,0,0,,the coach says,
+Dialogue: 0,0:00:24.08,0:00:25.52,Cap,,0,0,0,,careful, that's a penalty.
+Dialogue: 0,0:00:25.52,0:00:26.32,Cap,,0,0,0,,in soccer, a
+Dialogue: 0,0:00:26.32,0:00:27.68,Cap,,0,0,0,,penalty means you score.
+Dialogue: 0,0:00:27.68,0:00:28.48,Cap,,0,0,0,,in the nfl,
+Dialogue: 0,0:00:28.48,0:00:29.30,Cap,,0,0,0,,a penalty means
+Dialogue: 0,0:00:29.30,0:00:30.66,Cap,,0,0,0,,you go backwards.
+Dialogue: 0,0:00:30.66,0:00:30.94,Cap,,0,0,0,,kane goes
+Dialogue: 0,0:00:30.94,0:00:32.56,Cap,,0,0,0,,back, and back.
+Dialogue: 0,0:00:32.56,0:00:33.14,Cap,,0,0,0,,he is now
+Dialogue: 0,0:00:33.14,0:00:34.60,Cap,,0,0,0,,in the parking lot.
+Dialogue: 0,0:00:34.60,0:00:35.88,Cap,,0,0,0,,next, a field goal.
+Dialogue: 0,0:00:35.88,0:00:36.36,Cap,,0,0,0,,kane lays the
+Dialogue: 0,0:00:36.36,0:00:36.80,Cap,,0,0,0,,ball on its
+Dialogue: 0,0:00:36.80,0:00:37.72,Cap,,0,0,0,,side, like a corner
+Dialogue: 0,0:00:37.72,0:00:38.64,Cap,,0,0,0,,kick, and curls
+Dialogue: 0,0:00:38.64,0:00:40.18,Cap,,0,0,0,,it off the upright.
+Dialogue: 0,0:00:40.18,0:00:40.68,Cap,,0,0,0,,then comes
+Dialogue: 0,0:00:40.68,0:00:41.58,Cap,,0,0,0,,the hard part.
+Dialogue: 0,0:00:41.58,0:00:42.38,Cap,,0,0,0,,an nfl kicker
+Dialogue: 0,0:00:42.38,0:00:43.42,Cap,,0,0,0,,sits on the sideline
+Dialogue: 0,0:00:43.42,0:00:45.08,Cap,,0,0,0,,almost the whole game.
+Dialogue: 0,0:00:45.08,0:00:46.08,Cap,,0,0,0,,jaguars kicker cam little
+Dialogue: 0,0:00:46.08,0:00:47.28,Cap,,0,0,0,,says that's the real
+Dialogue: 0,0:00:47.28,0:00:48.70,Cap,,0,0,0,,challenge, going from star
+Dialogue: 0,0:00:48.70,0:00:50.40,Cap,,0,0,0,,striker to bit player.
+Dialogue: 0,0:00:50.40,0:00:51.24,Cap,,0,0,0,,kane has never
+Dialogue: 0,0:00:51.24,0:00:51.78,Cap,,0,0,0,,been a bit
+Dialogue: 0,0:00:51.78,0:00:53.24,Cap,,0,0,0,,player in his life.
+Dialogue: 0,0:00:53.24,0:00:54.02,Cap,,0,0,0,,fourth quarter, he
+Dialogue: 0,0:00:54.02,0:00:55.96,Cap,,0,0,0,,finally gets one kick.
+Dialogue: 0,0:00:55.96,0:00:56.92,Cap,,0,0,0,,50 yards.
+Dialogue: 0,0:00:56.92,0:00:57.64,Cap,,0,0,0,,perfect.
+Dialogue: 0,0:00:57.64,0:00:58.22,Cap,,0,0,0,,he rips off
+Dialogue: 0,0:00:58.22,0:00:59.68,Cap,,0,0,0,,his helmet to celebrate.
+Dialogue: 0,0:00:59.68,0:01:00.78,Cap,,0,0,0,,yellow flag.
+Dialogue: 0,0:01:00.78,0:01:01.26,Cap,,0,0,0,,kane thinks it's
+Dialogue: 0,0:01:01.26,0:01:02.38,Cap,,0,0,0,,a yellow card, so
+Dialogue: 0,0:01:02.38,0:01:02.98,Cap,,0,0,0,,he walks to
+Dialogue: 0,0:01:02.98,0:01:03.74,Cap,,0,0,0,,the bench and sits
+Dialogue: 0,0:01:03.74,0:01:04.34,Cap,,0,0,0,,down for the
+Dialogue: 0,0:01:04.34,0:01:05.28,Cap,,0,0,0,,rest of the game.
+Dialogue: 0,0:01:05.28,0:01:06.30,Cap,,0,0,0,,which, for an nfl
+Dialogue: 0,0:01:06.30,0:01:07.98,Cap,,0,0,0,,kicker, is the job.

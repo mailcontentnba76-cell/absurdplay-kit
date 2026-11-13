@@ -45,3 +45,5 @@
 | 07/11 | E07 | Cảnh đầu London phủ màu be 2 khung: máy quay sát vỏ bầu trời (r=700) của bối cảnh khác | Ẩn bầu trời của bối cảnh không có máy quay (`CO.sky.visible = cam.z>300`) |
 | 07/11 | Mixamo | Sprint tải không tích In Place → hông trôi ra khỏi khung; ngưỡng chạm đất 7 cm bắt nhầm chân đang vung | Tự bỏ trôi gốc (lấy làm tốc độ thật); ngưỡng mũi chân 2 cm |
 | 08/11 | E07 | Chèn chú thích `//` vào giữa dòng pose() bằng sed → phần sau dòng (cập nhật băng chuyền, đám đông, bảng FINAL CALL, ẩn trần, cần cẩu) bị biến thành chú thích; bản cuối đầu tiên hỏng phải render lại | Chú thích chèn giữa dòng phải dùng `/* */`; sau mỗi lần sửa bằng sed, render khung kiểm có vật chuyển động (băng chuyền, bảng giờ bay) |
+| 13/11 | E17 | Khán đài thành sọc ngang nhiều màu dù texture chấm người đúng | CanvasTexture mặc định ClampToEdge; band() có uv u tới 10 → cột mép bị kéo dài. Thêm RepeatWrapping (ctex(...,[1,1])) cho crowd + LED |
+| 13/11 | E17 | 6/31 shot nhân vật nằm ngoài khung dọc (máy quay chéo quá) | Tính góc nhân vật so với hướng nhìn (±13° ngang ở fov 46, 9:16); kiểm contact sheet trước khi cắt thử |

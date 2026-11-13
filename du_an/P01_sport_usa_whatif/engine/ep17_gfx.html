@@ -1,0 +1,84 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+@font-face{font-family:Oswald;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2)}
+/* Tập 17: đồ hoạ lai TRUYỀN HÌNH BÓNG ĐÁ CHÂU ÂU (bảng tỉ số góc trái, thẻ cầu thủ chấm điểm, thẻ vàng)
+   × NFL (down & distance, cờ phạt vàng, GOOD!). Không logo đội, không chớp trắng. Khác E01–E16. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+.el{position:absolute;opacity:0}
+#bug{position:absolute;left:50px;top:118px;display:flex;font-family:Oswald;font-size:40px;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+#bug div{padding:8px 18px}
+#bug .tm{background:#1b2a4a}#bug .tm i{display:inline-block;width:10px;height:34px;margin-right:12px;vertical-align:-5px}
+#bug .sc{background:#f2f2f2;color:#111;min-width:96px;text-align:center}
+#bug .ck{background:#0d1424;color:#ffd23a;font-family:Mono;font-size:34px;line-height:48px}
+.lt{left:60px;width:960px;top:1390px}
+.lt .t{background:linear-gradient(90deg,#c8102e,#8a0a1e);color:#fff;font-family:Anton;font-size:72px;line-height:1;padding:18px 30px 14px}
+.lt .s{background:rgba(10,14,26,.92);color:#fff;font-family:Oswald;font-size:36px;letter-spacing:2px;padding:12px 30px}
+.pc{left:50%;width:560px;margin-left:-280px;top:1370px;background:linear-gradient(160deg,#f6e7b0,#d8b45a 55%,#a8823a);border-radius:26px;box-shadow:0 18px 40px rgba(0,0,0,.5);padding:26px 34px;color:#2a1c08;font-family:Oswald}
+.pc .rt{font-family:Anton;font-size:120px;line-height:.9}
+.pc .ps{font-size:40px;letter-spacing:3px}
+.pc .nm{font-family:Anton;font-size:82px;line-height:1;margin-top:8px;border-top:3px solid rgba(42,28,8,.4);padding-top:10px}
+.pc table{width:100%;font-size:38px;margin-top:10px}.pc td b{font-family:Anton;font-weight:400;font-size:46px;margin-right:10px}
+.tag{font-family:Anton;font-size:64px;color:#fff;background:#1b2a4a;padding:6px 22px 8px;border-radius:12px;border:5px solid #ffd23a;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.tag:after{content:'';position:absolute;left:50%;bottom:-34px;margin-left:-16px;border:16px solid transparent;border-top:20px solid #ffd23a}
+.big{left:0;width:1080px;text-align:center;font-family:Anton;line-height:1;color:#fff;-webkit-text-stroke:10px rgba(0,0,0,.85);paint-order:stroke fill}
+.ban{left:0;width:1080px;text-align:center}
+.ban span{display:inline-block;font-family:Anton;font-size:76px;line-height:1;padding:16px 40px 14px;background:#ffd400;color:#111;box-shadow:0 10px 24px rgba(0,0,0,.45);transform:rotate(-3deg)}
+.ban.navy span{background:#1b2a4a;color:#fff;border-bottom:10px solid #c8102e}
+.qt{left:60px;width:960px;top:1390px;background:rgba(10,14,26,.9);color:#fff;padding:24px 34px;border-left:14px solid #00a3ad}
+.qt b{display:block;font-family:Anton;font-weight:400;font-size:66px;line-height:1.05}
+.qt span{display:block;font-family:Mono;font-size:27px;letter-spacing:1px;margin-top:10px;opacity:.85}
+#yc{left:50%;margin-left:-140px;top:360px;width:280px;height:390px;background:#ffd400;border-radius:22px;box-shadow:0 18px 40px rgba(0,0,0,.5);transform-origin:50% 100%;text-align:center;font-family:Anton;font-size:240px;line-height:390px;color:#111}
+#ff{left:50%;width:640px;margin-left:-320px;top:380px;background:rgba(10,14,26,.9);border:5px solid #ffd23a;border-radius:18px;color:#fff;text-align:center;font-family:Oswald;padding:20px}
+#ff b{display:block;font-family:Mono;font-size:120px;color:#ffd23a;line-height:1.1}
+#ff span{font-size:40px;letter-spacing:3px}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Anton;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div id="bug" class="el"><div class="tm"><i style="background:#0076b6"></i>DET</div><div class="sc" id="sc">0 – 0</div><div class="tm">NE<i style="background:#c8102e;margin:0 0 0 12px"></i></div><div class="ck" id="ck">TRYOUT</div></div>
+<div class="el lt" id="loc"><div class="t">LIONS @ PATRIOTS</div><div class="s">MUNICH, GERMANY · SUNDAY 15 NOV · HARRY KANE'S HOME STADIUM</div></div>
+<div class="el pc" id="card"><div class="rt">33</div><div class="ps">AGE · ST</div><div class="nm">HARRY KANE</div>
+ <table><tr><td><b>C</b>ENGLAND CAPTAIN</td></tr><tr><td><b>9</b>BAYERN STRIKER</td></tr><tr><td><b>NE</b>PATRIOTS SUPERFAN</td></tr></table></div>
+<div class="el tag" id="tgB" style="left:110px;top:920px">BRADY</div>
+<div class="el tag" id="tgW" style="left:700px;top:920px">WILSON</div>
+<div class="el lt" id="goal"><div class="t" style="background:linear-gradient(90deg,#1b2a4a,#0d1424)">DREAM: NFL KICKER</div><div class="s">HE SAYS HE WANTS TO KICK IN THE NFL ONE DAY</div></div>
+<div class="el qt" id="maye"><b>DRAKE MAYE: GO FOR IT</b><span>PATRIOTS QB · #10</span></div>
+<div class="el ban navy" id="try" style="top:420px"><span>NFL TRYOUT · DAY 1</span></div>
+<div class="el big" id="gol" style="top:430px;font-size:230px;color:#ffd23a">GOAL!</div>
+<div class="el ban" id="pen" style="top:430px"><span>NFL PENALTY = GO BACKWARDS</span></div>
+<div class="el ban" id="yd1" style="top:600px"><span>−15 YDS</span></div>
+<div class="el ban" id="yd2" style="top:600px"><span>−150 YDS</span></div>
+<div class="el ban navy" id="lot" style="top:430px"><span>PARKING LOT</span></div>
+<div class="el ban" id="ck2" style="top:430px"><span>CORNER KICK?!</span></div>
+<div class="el big" id="dk" style="top:430px;font-size:170px">DOINK.</div>
+<div class="el" id="ff"><b id="ffq">Q1</b><span>KICKER STATUS: SITTING</span></div>
+<div class="el qt" id="q1"><b>THE REAL CHALLENGE: STAR STRIKER → BIT PLAYER</b><span>CAM LITTLE · JAGUARS KICKER (VIA AP, PARAPHRASED)</span></div>
+<div class="el ban navy" id="nev" style="top:430px"><span>BIT PLAYER: NEVER</span></div>
+<div class="el big" id="fifty" style="top:440px;font-size:220px">50 YDS</div>
+<div class="el big" id="good" style="top:440px;font-size:230px;color:#7af07a">GOOD!</div>
+<div class="el ban" id="flg" style="top:430px"><span>UNSPORTSMANLIKE · −15</span></div>
+<div class="el" id="yc">?</div>
+<div class="el ban navy" id="job" style="top:430px"><span>NFL KICKER JOB: ✓</span></div>
+<div class="wm">AbsurdPlay</div>
+<script type="module">
+import {SH,END} from './ep17_shots.js';
+const TL=[['bug',SH.s2b[0],END],['loc',6.6,SH.s3[0]],['card',9.72,SH.s4[0]],['tgB',15.8,SH.s5[0]],['tgW',16.45,SH.s5[0]],['goal',17.7,SH.s5b[0]],['maye',21.06,SH.s6[0]],
+ ['try',22.3,SH.s6b[0]],['gol',26.3,SH.s7b[0]],['pen',28.5,SH.s8[0]],['yd1',SH.s8[0],31.8],['yd2',31.8,SH.s8b[0]],['lot',33.4,SH.s9[0]],['ck2',37.45,SH.s9c[0]],['dk',39.3,SH.s10[0]],
+ ['ff',SH.s10b[0]+0.3,SH.s11[0]],['q1',45.5,SH.s12[0]],['nev',50.8,SH.s13[0]],['fifty',55.96,SH.s13c[0]],['good',57.0,SH.s14[0]],['flg',59.7,SH.s15[0]],['yc',61.3,SH.s15b[0]],['job',67.0,END]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=Math.max(vis[id]??-1,a);}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(cl((t-a)/0.22)):0;e.style.opacity=on?cl((t-a)/0.08):0;
+    if(e.classList.contains('big')){const p=on?cl((t-a)/0.14):0;e.style.transform=`scale(${1.6-0.6*ease(p)})`;}
+    else if(e.classList.contains('ban'))e.style.transform=`translateY(${(1-k)*-80}px)`;
+    else if(e.classList.contains('lt')||e.classList.contains('qt'))e.style.transform=`translateX(${(1-k)*-1100}px)`;
+    else if(e.classList.contains('tag'))e.style.transform=`translateY(${(1-k)*-60}px)`;
+    else if(e.id==='card')e.style.transform=`perspective(1200px) rotateY(${(1-k)*80}deg)`;
+    else if(e.id==='yc')e.style.transform=`rotate(${(1-k)*-25+4}deg) scale(${0.6+0.4*k})`;
+    else if(e.id==='ff')e.style.transform=`scale(${0.85+0.15*k})`;}
+  // bảng tỉ số: thử việc → tua nhanh cả trận → hiệp 4 → +3
+  let ck='TRYOUT';if(t>=SH.s10b[0]){const q=Math.min(4,1+Math.floor((t-SH.s10b[0])/0.85));const m=15-Math.floor(((t-SH.s10b[0])*17.6)%15);ck=`Q${q} ${String(m).padStart(2,'0')}:00`;}
+  if(t>=SH.s11[0])ck='Q4 · BENCH';if(t>=SH.s13[0])ck='4TH 0:04';if(t>=57.2)ck='4TH 0:00';$('ck').textContent=ck;$('sc').textContent=t>=57.2?'0 – 3':'0 – 0';
+  if(t>=SH.s10b[0])$('ffq').textContent='Q'+Math.min(4,1+Math.floor((t-SH.s10b[0]-0.3)/0.8));
+};
+</script></body></html>
