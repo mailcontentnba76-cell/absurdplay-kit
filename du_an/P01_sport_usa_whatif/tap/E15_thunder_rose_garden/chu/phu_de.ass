@@ -1,0 +1,74 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.32,Cap,,0,0,0,,what the f***?!
+Dialogue: 0,0:00:01.32,0:00:02.14,Cap,,0,0,0,,could the thunder beat
+Dialogue: 0,0:00:02.14,0:00:03.06,Cap,,0,0,0,,the blazers if the
+Dialogue: 0,0:00:03.06,0:00:03.84,Cap,,0,0,0,,game was played in
+Dialogue: 0,0:00:03.84,0:00:05.50,Cap,,0,0,0,,a giant rose garden?
+Dialogue: 0,0:00:05.50,0:00:06.40,Cap,,0,0,0,,on tuesday,
+Dialogue: 0,0:00:06.40,0:00:06.84,Cap,,0,0,0,,portland beat
+Dialogue: 0,0:00:06.84,0:00:09.82,Cap,,0,0,0,,oklahoma city 123–103.
+Dialogue: 0,0:00:09.82,0:00:10.68,Cap,,0,0,0,,on wednesday,
+Dialogue: 0,0:00:10.68,0:00:11.74,Cap,,0,0,0,,they played again.
+Dialogue: 0,0:00:11.74,0:00:12.10,Cap,,0,0,0,,portland won
+Dialogue: 0,0:00:12.10,0:00:14.56,Cap,,0,0,0,,again 118–108.
+Dialogue: 0,0:00:14.56,0:00:16.52,Cap,,0,0,0,,two nights, two losses.
+Dialogue: 0,0:00:16.52,0:00:17.52,Cap,,0,0,0,,so okc asks
+Dialogue: 0,0:00:17.52,0:00:19.28,Cap,,0,0,0,,for one small change.
+Dialogue: 0,0:00:19.28,0:00:20.22,Cap,,0,0,0,,portland is the rose
+Dialogue: 0,0:00:20.22,0:00:21.40,Cap,,0,0,0,,city, so the rematch
+Dialogue: 0,0:00:21.40,0:00:22.58,Cap,,0,0,0,,moves into the biggest
+Dialogue: 0,0:00:22.58,0:00:23.66,Cap,,0,0,0,,rose garden in oregon.
+Dialogue: 0,0:00:23.66,0:00:25.00,Cap,,0,0,0,,tip-off.
+Dialogue: 0,0:00:25.00,0:00:25.62,Cap,,0,0,0,,the court is
+Dialogue: 0,0:00:25.62,0:00:27.18,Cap,,0,0,0,,covered in petals.
+Dialogue: 0,0:00:27.18,0:00:28.02,Cap,,0,0,0,,shai gilgeous-alexander
+Dialogue: 0,0:00:28.02,0:00:29.18,Cap,,0,0,0,,still scores.
+Dialogue: 0,0:00:29.18,0:00:29.38,Cap,,0,0,0,,he had
+Dialogue: 0,0:00:29.32,0:00:30.78,Cap,,0,0,0,,31 last night.
+Dialogue: 0,0:00:30.78,0:00:31.22,Cap,,0,0,0,,but the blazers
+Dialogue: 0,0:00:31.22,0:00:32.38,Cap,,0,0,0,,know every path
+Dialogue: 0,0:00:32.38,0:00:33.54,Cap,,0,0,0,,in this garden.
+Dialogue: 0,0:00:33.54,0:00:34.34,Cap,,0,0,0,,deni avdija cuts
+Dialogue: 0,0:00:34.34,0:00:35.40,Cap,,0,0,0,,through the tulips.
+Dialogue: 0,0:00:35.40,0:00:36.88,Cap,,0,0,0,,he had 28.
+Dialogue: 0,0:00:36.88,0:00:37.86,Cap,,0,0,0,,okc tries to guard
+Dialogue: 0,0:00:37.86,0:00:39.02,Cap,,0,0,0,,him with a hedge.
+Dialogue: 0,0:00:39.02,0:00:40.30,Cap,,0,0,0,,okay, thunder bench,
+Dialogue: 0,0:00:40.30,0:00:41.04,Cap,,0,0,0,,plan b.
+Dialogue: 0,0:00:41.04,0:00:42.20,Cap,,0,0,0,,a giant lawnmower
+Dialogue: 0,0:00:42.20,0:00:43.28,Cap,,0,0,0,,to clear the court.
+Dialogue: 0,0:00:43.28,0:00:43.86,Cap,,0,0,0,,it mows a
+Dialogue: 0,0:00:43.86,0:00:45.28,Cap,,0,0,0,,perfect path, straight
+Dialogue: 0,0:00:45.28,0:00:46.84,Cap,,0,0,0,,to the portland basket.
+Dialogue: 0,0:00:46.84,0:00:47.68,Cap,,0,0,0,,fourth quarter.
+Dialogue: 0,0:00:47.68,0:00:48.64,Cap,,0,0,0,,okc actually
+Dialogue: 0,0:00:48.64,0:00:49.84,Cap,,0,0,0,,takes the lead.
+Dialogue: 0,0:00:49.84,0:00:50.96,Cap,,0,0,0,,then damian lillard
+Dialogue: 0,0:00:50.96,0:00:51.70,Cap,,0,0,0,,walks out of
+Dialogue: 0,0:00:51.70,0:00:52.24,Cap,,0,0,0,,a rose bush.
+Dialogue: 0,0:00:52.24,0:00:53.52,Cap,,0,0,0,,avdija and lillard
+Dialogue: 0,0:00:53.52,0:00:55.00,Cap,,0,0,0,,score 20 of portland's
+Dialogue: 0,0:00:55.00,0:00:56.42,Cap,,0,0,0,,30 in the quarter.
+Dialogue: 0,0:00:56.42,0:00:57.08,Cap,,0,0,0,,final: portland
+Dialogue: 0,0:00:57.08,0:00:59.76,Cap,,0,0,0,,118, okc 108.
+Dialogue: 0,0:00:59.76,0:01:00.92,Cap,,0,0,0,,same as last night.
+Dialogue: 0,0:01:00.92,0:01:01.92,Cap,,0,0,0,,turns out, the blazers
+Dialogue: 0,0:01:01.92,0:01:03.46,Cap,,0,0,0,,are great at gardening.
+Dialogue: 0,0:01:03.46,0:01:04.74,Cap,,0,0,0,,they're 8–3.
+Dialogue: 0,0:01:04.74,0:01:05.24,Cap,,0,0,0,,and the thunder
+Dialogue: 0,0:01:05.24,0:01:06.12,Cap,,0,0,0,,leave oregon with
+Dialogue: 0,0:01:06.12,0:01:07.18,Cap,,0,0,0,,zero wins and
+Dialogue: 0,0:01:07.18,0:01:08.56,Cap,,0,0,0,,petals in their shoes.
+Dialogue: 0,0:01:08.56,0:01:09.72,Cap,,0,0,0,,next time, okc
+Dialogue: 0,0:01:09.72,0:01:11.08,Cap,,0,0,0,,wants a cactus garden.
