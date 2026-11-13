@@ -1,4 +1,4 @@
-# E16 — "Could the Mavericks beat the Timberwolves with a 39-point head start?" — NHÁP chờ duyệt (13/11/2026)
+# E16 — "Could the Mavericks beat the Timberwolves with a 39-point head start?" — ĐÃ DUYỆT 13/11 (13/11/2026)
 
 **Dạng:** troll đội thua (Dallas), cả 2 đội trên sân. **Hook mới (số 3):** con số khổng lồ "39" phủ kín màn hình ở khung 0.
 **Kiểu dựng mới:** giao diện game arcade (KHÁC công thức E01–E15: không "WTF?!", không tem chữ bật, không "NEXT TIME").

@@ -1,0 +1,110 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+/* Tập 16: đồ hoạ GIAO DIỆN GAME ARCADE — hộp đen viền neon (cyan = Minnesota/hệ thống, hồng = mã gian lận/Dallas), chữ có bóng bậc kiểu pixel,
+   thẻ chọn nhân vật + thanh chỉ số, bộ đếm COMBO, thanh máu, chuyển cảnh vỡ ô pixel. KHÔNG dùng "WTF?!", tem chữ bật, "NEXT TIME" như E01–E15. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Anton}
+.el{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.box{background:rgba(5,3,26,.92);color:#fff;border:6px solid #3ff5ff;box-shadow:0 0 22px #3ff5ff,inset 0 0 18px rgba(63,245,255,.35);padding:14px 38px 18px;white-space:nowrap;text-align:center;text-shadow:5px 5px 0 #0a3a6a}
+.pk{border-color:#ff2e88;box-shadow:0 0 22px #ff2e88,inset 0 0 18px rgba(255,46,136,.35);text-shadow:5px 5px 0 #6a0a3a}
+.yl{border-color:#ffe14d;box-shadow:0 0 22px #ffe14d,inset 0 0 18px rgba(255,225,77,.3);text-shadow:5px 5px 0 #6a5a0a}
+.big{font-size:150px;line-height:1}.mid{font-size:88px;line-height:1.05}.sm{font-size:60px;line-height:1.12}
+.lab{display:block;font-family:Inter;font-weight:900;font-size:32px;letter-spacing:6px;color:#3ff5ff;margin-bottom:6px;text-shadow:none}.pk .lab{color:#ff7ab8}.yl .lab{color:#ffe14d}
+.mono{font-family:Inter;font-weight:900;letter-spacing:4px}
+.stamp{top:620px;font-size:150px;line-height:1.02;text-align:center;color:#ffe14d;text-shadow:8px 8px 0 #ff2e88,16px 16px 0 #05031a}
+.stamp.c{color:#3ff5ff;text-shadow:8px 8px 0 #1a3a6e,16px 16px 0 #05031a}.stamp.p{color:#ff2e88;text-shadow:8px 8px 0 #05031a}
+.bar{width:620px;height:44px;border:5px solid #fff;margin:14px auto 4px;position:relative;background:#140c33}.bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#7cff4f,#ffe14d)}
+.bar.pkb i{background:linear-gradient(90deg,#ff2e88,#ff8a3d)}.bar.cyb i{background:linear-gradient(90deg,#3ff5ff,#7cff4f)}
+.row{display:flex;align-items:center;gap:18px;justify-content:space-between;font-family:Inter;font-weight:900;font-size:40px;letter-spacing:3px;text-shadow:none}
+.lt{left:60px!important;transform:none!important;top:1430px;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.lt .n{color:#fff;font-size:64px;padding:4px 26px;background:#05031a;border-left:14px solid #3ff5ff}.lt .d{background:#3ff5ff;color:#05031a;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:3px;padding:8px 26px}
+.lt.pk .n{border-left-color:#ff2e88}.lt.pk .d{background:#ff2e88;color:#fff}
+#pix{position:absolute;inset:0}#pix div{position:absolute;width:120px;height:120px;opacity:0}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(5,3,26,.85);paint-order:stroke fill}
+.blink{animation:none}
+</style></head><body>
+<div class="el box pk sm mono" id="lost" style="top:400px;font-size:52px">DALLAS LOST BY</div>
+<div class="el box pk sm mono" id="cheat" style="top:420px;font-size:50px"><span id="ctype"></span><span id="ccur">▌</span></div>
+<div class="el box mid" id="title" style="top:1420px">MAVERICKS <span style="color:#ff2e88">vs</span> WOLVES</div>
+<div class="el box pk sm" id="tsub" style="top:1580px">39-POINT HEAD START?</div>
+<div class="el box yl sm" id="lvl" style="top:420px"><span class="lab">LEVEL 1</span>THE ARCADE</div>
+<div class="el box sm" id="zero" style="top:1400px"><span class="lab">PLAYER 2 · MINNESOTA</span>SCORE: 0</div>
+<div class="el lt" id="nball"><div class="n">LAMELO BALL</div><div class="d">#1 · MINNESOTA</div></div>
+<div class="el box yl mid" id="select" style="top:330px">PLAYER SELECT</div>
+<div class="el box pk" id="cflagg" style="top:1380px;width:760px"><span class="lab">P1 · DALLAS · #32</span><span class="mid">COOPER FLAGG</span>
+  <div class="row" style="margin-top:10px"><span>LAST GAME</span><span id="fv">43 PTS</span></div><div class="bar pkb"><i id="fb" style="width:86%"></i></div></div>
+<div class="el box" id="chyl" style="top:1380px;width:760px"><span class="lab">P2 · MINNESOTA · #8</span><span class="mid">BONES HYLAND</span>
+  <div class="row" style="margin-top:10px"><span>ROLE</span><span id="hrole">STARTER?</span></div></div>
+<div class="el stamp c" id="start">PRESS<br>START</div>
+<div class="el box yl" id="combo" style="top:420px"><span class="lab">LAMELO BALL · 3PT</span><span class="big" id="cbx">COMBO x1</span></div>
+<div class="el box" id="sball" style="top:420px;width:700px"><span class="lab">LAMELO BALL · STATS</span>
+  <div class="row"><span>3-POINTERS</span><span>6 / 10</span></div><div class="bar cyb"><i style="width:60%"></i></div>
+  <div class="row" style="margin-top:12px"><span>ASSISTS</span><span>9</span></div><div class="bar cyb"><i style="width:90%"></i></div></div>
+<div class="el box" id="shy" style="top:420px;width:700px"><span class="lab">BONES HYLAND · FROM DEEP</span><span class="big">5 / 6</span>
+  <div class="row" style="margin-top:6px"><span>POINTS</span><span id="hyp">24</span></div><div class="bar cyb"><i style="width:80%"></i></div></div>
+<div class="el stamp" id="bench" style="font-size:132px">OFF.<br>THE.<br>BENCH.</div>
+<div class="el box pk" id="fg" style="top:420px;width:700px"><span class="lab">DALLAS · FIELD GOALS</span><span class="big">37%</span><div class="bar pkb"><i id="fgb" style="width:37%"></i></div></div>
+<div class="el box pk" id="miss" style="top:1400px"><span class="lab">DALLAS · MISSED 3-POINTERS</span><span class="big" id="mv">0</span></div>
+<div class="el box pk" id="hp" style="top:420px;width:760px"><span class="lab">COOPER FLAGG · POINTS</span>
+  <div class="row"><span>LAST GAME</span><span>43</span></div><div class="bar"><i style="width:86%"></i></div>
+  <div class="row" style="margin-top:12px"><span>THIS GAME</span><span id="hpv">43</span></div><div class="bar pkb"><i id="hpb" style="width:86%"></i></div></div>
+<div class="el lt pk" id="nkyrie"><div class="n">KYRIE IRVING</div><div class="d">#11 · DALLAS · 10 PTS</div></div>
+<div class="el stamp p" id="plus" style="top:1380px;font-size:190px">+39</div>
+<div class="el box pk sm" id="still" style="top:1440px">DALLAS STILL LEADS</div>
+<div class="el stamp" id="okay" style="top:560px">OKAY!</div>
+<div class="el box" id="q3" style="top:1400px"><span class="lab">3RD QUARTER ONLY</span><span class="mid">MIN 36 – 17 DAL</span></div>
+<div class="el box yl" id="meter" style="top:1400px;width:700px"><span class="lab">COMBO METER</span><div class="bar"><i id="mb" style="width:20%"></i></div><span class="mid" id="mbk" style="color:#ff2e88;opacity:0">BROKEN</span></div>
+<div class="el box" id="cmp" style="top:1400px;width:760px"><span class="lab">WHO'S BIGGER?</span>
+  <div class="row"><span>WOLVES LEAD</span><span>44</span></div><div class="bar cyb"><i style="width:88%"></i></div>
+  <div class="row" style="margin-top:12px"><span>CHEAT CODE</span><span>39</span></div><div class="bar pkb"><i style="width:78%"></i></div></div>
+<div class="el stamp" id="tie" style="font-size:260px;top:560px">TIE</div>
+<div class="el box pk sm" id="ot" style="top:420px"><span class="lab">FULL CHEAT CODE NEEDED</span>JUST FOR OVERTIME</div>
+<div class="el box" id="rec" style="top:1400px"><span class="lab">MINNESOTA · RECORD</span><span class="big">9 – 3</span></div>
+<div class="el stamp p" id="go" style="top:1300px;font-size:170px">GAME<br>OVER</div>
+<div class="el box yl" id="cont" style="top:1400px"><span class="lab">DALLAS · CONTINUE?</span><span class="big" id="cd">9</span></div>
+<div class="wm" id="wm">AbsurdPlay</div>
+<div id="pix"></div>
+<script type="module">
+import {SH,SUB} from './ep16_shots.js';
+const TL=[['lost',0,SH.s1[1]],['cheat',8.3,SH.s4[1]],['title',9.46,SH.s5[1]],['tsub',11.06,SH.s5[1]],['lvl',13.2,SH.s6[1]],['zero',17.3,SH.s8[1]],['nball',SH.s9[0],SH.s9[1]],
+ ['select',SH.s10[0],SH.s12[1]],['cflagg',SH.s11[0]+0.1,SH.s11[1]],['chyl',SH.s12[0]+0.1,SH.s12[1]],['start',SH.s13[0],SH.s13[1]],['combo',30.29,SH.s16[1]],['sball',SH.s17[0],SH.s17[1]],
+ ['shy',35.7,SH.s18[1]],['bench',SH.s19[0],SH.s19[1]],['fg',40.8,SH.s20[1]],['miss',SH.s21[0],SH.s21[1]],['hp',SH.s22[0],SH.s22[1]],['nkyrie',SH.s23[0],SH.s23[1]],
+ ['plus',SUB.s24,SH.s24[1]],['still',55.7,SH.s25[1]],['okay',SH.s26[0],SH.s26[1]],['q3',58.4,SH.s27[1]],['meter',SH.s28[0],SH.s28[1]],['cmp',SH.s30[0],SH.s30[1]],
+ ['tie',SH.s34[0]+0.1,SH.s34[1]],['ot',78.6,SH.s35[1]],['rec',SH.s36[0],SH.s36[1]],['go',SH.s37[0],SH.s37[1]],['cont',SH.s38[0],SH.s38[1]]];
+const POP=['start','bench','okay','tie','go','plus'];
+const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+// lưới ô pixel cho chuyển cảnh (9 x 16)
+const PX=document.getElementById('pix');const CELLS=[];const COL=['#3ff5ff','#ff2e88','#ffe14d','#05031a','#b06bff'];
+for(let y=0;y<16;y++)for(let x=0;x<9;x++){const d=document.createElement('div');d.style.left=x*120+'px';d.style.top=y*120+'px';d.style.background=COL[(x*7+y*3)%5];PX.appendChild(d);CELLS.push([d,((x*13+y*29)%37)/37]);}
+const WIPES=[SH.s5[0],SH.s10[0],SH.s24[0],SH.s32[0],SH.s37[0]];
+document.fonts.ready.then(()=>{window.ready=true});
+const $=id=>document.getElementById(id);
+const CODE='CHEAT CODE ACTIVATED: +39';
+window.renderFrame=t=>{
+  const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=a;}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(cl((t-a)/0.16)):0;
+    // xuất hiện kiểu game: nhấp nháy 3 khung đầu rồi hiện hẳn
+    const f=(t-a)*30;e.style.opacity=on?(f<4?(Math.floor(f)%2?0.35:1):1):0;
+    if(e.classList.contains('lt')){e.style.transform=`translateX(${Math.round((1-k)*-700/40)*40}px)`;continue;}
+    const pop=POP.includes(e.id);const sc=pop?0.4+0.6*k:0.86+0.14*k;e.style.transform=`translateX(-50%) scale(${(Math.round(sc*20)/20).toFixed(2)})`;}
+  // chữ gõ từng ký tự
+  if(vis.cheat!=null){const n=Math.min(CODE.length,Math.floor((t-8.3)*26));$('ctype').textContent=CODE.slice(0,n);$('ccur').style.opacity=Math.floor(t*6)%2?1:0;}
+  if(vis.lost!=null)$('lost').style.transform=`translateX(calc(-50% + ${Math.sin(t*60)*8}px))`;
+  // Hyland: "STARTER?" → "BENCH" khi đọc "From the bench"
+  $('hrole').textContent=t>=SUB.s12?'BENCH':'STARTER?';$('hrole').style.color=t>=SUB.s12?'#ffe14d':'#fff';
+  if(vis.start!=null)$('start').style.opacity=Math.floor(t*8)%2?1:0.25;
+  // COMBO x1/x2/x3 theo thời điểm bóng vào lưới
+  const cb=t<31.24?1:t<32.42?2:3;$('cbx').textContent='COMBO x'+cb;const ct=[30.29,31.24,32.42][cb-1];$('cbx').style.display='inline-block';$('cbx').style.transform=`scale(${1+0.35*Math.max(0,1-(t-ct)/0.18)})`;
+  $('hyp').textContent=String(Math.round(24*cl((t-35.9)/0.6)));
+  // đếm số quả 3 trượt 0 → 35
+  if(vis.miss!=null){const v=Math.round(35*cl((t-42.76)/0.9));$('mv').textContent=t>=44.64?'35!':String(v);$('mv').style.color=t>=44.64?'#ff2e88':'#fff';}
+  // thanh máu Flagg 43 → 12
+  {const k=cl((t-47.8)/0.5);const v=Math.round(43-31*k);$('hpv').textContent=String(v);$('hpb').style.width=(v/50*100)+'%';}
+  // thanh combo đầy rồi vỡ
+  if(vis.meter!=null){const k=cl((t-61.95)/0.7);$('mb').style.width=(20+80*k)+'%';const br=t>=62.76;$('mbk').style.opacity=br?1:0;$('meter').style.transform=`translateX(calc(-50% + ${br?Math.sin(t*70)*12:0}px)) rotate(${br?Math.sin(t*50)*2:0}deg)`;}
+  if(vis.cont!=null){$('cd').textContent=String(Math.max(0,9-Math.floor((t-SH.s38[0])*1.6)));}
+  // chuyển cảnh vỡ ô pixel: ô hiện rồi tắt theo thứ tự ngẫu nhiên trong 0,3 s quanh điểm cắt
+  let best=null;for(const w of WIPES){if(t>=w-0.15&&t<w+0.2)best=w;}
+  for(const [d,ph] of CELLS){if(best==null){d.style.opacity=0;continue;}const u=(t-(best-0.15))/0.35;d.style.opacity=(u>ph*0.5&&u<0.5+ph*0.5)?0.95:0;}
+};
+</script></body></html>
