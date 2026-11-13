@@ -1,17 +1,34 @@
-// 10 Thing USA E01 — "10 Weird Things About Nikola Jokić". Mốc shot TẠM (ước lượng 2,85 từ/giây) — thay bằng mốc whisper khi có giọng Magnific.
-// [t0, t1, zone, số đếm ngược (0 = hook)]
+// 10 Thing USA E01 — "10 Weird Things About Nikola Jokić". Mốc theo words.json (whisper small.en, giọng Magnific Sport USA 52,6 s).
+// [t0, t1, zone, số đếm ngược (0 = hook)]. Chỉ hook có màn hài mở đầu (ngủ gật khi dẫn bóng); các cảnh sau theo kịch bản.
 export const SH = {
-  h1: [0.0, 1.3, 'arena', 0], h2: [1.3, 2.6, 'arena', 0],
-  a1: [2.6, 4.6, 'living', 10], a2: [4.6, 6.6, 'living', 10], a3: [6.6, 8.6, 'living', 10],
-  b1: [8.6, 10.6, 'bedroom', 9], b2: [10.6, 12.4, 'bedroom', 9], b3: [12.4, 14.2, 'bedroom', 9],
-  c1: [14.2, 16.4, 'kitchen', 8], c2: [16.4, 18.6, 'kitchen', 8],
-  d1: [18.6, 21.0, 'soda', 7], d2: [21.0, 23.4, 'soda', 7],
-  e1: [23.4, 25.6, 'gym', 6], e2: [25.6, 27.0, 'gym', 6], e3: [27.0, 28.0, 'gym', 6],
-  f1: [28.0, 30.0, 'arena', 5], f2: [30.0, 32.0, 'arena', 5],
-  g1: [32.0, 34.4, 'stable', 4], g2: [34.4, 36.6, 'stable', 4],
-  i1: [36.6, 39.4, 'arena', 3], i2: [39.4, 42.8, 'arena', 3],
-  j1: [42.8, 44.8, 'equip', 2],
-  k1: [44.8, 47.0, 'street', 1], k2: [47.0, 49.4, 'street', 1], k3: [49.4, 51.4, 'track', 1], k4: [51.4, 53.0, 'track', 1],
+  h1: [0.0, 1.1, 'arena', 0],        // ngủ gật đứng giữa sân mà vẫn dẫn bóng, đầu gật gù
+  h2: [1.1, 2.0, 'arena', 0],        // bóng nảy trúng chân lăn đi → giật mình
+  h3: [2.0, 3.06, 'arena', 0],       // lừ đừ nhìn máy quay, nhún vai ("…Nikola Jokić")
+  a1: [3.06, 5.5, 'living', 10],
+  a2: [5.5, 7.2, 'living', 10],      // "TV didn't even show it"
+  a3: [7.2, 8.4, 'living', 10],      // quảng cáo burrito
+  a4: [8.4, 9.34, 'living', 10],     // fan nhún vai
+  b1: [9.34, 10.9, 'bedroom', 9],
+  b1c: [10.9, 12.4, 'bedroom', 9],   // "because he was asleep"
+  b2: [12.4, 13.5, 'bedroom', 9],    // điện thoại "BROTHER calling"
+  b3: [13.5, 14.4, 'bedroom', 9],    // "wake him up"
+  c1: [14.4, 16.6, 'kitchen', 8],
+  c2: [16.6, 18.72, 'kitchen', 8],
+  d1: [18.72, 21.4, 'soda', 7],
+  d2: [21.4, 23.42, 'soda', 7],
+  e1: [23.42, 25.9, 'gym', 6],
+  e2: [25.9, 26.6, 'gym', 6],        // "20 seconds"
+  e3: [26.6, 27.24, 'gym', 6],
+  f1: [27.24, 30.0, 'arena', 5],
+  f2: [30.0, 32.8, 'arena', 5],      // bảng điện tử 14:33
+  g2: [32.8, 34.7, 'stable', 4],     // "When friends visit…" bạn ngó cửa
+  g1: [34.7, 36.72, 'stable', 4],    // "…in the stable with his horses"
+  i1: [36.72, 39.7, 'arena', 3],
+  i2: [39.7, 41.84, 'arena', 3],     // "The job is done, we can go home now."
+  j1: [41.84, 44.7, 'equip', 2],
+  k1: [44.7, 47.5, 'street', 1],
+  k2: [47.5, 50.1, 'street', 1],     // "No. I need to go home."
+  k3: [50.1, 51.3, 'track', 1],
+  k4: [51.3, 53.2, 'track', 1],
 };
-export const END = 53.0;
-// phụ đề tạm (sẽ thay bằng words.json)
+export const END = 53.2;

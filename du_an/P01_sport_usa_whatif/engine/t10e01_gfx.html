@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:900;src:url(fonts/inter-latin-900-normal.woff2)}
+@font-face{font-family:MontX;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+.el{position:absolute}
+/* dấu chữ kênh */
+.wm{left:0;right:0;top:205px;text-align:center;font:900 38px Inter;color:rgba(255,255,255,.92);-webkit-text-stroke:5px #000;paint-order:stroke fill;letter-spacing:1px}
+/* phụ đề vàng AbsurdPlay: Montserrat ExtraBold 60, chữ thường, chân chữ ~1310 */
+.sub{left:60px;right:60px;top:1236px;text-align:center;font:800 60px MontX;color:#F5F500;-webkit-text-stroke:7px #000;paint-order:stroke fill;text-shadow:0 2px 0 rgba(0,0,0,.45);line-height:74px}
+/* huy hiệu đếm ngược: áo đấu nhỏ (riêng của Locker Room Weird) */
+.badge{left:52px;top:300px;width:176px;height:196px;transform-origin:88px 98px}
+.badge svg{position:absolute;left:0;top:0}
+.badge .n{position:absolute;left:0;right:0;top:56px;text-align:center;font:400 104px Anton;color:#fff;-webkit-text-stroke:6px #0e2240;paint-order:stroke fill}
+.zz{font:400 84px Anton;color:#fff;-webkit-text-stroke:6px #0e2240;paint-order:stroke fill}
+</style></head><body>
+<div class="el wm">LOCKER ROOM WEIRD</div>
+<div class="el badge" id="badge"><svg width="176" height="196" viewBox="0 0 176 196">
+ <path d="M44 6 L70 6 Q88 34 106 6 L132 6 L170 34 L150 72 L136 64 L136 190 L40 190 L40 64 L26 72 L6 34 Z" fill="#F5F500" stroke="#0e2240" stroke-width="7" stroke-linejoin="round"/>
+ <path d="M70 6 Q88 34 106 6" fill="none" stroke="#0e2240" stroke-width="7"/></svg><div class="n" id="num">10</div></div>
+<div class="el zz" id="zz"></div>
+<div class="el sub" id="sub"></div>
+<script type="module">
+import {SH} from './t10e01_shots.js';import {SUBS} from './t10e01_subs.js';
+await document.fonts.load('400 100px Anton');await document.fonts.load('900 38px Inter');await document.fonts.load('800 60px MontX');
+const badge=document.getElementById('badge'),num=document.getElementById('num'),sub=document.getElementById('sub'),zz=document.getElementById('zz');
+const keys=Object.keys(SH);const shotAt=t=>{let b=keys[0];for(const k of keys)if(t>=SH[k][0])b=k;return b;};
+const firstOf=n=>Math.min(...keys.filter(k=>SH[k][3]===n).map(k=>SH[k][0]));
+window.renderFrame=t=>{
+ const k=shotAt(t),n=SH[k][3];
+ if(n>0){badge.style.display='block';num.textContent=n;const u=t-firstOf(n);const s=u<0.12?0.4+u/0.12*0.8:u<0.24?1.2-(u-0.12)/0.12*0.2:1;badge.style.transform=`scale(${s}) rotate(${-6+Math.sin(t*2)*1.5}deg)`;}
+ else badge.style.display='none';
+ const c=SUBS.find(x=>t>=x[0]&&t<x[1]);sub.textContent=c?c[2]:'';
+ // "Z z z" bay lên khi Jokić ngủ (hook trước khi bóng nảy, cảnh 9)
+ const sleep=(k==='h1'||(k==='h2'&&t<SH.h2[0]+0.25))?[640,560]:(k==='b1'||k==='b1c')?[600,560]:null;
+ if(sleep){zz.style.display='block';const p=(t*1.2)%1;zz.style.left=(sleep[0]+p*60)+'px';zz.style.top=(sleep[1]-p*120)+'px';zz.style.opacity=String(1-p*0.6);zz.style.fontSize=(60+p*40)+'px';zz.textContent='Z z z';}
+ else zz.style.display='none';
+};
+window.ready=true;
+</script></body></html>

@@ -21,3 +21,10 @@ Trạng thái 14/11/2026: kịch bản ĐÃ DUYỆT, nhân vật ĐÃ DUYỆT, 1
 2. Làm `t10e01_gfx.html`: huy hiệu đếm ngược (kiểu riêng, không vòng tròn trắng như Why Guy), phụ đề vàng, watermark Locker Room Weird.
 3. Sửa: chai nước lên tới miệng (d2), đầu ngựa chạm vách (g1), shot ngủ thấy mặt (b1). Thêm shot cho đủ nhịp ~1,5 s.
 4. Bản cắt thử 540x960 → duyệt → render đủ.
+
+## Cập nhật 14/11 00:40 — bản cắt thử
+- Giọng: Magnific Sport USA, 52,6 s, 173 từ/phút (không atempo). Kịch bản nhập "Yokich" để đọc đúng; phụ đề ghi "Jokić". Mốc từ: `chu/words.json`.
+- Chủ kênh chốt: CHỈ hook có màn hài (Jokić ngủ gật mà vẫn dẫn bóng → bóng nảy trúng chân lăn đi → giật mình → nhún vai). Các cảnh sau theo kịch bản.
+- Đồ hoạ `engine/t10e01_gfx.html`: huy hiệu đếm ngược hình áo đấu vàng viền navy (riêng của kênh), watermark LOCKER ROOM WEIRD, phụ đề vàng (`t10e01_subs.js`, sinh từ words.json, ngắt ở dấu phẩy), "Z z z" khi ngủ.
+- Nhạc: alvana-audio `music/funk/sleep.mp3` (HoliznaCC0, CC0), bắt đầu từ giây 2, volume 0.16, loudnorm −14 LUFS.
+- Bản cắt thử: 15 fps 540x960 nomb → `E01_jokic_cat_thu.mp4` (đã gửi chủ kênh, chờ duyệt lần 2).
