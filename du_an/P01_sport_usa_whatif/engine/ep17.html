@@ -56,8 +56,8 @@ const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'l
 const BX=BENCH.x-1.0,BZ=BENCH.z-0.12;   // chỗ Kane ngồi trên ghế
 const TX=30,TZ=0;                       // khu thử việc (điểm đặt bóng)
 const LX=LOT.x,LZ=LOT.z;
-S('s1',{pos:[19,1.4,-4],look:[22,1.1,-1]},{pos:[19,1.4,-4],look:[22,1.1,-1]});
-S('s1b',{pos:[18.9,1.5,-3.6],look:[21.3,1.05,-1.0]},{pos:[19.3,1.5,-3.2],look:[21.3,1.15,-1.0]},{fov:[44,42]});
+S('s1',{pos:[54,0.6,0],look:[50,1,0]},{pos:[54,0.6,0],look:[50,1,0]},{shake:0});
+S('s1b',{pos:[18.6,2.7,-4.4],look:[21.2,0.85,-0.9]},{pos:[19.4,2.1,-3.4],look:[21.25,1.15,-0.9]},{fov:[46,42],ease:'inOut'});
 rig.add({t0:SH.s2[0],t1:SH.s2[1],ease:'linear',shake:0.003,shakeHz:0.6,fov:[50,48],path:[[LX-58,2.4,LZ-26],[LX-56,6,LZ-24],[LX-54,10,LZ-22]],lookPath:[[LX+50,14,0],[LX+52,17,0],[LX+54,19,0]]});
 S('s2b',{pos:[-3.4,0.55,-4.4],look:[0,1.7,0]},{pos:[-4.2,0.6,-3.4],look:[0,1.75,0]},{fov:[48,48]});
 S('s3',{pos:[-1.2,1.6,-2.3],look:[0,1.45,0]},{pos:[-1.05,1.58,-2.0],look:[0,1.45,0]},{fov:[40,38]});
@@ -89,7 +89,7 @@ S('s15b',{pos:[BX-1.0,1.5,BZ-6.8],look:[BX+0.6,1.0,BZ-1.2]},{pos:[BX-0.8,1.45,BZ
 S('s16',{pos:[BX+0.45,1.25,BZ-3.7],look:[BX+0.42,0.95,BZ-0.3]},{pos:[BX+0.43,1.22,BZ-3.4],look:[BX+0.42,0.95,BZ-0.3]},{fov:[46,46]});
 const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
 // vùng bóng đổ theo shot (chỉ đổi ở điểm cắt)
-const AREAS=[['s1',[22,-1]],['s2',[LX,LZ]],['s2b',[0,0]],['s3b',[-48,0]],['s4',[-8,20]],['s5',[TX-1,7]],['s6',[TX-2,0]],['s7',[-48,0]],['s7b',[TX-2,0]],['s8b',[LX,LZ]],['s9',[X.curlSpot+2,0]],['s9c',[X.curlSpot+14,1]],['s10',[BX,BZ-2]],['s10b',[BX+2,BZ-8]],['s11',[BX,BZ-2]],['s13b',[X.fgSpot+4,0]],['s13c',[X.endLine,0]],['s14',[X.fgSpot+1,-1]],['s15b',[BX,BZ-3]]];
+const AREAS=[['s1',[48,-1]],['s1b',[22,-1]],['s2',[LX,LZ]],['s2b',[0,0]],['s3b',[-48,0]],['s4',[-8,20]],['s5',[TX-1,7]],['s6',[TX-2,0]],['s7',[-48,0]],['s7b',[TX-2,0]],['s8b',[LX,LZ]],['s9',[X.curlSpot+2,0]],['s9c',[X.curlSpot+14,1]],['s10',[BX,BZ-2]],['s10b',[BX+2,BZ-8]],['s11',[BX,BZ-2]],['s13b',[X.fgSpot+4,0]],['s13c',[X.endLine,0]],['s14',[X.fgSpot+1,-1]],['s15b',[BX,BZ-3]]];
 const areaAt=t=>{let a=[0,0];for(const [k,p] of AREAS)if(t>=SH[k][0]-1e-6)a=p;return a;};
 // ---------- hàm dàn dựng ----------
 const PROPS=[SB,FB,FB2,TEE,FLG,HLM,HLM2,CLB,ARM2,DB.G,DW.G,...CUPS];
@@ -120,22 +120,28 @@ const kickAt=(ch,x,z,ry,u)=>{place(ch,x,z,ry);CLIP(ch,'MX_Field_Goal',Math.min(1
 const dogAt=(d,x,z,dx,dz,t,run=0,wag=1)=>{d.G.visible=true;d.G.position.set(x,0,z);d.G.rotation.set(0,Math.atan2(-dz,dx),0);d.pose(t,run,wag);};
 const pose=t=>{
   rig.apply(t);hideAll();const ar=areaAt(t);L.setArea(ar[0],ar[1]);
-  // s1 HOOK: Kane (áo đỏ #9, bóng tròn kẹp nách) lao vào sân NFL, trượt gối ăn mừng kiểu bóng đá, cười như điên
-  const P0=[30.2,-4.0],P1=[23.6,-1.5],PE=[21.3,-1.1],TR=1.02;
+  // s1 HOOK (end zone navy, ngược nắng vàng): Kane áo đỏ #9 kẹp BÓNG TRÒN như ôm bóng bầu dục, nước rút "ghi touchdown",
+  // trượt gối ăn mừng kiểu bóng đá thẳng vào ống kính thấp, giơ bóng gầm lên — cuối shot máy quay lia gắt (whip) sang phải
+  const P0=[42.4,-1.5],P1=[48.8,-0.65],PE=[51.1,-0.4],TR=1.0;
   if(ON('s1',t)){let kx,kz;
     if(t<TR){locoLock(KS,lib,t,(tt)=>{const k=cl(tt/TR);return [lerp(P0[0],P1[0],k),lerp(P0[1],P1[1],k)];},{t0:-0.5,face:Math.atan2(P1[0]-P0[0],P1[1]-P0[1]),gait:'MX_Sprint'});KS.root.position.y=0;show(KS);inHand(SB,KS,'l',[0.05,0.02,0.02]);kx=KS.root.position.x;kz=KS.root.position.z;}
     else{const k=cl((t-TR)/0.55),e=1-(1-k)*(1-k);kx=lerp(P1[0],PE[0],e);kz=lerp(P1[1],PE[1],e);place(KS,kx,kz,Math.atan2(PE[0]-P1[0],PE[1]-P1[1]));CP(KS,[{name:'Crouch_Idle_Loop',time:0.4,w:1}]);KS.root.position.y=-0.18*sm(k*3);KS.root.updateMatrixWorld(true);
-      aim(B(KS,'spine_01'),B(KS,'spine_02'),Lc(KS,0,1,-0.35*sm(k*2)));KS.root.updateMatrixWorld(true);armsUp(KS,sm(k*2.5),0.6);show(KS);at(SB,V(lerp(P1[0]-0.8,PE[0]-2.6,e),0.11,lerp(P1[1],PE[1]-0.3,e)),0,-e*12);}
-    E(KS,t,[[0,'cheer'],[TR+0.1,'laugh']],1,{look:[0,0.2]});
-    const z=sm((t-TR)/0.6);cam.position.set(kx-3.0+0.9*z+Math.sin(t*5)*0.006,1.35-0.25*z,kz-2.6+0.2*z);cam.lookAt(kx+0.2,lerp(1.25,0.85,z),kz+0.2);cam.fov=46;cam.updateProjectionMatrix();}
-  // s1b: đứng dậy, nhặt quả bóng bầu dục trên tee, nhìn qua nhìn lại bóng tròn ↔ bóng bầu dục, bối rối
-  if(ON('s1b',t)){const u=U('s1b',t),ry=-PI/2+0.35;const bp=V(PE[0]-0.65,0.17,PE[1]+0.25);
-    idle(KS,PE[0],PE[1],ry,t,1,{crouch:u<0.5?1-sm(u/0.5)*0.7:u<1.1?0.3+0.5*Math.sin((u-0.5)/0.6*PI):lerp(0.3,0,sm((u-1.1)/0.4))});
+      aim(B(KS,'spine_01'),B(KS,'spine_02'),Lc(KS,0,1,-0.35*sm(k*2)));KS.root.updateMatrixWorld(true);armsUp(KS,sm(k*2.5),0.55);show(KS);inHand(SB,KS,'r',[0,0.1,0]);}
+    E(KS,t,[[0,'cheer'],[TR+0.05,'laugh']],1,{look:[0,0.15]});
+    const push=sm((t-1.25)/0.3),hit=t>TR?Math.exp(-(t-TR)*9)*Math.sin((t-TR)*60)*0.02:0;
+    cam.position.set(Math.min(kx+3.9,54.4)-0.7*push,0.55+hit,kz+0.95-0.2*push);cam.lookAt(kx,lerp(1.0,0.95,push),kz);cam.fov=46;cam.updateProjectionMatrix();
+    const w=cl((t-(SH.s1[1]-0.16))/0.16);if(w>0)cam.rotateY(-w*w*0.9);}
+  // s1b (giữa sân, góc cao khác hẳn — máy quay lia vào nối tiếp cú whip): Kane đứng ôm bóng tròn, thấy quả bầu dục trên tee,
+  // cúi nhặt, giơ hai quả so sánh, nhìn qua nhìn lại, bối rối
+  const PS=[21.3,-1.1];
+  if(ON('s1b',t)){const u=U('s1b',t),ry=-PI/2+0.35;const bp=V(PS[0]-0.65,0.17,PS[1]+0.25);
+    idle(KS,PS[0],PS[1],ry,t,1,{crouch:u<0.3?0:u<1.0?0.55*Math.sin((u-0.3)/0.7*PI):0});
     at(TEE,V(bp.x,0,bp.z));inHand(SB,KS,'l',[0.03,0.02,0.06]);
-    if(u<0.75){at(FB,bp,0,0,PI/2);if(u>0.4)reach(KS,bp.clone().lerp(hand(KS),0).add(V(0,0.05,0)));}
-    else{const k=sm((u-1.3)/0.35);reach(KS,chest(KS).add(Lc(KS,-0.32,0.12+0.1*k,0.35)));inHand(FB,KS,'r',[0,0.02,0.04]);FB.rotation.z=0.3;
-      reach(KS,chest(KS).add(Lc(KS,0.32,0.12+0.1*k,0.35)),'l');inHand(SB,KS,'l',[0,0.03,0.07]);}
-    E(KS,t,[[0,'laugh'],[SH.s1b[0]+0.8,'surprised'],[SH.s1b[0]+1.5,'shrug']],1,{look:u<1.5?[-0.2,-0.4]:[Math.sin(u*3.2)>0?0.6:-0.6,-0.1]});}
+    if(u<0.7){at(FB,bp,0,0,PI/2);if(u>0.35)reach(KS,bp.clone().lerp(hand(KS),1-sm((u-0.35)/0.3)).add(V(0,0.05,0)));}
+    else{const k=sm((u-1.2)/0.35);reach(KS,chest(KS).add(Lc(KS,-0.32,0.12+0.1*k,0.35)).lerp(hand(KS),u<0.95?1-sm((u-0.7)/0.25):0));inHand(FB,KS,'r',[0,0.02,0.04]);FB.rotation.z=0.3;
+      if(u>1.2){reach(KS,chest(KS).add(Lc(KS,0.32,0.12+0.1*k,0.35)).lerp(hand(KS,'l'),1-k),'l');inHand(SB,KS,'l',[0,0.03,0.07]);}}
+    E(KS,t,[[0,'smug'],[SH.s1b[0]+0.45,'surprised'],[SH.s1b[0]+1.6,'shrug']],1,{look:u<0.4?[0,0]:u<1.5?[-0.2,-0.45]:[Math.sin(u*3.2)>0?0.6:-0.6,-0.1]});
+    const w=cl(u/0.18);if(w<1)cam.rotateY((1-w)*(1-w)*0.9);}
   // s2: ngoại cảnh — sân vận động mặt tiền phát sáng lúc nắng thu, bãi xe, cẩu máy lên
   // s2b: "sân nhà của Kane" — giang tay giữa vòng tròn giữa sân như chủ nhà
   if(ON('s2b',t)){const u=U('s2b',t);idle(KS,0,0,-2.45,t,1);armsUp(KS,sm(u/0.5)*0.75,0.75);E(KS,t,[[0,'proud']],1,{look:[0,0.1]});}

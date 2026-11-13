@@ -45,8 +45,9 @@ bed(A + 'ambience/wind.wav', SH['s2'][0], SH['s2b'][0], -22); bed(A + 'ambience/
 bed(A + 'ambience/wind.wav', SH['s8b'][0], SH['s9'][0], -22)
 bed(MG + 'crowd_clap_rhythm.wav', 0.0, SH['s2'][0], -24)
 # hook: chạy vào sân + trượt gối, khán đài gầm
-put(MG + 'crowd_roar.wav', 0.1, -20, 1.6); put(K + 'swishes-and-zips/zip-in-hard.wav', 1.0, -16)
-put(A + 'impact/classic-thud.wav', 2.3, -18)
+put(MG + 'crowd_roar.wav', 0.1, -18, 1.7); put(K + 'swishes-and-zips/zip-in-hard.wav', 1.0, -14)  # trượt gối
+put(A + 'whoosh/air-02.wav', SH['s1'][1] - 0.18, -10)  # cú lia whip sang shot 2
+put(A + 'impact/classic-thud.wav', SH['s1b'][0] + 0.6, -22)
 put(A + 'whoosh/air-02.wav', SH['s2'][0], -16)
 put(MG + 'crowd_cheer.wav', SH['s2b'][0] + 0.2, -22, 1.5)
 put(K + 'pops/' + 'pop-soft.wav' if False else MG + 'swish.wav', 9.9, -20)
