@@ -1,0 +1,28 @@
+<!doctype html><html><body style="margin:0"><canvas id="c" width="1080" height="1920"></canvas>
+<style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// Ảnh kiểm nhân vật Jokić (10 Thing USA). t∈[0,1): cận mặt · [1,2): toàn thân 3/4 · [2,3): lưng (tên + số) · [3,4): nghiêng · [4,5): áo trắng
+import * as THREE from 'three'; import {loadLibrary} from './lib/nhanvat2.js'; import {CAST10} from './lib/cast10.js';
+await document.fonts.load('100px Anton');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;r.shadowMap.enabled=true;
+const s=new THREE.Scene();
+{const cv=document.createElement('canvas');cv.width=8;cv.height=256;const g=cv.getContext('2d');const gr=g.createLinearGradient(0,0,0,256);gr.addColorStop(0,'#3d6ea8');gr.addColorStop(1,'#d9c79a');g.fillStyle=gr;g.fillRect(0,0,8,256);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;s.background=t;}
+s.add(new THREE.HemisphereLight('#f4f6ff','#7a6a4a',2.6));const sun=new THREE.DirectionalLight('#fff3e0',1.6);sun.position.set(2,5,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);s.add(sun);
+const fill=new THREE.DirectionalLight('#dfe8ff',0.6);fill.position.set(-4,2,3);s.add(fill);
+const fl=new THREE.Mesh(new THREE.CircleGeometry(4,48),new THREE.MeshStandardMaterial({color:'#c99a62',roughness:0.6}));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;s.add(fl);
+const lib=await loadLibrary();
+const J=CAST10.jokic(lib);s.add(J.root);J.play('Idle_Loop');
+const W=CAST10.jokicHome(lib);W.root.visible=false;s.add(W.root);W.play('Idle_Loop',{at:0.7});
+const cam=new THREE.PerspectiveCamera(30,1080/1920,.05,100);
+// đo vị trí đầu thật sau khi co giãn
+J.mixer.setTime(0);J.root.updateMatrixWorld(true);const hy=J.bones['Head'].getWorldPosition(new THREE.Vector3()).y;console.log('headY',hy.toFixed(3));
+window.renderFrame=t=>{const v=Math.floor(t);const f=t-v;const show=v===4?W:J;J.root.visible=show===J;W.root.visible=show===W;show.mixer.setTime(1+f*2);show.root.updateMatrixWorld(true);
+ const h=show.bones['Head'].getWorldPosition(new THREE.Vector3());
+ if(v===0){cam.fov=24;cam.position.set(0.05,h.y+0.08,h.z+1.25);cam.lookAt(h.x,h.y+0.04,h.z);}
+ else if(v===1||v===4){cam.fov=34;cam.position.set(1.6,1.45,4.6);cam.lookAt(0,1.12,0);}
+ else if(v===2){cam.fov=30;cam.position.set(0,1.6,-3.6);cam.lookAt(0,1.45,0);}
+ else {cam.fov=26;cam.position.set(1.4,h.y+0.05,h.z+0.35);cam.lookAt(h.x,h.y+0.02,h.z);}
+ cam.updateProjectionMatrix();r.render(s,cam)};
+window.ready=true;
+</script></body></html>
