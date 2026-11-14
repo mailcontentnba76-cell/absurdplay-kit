@@ -13,8 +13,8 @@ const fl=new THREE.Mesh(new THREE.PlaneGeometry(12,12),mat('#ecdcc4'));fl.rotati
 const wall=new THREE.Mesh(new THREE.PlaneGeometry(12,6),mat('#a6d8cc'));wall.position.set(0,3,-1.7);wall.receiveShadow=true;s.add(wall);
 // sofa san hô bo tròn
 const sofa=new THREE.Group();const rb=(w,h,d,x,y,z,col,rad=0.06)=>{const g=new THREE.BoxGeometry(w,h,d,6,6,6);const p=g.attributes.position,v=new THREE.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const q=new THREE.Vector3(Math.max(-w/2+rad,Math.min(w/2-rad,v.x)),Math.max(-h/2+rad,Math.min(h/2-rad,v.y)),Math.max(-d/2+rad,Math.min(d/2-rad,v.z)));const dd=v.clone().sub(q);if(dd.length()>1e-6){dd.setLength(rad);p.setXYZ(i,q.x+dd.x,q.y+dd.y,q.z+dd.z);}}g.computeVertexNormals();const m=new THREE.Mesh(g,mat(col));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;sofa.add(m);return m;};
-rb(2.3,0.3,0.95,0,0.17,0,'#e57f6a');rb(2.3,0.85,0.25,0,0.58,-0.38,'#e57f6a',0.1);rb(0.26,0.62,0.95,-1.13,0.33,0,'#dc735f',0.1);rb(0.26,0.62,0.95,1.13,0.33,0,'#dc735f',0.1);
-rb(1.0,0.16,0.72,-0.5,0.4,0.06,'#ef8d77',0.07);rb(1.0,0.16,0.72,0.5,0.4,0.06,'#ef8d77',0.07);rb(0.95,0.42,0.18,-0.5,0.66,-0.22,'#ef8d77',0.08);rb(0.95,0.42,0.18,0.5,0.66,-0.22,'#ef8d77',0.08);
+rb(2.3,0.24,0.95,0,0.14,0,'#e57f6a');rb(2.3,0.85,0.25,0,0.58,-0.38,'#e57f6a',0.1);rb(0.26,0.62,0.95,-1.13,0.33,0,'#dc735f',0.1);rb(0.26,0.62,0.95,1.13,0.33,0,'#dc735f',0.1);
+rb(1.0,0.16,0.72,-0.5,0.34,0.06,'#ef8d77',0.07);rb(1.0,0.16,0.72,0.5,0.34,0.06,'#ef8d77',0.07);rb(0.95,0.42,0.18,-0.5,0.66,-0.22,'#ef8d77',0.08);rb(0.95,0.42,0.18,0.5,0.66,-0.22,'#ef8d77',0.08);
 sofa.position.set(0,0,-1.05);s.add(sofa);
 const lib=await loadLibrary();
 const H=CAST_TY.him(lib),G=CAST_TY.her(lib);s.add(H.root,G.root);H.play('Idle_Loop');G.play('Idle_Loop',{at:0.6});
@@ -28,15 +28,15 @@ window.renderFrame=t=>{const v=Math.min(plan.length-1,Math.floor(t+1e-6)),p=plan
  H.root.position.set(-0.42,0,0);G.root.position.set(0.42,0,0);H.root.rotation.y=0.25;G.root.rotation.y=-0.25;
  if(p.who==='side'){H.root.rotation.y=Math.PI/2-0.2;G.root.rotation.y=-Math.PI/2+0.2;H.root.position.x=-0.5;G.root.position.x=0.5;}
  H.at(1.2);G.at(1.2);
- if(p.who==='sofa'){H.root.rotation.y=0;G.root.rotation.y=0;sofaSit(H,-0.5,-1.0,0.48,1,0,{headTurn:0.5,lean:0.35});sofaSit(G,0.5,-1.0,0.48,1,1,{spread:0.05,lean:0.35});}
+ if(p.who==='sofa'){H.root.rotation.y=0;G.root.rotation.y=0;sofaSit(H,-0.5,-1.0,0.42,1,0,{headTurn:0.5,lean:0.35});sofaSit(G,0.5,-1.0,0.42,1,1,{spread:0.05,lean:0.35});}
  const st=p.who!=='sofa';H.post({ground:st});G.post({ground:st});
  H.face(p.who==='H'?p.f:p.who==='sofa'?HF.sideEye:{});G.face(p.who==='G'?p.f:{});
  const hh=headOf(H),gh=headOf(G);
  if(p.who==='both'){cam.fov=32;cam.position.set(0.5,1.2,5.0);cam.lookAt(0,0.98,0);}
  else if(p.who==='back'){cam.fov=32;cam.position.set(-0.4,1.35,-4.8);cam.lookAt(0,1.0,0);}
  else if(p.who==='side'){cam.fov=32;cam.position.set(0,1.1,4.6);cam.lookAt(0,0.9,0);}
- else if(p.who==='H'){cam.fov=24;cam.position.set(hh.x+0.6,hh.y+0.05,hh.z+2.4);cam.lookAt(hh.x,hh.y+0.06,hh.z);}
- else if(p.who==='G'){cam.fov=24;cam.position.set(gh.x-0.6,gh.y+0.05,gh.z+2.4);cam.lookAt(gh.x,gh.y+0.06,gh.z);}
+ else if(p.who==='H'){cam.fov=24;cam.position.set(hh.x+0.45,hh.y+0.03,hh.z+1.75);cam.lookAt(hh.x,hh.y+0.06,hh.z);}
+ else if(p.who==='G'){cam.fov=24;cam.position.set(gh.x-0.45,gh.y+0.03,gh.z+1.75);cam.lookAt(gh.x,gh.y+0.06,gh.z);}
  else {cam.fov=34;cam.position.set(0.25,1.05,3.3);cam.lookAt(0,0.72,-0.8);}
  cam.updateProjectionMatrix();r.render(s,cam)};
 window.ready=true;

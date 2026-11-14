@@ -57,6 +57,21 @@ export function dressToy(ch, S) {
       if (s) { const a = axis('upperarm_' + s, 'hand_' + s, x, y, z); const k = lerp(0.88, 1, sstep(0.86, 0.97, a.t)); const p = a.o.clone().addScaledVector(a.r, k); nx = p.x; ny = p.y; nz = p.z; }
       if (l) { const a = axis('thigh_' + l, 'foot_' + l, x, y, z); const k = lerp(0.9, 1, sstep(0.9, 1.0, a.t)); const p = a.o.clone().addScaledVector(a.r, k); nx = p.x; ny = p.y; nz = p.z; } }
     const v = new V(nx, ny, nz).applyMatrix4(Mi); pos.setXYZ(i, v.x, v.y, v.z); }
+  // ---- 1b) làm phẳng vùng miệng: chiếu các đỉnh môi + khoang miệng lên mặt bậc hai nội suy từ má/cằm xung quanh.
+  //      Miệng chỉ còn là nét vẽ (môi 3D + khe miệng cắt ngang nét miệng chiếu phẳng). ----
+  if (S.flatMouth !== false) { let eb = new THREE.Box3(); root.traverse((n) => { if (n.isSkinnedMesh && /Eye/.test(n.material.name)) eb.expandByObject(n); });
+    if (!eb.isEmpty()) { const ec = eb.getCenter(new V()), u = sc; const fit = [], inner = [];
+      for (let i = 0; i < N; i++) { if (!/Head|neck/.test(dn[i])) continue; const v = new V().fromBufferAttribute(pos, i).applyMatrix4(M); const dx = (v.x - ec.x) / u, dy = (v.y - ec.y) / u, dz = (v.z - ec.z) / u;
+        const inIn = Math.abs(dx) < 0.04 && dy < -0.05 && dy > -0.112 && dz > -0.1; const inRing = Math.abs(dx) < 0.062 && dy < -0.02 && dy > -0.135 && dz > -0.06;
+        if (inIn) inner.push([i, v, dx, dy]); else if (inRing) fit.push([dx, dy, dz]); }
+      // bình phương tối thiểu z = c0 + c1 x + c2 y + c3 x² + c4 y² + c5 xy
+      const A = Array.from({ length: 6 }, () => new Float64Array(7));
+      for (const [x, y, z] of fit) { const f = [1, x, y, x * x, y * y, x * y]; for (let r = 0; r < 6; r++) { for (let c = 0; c < 6; c++) A[r][c] += f[r] * f[c]; A[r][6] += f[r] * z; } }
+      for (let c = 0; c < 6; c++) { let p = c; for (let r = c + 1; r < 6; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r; [A[c], A[p]] = [A[p], A[c]]; for (let r = 0; r < 6; r++) if (r !== c) { const k = A[r][c] / A[c][c]; for (let q = c; q < 7; q++) A[r][q] -= k * A[c][q]; } }
+      const co = A.map((r, k) => r[6] / r[k]);
+      if (fit.length > 12 && co.every(Number.isFinite)) for (const [i, v, x, y] of inner) { const z = co[0] + co[1] * x + co[2] * y + co[3] * x * x + co[4] * y * y + co[5] * x * y; // trọng số: 1 ở lõi miệng và trong khoang, giảm dần ra mép (không lộ viền)
+        const dzv = (v.z - ec.z) / u - z, wgt = dzv < -0.012 ? 1 : Math.min(sstep(0.04, 0.026, Math.abs(x)), sstep(-0.05, -0.064, y), sstep(-0.112, -0.098, y));
+        v.z = lerp(v.z, ec.z + z * u, wgt); v.applyMatrix4(Mi); pos.setXYZ(i, v.x, v.y, v.z); } } }
   pos.needsUpdate = true; g.computeVertexNormals();
   const idxAll = g.index.array;
   const shell = (sel, place, colorOf, iters) => {
@@ -108,6 +123,7 @@ export function dressToy(ch, S) {
   // ---- 3) quần ống suông ----
   if (S.bottom) { const Bt = S.bottom, off = (Bt.off ?? 0.02) * sc, base = lin(Bt.color), hem = lin(Bt.hem || Bt.color);
     let Rt = { l: 0, r: 0 }; for (let i = 0; i < N; i++) { const l = legOf(i); if (!l) continue; const a = axis('thigh_' + l, 'foot_' + l, W[i * 3], W[i * 3 + 1], W[i * 3 + 2]); if (a.t > 0.08 && a.t < 0.25) Rt[l] = Math.max(Rt[l], a.r.length()); }
+    ch.seatPad = Math.max(Rt.l, Rt.r) * 0.95 + off; // khớp hông cao hơn mặt đệm bằng bán kính đùi + quần (để ngồi không lún vào ghế)
     out.bottom = shell((i) => isPel(i) || legOf(i),
       (i, x, y, z) => { const l = legOf(i);
         if (l) { const a = axis('thigh_' + l, 'foot_' + l, x, y, z); const r = a.r.length(); const R = lerp(Rt[l] * 0.95, Rt[l] * (Bt.hemK ?? 0.72), sstep(0.1, 0.95, a.t)); const rn = Math.max(r, R) + off; return a.o.clone().addScaledVector(a.r.normalize(), rn); }
@@ -145,12 +161,15 @@ export function sofaSit(ch, x, z, seatY, t = 0, seed = 0, o = {}) {
   aim(B.neck_01, B.Head, L(ch, (o.headTurn ?? 0) * 0.5, 1, 0.28 + (o.headDown ?? 0)));
   for (const [s, q] of [['l', 1], ['r', -1]]) {
     aim(B['thigh_' + s], B['calf_' + s], L(ch, q * spread, -0.05, 1));
-    aim(B['calf_' + s], B['foot_' + s], L(ch, q * 0.03, -1, 0.12));
+    { // cẳng chân: chọn góc để bàn chân chạm sàn (floorY) thay vì lơ lửng/xuyên sàn
+      ch.root.updateMatrixWorld(true); const kn = B['calf_' + s].getWorldPosition(new V()), Lc = kn.distanceTo(B['foot_' + s].getWorldPosition(new V()));
+      const pY = B.pelvis.getWorldPosition(new V()).y; const drop = Math.max(0.05, (kn.y - pY) + seatY + (ch.seatPad ?? 0.1) - (o.floorY ?? 0) - 0.085 * ch.root.scale.y); const fz = drop < Lc ? Math.sqrt(Lc * Lc - drop * drop) / drop : 0.05;
+      aim(B['calf_' + s], B['foot_' + s], L(ch, q * 0.03, -1, fz)); }
     aim(B['foot_' + s], B['ball_' + s], L(ch, q * 0.05, -0.15, 1));
     aim(B['upperarm_' + s], B['lowerarm_' + s], L(ch, q * 0.14, -1, 0.18));
     aim(B['lowerarm_' + s], B['hand_' + s], L(ch, -q * 0.18, -0.75, 1));
     aim(B['hand_' + s], B['middle_01_' + s], L(ch, -q * 0.05, -0.55, 1));
   }
   ch.root.position.set(x, 0, z); ch.root.updateMatrixWorld(true);
-  const pv = B.pelvis.getWorldPosition(new V()); ch.root.position.y += seatY + 0.08 * ch.root.scale.y - pv.y; ch.root.updateMatrixWorld(true);
+  const pv = B.pelvis.getWorldPosition(new V()); ch.root.position.y += seatY + (ch.seatPad ?? 0.1) - pv.y; ch.root.updateMatrixWorld(true);
 }

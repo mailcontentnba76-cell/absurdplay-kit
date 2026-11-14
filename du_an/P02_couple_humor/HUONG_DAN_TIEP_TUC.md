@@ -8,7 +8,7 @@ Ngôi thứ hai, giọng đều/khô/mệt (deadpan, ~130–140 từ/phút, ng�
 
 ## Nhân vật (dùng chung engine của P01: du_an/P01_sport_usa_whatif/engine)
 - `lib/cast_ty.js` — HIM (tóc xoăn nâu, hoodie xanh xô thơm, quần nỉ xám) / HER (tóc đỏ cam, áo len vàng mù tạt, jean ống suông), bộ biểu cảm FACES.
-- `lib/toy.js` — `dressToy`: quần áo RỜI (lớp vỏ skinned dáng suông, thu thân bên trong để không đâm xuyên, dẹt ngực với flatChest), da phẳng, đầu to headK 2,25, chân ngắn legK 0,84.
+- `lib/toy.js` — `dressToy`: quần áo RỜI (lớp vỏ skinned dáng suông, thu thân bên trong để không đâm xuyên, dẹt ngực với flatChest), da phẳng, đầu to headK 1,6 (v4: bỏ rút chân — 2,25 + legK 0,84 bị chê lùn).
   `ch.post({ground})` PHẢI gọi mỗi khung sau khi đặt tư thế (ground:true khi đứng, false khi ngồi). `sofaSit()` tư thế ngồi sofa.
 - `ty_cast.html` — ảnh kiểm 13 ô. Đèn mặt trời cần `shadow.bias=-0.0004, normalBias=0.03` (không thì mặt bị sọc).
 - nhanvat2.js: thêm `lidSkin` (màu mí đã bù ánh sáng), mí khép tô trong hình mắt.
@@ -17,3 +17,5 @@ Ngôi thứ hai, giọng đều/khô/mệt (deadpan, ~130–140 từ/phút, ng�
 - Đổi tư thế viết tay ↔ clip: mixer three chỉ ghi xương khi giá trị khác lần trước → dùng `ch.at(t)` (nhanvat2.js) thay cho `mixer.setTime(t)`: đặt thời điểm + ép ghi. Dùng cho MỌI shot (P01 cũng nên dùng).
 - Cổ áo: cắt theo mặt phẳng nghiêng (`neckDrop`, `neckTilt`) + ống bo cổ `TubeGeometry` gắn spine_03; bỏ tam giác thân nằm trọn dưới quần áo (hết đốm/đâm xuyên); mặt trong áo tô tối.
 - Mảng sáng quanh miệng: `lipSkin` đã bù ánh sáng.
+- v4 (14/11): miệng/cằm khối đầu chiếu lên mặt bậc hai nội suy từ má (`flatMouth`) — hết bóng 'râu' ở nữ, nét miệng không bị môi 3D cắt; làm mượt đầu lại (head 16).
+- Ngồi: `ch.seatPad` = bán kính đùi + quần → hông cao hơn đệm (không lún ghế); cẳng chân tự chọn góc cho bàn chân chạm sàn. Ghế thử: mặt đệm 0,42 m.

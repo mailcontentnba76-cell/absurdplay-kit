@@ -174,6 +174,7 @@ function paintFace(mesh, eyeBox, P0) {
     }
     g.restore();
   }
+    if (P.lipPatch && !P.paintBeard) { g.save(); g.beginPath(); g.ellipse(X(0), Y(-(P.mouthY ?? 0.062)), R(P.lipPatch[0]), R(P.lipPatch[1]), 0, 0, Math.PI * 2); g.fillStyle = P.lipSkin || P.skin; g.filter = 'blur(' + R(0.0025) + 'px)'; g.fill(); g.restore(); } // phủ nếp môi của khối đầu
     if (P.mouth) { g.save(); g.translate(X(0), Y(-(P.mouthY ?? 0.062))); g.lineCap = 'round';
       const sk = new THREE.Color(P.skin || '#a06a45'); const dark = (0.3 * sk.r + 0.59 * sk.g + 0.11 * sk.b) < 0.12; // da tối -> viền môi sáng cho rõ biểu cảm
       g.strokeStyle = P.lipColor || (dark ? '#d29486' : '#2a120c'); g.lineWidth = R(dark ? 0.0045 : 0.0035); const w = R((P.mouthW ?? 0.018) * 1.2);
