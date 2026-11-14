@@ -19,3 +19,5 @@ Ngôi thứ hai, giọng đều/khô/mệt (deadpan, ~130–140 từ/phút, ng�
 - Mảng sáng quanh miệng: `lipSkin` đã bù ánh sáng.
 - v4 (14/11): miệng/cằm khối đầu chiếu lên mặt bậc hai nội suy từ má (`flatMouth`) — hết bóng 'râu' ở nữ, nét miệng không bị môi 3D cắt; làm mượt đầu lại (head 16).
 - Ngồi: `ch.seatPad` = bán kính đùi + quần → hông cao hơn đệm (không lún ghế); cẳng chân tự chọn góc cho bàn chân chạm sàn. Ghế thử: mặt đệm 0,42 m.
+- v5 (14/11) trang phục Mỹ hiện đại, KHÔNG mũ (chủ kênh bỏ mũ): Anh = gile phao navy chần bông (`outer`) + sơ mi flannel caro đỏ–than (`pattern.type:'plaid'`) + jean ống suông + sneaker trắng; Cô = áo nỉ kem in chữ "SUNDAY club" (`pattern.print`) + legging đen (`bottom.fit`) + sneaker trắng viền xô thơm.
+  Họa tiết vẽ bằng shader theo vị trí tư thế gốc (thuộc tính `bpos`), không trôi khi cử động. Có sẵn `stripes`. Giày `shoes`, áo ngắn tay `top.sleeve:'short'`. Mã mũ lưỡi trai `cap` vẫn còn trong toy.js nhưng không dùng.

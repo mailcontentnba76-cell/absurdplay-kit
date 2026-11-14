@@ -8,22 +8,29 @@ const CASUAL = { edgeSoft: 2, tank: false, shorts: false, number: null, backName
   brows: false, armSleeve: 'both', skinMix: 1,
   smooth: { jersey: 30, pants: 26, socks: 14, shoes: 10, skin: 16, head: 16 }, puff: { jersey: 0, pants: 0, socks: 0.004, shoes: 0.02, skin: 0, hand: 0 } };
 
-// Nam chính: tóc nâu sẫm xoăn rối, râu lún phún, mắt nâu mí nặng (vẻ mệt mỏi thường trực), hoodie xanh xô thơm, quần nỉ xám, dép kem.
+// Phong cách Mỹ hiện đại, đời thường (đi Target cuối tuần). v5 14/11.
+// Nam chính: gile phao chần bông navy ngoài sơ mi flannel caro đỏ–than, jean ống suông xanh vừa, sneaker trắng, tóc xoăn.
 export const HIM = { ...CASUAL, heightM: 1.8, build: 'fit', skin: '#f2cfb2', lidSkin: '#efae7e', lipSkin: '#cb8a58', /* lidSkin/lipSkin: màu tô đã bù để khớp da sau ánh sáng (đo 14/11) */
- 
   hairStyle: 'proc:curlytop', hairColor: '#3a281c', hairOpts: { thick: 0.034 }, paintBeard: { color: '#4a3324', alpha: 0.28, grain: 1500 },
-  jersey: '#6f8c68', armSleeveColor: '#8aa781', /* jersey = màu lót cổ áo (thân bên trong lộ ở cổ) */ pants: '#a9afb6', socks: '#a9afb6', shoes: '#e8e1d2',
+  jersey: '#3b3540', armSleeveColor: '#b5453c', /* jersey = màu lót cổ áo */ pants: '#5677a6', socks: '#5677a6', shoes: '#f2f2f0',
   eyeScale: 1.85, irisColor: '#5a3a22', lid: 0.34, browPaint: '#2e1f15', browWeight: 1.35, browAngle: 0.02, mouth: 'flat', mouthW: 0.016 };
-export const HIM_CLOTHES = { headK: 1.6, top: { kind: 'hoodie', color: '#8aa781', band: '#7a9672', pocket: '#71906a', strings: '#f1ede2', off: 0.035, loose: 1.08 },
-  bottom: { color: '#a9afb6', hem: '#9aa0a8', off: 0.022, hemK: 0.78 } };
+export const HIM_CLOTHES = { headK: 1.6,
+  top: { kind: 'shirt', color: '#b5453c', band: '#3b3540', off: 0.02, loose: 1.0, cuffK: 0.85, collarR: 0.011,
+    pattern: { type: 'plaid', c1: '#b5453c', c2: '#3b3540', c3: '#e8d9c4', size: 0.075 } },
+  outer: { color: '#2a3d63', quilt: '#16223a', band: '#1a2740', zip: '#8d96a8', off: 0.026, loose: 1.04, quiltStep: 0.09, neckDrop: -0.045, neckTilt: 0.35, collarR: 0.016 },
+  bottom: { color: '#5677a6', hem: '#4a6a97', off: 0.018, hemK: 0.8 },
+  shoes: { color: '#f6f6f3', sole: '#f1ede4', line: '#cfc8b8', accent: '#2a3d63' } };
 
-// Nữ chính: tóc đỏ cam dài, mắt xanh lá, áo len vàng mù tạt rộng, quần jean ống suông, giày trắng.
+// Nữ chính: áo nỉ cổ tròn rộng màu kem in chữ SUNDAY club, legging đen, sneaker trắng viền xô thơm, tóc dài ngang vai.
 export const HER = { ...CASUAL, body: 'female', heightM: 1.65, build: 'fit', skin: '#f8dccb', lidSkin: '#f4c0a0',
   hair: 'Hair_Long', hairColor: '#c8643a',
-  jersey: '#d9a944', armSleeveColor: '#ecc05a', pants: '#7393c2', socks: '#7393c2', shoes: '#f4f4f2',
-  eyeScale: 1.95, irisColor: '#4d7a46', lid: 0.0, browPaint: '#7a3a1c', browWeight: 0.9, browAngle: 0.12, mouth: 'smile', mouthW: 0.015, mouthY: 0.068 }; // mouthY: nét miệng trùng môi của khối đầu
-export const HER_CLOTHES = { headK: 1.6, flatChest: true, top: { kind: 'sweater', color: '#ecc05a', band: '#dcae48', off: 0.035, loose: 1.1, cuffK: 0.78 },
-  bottom: { color: '#7393c2', hem: '#6585b4', off: 0.02, hemK: 0.8 } };
+  jersey: '#dccfb7', armSleeveColor: '#e8dcc7', pants: '#26262b', socks: '#26262b', shoes: '#f4f4f2',
+  eyeScale: 1.95, irisColor: '#4d7a46', lid: 0.0, browPaint: '#7a3a1c', browWeight: 0.9, browAngle: 0.12, mouth: 'smile', mouthW: 0.015, mouthY: 0.068 };
+export const HER_CLOTHES = { headK: 1.6, flatChest: true,
+  top: { kind: 'sweater', color: '#ece2cf', band: '#dccfb6', off: 0.035, loose: 1.12, cuffK: 0.78, collarR: 0.013,
+    pattern: { type: 'solid', c1: '#ece2cf', print: { text: 'SUNDAY', sub: 'club', color: '#b4573a', subColor: '#6f8f6a', w: 0.27, h: 0.15 } } },
+  bottom: { color: '#26262b', hem: '#26262b', off: 0.006, fit: true },
+  shoes: { color: '#f6f6f3', sole: '#f1ede4', line: '#cfc8b8', accent: '#9db59a', width: 0.095 } };
 
 // Biểu cảm dùng chung (truyền vào ch.face({...}))
 export const FACES = {
