@@ -22,12 +22,12 @@ const cam=new THREE.PerspectiveCamera(30,1080/1920,.05,100);
 const headOf=ch=>{ch.root.updateMatrixWorld(true);return ch.bones['Head'].getWorldPosition(new THREE.Vector3());};
 const HF=FACES.him,GF=FACES.her;
 const plan=[{who:'both'},{who:'back'},{who:'H',f:HF.deadpan},{who:'H',f:HF.annoyed},{who:'H',f:HF.sideEye},{who:'H',f:HF.shocked},{who:'H',f:HF.defeated},
- {who:'G',f:GF.happy},{who:'G',f:GF.bliss},{who:'G',f:GF.excited},{who:'G',f:GF.pout},{who:'side'},{who:'sofa'}];
+ {who:'G',f:GF.happy},{who:'G',f:GF.bliss},{who:'G',f:GF.excited},{who:'G',f:GF.pout},{who:'sofa'},{who:'side'}];
 window.renderFrame=t=>{const v=Math.min(plan.length-1,Math.floor(t+1e-6)),p=plan[v];
  sofa.visible=p.who==='sofa';wall.visible=p.who!=='back';
  H.root.position.set(-0.42,0,0);G.root.position.set(0.42,0,0);H.root.rotation.y=0.25;G.root.rotation.y=-0.25;
  if(p.who==='side'){H.root.rotation.y=Math.PI/2-0.2;G.root.rotation.y=-Math.PI/2+0.2;H.root.position.x=-0.5;G.root.position.x=0.5;}
- H.mixer.setTime(1.2);G.mixer.setTime(1.2);
+ H.at(1.2);G.at(1.2);
  if(p.who==='sofa'){H.root.rotation.y=0;G.root.rotation.y=0;sofaSit(H,-0.5,-1.0,0.48,1,0,{headTurn:0.5,lean:0.35});sofaSit(G,0.5,-1.0,0.48,1,1,{spread:0.05,lean:0.35});}
  const st=p.who!=='sofa';H.post({ground:st});G.post({ground:st});
  H.face(p.who==='H'?p.f:p.who==='sofa'?HF.sideEye:{});G.face(p.who==='G'?p.f:{});

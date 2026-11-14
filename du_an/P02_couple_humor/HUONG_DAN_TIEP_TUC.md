@@ -13,6 +13,7 @@ Ngôi thứ hai, giọng đều/khô/mệt (deadpan, ~130–140 từ/phút, ng�
 - `ty_cast.html` — ảnh kiểm 13 ô. Đèn mặt trời cần `shadow.bias=-0.0004, normalBias=0.03` (không thì mặt bị sọc).
 - nhanvat2.js: thêm `lidSkin` (màu mí đã bù ánh sáng), mí khép tô trong hình mắt.
 
-## Lỗi biết
-- Chuyển từ tư thế viết tay (sofaSit) về clip Idle trong cùng trang: mixer không ghi đè lại → cần reset/khởi động lại action khi đổi (chưa sửa).
-- Mép cổ áo hoodie hơi răng cưa (đã tô lót cổ áo màu đậm để đọc như bo cổ).
+## Đã sửa (14/11, v3)
+- Đổi tư thế viết tay ↔ clip: mixer three chỉ ghi xương khi giá trị khác lần trước → dùng `ch.at(t)` (nhanvat2.js) thay cho `mixer.setTime(t)`: đặt thời điểm + ép ghi. Dùng cho MỌI shot (P01 cũng nên dùng).
+- Cổ áo: cắt theo mặt phẳng nghiêng (`neckDrop`, `neckTilt`) + ống bo cổ `TubeGeometry` gắn spine_03; bỏ tam giác thân nằm trọn dưới quần áo (hết đốm/đâm xuyên); mặt trong áo tô tối.
+- Mảng sáng quanh miệng: `lipSkin` đã bù ánh sáng.

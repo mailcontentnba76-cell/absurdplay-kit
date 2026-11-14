@@ -67,16 +67,23 @@ export function dressToy(ch, S) {
     const v = new V(); for (let i = 0; i < N; i++) { v.set(P[i * 3], P[i * 3 + 1], P[i * 3 + 2]).applyMatrix4(Mi); P.set([v.x, v.y, v.z], i * 3); }
     const ng = new THREE.BufferGeometry(); ng.setAttribute('position', new THREE.BufferAttribute(P, 3)); ng.setAttribute('color', new THREE.BufferAttribute(C, 3));
     ng.setAttribute('skinIndex', si.clone()); ng.setAttribute('skinWeight', sw.clone()); ng.setIndex(tri); ng.computeVertexNormals();
-    const m = new THREE.SkinnedMesh(ng, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, metalness: 0, side: THREE.FrontSide }));
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, metalness: 0, side: THREE.DoubleSide });
+    mat.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\nif (!gl_FrontFacing) diffuseColor.rgb *= 0.55;'); }; // mặt trong áo tối hơn
+    const m = new THREE.SkinnedMesh(ng, mat);
     m.position.copy(body.position); m.quaternion.copy(body.quaternion); m.scale.copy(body.scale); m.bind(body.skeleton, body.bindMatrix);
-    m.castShadow = m.receiveShadow = true; m.frustumCulled = false; body.parent.add(m); return m; };
+    m.castShadow = m.receiveShadow = true; m.frustumCulled = false; body.parent.add(m); covered.push(inSet); return m; };
+  const covered = [];
   const lin = (c) => new THREE.Color(c);
   const out = {};
   // ---- 2) áo (hoodie / áo len): thân suông theo elip ngực, tay áo ống rộng, bo gấu + bo tay, túi trước ----
   if (S.top) { const T = S.top, off = (T.off ?? 0.03) * sc, base = lin(T.color), band = lin(T.band || T.color), pocket = lin(T.pocket || T.color);
     const yHem = yHip - (T.hemDrop ?? 0.0) * sc;
     let Ru = { l: 0, r: 0 }; for (let i = 0; i < N; i++) { const s = armOf(i); if (!s) continue; const a = axis('upperarm_' + s, 'hand_' + s, W[i * 3], W[i * 3 + 1], W[i * 3 + 2]); if (a.t > 0.08 && a.t < 0.3) Ru[s] = Math.max(Ru[s], a.r.length()); }
-    out.top = shell((i) => isT(i) || armOf(i) || (isPel(i) && W[i * 3 + 1] > yHem) || (/neck/.test(dn[i]) && W[i * 3 + 1] < yNeck - 0.02 * sc && T.kind === 'hoodie'),
+    // đường viền cổ: mặt phẳng nghiêng (trước thấp hơn sau) thay cho ranh giới theo xương (bị răng cưa)
+    const [cxN, czN] = center(yNeck - 0.04 * sc); const yc = yNeck - (T.neckDrop ?? -0.045) * sc, tilt = T.neckTilt ?? 0.35;
+    const cutY = (z) => yc - tilt * (z - czN);
+    const inNeck = (i) => (isT(i) || /neck/.test(dn[i])) && W[i * 3 + 1] < cutY(W[i * 3 + 2]);
+    out.top = shell((i) => (isT(i) ? W[i * 3 + 1] < cutY(W[i * 3 + 2]) : false) || inNeck(i) || armOf(i) || (isPel(i) && W[i * 3 + 1] > yHem),
       (i, x, y, z) => { const s = armOf(i);
         if (s) { const a = axis('upperarm_' + s, 'hand_' + s, x, y, z); const r = a.r.length(), R = lerp(Ru[s] * 0.94, Ru[s] * (T.cuffK ?? 0.8), sstep(0.3, 0.95, a.t)); const rn = Math.max(r, R) + off * 0.7; return a.o.clone().addScaledVector(a.r.normalize(), rn); }
         const [cx, cz] = center(y); const dx = x - cx, dz = z - cz, r = Math.hypot(dx, dz), ux = dx / r, uz = dz / r;
@@ -86,6 +93,11 @@ export function dressToy(ch, S) {
       (i, x, y, z) => { const s = armOf(i); if (s) { const a = axis('upperarm_' + s, 'hand_' + s, x, y, z); return a.t > 0.9 ? band : base; }
         if (y < yHem + 0.045 * sc) return band; const [cx, cz] = center(y); const dx = x - cx, dz = z - cz;
         if (T.pocket && dz > 0 && Math.abs(dx) < ax * 0.6 && y > yHem + 0.06 * sc && y < yHem + 0.2 * sc) return pocket; return base; }, 8);
+    { // bo cổ: ống tròn chạy theo đường viền cổ, che mép lưới
+      let a = 0, bF = 0, bB = 0; for (let i = 0; i < N; i++) { if (!(isT(i) || /neck/.test(dn[i]))) continue; const x = W[i * 3], y = W[i * 3 + 1], z = W[i * 3 + 2]; if (Math.abs(y - cutY(z)) > 0.012 * sc) continue; a = Math.max(a, Math.abs(x - cxN)); if (z > czN) bF = Math.max(bF, z - czN); else bB = Math.max(bB, czN - z); }
+      const pad = off + 0.008 * sc, pts = []; for (let k = 0; k < 64; k++) { const th = k / 64 * Math.PI * 2, z = czN + Math.sin(th) * (Math.sin(th) > 0 ? bF : bB) + Math.sin(th) * pad; pts.push(new V(cxN + Math.cos(th) * (a + pad), cutY(z) + 0.002 * sc, z)); }
+      const ring = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, (T.collarR ?? 0.016) * sc, 10, true), new THREE.MeshStandardMaterial({ color: T.band || T.color, roughness: 0.9 }));
+      ring.castShadow = true; root.add(ring); ch.bones.spine_03.attach(ring); out.collar = ring; }
     if (T.kind === 'hoodie') { // dây rút (mũ trùm bỏ: torus đâm xuyên vai ở cận cảnh)
       const hm = new THREE.MeshStandardMaterial({ color: T.hood || T.color, roughness: 0.92, side: THREE.DoubleSide });
       const nk = BP.neck_01.clone(); const [cx, cz] = center(yNeck - 0.04 * sc);
@@ -102,6 +114,8 @@ export function dressToy(ch, S) {
         const [cx, cz] = center(y); const dx = x - cx, dz = z - cz, r = Math.hypot(dx, dz) || 1; const rn = r + (y > yHip - 0.02 * sc ? -0.004 * sc : off); return new V(cx + dx / r * rn, y, cz + dz / r * rn); },
       (i, x, y, z) => { const l = legOf(i); if (l) { const a = axis('thigh_' + l, 'foot_' + l, x, y, z); if (a.t > 0.93) return hem; } return base; }, 6);
   }
+  // ---- bỏ tam giác thân nằm trọn dưới quần áo -> hết đâm xuyên/đốm ----
+  if (covered.length) { const cov = new Uint8Array(N); for (const s of covered) for (let i = 0; i < N; i++) if (s[i]) cov[i] = 1; const keep = []; for (let k = 0; k < idxAll.length; k += 3) { const a = idxAll[k], b = idxAll[k + 1], c = idxAll[k + 2]; if (!(cov[a] && cov[b] && cov[c])) keep.push(a, b, c); } g.setIndex(keep); }
   // ---- 4) da phẳng (bỏ texture vân da), đầu to, tay thả lỏng ----
   { const m = body.material; m.map = null; m.metalnessMap = null; m.roughnessMap = null; m.aoMap = null; m.normalMap = null; m.color.set('#ffffff'); m.needsUpdate = true; }
   const rest = {}; for (const [n, b] of Object.entries(ch.bones)) rest[n] = b.quaternion.clone();

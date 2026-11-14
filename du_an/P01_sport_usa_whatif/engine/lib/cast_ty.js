@@ -9,7 +9,7 @@ const CASUAL = { edgeSoft: 2, tank: false, shorts: false, number: null, backName
   smooth: { jersey: 30, pants: 26, socks: 14, shoes: 10, skin: 16, head: 0 }, puff: { jersey: 0, pants: 0, socks: 0.004, shoes: 0.02, skin: 0, hand: 0 } };
 
 // Nam chính: tóc nâu sẫm xoăn rối, râu lún phún, mắt nâu mí nặng (vẻ mệt mỏi thường trực), hoodie xanh xô thơm, quần nỉ xám, dép kem.
-export const HIM = { ...CASUAL, heightM: 1.8, build: 'fit', skin: '#f2cfb2', lidSkin: '#efae7e', lipSkin: '#efae7e', /* lidSkin/lipSkin: màu tô đã bù để khớp da sau ánh sáng (đo 14/11) */
+export const HIM = { ...CASUAL, heightM: 1.8, build: 'fit', skin: '#f2cfb2', lidSkin: '#efae7e', lipSkin: '#cb8a58', /* lidSkin/lipSkin: màu tô đã bù để khớp da sau ánh sáng (đo 14/11) */
  
   hairStyle: 'proc:curlytop', hairColor: '#3a281c', hairOpts: { thick: 0.034 }, paintBeard: { color: '#4a3324', alpha: 0.28, grain: 1500 },
   jersey: '#6f8c68', armSleeveColor: '#8aa781', /* jersey = màu lót cổ áo (thân bên trong lộ ở cổ) */ pants: '#a9afb6', socks: '#a9afb6', shoes: '#e8e1d2',

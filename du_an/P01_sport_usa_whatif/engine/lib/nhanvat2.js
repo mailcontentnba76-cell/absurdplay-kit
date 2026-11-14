@@ -495,7 +495,10 @@ export function makeCharacter(lib, o = {}) {
   };
   let lastFace = '';
   const face = (o = {}) => { const k = JSON.stringify(o); if (k !== lastFace) { lastFace = k; faceDraw(o); } };
-  return { root, mixer, bones, play, skeleton, face, P };
+  // at(t): đặt clip tại thời điểm t VÀ ép ghi giá trị vào xương. Mixer của three chỉ ghi khi giá trị khác lần trước,
+  // nên sau một tư thế viết tay (resetPose/aim…) mà gọi setTime cùng t thì xương giữ nguyên tư thế cũ (lỗi P02 14/11).
+  const at = (t) => { mixer.setTime(t); const ai = mixer._accuIndex; for (let i = 0; i < mixer._nActiveBindings; i++) { const pm = mixer._bindings[i]; pm.binding.setValue(pm.buffer, ai * pm.valueSize + pm.valueSize); } };
+  return { root, mixer, bones, play, skeleton, face, P, at };
 }
 
 // Em bé thật: đầu to (~1/4 chiều cao), tay chân ngắn mũm mĩm, thân ngắn, mặt tròn không lông mày.
