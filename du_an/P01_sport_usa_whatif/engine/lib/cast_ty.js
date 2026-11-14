@@ -17,17 +17,17 @@ export const HIM = { ...CASUAL, heightM: 1.8, build: 'fit', skin: '#f2cfb2', lid
 export const HIM_CLOTHES = { headK: 1.6,
   top: { kind: 'shirt', color: '#b5453c', band: '#3b3540', off: 0.02, loose: 1.0, cuffK: 0.85, collarR: 0.011,
     pattern: { type: 'plaid', c1: '#b5453c', c2: '#3b3540', c3: '#e8d9c4', size: 0.075 } },
-  outer: { color: '#2a3d63', quilt: '#16223a', band: '#1a2740', zip: '#8d96a8', off: 0.026, loose: 1.04, quiltStep: 0.09, neckDrop: -0.045, neckTilt: 0.35, collarR: 0.016 },
+  outer: { color: '#2a3d63', quilt: '#16223a', band: '#1a2740', zip: '#8d96a8', off: 0.013, loose: 1.0, quiltStep: 0.09, neckDrop: -0.045, neckTilt: 0.35, collarR: 0.016 },
   bottom: { color: '#5677a6', hem: '#4a6a97', off: 0.018, hemK: 0.8 },
   shoes: { color: '#f6f6f3', sole: '#f1ede4', line: '#cfc8b8', accent: '#2a3d63' } };
 
 // Nữ chính: áo nỉ cổ tròn rộng màu kem in chữ SUNDAY club, legging đen, sneaker trắng viền xô thơm, tóc dài ngang vai.
 export const HER = { ...CASUAL, body: 'female', heightM: 1.65, build: 'fit', skin: '#f8dccb', lidSkin: '#f4c0a0',
   hair: 'Hair_Long', hairColor: '#c8643a',
-  jersey: '#dccfb7', armSleeveColor: '#e8dcc7', pants: '#26262b', socks: '#26262b', shoes: '#f4f4f2',
+  jersey: '#f8dccb', armSleeveColor: '#e8dcc7', /* jersey = da: cổ tròn để lộ chân cổ */ pants: '#26262b', socks: '#26262b', shoes: '#f4f4f2',
   eyeScale: 1.95, irisColor: '#4d7a46', lid: 0.0, browPaint: '#7a3a1c', browWeight: 0.9, browAngle: 0.12, mouth: 'smile', mouthW: 0.015, mouthY: 0.068 };
 export const HER_CLOTHES = { headK: 1.6, flatChest: true,
-  top: { kind: 'sweater', color: '#ece2cf', band: '#dccfb6', off: 0.035, loose: 1.12, cuffK: 0.78, collarR: 0.013,
+  top: { kind: 'sweater', color: '#ece2cf', band: '#dccfb6', off: 0.035, loose: 1.12, cuffK: 0.78, collarR: 0.017, hemDrop: -0.045, neckDrop: 0.012, neckTilt: 0.55, /* cổ tròn: cắt thấp ở chân cổ */
     pattern: { type: 'solid', c1: '#ece2cf', print: { text: 'SUNDAY', sub: 'club', color: '#b4573a', subColor: '#6f8f6a', w: 0.27, h: 0.15 } } },
   bottom: { color: '#26262b', hem: '#26262b', off: 0.006, fit: true },
   shoes: { color: '#f6f6f3', sole: '#f1ede4', line: '#cfc8b8', accent: '#9db59a', width: 0.095 } };

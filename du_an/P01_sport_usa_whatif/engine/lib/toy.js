@@ -94,12 +94,15 @@ export function dressToy(ch, S) {
     ng.setAttribute('bpos', new THREE.BufferAttribute(BPw, 3)); ng.setAttribute('pat', new THREE.BufferAttribute(PT, 1)); ng.setAttribute('bnz', new THREE.BufferAttribute(NZ, 1));
     ng.setAttribute('skinIndex', si.clone()); ng.setAttribute('skinWeight', sw.clone()); ng.setIndex(tri); ng.computeVertexNormals();
     const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, metalness: 0, side: THREE.DoubleSide });
-    const U = { uType: { value: !pat ? 0 : pat.type === 'plaid' ? 1 : pat.type === 'stripes' ? 2 : 0 }, uC1: { value: lin(pat?.c1 || '#ffffff') }, uC2: { value: lin(pat?.c2 || '#000000') }, uC3: { value: lin(pat?.c3 || '#000000') }, uSize: { value: pat?.size ?? 0.06 },
-      uPrint: { value: pat?.print ? printTex(pat.print) : null }, uPO: { value: new THREE.Vector2(cxN0 / sc, ((pat?.print?.y) ?? (yArm / sc - 0.16))) }, uPS: { value: new THREE.Vector2(pat?.print?.w ?? 0.2, pat?.print?.h ?? 0.1) } };
+    const U = { uType: { value: !pat ? 0 : pat.type === 'plaid' ? 1 : pat.type === 'stripes' ? 2 : 0 }, uC1: { value: lin(pat?.c1 || '#ffffff') }, uC2: { value: lin(pat?.c2 || '#000000') }, uC3: { value: lin(pat?.c3 || '#000000') }, uSize: { value: pat?.size ?? 0.06 }, uSW: { value: pat?.width ?? 0.38 },
+      uPrint: { value: pat?.print ? printTex(pat.print) : null }, uPO: { value: new THREE.Vector2(cxN0 / sc, ((pat?.print?.y) ?? (yArm / sc - 0.16))) }, uPS: { value: new THREE.Vector2(pat?.print?.w ?? 0.2, pat?.print?.h ?? 0.1) }, uCut: { value: new THREE.Vector4(pat?.cut ? 1 : 0, pat?.cut?.[0] ?? 0, pat?.cut?.[1] ?? 0, pat?.cut?.[2] ?? 0) }, uCut2: { value: new THREE.Vector4(...(pat?.cut2 || [0, 0, 1, 1])) }, uHem: { value: pat?.hem ?? -1e3 }, uBandH: { value: pat?.bandH ?? 0 }, uBandC: { value: lin(pat?.bandC || '#000000') } };
     mat.onBeforeCompile = (sh) => { Object.assign(sh.uniforms, U);
       sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 bpos; attribute float pat; attribute float bnz; varying vec3 vBP; varying float vPat; varying float vNZ;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvBP = bpos; vPat = pat; vNZ = bnz;');
-      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vBP; varying float vPat; varying float vNZ; uniform int uType; uniform vec3 uC1, uC2, uC3; uniform float uSize; uniform sampler2D uPrint; uniform vec2 uPO, uPS;\n' + (pat?.print ? '#define HAS_PRINT\n' : ''))
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vBP; varying float vPat; varying float vNZ; uniform int uType; uniform vec3 uC1, uC2, uC3; uniform float uSize, uSW; uniform sampler2D uPrint; uniform vec2 uPO, uPS; uniform vec4 uCut, uCut2; uniform float uHem, uBandH; uniform vec3 uBandC;\n' + (pat?.print ? '#define HAS_PRINT\n' : ''))
         .replace('#include <color_fragment>', `#include <color_fragment>
+if (vBP.y < uHem) discard; // gấu áo thẳng theo từng điểm ảnh
+bool inBand = vBP.y < uHem + uBandH;
+if (uCut.x > 0.5 && vBP.y > uCut.y - uCut.z * (vBP.z - uCut.w)) { vec2 de = (vBP.xz - uCut2.xy) / uCut2.zw; if (dot(de, de) < 1.0) discard; } // khoét cổ áo theo từng điểm ảnh: trên mặt phẳng cổ VÀ trong elip quanh cổ
 if (vPat > 0.5) {
   if (uType == 1) { // caro flannel: hai dải đậm giao nhau + chỉ mảnh
     vec2 q = fract(vec2(vBP.x + vBP.z * 0.35, vBP.y) / uSize);
@@ -107,15 +110,17 @@ if (vPat > 0.5) {
     vec3 c = mix(uC1, uC2, 0.55 * max(a, b) + 0.45 * a * b);
     float th = max(step(abs(q.x - 0.75), 0.03), step(abs(q.y - 0.75), 0.03));
     diffuseColor.rgb = mix(c, uC3, th * 0.8);
-  } else if (uType == 2) { float q = fract(vBP.y / uSize); diffuseColor.rgb = q < 0.38 ? uC2 : uC1; }
+  } else if (uType == 2) { float q = fract(vBP.y / uSize); diffuseColor.rgb = mix(uC2, uC1, smoothstep(uSW * 0.6, uSW, q)); }
   else diffuseColor.rgb = uC1;
 #ifdef HAS_PRINT
   vec2 pq = (vBP.xy - uPO) / uPS + 0.5;
   if (vNZ > 0.35 && pq.x > 0.0 && pq.x < 1.0 && pq.y > 0.0 && pq.y < 1.0) { vec4 pc = texture2D(uPrint, pq); diffuseColor.rgb = mix(diffuseColor.rgb, pc.rgb, pc.a * 0.95); }
 #endif
 }
+if (inBand) diffuseColor.rgb = uBandC; // bo gấu thẳng
 if (!gl_FrontFacing) diffuseColor.rgb *= 0.78;`); }; // mặt trong áo tối hơn
     mat.customProgramCacheKey = () => 'cloth' + (pat?.print ? 'P' : '');
+    if (pat?.cut) { const cv = pat.cutKeep; if (cv) for (let i = 0; i < N; i++) if (cv(i)) inSet[i] = 0; } // thân dưới chỗ khoét giữ lại (lộ da)
     const m = new THREE.SkinnedMesh(ng, mat);
     m.position.copy(body.position); m.quaternion.copy(body.quaternion); m.scale.copy(body.scale); m.bind(body.skeleton, body.bindMatrix);
     m.castShadow = m.receiveShadow = true; m.frustumCulled = false; body.parent.add(m); covered.push(inSet); return m; };
@@ -130,12 +135,12 @@ if (!gl_FrontFacing) diffuseColor.rgb *= 0.78;`); }; // mặt trong áo tối h�
     const w = sstep(yArm - 0.03 * sc, yArm - 0.12 * sc, y); let rs = r; if (S.flatChest && dz > 0) rs = Math.min(r, ell(ux, uz) * 1.0);
     const rn = lerp(rs + off + (y > yArm - 0.04 * sc ? 0.012 * sc : 0), Math.max(ell(ux, uz) * loose, rs) + off, w) + (y < yHemF + 0.1 * sc ? (yHemF + 0.1 * sc - y) * 0.45 + (dz < 0 ? 0.012 * sc : 0) : 0);
     return new V(cx + ux * rn, y, cz + uz * rn); };
-  const collar = (cutY, pad, rad, color, dy = 0) => { // bo cổ: ống tròn chạy theo đường viền cổ, che mép lưới
+  const collar = (cutY, pad, rad, color, dy = 0, filler = true) => { // bo cổ: ống tròn chạy theo đường viền cổ, che mép lưới
     let a = 0, bF = 0, bB = 0; for (let i = 0; i < N; i++) { if (!(isT(i) || /neck/.test(dn[i]))) continue; const x = W[i * 3], y = W[i * 3 + 1], z = W[i * 3 + 2]; if (Math.abs(y - cutY(z)) > 0.012 * sc) continue; a = Math.max(a, Math.abs(x - cxN)); if (z > czN) bF = Math.max(bF, z - czN); else bB = Math.max(bB, czN - z); }
     const pts = []; for (let k = 0; k < 64; k++) { const th = k / 64 * Math.PI * 2, z = czN + Math.sin(th) * (Math.sin(th) > 0 ? bF : bB) + Math.sin(th) * pad; pts.push(new V(cxN + Math.cos(th) * (a + pad), cutY(z) + (0.002 + dy) * sc, z)); }
     const ring = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, rad * sc, 10, true), new THREE.MeshStandardMaterial({ color, roughness: 0.9 }));
     ring.castShadow = true; root.add(ring); ch.bones.spine_03.attach(ring);
-    { // tấm lót cổ: vành phẳng từ cổ ra tới bo cổ, che khe nhìn vào mặt trong áo
+    if (filler) { // tấm lót cổ: vành phẳng từ cổ ra tới bo cổ, che khe nhìn vào mặt trong áo
       const pos2 = [], idx2 = []; for (let k = 0; k < 64; k++) { const th = k / 64 * Math.PI * 2, sn = Math.sin(th), b = sn > 0 ? bF : bB;
         for (const [ka, kb] of [[0.97, 0], [1, pad]]) { const z = czN + sn * b * ka + sn * kb; pos2.push(cxN + Math.cos(th) * (a * ka + kb), cutY(z) + (0.001 + dy) * sc, z); } }
       for (let k = 0; k < 64; k++) { const a0 = k * 2, b0 = ((k + 1) % 64) * 2; idx2.push(a0, b0, a0 + 1, b0, b0 + 1, a0 + 1); }
@@ -146,15 +151,27 @@ if (!gl_FrontFacing) diffuseColor.rgb *= 0.78;`); }; // mặt trong áo tối h�
     const yHem = yHip - (T.hemDrop ?? 0.0) * sc, sleeveTo = T.sleeve === 'short' ? 0.42 : 2, cutY = mkCut(T);
     let Ru = { l: 0, r: 0 }; for (let i = 0; i < N; i++) { const s = armOf(i); if (!s) continue; const a = axis('upperarm_' + s, 'hand_' + s, W[i * 3], W[i * 3 + 1], W[i * 3 + 2]); if (a.t > 0.08 && a.t < 0.3) Ru[s] = Math.max(Ru[s], a.r.length()); }
     const armT = (i) => { const s = armOf(i); return s ? axis('upperarm_' + s, 'hand_' + s, W[i * 3], W[i * 3 + 1], W[i * 3 + 2]).t : -1; };
-    const inNeck = (i) => (isT(i) || /neck/.test(dn[i])) && W[i * 3 + 1] < cutY(W[i * 3 + 2]);
-    out.top = shell((i) => inNeck(i) || (armOf(i) && armT(i) < sleeveTo) || (isPel(i) && W[i * 3 + 1] > yHem),
+    const hugOn0 = (T.hugBand ?? 0.07) > 0 && !S.outer; // cổ tròn ôm cổ: áo phủ quá đường cổ rồi khoét bằng shader
+    // elip lỗ cổ (đo trên cổ thật) — khoét trong elip này, không đụng đỉnh vai
+    let nA = 0, nF = 0, nB = 0; for (let i = 0; i < N; i++) { if (!/neck/.test(dn[i])) continue; const y = W[i * 3 + 1]; if (Math.abs(y - yNeck) > 0.03 * sc) continue; nA = Math.max(nA, Math.abs(W[i * 3] - cxN)); if (W[i * 3 + 2] > czN) nF = Math.max(nF, W[i * 3 + 2] - czN); else nB = Math.max(nB, czN - W[i * 3 + 2]); }
+    const eA = nA + (T.neckOpen ?? 0.03) * sc, eB = (nF + nB) / 2 + (T.neckOpen ?? 0.03) * sc, eZ = czN + (nF - nB) / 2;
+    const inEll = (x, z, k = 1) => ((x - cxN) / (eA * k)) ** 2 + ((z - eZ) / (eB * k)) ** 2 < 1;
+    const inNeck = (i) => (isT(i) || /neck/.test(dn[i])) && W[i * 3 + 1] < cutY(W[i * 3 + 2]) + (hugOn0 ? 0.05 * sc : 0);
+    const hemZone = (i) => (isPel(i) || /^thigh_/.test(dn[i])) && W[i * 3 + 1] > yHem - 0.1 * sc; // phủ quá gấu (cả háng/mông thuộc xương đùi) rồi cắt thẳng bằng shader
+    out.top = shell((i) => inNeck(i) || (armOf(i) && armT(i) < sleeveTo) || hemZone(i),
       (i, x, y, z) => { const s = armOf(i);
         if (s) { const a = axis('upperarm_' + s, 'hand_' + s, x, y, z); const r = a.r.length(), R = T.sleeve === 'short' ? Ru[s] * 1.02 : lerp(Ru[s] * 0.94, Ru[s] * (T.cuffK ?? 0.8), sstep(0.3, 0.95, a.t)); const rn = Math.max(r, R) + off * 0.7; return a.o.clone().addScaledVector(a.r.normalize(), rn); }
-        return torsoAt(x, y, z, off, T.loose ?? 1.06, yHip); },
+        const p = torsoAt(x, y, z, off, T.loose ?? 1.06, yHip); const er = Math.sqrt(((x - cxN) / eA) ** 2 + ((z - eZ) / eB) ** 2); const hug = hugOn0 ? sstep((T.hugBand ?? 0.04) * sc, 0, cutY(z) - y) * sstep(1.5, 1.0, er) : 0; /* chỉ ôm sát quanh lỗ cổ */ if (hug > 0) { const [cx, cz] = center(y); const dx = x - cx, dz = z - cz, r = Math.hypot(dx, dz) || 1, rn = r + 0.01 * sc; p.lerp(new V(cx + dx / r * rn, y, cz + dz / r * rn), hug); } return p; },
       (i, x, y, z) => { const s = armOf(i); if (s) { const a = axis('upperarm_' + s, 'hand_' + s, x, y, z); return a.t > (T.sleeve === 'short' ? 0.36 : 0.9) ? band : base; }
-        if (y < yHem + 0.045 * sc) return band; const [cx, cz] = center(y); const dx = x - cx, dz = z - cz;
-        if (T.pocket && dz > 0 && Math.abs(dx) < ax * 0.6 && y > yHem + 0.06 * sc && y < yHem + 0.2 * sc) return pocket; return base; }, 8, T.pattern ? { ...T.pattern, base } : null);
-    if (!S.outer) out.collar = collar(cutY, off + 0.008 * sc, T.collarR ?? 0.016, T.band || T.color);
+        const [cx, cz] = center(y); const dx = x - cx, dz = z - cz;
+        if (T.pocket && dz > 0 && Math.abs(dx) < ax * 0.6 && y > yHem + 0.06 * sc && y < yHem + 0.2 * sc) return pocket; return base; }, 8, { type: 'solid', c1: T.color, ...(T.pattern || {}), base, hem: (yHem + 0.002 * sc) / sc, bandH: 0.045, bandC: T.band || T.color, ...(hugOn0 ? { cut: [yNeck / sc - (T.neckDrop ?? -0.045), T.neckTilt ?? 0.35, czN / sc], cut2: [cxN / sc, eZ / sc, eA / sc, eB / sc], cutKeep: (i) => W[i * 3 + 1] > cutY(W[i * 3 + 2]) - 0.025 * sc && inEll(W[i * 3], W[i * 3 + 2], 1.04) } : {}) });
+    if (hugOn0) { // bo cổ chạy đúng mép khoét: trên elip, ở độ cao max(mặt phẳng cổ, mặt vai tại đó)
+      const pts = []; for (let k = 0; k < 72; k++) { const th = k / 72 * Math.PI * 2, x = cxN + Math.cos(th) * eA, z = eZ + Math.sin(th) * eB; let sy = -1e9;
+        for (let i = 0; i < N; i++) { if (!(isT(i) || /neck/.test(dn[i]))) continue; if (Math.hypot(W[i * 3] - x, W[i * 3 + 2] - z) < 0.018 * sc) sy = Math.max(sy, W[i * 3 + 1]); }
+        pts.push(new V(x, Math.max(cutY(z), sy + 0.006 * sc), z)); }
+      const ring = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 128, (T.collarR ?? 0.012) * sc, 10, true), new THREE.MeshStandardMaterial({ color: T.band || T.color, roughness: 0.9 }));
+      ring.castShadow = true; root.add(ring); ch.bones.spine_03.attach(ring); out.collar = ring;
+    } else if (!S.outer) out.collar = collar(cutY, off + 0.008 * sc, T.collarR ?? 0.016, T.band || T.color);
     if (T.kind === 'hoodie') { // dây rút
       const nk = BP.neck_01.clone(); const [cx, cz] = center(yNeck - 0.04 * sc);
       const dm = new THREE.MeshStandardMaterial({ color: T.strings || '#f2efe6', roughness: 0.8 });
@@ -165,11 +182,11 @@ if (!gl_FrontFacing) diffuseColor.rgb *= 0.78;`); }; // mặt trong áo tối h�
   if (S.outer) { const O = S.outer, offT = ((S.top && S.top.off) ?? 0.03) * sc, off = offT + (O.off ?? 0.035) * sc, base = lin(O.color), quilt = lin(O.quilt || O.color), band = lin(O.band || O.color);
     const yHem = yHip + (O.hemUp ?? 0.0) * sc, cutY = mkCut({ neckDrop: O.neckDrop ?? -0.06, neckTilt: O.neckTilt ?? 0.5 }), step = (O.quiltStep ?? 0.085) * sc;
     const ar = (i) => { if (!/clavicle/.test(dn[i])) return false; return true; };
-    out.outer = shell((i) => ((isT(i) || /neck/.test(dn[i])) && W[i * 3 + 1] < cutY(W[i * 3 + 2])) || (isPel(i) && W[i * 3 + 1] > yHem),
+    out.outer = shell((i) => ((isT(i) || /neck/.test(dn[i])) && W[i * 3 + 1] < cutY(W[i * 3 + 2]) && !(/clavicle/.test(dn[i]) && Math.abs(W[i * 3] - center(W[i * 3 + 1])[0]) > (O.strap ?? 0.12) * sc)) || (isPel(i) && W[i * 3 + 1] > yHem),
       (i, x, y, z) => { const p = torsoAt(x, y, z, off, (O.loose ?? 1.1), yHip); if (/clavicle/.test(dn[i])) { const [cx] = center(y); const k = 1 - 0.18 * sstep(0.1 * sc, 0.2 * sc, Math.abs(x - cx)); p.x = cx + (p.x - cx) * k; } return p; },
-      (i, x, y, z) => { if (y < yHem + 0.035 * sc) return band; const q = ((y - yHem) / step) % 1; return q < (O.quiltW ?? 0.16) ? quilt : base; }, 10);
+      (i, x, y, z) => (y < yHem + 0.035 * sc ? band : base), 10, { type: 'stripes', c1: O.color, c2: O.quilt || O.color, size: (O.quiltStep ?? 0.09), width: O.quiltW ?? 0.1, base });
     out.outerCollar = collar(cutY, off * 0.6, O.collarR ?? 0.016, O.band || O.color, 0.006);
-    if (O.zip) { // khoá kéo giữa ngực: dải mảnh bám theo mặt trước
+    if (O.zip && O.zipOn) { // tắt mặc định (14/11: lệch chỗ) // khoá kéo giữa ngực: dải mảnh bám theo mặt trước
       const zm = new THREE.MeshStandardMaterial({ color: O.zip, roughness: 0.5, metalness: 0.2 }); const pts = [];
       for (let y = yHem + 0.01 * sc; y < cutY(czN + bzF) - 0.005 * sc; y += 0.02 * sc) { const p = torsoAt(cxN, y, center(y)[1] + 1, off, O.loose ?? 1.1, yHip); pts.push(new V(center(y)[0], y, p.z + 0.004 * sc)); }
       if (pts.length > 2) { const zg = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.0025 * sc, 6, false); const zz = new THREE.Mesh(zg, zm); root.add(zz); ch.bones.spine_02.attach(zz); out.zip = zz; } }
