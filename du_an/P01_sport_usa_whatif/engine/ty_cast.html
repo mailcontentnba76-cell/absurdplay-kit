@@ -1,48 +1,43 @@
 <!doctype html><html><body style="margin:0"><canvas id="c" width="1080" height="1920"></canvas>
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
 <script type="module">
-// Ảnh kiểm nhân vật kênh cặp đôi (P02). Mỗi giây t = 1 ảnh:
-// 0 cả hai 3/4 trước · 1 cả hai sau lưng · 2 nam deadpan · 3 nam annoyed · 4 nam sideEye · 5 nam shocked · 6 nam defeated
-// 7 nữ happy · 8 nữ bliss · 9 nữ excited · 10 nữ pout · 11 cả hai trên sofa (thử bối cảnh)
-import * as THREE from 'three'; import {loadLibrary} from './lib/nhanvat2.js'; import {CAST_TY,FACES} from './lib/cast_ty.js'; import {seated} from './lib/bongro.js';
-const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;r.shadowMap.enabled=true;
+// Ảnh kiểm nhân vật kênh cặp đôi (P02) v2. Mỗi giây t = 1 ảnh:
+// 0 cả hai 3/4 trước · 1 cả hai sau lưng · 2–6 nam: deadpan/annoyed/sideEye/shocked/defeated · 7–10 nữ: happy/bliss/excited/pout · 11 sofa · 12 nghiêng
+import * as THREE from 'three'; import {loadLibrary} from './lib/nhanvat2.js'; import {CAST_TY,FACES} from './lib/cast_ty.js'; import {sofaSit} from './lib/toy.js';
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
 const s=new THREE.Scene();s.background=new THREE.Color('#bfe3dc');
-s.add(new THREE.HemisphereLight('#fff8f0','#b98d6a',2.7));const sun=new THREE.DirectionalLight('#fff1dc',1.7);sun.position.set(2,5,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);s.add(sun);
-const fill=new THREE.DirectionalLight('#e3ecff',0.7);fill.position.set(-4,2,3);s.add(fill);
-const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:0.85});
-const fl=new THREE.Mesh(new THREE.PlaneGeometry(12,12),mat('#e9d8bf'));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;s.add(fl);
-const wall=new THREE.Mesh(new THREE.PlaneGeometry(12,6),mat('#9fd3c7'));wall.position.set(0,3,-1.6);wall.receiveShadow=true;s.add(wall);
-// sofa san hô (thử bối cảnh)
-const sofa=new THREE.Group();const box=(w,h,d,x,y,z,col)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(col));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;sofa.add(m);return m;};
-box(2.2,0.32,0.9,0,0.16,0,'#e8806a');box(2.2,0.8,0.22,0,0.56,-0.38,'#e8806a');box(0.22,0.56,0.9,-1.1,0.28,0,'#e07462');box(0.22,0.56,0.9,1.1,0.28,0,'#e07462');
-box(0.98,0.12,0.72,-0.5,0.38,0.04,'#f08c76');box(0.98,0.12,0.72,0.5,0.38,0.04,'#f08c76');
-sofa.position.set(0,0,-0.9);s.add(sofa);
+s.add(new THREE.HemisphereLight('#fffaf2','#c9a483',2.9));const sun=new THREE.DirectionalLight('#fff3e2',1.5);sun.position.set(2,5,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=4;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;s.add(sun);
+const fill=new THREE.DirectionalLight('#e6eeff',0.8);fill.position.set(-4,2,3);s.add(fill);
+const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:0.88});
+const fl=new THREE.Mesh(new THREE.PlaneGeometry(12,12),mat('#ecdcc4'));fl.rotation.x=-Math.PI/2;fl.receiveShadow=true;s.add(fl);
+const wall=new THREE.Mesh(new THREE.PlaneGeometry(12,6),mat('#a6d8cc'));wall.position.set(0,3,-1.7);wall.receiveShadow=true;s.add(wall);
+// sofa san hô bo tròn
+const sofa=new THREE.Group();const rb=(w,h,d,x,y,z,col,rad=0.06)=>{const g=new THREE.BoxGeometry(w,h,d,6,6,6);const p=g.attributes.position,v=new THREE.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const q=new THREE.Vector3(Math.max(-w/2+rad,Math.min(w/2-rad,v.x)),Math.max(-h/2+rad,Math.min(h/2-rad,v.y)),Math.max(-d/2+rad,Math.min(d/2-rad,v.z)));const dd=v.clone().sub(q);if(dd.length()>1e-6){dd.setLength(rad);p.setXYZ(i,q.x+dd.x,q.y+dd.y,q.z+dd.z);}}g.computeVertexNormals();const m=new THREE.Mesh(g,mat(col));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;sofa.add(m);return m;};
+rb(2.3,0.3,0.95,0,0.17,0,'#e57f6a');rb(2.3,0.85,0.25,0,0.58,-0.38,'#e57f6a',0.1);rb(0.26,0.62,0.95,-1.13,0.33,0,'#dc735f',0.1);rb(0.26,0.62,0.95,1.13,0.33,0,'#dc735f',0.1);
+rb(1.0,0.16,0.72,-0.5,0.4,0.06,'#ef8d77',0.07);rb(1.0,0.16,0.72,0.5,0.4,0.06,'#ef8d77',0.07);rb(0.95,0.42,0.18,-0.5,0.66,-0.22,'#ef8d77',0.08);rb(0.95,0.42,0.18,0.5,0.66,-0.22,'#ef8d77',0.08);
+sofa.position.set(0,0,-1.05);s.add(sofa);
 const lib=await loadLibrary();
-const H=CAST_TY.him(lib),G=CAST_TY.her(lib);s.add(H.root,G.root);
-const H2=CAST_TY.him(lib,{headScale:1.45}),G2=CAST_TY.her(lib,{headScale:1.45});s.add(H2.root,G2.root);H2.play('Idle_Loop');G2.play('Idle_Loop',{at:0.6});H.play('Idle_Loop');G.play('Idle_Loop',{at:0.6});
+const H=CAST_TY.him(lib),G=CAST_TY.her(lib);s.add(H.root,G.root);H.play('Idle_Loop');G.play('Idle_Loop',{at:0.6});
 const cam=new THREE.PerspectiveCamera(30,1080/1920,.05,100);
 const headOf=ch=>{ch.root.updateMatrixWorld(true);return ch.bones['Head'].getWorldPosition(new THREE.Vector3());};
 const HF=FACES.him,GF=FACES.her;
-const plan=[
- {who:'both'},{who:'back'},
- {who:'H',f:HF.deadpan},{who:'H',f:HF.annoyed},{who:'H',f:HF.sideEye},{who:'H',f:HF.shocked},{who:'H',f:HF.defeated},
- {who:'G',f:GF.happy},{who:'G',f:GF.bliss},{who:'G',f:GF.excited},{who:'G',f:GF.pout},{who:'sofa'},{who:'chibi'}];
-const seatF=(ch,x,z,y,sd)=>seated(ch,x,z,y,0,1,sd);
+const plan=[{who:'both'},{who:'back'},{who:'H',f:HF.deadpan},{who:'H',f:HF.annoyed},{who:'H',f:HF.sideEye},{who:'H',f:HF.shocked},{who:'H',f:HF.defeated},
+ {who:'G',f:GF.happy},{who:'G',f:GF.bliss},{who:'G',f:GF.excited},{who:'G',f:GF.pout},{who:'side'},{who:'sofa'}];
 window.renderFrame=t=>{const v=Math.min(plan.length-1,Math.floor(t+1e-6)),p=plan[v];
- const seated=p.who==='sofa';
- if(seated){sofa.visible=true;}
- else {H.play('Idle_Loop',{fade:0});G.play('Idle_Loop',{fade:0,at:0.6});H.root.position.set(-0.42,0,0);G.root.position.set(0.42,0,0);H.root.rotation.y=0.25;G.root.rotation.y=-0.25;sofa.visible=false;}
- const ch=p.who==='chibi';H.root.visible=G.root.visible=!ch;H2.root.visible=G2.root.visible=ch;if(ch){H2.root.position.set(-0.42,0,0);G2.root.position.set(0.42,0,0);H2.root.rotation.y=0.25;G2.root.rotation.y=-0.25;H2.mixer.setTime(1.2);G2.mixer.setTime(1.2);H2.face(FACES.him.deadpan);G2.face(FACES.her.happy);}
- H.face(p.who==='H'?p.f:{});G.face(p.who==='G'?p.f:{});
+ sofa.visible=p.who==='sofa';wall.visible=p.who!=='back';
+ H.root.position.set(-0.42,0,0);G.root.position.set(0.42,0,0);H.root.rotation.y=0.25;G.root.rotation.y=-0.25;
+ if(p.who==='side'){H.root.rotation.y=Math.PI/2-0.2;G.root.rotation.y=-Math.PI/2+0.2;H.root.position.x=-0.5;G.root.position.x=0.5;}
  H.mixer.setTime(1.2);G.mixer.setTime(1.2);
- if(seated){H.root.rotation.y=0;G.root.rotation.y=0;seatF(H,-0.5,-0.82,0.42,0);seatF(G,0.5,-0.82,0.42,1);H.face(FACES.him.sideEye);G.face(FACES.her.happy);}
+ if(p.who==='sofa'){H.root.rotation.y=0;G.root.rotation.y=0;sofaSit(H,-0.5,-1.0,0.48,1,0,{headTurn:0.5,lean:0.35});sofaSit(G,0.5,-1.0,0.48,1,1,{spread:0.05,lean:0.35});}
+ const st=p.who!=='sofa';H.post({ground:st});G.post({ground:st});
+ H.face(p.who==='H'?p.f:p.who==='sofa'?HF.sideEye:{});G.face(p.who==='G'?p.f:{});
  const hh=headOf(H),gh=headOf(G);
- if(p.who==='both'||ch){cam.fov=32;cam.position.set(0.6,1.25,5.2);cam.lookAt(0,1.0,0);}
- else if(p.who==='back'){cam.fov=32;cam.position.set(-0.4,1.4,-5.0);cam.lookAt(0,1.05,0);wall.visible=false;}
- else if(p.who==='H'){cam.fov=24;cam.position.set(hh.x+0.35,hh.y+0.06,hh.z+1.15);cam.lookAt(hh.x,hh.y+0.02,hh.z);}
- else if(p.who==='G'){cam.fov=24;cam.position.set(gh.x-0.35,gh.y+0.06,gh.z+1.15);cam.lookAt(gh.x,gh.y+0.02,gh.z);}
- else {cam.fov=34;cam.position.set(0.3,1.15,3.6);cam.lookAt(0,0.8,-0.7);}
- if(p.who!=='back')wall.visible=true;
+ if(p.who==='both'){cam.fov=32;cam.position.set(0.5,1.2,5.0);cam.lookAt(0,0.98,0);}
+ else if(p.who==='back'){cam.fov=32;cam.position.set(-0.4,1.35,-4.8);cam.lookAt(0,1.0,0);}
+ else if(p.who==='side'){cam.fov=32;cam.position.set(0,1.1,4.6);cam.lookAt(0,0.9,0);}
+ else if(p.who==='H'){cam.fov=24;cam.position.set(hh.x+0.6,hh.y+0.05,hh.z+2.4);cam.lookAt(hh.x,hh.y+0.06,hh.z);}
+ else if(p.who==='G'){cam.fov=24;cam.position.set(gh.x-0.6,gh.y+0.05,gh.z+2.4);cam.lookAt(gh.x,gh.y+0.06,gh.z);}
+ else {cam.fov=34;cam.position.set(0.25,1.05,3.3);cam.lookAt(0,0.72,-0.8);}
  cam.updateProjectionMatrix();r.render(s,cam)};
 window.ready=true;
 </script></body></html>
