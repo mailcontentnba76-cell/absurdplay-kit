@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+@font-face{font-family:Oswald;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2)}
+/* Tập 19: đồ hoạ kiểu APP THUÊ NHÀ hư cấu "StayOver" (thẻ niêm yết, huy hiệu, đánh giá sao, hoá đơn) + vài thẻ số liệu trận.
+   Không logo đội/app thật. Không chớp trắng. Khác E01–E18. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Oswald}
+.el{position:absolute;opacity:0}
+.card{left:70px;width:940px;background:#fff;border-radius:34px;box-shadow:0 18px 44px rgba(0,0,0,.35);overflow:hidden;color:#222}
+.card .top{background:linear-gradient(90deg,#ff5a5f,#e0404a);color:#fff;font-family:Anton;font-size:52px;padding:16px 30px;letter-spacing:1px}
+.card .body{padding:22px 30px 26px;font-size:40px;line-height:1.25}
+.card .body b{font-family:Anton;font-weight:400;font-size:58px;display:block;color:#111}
+.card .stars{color:#ffb400;font-size:64px;letter-spacing:6px}
+.pill{left:0;width:1080px;text-align:center}
+.pill span{display:inline-block;font-family:Anton;font-size:74px;line-height:1;padding:18px 40px 16px;border-radius:60px;box-shadow:0 10px 24px rgba(0,0,0,.4);background:#ff5a5f;color:#fff}
+.pill.dark span{background:#16213a;color:#fff;border:6px solid #ff5a5f}
+.pill.gold span{background:#ffcf4a;color:#1a1a1a}
+.big{left:0;width:1080px;text-align:center;font-family:Anton;line-height:1;color:#fff;-webkit-text-stroke:10px rgba(0,0,0,.85);paint-order:stroke fill}
+.sub{left:0;width:1080px;text-align:center;font-family:Anton;font-size:56px;color:#ffe08a;-webkit-text-stroke:7px rgba(0,0,0,.85);paint-order:stroke fill}
+#bug{left:50px;top:118px;display:flex;font-size:42px;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+#bug div{padding:8px 18px}#bug .sf{background:#b3121a}#bug .dl{background:#0b2a5c}#bug .sc{background:#f2f2f2;color:#111;font-family:Anton;font-weight:400}#bug .ck{background:#111;color:#ffcf4a;font-family:Mono;font-size:34px;line-height:50px}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Anton;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+.bill{left:250px;width:580px;top:300px;background:#fbfaf6;color:#222;font-family:Mono;font-size:30px;padding:26px 30px;box-shadow:0 18px 40px rgba(0,0,0,.45);border-top:14px dashed #e0dccf}
+.bill b{font-size:40px;display:block;margin-bottom:10px}.bill .t{border-top:3px dashed #999;margin-top:12px;padding-top:12px;font-size:40px}
+</style></head><body>
+<div class="el card" id="list" style="top:300px"><div class="top">StayOver · LISTING</div><div class="body"><b>"The Cowboys' House"</b>Arlington, TX · Host: Dallas<br>Booked Sunday by: <span style="color:#b3121a">THE NINERS (+ fans)</span></div></div>
+<div class="el pill dark" id="full" style="top:360px"><span>OCCUPANCY: FULL · MOSTLY RED</span></div>
+<div class="el pill" id="boo" style="top:360px"><span>BOOED IN THEIR OWN HOUSE</span></div>
+<div class="el big" id="y584" style="top:1020px;font-size:220px;color:#ff6a5a">584 YDS</div>
+<div class="el sub" id="most" style="top:1250px">MOST THE COWBOYS HAVE EVER ALLOWED AT HOME</div>
+<div class="el pill gold" id="rev" style="top:360px"><span>DEEBO REVERSE · 70-YD TD</span></div>
+<div class="el big" id="y74" style="top:360px;font-size:200px">74-YD TD</div>
+<div class="el big" id="y66" style="top:360px;font-size:200px">66-YD TD</div>
+<div class="el sub" id="first" style="top:330px;font-size:64px">FIRST RB EVER:<br>TWO 65+ YD TD CATCHES IN ONE GAME</div>
+<div class="el pill dark" id="dak" style="top:360px"><span>DAK: 5 TD PASSES (TIED CAREER HIGH)</span></div>
+<div class="el big" id="come" style="top:360px;font-size:150px">DOWN 19 → 6</div>
+<div class="el pill" id="onside" style="top:360px"><span>LAST ONSIDE KICK: NOWHERE</span></div>
+<div class="el" id="bug"><div class="sf">SF</div><div class="sc">46 – 40</div><div class="dl">DAL</div><div class="ck">FINAL</div></div>
+<div class="el card" id="review" style="top:300px"><div class="top">StayOver · GUEST REVIEW</div><div class="body"><span class="stars">★★★★★</span><b>"Great house. Full fridge."</b>5th straight win over Dallas.<br>Would visit again. — a guest in red</div></div>
+<div class="el big" id="rec" style="top:380px;font-size:190px;color:#9ec8ff">COWBOYS 4-6</div>
+<div class="el bill" id="bill"><b>STAYOVER · INVOICE</b>BILL TO: DALLAS COWBOYS<br>Yards eaten ....... 584<br>Points allowed .... 46<br>Visits in a row ... 5<br>Booing ........ FREE<div class="t">TOTAL: L, 46-40</div></div>
+<div class="wm">AbsurdPlay</div>
+<script type="module">
+import {SH,END} from './ep19_shots.js';
+const TL=[['list',4.6,8.4],['full',8.7,12.28],['boo',12.6,15.86],['y584',18.4,22.46],['most',19.8,22.46],['rev',22.6,25.1],['y74',30.0,30.95],['y66',30.95,32.0],['first',32.1,36.08],['dak',38.6,41.34],['come',42.5,44.1],['onside',44.9,46.88],['bug',46.9,END],['review',48.6,55.4],['rec',55.5,57.16],['bill',59.9,END]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=a;}
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(cl((t-a)/0.25)):0;e.style.opacity=on?cl((t-a)/0.1):0;
+    if(e.classList.contains('big')){const p=on?cl((t-a)/0.15):0;e.style.transform=`scale(${1.5-0.5*ease(p)})`;}
+    else if(e.classList.contains('card'))e.style.transform=`translateY(${(1-k)*-120}px)`;
+    else if(e.classList.contains('pill'))e.style.transform=`scale(${0.7+0.3*k})`;
+    else if(e.classList.contains('sub'))e.style.transform=`translateY(${(1-k)*40}px)`;
+    else if(e.id==='bill')e.style.transform=`translateY(${(1-k)*-900}px) rotate(${(1-k)*-8+2}deg)`;
+    else if(e.id==='bug')e.style.transform=`translateX(${(1-k)*-500}px)`;}};
+</script></body></html>

@@ -1,0 +1,5 @@
+# E19 — "Cho thuê sân nhà": 49ers dọn vào nhà Cowboys (QA 16/11/2026)
+- Bản giao: giao/E19_cowboys_rental.mp4 — 1080x1920, 30 fps, 63,0 s, −14,2 LUFS. Giọng đọc thẳng (không bíp) theo yêu cầu; phụ đề ghi f***ing.
+- Quét khung lỗi: 0. Đã sửa z-fighting khung cửa ↔ tường (khung dày 0,56 > tường 0,4) và cánh cửa xuyên mặt tiền (góc mở 1,32 rad).
+- Chống "nhòe giật" (người dùng góp ý): Dak xoay chậm, fan chạy xa ống kính, cửa mở 0,6 s, s7 đổi sang máy chạy lùi trước mặt CMC (nền tường trơn, không quét khán đài lấm tấm), s12 máy lùi ra.
+- Sự thật: 49ers 46–40 tại AT&T Stadium, SF 8-1, DAL 4-6 (AP, NBC Sports BA); fan 49ers áp đảo, la ó Cowboys khi ra sân (AP/Raw Chili, Yardbarker); 584 yard nhiều nhất Cowboys từng chịu trên sân nhà, thắng Cowboys lần thứ 5 liên tiếp (Yardbarker); Deebo reverse 70 yard (AP); McCaffrey TD 74 & 66 yard, RB đầu tiên có 2 TD bắt bóng ≥65 yard 1 trận (49ers.com, 49ers Webzone); Dak 5 TD bằng kỷ lục cá nhân (AP); gỡ từ −19 xuống −6, onside cuối hỏng (AP, box score).

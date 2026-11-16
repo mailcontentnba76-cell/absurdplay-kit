@@ -1,0 +1,67 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.02,0:00:00.38,Cap,,0,0,0,,are you
+Dialogue: 0,0:00:00.38,0:00:01.68,Cap,,0,0,0,,f***ing kidding me?
+Dialogue: 0,0:00:01.68,0:00:02.94,Cap,,0,0,0,,did the 49ers
+Dialogue: 0,0:00:02.94,0:00:03.39,Cap,,0,0,0,,just move into
+Dialogue: 0,0:00:03.39,0:00:04.54,Cap,,0,0,0,,the cowboys' house?
+Dialogue: 0,0:00:04.54,0:00:05.60,Cap,,0,0,0,,sunday in arlington, the
+Dialogue: 0,0:00:05.60,0:00:07.48,Cap,,0,0,0,,cowboys hosted the niners.
+Dialogue: 0,0:00:07.48,0:00:08.54,Cap,,0,0,0,,big mistake.
+Dialogue: 0,0:00:08.54,0:00:09.38,Cap,,0,0,0,,niners fans took
+Dialogue: 0,0:00:09.38,0:00:10.68,Cap,,0,0,0,,over the building.
+Dialogue: 0,0:00:10.68,0:00:11.42,Cap,,0,0,0,,more of them.
+Dialogue: 0,0:00:11.42,0:00:12.36,Cap,,0,0,0,,and louder.
+Dialogue: 0,0:00:12.36,0:00:13.16,Cap,,0,0,0,,they even booed
+Dialogue: 0,0:00:13.16,0:00:14.38,Cap,,0,0,0,,the cowboys for running
+Dialogue: 0,0:00:14.38,0:00:15.94,Cap,,0,0,0,,onto their own field.
+Dialogue: 0,0:00:15.94,0:00:16.48,Cap,,0,0,0,,then the
+Dialogue: 0,0:00:16.48,0:00:18.46,Cap,,0,0,0,,guests got hungry.
+Dialogue: 0,0:00:18.46,0:00:19.84,Cap,,0,0,0,,584 yards.
+Dialogue: 0,0:00:19.84,0:00:20.34,Cap,,0,0,0,,the most the
+Dialogue: 0,0:00:20.34,0:00:21.26,Cap,,0,0,0,,cowboys have ever
+Dialogue: 0,0:00:21.26,0:00:22.54,Cap,,0,0,0,,given up at home.
+Dialogue: 0,0:00:22.54,0:00:23.34,Cap,,0,0,0,,deebo samuel ran
+Dialogue: 0,0:00:23.34,0:00:24.00,Cap,,0,0,0,,a reverse that
+Dialogue: 0,0:00:24.00,0:00:25.18,Cap,,0,0,0,,fooled the whole defense.
+Dialogue: 0,0:00:25.18,0:00:26.86,Cap,,0,0,0,,70 yards.
+Dialogue: 0,0:00:26.86,0:00:28.52,Cap,,0,0,0,,front door wide open.
+Dialogue: 0,0:00:28.52,0:00:29.38,Cap,,0,0,0,,christian mccaffrey caught
+Dialogue: 0,0:00:29.38,0:00:30.98,Cap,,0,0,0,,touchdowns of 74 and
+Dialogue: 0,0:00:30.98,0:00:32.48,Cap,,0,0,0,,66, the first
+Dialogue: 0,0:00:32.48,0:00:33.56,Cap,,0,0,0,,running back in nfl
+Dialogue: 0,0:00:33.56,0:00:34.48,Cap,,0,0,0,,history to do
+Dialogue: 0,0:00:34.48,0:00:36.16,Cap,,0,0,0,,that in one game.
+Dialogue: 0,0:00:36.16,0:00:36.90,Cap,,0,0,0,,meanwhile, dak prescott
+Dialogue: 0,0:00:36.90,0:00:38.60,Cap,,0,0,0,,cleaned up all day.
+Dialogue: 0,0:00:38.60,0:00:40.14,Cap,,0,0,0,,5 touchdown passes.
+Dialogue: 0,0:00:40.14,0:00:41.42,Cap,,0,0,0,,tied his career high.
+Dialogue: 0,0:00:41.42,0:00:42.34,Cap,,0,0,0,,the cowboys came back
+Dialogue: 0,0:00:42.34,0:00:43.52,Cap,,0,0,0,,from 19 down to
+Dialogue: 0,0:00:43.52,0:00:44.96,Cap,,0,0,0,,6, then the last
+Dialogue: 0,0:00:44.96,0:00:46.96,Cap,,0,0,0,,onside kick went nowhere.
+Dialogue: 0,0:00:46.96,0:00:48.60,Cap,,0,0,0,,final: 46-40.
+Dialogue: 0,0:00:48.60,0:00:49.16,Cap,,0,0,0,,the guest review
+Dialogue: 0,0:00:49.16,0:00:50.22,Cap,,0,0,0,,is already up.
+Dialogue: 0,0:00:50.22,0:00:50.68,Cap,,0,0,0,,5 stars.
+Dialogue: 0,0:00:50.68,0:00:51.92,Cap,,0,0,0,,5th straight win
+Dialogue: 0,0:00:51.92,0:00:53.12,Cap,,0,0,0,,in dallas' house.
+Dialogue: 0,0:00:53.12,0:00:54.40,Cap,,0,0,0,,er, over dallas.
+Dialogue: 0,0:00:54.40,0:00:55.48,Cap,,0,0,0,,would visit again.
+Dialogue: 0,0:00:55.48,0:00:56.20,Cap,,0,0,0,,the cowboys are
+Dialogue: 0,0:00:56.20,0:00:57.24,Cap,,0,0,0,,4 and 6.
+Dialogue: 0,0:00:57.24,0:00:58.04,Cap,,0,0,0,,and the niners?
+Dialogue: 0,0:00:58.04,0:00:58.54,Cap,,0,0,0,,they took the
+Dialogue: 0,0:00:58.54,0:00:59.96,Cap,,0,0,0,,house, ate the fridge,
+Dialogue: 0,0:00:59.96,0:01:00.38,Cap,,0,0,0,,and left the
+Dialogue: 0,0:01:00.38,0:01:01.70,Cap,,0,0,0,,cowboys with the bill.
