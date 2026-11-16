@@ -28,3 +28,9 @@ Trạng thái 14/11/2026: kịch bản ĐÃ DUYỆT, nhân vật ĐÃ DUYỆT, 1
 - Đồ hoạ `engine/t10e01_gfx.html`: huy hiệu đếm ngược hình áo đấu vàng viền navy (riêng của kênh), watermark LOCKER ROOM WEIRD, phụ đề vàng (`t10e01_subs.js`, sinh từ words.json, ngắt ở dấu phẩy), "Z z z" khi ngủ.
 - Nhạc: alvana-audio `music/funk/sleep.mp3` (HoliznaCC0, CC0), bắt đầu từ giây 2, volume 0.16, loudnorm −14 LUFS.
 - Bản cắt thử: 15 fps 540x960 nomb → `E01_jokic_cat_thu.mp4` (đã gửi chủ kênh, chờ duyệt lần 2).
+
+## Bản cuối 16/11 — ĐÃ GIAO
+- Sửa sau duyệt: chai nước lên tới miệng (đặt đáy chai theo hướng từ miệng, ngửa cổ TRƯỚC khi IK), plank gục sát thảm (pushup tới đáy), ngựa quay ngang + Jokić đứng phía sau lưng ngựa chải lông (thấy mặt).
+- Render: 720x1280 motion blur 30 fps (2 tiến trình, ~35 phút) → lanczos 1080x1920 + eq saturation 1.15 + overlay đồ hoạ 30 fps + mix.wav (giọng + funk/sleep).
+- QA: 1080x1920 sar 1:1, 30 fps, 53,2 s; −14,5 LUFS, đỉnh −1,5 dBFS; bão hoà HSV trung vị 172, sáng 142; mép x=2 không viền đen.
+- File giao: LockerRoomWeird_E01_Jokic.mp4 (không đẩy lên kho).

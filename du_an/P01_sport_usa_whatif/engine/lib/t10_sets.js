@@ -205,7 +205,7 @@ export function buildStable(scene) {
   // ánh nắng xiên qua cửa sổ cao
   const sun = new THREE.DirectionalLight('#ffd9a0', 2.2); sun.position.set(-4, 6, 4); sun.target.position.set(0, 0, -1); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); G.add(sun); G.add(sun.target);
   const win = windowPane(1.6, 0.6, skyTex('#9ad0ff', '#f4f8ff')); win.position.set(-2.5, 3.0, -3.44); G.add(win);
-  const H = horse({ coat: '#7a4524' }); H.g.position.set(0, 0, -1.6); H.g.rotation.y = Math.PI / 2 - 0.25; G.add(H.g);
+  const H = horse({ coat: '#7a4524' }); H.g.position.set(-0.4, 0, -1.75); H.g.rotation.y = Math.PI / 2; G.add(H.g);
   const H2 = horse({ coat: '#2e2420', blaze: false }); H2.g.position.set(-3.0, 0, -1.9); H2.g.rotation.y = 0.2; G.add(H2.g);
   shadowAll(G);
   // bàn chải
