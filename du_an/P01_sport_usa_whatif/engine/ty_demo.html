@@ -1,0 +1,107 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c" width="1080" height="1920"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// P02 demo 20 s — "Your girlfriend says you pick what to watch tonight." (ý tưởng 2). Phụ đề + âm thanh ráp sau (ty_demo_rap.py).
+import * as THREE from 'three'; import {loadLibrary} from './lib/nhanvat2.js'; import {CAST_TY,FACES} from './lib/cast_ty.js'; import {sofaSit} from './lib/toy.js'; import {aim} from './lib/tuthe.js';
+const V=THREE.Vector3, ss=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);}, lerp=(a,b,t)=>a+(b-a)*t;
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const s=new THREE.Scene();s.background=new THREE.Color('#bfe3dc');
+s.add(new THREE.HemisphereLight('#fffaf2','#c9a483',2.6));const sun=new THREE.DirectionalLight('#fff3e2',1.4);sun.position.set(2.5,5,4);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=4;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;
+sun.shadow.camera.left=-4;sun.shadow.camera.right=4;sun.shadow.camera.top=4;sun.shadow.camera.bottom=-4;s.add(sun);
+const fill=new THREE.DirectionalLight('#e6eeff',0.7);fill.position.set(-4,2,3);s.add(fill);
+const tvGlow=new THREE.PointLight('#9ec8ff',0,4,1.5);tvGlow.position.set(0,1.0,1.1);s.add(tvGlow);
+const mat=(c,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:0.88,...o});
+const add=(g,m,x,y,z,ry=0)=>{const o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.rotation.y=ry;o.castShadow=o.receiveShadow=true;s.add(o);return o;};
+const rbG=(w,h,d,rad=0.06)=>{const g=new THREE.BoxGeometry(w,h,d,6,6,6);const p=g.attributes.position,v=new V();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const q=new V(Math.max(-w/2+rad,Math.min(w/2-rad,v.x)),Math.max(-h/2+rad,Math.min(h/2-rad,v.y)),Math.max(-d/2+rad,Math.min(d/2-rad,v.z)));const dd=v.clone().sub(q);if(dd.length()>1e-6){dd.setLength(rad);p.setXYZ(i,q.x+dd.x,q.y+dd.y,q.z+dd.z);}}g.computeVertexNormals();return g;};
+// ---- phòng khách ----
+add(new THREE.PlaneGeometry(14,14).rotateX(-Math.PI/2),mat('#e8d6bb'),0,0,0);
+const wall=add(new THREE.PlaneGeometry(14,6),mat('#a6d8cc'),0,3,-1.75);
+const wallF=add(new THREE.PlaneGeometry(14,6).rotateY(Math.PI),mat('#a6d8cc'),0,3,2.1);wallF.visible=false; // tường sau TV (chỉ góc nhìn TV)
+add(new THREE.PlaneGeometry(10,6).rotateY(Math.PI/2),mat('#9fd1c5'),-3.2,3,1);
+add(new THREE.CylinderGeometry(1.5,1.5,0.012,48),mat('#f3e7d0'),0,0.006,0.25); // thảm tròn
+add(new THREE.CylinderGeometry(1.2,1.2,0.014,48),mat('#e9b49a'),0,0.008,0.25);
+// tranh treo + cửa sổ
+add(new THREE.BoxGeometry(1.05,0.7,0.04),mat('#f4ecdc'),0,1.75,-1.72);add(new THREE.BoxGeometry(0.95,0.6,0.02),mat('#7fb7a8'),0,1.75,-1.69);
+add(new THREE.CircleGeometry(0.16,32),new THREE.MeshBasicMaterial({color:'#f6d36b'}),0.22,1.84,-1.675);
+add(new THREE.ConeGeometry(0.32,0.3,3).rotateZ(Math.PI/2*0),mat('#5f9a86'),-0.18,1.6,-1.67);
+// đèn cây + chậu cây
+add(new THREE.CylinderGeometry(0.15,0.18,0.03,24),mat('#3b3540'),-1.65,0.015,-1.2);add(new THREE.CylinderGeometry(0.015,0.015,1.45,8),mat('#3b3540'),-1.65,0.74,-1.2);
+add(new THREE.CylinderGeometry(0.17,0.24,0.28,24,1,true),mat('#fff3d6',{side:THREE.DoubleSide,emissive:'#ffe2a8',emissiveIntensity:0.5}),-1.65,1.5,-1.2);
+add(new THREE.CylinderGeometry(0.17,0.13,0.32,20),mat('#d9805f'),1.65,0.16,-1.25);
+for(const [x,y,z,k] of [[1.65,0.5,-1.25,0.2],[1.55,0.62,-1.2,0.15],[1.75,0.66,-1.3,0.16],[1.62,0.78,-1.28,0.13]]) add(new THREE.IcosahedronGeometry(k,1),mat('#5f9a6a',{flatShading:true}),x,y,z);
+// sofa san hô bo tròn
+const sofa=new THREE.Group();s.add(sofa);const sb=(w,h,d,x,y,z,col,rad)=>{const m=new THREE.Mesh(rbG(w,h,d,rad),mat(col));m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;sofa.add(m);};
+sb(2.3,0.24,0.95,0,0.14,0,'#e57f6a',0.06);sb(2.3,0.85,0.25,0,0.58,-0.38,'#e57f6a',0.1);sb(0.26,0.62,0.95,-1.13,0.33,0,'#dc735f',0.1);sb(0.26,0.62,0.95,1.13,0.33,0,'#dc735f',0.1);
+sb(1.0,0.16,0.72,-0.5,0.34,0.06,'#ef8d77',0.07);sb(1.0,0.16,0.72,0.5,0.34,0.06,'#ef8d77',0.07);sb(0.95,0.42,0.18,-0.5,0.66,-0.22,'#ef8d77',0.08);sb(0.95,0.42,0.18,0.5,0.66,-0.22,'#ef8d77',0.08);
+sb(0.36,0.3,0.12,1.0,0.56,-0.12,'#f6d36b',0.05);sofa.position.set(0,0,-1.05);
+// kệ + TV (màn hình quay về sofa)
+add(rbG(1.6,0.42,0.42,0.03),mat('#f1e6d2'),0,0.21,1.62);add(rbG(1.12,0.66,0.05,0.02),mat('#26262b'),0,0.95,1.6);
+const tvC=document.createElement('canvas');tvC.width=1280;tvC.height=720;const tg=tvC.getContext('2d');const tvT=new THREE.CanvasTexture(tvC);tvT.colorSpace=THREE.SRGBColorSpace;
+add(new THREE.PlaneGeometry(1.06,0.6).rotateY(Math.PI),new THREE.MeshBasicMaterial({map:tvT,toneMapped:false}),0,0.95,1.57);
+const SCREENS={
+ menu:(k)=>{tg.fillStyle='#161a26';tg.fillRect(0,0,1280,720);const C=['#e05d5d','#f2b134','#4fb39c','#5b7fe0','#c86fc9','#ef8d77','#7fb7a8','#f6d36b'];for(let i=0;i<24;i++){const x=40+(i%6)*205-((k*60)%205),y=150+Math.floor(i/6)*140;tg.fillStyle=C[(i+Math.floor(k*3))%8];tg.fillRect(x,y,185,120);}tg.fillStyle='#fff';tg.font='700 54px sans-serif';tg.fillText('What to watch?',40,95);},
+ movie:()=>{const g=tg.createLinearGradient(0,0,0,720);g.addColorStop(0,'#1d2540');g.addColorStop(1,'#0b0e18');tg.fillStyle=g;tg.fillRect(0,0,1280,720);tg.fillStyle='#f2b134';tg.font='900 120px Impact, sans-serif';tg.textAlign='center';tg.fillText('THE LONG MOVIE',640,330);tg.fillStyle='#fff';tg.font='700 64px sans-serif';tg.fillText('3 h 12 min',640,450);tg.textAlign='left';},
+ comedy:()=>{tg.fillStyle='#f6d36b';tg.fillRect(0,0,1280,720);tg.fillStyle='#e05d5d';tg.font='900 220px Impact, sans-serif';tg.textAlign='center';tg.fillText('LOL',640,380);tg.fillStyle='#26262b';tg.font='italic 700 64px Georgia, serif';tg.fillText('a very funny comedy',640,500);tg.textAlign='left';},
+ same:()=>{tg.fillStyle='#f3d9e2';tg.fillRect(0,0,1280,720);tg.fillStyle='#b4573a';tg.font='900 112px Impact, sans-serif';tg.textAlign='center';tg.fillText('THE COZY SHOW',640,300);tg.fillStyle='#4f6b4c';tg.font='700 56px sans-serif';tg.fillText('Season 1 · Episode 1',640,400);
+   tg.fillStyle='#26262b';tg.beginPath();tg.roundRect(450,470,380,90,45);tg.fill();tg.fillStyle='#fff';tg.font='700 48px sans-serif';tg.fillText('Watched 9×',640,532);tg.textAlign='left';},
+};
+let curScr='';const setScreen=(n,k=0)=>{if(n===curScr&&n!=='menu')return;curScr=n;SCREENS[n](k);tvT.needsUpdate=true;tvGlow.color.set({menu:'#9ec8ff',movie:'#7f95ff',comedy:'#ffe08a',same:'#ffc3d6'}[n]);};
+// remote
+const remote=new THREE.Mesh(rbG(0.045,0.022,0.17,0.01),mat('#2b2b30',{roughness:0.5}));remote.castShadow=true;s.add(remote);
+const btn=new THREE.Mesh(new THREE.CylinderGeometry(0.008,0.008,0.006,12),mat('#e05d5d'));btn.position.set(0,0.013,0.05);remote.add(btn);
+const lib=await loadLibrary();
+const H=CAST_TY.him(lib),G=CAST_TY.her(lib);s.add(H.root,G.root);H.play('Idle_Loop');G.play('Idle_Loop',{at:0.6});
+const cam=new THREE.PerspectiveCamera(32,1080/1920,.03,60);
+const W=(ch,n)=>{ch.root.updateMatrixWorld(true);return ch.bones[n].getWorldPosition(new V());};
+const Lq=(ch,x,y,z)=>new V(x,y,z).applyQuaternion(ch.root.quaternion);
+// quay xương quanh trục THẾ GIỚI
+const rotW=(b,axis,ang)=>{b.parent.updateWorldMatrix(true,false);const qp=b.parent.getWorldQuaternion(new THREE.Quaternion());const R=new THREE.Quaternion().setFromAxisAngle(axis,ang);b.quaternion.premultiply(qp.clone().invert().multiply(R).multiply(qp));b.updateWorldMatrix(false,true);};
+const arm=(ch,s,up,lo,hand)=>{const B=ch.bones;aim(B['upperarm_'+s],B['lowerarm_'+s],Lq(ch,...up));aim(B['lowerarm_'+s],B['hand_'+s],Lq(ch,...lo));if(hand)aim(B['hand_'+s],B['middle_01_'+s],Lq(ch,...hand));};
+const holdRemote=(ch,s)=>{const h=W(ch,'hand_'+s),m=W(ch,'middle_01_'+s),d=m.clone().sub(h).normalize();remote.position.copy(h).addScaledVector(d,0.06);remote.quaternion.setFromUnitVectors(new V(0,0,1),d);remote.visible=true;};
+const blinkAt=(t,seed)=>{const p=(t+seed)%3.3;return p<0.12?1:0;};
+// ---- phân cảnh (giây) ----
+const SH=[[0,2.45,'wide'],[2.45,3.3,'himCU'],[3.3,4.2,'tv'],[4.2,5.9,'herCU'],[5.9,7.0,'tv'],[7.0,9.3,'herCU'],[9.3,11.6,'wide2'],[11.6,13.0,'herCU'],[13.0,14.7,'tv'],[14.7,17.3,'wideSleep'],[17.3,20.1,'himCU']];
+window.renderFrame=t=>{
+ const k=SH.findIndex(a=>t>=a[0]&&t<a[1]);const [t0,t1,shot]=SH[Math.max(0,k)];const u=(t-t0)/(t1-t0);
+ H.at(1.2+t*0.6);G.at(1.8+t*0.6);
+ const sleepy=t>=14.7, slump=t>=9.3&&t<11.6;
+ sofaSit(H,-0.48,-0.9,0.42,t,0,{headTurn:t>=17.3?(t<18.5?0.75:0):0.15,lean:slump?0.6:0.35,headDown:slump?0.25:0});
+ sofaSit(G,sleepy?0.2:0.48,-0.9,0.42,t,1.3,{spread:0.08,lean:0.33,headTurn:t<2.45?-0.6:(t>=7&&t<9.3?0.7:0)});
+ // --- tay & remote ---
+ remote.visible=false;
+ if(t<2.45){ // cô đưa remote cho anh, anh với tay lấy
+   const e=ss(0.2,1.0,t);arm(G,'r',[-0.35*e,-1+0.45*e,0.25+0.4*e],[-0.75*e,-0.6+0.6*e,1],[-0.6*e,0,1]);
+   const g=ss(1.2,1.9,t);arm(H,'l',[0.3*g,-1+0.4*g,0.2+0.4*g],[0.75*g,-0.6+0.6*g,1],[0.5*g,0,1]);
+   if(t<1.9) holdRemote(G,'r'); else holdRemote(H,'l');
+ } else if(t<9.3){ // anh chĩa remote vào TV, bấm khi đổi kênh
+   const flick=Math.max(0,1-Math.abs(t-5.95)/0.12)+Math.max(0,1-Math.abs(t-3.1)/0.12);arm(H,'r',[-0.05,-0.5,0.85],[0.05,0.12+0.15*flick,1],[0,0.1-0.4*flick,1]);holdRemote(H,'r');
+ } else if(t<11.6){ arm(H,'r',[-0.1,-1,0.25],[0,-0.75,1],[0,-0.6,1]);holdRemote(H,'r'); // gục, remote buông trên đùi
+ } else if(t<14.7){ const g=ss(11.65,12.0,t);arm(G,'r',[-0.15,-0.7+0.15*g,0.6],[-0.05,0.0+0.15*g,1],[0,0.1,1]);holdRemote(G,'r');
+ } else { holdRemote(G,'r'); }
+ // --- đầu / thân ---
+ if(t>=4.2&&t<5.9){rotW(G.bones.Head,new V(0,1,0),Math.sin((t-4.4)*14)*0.22*ss(4.4,4.6,t)*(1-ss(5.5,5.8,t)));} // lắc đầu "too long"
+ if(sleepy){const e=ss(14.7,15.3,t);rotW(G.bones.spine_01,new V(0,0,1),0.38*e);rotW(G.bones.Head,new V(0,0,1),0.32*e);}
+ if(t>=11.6&&t<13){rotW(G.bones.spine_02,new V(1,0,0),0.12*Math.sin((t-11.6)*9));} // nhún hào hứng
+ H.post();G.post();
+ // --- biểu cảm ---
+ const HF=FACES.him,GF=FACES.her;let hf={...HF.deadpan};
+ if(t>=2.45&&t<9.3)hf={...HF.deadpan,look:[0,0.05]}; if(slump)hf=HF.defeated; if(t>=14.7&&t<17.3)hf={...HF.sideEye}; if(t>=17.3)hf=t<18.5?{...HF.sideEye}:{...HF.deadpan,lid:0.48};
+ if(!slump&&blinkAt(t,0.7)&&t<17.3)hf={...hf,blink:1};
+ let gf={...GF.happy}; if(t<2.45)gf={...GF.happy,look:[-0.9,0]}; if(t>=4.2&&t<5.9)gf={...GF.pout};if(t>=7.0&&t<9.3)gf={...GF.pout,look:[0.9,0]}; if(t>=9.3&&t<11.6)gf={...GF.happy,look:[0,0.05]};
+ if(t>=11.6&&t<14.7)gf=GF.excited; if(sleepy)gf={blink:t>15.0?1:ss(14.7,15.0,t),mouth:'smile'}; if(!sleepy&&blinkAt(t,2.1))gf={...gf,blink:1};
+ H.face(hf);G.face(gf);
+ // --- TV ---
+ if(t<3.3)setScreen('menu',t*0.2);else if(t<5.95)setScreen('movie');else if(t<9.3)setScreen('comedy');else if(t<12.9)setScreen('menu',t*0.6);else setScreen('same');
+ tvGlow.intensity=0.6;
+ // --- máy quay ---
+ const hh=W(H,'Head'),gh=W(G,'Head');let p,q,fov=32;
+ if(shot==='wide'){p=new V(lerp(1.7,1.45,u),1.3,lerp(2.3,2.0,u));q=new V(0,0.75,-0.95);fov=38;}
+ else if(shot==='wide2'){p=new V(-1.5,1.25,1.9);q=new V(-0.1,0.72,-0.95);fov=lerp(40,36,u);}
+ else if(shot==='wideSleep'){p=new V(lerp(1.05,0.85,u),1.15,lerp(1.4,1.2,u));q=new V(-0.12,0.82,-0.9);fov=40;} // trước TV (z<1.55)
+ else if(shot==='himCU'){p=hh.clone().add(new V(0.42,0.02,lerp(1.75,1.6,u)));q=hh.clone().add(new V(0,-0.02,0));fov=30;}
+ else if(shot==='herCU'){p=gh.clone().add(new V(-0.42,0.02,lerp(1.75,1.6,u)));q=gh.clone().add(new V(0,-0.02,0));fov=30;}
+ else {p=new V(lerp(-0.04,0.04,u),1.62,-1.5);q=new V(0,0.92,1.55);fov=34;}
+ wall.visible=shot!=='tv';wallF.visible=shot==='tv';
+ cam.fov=fov;cam.position.copy(p);cam.lookAt(q);cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>

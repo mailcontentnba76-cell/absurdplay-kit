@@ -22,3 +22,8 @@ Ngôi thứ hai, giọng đều/khô/mệt (deadpan, ~130–140 từ/phút, ng�
 - v5 (14/11) trang phục Mỹ hiện đại, KHÔNG mũ (chủ kênh bỏ mũ): Anh = gile phao navy chần bông (`outer`) + sơ mi flannel caro đỏ–than (`pattern.type:'plaid'`) + jean ống suông + sneaker trắng; Cô = áo nỉ kem in chữ "SUNDAY club" (`pattern.print`) + legging đen (`bottom.fit`) + sneaker trắng viền xô thơm.
   Họa tiết vẽ bằng shader theo vị trí tư thế gốc (thuộc tính `bpos`), không trôi khi cử động. Có sẵn `stripes`. Giày `shoes`, áo ngắn tay `top.sleeve:'short'`. Mã mũ lưỡi trai `cap` vẫn còn trong toy.js nhưng không dùng.
 - v6 (14/11): cổ tròn áo nỉ = áo phủ quá cổ rồi KHOÉT bằng shader (mặt phẳng cổ ∩ elip quanh cổ, `neckOpen`), chỉ ôm sát quanh lỗ cổ; gấu áo cắt thẳng bằng shader (`hem`) + bo gấu vẽ shader (`bandH`). Gile mỏng (off 0,013), đường chần vẽ shader (stripes), dây vai hẹp (`strap`), bỏ khoá kéo.
+
+## Demo chuyển động 20 s (16/11) — ý 2 "pick what to watch"
+- Trang: `P01_sport_usa_whatif/engine/ty_demo.html` (phòng khách, TV đổi màn hình canvas, remote theo tay, `rotW` quay xương theo trục thế giới, 11 shot). Render: `node render.js ty_demo.html /tmp/demo 30 0 600 1080 1920` (~2,4 s/khung/luồng, 2 luồng ≈ 12 phút).
+- Ráp: `P02_couple_humor/demo/ty_demo_rap.py <khung> <câu giọng> <alvana-audio> <ra.mp4>` — phụ đề Inter Black 84 (nhấn xanh ngọc #2bb5a0), thẻ "45 MINUTES LATER", nhạc calm/boredom (HoliznaCC0), SFX click/clock/snore, −14 LUFS.
+- Giọng TẠM: Piper en_US-ryan-high (length_scale 1.12), tải từ huggingface rhasspy/piper-voices. Thay bằng Magnific khi có.
