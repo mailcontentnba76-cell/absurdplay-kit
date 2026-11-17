@@ -16,7 +16,7 @@ voice = load('am_thanh/giong_raw.wav'); voice = np.pad(voice, (0, max(0, N - len
 save('giong', voice); LV = lufs(voice)
 sm = int(0.08 * SR)
 m = load('alvana-audio/music/chiptune/game-boi-1.mp3'); m = np.tile(m, N // len(m) + 1)[:N]
-m *= 10 ** ((LV - 9 - lufs(m)) / 20)
+m *= 10 ** ((LV - 13 - lufs(m)) / 20)  # giảm 4 dB theo yêu cầu 17/11
 env = np.abs(voice); k = int(0.25 * SR); env = np.convolve(env, np.ones(k) / k, 'same'); duck = 1 - 0.3 * np.clip(env / (env.max() * 0.3), 0, 1)
 gm = np.ones(N); gm[(T >= 18.14) & (T < 19.3)] = 0.45
 gm[T > DUR - 1.2] *= np.linspace(1, 0, int(np.sum(T > DUR - 1.2)))
