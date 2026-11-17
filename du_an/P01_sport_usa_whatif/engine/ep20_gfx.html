@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+@font-face{font-family:Oswald;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2)}
+/* Tập 20: đồ hoạ kiểu NHÃN ĐỒ TẬP / TEM KHO (giấy kem, viền đỏ, dập chữ) + thẻ số liệu. Không logo đội thật. Không chớp trắng. Khác E01–E19. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Oswald}
+.el{position:absolute;opacity:0}
+.tag{left:140px;width:800px;background:#fff6d8;border:12px solid #c42a2a;border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.4);text-align:center;color:#c42a2a;font-family:Anton;padding:18px 20px 22px}
+.tag small{display:block;font-family:Mono;font-size:34px;color:#5a3a2a;letter-spacing:2px}
+.tag b{display:block;font-weight:400;font-size:96px;line-height:1.05}
+.tag:before{content:'';position:absolute;left:50%;top:-46px;width:34px;height:34px;margin-left:-17px;border-radius:50%;border:8px solid #c42a2a;background:transparent}
+.big{left:0;width:1080px;text-align:center;font-family:Anton;line-height:1;color:#fff;-webkit-text-stroke:10px rgba(0,0,0,.85);paint-order:stroke fill}
+.sub{left:0;width:1080px;text-align:center;font-family:Anton;font-size:58px;color:#ffe08a;-webkit-text-stroke:7px rgba(0,0,0,.85);paint-order:stroke fill}
+.stamp{left:0;width:1080px;text-align:center}
+.stamp span{display:inline-block;font-family:Anton;font-size:84px;color:#d42a2a;border:10px solid #d42a2a;border-radius:16px;padding:6px 34px;background:rgba(255,246,216,.92);transform:rotate(-6deg)}
+.cnt{left:90px;width:900px;background:rgba(18,20,26,.88);border-left:16px solid #7a4cc4;color:#fff;font-family:Anton;font-size:64px;padding:16px 30px;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.cnt i{font-style:normal;color:#ffd23a}
+#bug{left:50px;top:118px;display:flex;font-size:42px;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+#bug div{padding:8px 18px}#bug .la{background:#2f7fc4}#bug .ba{background:#2a2433}#bug .sc{background:#f2f2f2;color:#111;font-family:Anton}#bug .ck{background:#111;color:#ffd23a;font-family:Mono;font-size:34px;line-height:50px}
+#sepia{left:0;top:0;width:1080px;height:1920px;background:radial-gradient(ellipse at center,rgba(255,190,110,.16) 40%,rgba(90,50,20,.55) 100%);mix-blend-mode:normal}
+.wm{position:absolute;left:0;width:1080px;top:205px;text-align:center;font-family:Anton;font-size:38px;letter-spacing:3px;color:rgba(255,255,255,.95);-webkit-text-stroke:5px rgba(0,0,0,.75);paint-order:stroke fill}
+</style></head><body>
+<div class="el" id="sepia"></div>
+<div class="el tag" id="t08" style="top:330px"><small>CONDITION: WINLESS</small><b>0-8</b><small>ONLY TEAM IN THE NFL WITHOUT A WIN</small></div>
+<div class="el tag" id="equip" style="top:330px"><small>RAVENS INVENTORY #4,092</small><b>PRACTICE<br>EQUIPMENT</b></div>
+<div class="el cnt" id="kit" style="top:360px">NEW <i>ALL-BLACK</i> UNIFORMS</div>
+<div class="el big" id="dark" style="top:380px;font-size:150px;color:#c9b2ff">DARKNESS<br>FALLS</div>
+<div class="el cnt" id="qb4" style="top:360px">QB STARTER <i>#4</i> IN <i>4</i> GAMES</div>
+<div class="el cnt" id="pass" style="top:360px">PASSES <i id="np">0</i> · YDS <i id="ny">0</i></div>
+<div class="el big" id="td0" style="top:520px;font-size:170px;color:#ff6a5a">0 TD</div>
+<div class="el cnt" id="run" style="top:360px">RUSHES <i id="nr">0</i> · YDS <i id="nry">0</i></div>
+<div class="el stamp" id="nomove" style="top:560px"><span>DID NOT MOVE</span></div>
+<div class="el big" id="y22" style="top:380px;font-size:190px">22-YD TD</div>
+<div class="el cnt" id="fg" style="top:360px">FIELD GOALS: <i id="nfg">0</i></div>
+<div class="el" id="bug"><div class="la">LAC</div><div class="sc" id="bsc">23 – 6</div><div class="ba">BAL</div><div class="ck" id="bck">Q4</div></div>
+<div class="el tag" id="first" style="top:330px"><small>DUMMIES · MONDAY NIGHT</small><b>FIRST WIN<br>OF THE SEASON</b></div>
+<div class="el cnt" id="wk1" style="top:360px;border-left-color:#c0283e">WEEK 1 · BRISSETT (ARI) <i>BEAT</i> LAC 26-14</div>
+<div class="el stamp" id="now" style="top:360px"><span>NOW: L 23-20</span></div>
+<div class="el big" id="rec" style="top:380px;font-size:190px;color:#c9b2ff">RAVENS 4-6</div>
+<div class="el sub" id="five" style="top:600px">5 STRAIGHT LOSSES</div>
+<div class="el tag" id="next" style="top:330px"><small>NEXT OPPONENT</small><b>CAROLINA</b><small id="real" style="opacity:0;color:#2a8a3a;font-size:44px">✓ REAL PEOPLE</small></div>
+<div class="wm">AbsurdPlay</div>
+<script type="module">
+import {SH,END} from './ep20_shots.js';
+const TL=[['t08',6.5,10.92],['equip',11.6,14.28],['kit',15.8,18.1],['dark',18.18,19.16],['qb4',19.9,22.52],['pass',22.7,26.4],['td0',26.38,26.88],['run',27.5,31.0],['nomove',31.2,32.72],['y22',36.9,37.54],['fg',37.7,39.68],['bug',39.68,47.28],['first',46.0,47.28],['sepia',47.28,51.72],['wk1',48.2,51.72],['now',52.9,53.68],['rec',53.8,57.12],['five',55.8,57.12],['next',57.9,END]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{const vis={};for(const [id,a,b] of TL){if(t>=a&&t<b)vis[id]=a;}
+  $('np').textContent=Math.round(48*cl((t-22.8)/2.4));$('ny').textContent=Math.round(340*cl((t-22.8)/2.6));
+  $('nr').textContent=Math.round(15*cl((t-27.6)/1.6));$('nry').textContent=Math.round(16*cl((t-29.4)/0.8));
+  $('nfg').textContent=t<37.95?0:t<38.65?1:t<39.35?2:3;
+  $('bsc').textContent=t<SH.s11[0]+1.05?'23 – 6':t<SH.s11[0]+2.7?'23 – 13':'23 – 20';$('bck').textContent=t<SH.s12b[0]?'Q4':'FINAL';
+  $('real').style.opacity=cl((t-60.0)/0.2);
+  for(const e of document.querySelectorAll('.el')){const a=vis[e.id];const on=a!=null;const k=on?ease(cl((t-a)/0.25)):0;e.style.opacity=on?cl((t-a)/(e.id==='sepia'?0.3:0.1)):0;
+    if(e.classList.contains('big')){const p=on?cl((t-a)/0.15):0;e.style.transform=`scale(${1.5-0.5*ease(p)})`;}
+    else if(e.classList.contains('tag'))e.style.transform=`translateY(${(1-k)*-140}px) rotate(${Math.sin(t*2.2)*1.2}deg)`;
+    else if(e.classList.contains('stamp'))e.style.transform=`scale(${1.6-0.6*ease(on?cl((t-a)/0.12):0)})`;
+    else if(e.classList.contains('cnt'))e.style.transform=`translateX(${(1-k)*-1100}px)`;
+    else if(e.classList.contains('sub'))e.style.transform=`translateY(${(1-k)*40}px)`;
+    else if(e.id==='bug')e.style.transform=`translateX(${(1-k)*-500}px)`;}};
+</script></body></html>

@@ -1,0 +1,217 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 20 (bối cảnh: sân nhà Ravens ở Baltimore, hư cấu, ban đêm đèn sáng) — "What the f***? The Ravens just lost to a tackling dummy?" (Chargers 23–20 Ravens, MNF). Chargers = hình nộm tập tackle xanh powder. Mốc: ep20_shots.js.
+import * as THREE from 'three';
+import {buildBaltimore,stadiumLights,makeDummy,hopPos,GL,EL,FZ,BENCH,BOARD,LAC,BAL,WALKZ,ENDWALK} from './lib/sanbaltimore.js';
+import {football} from './lib/dovat.js';
+import {handSign} from './lib/nhacowboys.js';
+import {HEAT} from './lib/cast2.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES,knockedDown} from './lib/bongbau.js';
+import {resetPose,aim,ik2} from './lib/tuthe.js';
+import {locoLock,expr,clipPose} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {SH,END} from './ep20_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.08;
+const s=new THREE.Scene();const PR=buildBaltimore(s);const L=stadiumLights(s,PR);
+const lib=await loadLibrary();
+const IN=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const ON=IN;const U=(k,t)=>t-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;const PI=Math.PI;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+// ---------- nhân vật: Ravens bộ "Darkness" đen toàn thân, số trắng viền tím, không mũ (để thấy mặt), không logo ----------
+const RAV={...EAGLES,jersey:'#47465a',numberColor:'#ffffff',numberOutline:BAL.purple,pants:'#47465a',pantsStripes:[BAL.purple,BAL.gold],socks:'#1a1a20',shoes:'#16161a',gloves:'#1a1a20',helmet:null,collar:BAL.purple,sleeveStripes:[BAL.purple,'#ffffff'],backNameMax:150};
+const ARI={...RAV,jersey:'#c0283e',numberColor:'#ffffff',numberOutline:'#111111',pants:'#f4f4f2',pantsStripes:['#c0283e','#111111'],socks:'#c0283e',shoes:'#f4f4f4',gloves:'#f4f4f4',collar:'#111111',sleeveStripes:['#111111','#ffffff']};
+const BRI=makeCharacter(lib,{...RAV,number:11,backName:'BRISSETT',heightM:1.93,skin:'#9a6040',hair:'Hair_Buzzed',hairColor:'#141010',beardStyle:'full',beardColor:'#141010'});
+const BRA=makeCharacter(lib,{...ARI,number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,backName:null,heightM:1.93,skin:'#9a6040',hair:'Hair_Buzzed',hairColor:'#141010',beardStyle:'full',beardColor:'#141010'});
+const HEN=makeCharacter(lib,{...RAV,number:22,backName:'HENRY',heightM:1.91,skin:'#8a5634',hairStyle:'proc:dreads',hairColor:'#120d0b',hairOpts:{len:0.3},beardStyle:'full',beardColor:'#120d0b'});
+const EXS=[['#c68c5f','Hair_Buzzed','#1a1210'],['#f1c9a5','Hair_SimpleParted','#6a4a2a'],['#8d5a3b','proc:fade','#120d0b']].map(([sk,h,hc],i)=>makeCharacter(lib,{...RAV,jersey:['#4a495c','#4b4a5d','#49485b'][i],pants:['#4a495c','#4b4a5d','#49485b'][i],number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,backName:null,heightM:1.86+i*0.03,skin:sk,...(h.startsWith('proc')?{hairStyle:h,hairColor:hc}:{hair:h,hairColor:hc}),beardStyle:i===2?'stubble':null,beardColor:'#2a1a10'}));
+// KHÁN GIẢ (fan hư cấu, áo phông không số không chữ): đứng sau vạch biên/cuối sân, chỉ trỏ, chĩa ngón cái xuống, cười nhạo Ravens, giơ biển chế
+const TEE={...HEAT,tank:false,shorts:false,number:null,wordmark:null,frontNumberSize:0.0001,backNumberSize:0.0001,pantsStripes:null,shoes:'#2a2a2a'};
+const SKN=['#f1c9a5','#c68c5f','#9a6040','#8a5634','#e8b98f','#d8a37a'],HAIRS=[['Hair_Buzzed','#1a1210'],['Hair_SimpleParted','#6a4a2a'],['Hair_Long','#2a1a10'],['proc:afro','#120d0b'],['Hair_SimpleParted','#c8a060'],['proc:curlytop','#1a1210'],['Hair_Buns','#3a2414']];
+const FAN=[...Array(16)].map((_,i)=>{const h=HAIRS[(i*3+1)%HAIRS.length];const shirt=[LAC.powder,LAC.gold,LAC.powder,'#f4f4f2',LAC.navy][i%5];
+  return makeCharacter(lib,{...TEE,jersey:shirt,collar:shirt,pants:['#3a4a6a','#2a2e36','#4a5a7a','#6a5a48'][i%4],socks:'#eee',skin:SKN[(i*5+2)%SKN.length],...(h[0].startsWith('proc')?{hairStyle:h[0],hairColor:h[1]}:{hair:h[0],hairColor:h[1]}),heightM:1.62+((i*7)%9)*0.035,beardStyle:i%4===1?'stubble':null,beardColor:'#3a2a1a'});});
+const MAIN=[BRI,HEN,...EXS];const ALL=[...MAIN,BRA,...FAN];
+ALL.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+// ---------- hình nộm: 11 con; #10 (Herbert, mũ, nhãn "0-8"), #11 (Dicker, mũ, chân lò xo) ----------
+const DM=[...Array(11)].map((_,i)=>{const d=i===4?makeDummy({num:'10',helmet:true,tag:'0-8',seed:i+1}):i===6?makeDummy({num:'11',helmet:true,leg:true,seed:i+1}):makeDummy({num:'',seed:i+1});s.add(d.root);return d;});
+const HER=DM[4],DIC=DM[6];
+const BALLS=[...Array(4)].map(()=>{const b=football(0.28);s.add(b);return b;});
+// pháo giấy (cảnh ăn mừng)
+const CONF=new THREE.InstancedMesh(new THREE.PlaneGeometry(0.07,0.11),new THREE.MeshStandardMaterial({side:THREE.DoubleSide,roughness:0.6}),220);CONF.frustumCulled=false;s.add(CONF);
+{const cc=[LAC.powder,LAC.gold,'#ffffff',LAC.navy].map(x=>new THREE.Color(x));for(let i=0;i<220;i++)CONF.setColorAt(i,cc[i%4]);}
+const DUM=new THREE.Object3D();
+const SIGNS=[['LOST TO\nA DUMMY','#fff6d8','#c42a2a'],['DARKNESS\nFAILS',LAC.powder,'#111111'],['0 TD\nLOL',LAC.gold,'#1b3d6e'],['PRACTICE\nSQUAD?','#ffffff','#7a4cc4']].map(a=>{const g=handSign(...a);s.add(g);return g;});
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,1500);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',0.6);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:201});const CAMS={};
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const ROWX=0, ROWZ=i=>-9+i*1.8;              // hàng 11 hình nộm ở vạch giao bóng x=0, quay mặt về −x
+S('s1',{pos:[GL+4.9,0.42,1.3],look:[GL-1,1.05,0.5]},{pos:[GL+4.5,0.45,1.2],look:[GL-1,1.1,0.5]},{shake:0.006,shakeHz:1.1,fov:[48,46]});
+S('s1b',{pos:[GL-15,7.6,-9],look:[GL+0.5,0.6,1]},{pos:[GL-13.6,6.8,-8.2],look:[GL+0.5,0.6,1]},{fov:[44,42],ease:'inOut'});
+S('s2',{pos:[GL-9.5,1.55,4.6],look:[GL-3.2,1.3,0.2]},{pos:[GL-8.8,1.55,4.2],look:[GL-3.2,1.3,0.2]},{fov:[44,42]});
+S('s3',{pos:[-5.2,1.35,-13],look:[0,1.0,-6]},{pos:[-5.2,1.35,5.5],look:[0,1.0,10]},{fov:[44,44],ease:'inOut',shake:0.003});
+S('s4',{pos:[-7.4,1.65,4.4],look:[-0.4,1.2,0.4]},{pos:[-6.8,1.6,4.0],look:[-0.4,1.2,0.4]},{fov:[44,42]});
+S('s5',{pos:[-23.8,0.9,0.2],look:[0,4.6,0]},{pos:[-23.2,0.95,0.2],look:[0,4.4,0]},{fov:[50,48]});
+S('s6',{pos:[-10.5,1.6,9.5],look:[-16,1.2,3]},{pos:[-10.0,1.6,8.8],look:[-12.5,1.2,1]},{fov:[44,42]});
+S('s6b',{pos:[-13.6,2.4,-1.3],look:[0,1.0,0.6]},{pos:[-13.3,2.35,-1.2],look:[0,1.0,0.6]},{fov:[42,40]});
+S('s7',{pos:[-1.6,1.25,6.2],look:[-1.5,1.0,0]},{pos:[-1.2,1.22,5.6],look:[-0.9,1.0,0]},{fov:[46,44]});
+S('s7b',{pos:[-1.9,1.5,1.9],look:[0,1.35,0]},{pos:[-1.7,1.5,1.7],look:[0,1.4,0]},{fov:[40,38],shake:0.003});
+S('s8',{pos:[-1.5,1.5,ROWZ(4)+0.05],look:[0,1.46,ROWZ(4)]},{pos:[-1.05,1.48,ROWZ(4)+0.04],look:[0,1.46,ROWZ(4)]},{fov:[40,38],shake:0.002});
+S('s9',{pos:[GL-22,1.6,12],look:[GL-17,1.0,3]},{pos:[GL-1,1.6,12],look:[GL+3,1.0,3]},{fov:[46,46]});
+S('s10',{pos:[GL-16.6,1.45,-0.9],look:[EL,4.0,0.4]},{pos:[GL-16.2,1.45,-0.85],look:[EL,4.0,0.4]},{fov:[44,42]});
+S('s11',{pos:[GL-4.5,1.8,-7.5],look:[GL+0.5,0.9,-1]},{pos:[GL-4.0,1.75,-6.8],look:[GL+0.5,0.9,-1]},{fov:[46,44]});
+S('s12',{pos:[GL-14,1.4,6],look:[BOARD.x+14,15,0]},{pos:[GL-12.5,1.4,5.6],look:[BOARD.x+14,15.5,0]},{fov:[46,44]});
+S('s12b',{pos:[GL-3.5,1.1,5],look:[GL+3,1.5,12]},{pos:[GL-3,1.1,5.4],look:[GL+3,1.6,12]},{fov:[46,46]});
+S('s13',{pos:[-33,1.5,14.6],look:[-31,1.0,20]},{pos:[-32.6,1.5,15.2],look:[-31,1.0,20]},{fov:[44,42]});
+S('s14',{pos:[-29.4,1.4,15.2],look:[-31,0.9,20]},{pos:[-29.6,1.35,15.8],look:[-31,0.8,20]},{fov:[44,42]});
+S('s15',{pos:[BENCH.x+1.2,1.2,BENCH.z+6.2],look:[BENCH.x+0.6,0.9,BENCH.z]},{pos:[BENCH.x+1.0,1.18,BENCH.z+5.6],look:[BENCH.x+0.6,0.9,BENCH.z]},{fov:[46,44]});
+S('s16',{pos:[-27,2.0,5.5],look:[-44,1.2,-5]},{pos:[-28,2.0,5.2],look:[-45,1.2,-5]},{fov:[46,46]});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+for(const k in SH){rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
+const shotAt=t=>{let kk='s1';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
+// vùng bóng đổ theo shot (chỉ đổi ở điểm cắt)
+const AREA=[['s1',GL,0],['s1b',GL-2,0],['s3',0,0],['s5',-14,0],['s6',-13,3],['s6b',-5,0],['s7',0,0],['s9',GL-10,3],['s10',GL-8,0],['s11',GL,-1],['s12',GL+4,3],['s13',-31,20],['s15',BENCH.x,BENCH.z],['s16',-38,-4]];
+const areaAt=t=>{let e=AREA[0];for(const x of AREA)if(t>=SH[x[0]][0]-1e-6)e=x;return e;};
+// đèn pha: sáng → tắt ở "Darkness Falls" (18,14 s) → bật lại khi hình nộm ghi TD (36,9 s)
+const T_OFF=18.14,T_ON=36.85;const lampK=t=>t<T_OFF?1:t<T_ON?1-sm((t-T_OFF)/0.7):sm((t-T_ON)/0.5);
+// ---------- hàm dàn dựng ----------
+const hideAll=()=>{SIGNS.forEach(g=>g.visible=false);for(const ch of ALL)ch.root.visible=false;DM.forEach(d=>d.root.visible=false);BALLS.forEach(b=>b.visible=false);CONF.count=0;};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const CLIP=(ch,name,time,o={})=>CP(ch,[{name,time,w:1,loop:o.loop}]);
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,fo=o.fold||0,dn=o.dance||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-fo)*(1-dn)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-fo)*(1-dn)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)*(1-dn)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo*(1-dn)},{name:'Dance_Loop',time:t+sd,w:dn}]);show(ch);};
+const seat=(ch,x,z,ry,t,k=1,sd=0,y0=0,seatY=0.6,talk=0)=>{place(ch,x,z,ry);CP(ch,[{name:'Sitting_Idle_Loop',time:t+sd,w:1}]);const dy=seatY-B(ch,'pelvis').getWorldPosition(V()).y;k=sm(k);
+  CP(ch,[{name:'Idle_Loop',time:t+sd,w:1-k},{name:'Sitting_Idle_Loop',time:t+sd,w:k*(1-talk)},{name:'Sitting_Talking_Loop',time:t+sd,w:k*talk}]);ch.root.position.y=dy*k+y0;ch.root.updateMatrixWorld(true);show(ch);};
+const walk=(ch,t,t0,p0,p1,spd,gait='Walk_Loop',endRy=null,o={})=>{const d=Math.hypot(p1[0]-p0[0],p1[1]-p0[1]);const k=cl((t-t0)*spd/d);const face=o.face??Math.atan2(p1[0]-p0[0],p1[1]-p0[1]);
+  if(k<1){locoLock(ch,lib,t,(tt)=>{const kk=cl((tt-t0)*spd/d);return [lerp(p0[0],p1[0],kk),lerp(p0[1],p1[1],kk)];},{t0,face,gait,back:o.back});ch.root.position.y=0;ch.root.updateMatrixWorld(true);show(ch);return false;}
+  let ry=face;if(endRy!=null){let dA=((endRy-face+PI)%(2*PI)+2*PI)%(2*PI)-PI;ry=face+dA*sm((t-t0-d/spd)/0.4);}idle(ch,p1[0],p1[1],ry,t,3,o.idle||{});return true;};
+const hand=(ch,sd='r')=>B(ch,'hand_'+sd).getWorldPosition(V());
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const head=ch=>B(ch,'Head').getWorldPosition(V());const chest=ch=>B(ch,'spine_03').getWorldPosition(V());
+const handsOnHead=(ch,k=1)=>{for(const [sd,sg] of [['l',1],['r',-1]])reach(ch,head(ch).add(Lc(ch,sg*0.12,0.16,0.02)).lerp(chest(ch).add(Lc(ch,sg*0.3,-0.3,0.1)),1-k),sd);};
+const shrug=(ch,k)=>{for(const [sd,sg] of [['l',1],['r',-1]]){aim(B(ch,'upperarm_'+sd),B(ch,'lowerarm_'+sd),Lc(ch,sg*0.7,-0.5+0.2*k,0.3*k));aim(B(ch,'lowerarm_'+sd),B(ch,'hand_'+sd),Lc(ch,sg*0.6,0.5*k,0.6));}ch.root.updateMatrixWorld(true);};
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const armsUp=(ch,k,spread=0.45,sd='both')=>{for(const s_ of ['l','r']){if(sd!=='both'&&sd!==s_)continue;reach(ch,head(ch).add(Lc(ch,(s_==='l'?1:-1)*spread*k+(s_==='l'?0.25:-0.25)*(1-k),0.4*k-0.25*(1-k),0.12)),s_);}};
+const thumbsDown=(ch,k,sd='r',t=0)=>{const sg=sd==='r'?-1:1;reach(ch,chest(ch).add(Lc(ch,sg*0.3,0.15+0.05*Math.sin(t*9),0.45)),sd);aim(B(ch,'lowerarm_'+sd),B(ch,'hand_'+sd),Lc(ch,sg*0.1,-0.9*k,0.3));ch.root.updateMatrixWorld(true);};
+const pointAt=(ch,p,sd='r',t=0)=>{const d=p.clone().sub(chest(ch)).normalize();reach(ch,chest(ch).add(d.multiplyScalar(0.62)).add(V(0,0.12+0.03*Math.sin(t*8),0)),sd);};
+// fans: pts=[[x,z],...], look=[x,z] (đối tượng bị chế), mode(i) ∈ 'td','point','laugh','sign','cheer'
+const fans=(t,pts,look,mode,o={})=>{let si=0;pts.forEach(([x,z],j)=>{const i=(j+(o.off||0))%FAN.length;const ch=FAN[i];const ry=Math.atan2(look[0]-x,look[1]-z)+((i*37)%7-3)*0.06;const m=mode(j);
+  idle(ch,x,z,ry,t,i,{dance:m==='cheer'?0.7:0,talk:m==='laugh'?0.6:0});const tg=V(look[0],1.0,look[1]);
+  if(m==='td'){thumbsDown(ch,1,'r',t+i);if(i%2)thumbsDown(ch,1,'l',t+i+1);}else if(m==='point')pointAt(ch,tg,i%2?'l':'r',t+i);else if(m==='cheer')armsUp(ch,1,0.5);
+  else if(m==='sign'&&si<SIGNS.length){const g=SIGNS[si++];reach(ch,head(ch).add(Lc(ch,-0.12,0.42+0.05*Math.sin(t*5+i),0.15)));reach(ch,head(ch).add(Lc(ch,0.12,0.42+0.05*Math.sin(t*5+i),0.15)),'l');inHand(g,ch,'r',[0.12,-0.1,0.05],0);g.rotation.y=ry;}
+  E(ch,t,[[0,m==='cheer'?'cheer':m==='td'?'smug':'laugh']],i+20,{look:[0,0]});});};
+const lineX=(x,z0,z1,n)=>[...Array(n)].map((_,i)=>[x+((i*13)%3)*0.45,lerp(z0,z1,n>1?i/(n-1):0)]);
+const lineZ=(z,x0,x1,n)=>[...Array(n)].map((_,i)=>[lerp(x0,x1,n>1?i/(n-1):0),z-((i*13)%3)*0.45]);
+const MIX=['point','td','sign','laugh','td','point','sign','td','laugh','sign','point','td'];
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const inHand=(obj,ch,sd='r',off=[0,-0.02,0.05],ry=0)=>{at(obj,hand(ch,sd).add(Lc(ch,...off)),ch.root.rotation.y+ry);};
+const arc=(p0,p1,h,k)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(k*PI)*h,lerp(p0.z,p1.z,k));
+// đặt hình nộm: o = {open,look,squash,tilt,lean,turn,kick,y}
+const dset=(d,x,z,ry,t,o={})=>{d.root.visible=true;d.root.position.set(x,o.y||0,z);d.root.rotation.set(0,ry,0);d.update(t,o);d.root.updateMatrixWorld(true);};
+const dhop=(d,t,t0,p0,p1,o={})=>{const p=hopPos(t,t0,p0,p1,o);dset(d,p.x,p.z,o.ry??p.face,t,{...o,y:p.y,squash:p.squash});return p;};
+const row=(t,o={})=>{DM.forEach((d,i)=>{if(o.skip&&o.skip.includes(i))return;dset(d,(o.x??ROWX)+(o.dx?o.dx(i):0),o.z?o.z(i):ROWZ(i),o.ry??-PI/2,t,{open:o.open??0,look:o.look,...(o.each?o.each(i):{})});});};
+// ném bóng (MX_Quarterback_Pass, thả bóng 5,42 s)
+const throwAt=(ch,u,x,z,ry)=>{const ct=4.4+u*0.9;place(ch,x,z,ry);CLIP(ch,'MX_Quarterback_Pass',Math.min(7.6,ct),{loop:false});{const pv=B(ch,'pelvis').getWorldPosition(V());ch.root.position.x+=x-pv.x;ch.root.position.z+=z-pv.z;ch.root.updateMatrixWorld(true);}show(ch);return {hr:hand(ch),rel:ct>=5.42};};
+const pose=t=>{
+  rig.apply(t);hideAll();const a=areaAt(t);L.area(a[1],a[2],CAMS[shotAt(t)]);L.lamps(lampK(t));
+  // ===== s1 HOOK (end zone, máy sát cỏ): hình nộm #10 nhảy lò cò qua vạch vôi lao về ống kính; sau lưng Brissett nằm ngửa trên cỏ =====
+  if(ON('s1',t)){const p=dhop(HER,t,-0.25,[GL-3.4,0.7],[GL+2.4,1.0],{len:1.15,dur:0.36,h:0.34,open:1,look:[0,0.1]});at(BALLS[0],HER.body.localToWorld(V(0.3,1.0,0.12)),HER.root.rotation.y,0.2,PI/2);
+    place(BRI,GL-4.8,-0.9,PI/2+0.3);knockedDown(BRI,GL-4.8,-0.9,1);show(BRI);E(BRI,t,[[0,'shock']],1,{look:[0.4,0.6]});
+    [EXS[0],EXS[1]].forEach((ch,i)=>{walk(ch,t,-0.4,[GL-10+i,-3+i*2.5],[GL-6.5+i*0.5,-2+i*2.2],4.6,'MX_Running');E(ch,t,[[0,'shock']],i+3);});}
+  // ===== s1b (whip → góc cao giữa sân): hình nộm đứng trong end zone cạnh quả bóng; Ravens ôm đầu, Brissett ngồi bệt =====
+  if(ON('s1b',t)){const u=U('s1b',t);dset(HER,GL+2.4,1.1,-PI/2-0.3,t,{open:1,look:[0.3*Math.sin(u*2),0.2]});at(BALLS[0],V(GL+1.7,0.15,1.6),0.6,0,PI/2);
+    seat(BRI,GL-2.6,0.2,PI/2+0.2,t,1,1,-0.42,0.6);reach(BRI,V(GL-2.4,0.1,-0.25),'l');E(BRI,t,[[0,'shock'],[SH.s1b[0]+1.2,'sad']],1,{look:[0.5,0.2]});
+    fans(t,lineX(ENDWALK,-5,6,9),[GL-3,0],j=>MIX[j]);[[HEN,GL-4.6,-2.6,PI/2+0.5],[EXS[0],GL-5.2,1.8,PI/2-0.2],[EXS[1],GL-3.8,3.6,PI/2-0.7],[EXS[2],GL-6.6,0.2,PI/2]].forEach(([ch,x,z,ry],i)=>{idle(ch,x,z,ry,t,i+2);handsOnHead(ch,sm((u-0.15-i*0.12)/0.35));E(ch,t,[[0,'shock']],i+2,{look:[0.3,0]});});}
+  // ===== s2 "Okay, not really. But close.": Brissett đứng nhún vai, Henry khoanh tay, hình nộm phía sau =====
+  if(ON('s2',t)){const u=U('s2',t);idle(BRI,GL-3.4,0.4,PI/2+0.9,t,1,{talk:u>1.3?1:0});shrug(BRI,sm((u-0.2)/0.4)*(1-sm((u-1.2)/0.3)));E(BRI,t,[[0,'shrug'],[SH.s2[0]+1.4,'talk']],1,{look:[0.4,0]});
+    fans(t,lineX(ENDWALK,-3.2,2.6,7),[GL-3,0],j=>MIX[j+2]);idle(HEN,GL-2.2,-1.4,PI/2+1.6,t,2,{fold:1});E(HEN,t,[[0,'neutral'],[SH.s2[0]+1.4,'smug']],2,{look:[-0.3,0]});dset(HER,GL+2.4,1.1,-PI/2-0.3,t,{open:1,look:[-0.4,0]});}
+  // ===== s3 "0-8": 11 hình nộm xếp hàng ở vạch giao bóng, mắt vẽ nhắm ngủ; máy lướt dọc hàng; nhãn "0-8" trên #10 =====
+  if(ON('s3',t)){row(t,{open:0,each:i=>({lean:0.02*Math.sin(i*1.7)})});}
+  // ===== s4 "practice equipment": Ravens đi qua, Henry tì khuỷu tay lên hình nộm, Brissett vỗ đầu hình nộm =====
+  if(ON('s4',t)){const u=U('s4',t);row(t,{open:0,skip:[]});
+    walk(HEN,t,SH.s4[0],[-5.5,ROWZ(5)-2.5],[-0.62,ROWZ(5)-0.5],1.7,'Walk_Loop',PI/2+0.3);if(u>2.4){reach(HEN,DM[5].top().add(V(-0.05,-0.02,0)),'l');}E(HEN,t,[[0,'smug'],[SH.s4[0]+2.6,'laugh']],2,{look:[0.3,0]});
+    walk(BRI,t,SH.s4[0]+0.4,[-6.2,ROWZ(6)+3.2],[-0.75,ROWZ(6)+0.25],1.8,'Walk_Loop',PI/2-0.2);if(u>2.6){const k=Math.abs(Math.sin((u-2.6)*7));reach(BRI,DM[6].top().add(V(-0.06,0.05+0.08*k,0)));}E(BRI,t,[[0,'confident'],[SH.s4[0]+2.4,'smug']],1,{look:[0.4,-0.1]});
+    walk(EXS[2],t,SH.s4[0]+0.8,[-7,ROWZ(3)],[-3.2,ROWZ(3)-0.8],1.6,'Walk_Loop',PI/2+0.8,{idle:{talk:1}});E(EXS[2],t,[[0,'laugh']],5);}
+  // ===== s5 "Darkness Falls": 5 Ravens đồ đen sải bước về phía máy (góc thấp), đèn pha sau lưng tắt dần =====
+  if(ON('s5',t)){const u=U('s5',t);[[BRI,0,0.2],[HEN,0.25,-0.9],[EXS[0],0.5,1.2],[EXS[1],0.7,-1.8],[EXS[2],0.9,2.0]].forEach(([ch,dl,z],i)=>{walk(ch,t,SH.s5[0]+dl,[-9.5+Math.abs(z)*0.9,z],[-17.5+Math.abs(z)*0.9,z*0.9],1.55,'Walk_Loop');
+      E(ch,t,[[0,i?'determined':'confident'],[T_OFF+0.2,'smug']],i+1,{look:[0,0.15]});});}
+  // ===== s6 "fourth starting QB in four games": Brissett chạy bộ vào sân (máy bám) =====
+  if(ON('s6',t)){walk(BRI,t,SH.s6[0]-0.3,[-21,7],[-11.5,0.8],2.6,'MX_Jogging',PI/2);{const bx=BRI.root.position.x,bz=BRI.root.position.z;cam.position.set(bx+3.2,1.6,bz+5.6);cam.lookAt(bx-0.4,1.15,bz);cam.fov=44;cam.updateProjectionMatrix();}E(BRI,t,[[0,'determined']],1,{look:[0.3,0]});
+    [HEN,EXS[0],EXS[1]].forEach((ch,i)=>{idle(ch,-13.6+i*0.9,-1.6-i*0.7,PI/2-0.3,t,i+2,{crouch:0.4});E(ch,t,[[0,'neutral']],i+2);});row(t,{open:0});}
+  // ===== s6b: ném 48 lần — 4 cú ném liên tiếp vào hình nộm, bóng dội ra =====
+  if(ON('s6b',t)){const u=U('s6b',t),per=1.09;const i=Math.min(3,Math.floor(u/per)),uu=u-i*per;row(t,{open:0,each:j=>({tilt:0})});
+    const th=throwAt(BRI,uu/0.95,-8.2,-0.2,PI/2);E(BRI,t,[[0,'determined']],1,{look:[0,0.1]});
+    for(let j=0;j<=i;j++){const ub=u-j*per-0.9;const tgt=DM[[3,5,7,6][j]];const hit=tgt.head().add(V(-0.3,-0.2,0));
+      if(ub<0){if(j===i)inHand(BALLS[j],BRI,'r',[0,0,0.05]);}
+      else if(ub<0.32){at(BALLS[j],arc(V(-7.9,2.1,0.0),hit,0.6,ub/0.32),PI/2,0,PI/2+ub*20);}
+      else{const k=cl((ub-0.32)/0.6);const p0=hit,p1=hit.clone().add(V(-2.4,0,(j%2?1:-1)*1.4));p1.y=0.14;at(BALLS[j],arc(p0,p1,0.7,k),k*6,k*9,0);if(k>=1)BALLS[j].position.y=0.14;}}
+    for(let j=0;j<=i;j++){const ub=u-j*per-1.22;if(ub>0&&ub<0.3){const d=DM[[3,5,7,6][j]];d.update(t,{open:0,tilt:-0.05*Math.sin(ub/0.3*PI)});}}}
+  // ===== s7 run game: Henry lao vào một hình nộm, đẩy hết sức — hình nộm không nhúc nhích =====
+  if(ON('s7',t)){const u=U('s7',t);row(t,{open:0,skip:[5]});const tgt=DM[5],tz=ROWZ(5);dset(tgt,0,tz,-PI/2,t,{open:0,tilt:u>0.9?-0.015*Math.sin(t*9):0});
+    if(u<0.95)walk(HEN,t,SH.s7[0]-0.1,[-7.2,tz+0.35],[-0.72,tz+0.35],6.4,'MX_Sprint');else{place(HEN,-0.72,tz+0.35,PI/2);CP(HEN,[{name:'Push_Loop',time:t*1.3,w:0.85},{name:'Idle_Loop',time:t,w:0.15}]);show(HEN);
+      for(const sd of ['l','r'])reach(HEN,tgt.head().add(V(-0.3,-0.45,sd==='l'?0.22:-0.22)),sd);}
+    E(HEN,t,[[0,'determined'],[SH.s7[0]+1.6,'panic']],2,{look:[0,0]});fans(t,lineZ(-WALKZ,-8,4,10),[-1,0],j=>['laugh','point','td','sign','laugh','td','point','sign','td','laugh'][j]);}
+  // ===== s7b "did not move": cận mặt hình nộm thản nhiên nhắm mắt, Henry gồng sau lưng =====
+  if(ON('s7b',t)){const tz=ROWZ(5);row(t,{open:0,skip:[5]});dset(DM[5],0,tz,-PI/2,t,{open:0});place(HEN,-0.72,tz+0.35,PI/2);CP(HEN,[{name:'Push_Loop',time:t*1.3,w:0.85},{name:'Idle_Loop',time:t,w:0.15}]);show(HEN);
+    for(const sd of ['l','r'])reach(HEN,DM[5].head().add(V(-0.3,-0.45,sd==='l'?0.22:-0.22)),sd);E(HEN,t,[[0,'panic']],2);}
+  // ===== s8 "then the dummies started moving": cận #10 — mắt bừng mở, liếc ống kính =====
+  if(ON('s8',t)){const u=U('s8',t);const op=sm((u-0.25)/0.12);row(t,{open:0,skip:[4]});dset(HER,0,ROWZ(4),-PI/2,t,{open:op,look:u<1.0?[0,0]:[-0.2*sm((u-1)/0.2),0.1],blink:0,browUp:op,brow:u>1.2?0.4:0});}
+  // ===== s9 Herbert-dummy nhảy lò cò 22 yard vào end zone, Ravens đuổi không kịp =====
+  if(ON('s9',t)){const p=dhop(HER,t,SH.s9[0]-0.05,[GL-19,3],[GL+1.6,3],{len:2.3,dur:0.31,h:0.55,open:1,look:[0.3,0.1]});at(BALLS[0],HER.body.localToWorld(V(0.3,1.0,0.12)),HER.root.rotation.y,0.2,PI/2);
+    [[HEN,0.15,1.4],[EXS[0],0.3,4.8],[EXS[1],0.45,2.0]].forEach(([ch,dl,z],i)=>{walk(ch,t,SH.s9[0]+dl,[GL-23,z],[GL-2,z],6.0,'MX_Sprint');E(ch,t,[[0,'determined'],[SH.s9[0]+2.0,'shock']],i+2);});
+    fans(t,lineZ(-WALKZ,GL-26,GL+6,16),[GL-8,0],j=>j%3===0?'cheer':j%3===1?'point':'td');{const x=Math.min(HER.root.position.x,GL+1.2);cam.position.set(x-3.4,1.5,9.0);cam.lookAt(x+0.5,1.0,3);cam.fov=46;cam.updateProjectionMatrix();}}
+  // ===== s10 Dicker-dummy đá 3 field goal bằng chân lò xo =====
+  if(ON('s10',t)){const u=U('s10',t);const KX=GL-12;const ks=[0.25,0.95,1.65];let kick=0;for(const k0 of ks){const d=u-k0;if(d>-0.35&&d<0.75)kick=d<0?-0.7*sm((d+0.35)/0.35):d<0.12?lerp(-0.7,1.5,sm(d/0.12)):1.5*(1-sm((d-0.12)/0.55));}
+    dset(DIC,KX-0.55,-0.2,PI/2,t,{open:1,kick,look:[0,0.3],lean:0.05*Math.sin(u*8)});
+    ks.forEach((k0,j)=>{const b=BALLS[j];const ub=u-k0-0.12;if(ub<0){if(u>k0-0.5)at(b,V(KX,0.16,0),0,0,0.25);}else{const k=cl(ub/1.2);at(b,arc(V(KX,0.16,0),V(EL+2,6.4,(j-1)*0.8),5.5,k),0,-k*30,0);}});
+    row(t,{x:GL-6,z:i=>-5+i*1.0,ry:-PI/2,open:1,skip:[4,6],each:i=>({look:[0,0.4]})});}
+  // ===== s11 Henry ghi 2 TD cự ly ngắn (lao người qua vạch) =====
+  if(ON('s11',t)){const u=U('s11',t);const z=-1.0;const plunge=(u0)=>{const k=(u-u0)/0.9;return k;};
+    let k=plunge(0.15);if(u>1.55)k=plunge(1.75);const kk=cl(k);const x=lerp(GL-2.6,GL+0.6,sm(kk));place(HEN,x,z,PI/2,Math.sin(kk*PI)*0.55);CP(HEN,[{name:'Jump_Loop',time:0.3+kk*0.4,w:kk>0&&kk<1?1:0},{name:'Idle_Loop',time:t,w:kk>0&&kk<1?0:1}]);HEN.root.position.y=Math.sin(kk*PI)*0.55;HEN.root.updateMatrixWorld(true);show(HEN);
+    at(BALLS[0],chest(HEN).add(Lc(HEN,-0.18,-0.08,0.2)),PI/2,PI/2,0);if(kk>=1)for(const sd of ['l','r'])reach(HEN,head(HEN).add(Lc(HEN,sd==='l'?0.3:-0.3,0.4,0.1)),sd);
+    E(HEN,t,[[0,'determined'],[SH.s11[0]+1.05,'cheer'],[SH.s11[0]+1.6,'determined'],[SH.s11[0]+2.7,'cheer']],2);
+    fans(t,lineX(ENDWALK,-3,9,9),[GL-1,-1],j=>MIX[j+1]);[0,1,2,3].forEach(i=>dset(DM[i],GL+0.9,-4+i*1.4+(i>1?1.6:0),-PI/2,t,{open:1,look:[0.4,0]}));}
+  // ===== s12 hình nộm đứng im, đồng hồ bảng điểm chạy về 0:00 =====
+  if(ON('s12',t)){row(t,{x:GL+3,z:i=>-6+i*1.2,ry:-PI/2,open:1,look:[0,0.1],each:i=>({lean:0})});}
+  // ===== s12b "first win of the season": hình nộm nhảy tưng tại chỗ, pháo giấy, đèn sáng =====
+  if(ON('s12b',t)){const u=U('s12b',t);DM.forEach((d,i)=>{const ph=(u*2.6+i*0.37)%1;const y=ph<0.75?4*0.45*(ph/0.75)*(1-ph/0.75):0;const sq=ph>=0.75?0.14*Math.sin((ph-0.75)/0.25*PI):0;dset(d,GL+3+(i%3)*0.6,4+i*1.35,-PI/2-0.3+Math.sin(u*3+i)*0.4,t,{open:1,y,squash:sq,look:[0,0.4],mouth:1.6});});
+    fans(t,lineX(ENDWALK,4,20,10),[GL,12],j=>j%2?'cheer':'sign');let n=0;for(let i=0;i<220;i++){const j=(i*7919%1000)/1000,k=(i*104729%1000)/1000;const fall=(u+j*1.2)*1.4;DUM.position.set(GL+1+k*5,6.5-fall*2.2+j*1.5,3+j*15);DUM.rotation.set(t*3+i,t*2+i*2,i);DUM.updateMatrix();if(DUM.position.y>0.02)CONF.setMatrixAt(n++,DUM.matrix);}CONF.count=n;CONF.instanceMatrix.needsUpdate=true;}
+  // ===== s13 hồi tưởng TUẦN 1: Brissett áo đỏ đẩy đổ hình nộm dễ dàng =====
+  if(ON('s13',t)){const u=U('s13',t);const DX=-30.6,DZ=20;const pushed=walk(BRA,t,SH.s13[0]+0.2,[-36.5,20.6],[-31.35,DZ],4.8,'MX_Running');if(pushed){for(const sd of ['l','r'])reach(BRA,V(DX-0.25,1.2,DZ+(sd==='l'?-0.2:0.2)).lerp(chest(BRA).add(Lc(BRA,0,0,0.5)),0.0),sd);}
+    const kf=cl((u-1.55)/0.55);dset(DM[0],DX,DZ,-PI/2,t,{open:1,tilt:0,lean:0,look:[0,0.3]});DM[0].body.rotation.set(0,0,-1.5*kf*kf);DM[0].update(t,{open:1,look:kf>0?[0,0.8]:[0,0],browUp:kf,lean:0});DM[0].body.rotation.z=-1.5*kf*kf;
+    E(BRA,t,[[0,'determined'],[SH.s13[0]+1.9,'proud']],1);}
+  // ===== s14 bây giờ áo đen: Brissett đẩy — hình nộm không nhúc nhích rồi đổ ập vào anh =====
+  if(ON('s14',t)){const u=U('s14',t);const DX=-30.6,DZ=20;const kf=cl((u-0.75)/0.45);
+    if(u<1.0){place(BRI,-31.35,DZ,PI/2);CP(BRI,[{name:'Push_Loop',time:t*1.3,w:0.8},{name:'Idle_Loop',time:t,w:0.2}]);show(BRI);for(const sd of ['l','r'])reach(BRI,V(DX-0.28,1.2,DZ+(sd==='l'?-0.2:0.2)),sd);}
+    else{place(BRI,-31.7,DZ,PI/2);knockedDown(BRI,-31.7,DZ,sm((u-1.0)/0.4));show(BRI);}
+    dset(DM[0],DX,DZ,-PI/2,t,{open:1,look:[0,-0.3],brow:0.5});DM[0].body.rotation.z=1.25*kf*kf;
+    E(BRI,t,[[0,'determined'],[SH.s14[0]+0.6,'surprised'],[SH.s14[0]+1.0,'shock']],1);fans(t,lineZ(WALKZ,-36,-26,8),[-31.2,20],j=>u>1.1?['point','laugh','td','point','laugh','sign'][j]:'laugh');}
+  // ===== s15 Ravens 4-6: ngồi ghế dài ủ rũ; hình nộm nhảy ngang phía sau =====
+  if(ON('s15',t)){const u=U('s15',t);[[BRI,-0.3],[HEN,1.0],[EXS[0],-1.6],[EXS[2],2.3]].forEach(([ch,x],i)=>{seat(ch,BENCH.x+x,BENCH.z+0.02,0,t,1,i+1,0,0.52);if(i===0)reach(ch,head(ch).add(Lc(ch,0.05,-0.05,0.12)),'r');E(ch,t,[[0,'sad']],i+1,{look:[0,-0.35]});});
+    fans(t,lineZ(-WALKZ,BENCH.x-5,BENCH.x+5.5,9),[BENCH.x,BENCH.z],j=>['td','sign','point','laugh','sign','td','point','sign','td'][j]);DM.slice(0,5).forEach((d,i)=>dhop(d,t,SH.s15[0]-0.5+i*0.25,[BENCH.x-14,BENCH.z+12+i*1.5],[BENCH.x+16,BENCH.z+12+i*1.5],{len:1.0,dur:0.4,h:0.3,open:1,look:[0.5,0]}));}
+  // ===== s16 "Next week, Carolina… they're real people": hình nộm nhảy về nhà kho; Ravens thở phào =====
+  if(ON('s16',t)){const u=U('s16',t);DM.forEach((d,i)=>dhop(d,t,SH.s16[0]-0.6+i*0.18,[-37-(i%4)*1.2,-1-(i%3)*2.2-i*0.4],[-58,-6-(i%3)*1.5],{len:1.1,dur:0.42,h:0.35,open:1,look:[0,0]}));
+    fans(t,lineZ(-WALKZ,-46,-30,9),[-33,1.8],j=>j%2?'laugh':'point');[[BRI,-33.4,1.8],[HEN,-32.4,0.2],[EXS[1],-33.0,3.4]].forEach(([ch,x,z],i)=>{idle(ch,x,z,-PI/2-0.5,t,i+1,{talk:i===0&&u>2.0?1:0});E(ch,t,[[0,'neutral'],[SH.s16[0]+1.6,'surprised'],[SH.s16[0]+2.4,'laugh']],i+1,{look:[-0.2,0]});
+      if(i===1&&u>2.6)for(const sd of ['l','r'])reach(ch,chest(ch).add(Lc(ch,sd==='l'?0.08:-0.08,0.02,0.15)),sd);});}
+  // bảng điểm tập
+  const clk=t<SH.s12[0]?'Q4 2:31':t<SH.s12b[0]?'0:'+String(Math.max(0,Math.round(42*(1-sm((t-SH.s12[0]-0.3)/2.4))))).padStart(2,'0'):'FINAL';
+  PR.crowd.uT.value=t;PR.crowd.uCheer.value=t<SH.s5[1]?0.6:t>=SH.s12b[0]&&t<SH.s12b[1]?0.1:0.12;PR.crowd.uBoo.value=(t>=SH.s6b[0]&&t<SH.s8[0])||(t>=SH.s14[0]&&t<SH.s16[1])?0.9:0;PR.crowd.uSleep.value=0;
+  const sb=t<SH.s9[0]?[0,0,'1ST 15:00']:t<SH.s11[0]?[23,6,'Q4 9:12']:t<SH.s11[0]+1.05?[23,6,'Q4 6:40']:t<SH.s11[0]+2.7?[23,13,'Q4 6:40']:t<SH.s12[0]?[23,20,'Q4 2:31']:[23,20,clk];
+  PR.board.draw(t>=SH.s5[0]+3.5&&t<SH.s6[0]?{msg:'DARKNESS\nFALLS',msgColor:'#c9b2ff'}:t<SH.s12b[0]?{a:sb[0],b:sb[1],clock:sb[2]}:{a:23,b:20,clock:'FINAL',tint:'#ffd23a'});
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
+  // lia whip s1 → s1b
+  {const e=SH.s1[1];if(t>=e-0.2&&t<e)cam.rotateY(-1.0*sm((t-(e-0.2))/0.2));else if(t>=e&&t<e+0.22)cam.rotateY(0.9*(1-sm((t-e)/0.22)));}
+};
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>

@@ -1,0 +1,68 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.22,Cap,,0,0,0,,what the f***?
+Dialogue: 0,0:00:01.22,0:00:02.14,Cap,,0,0,0,,the ravens just lost
+Dialogue: 0,0:00:02.14,0:00:03.58,Cap,,0,0,0,,to a tackling dummy?
+Dialogue: 0,0:00:03.58,0:00:04.94,Cap,,0,0,0,,okay, not really.
+Dialogue: 0,0:00:04.94,0:00:05.86,Cap,,0,0,0,,but close.
+Dialogue: 0,0:00:05.86,0:00:06.48,Cap,,0,0,0,,the chargers came
+Dialogue: 0,0:00:06.48,0:00:08.26,Cap,,0,0,0,,to baltimore 0-8.
+Dialogue: 0,0:00:08.26,0:00:09.10,Cap,,0,0,0,,the only team
+Dialogue: 0,0:00:09.10,0:00:09.78,Cap,,0,0,0,,in the nfl
+Dialogue: 0,0:00:09.78,0:00:11.00,Cap,,0,0,0,,without a win.
+Dialogue: 0,0:00:11.00,0:00:11.92,Cap,,0,0,0,,to the ravens,
+Dialogue: 0,0:00:11.92,0:00:13.02,Cap,,0,0,0,,that's not an opponent.
+Dialogue: 0,0:00:13.02,0:00:14.36,Cap,,0,0,0,,that's practice equipment.
+Dialogue: 0,0:00:14.36,0:00:14.92,Cap,,0,0,0,,they even dressed
+Dialogue: 0,0:00:14.92,0:00:15.86,Cap,,0,0,0,,up for it.
+Dialogue: 0,0:00:15.86,0:00:16.22,Cap,,0,0,0,,brand new
+Dialogue: 0,0:00:16.22,0:00:18.22,Cap,,0,0,0,,all-black uniforms.
+Dialogue: 0,0:00:18.22,0:00:19.24,Cap,,0,0,0,,darkness falls.
+Dialogue: 0,0:00:19.24,0:00:20.20,Cap,,0,0,0,,jacoby brissett, the
+Dialogue: 0,0:00:20.20,0:00:21.18,Cap,,0,0,0,,ravens' fourth starting
+Dialogue: 0,0:00:21.18,0:00:22.08,Cap,,0,0,0,,quarterback in four
+Dialogue: 0,0:00:22.08,0:00:23.36,Cap,,0,0,0,,games, threw 48
+Dialogue: 0,0:00:23.36,0:00:24.80,Cap,,0,0,0,,passes at the dummies.
+Dialogue: 0,0:00:24.80,0:00:26.42,Cap,,0,0,0,,340 yards.
+Dialogue: 0,0:00:26.42,0:00:26.96,Cap,,0,0,0,,zero touchdowns.
+Dialogue: 0,0:00:26.96,0:00:28.20,Cap,,0,0,0,,the run game hit
+Dialogue: 0,0:00:28.20,0:00:30.08,Cap,,0,0,0,,the dummies 15 times.
+Dialogue: 0,0:00:30.08,0:00:31.08,Cap,,0,0,0,,16 yards.
+Dialogue: 0,0:00:31.08,0:00:31.48,Cap,,0,0,0,,the dummies
+Dialogue: 0,0:00:31.48,0:00:32.80,Cap,,0,0,0,,did not move.
+Dialogue: 0,0:00:32.80,0:00:33.42,Cap,,0,0,0,,then the
+Dialogue: 0,0:00:33.42,0:00:34.80,Cap,,0,0,0,,dummies started moving.
+Dialogue: 0,0:00:34.80,0:00:35.60,Cap,,0,0,0,,justin herbert hopped
+Dialogue: 0,0:00:35.60,0:00:36.66,Cap,,0,0,0,,22 yards into
+Dialogue: 0,0:00:36.66,0:00:37.62,Cap,,0,0,0,,the end zone.
+Dialogue: 0,0:00:37.62,0:00:38.34,Cap,,0,0,0,,cameron dicker kicked
+Dialogue: 0,0:00:38.34,0:00:39.76,Cap,,0,0,0,,three field goals.
+Dialogue: 0,0:00:39.76,0:00:40.78,Cap,,0,0,0,,derrick henry scored twice
+Dialogue: 0,0:00:40.78,0:00:41.88,Cap,,0,0,0,,to make it close.
+Dialogue: 0,0:00:41.88,0:00:43.12,Cap,,0,0,0,,23-20.
+Dialogue: 0,0:00:43.12,0:00:44.10,Cap,,0,0,0,,then the dummies just
+Dialogue: 0,0:00:44.10,0:00:44.84,Cap,,0,0,0,,stood there and let
+Dialogue: 0,0:00:44.84,0:00:46.04,Cap,,0,0,0,,the clock run out.
+Dialogue: 0,0:00:46.04,0:00:46.44,Cap,,0,0,0,,first win
+Dialogue: 0,0:00:46.44,0:00:47.36,Cap,,0,0,0,,of the season.
+Dialogue: 0,0:00:47.36,0:00:48.26,Cap,,0,0,0,,and the worst part?
+Dialogue: 0,0:00:48.26,0:00:49.34,Cap,,0,0,0,,week one, brissett
+Dialogue: 0,0:00:49.34,0:00:50.16,Cap,,0,0,0,,beat these exact
+Dialogue: 0,0:00:50.16,0:00:51.80,Cap,,0,0,0,,same dummies with arizona.
+Dialogue: 0,0:00:51.80,0:00:52.94,Cap,,0,0,0,,now he wears black,
+Dialogue: 0,0:00:52.94,0:00:53.76,Cap,,0,0,0,,and the dummies win.
+Dialogue: 0,0:00:53.76,0:00:55.18,Cap,,0,0,0,,ravens: four and
+Dialogue: 0,0:00:55.18,0:00:57.20,Cap,,0,0,0,,six, five straight losses.
+Dialogue: 0,0:00:57.20,0:00:58.66,Cap,,0,0,0,,next week, carolina.
+Dialogue: 0,0:00:58.66,0:00:59.78,Cap,,0,0,0,,good news, baltimore.
+Dialogue: 0,0:00:59.78,0:01:00.68,Cap,,0,0,0,,they're real people.
