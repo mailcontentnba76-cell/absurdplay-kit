@@ -4,5 +4,5 @@
 - Âm: −15,0 LUFS, true peak −1,9 dBFS
 - Màu (14 mốc): bão hoà trung vị 116–220 (≥ 95 đạt); sáng 59–239 (shot chuông 69 s và 74–87 s tối hơn do mái/kệ chuông, cố ý)
 - Mép x=2/1077: không có cột đen toàn khung (chỉ điểm tối của mái)
-- Watermark "Literal Mascots" Lora italic 48, top 1420 (trên vùng caption TikTok)
+- Watermark "Literal Mascots" dọc từng chữ, giữa mép trái (left 16, Lora 700 26 px, trắng 62 %)
 - Sau duyệt cắt thử: lùi máy a1 ("Shed every year"), b2, e1
