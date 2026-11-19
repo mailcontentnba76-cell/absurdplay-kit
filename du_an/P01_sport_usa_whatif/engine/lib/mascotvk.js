@@ -119,3 +119,61 @@ export function dolphin() { const G = new THREE.Group(); const m = std('#7f97ad'
   for (const s of [-1, 1]) { const e = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), std('#111')); e.position.set(s * 0.26, 0.05, 0.85); G.add(e); }
   for (const s of [-1, 1]) { const f = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.03, 0.18), m); f.position.set(s * 0.4, -0.18, 0.4); f.rotation.z = s * -0.5; G.add(f); }
   return shad(G); }
+// ---------- CAO BỒI (E23) ----------
+export function cowboyHat(c = '#c8a46a') { const G = new THREE.Group(); const m = std(c, { roughness: 0.85 });
+  const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.23, 0.23, 0.015, 28), m); brim.scale.z = 0.85; G.add(brim);
+  const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.115, 0.15, 18), m); crown.position.y = 0.08; G.add(crown);
+  const dent = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.05, 0.16), std('#000000')); dent.visible = false; G.add(dent);
+  const band = new THREE.Mesh(new THREE.CylinderGeometry(0.117, 0.117, 0.022, 18), std('#3a2414')); band.position.y = 0.02; G.add(band);
+  // vành cong lên hai bên
+  const p = brim.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const x = p.getX(i); p.setY(i, p.getY(i) + 0.06 * Math.pow(Math.abs(x) / 0.23, 3)); } brim.geometry.computeVertexNormals();
+  return shad(G); }
+// vòng thòng lọng (dây thừng) bán kính r; nằm trong mặt phẳng xz
+export function lassoLoop(r = 0.5) { const m = new THREE.Mesh(new THREE.TorusGeometry(r, 0.018, 6, 32), std('#c8a46a', { roughness: 0.9 })); m.rotation.x = Math.PI / 2; const G = new THREE.Group(); G.add(m); G.userData.loop = m; return shad(G); }
+// đoạn dây nối 2 điểm (cập nhật mỗi khung bằng setRope(a,b))
+export function rope() { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 1, 5), std('#c8a46a', { roughness: 0.9 })); m.castShadow = true;
+  m.userData.set = (a, b) => { const d = b.clone().sub(a); m.position.copy(a).add(b).multiplyScalar(0.5); m.scale.set(1, d.length(), 1); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); }; return m; }
+// ---------- TRANG PHỤC MASCOT (E23): mặc ĐÚNG đồ linh vật ----------
+// gắn mesh theo toạ độ THẾ GIỚI ở tư thế nghỉ (root ở gốc, nhìn +z), rồi bone.attach() giữ nguyên vị trí → đi theo xương.
+function dressKit(ch) { const B = ch.bones; ch.root.position.set(0, 0, 0); ch.root.rotation.set(0, 0, 0); ch.root.scale.setScalar(1); ch.root.updateMatrixWorld(true);
+  const W = (n) => B[n].getWorldPosition(new THREE.Vector3());
+  const put = (bone, m, p, rot) => { m.position.copy(p); if (rot) m.rotation.set(...rot); ch.root.add(m); m.updateMatrixWorld(true); B[bone].attach(m); m.traverse((x) => { if (x.isMesh) { x.castShadow = true; x.frustumCulled = false; } }); return m; };
+  return { W, put, B }; }
+// Titan Hy Lạp khổng lồ: mũ đồng Corinth có mào, áo giáp ngực đồng (màu áo), áo choàng navy, đai lưng, giáp vai, giáp ống chân (màu tất), dép quai.
+export function dressTitan(ch, o = {}) { const { W, put, B } = dressKit(ch);
+  const bronze = std('#c4904a', { metalness: 0.65, roughness: 0.32 }), cape = std(o.cape || '#1f3a68', { roughness: 0.85, side: THREE.DoubleSide }), crestM = std(o.crest || '#7fb6e8', { roughness: 0.7 });
+  // mũ đồng: dựng theo hướng THẾ GIỚI (y lên, z ra trước) quanh tâm đầu, rồi attach vào Head
+  const hb = W('Head'), hc = B.Head.localToWorld(new THREE.Vector3(0, 0.1, 0)); const k = hc.distanceTo(hb) / 0.1;
+  const H = new THREE.Group(); const dome = new THREE.Mesh(new THREE.SphereGeometry(0.15, 24, 14, 0, Math.PI * 2, 0, 1.12), bronze); dome.scale.set(1.04, 1.05, 1.12); dome.position.set(0, -0.03, -0.015); H.add(dome);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.155, 0.16, 20, 1, true, Math.PI * 0.55, Math.PI * 0.9), bronze); neck.position.set(0, -0.04, -0.012); H.add(neck);
+  const crest = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.032, 8, 24, Math.PI), crestM); crest.rotation.y = Math.PI / 2; crest.scale.set(1, 1.15, 0.7); crest.position.set(0, 0.09, -0.02); H.add(crest);
+  const ridge = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.03, 0.3), bronze); ridge.position.set(0, 0.125, -0.012); H.add(ridge);
+  H.scale.setScalar(k); put('Head', H, hc);
+  // áo choàng sau lưng (từ vai xuống bắp chân), hơi cong
+  const s3 = W('spine_03'), cl = W('calf_l'), back = Math.min(W('spine_02').z, s3.z) - 0.16;
+  const len = s3.y + 0.12 - (cl.y - 0.05); const cg = new THREE.PlaneGeometry(0.56, len, 6, 10); const cp = cg.attributes.position;
+  for (let i = 0; i < cp.count; i++) { const x = cp.getX(i), y = cp.getY(i); cp.setZ(i, -0.08 * (x / 0.28) ** 2 - 0.05 * (0.5 - y / len)); cp.setX(i, x * (1 + 0.35 * (0.5 - y / len))); } cg.computeVertexNormals();
+  put('spine_03', new THREE.Mesh(cg, cape), new THREE.Vector3(s3.x, s3.y + 0.12 - len / 2, back));
+  const clasp = (sx) => put('spine_03', new THREE.Mesh(new THREE.SphereGeometry(0.035, 10, 8), bronze), new THREE.Vector3(s3.x + sx * 0.15, s3.y + 0.1, s3.z + 0.1));
+  clasp(-1); clasp(1);
+  // giáp vai
+  for (const sd of ['l', 'r']) { const u = W('upperarm_' + sd); const pd = new THREE.Mesh(new THREE.SphereGeometry(0.1, 14, 8, 0, Math.PI * 2, 0, 1.3), bronze); pd.scale.set(1.05, 0.7, 1); put('upperarm_' + sd, pd, u.clone().add(new THREE.Vector3(0, 0.03, 0))); }
+  // đai lưng đồng + vạt da (pteruges) quanh hông
+  const pv = W('pelvis'); const belt = new THREE.Mesh(new THREE.TorusGeometry(0.175, 0.03, 6, 28), bronze); belt.rotation.x = Math.PI / 2; belt.scale.set(1, 0.78, 1); put('pelvis', belt, pv.clone().add(new THREE.Vector3(0, 0.1, 0)));
+  const leath = std(o.strips || '#6a3a1a', { roughness: 0.8 });
+  for (let k = 0; k < 14; k++) { const a = k / 14 * Math.PI * 2; const st = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.2, 0.012), leath); const r = 0.18;
+    put('pelvis', st, pv.clone().add(new THREE.Vector3(Math.sin(a) * r, -0.01, Math.cos(a) * r * 0.8)), [0.18 * Math.cos(a), a, -0.18 * Math.sin(a) * 0]); }
+  return ch; }
+// Cao bồi: gi-lê da, khăn rằn cổ, thắt lưng khoá đồng to, ống ủng + cựa (mũ gắn riêng).
+export function dressCowboy(ch, i = 0) { const { W, put } = dressKit(ch);
+  const vestM = std(['#4a2e1a', '#2a2a2a', '#6a4428', '#3a2414'][i % 4], { roughness: 0.75, side: THREE.DoubleSide }), bandM = std(['#b8282a', '#1f4a8a', '#c8a020', '#b8282a'][i % 4], { roughness: 0.8 });
+  const s2 = W('spine_02'), s3 = W('spine_03'); const cy = (s2.y + s3.y) / 2 + 0.02, cz = (s2.z + s3.z) / 2;
+  const vg = new THREE.CylinderGeometry(0.2, 0.185, s3.y - s2.y + 0.3, 24, 1, true, 0.42, Math.PI * 2 - 0.84); const vest = new THREE.Mesh(vg, vestM); vest.scale.z = 0.78; put('spine_02', vest, new THREE.Vector3(s2.x, cy, cz + 0.005));
+  const n = W('neck_01'); const kerch = new THREE.Mesh(new THREE.ConeGeometry(0.085, 0.13, 3), bandM); kerch.rotation.set(Math.PI, 0, 0); put('neck_01', kerch, new THREE.Vector3(n.x, n.y - 0.07, n.z + 0.085), [Math.PI + 0.25, Math.PI / 6, 0]);
+  const knot = new THREE.Mesh(new THREE.TorusGeometry(0.075, 0.022, 6, 18), bandM); knot.rotation.x = Math.PI / 2; put('neck_01', knot, new THREE.Vector3(n.x, n.y - 0.01, n.z + 0.01), [Math.PI / 2 - 0.2, 0, 0]);
+  const pv = W('pelvis'); const belt = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.025, 6, 28), std('#3a2414')); belt.scale.set(1, 1, 0.3); put('pelvis', belt, pv.clone().add(new THREE.Vector3(0, 0.08, 0)), [Math.PI / 2, 0, 0]);
+  const buckle = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.02), std('#d8b048', { metalness: 0.8, roughness: 0.25 })); put('pelvis', buckle, pv.clone().add(new THREE.Vector3(0, 0.08, 0.145)));
+  const bootM = std('#5a3a20', { roughness: 0.6 }), spurM = std('#b8bcc4', { metalness: 0.8, roughness: 0.3 });
+  for (const sd of ['l', 'r']) { const f = W('foot_' + sd); const sh = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.062, 0.3, 14), bootM); put('calf_' + sd, sh, f.clone().add(new THREE.Vector3(0, 0.12, -0.005)));
+    const sp = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.008, 5, 12), spurM); put('foot_' + sd, sp, f.clone().add(new THREE.Vector3(0, -0.04, -0.09)), [0, Math.PI / 2, 0]); }
+  return ch; }
