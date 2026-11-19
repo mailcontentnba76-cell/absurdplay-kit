@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script>
+<script type="module">
+// Ảnh kiểm thú 4 chân: #deer hoặc #cougar; t chọn tư thế theo nhóm 1 giây
+import * as THREE from 'three';
+import {makeQuad,poseQuad,jumpPose} from './lib/thu4chan.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.shadowMap.enabled=true;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;
+const s=new THREE.Scene();s.background=new THREE.Color('#9fb8cc');
+s.add(new THREE.HemisphereLight('#ffffff','#7a6a5a',2.6));const d=new THREE.DirectionalLight('#fff4e0',3);d.position.set(3,6,4);d.castShadow=true;d.shadow.mapSize.set(2048,2048);Object.assign(d.shadow.camera,{left:-4,right:4,top:4,bottom:-4});s.add(d);
+const g=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshStandardMaterial({color:'#c99a62'}));g.rotation.x=-Math.PI/2;g.receiveShadow=true;s.add(g);
+for(let i=-10;i<=10;i++){const l=new THREE.Mesh(new THREE.PlaneGeometry(0.02,40),new THREE.MeshBasicMaterial({color:'#8a6a40'}));l.rotation.x=-Math.PI/2;l.position.set(i,0.002,0);s.add(l);}
+const kind=location.hash.includes('cougar')?'cougar':'deer';
+const Q=makeQuad({kind,band:kind==='deer'?'#2f7a3a':null});s.add(Q.root);
+const cam=new THREE.PerspectiveCamera(40,W/H,0.05,100);
+const VIEWS=[[[2.6,1.1,0.4],[0,0.8,0.4]],[[0,1.2,3.0],[0,0.9,0]],[[2.2,1.4,2.2],[0,0.9,0.3]]];
+window.renderFrame=t=>{const k=Math.floor(t),u=t-k;const v=VIEWS[Math.floor(t*10)%3]||VIEWS[0];
+  Q.root.position.set(0,0,0);Q.root.rotation.set(0,0,0);let o={};
+  if(k===0)o={};                                      // đứng
+  if(k===1)o={gait:'walk',phase:u*2};
+  if(k===2)o={gait:'gallop',phase:u*2};
+  if(k===3)o={rear:1,hold:1,look:[0,0.3]};            // đứng 2 chân ôm bóng
+  if(k===4){const j=jumpPose(u);o={crouch:j.crouch,tuck:j.tuck};Q.root.position.y=j.lift*1.2;}
+  if(k===5)o={tailUp:1,wide:1,earUp:1};               // hoảng, dựng đuôi trắng
+  if(k===6)o={sit:1};
+  poseQuad(Q,t*3,o);cam.position.set(...v[0]);cam.lookAt(...v[1]);cam.aspect=W/H;cam.updateProjectionMatrix();r.render(s,cam);};
+window.ready=true;
+</script></body></html>
