@@ -1,0 +1,66 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Lora;src:url(fonts/Lora-Variable.ttf)}
+@font-face{font-family:Lora;font-style:italic;src:url(fonts/Lora-Italic-Variable.ttf)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+/* E24 Mascot NBA (Bucks vs 76ers) — đồ hoạ kiểu "what if mascot": thẻ tiêu đề nền tối chữ serif, chữ vàng nhấn; nhãn số liệu góc trái (nhãn nhỏ + giá trị serif lớn);
+   bảng nhánh đấu tuần 11; thẻ "Week 11 · Game 1"; thẻ kết. Không logo, không chớp trắng. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Lora}
+.el{position:absolute;opacity:0}
+.gold{color:#e9b949;font-style:italic}
+#title{left:90px;top:150px;width:900px;padding:34px 40px;background:rgba(22,18,14,.86);border-radius:18px;color:#f4ece0;font-size:66px;line-height:1.15;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.lab{left:60px;top:300px;color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.75)}
+.lab small{display:block;font-family:Mono;font-size:28px;letter-spacing:4px;color:#e8dcc4;opacity:.9}
+.lab b{display:block;font-weight:600;font-size:88px;line-height:1.02}
+#game{left:200px;top:170px;width:680px;padding:22px 30px;background:rgba(22,18,14,.86);border-radius:16px;text-align:center;color:#f4ece0;font-size:58px}
+#bracket{left:0;top:0;width:1080px;height:1920px;background:linear-gradient(180deg,rgba(26,16,40,.93),rgba(14,10,24,.96))}
+#bracket h1{margin:150px 0 10px;text-align:center;font-weight:600;font-size:64px;color:#f4ece0}
+#bracket h2{margin:0 0 60px;text-align:center;font-family:Mono;font-size:30px;letter-spacing:6px;color:#e9b949}
+.pair{position:absolute;left:110px;width:860px;height:150px;display:flex;align-items:center;justify-content:space-between}
+.team{width:360px;height:118px;border:3px solid rgba(233,185,73,.55);border-radius:14px;background:rgba(255,255,255,.04);display:flex;flex-direction:column;justify-content:center;padding-left:26px;box-sizing:border-box;color:#f4ece0}
+.team small{font-family:Mono;font-size:26px;letter-spacing:3px;color:#e9b949}.team span{font-size:44px;font-style:italic}
+.vs{font-family:Mono;font-size:30px;color:#b8a9d8}
+#q{left:0;width:1080px;top:1580px;text-align:center;font-size:84px;color:#e9b949;font-style:italic}
+#end{left:90px;top:170px;width:900px;padding:30px 30px 34px;background:rgba(22,18,14,.88);border-radius:18px;text-align:center;color:#f4ece0}
+#end small{display:block;font-family:Mono;font-size:30px;letter-spacing:5px;color:#e9b949}
+#end b{display:block;font-weight:600;font-size:76px;line-height:1.1}
+#end i{display:block;font-size:44px;color:#e8dcc4;margin-top:8px}
+.card{left:70px;top:300px;width:940px;text-align:center}
+.card small{display:inline-block;font-family:Mono;font-size:34px;letter-spacing:4px;color:#f4ece0;background:rgba(22,18,14,.82);padding:10px 22px;border-radius:10px;position:relative}
+.card small:after{content:'';position:absolute;left:14px;right:14px;top:50%;height:5px;background:#e94949;transform:scaleX(var(--x,0));transform-origin:left}
+.card b{display:block;margin-top:14px;font-weight:600;font-style:italic;font-size:112px;line-height:1;color:#ffd56a;text-shadow:0 6px 18px rgba(0,0,0,.8)}
+.wm{position:absolute;left:0;width:1080px;top:1420px;text-align:center;font-family:Lora;font-style:italic;font-weight:700;font-size:48px;letter-spacing:1px;color:rgba(255,255,255,.96);-webkit-text-stroke:2px rgba(10,14,30,.9);paint-order:stroke fill;text-shadow:0 3px 10px rgba(0,0,0,.85)}
+</style></head><body>
+<div class="el" id="title">What if every NBA team<br>was its <span class="gold">actual mascot?</span></div>
+<div class="el card" id="c1"><small>CHICAGO BULLS</small><b>actual bulls</b></div>
+<div class="el card" id="c2"><small>HOUSTON ROCKETS</small><b>actual rockets</b></div>
+<div class="el card" id="c3"><small>PHOENIX SUNS</small><b>the actual sun</b></div>
+<div class="el" id="game">This weekend · <span class="gold">Game 1</span></div>
+<div class="el card" id="c4"><small>MILWAUKEE BUCKS</small><b>real deer</b></div>
+<div class="el card" id="c5"><small>PHILADELPHIA 76ERS</small><b>real 1776</b></div>
+<div class="el lab" id="r1"><small>REAL RECORD</small><b>MIL 1-14</b></div>
+<div class="el lab" id="r2"><small>REAL RECORD</small><b>PHI 13-3</b></div>
+<div class="el lab" id="f1"><small>FUN FACT · WHITETAIL</small><b>Clears 9 ft</b></div>
+<div class="el lab" id="f2"><small>NBA RIM</small><b>10 ft</b></div>
+<div class="el lab" id="sc1"><small>SCORE</small><b>MIL 8 · PHI 2</b></div>
+<div class="el lab" id="f3"><small>WHEN SCARED</small><b>White tail up</b></div>
+<div class="el lab" id="sc2"><small>SCORE</small><b>PHI 20 · MIL 8</b></div>
+<div class="el lab" id="f4"><small>FUN FACT · ANTLERS</small><b>Shed every year</b></div>
+<div class="el lab" id="f5"><small>SHED THIS SUMMER</small><b>6'11" · to Miami</b></div>
+<div class="el lab" id="f6"><small>LIBERTY BELL</small><b>Cracked</b></div>
+<div class="el lab" id="sc3"><small>SCORE · 0:01</small><b>PHI 99 · MIL 98</b></div>
+<div class="el lab" id="f7"><small>JUMP</small><b>9 ft · needs 10</b></div>
+<div class="el" id="end"><small>REAL GAME · SATURDAY 1 PM ET</small><b>Antlers <span class="gold">or</span> the Declaration?</b><i>Comment who wins</i></div>
+<div class="wm">Literal Mascots</div>
+<script type="module">
+import {SH,END} from './ep24_shots.js';
+const TL=[['title',0,3.3],['c1',3.42,5.3],['c2',5.44,7.56],['c3',7.7,10.6],['game',10.76,12.3],['c4',12.46,14.18],['c5',14.32,17.9],['r1',22.64,27.2],['r2',27.36,29.76],
+ ['f1',30.9,33.62],['f2',33.78,37.6],['sc1',50.8,52.14],['f3',54.42,57.76],['sc2',59.62,60.8],['f4',62.2,64.56],['f5',65.34,67.82],['f6',70.98,72.94],['sc3',76.64,78.16],['f7',80.66,82.14],['end',90.2,END]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{for(const [id,a,b] of TL){const e=$(id);const on=t>=a&&t<b;const k=on?ease(cl((t-a)/0.3)):0;const out=on?cl((b-t)/0.15):0;
+  e.style.opacity=on?Math.min(cl((t-a)/0.15),out):0;
+  if(id==='bracket'){e.style.opacity=on?Math.min(cl((t-a)/0.25),cl((b-t)/0.2)):0;e.querySelectorAll('.pair').forEach((p,i)=>{const kk=ease(cl((t-a-0.12*i)/0.3));p.style.opacity=kk;p.style.transform=`translateX(${(1-kk)*(i%2?120:-120)}px)`;});}
+  else if(e.classList.contains('card')){const sm_=e.querySelector('small');sm_.style.setProperty('--x',cl((t-a-0.35)/0.25));const b_=e.querySelector('b');const kb=ease(cl((t-a-0.45)/0.2));b_.style.opacity=kb;b_.style.transform=`scale(${1.4-0.4*kb})`;e.style.transform='';}
+  else if(e.classList.contains('lab'))e.style.transform=`translateX(${(1-k)*-60}px)`;
+  else e.style.transform=`translateY(${(1-k)*-40}px)`;}};
+</script></body></html>

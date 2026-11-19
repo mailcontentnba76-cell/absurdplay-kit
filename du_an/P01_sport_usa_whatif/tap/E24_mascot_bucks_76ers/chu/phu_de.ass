@@ -1,0 +1,110 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Lora,64,&H00F0F8FF,&H000000FF,&H00201810,&H96000000,-1,-1,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.92,Cap,,0,0,0,,What if every
+Dialogue: 0,0:00:00.92,0:00:01.86,Cap,,0,0,0,,NBA team was
+Dialogue: 0,0:00:01.86,0:00:03.42,Cap,,0,0,0,,its actual mascot?
+Dialogue: 0,0:00:03.42,0:00:04.32,Cap,,0,0,0,,The Bulls?
+Dialogue: 0,0:00:04.32,0:00:05.44,Cap,,0,0,0,,Actual bulls.
+Dialogue: 0,0:00:05.44,0:00:06.34,Cap,,0,0,0,,The Rockets?
+Dialogue: 0,0:00:06.34,0:00:07.70,Cap,,0,0,0,,Actual rockets.
+Dialogue: 0,0:00:07.70,0:00:08.54,Cap,,0,0,0,,The Suns?
+Dialogue: 0,0:00:08.54,0:00:09.88,Cap,,0,0,0,,The actual sun.
+Dialogue: 0,0:00:09.88,0:00:10.76,Cap,,0,0,0,,Good luck!
+Dialogue: 0,0:00:10.76,0:00:11.74,Cap,,0,0,0,,This weekend,
+Dialogue: 0,0:00:11.74,0:00:12.46,Cap,,0,0,0,,game one.
+Dialogue: 0,0:00:12.46,0:00:13.42,Cap,,0,0,0,,The Bucks?
+Dialogue: 0,0:00:13.42,0:00:14.32,Cap,,0,0,0,,Real deer.
+Dialogue: 0,0:00:14.32,0:00:15.16,Cap,,0,0,0,,The Sixers?
+Dialogue: 0,0:00:15.16,0:00:16.12,Cap,,0,0,0,,Real Philadelphians
+Dialogue: 0,0:00:16.12,0:00:18.06,Cap,,0,0,0,,from 1776.
+Dialogue: 0,0:00:18.06,0:00:18.70,Cap,,0,0,0,,Wigs, three-
+Dialogue: 0,0:00:18.70,0:00:19.48,Cap,,0,0,0,,cornered hats,
+Dialogue: 0,0:00:19.48,0:00:20.80,Cap,,0,0,0,,the whole Declaration.
+Dialogue: 0,0:00:20.80,0:00:21.54,Cap,,0,0,0,,On paper,
+Dialogue: 0,0:00:21.54,0:00:22.64,Cap,,0,0,0,,it's a massacre.
+Dialogue: 0,0:00:22.64,0:00:23.40,Cap,,0,0,0,,In real life,
+Dialogue: 0,0:00:23.40,0:00:25.46,Cap,,0,0,0,,Milwaukee is 1-14.
+Dialogue: 0,0:00:25.46,0:00:25.90,Cap,,0,0,0,,Worst start
+Dialogue: 0,0:00:25.90,0:00:27.36,Cap,,0,0,0,,in team history.
+Dialogue: 0,0:00:27.36,0:00:27.84,Cap,,0,0,0,,Philly?
+Dialogue: 0,0:00:27.84,0:00:28.98,Cap,,0,0,0,,13-3.
+Dialogue: 0,0:00:28.98,0:00:29.90,Cap,,0,0,0,,First in the East.
+Dialogue: 0,0:00:29.90,0:00:30.90,Cap,,0,0,0,,Tip-off.
+Dialogue: 0,0:00:30.90,0:00:31.74,Cap,,0,0,0,,Fun fact.
+Dialogue: 0,0:00:31.74,0:00:32.28,Cap,,0,0,0,,A buck can
+Dialogue: 0,0:00:32.28,0:00:33.78,Cap,,0,0,0,,clear a 9-foot fence.
+Dialogue: 0,0:00:33.78,0:00:34.10,Cap,,0,0,0,,The rim
+Dialogue: 0,0:00:34.10,0:00:35.22,Cap,,0,0,0,,is 10 feet.
+Dialogue: 0,0:00:35.22,0:00:36.34,Cap,,0,0,0,,So every dunk...
+Dialogue: 0,0:00:36.34,0:00:37.76,Cap,,0,0,0,,1 foot short.
+Dialogue: 0,0:00:37.76,0:00:38.20,Cap,,0,0,0,,Clang!
+Dialogue: 0,0:00:38.20,0:00:39.12,Cap,,0,0,0,,Clang!
+Dialogue: 0,0:00:39.12,0:00:40.06,Cap,,0,0,0,,Sixers ball.
+Dialogue: 0,0:00:40.06,0:00:41.18,Cap,,0,0,0,,They don't run plays.
+Dialogue: 0,0:00:41.18,0:00:42.14,Cap,,0,0,0,,They draft them.
+Dialogue: 0,0:00:42.14,0:00:42.66,Cap,,0,0,0,,On parchment
+Dialogue: 0,0:00:42.66,0:00:44.08,Cap,,0,0,0,,with a quill.
+Dialogue: 0,0:00:44.08,0:00:45.34,Cap,,0,0,0,,Shot clock violation.
+Dialogue: 0,0:00:45.34,0:00:45.80,Cap,,0,0,0,,So the Bucks
+Dialogue: 0,0:00:45.80,0:00:46.48,Cap,,0,0,0,,use the one
+Dialogue: 0,0:00:46.48,0:00:47.82,Cap,,0,0,0,,thing they've got.
+Dialogue: 0,0:00:47.82,0:00:48.42,Cap,,0,0,0,,Speed.
+Dialogue: 0,0:00:48.42,0:00:49.80,Cap,,0,0,0,,40 miles an hour.
+Dialogue: 0,0:00:49.80,0:00:50.80,Cap,,0,0,0,,Coast to coast.
+Dialogue: 0,0:00:50.80,0:00:52.28,Cap,,0,0,0,,Bucks lead, 8-2.
+Dialogue: 0,0:00:52.28,0:00:53.30,Cap,,0,0,0,,Then Philly rings
+Dialogue: 0,0:00:53.30,0:00:54.42,Cap,,0,0,0,,the Liberty Bell.
+Dialogue: 0,0:00:54.42,0:00:54.82,Cap,,0,0,0,,Deer flash
+Dialogue: 0,0:00:54.82,0:00:55.50,Cap,,0,0,0,,their white tails
+Dialogue: 0,0:00:55.50,0:00:56.64,Cap,,0,0,0,,when they're scared.
+Dialogue: 0,0:00:56.64,0:00:57.90,Cap,,0,0,0,,Five white flags.
+Dialogue: 0,0:00:57.90,0:00:58.38,Cap,,0,0,0,,Five bucks
+Dialogue: 0,0:00:58.38,0:00:59.62,Cap,,0,0,0,,off the court.
+Dialogue: 0,0:00:59.62,0:01:00.92,Cap,,0,0,0,,Sixers, 20-8.
+Dialogue: 0,0:01:00.92,0:01:01.22,Cap,,0,0,0,,Here's the
+Dialogue: 0,0:01:01.22,0:01:02.20,Cap,,0,0,0,,thing about bucks.
+Dialogue: 0,0:01:02.20,0:01:02.62,Cap,,0,0,0,,They lose
+Dialogue: 0,0:01:02.62,0:01:03.20,Cap,,0,0,0,,their antlers
+Dialogue: 0,0:01:03.20,0:01:04.70,Cap,,0,0,0,,every single year.
+Dialogue: 0,0:01:04.70,0:01:05.34,Cap,,0,0,0,,This summer,
+Dialogue: 0,0:01:05.34,0:01:06.18,Cap,,0,0,0,,Milwaukee lost a
+Dialogue: 0,0:01:06.18,0:01:07.96,Cap,,0,0,0,,6'11" Greek one.
+Dialogue: 0,0:01:07.96,0:01:08.86,Cap,,0,0,0,,Fourth quarter.
+Dialogue: 0,0:01:08.86,0:01:09.28,Cap,,0,0,0,,Philly rings
+Dialogue: 0,0:01:09.28,0:01:10.42,Cap,,0,0,0,,the bell again.
+Dialogue: 0,0:01:10.42,0:01:10.98,Cap,,0,0,0,,Crack!
+Dialogue: 0,0:01:10.98,0:01:12.14,Cap,,0,0,0,,It's the Liberty Bell.
+Dialogue: 0,0:01:12.14,0:01:13.30,Cap,,0,0,0,,Of course it cracked.
+Dialogue: 0,0:01:13.30,0:01:14.20,Cap,,0,0,0,,No sound.
+Dialogue: 0,0:01:14.20,0:01:15.40,Cap,,0,0,0,,No scared deer.
+Dialogue: 0,0:01:15.40,0:01:16.64,Cap,,0,0,0,,Bucks storm back.
+Dialogue: 0,0:01:16.64,0:01:17.48,Cap,,0,0,0,,Down one.
+Dialogue: 0,0:01:17.48,0:01:18.30,Cap,,0,0,0,,Last shot.
+Dialogue: 0,0:01:18.30,0:01:19.06,Cap,,0,0,0,,One buck takes
+Dialogue: 0,0:01:19.06,0:01:19.76,Cap,,0,0,0,,off from the
+Dialogue: 0,0:01:19.76,0:01:20.66,Cap,,0,0,0,,free throw line.
+Dialogue: 0,0:01:20.66,0:01:21.38,Cap,,0,0,0,,Nine feet.
+Dialogue: 0,0:01:21.38,0:01:22.28,Cap,,0,0,0,,He needs ten.
+Dialogue: 0,0:01:22.28,0:01:22.48,Cap,,0,0,0,,The Sixers
+Dialogue: 0,0:01:22.36,0:01:23.32,Cap,,0,0,0,,unroll
+Dialogue: 0,0:01:23.32,0:01:24.50,Cap,,0,0,0,,the Declaration.
+Dialogue: 0,0:01:24.50,0:01:24.94,Cap,,0,0,0,,All men
+Dialogue: 0,0:01:24.94,0:01:26.42,Cap,,0,0,0,,are created equal.
+Dialogue: 0,0:01:26.42,0:01:26.94,Cap,,0,0,0,,The ref looks
+Dialogue: 0,0:01:26.94,0:01:27.78,Cap,,0,0,0,,at the deer.
+Dialogue: 0,0:01:27.78,0:01:28.70,Cap,,0,0,0,,You're not men.
+Dialogue: 0,0:01:28.70,0:01:29.30,Cap,,0,0,0,,That's Saturday
+Dialogue: 0,0:01:29.30,0:01:30.20,Cap,,0,0,0,,in Philly.
+Dialogue: 0,0:01:30.20,0:01:30.96,Cap,,0,0,0,,Antlers, or
+Dialogue: 0,0:01:30.96,0:01:32.04,Cap,,0,0,0,,the Declaration?
+Dialogue: 0,0:01:32.04,0:01:33.10,Cap,,0,0,0,,Comment who wins.
