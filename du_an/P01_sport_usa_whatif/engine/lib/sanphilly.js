@@ -59,7 +59,7 @@ function courtside(G, z, x0, x1, ry) { const geo = []; const c = std('#a01c2c', 
   const g = new THREE.Group(); g.position.z = z; g.rotation.y = ry; G.add(g); for (const b of geo) g.add(new THREE.Mesh(b, c)); return g; }
 
 export function buildHall(scene) {
-  scene.background = new THREE.Color('#0b0e15'); scene.fog = new THREE.Fog('#10141e', 45, 120);
+  scene.background = new THREE.Color('#0b0e15'); scene.fog = new THREE.Fog('#1a2030', 55, 140);
   const G = new THREE.Group(); scene.add(G);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(CL + 4, CW + 4), new THREE.MeshStandardMaterial({ map: courtTex(), roughness: 0.3, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }));
   floor.rotation.x = -Math.PI / 2; floor.position.y = 0.005; floor.receiveShadow = true; G.add(floor);
@@ -86,12 +86,44 @@ export function buildHall(scene) {
   // ghế sát sân + bàn thư ký (biên +z) + băng ghế hai đội (biên −z)
   courtside(G, CW / 2 + 2.3, -12, 12, Math.PI); courtside(G, -(CW / 2 + 2.3), -12, -3.5, 0); courtside(G, -(CW / 2 + 2.3), 3.5, 12, 0);
   const table = new THREE.Mesh(new THREE.BoxGeometry(9, 0.85, 0.7), [std('#111'), std('#111'), std('#111'), std('#111'), ledM, std('#111')]); table.position.set(0, 0.43, CW / 2 + 1.5); table.rotation.y = Math.PI; G.add(table);
-  // trần tối + giàn đèn (catwalk) phát sáng
-  const roof = new THREE.Mesh(new THREE.PlaneGeometry(120, 100), std('#141a28', { roughness: 1 })); roof.rotation.x = Math.PI / 2; roof.position.y = 32; G.add(roof);
+  // ===== MÁI TRONG NHÀ (tối nhưng thấy chi tiết): tường bao + dãy phòng VIP sáng đèn, trần panel xám xanh, kèo thép, lối đi kỹ thuật, giàn đèn, loa, cờ treo =====
+  const RY = 27, WX = Xr + 14 * 0.8 + 2.5, WZ = Zr + 14 * 0.8 + 2.5;
+  const panel = canvasTex(512, 512, (g, W, H) => { g.fillStyle = '#2c3446'; g.fillRect(0, 0, W, H); g.strokeStyle = '#3c465c'; g.lineWidth = 6; for (let i = 0; i <= W; i += 64) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, H); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(W, i); g.stroke(); }
+    for (let i = 0; i < 300; i++) { g.fillStyle = `rgba(255,255,255,${Math.random() * 0.04})`; g.fillRect(Math.random() * W, Math.random() * H, 30, 30); } }, [10, 8]);
+  const roof = new THREE.Mesh(new THREE.PlaneGeometry(2 * WX, 2 * WZ), new THREE.MeshStandardMaterial({ map: panel, roughness: 0.95, emissive: '#1c2232', emissiveIntensity: 0.6 })); roof.rotation.x = Math.PI / 2; roof.position.y = RY; G.add(roof);
+  // tường bao sau tầng trên: bê tông xám + dải phòng VIP kính sáng vàng + dải LED mỏng
+  const suite = canvasTex(1024, 128, (g, W, H) => { g.fillStyle = '#1a1e28'; g.fillRect(0, 0, W, H); for (let k = 0; k < 24; k++) { const x = k * W / 24 + 4; const gr = g.createLinearGradient(0, 20, 0, H - 20); gr.addColorStop(0, '#ffe2a8'); gr.addColorStop(1, '#d89a50'); g.fillStyle = gr; g.fillRect(x, 22, W / 24 - 8, H - 44);
+    g.fillStyle = 'rgba(30,20,10,0.55)'; for (let p = 0; p < 3; p++) g.fillRect(x + 6 + p * 12, 62 + (p % 2) * 6, 7, 40); } }, [1, 1]);
+  const conc = std('#3a404c', { roughness: 0.95 }); const suiteM = new THREE.MeshBasicMaterial({ map: suite, toneMapped: false });
+  for (const [x, z, ry, len] of [[0, -WZ, 0, 2 * WX], [0, WZ, Math.PI, 2 * WX], [-WX, 0, Math.PI / 2, 2 * WZ], [WX, 0, -Math.PI / 2, 2 * WZ]]) {
+    const w = new THREE.Mesh(new THREE.PlaneGeometry(len, RY), conc); w.position.set(x, RY / 2, z); w.rotation.y = ry; G.add(w);
+    const nx = Math.sin(ry) * 0.05, nz = Math.cos(ry) * 0.05;
+    const sw = new THREE.Mesh(new THREE.PlaneGeometry(len, 2.4), suiteM); sw.position.set(x + nx, 19.4, z + nz); sw.rotation.y = ry; G.add(sw);
+    const lb = new THREE.Mesh(new THREE.PlaneGeometry(len, 0.5), ledM); lb.position.set(x + nx * 2, 21.2, z + nz * 2); lb.rotation.y = ry; G.add(lb); }
+  // kèo thép: dầm hộp chạy dọc/ngang + thanh chéo, ngay dưới trần
+  const steel = std('#7a8496', { metalness: 0.6, roughness: 0.45 });
+  for (let x = -WX + 6; x < WX; x += 9) { const bm = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1.6, 2 * WZ), steel); bm.position.set(x, RY - 1.0, 0); G.add(bm);
+    const bl = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 2 * WZ), steel); bl.position.set(x, RY - 2.6, 0); G.add(bl);
+    for (let z = -WZ + 3; z < WZ; z += 6) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.14, 2.2, 0.14), steel); d.position.set(x, RY - 1.8, z); d.rotation.x = (z / 6 | 0) % 2 ? 0.7 : -0.7; G.add(d); } }
+  for (let z = -WZ + 6; z < WZ; z += 10) { const bm = new THREE.Mesh(new THREE.BoxGeometry(2 * WX, 1.0, 0.4), steel); bm.position.set(0, RY - 0.7, z); G.add(bm); }
+  // lối đi kỹ thuật (catwalk) vòng chữ nhật + giàn đèn rọi sân phát sáng
   const lamp = new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: '#fff4e0', emissiveIntensity: 3 });
+  const cw = std('#4a5262', { metalness: 0.5, roughness: 0.5 });
+  for (const s of [-1, 1]) { const a1 = new THREE.Mesh(new THREE.BoxGeometry(40, 0.2, 1.4), cw); a1.position.set(0, RY - 4.2, s * 15); G.add(a1); const a2 = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.2, 30), cw); a2.position.set(s * 20, RY - 4.2, 0); G.add(a2);
+    const r1 = new THREE.Mesh(new THREE.BoxGeometry(40, 0.06, 0.06), steel); r1.position.set(0, RY - 3.2, s * 15.7); G.add(r1); }
   const chand = [];
-  for (const x of [-16, -8, 0, 8, 16]) for (const z of [-11, 11]) { const b = new THREE.Mesh(new THREE.BoxGeometry(5, 0.3, 0.6), lamp); b.position.set(x, 26, z); G.add(b); }
+  for (const x of [-18, -10, -2, 6, 14]) for (const z of [-15, 15]) { const rig = new THREE.Group(); rig.position.set(x + 2, RY - 4.6, z); G.add(rig);
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(5, 0.25, 0.4), cw); rig.add(bar);
+    for (let k = 0; k < 6; k++) { const can = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.28, 0.5, 12), std('#20242c', { metalness: 0.5 })); can.position.set(-2.1 + k * 0.84, -0.4, 0); can.rotation.x = z > 0 ? 0.5 : -0.5; rig.add(can);
+      const ln = new THREE.Mesh(new THREE.CircleGeometry(0.2, 14), lamp); ln.position.set(-2.1 + k * 0.84, -0.66, z > 0 ? -0.12 : 0.12); ln.rotation.x = Math.PI / 2 + (z > 0 ? 0.5 : -0.5); rig.add(ln); } }
   chand.push({ userData: { flame: lamp } });
+  // cụm loa treo 4 phía màn hình + cờ treo trên trần (hư cấu, không danh hiệu thật)
+  for (const [x, z] of [[6, 0], [-6, 0], [0, 5], [0, -5]]) { const sp = new THREE.Mesh(new THREE.BoxGeometry(1.2, 2.4, 1.2), std('#15181f', { roughness: 0.6 })); sp.position.set(x, JUMBO + 1.4, z); G.add(sp); }
+  const flags = ['PHILADELPHIA', '1776', 'LIBERTY', 'EST. 1776', 'GAME 1'];
+  flags.forEach((f, i) => { const tx = canvasTex(256, 512, (g, W, H) => { g.fillStyle = i % 2 ? RED : BLUE; g.fillRect(0, 0, W, H); g.fillStyle = '#ffffff'; g.fillRect(14, 14, W - 28, 6); g.fillRect(14, H - 20, W - 28, 6);
+      g.save(); g.translate(W / 2, H / 2); g.rotate(-Math.PI / 2); g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '900 64px Anton, Impact, sans-serif'; g.fillText(f, 0, 0, H - 60); g.restore(); });
+    const fl = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 4.4), new THREE.MeshStandardMaterial({ map: tx, roughness: 0.9, side: THREE.DoubleSide, emissive: '#ffffff', emissiveMap: tx, emissiveIntensity: 0.25 }));
+    fl.position.set(-16 + i * 8, RY - 5.2, -(WZ - 6)); G.add(fl); });
   // màn hình treo + chuông ngay dưới
   const J = jumbotron(); J.G.position.set(0, JUMBO, 0); G.add(J.G);
   const bell = libertyBell(2.1); bell.position.set(0, BELLY, 0); bell.rotation.y = Math.PI / 2; G.add(bell);
@@ -100,6 +132,7 @@ export function buildHall(scene) {
 }
 export function hallLights(scene, P) {
   const hemi = new THREE.HemisphereLight('#d8e0f0', '#2a2620', 1.9); scene.add(hemi);
+  const up = new THREE.DirectionalLight('#aab8d8', 1.2); up.position.set(0, -10, 0); up.target.position.set(0, 30, 0); scene.add(up); scene.add(up.target); // hắt ngược lên trần
   const key = new THREE.DirectionalLight('#fff4e6', 4.4); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
   Object.assign(key.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, near: 1, far: 90 }); key.shadow.bias = -0.0004; key.shadow.radius = 3; scene.add(key); scene.add(key.target);
   const fill = new THREE.DirectionalLight('#e4ecff', 1.6); fill.position.set(14, 18, 20); scene.add(fill);
