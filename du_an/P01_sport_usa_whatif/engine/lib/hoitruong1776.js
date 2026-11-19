@@ -15,10 +15,10 @@ const NAVY = '#1f2f5a', CREAM = '#efe4c8', BRICK = '#9a3a2a';
 function courtTex() {
   return canvasTex(4096, 2414, (g, X, Y) => { const px = X / (CL + 4), M = 2 * px;
     g.fillStyle = '#6a3a22'; g.fillRect(0, 0, X, Y);
-    for (let y = 0; y < Y; y += px * 0.075) { for (let x = 0; x < X;) { const l = px * (1.0 + Math.random() * 2.6); const v = Math.random(); g.fillStyle = `hsl(${28 + v * 6},${48 + v * 12}%,${60 + v * 10}%)`; g.fillRect(x, y, l, px * 0.075 - 1); x += l; } }
+    for (let y = 0; y < Y; y += px * 0.075) { for (let x = 0; x < X;) { const l = px * (1.0 + Math.random() * 2.6); const v = Math.random(); g.fillStyle = `hsl(${32 + v * 6},${52 + v * 10}%,${66 + v * 7}%)`; g.fillRect(x, y, l, px * 0.075 - 1); x += l; } }
     g.fillStyle = 'rgba(70,35,10,0.06)'; for (let i = 0; i < 9000; i++) g.fillRect(Math.random() * X, Math.random() * Y, px * 0.3, 1);
     // viền ngoài sân sơn đỏ gạch
-    g.fillStyle = 'rgba(122,40,28,0.92)'; g.fillRect(0, 0, X, M); g.fillRect(0, Y - M, X, M); g.fillRect(0, 0, M, Y); g.fillRect(X - M, 0, M, Y);
+    g.fillStyle = 'rgba(31,47,90,0.95)'; g.fillRect(0, 0, X, M); g.fillRect(0, Y - M, X, M); g.fillRect(0, 0, M, Y); g.fillRect(X - M, 0, M, Y);
     const cx = X / 2, cy = Y / 2, lw = px * 0.05; g.strokeStyle = CREAM; g.lineWidth = lw; g.strokeRect(M, M, CL * px, CW * px);
     g.beginPath(); g.moveTo(cx, M); g.lineTo(cx, Y - M); g.stroke();
     g.fillStyle = NAVY; g.beginPath(); g.arc(cx, cy, 1.83 * px, 0, Math.PI * 2); g.fill(); g.stroke();
@@ -68,36 +68,38 @@ function boardHung() { const H = new THREE.Group(); const cv = document.createEl
   draw({ a: 0, b: 0, clock: 'Q1' }); return { G: H, draw }; }
 
 export function buildHall(scene) {
-  scene.background = new THREE.Color('#2a1e18'); scene.fog = new THREE.Fog('#3a2a22', 70, 160);
+  scene.background = new THREE.Color('#b8ccbc'); scene.fog = new THREE.Fog('#c4d2c4', 80, 170);
   const G = new THREE.Group(); scene.add(G); const { X, Z, H } = HALL;
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(CL + 4, CW + 4), new THREE.MeshStandardMaterial({ map: courtTex(), roughness: 0.35, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }));
   floor.rotation.x = -Math.PI / 2; floor.position.y = 0.005; floor.receiveShadow = true; G.add(floor);
-  const planks = canvasTex(256, 256, (g, W, Hh) => { g.fillStyle = '#5a3420'; g.fillRect(0, 0, W, Hh); for (let y = 0; y < Hh; y += 16) { g.fillStyle = `rgba(30,15,5,${0.15 + Math.random() * 0.15})`; g.fillRect(0, y, W, 2); } }, [20, 16]);
+  const planks = canvasTex(256, 256, (g, W, Hh) => { g.fillStyle = '#b8946a'; g.fillRect(0, 0, W, Hh); for (let y = 0; y < Hh; y += 16) { g.fillStyle = `rgba(60,35,15,${0.1 + Math.random() * 0.1})`; g.fillRect(0, y, W, 2); } }, [20, 16]);
   const outer = new THREE.Mesh(new THREE.PlaneGeometry(2 * X, 2 * Z), std('#ffffff', { map: planks, roughness: 0.7 })); outer.rotation.x = -Math.PI / 2; outer.position.y = -0.06; outer.receiveShadow = true; G.add(outer);
   const hoops = [hoop(1, { pad: '#7a2a1e' }), hoop(-1, { pad: '#7a2a1e' })]; hoops[0].position.set(CL / 2 - 1.22, 0, 0); hoops[1].position.set(-(CL / 2 - 1.22), 0, 0); hoops.forEach((h) => G.add(h));
   // tường gạch 4 phía + ốp chân trắng + trụ ốp trắng + cửa sổ vòm
-  const wmat = (len) => std('#ffffff', { map: brickTex([len / 3.2, H / 3.2]), roughness: 0.92 });
-  const white = std('#f6f2ea', { roughness: 0.6 });
+  const wmat = (len) => std('#8fb39c', { roughness: 0.95 });
+  const bmat = (len) => std('#ffffff', { map: brickTex([len / 3.2, 2.6 / 3.2]), roughness: 0.92 });
+  const white = std('#fbf9f4', { roughness: 0.6, emissive: '#ffffff', emissiveIntensity: 0.12 });
   const walls = [[0, -Z, 0, 2 * X], [0, Z, Math.PI, 2 * X], [-X, 0, Math.PI / 2, 2 * Z], [X, 0, -Math.PI / 2, 2 * Z]];
   for (const [x, z, ry, len] of walls) { const w = new THREE.Mesh(new THREE.PlaneGeometry(len, H), wmat(len)); w.position.set(x, H / 2, z); w.rotation.y = ry; w.receiveShadow = true; G.add(w);
     const nrm = new THREE.Vector3(Math.sin(ry), 0, Math.cos(ry)); const tg = new THREE.Vector3(Math.cos(ry), 0, -Math.sin(ry));
-    const wain = new THREE.Mesh(new THREE.BoxGeometry(len, 1.4, 0.12), white); wain.position.set(x + nrm.x * 0.06, 0.7, z + nrm.z * 0.06); wain.rotation.y = ry; G.add(wain);
+    const brk = new THREE.Mesh(new THREE.PlaneGeometry(len, 2.6), bmat(len)); brk.position.set(x + nrm.x * 0.03, 1.3, z + nrm.z * 0.03); brk.rotation.y = ry; G.add(brk);
+    const wain = new THREE.Mesh(new THREE.BoxGeometry(len, 0.3, 0.14), white); wain.position.set(x + nrm.x * 0.07, 2.6, z + nrm.z * 0.07); wain.rotation.y = ry; G.add(wain);
     const cor = new THREE.Mesh(new THREE.BoxGeometry(len, 0.5, 0.5), white); cor.position.set(x + nrm.x * 0.2, H - 0.25, z + nrm.z * 0.2); cor.rotation.y = ry; G.add(cor);
     const n = Math.floor(len / 6.2); for (let i = 0; i < n; i++) { const u = -len / 2 + (i + 0.5) * len / n;
       const pil = new THREE.Mesh(new THREE.BoxGeometry(0.55, H, 0.22), white); const pu = u - len / n / 2; pil.position.set(x + tg.x * pu + nrm.x * 0.11, H / 2, z + tg.z * pu + nrm.z * 0.11); pil.rotation.y = ry; G.add(pil);
       const win = windowArch(2.4, 5.6); win.position.set(x + tg.x * u + nrm.x * 0.04, 7.6, z + tg.z * u + nrm.z * 0.04); win.rotation.y = ry; G.add(win); } }
   // trần ô kẹp trắng kem
-  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(2 * X, 2 * Z), std('#efe6d4', { roughness: 0.9 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = H; G.add(ceil);
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(2 * X, 2 * Z), std('#f6f3ec', { roughness: 0.9, emissive: '#f2ede2', emissiveIntensity: 0.3 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = H; G.add(ceil);
   for (let x = -X + 4; x < X; x += 4) { const b = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.5, 2 * Z), white); b.position.set(x, H - 0.25, 0); G.add(b); }
   for (let z = -Z + 4; z < Z; z += 4) { const b = new THREE.Mesh(new THREE.BoxGeometry(2 * X, 0.5, 0.3), white); b.position.set(0, H - 0.25, z); G.add(b); }
   // khán đài gỗ tầng trệt (2 biên dọc) + ban công gỗ lan can trắng
   const U = { uT: { value: 0 }, uCheer: { value: 0.25 }, uSleep: { value: 0 }, uBoo: { value: 0 } };
   const fans = { shirts: [NAVY, '#7a1f2a', CREAM, '#f2f0ea', NAVY, '#2f4a36', '#2f7a3a', '#7a1f2a', '#c8a860', NAVY], skins: ['#f1c9a5', '#c68c5f', '#9a6040', '#8a5634', '#e8b98f'], pants: ['#1a1a20', '#e8dcc0', '#3b3b3b'], hats: ['#151515', '#151515', '#2a1a10', '#f2f0ea'] };
-  const wood = { seatColor: '#8a5a32', frameColor: '#4a2e18' };
+  const wood = { seatColor: '#2e4684', frameColor: '#e8e4da' };
   for (const s of [-1, 1]) {
     bleachers(G, s, { U, fill: 0.86, seed: 41 + s * 3, rows: 7, len: 34, x0: 0, z0: s * (CW / 2 + 3.4), ...wood, ...fans, banner: 'PHILADELPHIA', bannerBg: '#1f2f5a', bannerFg: CREAM });
     bleachers(G, s, { U, fill: 0.8, seed: 61 + s * 3, rows: 5, len: 40, x0: 0, y0: 6.0, z0: s * (CW / 2 + 3.4 + 7 * 0.78 + 1.2), ...wood, ...fans });
-    const deck = new THREE.Mesh(new THREE.BoxGeometry(44, 0.4, 3.2), std('#6a4428')); deck.position.set(0, 6.6, s * (CW / 2 + 3.4 + 7 * 0.78 + 0.2)); G.add(deck);
+    const deck = new THREE.Mesh(new THREE.BoxGeometry(44, 0.4, 3.2), std('#e8e4da')); deck.position.set(0, 6.6, s * (CW / 2 + 3.4 + 7 * 0.78 + 0.2)); G.add(deck);
     const rail = new THREE.Mesh(new THREE.BoxGeometry(44, 0.12, 0.16), white); rail.position.set(0, 7.75, s * (CW / 2 + 3.4 + 7 * 0.78 - 1.2)); G.add(rail);
     for (let x = -22; x <= 22; x += 0.5) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.95, 6), white); b.position.set(x, 7.27, s * (CW / 2 + 3.4 + 7 * 0.78 - 1.2)); G.add(b); }
     const fas = new THREE.Mesh(new THREE.BoxGeometry(44, 0.6, 0.2), std(NAVY)); fas.position.set(0, 6.5, s * (CW / 2 + 3.4 + 7 * 0.78 - 1.4)); G.add(fas);
@@ -114,14 +116,15 @@ export function buildHall(scene) {
   return { G, hoops, crowd: U, bell, center: board, chand, floor };
 }
 export function hallLights(scene, P) {
-  const hemi = new THREE.HemisphereLight('#fff2e2', '#7a5238', 2.7); scene.add(hemi);
+  const hemi = new THREE.HemisphereLight('#ffffff', '#a89070', 2.6); scene.add(hemi);
   // nắng chiều đông xiên qua cửa sổ vòm phía −z
-  const key = new THREE.DirectionalLight('#ffd9a8', 3.6); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+  const key = new THREE.DirectionalLight('#fff1dc', 3.8); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
   Object.assign(key.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, near: 1, far: 90 }); key.shadow.bias = -0.0004; key.shadow.radius = 3; scene.add(key); scene.add(key.target);
-  const fill = new THREE.DirectionalLight('#dfe6ff', 1.5); fill.position.set(14, 18, 20); scene.add(fill);
+  const fill = new THREE.DirectionalLight('#e4ecff', 1.7); fill.position.set(14, 18, 20); scene.add(fill);
+  const rim = new THREE.DirectionalLight('#ffffff', 2.2); scene.add(rim); scene.add(rim.target);
   const area = (x, z, cp) => { key.target.position.set(x, 0, z); if (!cp) { key.position.set(x - 14, 26, z - 22); return; }
-    const d = new THREE.Vector3(cp.x - x, 0, cp.z - z); if (d.lengthSq() < 1e-4) d.set(0, 0, 1); d.normalize().applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.75).multiplyScalar(22); key.position.set(x + d.x, 26, z + d.z); };
-  const lamps = (k) => { P.chand.forEach((c) => { c.userData.flame.emissiveIntensity = 0.4 + 2.6 * k; }); hemi.intensity = 2.0 + 0.8 * k; };
-  area(0, 0); lamps(1); return { hemi, key, fill, area, lamps };
+    const d = new THREE.Vector3(cp.x - x, 0, cp.z - z); if (d.lengthSq() < 1e-4) d.set(0, 0, 1); d.normalize().applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.75).multiplyScalar(22); key.position.set(x + d.x, 26, z + d.z); rim.target.position.set(x, 1, z); rim.position.set(x - d.x * 0.9, 9, z - d.z * 0.9); };
+  const lamps = (k) => { P.chand.forEach((c) => { c.userData.flame.emissiveIntensity = 0.4 + 2.6 * k; }); hemi.intensity = 2.0 + 0.6 * k; };
+  area(0, 0); lamps(1); return { hemi, key, fill, rim, area, lamps };
 }
 export { basketball };

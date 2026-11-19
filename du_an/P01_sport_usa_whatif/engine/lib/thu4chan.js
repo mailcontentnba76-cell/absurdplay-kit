@@ -9,7 +9,7 @@ function mesh(geo, mat, p = [0, 0, 0], r = [0, 0, 0], s = [1, 1, 1]) { const m =
 const SPH = new THREE.SphereGeometry(1, 24, 16);
 const CAP = (r, l) => new THREE.CapsuleGeometry(r, l, 6, 14);
 
-export const DEER = { kind: 'deer', fur: '#8f6c4c', dark: '#5e4430', white: '#f2eee6', nose: '#1c1612', hoof: '#2a2420', antler: '#e2d3ae',
+export const DEER = { kind: 'deer', fur: '#7a6150', dark: '#4a3a30', white: '#fbfaf6', nose: '#1c1612', hoof: '#2a2420', antler: '#e2d3ae',
   bodyLen: 0.92, bodyR: 0.23, legs: [0.31, 0.29, 0.25], legR: 0.05, neckLen: 0.42, neckR: 0.09, headLen: 0.34, headR: 0.12, antlers: 4, tail: 'flag', ears: 'long', band: null };
 export const BULL = { kind: 'bull', fur: '#2a2220', dark: '#151110', white: '#3a302c', nose: '#5a4a44', hoof: '#151110', antler: '#e8e0cc',
   bodyLen: 1.25, bodyR: 0.36, legs: [0.3, 0.27, 0.2], legR: 0.08, neckLen: 0.22, neckR: 0.2, headLen: 0.4, headR: 0.18, antlers: 0, horns: true, tail: 'long', ears: 'round', band: null };
