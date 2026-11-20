@@ -5,3 +5,4 @@
 - Màu (13 mốc): bão hoà trung vị 115–199 ở cảnh sân; thấp ở cảnh khói trắng (s6) và bảng "PLAY · 1809" (s26) — cố ý
 - Mép: không có cột đen toàn khung
 - Sửa sau cắt thử: tờ giấy bốc thăm hạ xuống ngực (không che mặt); bỏ thẻ "est. 1809" trùng bảng; thay tiếng vịt tổng hợp bằng tiếng thật
+- Sửa sau giao (20/11): đoạn 3,6–10,6 s thay sân trống bằng "điểm danh linh vật" (bò, sư tử núi, hươu, bò rừng; ô LAKERS và KNICKS trống có móc áo, đèn rọi; cỏ khô lăn ở "Nothing.")

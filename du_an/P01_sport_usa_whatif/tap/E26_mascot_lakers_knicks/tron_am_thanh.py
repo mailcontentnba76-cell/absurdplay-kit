@@ -59,7 +59,9 @@ for kk in ['s1', 's2', 's4', 's6', 's10', 's12', 's14', 's16', 's18', 's20', 's2
 # s1 biến hình: bụp + lông vũ + vỗ cánh + úp rổ + quack
 put(A + 'pop/classic-pop.wav', 0.72, -10); put(A + 'impact/classic-thud.wav', 0.78, -14); flap(0.8, 2.2, 9, -14)
 put(MG + 'rim_dunk.wav', 1.5, -8, 0.8); QK(2.75, -6, 560); put(MG + 'crowd_ooh_aah.wav', 1.8, -20, 1.4)
-# s2–s5: sân trống, "Nothing." — dế kêu + ho khan
+# s2–s5: điểm danh linh vật — tiếng bật đèn rọi, móc áo leng keng, cỏ khô lăn
+for tc in (SH['s2'][0] + 0.05, 4.75, SH['s3'][0] + 0.05): put(A + 'impact/classic-thud.wav', tc, -18); put(A + 'foley/creak-1.wav', tc + 0.05, -22, 0.4)
+put(A + 'foley/cloth-1.wav', SH['s5'][0], -12, 0.7)
 put(MG + 'crowd_silence_cough.wav', SH['s5'][0] - 0.2, -14, 1.2)
 # s6: 2 cột khói
 put(A + 'pop/pop-1.wav', SH['s6'][0] + 0.15, -10); put(A + 'pop/pop-3.wav', SH['s6'][0] + 0.3, -10); QK(SH['s6'][0] + 1.05, -10)

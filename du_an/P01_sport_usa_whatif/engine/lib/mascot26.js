@@ -39,3 +39,34 @@ export function cup() { const G = new THREE.Group(); const gold = std('#e8b830',
   const body = new THREE.Mesh(new THREE.LatheGeometry(prof, 32), std('#e8b830', { metalness: 0.85, roughness: 0.22, side: THREE.DoubleSide })); G.add(body);
   for (const sg of [-1, 1]) { const h = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.014, 8, 18, PI * 1.2), gold); h.position.set(sg * 0.2, 0.42, 0); h.rotation.z = sg > 0 ? -PI * 0.6 : PI * 0.6 + PI * 0.4; G.add(h); }
   const base = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.08, 0.3), std('#3a2414', { roughness: 0.5 })); base.position.y = -0.04; G.add(base); return shad(G); }
+// điểm danh linh vật: bảng tên đặt trên sàn (chữ trắng), ô trống có viền nét đứt
+export function rollSign(name, bg = '#2a2a34', empty = false) { const G = new THREE.Group();
+  const tx = ctex(512, 160, (g, W, H) => { g.fillStyle = bg; g.fillRect(0, 0, W, H); g.strokeStyle = empty ? '#ffd56a' : '#ffffff'; g.lineWidth = 8; if (empty) g.setLineDash([22, 14]); g.strokeRect(8, 8, W - 16, H - 16);
+    g.fillStyle = '#ffffff'; g.font = '900 78px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(name, W / 2, H / 2 + 4, W - 40); });
+  const board = new THREE.Mesh(new THREE.BoxGeometry(1.25, 0.39, 0.03), [std('#222'), std('#222'), std('#222'), std('#222'), new THREE.MeshStandardMaterial({ map: tx, roughness: 0.5, emissive: '#ffffff', emissiveMap: tx, emissiveIntensity: 0.25 }), std('#222')]);
+  board.position.y = 0.32; board.rotation.x = -0.35; G.add(board);
+  const leg = std('#3a3a40', { metalness: 0.6 }); for (const x of [-0.5, 0.5]) { const l = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.3, 6), leg); l.position.set(x, 0.15, -0.06); G.add(l); }
+  return shad(G); }
+// giá treo đồ + móc áo trống đung đưa
+export function coatRack() { const G = new THREE.Group(); const m = std('#c8c8d0', { metalness: 0.8, roughness: 0.3 });
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.7, 8), m); pole.position.y = 0.85; G.add(pole);
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.28, 0.04, 20), m); base.position.y = 0.02; G.add(base);
+  const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.32, 6), m); arm.rotation.x = PI / 2; arm.position.set(0, 1.68, 0.16); G.add(arm);
+  const piv = new THREE.Group(); piv.position.set(0, 1.66, 0.3); G.add(piv); const w = std('#d8b070', { roughness: 0.5 });
+  const hook = new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.008, 6, 14, PI * 1.3), m); hook.position.y = -0.03; piv.add(hook);
+  const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.44, 8), w); bar.rotation.z = PI / 2; bar.position.y = -0.2; piv.add(bar);
+  for (const sg of [-1, 1]) { const sd = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.25, 8), w); sd.position.set(sg * 0.11, -0.13, 0); sd.rotation.z = sg * 1.05; piv.add(sd); }
+  G.userData.swing = (ph) => { piv.rotation.z = Math.sin(ph) * 0.18; piv.rotation.y = Math.sin(ph * 0.6) * 0.3; };
+  return shad(G); }
+// bụi cỏ khô (tumbleweed): rối các nhánh cong
+export function tumbleweed(r = 0.3) { const G = new THREE.Group(); const m = std('#b08a52', { roughness: 0.95 }); let sd = 7; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  for (let k = 0; k < 46; k++) { const a = rnd() * PI * 2, b = rnd() * PI, rr = r * (0.55 + rnd() * 0.45); const p0 = new THREE.Vector3(Math.cos(a) * Math.sin(b), Math.cos(b), Math.sin(a) * Math.sin(b)).multiplyScalar(rr);
+    const p1 = p0.clone().applyAxisAngle(new THREE.Vector3(rnd(), rnd(), rnd()).normalize(), 0.9 + rnd()).multiplyScalar(0.9 + rnd() * 0.2); const mid = p0.clone().add(p1).multiplyScalar(0.5).multiplyScalar(1.2);
+    G.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(p0, mid, p1), 10, 0.008, 4, false), m)); }
+  return shad(G); }
+// vũng đèn rọi trên sàn + cột sáng mờ
+export function spotPool(r = 0.95) { const G = new THREE.Group();
+  const tx = ctex(256, 256, (g, W, H) => { const gr = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); gr.addColorStop(0, 'rgba(255,248,220,0.95)'); gr.addColorStop(0.7, 'rgba(255,240,200,0.55)'); gr.addColorStop(1, 'rgba(255,240,200,0)'); g.fillStyle = gr; g.fillRect(0, 0, W, H); });
+  const pool = new THREE.Mesh(new THREE.PlaneGeometry(r * 2.2, r * 2.2), new THREE.MeshBasicMaterial({ map: tx, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.32 })); pool.rotation.x = -PI / 2; pool.position.y = 0.012; G.add(pool);
+  const cone = new THREE.Mesh(new THREE.CylinderGeometry(0.25, r, 7, 32, 1, true), new THREE.MeshBasicMaterial({ color: '#fff3d6', transparent: true, opacity: 0.07, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })); cone.position.y = 3.5; G.add(cone);
+  G.traverse((o) => { o.frustumCulled = false; }); return G; }
