@@ -1,0 +1,113 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Lora,64,&H00F0F8FF,&H000000FF,&H00201810,&H96000000,-1,-1,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.86,Cap,,0,0,0,,What if every
+Dialogue: 0,0:00:00.86,0:00:01.84,Cap,,0,0,0,,NBA team was
+Dialogue: 0,0:00:01.84,0:00:03.68,Cap,,0,0,0,,its actual mascot?
+Dialogue: 0,0:00:03.68,0:00:04.74,Cap,,0,0,0,,Small problem.
+Dialogue: 0,0:00:04.74,0:00:05.46,Cap,,0,0,0,,The Lakers don't
+Dialogue: 0,0:00:05.46,0:00:06.64,Cap,,0,0,0,,have a mascot.
+Dialogue: 0,0:00:06.64,0:00:07.06,Cap,,0,0,0,,Neither do
+Dialogue: 0,0:00:07.06,0:00:07.80,Cap,,0,0,0,,the Knicks.
+Dialogue: 0,0:00:07.80,0:00:08.14,Cap,,0,0,0,,Two of
+Dialogue: 0,0:00:08.14,0:00:08.96,Cap,,0,0,0,,the biggest teams
+Dialogue: 0,0:00:08.96,0:00:10.06,Cap,,0,0,0,,in the league.
+Dialogue: 0,0:00:10.06,0:00:10.72,Cap,,0,0,0,,Nothing.
+Dialogue: 0,0:00:10.72,0:00:11.40,Cap,,0,0,0,,So we
+Dialogue: 0,0:00:11.40,0:00:12.40,Cap,,0,0,0,,gave them one.
+Dialogue: 0,0:00:12.40,0:00:12.80,Cap,,0,0,0,,The Lakers
+Dialogue: 0,0:00:12.80,0:00:14.32,Cap,,0,0,0,,started in Minnesota,
+Dialogue: 0,0:00:14.32,0:00:14.74,Cap,,0,0,0,,the land
+Dialogue: 0,0:00:14.74,0:00:16.50,Cap,,0,0,0,,of 10,000 lakes.
+Dialogue: 0,0:00:16.50,0:00:17.56,Cap,,0,0,0,,In 1960, they
+Dialogue: 0,0:00:17.56,0:00:18.28,Cap,,0,0,0,,moved to L.A.
+Dialogue: 0,0:00:18.28,0:00:18.64,Cap,,0,0,0,,and kept
+Dialogue: 0,0:00:18.64,0:00:19.32,Cap,,0,0,0,,the name.
+Dialogue: 0,0:00:19.32,0:00:19.80,Cap,,0,0,0,,L.A.
+Dialogue: 0,0:00:19.80,0:00:20.16,Cap,,0,0,0,,County has
+Dialogue: 0,0:00:20.16,0:00:21.60,Cap,,0,0,0,,12 lakes.
+Dialogue: 0,0:00:21.60,0:00:22.26,Cap,,0,0,0,,Twelve.
+Dialogue: 0,0:00:22.26,0:00:22.80,Cap,,0,0,0,,But lakes
+Dialogue: 0,0:00:22.80,0:00:24.04,Cap,,0,0,0,,have ducks.
+Dialogue: 0,0:00:24.04,0:00:25.20,Cap,,0,0,0,,Meet the Lakers.
+Dialogue: 0,0:00:25.20,0:00:25.50,Cap,,0,0,0,,The Knicks?
+Dialogue: 0,0:00:25.50,0:00:27.28,Cap,,0,0,0,,In 1946,
+Dialogue: 0,0:00:27.28,0:00:27.70,Cap,,0,0,0,,they pulled their
+Dialogue: 0,0:00:27.70,0:00:28.12,Cap,,0,0,0,,name out
+Dialogue: 0,0:00:28.12,0:00:29.24,Cap,,0,0,0,,of a hat.
+Dialogue: 0,0:00:29.24,0:00:30.02,Cap,,0,0,0,,Knickerbockers.
+Dialogue: 0,0:00:30.02,0:00:30.54,Cap,,0,0,0,,After Father
+Dialogue: 0,0:00:30.54,0:00:31.56,Cap,,0,0,0,,Knickerbocker, an
+Dialogue: 0,0:00:31.56,0:00:32.30,Cap,,0,0,0,,old Dutch New
+Dialogue: 0,0:00:32.30,0:00:32.80,Cap,,0,0,0,,Yorker in
+Dialogue: 0,0:00:32.80,0:00:33.82,Cap,,0,0,0,,rolled up pants.
+Dialogue: 0,0:00:33.82,0:00:34.36,Cap,,0,0,0,,He was their
+Dialogue: 0,0:00:34.36,0:00:35.86,Cap,,0,0,0,,very first logo.
+Dialogue: 0,0:00:35.86,0:00:36.70,Cap,,0,0,0,,On paper?
+Dialogue: 0,0:00:36.70,0:00:36.90,Cap,,0,0,0,,The Lakers
+Dialogue: 0,0:00:36.90,0:00:38.78,Cap,,0,0,0,,have 17 titles.
+Dialogue: 0,0:00:38.78,0:00:39.06,Cap,,0,0,0,,The Knicks
+Dialogue: 0,0:00:39.06,0:00:39.46,Cap,,0,0,0,,are the
+Dialogue: 0,0:00:39.46,0:00:40.78,Cap,,0,0,0,,defending champions.
+Dialogue: 0,0:00:40.78,0:00:41.06,Cap,,0,0,0,,One of
+Dialogue: 0,0:00:41.06,0:00:41.50,Cap,,0,0,0,,these teams
+Dialogue: 0,0:00:41.50,0:00:42.68,Cap,,0,0,0,,is a duck.
+Dialogue: 0,0:00:42.68,0:00:43.66,Cap,,0,0,0,,Tip off.
+Dialogue: 0,0:00:43.66,0:00:44.54,Cap,,0,0,0,,Ducks can fly.
+Dialogue: 0,0:00:44.54,0:00:45.76,Cap,,0,0,0,,Old men can't.
+Dialogue: 0,0:00:45.76,0:00:46.20,Cap,,0,0,0,,Dunk.
+Dialogue: 0,0:00:46.20,0:00:46.74,Cap,,0,0,0,,Dunk.
+Dialogue: 0,0:00:46.74,0:00:47.36,Cap,,0,0,0,,Dunk.
+Dialogue: 0,0:00:47.36,0:00:48.60,Cap,,0,0,0,,Lakers up 10.
+Dialogue: 0,0:00:48.60,0:00:49.66,Cap,,0,0,0,,Knicks time out.
+Dialogue: 0,0:00:49.66,0:00:50.36,Cap,,0,0,0,,Father Knickerbocker
+Dialogue: 0,0:00:50.36,0:00:50.88,Cap,,0,0,0,,draws up
+Dialogue: 0,0:00:50.88,0:00:51.54,Cap,,0,0,0,,a play.
+Dialogue: 0,0:00:51.54,0:00:53.00,Cap,,0,0,0,,It's from 1809.
+Dialogue: 0,0:00:53.00,0:00:53.84,Cap,,0,0,0,,It's mostly walking.
+Dialogue: 0,0:00:53.84,0:00:55.64,Cap,,0,0,0,,Then he remembers.
+Dialogue: 0,0:00:55.64,0:00:57.04,Cap,,0,0,0,,He brought bread.
+Dialogue: 0,0:00:57.04,0:00:58.52,Cap,,0,0,0,,Every duck stops.
+Dialogue: 0,0:00:58.52,0:00:58.76,Cap,,0,0,0,,Knicks go
+Dialogue: 0,0:00:58.76,0:00:59.60,Cap,,0,0,0,,on a run.
+Dialogue: 0,0:00:59.60,0:01:00.74,Cap,,0,0,0,,12 straight.
+Dialogue: 0,0:01:00.74,0:01:01.48,Cap,,0,0,0,,Halftime.
+Dialogue: 0,0:01:01.48,0:01:02.40,Cap,,0,0,0,,It's November.
+Dialogue: 0,0:01:02.40,0:01:02.88,Cap,,0,0,0,,Two ducks
+Dialogue: 0,0:01:02.88,0:01:03.44,Cap,,0,0,0,,fly south
+Dialogue: 0,0:01:03.44,0:01:04.34,Cap,,0,0,0,,for the winter.
+Dialogue: 0,0:01:04.34,0:01:05.00,Cap,,0,0,0,,The Lakers are
+Dialogue: 0,0:01:05.00,0:01:06.14,Cap,,0,0,0,,down to three.
+Dialogue: 0,0:01:06.14,0:01:06.94,Cap,,0,0,0,,Second half.
+Dialogue: 0,0:01:06.94,0:01:07.50,Cap,,0,0,0,,The ducks get
+Dialogue: 0,0:01:07.50,0:01:08.30,Cap,,0,0,0,,the ball back.
+Dialogue: 0,0:01:08.30,0:01:09.22,Cap,,0,0,0,,No hands.
+Dialogue: 0,0:01:09.22,0:01:09.46,Cap,,0,0,0,,They just
+Dialogue: 0,0:01:09.46,0:01:10.58,Cap,,0,0,0,,waddle with it.
+Dialogue: 0,0:01:10.58,0:01:11.04,Cap,,0,0,0,,Travel.
+Dialogue: 0,0:01:11.04,0:01:11.76,Cap,,0,0,0,,Travel.
+Dialogue: 0,0:01:11.76,0:01:12.38,Cap,,0,0,0,,Travel.
+Dialogue: 0,0:01:12.38,0:01:12.96,Cap,,0,0,0,,Knicks lead
+Dialogue: 0,0:01:12.96,0:01:13.84,Cap,,0,0,0,,by one.
+Dialogue: 0,0:01:13.84,0:01:14.64,Cap,,0,0,0,,Last shot.
+Dialogue: 0,0:01:14.64,0:01:14.94,Cap,,0,0,0,,The old
+Dialogue: 0,0:01:14.94,0:01:16.08,Cap,,0,0,0,,men are tired.
+Dialogue: 0,0:01:16.08,0:01:16.64,Cap,,0,0,0,,Their pants are
+Dialogue: 0,0:01:16.64,0:01:18.10,Cap,,0,0,0,,from the 1600s.
+Dialogue: 0,0:01:18.10,0:01:18.56,Cap,,0,0,0,,One duck
+Dialogue: 0,0:01:18.56,0:01:19.58,Cap,,0,0,0,,takes off and
+Dialogue: 0,0:01:19.58,0:01:20.14,Cap,,0,0,0,,drops the
+Dialogue: 0,0:01:20.14,0:01:21.44,Cap,,0,0,0,,ball from above.
+Dialogue: 0,0:01:21.44,0:01:22.48,Cap,,0,0,0,,17 titles?
+Dialogue: 0,0:01:22.48,0:01:22.92,Cap,,0,0,0,,Or the guy
+Dialogue: 0,0:01:22.92,0:01:23.92,Cap,,0,0,0,,in the pants?
+Dialogue: 0,0:01:23.92,0:01:24.90,Cap,,0,0,0,,Comment who wins.

@@ -11,7 +11,7 @@ const V = (x, y, z) => new THREE.Vector3(x, y, z);
 export const COATS = ['#1f2f5a', '#7a1f2a', '#5a3a22', '#2f4a36', '#4a4a52'];
 export const VESTS = ['#e8dcc0', '#c8a860', '#f0ead8', '#d8c8a0', '#b89060'];
 // cấu hình makeCharacter: áo dài tay = màu áo khoác; quần ngố tới gối; tất trắng; giày đen
-export function cfg1776(BASE, i, skin, heightM = 1.76) { return { ...BASE, tank: false, shorts: true, shortsTo: 1.0, sockAt: 0.0, jersey: COATS[i % 5], collar: COATS[i % 5], pants: ['#e8dcc0', '#1a1a1a', '#c8b89a', '#3a2a1a', '#e8dcc0'][i % 5], socks: '#f4f2ec', shoes: '#141414', skin, hair: 'Hair_Buzzed', hairColor: '#ecebe6', beardStyle: null, armSleeve: 'both', armSleeveColor: COATS[i % 5], build: ['fit', 'belly', 'fit', 'belly', 'slim'][i % 5], shoulders: 'narrow', heightM }; }
+export function cfg1776(BASE, i, skin, heightM = 1.76, o = {}) { return { ...BASE, tank: false, shorts: true, shortsTo: o.shortsTo ?? 1.0, sockAt: 0.0, jersey: o.coat || COATS[i % 5], collar: o.coat || COATS[i % 5], pants: o.pants || ['#e8dcc0', '#1a1a1a', '#c8b89a', '#3a2a1a', '#e8dcc0'][i % 5], socks: '#f4f2ec', shoes: '#141414', skin, hair: 'Hair_Buzzed', hairColor: '#ecebe6', beardStyle: null, armSleeve: 'both', armSleeveColor: o.coat || COATS[i % 5], build: o.build || ['fit', 'belly', 'fit', 'belly', 'slim'][i % 5], shoulders: 'narrow', heightM, ...(o.extra || {}) }; }
 
 export function tricorn(c = '#151515') { const G = new THREE.Group(); const m = std(c, { roughness: 0.9, side: THREE.DoubleSide });
   const crown = new THREE.Mesh(new THREE.SphereGeometry(0.115, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), m); crown.scale.set(1, 0.75, 1.05); G.add(crown);
@@ -60,11 +60,11 @@ function dressKit(ch) { const B = ch.bones; ch.root.position.set(0, 0, 0); ch.ro
   const put = (bone, m, p, rot) => { m.position.copy(p); if (rot) m.rotation.set(...rot); ch.root.add(m); m.updateMatrixWorld(true); B[bone].attach(m); m.traverse((x) => { if (x.isMesh) { x.castShadow = true; x.frustumCulled = false; } }); return m; };
   return { W, put, B }; }
 // mặc đồ 1776 lên nhân vật (gọi sau makeCharacter + resetPose)
-export function dress1776(ch, i = 0) { const { W, put, B } = dressKit(ch);
-  const coat = std(COATS[i % 5], { roughness: 0.8, side: THREE.DoubleSide }), vest = std(VESTS[i % 5], { roughness: 0.75 }), white = std('#f6f4ee', { roughness: 0.9 }), btn = std('#d8c070', { metalness: 0.7, roughness: 0.3 });
+export function dress1776(ch, i = 0, o = {}) { const { W, put, B } = dressKit(ch);
+  const coat = std(o.coat || COATS[i % 5], { roughness: 0.8, side: THREE.DoubleSide }), vest = std(o.vest || VESTS[i % 5], { roughness: 0.75 }), white = std('#f6f4ee', { roughness: 0.9 }), btn = std('#d8c070', { metalness: 0.7, roughness: 0.3 });
   // mũ + tóc giả: dựng theo hướng thế giới quanh tâm đầu
   const hb = W('Head'), hc = B.Head.localToWorld(V(0, 0.1, 0)); const k = hc.distanceTo(hb) / 0.1;
-  if (i % 5 !== 3) { const hat = tricorn(['#151515', '#1a1a2a', '#2a1a10', '#151515', '#222'][i % 5]); hat.scale.setScalar(k); put('Head', hat, hc.clone().add(V(0, 0.07 * k, -0.005))); }
+  if (o.hatAll || i % 5 !== 3) { const hat = tricorn(o.hat || ['#151515', '#1a1a2a', '#2a1a10', '#151515', '#222'][i % 5]); hat.scale.setScalar(k); put('Head', hat, hc.clone().add(V(0, 0.07 * k, -0.005))); }
   const wig = wigCurls(); wig.scale.setScalar(k); put('Head', wig, hc.clone());
   // khăn cổ trắng (cravat) xếp nếp trước ngực
   const n = W('neck_01'); const cr = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.12, 10), white); cr.scale.set(1, 1, 0.45); put('neck_01', cr, V(n.x, n.y - 0.1, n.z + 0.085), [Math.PI, 0, 0]);
@@ -79,7 +79,7 @@ export function dress1776(ch, i = 0) { const { W, put, B } = dressKit(ch);
   for (const [t0, tl] of [[Math.PI * 0.42, Math.PI * 0.54], [Math.PI * 1.04, Math.PI * 0.54]]) { const sg = new THREE.CylinderGeometry(0.2, 0.3, sk, 12, 1, true, t0, tl);
     const tail = new THREE.Mesh(sg, coat); tail.scale.z = 0.85; put('pelvis', tail, V(pv.x, pv.y + 0.04 - sk / 2, pv.z - 0.01)); }
   // ve áo + cổ tay áo lật màu gi-lê
-  for (const sd of ['l', 'r']) { const h = W('hand_' + sd); const cf = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.08, 12, 1, true), std(VESTS[(i + 2) % 5], { side: THREE.DoubleSide })); put('lowerarm_' + sd, cf, B['lowerarm_' + sd].localToWorld(V(0, 0, 0)).lerp(h, 0.82)); }
+  for (const sd of ['l', 'r']) { const h = W('hand_' + sd); const cf = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.08, 12, 1, true), std(o.cuff || VESTS[(i + 2) % 5], { side: THREE.DoubleSide })); put('lowerarm_' + sd, cf, B['lowerarm_' + sd].localToWorld(V(0, 0, 0)).lerp(h, 0.82)); }
   // khoá giày bạc
   for (const sd of ['l', 'r']) { const f = W('foot_' + sd); put('foot_' + sd, new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.035, 0.012), std('#d8dce4', { metalness: 0.85, roughness: 0.25 })), f.clone().add(V(0, -0.03, 0.08))); }
   return ch; }

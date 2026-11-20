@@ -55,9 +55,9 @@ export function loco(ch, lib, t, path, o = {}) {
   let W = GAITS.map(() => 0); const gs = o.gait ? GAITS.filter((g) => g.name === o.gait) : GAITS;
   if (o.gait) W = GAITS.map((g) => (g.name === o.gait ? 1 : 0));
   else { const vv = v / sc; const i = vv < (GAITS[0].to + GAITS[1].to) / 2 ? 0 : 1; const k = Math.min(1, Math.max(0, (vv - GAITS[i].to + 0.5) / 1.0)); W[i] = 1 - k; W[i + 1] = k; } // chọn 1 dáng, chỉ trộn trong dải 1 m/s quanh ngưỡng
-  const D = GAITS.reduce((acc, g, i) => acc + W[i] * measureStride(ch, lib, g.name), 0) * sc; const phi = (o.back ? -1 : 1) * s / Math.max(0.3, D) + (o.phase ?? 0);
+  const D = GAITS.reduce((acc, g, i) => acc + (W[i] ? W[i] * measureStride(ch, lib, g.name) : 0), 0) * sc; const phi = (o.back ? -1 : 1) * s / Math.max(0.3, D) + (o.phase ?? 0);
   const idleW = o.idleBelow === false ? 0 : 1 - Math.min(1, v / 0.35);
-  const layers = GAITS.map((g, i) => ({ name: g.name, time: (phi + (OFF[g.name] ?? 0)) * clipDur(ch, lib, g.name), w: W[i] * (1 - idleW) })).filter((L) => L.w > 0.001);
+  const layers = GAITS.map((g, i) => ({ name: g.name, time: W[i] ? (phi + (OFF[g.name] ?? 0)) * clipDur(ch, lib, g.name) : 0, w: W[i] * (1 - idleW) })).filter((L) => L.w > 0.001);
   if (idleW > 0.001) layers.push({ name: o.idle || 'Idle_Loop', time: t + (o.seed || 0), w: idleW });
   clipPose(ch, lib, [...layers, ...(o.extra || [])]);
   const p = P(t); ch.root.position.set(p[0], 0, p[1]); ch.root.rotation.set(0, yaw, 0);
