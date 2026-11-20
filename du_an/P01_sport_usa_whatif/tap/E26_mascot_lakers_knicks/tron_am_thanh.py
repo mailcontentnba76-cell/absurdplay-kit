@@ -1,5 +1,5 @@
 """E26 Mascot NBA Lakers (vịt hồ) vs Knicks (Father Knickerbocker): giọng gốc Magnific (không atempo) + nhạc alvana upbeat/happy-dance (chưa dùng) + SFX:
-lông vũ biến hình, tiếng vịt "quack" tổng hợp (numpy), vỗ cánh, gậy gõ sàn, giấy bốc thăm, cúp, còi, úp rổ ×3, bút dạ, túi bánh, buzzer giữa trận, còi chạy bước ×3."""
+lông vũ biến hình, tiếng vịt thật (Magnific Sound FX), vỗ cánh, gậy gõ sàn, giấy bốc thăm, cúp, còi, úp rổ ×3, bút dạ, túi bánh, buzzer giữa trận, còi chạy bước ×3."""
 import subprocess, re, numpy as np, os
 SR = 48000; LIB = '/home/claude/audio/'; MG = '/home/claude/absurdplay-kit/du_an/P01_sport_usa_whatif/tai_nguyen/am_thanh/magnific_sfx/'; DUR = 85.89
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -38,18 +38,19 @@ def put(fn, t, db=0.0, n=None):
 def bed(fn, t0, t1, db):
     x = load(fn); n = int((t1 - t0) * SR); x = np.tile(x, n // len(x) + 1)[:n] * 10 ** (db / 20); f_ = int(0.25 * SR); x[:f_] *= np.linspace(0, 1, f_); x[-f_:] *= np.linspace(1, 0, f_)
     i = int(t0 * SR); sfx[i:i + n] += x[:N - i]
-# --- tiếng vịt tổng hợp: răng cưa mũi (formant ~1.1k/2.6k), cao độ trượt xuống, 0,2 s
-rng = np.random.default_rng(26)
-def quack(f0=520, dur=0.2, glide=0.7):
-    n = int(dur * SR); tt = np.arange(n) / SR; f = f0 * (1 - (1 - glide) * tt / dur); ph = np.cumsum(f) / SR
-    x = 2 * (ph % 1) - 1; x += 0.15 * rng.standard_normal(n)
-    X = np.fft.rfft(x); fr = np.fft.rfftfreq(n, 1 / SR); g = np.exp(-((fr - 1100) / 380) ** 2) + 0.7 * np.exp(-((fr - 2600) / 500) ** 2) + 0.15
-    x = np.fft.irfft(X * g, n); a = np.minimum(1, tt / 0.015) * np.exp(-tt * 6) ; x *= a; return (x / np.abs(x).max() * 0.6).astype(np.float32)
-def QK(t, db=-8, f0=520): add(quack(f0), t, db)
+# --- tiếng vịt THẬT (Magnific Sound FX, ElevenLabs v2): 11 tiếng quack tách từ duck_quack_x3.wav; vỗ cánh duck_wings_takeoff.wav; cả đàn duck_flock_1/2.wav
+QS = [(0.06, 0.23), (0.4, 0.58), (0.78, 0.97), (1.19, 1.37), (1.61, 1.81), (1.99, 2.19), (2.41, 2.62), (2.91, 3.12), (3.37, 3.58), (3.82, 4.05), (4.27, 4.5)]
+QX = load(MG + 'duck_quack_x3.wav'); WX = load(MG + 'duck_wings_takeoff.wav')[int(0.6 * SR):int(2.3 * SR)]
+_qi = [0]
+def pitch(x, f):  # đổi cao độ nhẹ bằng nội suy (f > 1 cao hơn, ngắn hơn)
+    n = int(len(x) / f); return np.interp(np.arange(n) * f, np.arange(len(x)), x).astype(np.float32)
+def QK(t, db=-8, f0=520):
+    a_, b_ = QS[_qi[0] % len(QS)]; _qi[0] += 3; x = QX[int((a_ - 0.02) * SR):int((b_ + 0.05) * SR)].copy(); f_ = int(0.02 * SR); x[-f_:] *= np.linspace(1, 0, f_)
+    add(pitch(x, f0 / 520), t, db + 2)
 def flap(t0, t1, hz=8, db=-16):
-    t = t0
-    while t < t1:
-        n = int(0.06 * SR); x = rng.standard_normal(n).astype(np.float32); X = np.fft.rfft(x); fr = np.fft.rfftfreq(n, 1 / SR); x = np.fft.irfft(X * (fr < 1500), n).astype(np.float32); x *= np.hanning(n).astype(np.float32); add(x / np.abs(x).max() * 0.5, t, db); t += 1 / hz
+    n = int((t1 - t0) * SR); x = np.tile(WX, n // len(WX) + 1)[:n].copy(); f_ = min(n // 3, int(0.1 * SR)); x[:f_] *= np.linspace(0, 1, f_); x[-f_:] *= np.linspace(1, 0, f_)
+    add(pitch(x, hz / 8) if abs(hz - 8) > 0.5 else x, t0, db + 4)
+def flock(t, n_s, db=-12, k=1): x = load(MG + 'duck_flock_%d.wav' % k)[:int(n_s * SR)].copy(); f_ = int(0.15 * SR); x[-f_:] *= np.linspace(1, 0, f_); add(x, t, db)
 def tap(t, db=-14): put(A + 'foley/items-01.wav', t, db, 0.15)
 A = 'alvana-audio/sfx/'; K = 'sfx-kit/sounds/'
 WH = lambda t, db=-14: put(A + 'whoosh/swish-3.wav', t, db)
@@ -68,7 +69,7 @@ for kk in ['s7', 's8', 's9']: put(A + 'game/two-tone-1.wav', SH[kk][0] + 0.1, -1
 put(A + 'impact/classic-stamp.wav', SH['s10'][0] + 0.05, -10)
 # s11–s12 vịt ra sân
 QK(SH['s11'][0] + 1.15, -6, 500); for_ = [put(A + 'footsteps/rpg-0%d.wav' % (j % 10), SH['s12'][0] - 0.2 + j * 0.17, -20, 0.2) for j in range(8)]
-QK(SH['s12'][0] + 0.6, -12, 600); QK(SH['s12'][0] + 0.8, -12, 470); put(MG + 'crowd_cheer.wav', SH['s12'][0] + 0.2, -22, 1.2)
+flock(SH['s12'][0] + 0.1, 1.2, -14, 1); put(MG + 'crowd_cheer.wav', SH['s12'][0] + 0.2, -22, 1.2)
 # s13 giấy bốc thăm
 put(A + 'paper/paper-02.wav', SH['s13'][0] + 1.1, -10); put(A + 'paper/slide.wav', SH['s13'][0] + 2.5, -12)
 # s14 ông già chống gậy đi ra
@@ -90,7 +91,7 @@ put(MG + 'buzzer.wav', SH['s25'][0] + 0.05, -16, 0.6)
 for i in range(4): put(K + 'writing-and-drawing/writing-pen-write.wav', SH['s25'][0] + 1.0 + i * 0.55, -12, 0.5)
 # s27–s28 bánh mì: túi giấy, vụn rơi, cả đàn vịt
 put(A + 'paper/paper-03.wav', SH['s27'][0] + 1.1, -10); put(A + 'foley/cloth-2.wav', SH['s27'][0] + 1.3, -14)
-for j in range(6): QK(SH['s28'][0] + j * 0.22, -12, 480 + j * 30)
+flock(SH['s28'][0] - 0.1, DUR and (SH['s28'][1] - SH['s28'][0] + 0.4), -10, 2)
 # s29 Knicks đi bộ lên rổ
 for j in range(5): tap(SH['s29'][0] + j * 0.45, -14)
 put(MG + 'swish.wav', SH['s29'][1] - 0.6, -10, 0.6); put(MG + 'crowd_cheer.wav', SH['s29'][1] - 0.4, -18, 1.2)
