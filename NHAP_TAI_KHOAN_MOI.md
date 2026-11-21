@@ -1,62 +1,97 @@
-# AbsurdPlay — P01 "Sport USA": chuyển sang tài khoản Claude khác (KIT v2.0, 13/11/2026)
+# AbsurdPlay — P01 "Sport USA": chuyển sang tài khoản Claude khác (KIT v3.0, 21/11/2026)
 
-Bạn chỉ cần mang theo **một file**: `AbsurdPlay_SportUSA_KIT_v2.0.zip`. File hướng dẫn này cũng nằm sẵn trong gói.
+Mang theo **3 thứ** sang tài khoản mới:
 
-## 1. Trong gói có gì
+1. **`AbsurdPlay_SportUSA_KIT_v3.0.zip`** (khoảng 20 MB): hướng dẫn, quy tắc kênh, skill, và các tệp nặng không có trên GitHub.
+2. **`sport-usa-whatif.zip`**: skill của kênh, để tải lên mục Skills.
+3. **Repo GitHub `mailcontentnba76-cell/absurdplay-kit`** (riêng tư): toàn bộ engine 3D, công cụ và hồ sơ E01–E26. Bạn không cần tải về, Claude mới tự clone.
+
+## 1. Gói này chứa gì
+
 | Phần | Nội dung |
 | --- | --- |
 | `BAT_DAU_DAY.md` | Chính file này: các bước làm và câu lệnh dán cho Claude mới. |
-| `BO_HUONG_DAN_SAN_XUAT_VIDEO/00_…`, `01_…`, `mau/`, `skill/` | Bộ hướng dẫn sản xuất video chung, câu lệnh khởi động, 8 mẫu hồ sơ và skill chung `video-production-pipeline`. |
-| `…/du_an/P01_sport_usa_whatif/skill/sport-usa-whatif/SKILL.md` | **Skill v2.5 của kênh.** Gồm: quy trình 2 lần duyệt; quy tắc hook (một câu chửi đã bíp, không số liệu); kịch bản troll nhưng đúng sự thật có nguồn; quy tắc hình (không quá tối, không chớp trắng, không nhấp nháy, nhân vật bước đi thật); bảng "đã dùng" từ E01 đến E17; bài học lỗi. |
-| `…/P01_sport_usa_whatif/engine/` | Engine 3D đầy đủ: three.js r170 đã vá, nhân vật, tóc, động tác Mixamo (FBX), các bối cảnh `lib/*.js`, các tập `ep01`–`ep17`. |
-| `…/P01_sport_usa_whatif/cong_cu/` | Công cụ: phụ đề, hoà cắt, quét khung lỗi, đo nhấp nháy, Whisper, script cắt thử và bản cuối. |
-| `…/P01_sport_usa_whatif/tap/E01…E17/` | Hồ sơ từng tập: phụ đề, mốc lời, bộ trộn âm, QA. |
-| `…/tai_nguyen/am_thanh/magnific_sfx/` | 26 tiếng sân đấu bạn đã tạo trên Magnific. |
-| `HO_SO_DU_AN.md`, `QUY_TRINH_DU_AN.md`, `NHAT_KY_LOI.md`, `NHAT_KY_PHIEN_BAN.md`, `BANG_KIEM_CONG_CU.md`, `PHAN_TICH_MAU/*.md` | Hồ sơ dự án và phân tích kênh mẫu (chỉ phần chữ). |
+| `QUY_TAC_KENH.md` | Toàn bộ yêu cầu và sở thích bạn đã nói từ E01 đến E25. Claude mới đọc để làm đúng ngay từ đầu. |
+| `skill/sport-usa-whatif/SKILL.md` | **Skill v3.3 của kênh.** Gồm quy trình 2 lần duyệt, quy tắc hook, hai hướng kịch bản, quy tắc hình và các bài học lỗi. |
+| `BO_HUONG_DAN_SAN_XUAT_VIDEO/` | Bộ hướng dẫn sản xuất video chung, câu lệnh khởi động, mẫu hồ sơ và skill chung. |
+| `tep_nang/engine/assets/mixamo/*.fbx` | 10 động tác Mixamo bạn đã tải: chạy, ném, bắt, sút. Không đưa lên GitHub vì là tệp của Adobe. |
+| `tep_nang/engine/ual/AnimationLibrary_Godot_Standard.*` | Thư viện động tác người. |
 
-**Không có trong gói, và vì sao:**
-- **Thư viện nhạc và SFX miễn phí (≈1,9 GB):** Claude mới tự tải lại từ GitHub.
-- **Video và giọng đã xuất:** đã giao cho bạn rồi.
-- **Ảnh chụp video kênh mẫu:** đây là nội dung của người khác, chỉ dùng phân tích nội bộ.
-- **Giọng "Sport USA":** nằm trong tài khoản Magnific của bạn, không cần chuyển.
+**Trên GitHub (Claude mới tự clone):**
+- **Engine three.js r170:** có bản vá motion blur (`engine/patches/`), nhân vật, tóc, bối cảnh `lib/*.js`, các tập `ep01`–`ep26`.
+- **Mô hình thú 3D Magnific:** `engine/assets/meo/tiger.glb` và `jaguar.glb`.
+- **Công cụ:** phụ đề, hoà cắt, quét khung lỗi, `qa_ground.js` (kiểm lún nền), Whisper, script cắt thử và bản cuối.
+- **Hồ sơ từng tập:** kịch bản, mốc lời, phụ đề, bộ trộn âm, QA, tiếng thú.
 
-## 2. Các bước ở tài khoản mới
-1. Trên claude.ai, tạo một **Project** tên "Sport USA" rồi mở một cuộc trò chuyện mới trong Project đó.
-2. Đính kèm file zip và dán nguyên khối câu lệnh dưới đây:
+**Không mang theo, và vì sao:**
+- **Thư viện nhạc và SFX miễn phí (khoảng 1,9 GB):** Claude mới tự tải lại từ GitHub.
+- **Video đã xuất:** đã giao cho bạn.
+- **Ảnh chụp kênh mẫu:** nội dung của người khác, chỉ dùng để phân tích nội bộ.
+- **Giọng "Sport USA":** nằm trong tài khoản Magnific của bạn.
+- **Tiếng thú:** nằm trong tài khoản ElevenLabs của bạn.
+
+## 2. Các bước ở tài khoản mới (khoảng 15 phút)
+
+1. **Kết nối GitHub:** vào claude.ai → Settings → Connectors → GitHub → Connect. Đăng nhập đúng tài khoản GitHub đang sở hữu repo `absurdplay-kit` và cấp quyền cho repo này.
+2. **Tải skill:** vào Settings → Capabilities → Skills → Upload skill, chọn `sport-usa-whatif.zip`. Nếu không thấy mục này, bỏ qua; ở bước 5 Claude sẽ đề xuất lưu skill để bạn bấm lưu.
+3. **Mở mạng nếu bị chặn:** Settings → Capabilities, cho phép github.com, pypi.org, registry.npmjs.org và huggingface.co. Huggingface chứa mô hình Whisper dùng để đọc mốc lời.
+4. **Claude in Chrome:** cài tiện ích, đăng nhập bằng tài khoản Claude mới. Giữ Chrome đăng nhập sẵn **Magnific** (giọng Sport USA, mô hình 3D) và **ElevenLabs** (tiếng thú).
+5. **Tạo Project:** tạo Project tên "Sport USA", mở cuộc trò chuyện mới trong đó, đính kèm `AbsurdPlay_SportUSA_KIT_v3.0.zip` rồi dán nguyên khối câu lệnh sau:
 
 ```
-Đây là dự án AbsurdPlay (P01 Sport USA, kênh TikTok What If NFL/NCAA) chuyển từ tài khoản Claude khác.
-Giải nén file zip đính kèm vào /root/work/ (mkdir -p /root/work && cd /root/work && unzip -q <file>),
-đọc BAT_DAU_DAY.md và skill
-BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P01_sport_usa_whatif/skill/sport-usa-whatif/SKILL.md,
-rồi làm đúng mục "Khởi động": kiểm từng công cụ, tự cài cái gì cài được, cái gì cần tôi thì hỏi
-từng bước một, chạy thử render ep17, rồi đề xuất lưu skill sport-usa-whatif cho tài khoản này.
-Luôn trả lời tôi bằng tiếng Việt. Xong thì báo bảng "đã sẵn sàng / còn thiếu / tôi cần làm gì"
-và chờ tôi giao tập tiếp theo.
+Đây là dự án AbsurdPlay (P01 Sport USA, kênh TikTok What If NFL/NCAA + series Mascot) chuyển từ tài khoản Claude khác.
+1) Giải nén zip đính kèm vào /root/work/kit (mkdir -p /root/work/kit && cd /root/work/kit && unzip -q <file>).
+2) Đọc BAT_DAU_DAY.md, QUY_TAC_KENH.md và skill/sport-usa-whatif/SKILL.md — coi QUY_TAC_KENH.md là yêu cầu của tôi.
+3) Thêm repo mailcontentnba76-cell/absurdplay-kit (quyền push) và clone vào /root/work/repo,
+   rồi dựng lại /root/work/engine và /root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO theo mục 3 của BAT_DAU_DAY.md.
+4) Chép tep_nang/ vào engine, chạy npm install + bản vá, chạy thử: node render.js "ep25_bengals_jaguars.html#nomb" /tmp/t 30 0 1 540 960 "300,600"
+   và node qa_ground.js "ep25_bengals_jaguars.html#nomb" 0 10 2.
+5) Đề xuất lưu skill sport-usa-whatif cho tài khoản này (nếu tôi chưa tải lên).
+Luôn trả lời tôi bằng tiếng Việt. Xong thì báo bảng "đã sẵn sàng / còn thiếu / tôi cần làm gì" và chờ tôi giao tập tiếp theo.
 ```
 
-3. Claude sẽ nhờ bạn những việc chỉ bạn làm được:
-   - **Bấm "lưu skill"** trên thẻ Claude hiện ra. Từ lần sau không cần gói zip nữa.
-   - **Mở mạng nếu bị chặn.** Nếu Claude báo bị chặn, vào Settings → Capabilities và cho phép: github.com (tải thư viện âm thanh), pypi/npm (cài thư viện) và huggingface.co (mô hình Whisper đọc mốc lời).
-   - **Claude in Chrome.** Cài tiện ích này, đăng nhập bằng tài khoản Claude mới, và để Chrome vẫn đăng nhập Magnific. Claude sẽ tự mở Magnific, chọn giọng **Sport USA** (mục My voices), nhập kịch bản, bấm Generate và bấm tải.
-     - File MP3 tải về nằm trong thư mục **Downloads trên máy bạn**. Claude không đọc được thư mục đó, nên bạn **đính kèm file MP3 vào chat**.
-     - Một cách khác là mở cuộc trò chuyện bằng **ứng dụng Claude trên máy tính**, để Claude tự lấy file từ Downloads.
-   - **(Tuỳ chọn) Kết nối GitHub** và cấp quyền repo `absurdplay-kit`, để cuối mỗi tập Claude đẩy code và nhật ký lên.
-   - **Lịch hẹn tự động** (nếu bạn muốn Claude tự tìm tin hằng ngày): nhờ Claude tạo lại. Lịch ở tài khoản cũ không chuyển sang được.
+**Bạn cần làm thêm:**
+- **Bấm lưu skill** nếu Claude đề xuất.
+- **Đính kèm file MP3** mỗi khi Claude tải giọng hoặc tiếng thú: file nằm trong thư mục Downloads trên máy bạn, Claude không tự đọc được. Nếu bạn dùng ứng dụng Claude trên máy tính, Claude có thể tự lấy file.
+- **Lịch hẹn tự động** (nếu cần): nhờ Claude tạo lại. Lịch ở tài khoản cũ không chuyển sang được.
+- **Trí nhớ cũ không tự chuyển sang.** `QUY_TAC_KENH.md` thay cho phần đó. Nếu muốn Claude mới nhớ lâu dài, nói: "lưu các quy tắc trong QUY_TAC_KENH.md vào trí nhớ".
 
-## 3. Quy trình mỗi tập (Claude mới sẽ làm đúng như tài khoản cũ)
-1. **Tìm tin và chọn đề tài.** Bạn nói "NFL" hoặc "NCAA", hoặc hỏi "kịch bản hot tiếp theo". Claude tìm tin mới nhất và xếp theo độ hot của trận sắp tới.
-2. **Viết Doc kịch bản** gồm: tin (≥2 nguồn), lời thoại, nhân vật, màu jersey đúng và checklist. → **Duyệt lần 1** ("duyệt kịch bản").
-3. **Tạo giọng trên Magnific** qua Chrome. Bạn gửi file MP3 → Claude căn tốc độ, lấy mốc từng từ, làm phụ đề.
-4. **Dựng 3D**, đồ hoạ và mix âm, rồi gửi **bản cắt thử 15 fps**. → **Duyệt lần 2** ("duyệt render").
-5. **Bản cuối 1080x1920**, 30 fps, motion blur, −14 LUFS, đã quét khung lỗi và nhấp nháy. Kèm 3 tiêu đề, hashtag, và cập nhật skill.
+## 3. Dựng lại thư mục làm việc (dành cho Claude mới)
 
-Góp ý của bạn trong các lần trước đã được ghi thành quy tắc trong skill: mở đầu sôi động và không lặp tập cũ; shot 1 và shot 2 khác chỗ, khác góc; chuyển cảnh mượt, không chớp; không nhấp nháy; nhân vật bước đi chứ không trượt; màu nền không xấu; kịch bản troll nhưng thông tin phải đúng.
+```bash
+mkdir -p /root/work && cd /root/work
+# repo đã clone ở /root/work/repo
+cp -r repo/. /root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO          # bộ hướng dẫn + du_an/P01_sport_usa_whatif
+ln -sfn /root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P01_sport_usa_whatif/engine /root/work/engine
+cp -r kit/tep_nang/engine/. /root/work/engine/                 # FBX Mixamo + ual
+cd /root/work/engine && npm install && python3 patches/va_realism_effects_three170.py
+npx playwright install chromium   # nếu thiếu trình duyệt render
+# thư viện âm thanh miễn phí: xem BANG_KIEM_CONG_CU.md (nguồn GitHub) → /root/work/assets/audio/
+mkdir -p /root/work/assets/audio/e25_thu && cp /root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO/du_an/P01_sport_usa_whatif/tap/E25_mascot_bengals_jaguars/am_thanh/thu/* /root/work/assets/audio/e25_thu/
+```
 
-## 4. Trạng thái khi đóng gói (13/11/2026)
-- **Đã giao E01 đến E17.** Tập mới nhất là E17 "Harry Kane thử việc kicker ở Munich", đã làm lại hook (trượt gối ở end zone, rồi lia whip sang shot 2).
-- **Việc của bạn:** đăng E17 trước **21:30 Chủ nhật 15/11 (giờ Việt Nam)**, giờ bóng lăn trận Lions – Patriots ở Munich.
-- **Còn treo:**
-  - Lỗi thứ hai của E13 bạn chưa mô tả. Nếu cần thì nói với Claude mới.
-  - Lịch hẹn tự động ở tài khoản cũ không chuyển sang được.
-- **Tập tiếp theo:** chưa chọn. Nói "kịch bản hot tiếp theo" để Claude đề xuất.
+- **Tên tệp tập mới:** mỗi tập đặt tên `epNN_<doi1>_<doi2>*`, vì chat NBA cũng đẩy lên cùng repo.
+- **Đẩy code mỗi tập:** `git fetch origin main:refs/remotes/origin/main; git rebase origin/main; git push origin HEAD:main`.
+
+## 4. Quy trình mỗi tập (Claude mới làm đúng như tài khoản cũ)
+
+1. **Chọn hướng kịch bản.**
+   - Nếu có trận hot trong khoảng 48 giờ gần nhất: kịch bản **troll đội thua**, thông tin đúng, có ít nhất 2 nguồn.
+   - Nếu không: **mascot đối đầu** giữa hai đội, tự chọn cặp, không theo lịch.
+2. **Viết Doc kịch bản** gồm: tin, lời thoại, hình ảnh từng cảnh, nhân vật và màu áo đúng, checklist. → **Duyệt lần 1.**
+3. **Tạo giọng "Sport USA" trên Magnific** qua Chrome. Bạn đã cho phép tạo và tải luôn sau khi duyệt kịch bản. Bạn đính kèm MP3 → Claude tăng tốc ×1,05, lấy mốc từng từ bằng Whisper, làm phụ đề Lora.
+4. **Thú hoặc mascot cần mô hình đẹp:**
+   - Tạo ảnh mẫu trên Magnific bằng Nano Banana 2 (nhìn ngang, đứng 4 chân, nền trắng), khoảng 75 credit.
+   - Đưa ảnh vào 3D Generator: Tripo P1, bật "Rig for animation", 10K mặt, khoảng 1.035 credit. **Chỉ bấm Generate một lần.**
+   - Bạn đính kèm file GLB → Claude điều khiển bằng `lib/meoglb25.js`.
+5. **Tiếng thú:** tạo trên ElevenLabs web, mục Sound Effects (SFX v3), qua Chrome, **không dùng API key**. Bạn đính kèm MP3.
+6. **Dựng 3D, đồ hoạ, trộn âm, kiểm lún nền** (`qa_ground.js` phải ra 0 khung). Gửi **bản cắt thử 15 fps**. → **Duyệt lần 2.**
+7. **Bản cuối** 1080×1920, 30 fps, motion blur, −14 LUFS, quét khung lỗi. Kèm 3 tiêu đề, hashtag, cập nhật skill, đẩy lên GitHub.
+   - Render bản cuối **chỉ chạy 1 tiến trình**: 2 tiến trình chạy song song còn chậm hơn.
+
+## 5. Trạng thái khi đóng gói (21/11/2026)
+
+- **Đã giao:** E01–E25 phía NFL/NCAA. E25 "Hổ Bengal thật vs báo đốm thật" giao ngày 21/11 (commit `c182870`).
+- **Chat NBA (riêng):** đã làm E24 Bucks–76ers, E26 Lakers–Knicks, T10 Jokic trên cùng repo.
+- **Còn treo:** E21 "Take a Number" đang chờ bạn duyệt và chọn cách bíp.
+- **Tập tiếp theo:** chưa chọn. Nói "kịch bản hot tiếp theo" hoặc "mascot tiếp theo".
