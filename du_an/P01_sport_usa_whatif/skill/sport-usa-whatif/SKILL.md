@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v3.2 (21/11/2026)
+# Sport USA "What If" — v3.3 (21/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -128,6 +128,24 @@ Theo dõi video >500K của kênh mẫu: project doc `claude/whatifbagel_tren_50
 
 - **Động tác mới cần có (mẫu 05/11):** QB giả ném (pump fake) ×2, chạy lùi né, lăn ra biên rồi ném bỏ, OL đẩy vật vô tri không nhúc nhích, trọng tài ra hiệu (safety: hai tay chụm trên đầu; touchdown; incomplete), trọng tài trượt ngã, fan đứng chỉ trỏ/la ó, nhân vật ở nhà nghe điện thoại hốt hoảng, bình luận viên ngồi bàn gật gù vỗ tay. Vật vô tri đứng im là gag, sự sống động đến từ người + máy quay + cắt nhanh.
 
+**Chạm đất (luật cứng, 21/11):** không nhân vật/thú/đồ vật nào được lún xuống nền, trừ khi kịch bản cố ý (đặt `obj.userData.lun=true`).
+- Dùng `lib/chamdat.js`: `snapGround(list)` theo ĐỈNH LƯỚI đã skinning (không theo xương) sau mỗi pose; thú GLB tự chạm đất trong `poseQuad` (không bay = điểm thấp nhất đúng mặt đất).
+- Hàm di chuyển không được ghi đè `position.y` sau khi pose (lỗi `run()` E25).
+- QA bắt buộc trước cắt thử: `node qa_ground.js epXX.html#nomb 0 END 0.5` → phải "frames with sinking: 0".
+
+**Thú thật = mô hình 3D Magnific (21/11):** ảnh mẫu Nano Banana 2 (nhìn ngang, 4 chân, nền trắng) → 3D Generator, Tripo P1 + "Rig for animation", 10K mặt (~1.035 credit) → người dùng tải GLB và đính kèm → `assets/meo/*.glb`.
+- Điều khiển: `lib/meoglb25.js` (IK 2 đốt, bàn chân không trượt, nhận xương Tripo tự động: cổ, đuôi, tai, hàm).
+- Bấm Generate MỘT lần, chờ ô "Queued/Generating" hiện ra (có thể chậm 20–30 s); không bấm lại.
+
+**Biến hình người → mascot:** tay nắm cổ áo (IK) → xé toạc (mảnh áo to bay, bản sao cởi trần) → gồng phồng + vòng năng lượng màu đội → cuộn khói (không chớp trắng) → mascot gầm bật ra.
+- Có cận cảnh từng phe (`lib/bienhinh25.js`, mẫu `hulk2` trong ep25bj.html); SFX gồm riser, xé áo, bụp, gầm.
+
+**Tiếng thú thật (21/11):** tạo trên ElevenLabs web (Sound Effects, SFX v3, ~68 credit/lượt, 4 biến thể) qua Chrome đã đăng nhập — KHÔNG dùng API key, KHÔNG tạo trên Magnific.
+- Tải bản #1 dạng MP3 → người dùng đính kèm → `assets/audio/e25_thu/` (đo onset rồi đặt `put2(file, t - onset, db, ss, n)`).
+- Mỗi con vật xuất hiện phải có tiếng riêng (gầm, gừ, phì mũi, khè, cắn…), không dùng tiếng quái vật chung.
+
+**Đoạn giới thiệu mascot không được đứng yên:** mỗi câu thoại = một hành động có đạo cụ (cân, ván cào, máy đo, nước/bè…) + máy quay chuyển động; tách cú máy theo nhịp lời.
+
 ## 5. Chuỗi công cụ
 ```
 kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced narrator]) → người dùng tải mp3, đính kèm
@@ -182,6 +200,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v3.3 (21/11): luật chạm đất + QA lún; thú 3D Magnific có xương; cảnh biến hình xé áo.
 - v3.2 (21/11, chat NFL): **QUY TẮC CHỌN KỊCH BẢN — 2 HƯỚNG SONG SONG.** Mỗi lần xin kịch bản: (1) tra kết quả các trận vừa đá (≤48 giờ); nếu có **trận hot** (đại chiến, derby, đội top, kết quả sốc/thua đậm, drama) → ưu tiên **kịch bản troll đội thua** (bám kết quả thật, có nguồn). (2) Nếu không có trận hot → làm **kịch bản MASCOT ĐỐI ĐẦU** giữa các đội, **không cần theo lịch thi đấu**: tự chọn cặp linh vật tương phản/viral nhất, gắn một cái cớ thời sự (thành tích, drama, chuỗi thua) làm đạn troll; có thể làm series nhiều tập (vd. giải các đội chim, các đội mèo).
 - v3.1 (20/11, chat NFL): E24 NFL Dolphins vs Bills (tệp `ep24_dolphins*` vì chat NBA cũng dùng số E24 — **chat NFL và NBA đánh số tập riêng; đặt tên tệp engine kèm đội để không đè nhau**). Mascot là CON VẬT thì dựng con vật thật có khớp (bison phi nước đại, cá heo uốn thân/nhảy/nhắm 1 mắt). **Khán đài + khán giả + kiến trúc sân đổi KIỂU mỗi tập, không chỉ đổi màu** (người dùng 20/11 thấy lặp, nhàm): E24 bát bo góc bậc bê tông tuyết đọng, ~9.000 khán giả ĐỨNG áo phao/mũ len/mũ sừng vẫy khăn. Đám đông instanced lớn: chuyển động trong vertex shader, bỏ instance ẩn, tam giác thấp, và LOẠI khỏi VelocityDepthNormalPass (bọc set/unset) — nếu không MB chậm ~5 lần. Render khung liên tiếp để MB tận dụng khung trước.
 - v3.0 (19/11): chat NBA 3D — series MASCOT cho NBA/NCAA bóng rổ, Sheet dữ liệu mascot 118 đội, thú 4 chân thu4chan.js, SÂN NBA CHUẨN theo ảnh mẫu (lòng chảo, LED, màn hình treo, sân sáng nhất, mái trong nhà thấy chi tiết), quy tắc màu ≥3 lớp + đo HSV sau mỗi lần sửa bối cảnh.
