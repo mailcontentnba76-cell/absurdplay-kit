@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v3.1 (20/11/2026)
+# Sport USA "What If" — v3.2 (21/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -182,6 +182,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v3.2 (21/11, chat NFL): **QUY TẮC CHỌN KỊCH BẢN — 2 HƯỚNG SONG SONG.** Mỗi lần xin kịch bản: (1) tra kết quả các trận vừa đá (≤48 giờ); nếu có **trận hot** (đại chiến, derby, đội top, kết quả sốc/thua đậm, drama) → ưu tiên **kịch bản troll đội thua** (bám kết quả thật, có nguồn). (2) Nếu không có trận hot → làm **kịch bản MASCOT ĐỐI ĐẦU** giữa các đội, **không cần theo lịch thi đấu**: tự chọn cặp linh vật tương phản/viral nhất, gắn một cái cớ thời sự (thành tích, drama, chuỗi thua) làm đạn troll; có thể làm series nhiều tập (vd. giải các đội chim, các đội mèo).
 - v3.1 (20/11, chat NFL): E24 NFL Dolphins vs Bills (tệp `ep24_dolphins*` vì chat NBA cũng dùng số E24 — **chat NFL và NBA đánh số tập riêng; đặt tên tệp engine kèm đội để không đè nhau**). Mascot là CON VẬT thì dựng con vật thật có khớp (bison phi nước đại, cá heo uốn thân/nhảy/nhắm 1 mắt). **Khán đài + khán giả + kiến trúc sân đổi KIỂU mỗi tập, không chỉ đổi màu** (người dùng 20/11 thấy lặp, nhàm): E24 bát bo góc bậc bê tông tuyết đọng, ~9.000 khán giả ĐỨNG áo phao/mũ len/mũ sừng vẫy khăn. Đám đông instanced lớn: chuyển động trong vertex shader, bỏ instance ẩn, tam giác thấp, và LOẠI khỏi VelocityDepthNormalPass (bọc set/unset) — nếu không MB chậm ~5 lần. Render khung liên tiếp để MB tận dụng khung trước.
 - v3.0 (19/11): chat NBA 3D — series MASCOT cho NBA/NCAA bóng rổ, Sheet dữ liệu mascot 118 đội, thú 4 chân thu4chan.js, SÂN NBA CHUẨN theo ảnh mẫu (lòng chảo, LED, màn hình treo, sân sáng nhất, mái trong nhà thấy chi tiết), quy tắc màu ≥3 lớp + đo HSV sau mỗi lần sửa bối cảnh.
 - v2.6 (16/11): E19. Người dùng yêu cầu E19 đọc thẳng câu chửi (KHÔNG bíp) — hỏi lại mỗi tập nếu chưa rõ; phụ đề vẫn ghi f***ing. Whisper có thể lệch mốc 0,9 s ở câu mở đầu: đối chiếu silencedetect rồi chỉnh tay. Chống "nhòe giật" (góp ý người dùng): đo chênh lệch khung liên tiếp trên bản cắt thử, sửa các shot: xoay người ≤2 rad/s, đám chạy không đi xuyên/sát ống kính, máy bám người chạy đặt xa (≥7 m) và trễ nhẹ, mở cửa ≥0,6 s; máy dọc 9:16 chỉ rộng ±15° ngang — vật gần phải nằm sát trục nhìn.
