@@ -47,7 +47,7 @@ Theo dõi video >500K của kênh mẫu: project doc `claude/whatifbagel_tren_50
 
 ## Chế độ NBA — HAI HƯỚNG SONG SONG (chủ dự án chốt 21/11/2026)
 - Mỗi lần nhận việc NBA: quét lịch + tỉ số + bảng xếp hạng (`fetch_sports_data` nba) rồi chọn 1 trong 2 hướng:
-  1. **Có trận hot → ƯU TIÊN kịch bản TROLL ĐỘI THUA** (khuôn (a) mục 0). Trận hot = đội đông fan (Lakers, Warriors, Celtics, Knicks, Bulls, 76ers…) hoặc kình địch/tin nóng, VÀ một bên đang thua thảm (chuỗi thua, thua đậm, thua đội yếu), VÀ còn ≥ ~30 giờ trước giờ bóng lăn.
+  1. **Có trận hot → ƯU TIÊN kịch bản TROLL ĐỘI THUA** (khuôn (a) mục 0). Giống quy tắc v3.2 của chat NFL: trận hot = trận VỪA ĐÁ (≤ 48 giờ) có đội đông fan (Lakers, Warriors, Celtics, Knicks, Bulls, 76ers…) hoặc kình địch/tin nóng, kết quả sốc/thua đậm/chuỗi thua; bám kết quả thật có nguồn, đăng càng sớm càng tốt.
   2. **Không có trận hot → kịch bản MASCOT đối đầu** giữa 2 đội đông fan (không bắt buộc bám lịch).
 - Quy tắc linh vật (20/11): mascot = LINH VẬT CHÍNH THỨC (con vật/nhân vật), không hiểu tên đội theo nghĩa đen thành đồ vật; dựng bản 3D tự thiết kế. 4 đội không có linh vật được gán: Lakers → vịt hồ (`lib/vit.js`), Knicks → Father Knickerbocker, Warriors → Thunder (linh vật cũ 1997–2007), Nets → hiệp sĩ Brooklyn. Lời đọc ~240 từ (85–90 s). Tiếng động vật: Magnific Sound Effect Generator. Watermark "Literal Mascots" dọc giữa mép trái.
 
