@@ -1,0 +1,104 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Lora,64,&H00F0F8FF,&H000000FF,&H00201810,&H96000000,-1,-1,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.46,Cap,,0,0,0,,Are you
+Dialogue: 0,0:00:00.46,0:00:01.74,Cap,,0,0,0,,f***ing kidding me?
+Dialogue: 0,0:00:01.74,0:00:02.24,Cap,,0,0,0,,Could the Warriors
+Dialogue: 0,0:00:02.24,0:00:04.04,Cap,,0,0,0,,beat five babies?
+Dialogue: 0,0:00:04.04,0:00:04.40,Cap,,0,0,0,,This should be
+Dialogue: 0,0:00:04.40,0:00:05.20,Cap,,0,0,0,,the easiest win
+Dialogue: 0,0:00:05.20,0:00:06.56,Cap,,0,0,0,,in franchise history.
+Dialogue: 0,0:00:06.56,0:00:07.56,Cap,,0,0,0,,Babies can't dribble.
+Dialogue: 0,0:00:07.56,0:00:08.98,Cap,,0,0,0,,Babies can't jump.
+Dialogue: 0,0:00:08.98,0:00:09.34,Cap,,0,0,0,,Most of them
+Dialogue: 0,0:00:09.34,0:00:10.66,Cap,,0,0,0,,can't even walk.
+Dialogue: 0,0:00:10.66,0:00:11.62,Cap,,0,0,0,,Except the
+Dialogue: 0,0:00:11.62,0:00:12.38,Cap,,0,0,0,,Warriors haven't won
+Dialogue: 0,0:00:12.38,0:00:12.86,Cap,,0,0,0,,since Steph
+Dialogue: 0,0:00:12.86,0:00:14.12,Cap,,0,0,0,,Curry went down.
+Dialogue: 0,0:00:14.12,0:00:14.64,Cap,,0,0,0,,Five straight
+Dialogue: 0,0:00:14.64,0:00:15.88,Cap,,0,0,0,,losses, four of
+Dialogue: 0,0:00:15.88,0:00:16.16,Cap,,0,0,0,,them by
+Dialogue: 0,0:00:16.16,0:00:17.72,Cap,,0,0,0,,20 or more.
+Dialogue: 0,0:00:17.72,0:00:18.44,Cap,,0,0,0,,That ties
+Dialogue: 0,0:00:18.44,0:00:18.76,Cap,,0,0,0,,a team
+Dialogue: 0,0:00:18.76,0:00:20.72,Cap,,0,0,0,,record from 1997.
+Dialogue: 0,0:00:20.72,0:00:21.54,Cap,,0,0,0,,In Memphis, they
+Dialogue: 0,0:00:21.54,0:00:22.46,Cap,,0,0,0,,made five threes
+Dialogue: 0,0:00:22.46,0:00:24.42,Cap,,0,0,0,,out of 29.
+Dialogue: 0,0:00:24.42,0:00:24.84,Cap,,0,0,0,,Splash City is
+Dialogue: 0,0:00:24.84,0:00:26.22,Cap,,0,0,0,,in a drought.
+Dialogue: 0,0:00:26.22,0:00:26.94,Cap,,0,0,0,,These babies splash
+Dialogue: 0,0:00:26.94,0:00:28.22,Cap,,0,0,0,,every single night.
+Dialogue: 0,0:00:28.22,0:00:28.44,Cap,,0,0,0,,It's called
+Dialogue: 0,0:00:28.44,0:00:29.24,Cap,,0,0,0,,bath time.
+Dialogue: 0,0:00:29.24,0:00:30.14,Cap,,0,0,0,,Tip off.
+Dialogue: 0,0:00:30.14,0:00:31.08,Cap,,0,0,0,,Nobody jumps.
+Dialogue: 0,0:00:31.08,0:00:31.28,Cap,,0,0,0,,A baby
+Dialogue: 0,0:00:31.28,0:00:31.96,Cap,,0,0,0,,crawls to center
+Dialogue: 0,0:00:31.96,0:00:32.62,Cap,,0,0,0,,court and
+Dialogue: 0,0:00:32.62,0:00:33.80,Cap,,0,0,0,,just takes it.
+Dialogue: 0,0:00:33.80,0:00:34.12,Cap,,0,0,0,,Podziemski
+Dialogue: 0,0:00:34.12,0:00:35.18,Cap,,0,0,0,,drives baseline.
+Dialogue: 0,0:00:35.18,0:00:35.98,Cap,,0,0,0,,Spilled milk.
+Dialogue: 0,0:00:35.98,0:00:36.70,Cap,,0,0,0,,He slips.
+Dialogue: 0,0:00:36.70,0:00:37.52,Cap,,0,0,0,,Turnover.
+Dialogue: 0,0:00:37.52,0:00:38.18,Cap,,0,0,0,,In Memphis,
+Dialogue: 0,0:00:38.18,0:00:38.38,Cap,,0,0,0,,they had
+Dialogue: 0,0:00:38.38,0:00:39.80,Cap,,0,0,0,,22 of those.
+Dialogue: 0,0:00:39.80,0:00:41.08,Cap,,0,0,0,,Lendeborg from three.
+Dialogue: 0,0:00:41.08,0:00:41.44,Cap,,0,0,0,,Miss.
+Dialogue: 0,0:00:41.44,0:00:42.42,Cap,,0,0,0,,Will Richard.
+Dialogue: 0,0:00:42.42,0:00:43.00,Cap,,0,0,0,,Miss.
+Dialogue: 0,0:00:43.00,0:00:43.64,Cap,,0,0,0,,Melton.
+Dialogue: 0,0:00:43.64,0:00:44.36,Cap,,0,0,0,,Miss.
+Dialogue: 0,0:00:44.36,0:00:44.92,Cap,,0,0,0,,A baby throws
+Dialogue: 0,0:00:44.92,0:00:46.00,Cap,,0,0,0,,a toy block.
+Dialogue: 0,0:00:46.00,0:00:46.60,Cap,,0,0,0,,Somehow it
+Dialogue: 0,0:00:46.60,0:00:47.48,Cap,,0,0,0,,goes in.
+Dialogue: 0,0:00:47.48,0:00:48.58,Cap,,0,0,0,,On the broadcast.
+Dialogue: 0,0:00:48.58,0:00:49.18,Cap,,0,0,0,,Great ball movement
+Dialogue: 0,0:00:49.18,0:00:50.14,Cap,,0,0,0,,by the babies.
+Dialogue: 0,0:00:50.14,0:00:51.52,Cap,,0,0,0,,Really good spacing.
+Dialogue: 0,0:00:51.52,0:00:52.30,Cap,,0,0,0,,Halftime.
+Dialogue: 0,0:00:52.30,0:00:52.82,Cap,,0,0,0,,Steve Kerr draws
+Dialogue: 0,0:00:52.82,0:00:53.62,Cap,,0,0,0,,up a play.
+Dialogue: 0,0:00:53.62,0:00:54.14,Cap,,0,0,0,,A baby draws
+Dialogue: 0,0:00:54.14,0:00:55.08,Cap,,0,0,0,,on it too.
+Dialogue: 0,0:00:55.08,0:00:56.72,Cap,,0,0,0,,Honestly, better play.
+Dialogue: 0,0:00:56.72,0:00:57.56,Cap,,0,0,0,,Free throws.
+Dialogue: 0,0:00:57.56,0:00:57.94,Cap,,0,0,0,,In Dallas,
+Dialogue: 0,0:00:57.94,0:00:58.80,Cap,,0,0,0,,the Warriors made
+Dialogue: 0,0:00:58.80,0:01:00.40,Cap,,0,0,0,,nine of 17.
+Dialogue: 0,0:01:00.40,0:01:01.24,Cap,,0,0,0,,Bassey steps up.
+Dialogue: 0,0:01:01.24,0:01:01.58,Cap,,0,0,0,,A baby
+Dialogue: 0,0:01:01.58,0:01:02.90,Cap,,0,0,0,,starts crying.
+Dialogue: 0,0:01:02.90,0:01:03.58,Cap,,0,0,0,,Off the
+Dialogue: 0,0:01:03.58,0:01:04.64,Cap,,0,0,0,,back iron.
+Dialogue: 0,0:01:04.64,0:01:05.74,Cap,,0,0,0,,Five seconds left.
+Dialogue: 0,0:01:05.74,0:01:06.86,Cap,,0,0,0,,Warriors down one.
+Dialogue: 0,0:01:06.86,0:01:07.28,Cap,,0,0,0,,Podziemski for
+Dialogue: 0,0:01:07.28,0:01:08.12,Cap,,0,0,0,,the win.
+Dialogue: 0,0:01:08.12,0:01:08.44,Cap,,0,0,0,,A baby
+Dialogue: 0,0:01:08.44,0:01:09.30,Cap,,0,0,0,,waves at him.
+Dialogue: 0,0:01:09.30,0:01:10.92,Cap,,0,0,0,,He waves back.
+Dialogue: 0,0:01:10.92,0:01:11.70,Cap,,0,0,0,,Shot clock.
+Dialogue: 0,0:01:11.70,0:01:12.60,Cap,,0,0,0,,Final score.
+Dialogue: 0,0:01:12.60,0:01:13.84,Cap,,0,0,0,,Babies 41.
+Dialogue: 0,0:01:13.84,0:01:14.96,Cap,,0,0,0,,Warriors 40.
+Dialogue: 0,0:01:14.96,0:01:15.60,Cap,,0,0,0,,Next up,
+Dialogue: 0,0:01:15.60,0:01:16.86,Cap,,0,0,0,,the real Celtics.
+Dialogue: 0,0:01:16.86,0:01:17.50,Cap,,0,0,0,,Monday.
+Dialogue: 0,0:01:17.50,0:01:17.84,Cap,,0,0,0,,The Warriors
+Dialogue: 0,0:01:17.84,0:01:18.64,Cap,,0,0,0,,already asked if
+Dialogue: 0,0:01:18.64,0:01:18.94,Cap,,0,0,0,,they can play
+Dialogue: 0,0:01:18.94,0:01:19.86,Cap,,0,0,0,,the babies again.

@@ -1,0 +1,234 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// N27 (NBA troll) — "Could the Warriors beat five babies?" Warriors áo trắng thật (Podziemski #2, Richard #3, Lendeborg #1, Melton #8, Bassey #28) vs 5 em bé áo BOSTON xanh lá.
+// Sân San Francisco hư cấu (lib/sanphilly.js + theme xanh dương–vàng). Mốc: epn27_shots.js.
+import * as THREE from 'three';
+import {buildHall,hallLights,RIMX,CL,CW,JUMBO,basketball} from './lib/sanphilly.js';
+import {makeBaby,poseBaby,babyHand,babyLap} from './lib/embe.js';
+import {milkBottle,puddle,toyBlock,bathTub,kerrBoard,commentaryDesk,courtChair} from './lib/mascot_n27.js';
+import {CAST} from './lib/cast2.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {resetPose,aim,ik2} from './lib/tuthe.js';
+import {expr,clipPose} from './lib/dongtac.js';
+import {dribble,holdChest,shoot,slump,toss,seated,stance} from './lib/bongro.js';
+import {CameraRig} from './lib/camera.js';
+import {SH,END} from './epn27_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.1;
+const s=new THREE.Scene();
+const BL='#1d428a',GD='#ffc72c',GR='#007a33';
+const PR=buildHall(s,{wood:[33,60,58],paintL:BL,paintR:BL,apron:'#0f2a5c',stripe:GD,centerFill:GD,centerText:'WHAT IF',textC:'#ffffff',sideL:'SAN FRANCISCO',sideR:'GOLDEN STATE',baseline:'GOLDEN STATE',
+  led:['GOLDEN STATE','SAN FRANCISCO','WHAT IF','BABIES','SPLASH CITY'],ledBg:'#0a1630',ledC:[GD,'#ffffff'],ledDot:GD,jbTop:'#163a7a',jbBot:'#08142e',jbBorder:GD,teamA:['BABY','#7fe0a0'],teamB:['GSW',GD],subC:'#ffe6a0',
+  shirts:[GD,BL,'#ffffff',GD,'#2a2e38',BL,'#ffd860','#efefef',BL,'#3a3f4a',GD,'#1c2030',GR,'#ffffff'],hats:[GD,BL,'#ffffff','#1c2030'],seatColor:'#1a2a55',
+  flags:['GOLDEN STATE','SPLASH CITY','WHAT IF','BABIES','SAN FRANCISCO'],flagC:[BL,GD],bell:false,chairs:BL,pad:'#0f2a5c'});
+const L=hallLights(s,PR);
+const lib=await loadLibrary();
+const IN=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const ON=IN;const U=(k,t)=>t-SH[k][0];const DUR=k=>SH[k][1]-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;const PI=Math.PI;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+// ---------- nhân vật ----------
+const BASE={edgeSoft:1,tank:true,shorts:true,sockAt:0.74,shortsTo:0.86,socks:'#f4f4f4',shoes:'#f4f4f4',skinMix:1,brows:false,eyeScale:2.3,frontNumberSize:0.7,backNumberSize:0.95,numberDrop:0.16,
+  smooth:{jersey:12,pants:14,socks:6,shoes:10,skin:4,head:8},puff:{jersey:0.018,pants:0.04,socks:0.006,shoes:0.02,skin:0,hand:0}};
+const GSW={...BASE,jersey:'#f4f4f2',pants:'#f4f4f2',numberColor:BL,numberOutline:GD,wordmark:'WARRIORS',wordmarkColor:BL,collar:BL,pantsStripes:[BL,GD],shoes:BL};
+const mk=o=>makeCharacter(lib,o);
+const PODZ=mk({...GSW,skin:'#efc6a2',hair:'Hair_SimpleParted',hairColor:'#6b4a2a',number:2,backName:'PODZIEMSKI',heightM:1.93});
+const RICH=mk({...GSW,skin:'#6a4128',hair:'Hair_Buzzed',hairColor:'#120c08',number:3,backName:'RICHARD',heightM:1.91});
+const LEND=mk({...GSW,skin:'#8a5634',hair:'Hair_Buzzed',hairColor:'#120c08',beard:true,beardColor:'#120c08',number:1,backName:'LENDEBORG',heightM:2.06,build:'fit'});
+const MELT=mk({...GSW,skin:'#7a4a2c',hair:'Hair_Buzzed',hairColor:'#120c08',beard:true,beardColor:'#120c08',number:8,backName:'MELTON',heightM:1.88});
+const BASS=mk({...GSW,skin:'#4a2c1a',hair:'Hair_Buzzed',hairColor:'#0c0806',number:28,backName:'BASSEY',heightM:2.08});
+const KERR=mk({...BASE,tank:false,shorts:false,jersey:'#1b2233',collar:'#1b2233',pants:'#24262c',socks:'#24262c',shoes:'#1a1a1a',skin:'#efc6a2',hair:'Hair_SimpleParted',hairColor:'#cfcfcf',number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,heightM:1.91});
+const CURRY=mk({...BASE,tank:false,shorts:false,jersey:'#5a6070',collar:'#5a6070',pants:'#1a1a22',socks:'#1a1a22',shoes:'#f4f4f4',skin:'#b07a52',hair:'Hair_Buzzed',hairColor:'#1a120c',beard:true,beardColor:'#1a120c',number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,heightM:1.88});
+const COM=[mk({...BASE,tank:false,shorts:false,jersey:'#2a3040',collar:'#e8e8e8',pants:'#2a3040',socks:'#1a1a1a',shoes:'#1a1a1a',skin:'#d9a47a',hair:'Hair_SimpleParted',hairColor:'#3a2a1a',number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,heightM:1.82}),
+           mk({...BASE,tank:false,shorts:false,jersey:'#3a2a2a',collar:'#e8e8e8',pants:'#3a2a2a',socks:'#1a1a1a',shoes:'#1a1a1a',skin:'#7a4a2c',hair:'Hair_Buzzed',hairColor:'#1a120c',number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,heightM:1.86})];
+const REF=CAST.ref(lib,{jersey:'#8d9096',number:null});
+const WS=[PODZ,RICH,LEND,MELT,BASS];const HUM=[...WS,KERR,CURRY,...COM,REF];
+HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+const SKB=['#f2c6a0','#8a5634','#e8b98f','#c68c5f','#f4d2b4'],HRB=['#5a3a1a','#120c08','#c89a4a','#2a1a10','#8a5a2a'];
+const BB=[...Array(5)].map((_,i)=>{const b=makeBaby({skin:SKB[i],hair:HRB[i],num:i+1});b.root.scale.setScalar(1.05);s.add(b.root);return b;});
+const BALL=basketball();s.add(BALL);const BOT=milkBottle();s.add(BOT);const MILK=new THREE.Group();{const pm=puddle(0.75);pm.position.y=0.025;pm.renderOrder=2;pm.material.depthWrite=false;MILK.add(pm);}s.add(MILK);const BLK=toyBlock('A');s.add(BLK);
+const TUB=[...Array(5)].map((_,i)=>{const g=bathTub(['#ffd34a','#ff8fb0','#8fd0ff','#a8f08a','#ffb35a'][i]);s.add(g);return g;});
+const BOARD=kerrBoard();s.add(BOARD);const DESK=commentaryDesk();s.add(DESK);const CHAIR=courtChair();s.add(CHAIR);
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,600);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',0.7);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:2727});const CAMS={};
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const RX=RIMX,JB=JUMBO,BX=-1.3,WX=1.9;const BZ=[-1.7,-0.85,0,0.85,1.7];const FT=RX-4.6;
+S('s1',{pos:[BX-2.4,0.75,0.5],look:[WX,1.55,0]},{pos:[BX-2.0,0.8,0.4],look:[WX,1.6,0]},{fov:[50,48],shake:0.012,shakeHz:5});
+S('s2',{pos:[BX+2.6,1.4,3.4],look:[BX,0.4,0]},{pos:[BX+2.2,1.1,2.8],look:[BX,0.4,0]},{fov:[54,50],ease:'inOut'});
+S('s3',{pos:[WX-1.5,1.75,1.0],look:[WX,1.75,0]},{pos:[WX-1.25,1.8,0.8],look:[WX,1.85,0]},{fov:[46,44]});
+S('s4',{pos:[BX+1.4,0.45,1.0],look:[BX,0.35,0]},{pos:[BX+1.3,0.45,0.9],look:[BX+0.3,0.3,0]},{fov:[48,48]});
+S('s5',{pos:[BX+1.3,0.5,-0.9],look:[BX,0.45,-0.85]},{pos:[BX+1.2,0.5,-0.85],look:[BX,0.5,-0.85]},{fov:[46,46]});
+S('s6',{pos:[BX+1.5,0.55,1.3],look:[BX,0.45,0.85]},{pos:[BX+1.3,0.5,1.1],look:[BX,0.4,0.85]},{fov:[46,46]});
+S('s7',{pos:[1.5,1.15,CW/2-0.6],look:[0,1.0,CW/2+0.6]},{pos:[1.2,1.1,CW/2-0.4],look:[0,0.95,CW/2+0.6]},{fov:[44,42],shake:0.003});
+S('s8',{pos:[WX+3.2,1.4,3.0],look:[WX,1.2,0]},{pos:[WX+2.8,1.35,2.6],look:[WX,1.1,0]},{fov:[50,48]});
+S('s9',{pos:[0,9.4,16.5],look:[0,JB-0.6,0]},{pos:[0,9.6,15.6],look:[0,JB-0.6,0]},{fov:[50,48]});
+S('s10',{pos:[RX-9.8,1.8,0.0],look:[RX,2.4,0]},{pos:[RX-9.4,1.8,0.0],look:[RX,2.6,0]},{fov:[54,52]});
+S('s11',{pos:[RX-2.0,2.2,2.4],look:[RX-6.9,1.6,0]},{pos:[RX-2.0,2.2,2.4],look:[RX-3.0,2.5,0]},{fov:[54,54],ease:'inOut'});
+S('s12',{pos:[0,1.3,CW/2+0.2],look:[0,0.4,CW/2-1.6]},{pos:[0.4,1.2,CW/2-0.1],look:[0,0.4,CW/2-1.6]},{fov:[54,52]});
+S('s13',{pos:[0,1.0,4.0],look:[0,1.8,0]},{pos:[0,0.9,3.6],look:[0,1.2,0]},{fov:[50,50]});
+S('s14',{pos:[1.2,0.5,1.9],look:[0,0.3,0]},{pos:[0.8,0.45,1.5],look:[-0.1,0.3,0]},{fov:[48,46]});
+S('s15',{pos:[RX-3.4,1.3,CW/2+0.1],look:[RX-2.4,1.0,CW/2-1.9]},{pos:[RX-2.6,1.3,CW/2],look:[RX-1.3,1.0,CW/2-1.9]},{fov:[52,50]});
+S('s16',{pos:[RX-1.6,0.4,CW/2-0.8],look:[RX-1.0,0.05,CW/2-1.9]},{pos:[RX-1.5,0.38,CW/2-0.9],look:[RX-1.0,0.05,CW/2-1.9]},{fov:[46,46]});
+S('s17',{pos:[RX-3.0,0.9,CW/2-0.6],look:[RX-1.0,0.6,CW/2-1.9]},{pos:[RX-2.9,0.85,CW/2-0.7],look:[RX-1.0,0.4,CW/2-1.9]},{fov:[50,50],shake:0.014,shakeHz:6});
+S('s18',{pos:[RX-2.4,0.6,CW/2-0.4],look:[RX-1.6,0.4,CW/2-2.2]},{pos:[RX-2.3,0.6,CW/2-0.5],look:[RX-1.6,0.4,CW/2-2.2]},{fov:[48,48]});
+S('s19',{pos:[RX-3.4,1.5,CW/2+0.4],look:[RX-1.3,0.5,CW/2-1.9]},{pos:[RX-3.0,1.4,CW/2+0.2],look:[RX-1.3,0.5,CW/2-1.9]},{fov:[50,48]});
+S('s20',{pos:[RX-9.2,1.5,2.6],look:[RX-7.1,1.8,1.6]},{pos:[RX-9.0,1.6,2.4],look:[RX-3,2.8,0.5]},{fov:[50,48],ease:'inOut'});
+S('s21',{pos:[RX-8.6,1.5,-2.8],look:[RX-6.9,1.8,-1.8]},{pos:[RX-8.4,1.6,-2.6],look:[RX-3,2.8,-0.5]},{fov:[50,48],ease:'inOut'});
+S('s22',{pos:[RX-1.0,2.6,1.6],look:[RX-6.6,1.6,0]},{pos:[RX-1.1,2.7,1.5],look:[RX-3.0,2.8,0]},{fov:[52,50],ease:'inOut'});
+S('s23',{pos:[RX-4.2,0.5,2.0],look:[RX-3.0,0.5,0.6]},{pos:[RX-4.1,0.6,1.9],look:[RX-1.0,2.0,0]},{fov:[50,50],ease:'inOut'});
+S('s24',{pos:[RX-0.9,1.5,0.9],look:[RX,2.6,0]},{pos:[RX-0.9,1.4,0.9],look:[RX,2.4,0]},{fov:[52,52]});
+S('s25',{pos:[0.4,1.35,-CW/2-0.2],look:[0,1.1,-CW/2-1.8]},{pos:[0.25,1.35,-CW/2-0.45],look:[0,1.1,-CW/2-1.8]},{fov:[48,46]});
+S('s26',{pos:[3.2,1.5,-CW/2+0.6],look:[2.0,1.1,-CW/2-1.5]},{pos:[2.9,1.5,-CW/2+0.3],look:[2.0,1.1,-CW/2-1.5]},{fov:[50,48]});
+S('s27',{pos:[2.0,1.0,-CW/2-0.6],look:[2.0,0.95,-CW/2-1.65]},{pos:[2.0,1.0,-CW/2-0.75],look:[2.0,0.95,-CW/2-1.65]},{fov:[46,46]});
+S('s28',{pos:[2.6,1.75,-CW/2+0.6],look:[2.5,1.55,-CW/2-1.4]},{pos:[2.6,1.75,-CW/2+0.4],look:[2.5,1.6,-CW/2-1.4]},{fov:[46,44]});
+S('s29',{pos:[FT-3.0,1.7,1.2],look:[FT,1.6,0]},{pos:[FT-2.6,1.7,1.0],look:[FT,1.6,0]},{fov:[48,46]});
+S('s30',{pos:[FT-1.6,0.7,2.4],look:[FT,1.3,0.6]},{pos:[FT-1.5,0.7,2.3],look:[FT,1.4,0.6]},{fov:[50,50]});
+S('s31',{pos:[RX-1.2,2.2,1.8],look:[RX,3.0,0]},{pos:[RX-1.25,2.2,1.85],look:[RX,2.9,0]},{fov:[50,50]});
+S('s32',{pos:[0,9.4,16.5],look:[0,JB-0.6,0]},{pos:[0,9.6,15.6],look:[0,JB-0.6,0]},{fov:[50,48]});
+S('s33',{pos:[RX-9.6,1.4,1.0],look:[RX-7.2,1.6,0]},{pos:[RX-9.2,1.45,0.9],look:[RX-7.2,1.7,0]},{fov:[48,46]});
+S('s34',{pos:[RX-6.5,0.7,2.5],look:[RX-6.6,0.45,0.9]},{pos:[RX-6.5,0.68,2.35],look:[RX-6.6,0.45,0.9]},{fov:[46,46]});
+S('s35',{pos:[RX-6.0,1.7,0.9],look:[RX-7.2,1.7,0]},{pos:[RX-6.1,1.7,0.8],look:[RX-7.2,1.75,0]},{fov:[46,44]});
+S('s36',{pos:[0,9.4,16.5],look:[0,JB-0.6,0]},{pos:[0,9.5,16.2],look:[0,JB-0.6,0]},{fov:[50,50],shake:0.01,shakeHz:5});
+S('s37',{pos:[BX+3.6,1.3,3.2],look:[BX+0.4,0.7,0]},{pos:[BX+3.0,1.2,2.6],look:[BX+0.4,0.6,0]},{fov:[52,50],ease:'inOut'});
+S('s38',{pos:[BX+1.8,0.65,0.3],look:[BX,0.55,0]},{pos:[BX+1.5,0.62,0.25],look:[BX,0.55,0]},{fov:[54,52]});
+S('s39',{pos:[WX-2.2,1.7,2.4],look:[WX,1.6,0]},{pos:[WX-1.8,1.7,2.0],look:[WX,1.7,0]},{fov:[50,48],ease:'inOut'});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+for(const k in SH){rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
+const shotAt=t=>{let kk='s1';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
+// ---------- tiện ích ----------
+const hideAll=()=>{for(const b of BB)b.root.visible=false;for(const ch of HUM)ch.root.visible=false;[BALL,BOT,MILK,BLK,BOARD,DESK,CHAIR,...TUB].forEach(o=>o.visible=false);};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,fo=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-fo)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-fo)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo}]);show(ch);};
+const hand=(ch,sd='r')=>B(ch,'hand_'+sd).getWorldPosition(V());
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const head=ch=>B(ch,'Head').getWorldPosition(V());const chest=ch=>B(ch,'spine_03').getWorldPosition(V());
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const arc=(p0,p1,h,k)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(k*PI)*h,lerp(p0.z,p1.z,k));
+const bb=(i,x,z,ry,t,o={})=>{const b=BB[i];b.root.position.set(x,o.y||0,z);b.root.rotation.set(0,ry,0);b.root.visible=true;poseBaby(b,t,{seed:i*1.3,...o});return b;};
+const babiesRow=(t,o={})=>BB.forEach((b,i)=>bb(i,BX+(i%2)*0.25,BZ[i],PI/2,t,typeof o==='function'?o(i):o));
+const wRow=(t,face='neutral',o={})=>WS.forEach((ch,i)=>{idle(ch,WX+(i%2)*0.3,BZ[i]*1.05,-PI/2,t,i*0.7,o);E(ch,t,[[0,face]],i+10,{look:o.look||[0,-0.25]});});
+const rim=V(RX,3.05,0);
+// đường bóng tới vành: kết quả 'clank' (dội vành văng ra), 'back' (dội vành sau), 'air' (hụt), 'in'
+const shotBall=(p0,k,res)=>{const top=V(RX-0.05,3.25,0);if(k<0.72){return arc(p0,res==='air'?V(RX-1.0,2.2,0.3):top,1.8,k/0.72);}
+  const u=(k-0.72)/0.28;if(res==='in')return V(RX,lerp(3.2,1.6,u),0);if(res==='air')return V(RX-1.0+u*0.3,Math.max(0.12,2.2-u*u*4),0.3+u*0.4);
+  const dir=res==='back'?-1:1;return V(RX+0.05+dir*-u*1.6,3.25+Math.sin(u*PI)*0.7-u*u*1.2,u*0.9*(res==='back'?-1:1));};
+// ném xa: cầu thủ ch tại (x,z) quay về rổ; ném trong [t0, t0+1.3]
+const jumper=(ch,t,t0,x,z,res,sd=0)=>{const ry=Math.atan2(RX-x,-z);const k=cl((t-t0)/0.9);place(ch,x,z,ry);const bp=shoot(ch,Math.min(k,1),x,z,0.32);show(ch);
+  if(k<0.62)at(BALL,bp);else{const kb=cl((t-t0-0.56)/0.9);at(BALL,shotBall(bp,kb,res),0,0,kb*8);}E(ch,t,[[0,'determined'],[t0+1.2,res==='in'?'cheer':'shock']],sd,{look:[0,0.4]});};
+// ---------- tư thế ----------
+const pose=t=>{
+  rig.apply(t);hideAll();const k=shotAt(t);L.area(0,0,CAMS[k]);L.lamps(1);
+  PR.crowd.uT.value=t;PR.crowd.uCheer.value=0.25;PR.crowd.uBoo.value=0;PR.crowd.uSleep.value=0;
+  // s1: hook — sau lưng 5 em bé, Warriors trước mặt sốc
+  if(ON('s1',t)){babiesRow(t,i=>({base:'sit',arms:i===2?'wave':'idle',look:[0,0.3]}));wRow(t,'shock',{look:[0,-0.35]});}
+  // s2: lộ diện 5 em bé áo BOSTON
+  if(ON('s2',t)){babiesRow(t,i=>({base:'sit',arms:['clap','wave','idle','clap','reach'][i],face:i===2?'o':undefined,look:[0,0.25]}));wRow(t,'surprised');}
+  // s3: Podziemski tự tin xoay bóng trên ngón tay
+  if(ON('s3',t)){const ch=PODZ;idle(ch,WX,0,-PI/2,t,0);const hp=head(ch).add(Lc(ch,-0.25,0.12,0.25));reach(ch,hp,'r');at(BALL,hand(ch,'r').add(V(0,0.16,0)),t*9);E(ch,t,[[0,'smug']],11,{look:[0.2,0.05]});
+    [RICH,LEND].forEach((c2,j)=>{idle(c2,WX+0.5,-0.9+j*1.8,-PI/2,t,j);E(c2,t,[[0,'laugh']],12+j);});}
+  // s4: em bé không dẫn bóng được — đẩy bóng, bóng lăn mất
+  if(ON('s4',t)){const u=U('s4',t);bb(0,BX,0,PI/2,t,{base:'sit',arms:u<0.4?'reach':'idle',face:u>0.6?'o':'neutral',look:[u>0.5?0.6:0,-0.3]});at(BALL,V(BX+0.35+Math.max(0,u-0.35)*1.6,0.12,0.05+Math.max(0,u-0.35)*0.4),0,0,-u*6);}
+  // s5: không nhảy được — đứng nhún mãi không rời đất
+  if(ON('s5',t)){const u=U('s5',t);const b=bb(1,BX,-0.85,PI/2,t,{base:'stand',arms:'cheer',face:'happy',wobble:1.4});b.root.position.y=Math.abs(Math.sin(u*9))*0.015;}
+  // s6: không đi được — đứng chập chững, bước 1 bước rồi ngồi phịch
+  if(ON('s6',t)){const u=U('s6',t);if(u<1.0)bb(3,BX+u*0.12,0.85,PI/2,t,{base:'stand',step:1,wobble:2,arms:'reach',face:'o'});else{bb(3,BX+0.12,0.85,PI/2,t,{base:'sit',arms:'cheer',face:'happy'});}}
+  // s7: Curry mặc đồ thường ngồi cạnh sân, tay ôm trán
+  if(ON('s7',t)){at(CHAIR,V(0,0,CW/2+0.6),PI);seated(CURRY,0,CW/2+0.55,0.46,0,t,3);CURRY.root.rotation.y=PI;CURRY.root.updateMatrixWorld(true);show(CURRY);reach(CURRY,head(CURRY).add(Lc(CURRY,-0.05,0.08,0.14)),'r');E(CURRY,t,[[0,'wince']],30,{look:[0.2,-0.3]});
+    [PODZ,RICH].forEach((c2,j)=>{slump(c2,-1.2+j*0.8,CW/2-1.4,t,j);c2.root.rotation.y=0.3*(j?-1:1);c2.root.updateMatrixWorld(true);show(c2);});}
+  // s8: 5 trận thua liền — cả đội cúi đầu
+  if(ON('s8',t)){WS.forEach((ch,i)=>{place(ch,WX+(i%2)*0.35,BZ[i]*1.05,-PI/2+((i*37)%7-3)*0.06);slump(ch,WX+(i%2)*0.35,BZ[i]*1.05,t,i);show(ch);E(ch,t,[[0,'wince']],i+10);});PR.crowd.uBoo.value=0.6;}
+  // s9: màn hình kỷ lục 1997 — fan lắc đầu
+  if(ON('s9',t)){PR.crowd.uBoo.value=0.8;}
+  // s10: Memphis 5/29 — ném 3 điểm liên tiếp đều dội vành
+  if(ON('s10',t)){const u=U('s10',t);const seq=[[RICH,RX-7.1,1.6],[MELT,RX-6.9,-1.4],[PODZ,RX-7.2,0.2]];const j=Math.min(2,Math.floor(u/1.2));const [ch,x,z]=seq[j];jumper(ch,t,SH.s10[0]+j*1.2,x,z,j===1?'back':'clank',10+j);}
+  // s11: Splash City cạn — ném hụt cả vành (air ball)
+  if(ON('s11',t)){jumper(LEND,t,SH.s11[0]+0.05,RX-6.9,0,'air',12);PR.crowd.uBoo.value=0.7;}
+  // s12: 5 em bé trong chậu tắm té nước
+  if(ON('s12',t)){TUB.forEach((g,i)=>{at(g,V(-2.4+i*1.2,0,CW/2-1.6),0);g.userData.splash(t+i*0.3,1);bb(i,-2.4+i*1.2,CW/2-1.6,0,t,{base:'tub',arms:'splash',face:'happy',y:0.08});});}
+  // s13: nhảy tranh bóng — không ai nhảy, bóng rơi nảy
+  if(ON('s13',t)){const u=U('s13',t);const tk=cl(u/0.35);toss(REF,tk,0,-1.0);REF.root.rotation.y=0;REF.root.updateMatrixWorld(true);show(REF);E(REF,t,[[0,'neutral']],60,{look:[0,0.7]});
+    const by=u<0.6?lerp(1.5,3.3,sm(u/0.6)):Math.max(0.12,3.3-(u-0.6)*(u-0.6)*10)+(u>1.2?Math.abs(Math.sin((u-1.2)*8))*0.5*Math.exp(-(u-1.2)*2):0);at(BALL,V(0,by,-0.3));
+    idle(BASS,0.7,0,-PI/2,t,4);E(BASS,t,[[0,'determined'],[SH.s13[0]+1.0,'surprised']],14,{look:[0,0.6]});bb(2,-0.55,0,PI/2,t,{base:'sit',arms:'idle',look:[0,0.6]});}
+  // s14: em bé bò tới giữa sân ôm bóng
+  if(ON('s14',t)){const u=U('s14',t);const kk=cl(u/1.8);if(kk<1){bb(2,lerp(-0.9,-0.25,kk),0,PI/2,t,{base:'crawl',hz:5});at(BALL,V(0.05,0.12,0));}else{bb(2,-0.2,0,PI/2,t,{base:'sit',arms:'hold',face:'happy'});at(BALL,babyLap(BB[2]));}
+    idle(BASS,0.9,0.2,-PI/2,t,4);E(BASS,t,[[0,'surprised']],14,{look:[0,-0.6]});}
+  // s15: Podziemski dẫn bóng dọc đường biên ngang
+  if(ON('s15',t)){const u=U('s15',t);const x=lerp(RX-3.2,RX-1.3,u/DUR('s15'));place(PODZ,x,CW/2-1.9,PI/2);const bp=dribble(PODZ,t,x,CW/2-1.9,2.2,0.45);show(PODZ);at(BALL,bp);E(PODZ,t,[[0,'determined']],11);
+    at(MILK,V(RX-1.0,0,CW/2-1.9));MILK.visible=false;at(BOT,V(RX-0.9,0,CW/2-1.6),0,0,PI/2);}
+  // s16: bình sữa đổ, sữa loang
+  if(ON('s16',t)){const u=U('s16',t);at(BOT,V(RX-0.9,0.04,CW/2-1.6),0,0,PI/2);at(MILK,V(RX-1.0,0,CW/2-1.9));MILK.scale.setScalar(0.4+0.6*sm(u/0.6));}
+  // s17: Podziemski trượt ngã ngồi giữa vũng sữa
+  if(ON('s17',t)){const u=U('s17',t);at(MILK,V(RX-1.0,0,CW/2-1.9));MILK.scale.setScalar(1);at(BOT,V(RX-0.9,0.04,CW/2-1.6),0,0,PI/2);const f=sm(u/0.45);
+    idle(PODZ,RX-1.15,CW/2-1.9,PI/2,t,0,{crouch:f});PODZ.root.rotation.x=0;PODZ.root.rotation.z=-f*0.25;PODZ.root.position.y=-f*0.35;PODZ.root.updateMatrixWorld(true);armsUp(PODZ,f);E(PODZ,t,[[0,'shock']],11);
+    at(BALL,V(RX-0.6+u*0.8,0.12+Math.abs(Math.sin(u*9))*0.4*(1-u),CW/2-2.2));}
+  // s18: mất bóng — em bé ôm bóng cười
+  if(ON('s18',t)){at(MILK,V(RX-1.0,0,CW/2-1.9));bb(4,RX-1.6,CW/2-2.3,PI*0.85,t,{base:'sit',arms:'hold',face:'happy',look:[0,0.2]});at(BALL,babyLap(BB[4]));
+    idle(PODZ,RX-1.15,CW/2-1.9,PI/2,t,0,{crouch:1});PODZ.root.position.y=-0.35;PODZ.root.updateMatrixWorld(true);E(PODZ,t,[[0,'shock']],11,{look:[-0.6,-0.3]});}
+  // s19: 22 lần mất bóng ở Memphis — Podziemski ngồi trong sữa nhìn em bé
+  if(ON('s19',t)){at(MILK,V(RX-1.0,0,CW/2-1.9));bb(4,RX-1.6,CW/2-2.3,PI*0.85,t,{base:'sit',arms:'clap',face:'happy'});at(BALL,V(RX-1.45,0.12,CW/2-2.05));
+    idle(PODZ,RX-1.15,CW/2-1.9,PI/2,t,0,{crouch:1});PODZ.root.position.y=-0.35;PODZ.root.updateMatrixWorld(true);E(PODZ,t,[[0,'wince']],11,{look:[-0.5,-0.3]});PR.crowd.uBoo.value=0.6;}
+  // s20–s22: Miss ×3
+  if(ON('s20',t))jumper(LEND,t,SH.s20[0]+0.1,RX-7.1,1.6,'clank',12);
+  if(ON('s21',t))jumper(RICH,t,SH.s21[0]+0.05,RX-6.9,-1.8,'back',13);
+  if(ON('s22',t))jumper(MELT,t,SH.s22[0]+0.05,RX-6.6,0,'clank',14);
+  // s23: em bé ném khối đồ chơi
+  if(ON('s23',t)){const u=U('s23',t);const k2=cl(u/0.9);bb(1,RX-3.0,0.6,PI/2-0.15,t,{base:'sit',arms:'throw',k:k2,face:k2>0.6?'happy':'neutral',look:[0,0.5]});
+    if(k2<0.62)at(BLK,babyHand(BB[1]),u*2,u*3);else{const kb=cl((u-0.56)/1.2);at(BLK,arc(V(RX-2.9,0.6,0.55),V(RX,3.3,0),2.4,kb),kb*12,kb*9);}}
+  // s24: khối đồ chơi lọt rổ — cả nhà thi đấu lặng người
+  if(ON('s24',t)){const u=U('s24',t);at(BLK,V(RX,lerp(3.3,0.07,cl(u/0.7)),0),u*4,u*3);PR.crowd.uCheer.value=0;PR.crowd.uSleep.value=0.3;idle(MELT,RX-2.2,1.2,PI/2-0.4,t,3);E(MELT,t,[[0,'shock']],14,{look:[0,0.6]});}
+  // s25: bàn bình luận — 2 bình luận viên gật gù vỗ tay
+  if(ON('s25',t)){const z0=-CW/2-1.8;at(DESK,V(0,0,z0),0);COM.forEach((ch,i)=>{seated(ch,-0.5+i*1.0,z0-0.45,0.5,0,t,i);ch.root.rotation.y=0;ch.root.updateMatrixWorld(true);show(ch);
+      const cp=Math.abs(Math.sin(t*7+i));const c0=chest(ch).add(Lc(ch,0,0.05,0.35));reach(ch,c0.clone().add(Lc(ch,-0.06-0.05*cp,0,0)),'r');reach(ch,c0.clone().add(Lc(ch,0.06+0.05*cp,0,0)),'l');E(ch,t,[[0,i?'laugh':'talk']],70+i,{look:[i?-0.3:0.3,0]});});}
+  // s26: giờ nghỉ — Kerr vẽ chiến thuật
+  if(ON('s26',t)){const z0=-CW/2-1.5;at(BOARD,V(2.0,0,z0-0.2),0);BOARD.userData.scribble(0);idle(KERR,2.7,z0+0.05,-0.6,t,2,{talk:0.6});reach(KERR,V(2.2+0.1*Math.sin(t*2),1.0,z0-0.17),'r');E(KERR,t,[[0,'talk']],40,{look:[-0.5,-0.1]});
+    [RICH,MELT].forEach((ch,j)=>{idle(ch,3.7+j*0.55,z0+0.3-j*0.5,-PI/2-0.3,t,j);E(ch,t,[[0,'neutral']],10+j,{look:[0,-0.2]});});}
+  // s27: em bé vẽ bậy lên bảng
+  if(ON('s27',t)){const z0=-CW/2-1.5;const u=U('s27',t);at(BOARD,V(2.0,0,z0-0.2),0);BOARD.userData.scribble(cl(u/DUR('s27')));bb(0,1.85,z0+0.05,PI,t,{base:'stand',arms:'draw',face:'happy',wobble:0.5,y:0.38});}
+  // s28: Kerr ngắm nghía, chống cằm — "Better play"
+  if(ON('s28',t)){const z0=-CW/2-1.5;at(BOARD,V(2.0,0,z0-0.2),0);BOARD.userData.scribble(1);idle(KERR,2.75,z0+0.3,-0.35,t,2);reach(KERR,head(KERR).add(Lc(KERR,-0.02,-0.12,0.12)),'r');E(KERR,t,[[0,'neutral'],[SH.s28[0]+0.8,'proud']],40,{look:[0.2,-0.1]});}
+  // s29: ném phạt — Bassey ôm bóng ở vạch
+  if(ON('s29',t)){place(BASS,FT,0,PI/2);const bp=holdChest(BASS,FT,0,0.2,t);show(BASS);at(BALL,bp);E(BASS,t,[[0,'determined']],14,{look:[0,0.2]});}
+  // s30: Bassey chuẩn bị ném — em bé khóc ré cạnh sân
+  if(ON('s30',t)){place(BASS,FT,0,PI/2);const bp=holdChest(BASS,FT,0,0.25+0.1*Math.sin(t*3),t);show(BASS);at(BALL,bp);E(BASS,t,[[0,'determined'],[SH.s30[0]+1.0,'wince']],14,{look:[0,0.2]});
+    bb(3,FT-0.5,1.05,-0.7,t,{base:'sit',arms:'cry',face:'cry'});}
+  // s31: dội vành sau
+  if(ON('s31',t)){const u=U('s31',t);const kb=cl(u/1.4);at(BALL,shotBall(V(FT+0.3,2.3,0),kb,'back'),0,0,kb*9);}
+  // s32: còn 5 giây, thua 1
+  if(ON('s32',t)){PR.crowd.uCheer.value=0.8;}
+  // s33: Podziemski cầm bóng ở đầu vòng 3 điểm
+  if(ON('s33',t)){place(PODZ,RX-7.2,0,PI/2);const bp=dribble(PODZ,t,RX-7.2,0,1.8,0.4);show(PODZ);at(BALL,bp);E(PODZ,t,[[0,'determined']],11);bb(2,RX-6.6,0.9,-PI*0.75,t,{base:'sit',arms:'idle',look:[0,0.6]});}
+  // s34: em bé vẫy tay với anh
+  if(ON('s34',t)){bb(2,RX-6.6,0.9,-0.5,t,{base:'sit',arms:'wave',face:'happy',look:[0,0.45]});}
+  // s35: anh vẫy lại
+  if(ON('s35',t)){place(PODZ,RX-7.2,0,PI/2);const bp=holdChest(PODZ,RX-7.2,0,0.15,t);show(PODZ);PODZ.root.rotation.y=PI/2+0.6;PODZ.root.updateMatrixWorld(true);
+    reach(PODZ,head(PODZ).add(Lc(PODZ,-0.32,0.25+0.06*Math.sin(t*10),0.1)),'r');at(BALL,hand(PODZ,'l').add(Lc(PODZ,0.05,0,0.12)));E(PODZ,t,[[0,'laugh']],11,{look:[0.3,-0.3]});}
+  // s36: hết giờ
+  if(ON('s36',t)){PR.crowd.uBoo.value=1;}
+  // s37: Final — em bé ăn mừng, Warriors cúi đầu
+  if(ON('s37',t)){babiesRow(t,i=>({base:i%2?'stand':'sit',arms:i%2?'cheer':'clap',face:'happy',look:[0,0.3]}));WS.forEach((ch,i)=>{slump(ch,WX+0.6+(i%2)*0.3,BZ[i]*1.05,t,i);ch.root.rotation.y=-PI/2;ch.root.updateMatrixWorld(true);show(ch);E(ch,t,[[0,'wince']],i+10);});PR.crowd.uBoo.value=0.9;}
+  // s38: Celtics thật thứ Hai — các bé vẫy tay chào máy
+  if(ON('s38',t)){babiesRow(t,i=>({base:'sit',arms:'wave',face:'happy',look:[0.35,0.1]}));}
+  // s39: Warriors nhìn nhau lo lắng
+  if(ON('s39',t)){WS.slice(0,4).forEach((ch,i)=>{idle(ch,WX+(i%2)*0.4,-1.2+i*0.8,-PI/2+(i%2?0.7:-0.7),t,i);E(ch,t,[[0,'wince'],[SH.s39[0]+1.0,'surprised']],i+10,{look:[i%2?0.7:-0.7,0]});});bb(0,BX+0.8,0,PI/2,t,{base:'sit',arms:'wave',face:'happy'});}
+  // màn hình treo
+  const sc=t<SH.s14[0]?[0,0]:t<SH.s20[0]?[2,0]:t<SH.s25[0]?[4,0]:t<SH.s32[0]?[24,22]:t<SH.s36[0]?[40,39]:[41,40];
+  PR.center.draw(t<SH.s3[0]?{msg:'WHAT IF…',c:'#ffe9b0',sub:'WARRIORS vs BABIES'}:ON('s8',t)?{msg:'5 STRAIGHT L',c:'#ff6a6a',sub:'4 BY 20+'}:ON('s9',t)?{msg:'1997–98',c:'#ff6a6a',sub:'TEAM RECORD (BAD)'}:ON('s10',t)||ON('s11',t)?{msg:'3PT: 5/29',c:'#ff6a6a',sub:'AT MEMPHIS'}
+    :ON('s25',t)||ON('s26',t)||ON('s27',t)||ON('s28',t)?{msg:'HALFTIME',c:'#ffffff',sub:'BABIES LEAD'}:ON('s32',t)?{a:40,b:39,clock:'0:05'}:ON('s36',t)?{msg:'0:00',c:'#ff4a4a',big:1,sub:'SHOT CLOCK'}:t>=SH.s37[0]&&t<SH.s38[0]?{a:41,b:40,clock:'FINAL'}:t>=SH.s38[0]?{msg:'NEXT: CELTICS',c:'#7fe0a0',sub:'MONDAY'}
+    :{a:sc[0],b:sc[1],clock:t<SH.s25[0]?'Q1':'Q4'});
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
+};
+function armsUp(ch,k){for(const s_ of ['l','r'])reach(ch,head(ch).add(Lc(ch,(s_==='l'?1:-1)*0.45*k+(s_==='l'?0.25:-0.25)*(1-k),0.4*k-0.25*(1-k),0.12)),s_);}
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>
