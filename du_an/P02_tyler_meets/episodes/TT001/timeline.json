@@ -6,7 +6,7 @@
  "vo": "episodes/TT001/audio/vo.wav",
  "words": "episodes/TT001/audio/vo16k.cap.json",
  "tail": 0.6,
- "music": null,
+ "music": "assets/music/bed_main_V07.wav",
  "font": "C:/Users/ADMIN/AppData/Local/Microsoft/Windows/Fonts/Roboto-BlackItalic.ttf",
  "shots": [
   {
@@ -17,10 +17,11 @@
    ],
    "end": 1.6,
    "id": "S01",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S01_OPEN_ELI_CATCH",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_KID_HYPE",
@@ -30,10 +31,11 @@
    ],
    "end": 3.9333,
    "id": "S02",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S02_CU_KID_HYPE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ME_WTF",
@@ -43,10 +45,11 @@
    ],
    "end": 6.0333,
    "id": "S03",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S03_CU_ME_WTF",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_COURT_ELI",
@@ -56,10 +59,11 @@
    ],
    "end": 7.6667,
    "id": "S04",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S04_WIDE_COURT_ELI",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ELI_SQUINT",
@@ -69,10 +73,11 @@
    ],
    "end": 10.1333,
    "id": "S05",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S05_CU_ELI_SQUINT",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_COURT_FANS",
@@ -82,10 +87,11 @@
    ],
    "end": 13.4,
    "id": "S06",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S06_WIDE_COURT_FANS",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_ELI_LEAN_POLE",
@@ -95,10 +101,11 @@
    ],
    "end": 15.4333,
    "id": "S07",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S07_MS_ELI_LEAN_POLE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_ELI_LEAN_PRINCIPAL",
@@ -108,10 +115,11 @@
    ],
    "end": 18.8333,
    "id": "S08",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S08_MS_ELI_LEAN_PRINCIPAL",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_KAY_FILM",
@@ -121,10 +129,11 @@
    ],
    "end": 20.3,
    "id": "S09",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S09_MS_KAY_FILM",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "INS_KAY_PHONE",
@@ -134,10 +143,11 @@
    ],
    "end": 21.8667,
    "id": "S10",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S10_INS_KAY_PHONE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ME_DEAD",
@@ -147,10 +157,11 @@
    ],
    "end": 25.6,
    "id": "S11",
-   "src": "PLACEHOLDER",
-   "kind": "still",
-   "push": 1.045,
-   "snap": false
+   "src": "work/tt001/clips_prev/S11_CU_ME_DEAD",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_BAND",
@@ -160,10 +171,11 @@
    ],
    "end": 27.6667,
    "id": "S12",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S12_WIDE_BAND",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_ELI_TRIANGLE",
@@ -173,10 +185,11 @@
    ],
    "end": 29.1,
    "id": "S13",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S13_MS_ELI_TRIANGLE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_BAND_STOP",
@@ -186,10 +199,11 @@
    ],
    "end": 32.6333,
    "id": "S14",
-   "src": "PLACEHOLDER",
-   "kind": "still",
-   "push": 1.045,
-   "snap": false
+   "src": "work/tt001/clips_prev/S14_MS_BAND_STOP",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_HAYES_TEAR",
@@ -199,10 +213,11 @@
    ],
    "end": 35.0333,
    "id": "S15",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S15_CU_HAYES_TEAR",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ME_TUBA",
@@ -212,10 +227,11 @@
    ],
    "end": 36.9667,
    "id": "S16",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S16_CU_ME_TUBA",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_ME_TUBA",
@@ -225,10 +241,11 @@
    ],
    "end": 39.3667,
    "id": "S17",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S17_WIDE_ME_TUBA",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_BAND_BACKS",
@@ -238,10 +255,11 @@
    ],
    "end": 40.7667,
    "id": "S18",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S18_MS_BAND_BACKS",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "OTS_ELI_SHEET_UPSIDE",
@@ -251,10 +269,11 @@
    ],
    "end": 44.3667,
    "id": "S19",
-   "src": "PLACEHOLDER",
-   "kind": "still",
-   "push": 1.045,
-   "snap": false
+   "src": "work/tt001/clips_prev/S19_OTS_ELI_SHEET_UPSIDE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_ART",
@@ -264,10 +283,11 @@
    ],
    "end": 46.7667,
    "id": "S20",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S20_WIDE_ART",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_ELI_BRUSH",
@@ -277,10 +297,11 @@
    ],
    "end": 49.0,
    "id": "S21",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S21_MS_ELI_BRUSH",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ME_SIDEEYE",
@@ -290,10 +311,11 @@
    ],
    "end": 50.4,
    "id": "S22",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S22_CU_ME_SIDEEYE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "INS_CANVAS_RACK",
@@ -303,10 +325,11 @@
    ],
    "end": 52.3667,
    "id": "S23",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S23_INS_CANVAS_RACK",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "POV_KAY_ZOOM",
@@ -316,9 +339,9 @@
    ],
    "end": 54.8667,
    "id": "S24",
-   "src": "PLACEHOLDER",
+   "src": "work/tt001/inserts/phone_zoom.png",
    "kind": "still",
-   "push": 1.0,
+   "push": 1.045,
    "snap": false
   },
   {
@@ -329,10 +352,11 @@
    ],
    "end": 57.1667,
    "id": "S25",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S25_OPEN_ELI_CATCH",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ME_REALIZE",
@@ -342,10 +366,11 @@
    ],
    "end": 59.6667,
    "id": "S26",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S26_CU_ME_REALIZE",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "WIDE_BUS_STOP_POINT",
@@ -355,10 +380,11 @@
    ],
    "end": 62.4667,
    "id": "S27",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S27_WIDE_BUS_STOP_POINT",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "INS_GLASSES_HEAD",
@@ -368,10 +394,11 @@
    ],
    "end": 64.4,
    "id": "S28",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S28_INS_GLASSES_HEAD",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ELI_PANIC",
@@ -381,10 +408,11 @@
    ],
    "end": 67.0667,
    "id": "S29",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S29_CU_ELI_PANIC",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "MS_ELI_BUMP",
@@ -394,10 +422,11 @@
    ],
    "end": 68.3,
    "id": "S30",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S30_MS_ELI_BUMP",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "INS_SANDWICH_BUS",
@@ -407,10 +436,11 @@
    ],
    "end": 70.9333,
    "id": "S31",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S31_INS_SANDWICH_BUS",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "CU_ELI_GLASSES_OFF",
@@ -420,10 +450,11 @@
    ],
    "end": 72.7,
    "id": "S32",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S32_CU_ELI_GLASSES_OFF",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   },
   {
    "key": "INS_PHONE_VIEWS",
@@ -433,9 +464,9 @@
    ],
    "end": 74.6333,
    "id": "S33",
-   "src": "PLACEHOLDER",
+   "src": "work/tt001/inserts/phone_views.png",
    "kind": "still",
-   "push": 1.0,
+   "push": 1.045,
    "snap": false
   },
   {
@@ -446,10 +477,60 @@
    ],
    "end": 76.54,
    "id": "S34",
-   "src": "PLACEHOLDER",
-   "kind": "still",
+   "src": "work/tt001/clips_prev/S34_CU_ME_CRUMBS",
+   "kind": "frames",
    "push": 1.0,
-   "snap": false
+   "snap": false,
+   "step": 2
   }
+ ],
+ "caption_style": "hb",
+ "music_gain_db": -9.5,
+ "keywords": [
+  "OHHH!",
+  "No-look",
+  "aura",
+  "farming!",
+  "Elijah.",
+  "final",
+  "boss.",
+  "leans",
+  "Poles.",
+  "Doors.",
+  "principal.",
+  "farming.",
+  "video.",
+  "Zero",
+  "crops.",
+  "Band.",
+  "triangle.",
+  "ding.",
+  "stops.",
+  "perfect.",
+  "less",
+  "tuba.",
+  "forty",
+  "minutes.",
+  "upside",
+  "down.",
+  "Art",
+  "line.",
+  "coat",
+  "rack.",
+  "Bro.",
+  "can't",
+  "see.",
+  "no-look",
+  "farming",
+  "anything.",
+  "Glasses.",
+  "LOOKING",
+  "sandwich",
+  "bus.",
+  "glasses.",
+  "2",
+  "million",
+  "views.",
+  "sandwich."
  ]
 }
