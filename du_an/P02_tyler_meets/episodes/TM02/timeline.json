@@ -1,0 +1,600 @@
+{
+ "out": "episodes/TM02/out/TM02_marcus_v2.mp4",
+ "fps": 30,
+ "w": 1080,
+ "h": 1920,
+ "vo": "episodes/TM02/audio/vo.wav",
+ "words": "episodes/TM02/audio/vo16k.cap.json",
+ "tail": 0.6,
+ "music": "assets/music/bed_main_V07.wav",
+ "font": "C:/Users/ADMIN/AppData/Local/Microsoft/Windows/Fonts/Roboto-BlackItalic.ttf",
+ "shots": [
+  {
+   "key": "OPEN_GIRL_PASS",
+   "start": 0.0,
+   "beats": [
+    "L00 [MAR] Yo! YO! You see that?!"
+   ],
+   "end": 1.9333,
+   "id": "S01",
+   "src": "work/tm02v2/clips/S01_OPEN_GIRL_PASS",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_HYPE",
+   "start": 1.9333,
+   "beats": [
+    "L00 [MAR] She looked at me! She's into me, bro! Right?!"
+   ],
+   "end": 4.9667,
+   "id": "S02",
+   "src": "work/tm02v2/clips/S02_CU_MAR_HYPE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_WTF",
+   "start": 4.9667,
+   "beats": [
+    "L01 [NARR] What the fuck is wrong with this dude?"
+   ],
+   "end": 7.4333,
+   "id": "S03",
+   "src": "work/tm02v2/clips/S03_CU_ME_WTF",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_GIRL_CLOCK",
+   "start": 7.4333,
+   "beats": [
+    "L02 [NARR] She was looking at the clock."
+   ],
+   "end": 9.1667,
+   "id": "S04",
+   "src": "work/tm02v2/clips/S04_CU_GIRL_CLOCK",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_CLOCK",
+   "start": 9.1667,
+   "beats": [
+    "L02 [NARR] Behind him."
+   ],
+   "end": 10.4333,
+   "id": "S05",
+   "src": "work/tm02v2/clips/S05_INS_CLOCK",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_HALL_MAR",
+   "start": 10.4333,
+   "beats": [
+    "L03 [NARR] This is Marcus."
+   ],
+   "end": 11.6333,
+   "id": "S06",
+   "src": "work/tm02v2/clips/S06_WIDE_HALL_MAR",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_LEAN",
+   "start": 11.6333,
+   "beats": [
+    "L03 [NARR] He leans on every locker like it's a photo shoot."
+   ],
+   "end": 14.6333,
+   "id": "S07",
+   "src": "work/tm02v2/clips/S07_MS_MAR_LEAN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_MAR_LEG",
+   "start": 14.6333,
+   "beats": [
+    "L04 [NARR] One leg up. Head tilted."
+   ],
+   "end": 16.7,
+   "id": "S08",
+   "src": "work/tm02v2/clips/S08_INS_MAR_LEG",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_CHEW",
+   "start": 16.7,
+   "beats": [
+    "L04 [NARR] Chewing gum like he's in a music video."
+   ],
+   "end": 19.2667,
+   "id": "S09",
+   "src": "work/tm02v2/clips/S09_CU_MAR_CHEW",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_BATH",
+   "start": 19.2667,
+   "beats": [
+    "L05 [NARR] Before first period,"
+   ],
+   "end": 20.5333,
+   "id": "S10",
+   "src": "work/tm02v2/clips/S10_WIDE_BATH",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_MIRROR",
+   "start": 20.5333,
+   "beats": [
+    "L05 [NARR] he takes forty selfies in the bathroom mirror."
+   ],
+   "end": 23.3333,
+   "id": "S11",
+   "src": "work/tm02v2/clips/S11_MS_MAR_MIRROR",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_MIRROR",
+   "start": 23.3333,
+   "beats": [
+    "L06 [MAR] Ooh, this one's fire!"
+   ],
+   "end": 25.4333,
+   "id": "S12",
+   "src": "work/tm02v2/clips/S12_CU_MAR_MIRROR",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_PHONE_SELFIES",
+   "start": 25.4333,
+   "beats": [
+    "L07 [NARR] Same face."
+   ],
+   "end": 26.8333,
+   "id": "S13",
+   "src": "work/tm02v2/inserts/phone_selfies.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEADPAN_BATH",
+   "start": 26.8333,
+   "beats": [
+    "L07 [NARR] Forty times."
+   ],
+   "end": 27.7667,
+   "id": "S14",
+   "src": "work/tm02v2/clips/S14_CU_ME_DEADPAN_BATH",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_GYM",
+   "start": 27.7667,
+   "beats": [
+    "L08 [NARR] Friday night,"
+   ],
+   "end": 29.5667,
+   "id": "S15",
+   "src": "work/tm02v2/clips/S15_WIDE_GYM",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_GYM_DANCE",
+   "start": 29.5667,
+   "beats": [
+    "L08 [NARR] the school dance."
+   ],
+   "end": 31.1667,
+   "id": "S16",
+   "src": "work/tm02v2/clips/S16_WIDE_GYM_DANCE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_ENTER",
+   "start": 31.1667,
+   "beats": [
+    "L09 [NARR] Marcus walks in,"
+   ],
+   "end": 32.3,
+   "id": "S17",
+   "src": "work/tm02v2/clips/S17_MS_MAR_ENTER",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "POV_MAR_CROWD",
+   "start": 32.3,
+   "beats": [
+    "L09 [NARR] looks around,"
+   ],
+   "end": 33.2333,
+   "id": "S18",
+   "src": "work/tm02v2/clips/S18_POV_MAR_CROWD",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_DISGUST",
+   "start": 33.2333,
+   "beats": [
+    "L09 [NARR] and freezes."
+   ],
+   "end": 34.4667,
+   "id": "S19",
+   "src": "work/tm02v2/clips/S19_CU_MAR_DISGUST",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_COMPLAIN",
+   "start": 34.4667,
+   "beats": [
+    "L10 [MAR] Bro! This is a sausage fest! I can't be here!"
+   ],
+   "end": 37.7667,
+   "id": "S20",
+   "src": "work/tm02v2/clips/S20_CU_MAR_COMPLAIN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_ANNOYED",
+   "start": 37.7667,
+   "beats": [
+    "L11 [NARR] Bro."
+   ],
+   "end": 38.7333,
+   "id": "S21",
+   "src": "work/tm02v2/clips/S21_CU_ME_ANNOYED",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "TWO_SHOT_GYM",
+   "start": 38.7333,
+   "beats": [
+    "L11 [NARR] You ARE the sausage."
+   ],
+   "end": 41.3,
+   "id": "S22",
+   "src": "work/tm02v2/clips/S22_TWO_SHOT_GYM",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_GIRLS_ENTER",
+   "start": 41.3,
+   "beats": [
+    "L12 [NARR] Then three girls walk in."
+   ],
+   "end": 42.9667,
+   "id": "S23",
+   "src": "work/tm02v2/clips/S23_WIDE_GIRLS_ENTER",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_SWITCH",
+   "start": 42.9667,
+   "beats": [
+    "L12 [NARR] Marcus switches instantly."
+   ],
+   "end": 44.9667,
+   "id": "S24",
+   "src": "work/tm02v2/clips/S24_CU_MAR_SWITCH",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_DEEP",
+   "start": 44.9667,
+   "beats": [
+    "L13 [NARR] Deeper voice."
+   ],
+   "end": 46.0667,
+   "id": "S25",
+   "src": "work/tm02v2/clips/S25_CU_MAR_DEEP",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_WALL",
+   "start": 46.0667,
+   "beats": [
+    "L13 [NARR] Lean on the wall."
+   ],
+   "end": 47.0333,
+   "id": "S26",
+   "src": "work/tm02v2/clips/S26_MS_MAR_WALL",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_FAKELAUGH",
+   "start": 47.0333,
+   "beats": [
+    "L13 [NARR] Laughing at a joke nobody said."
+   ],
+   "end": 49.1,
+   "id": "S27",
+   "src": "work/tm02v2/clips/S27_CU_MAR_FAKELAUGH",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_SMUG",
+   "start": 49.1,
+   "beats": [
+    "L14 [MAR] Girls stay choosing me, bro."
+   ],
+   "end": 50.9667,
+   "id": "S28",
+   "src": "work/tm02v2/clips/S28_CU_MAR_SMUG",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_LEAN2",
+   "start": 50.9667,
+   "beats": [
+    "L15 [NARR] He leans so hard,"
+   ],
+   "end": 52.8333,
+   "id": "S29",
+   "src": "work/tm02v2/clips/S29_MS_MAR_LEAN2",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_TABLE_FALL",
+   "start": 52.8333,
+   "beats": [
+    "L15 [NARR] he knocks over the snack table."
+   ],
+   "end": 55.4333,
+   "id": "S30",
+   "src": "work/tm02v2/clips/S30_WIDE_TABLE_FALL",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_SANDWICH_FALL",
+   "start": 55.4333,
+   "beats": [
+    "L16 [NARR] Including my sandwich."
+   ],
+   "end": 57.1333,
+   "id": "S31",
+   "src": "work/tm02v2/clips/S31_INS_SANDWICH_FALL",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_MAR_SITTING",
+   "start": 57.1333,
+   "beats": [
+    "L16 [NARR] Which he is now sitting on."
+   ],
+   "end": 59.9,
+   "id": "S32",
+   "src": "work/tm02v2/clips/S32_MS_MAR_SITTING",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_PARKING",
+   "start": 59.9,
+   "beats": [
+    "L17 [NARR] After the dance,"
+   ],
+   "end": 60.9333,
+   "id": "S33",
+   "src": "work/tm02v2/clips/S33_WIDE_PARKING",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_COUSIN_RUN",
+   "start": 60.9333,
+   "beats": [
+    "L17 [NARR] one girl finally runs up to him."
+   ],
+   "end": 63.1667,
+   "id": "S34",
+   "src": "work/tm02v2/clips/S34_WIDE_COUSIN_RUN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_COUSIN",
+   "start": 63.1667,
+   "beats": [
+    "L18 [COUS] Marcus!"
+   ],
+   "end": 64.0667,
+   "id": "S35",
+   "src": "work/tm02v2/clips/S35_CU_COUSIN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_MINIVAN_HONK",
+   "start": 64.0667,
+   "beats": [
+    "L18 [COUS] Your mom's been honking for ten minutes!"
+   ],
+   "end": 66.6333,
+   "id": "S36",
+   "src": "work/tm02v2/clips/S36_INS_MINIVAN_HONK",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEADPAN2",
+   "start": 66.6333,
+   "beats": [
+    "L19 [NARR] That's his cousin."
+   ],
+   "end": 68.7333,
+   "id": "S37",
+   "src": "work/tm02v2/clips/S37_CU_ME_DEADPAN2",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_MAR_POINT",
+   "start": 68.7333,
+   "beats": [
+    "L20 [MAR] See? She came to me."
+   ],
+   "end": 70.9667,
+   "id": "S38",
+   "src": "work/tm02v2/clips/S38_CU_MAR_POINT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEFEATED",
+   "start": 70.9667,
+   "beats": [
+    "L21 [NARR] Girls stay choosing him."
+   ],
+   "end": 72.7333,
+   "id": "S39",
+   "src": "work/tm02v2/clips/S39_CU_ME_DEFEATED",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_MINIVAN",
+   "start": 72.7333,
+   "beats": [
+    "L21 [NARR] To tell him his mom is here."
+   ],
+   "end": 74.3,
+   "id": "S40",
+   "src": "work/tm02v2/clips/S40_WIDE_MINIVAN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_SANDWICH_FLAT",
+   "start": 74.3,
+   "beats": [
+    "L21 [NARR] And my sandwich is still flat."
+   ],
+   "end": 76.88,
+   "id": "S41",
+   "src": "work/tm02v2/clips/S41_INS_SANDWICH_FLAT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  }
+ ],
+ "caption_style": "hb",
+ "music_gain_db": -9.5,
+ "keywords": [
+  "YO!",
+  "that?!",
+  "looked",
+  "into",
+  "Right?!",
+  "clock.",
+  "Behind",
+  "Marcus.",
+  "locker",
+  "photo",
+  "shoot.",
+  "leg",
+  "gum",
+  "music",
+  "video.",
+  "forty",
+  "selfies",
+  "bathroom",
+  "mirror.",
+  "FIRE!",
+  "Same",
+  "Forty",
+  "Friday",
+  "dance.",
+  "freezes.",
+  "SAUSAGE",
+  "FEST!",
+  "ARE",
+  "sausage.",
+  "three",
+  "girls",
+  "instantly.",
+  "Deeper",
+  "wall.",
+  "Laughing",
+  "nobody",
+  "choosing",
+  "knocks",
+  "snack",
+  "table.",
+  "sandwich.",
+  "sitting",
+  "runs",
+  "honking",
+  "TEN",
+  "MINUTES!",
+  "cousin.",
+  "See?",
+  "mom",
+  "flat."
+ ]
+}

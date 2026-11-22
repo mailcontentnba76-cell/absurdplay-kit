@@ -1,0 +1,22 @@
+L00 [MAR] Yo! YO! You see that?! / She looked at me! She's into me, bro! Right?! | OPEN_GIRL_PASS / CU_MAR_HYPE
+L01 [NARR] What the fuck is wrong with this dude? | CU_ME_WTF
+L02 [NARR] She was looking at the clock. / Behind him. | CU_GIRL_CLOCK / INS_CLOCK
+L03 [NARR] This is Marcus. / He leans on every locker like it's a photo shoot. | WIDE_HALL_MAR / MS_MAR_LEAN
+L04 [NARR] One leg up. Head tilted. / Chewing gum like he's in a music video. | INS_MAR_LEG / CU_MAR_CHEW
+L05 [NARR] Before first period, / he takes forty selfies in the bathroom mirror. | WIDE_BATH / MS_MAR_MIRROR
+L06 [MAR] Ooh, this one's fire! | CU_MAR_MIRROR
+L07 [NARR] Same face. / Forty times. | INS_PHONE_SELFIES / CU_ME_DEADPAN_BATH
+L08 [NARR] Friday night, / the school dance. | WIDE_GYM / WIDE_GYM_DANCE
+L09 [NARR] Marcus walks in, / looks around, / and freezes. | MS_MAR_ENTER / POV_MAR_CROWD / CU_MAR_DISGUST
+L10 [MAR] Bro! This is a sausage fest! I can't be here! | CU_MAR_COMPLAIN
+L11 [NARR] Bro. / You ARE the sausage. | CU_ME_ANNOYED / TWO_SHOT_GYM
+L12 [NARR] Then three girls walk in. / Marcus switches instantly. | WIDE_GIRLS_ENTER / CU_MAR_SWITCH
+L13 [NARR] Deeper voice. / Lean on the wall. / Laughing at a joke nobody said. | CU_MAR_DEEP / MS_MAR_WALL / CU_MAR_FAKELAUGH
+L14 [MAR] Girls stay choosing me, bro. | CU_MAR_SMUG
+L15 [NARR] He leans so hard, / he knocks over the snack table. | MS_MAR_LEAN2 / WIDE_TABLE_FALL
+L16 [NARR] Including my sandwich. / Which he is now sitting on. | INS_SANDWICH_FALL / MS_MAR_SITTING
+L17 [NARR] After the dance, / one girl finally runs up to him. | WIDE_PARKING / WIDE_COUSIN_RUN
+L18 [COUS] Marcus! / Your mom's been honking for ten minutes! | CU_COUSIN / INS_MINIVAN_HONK
+L19 [NARR] That's his cousin. | CU_ME_DEADPAN2
+L20 [MAR] See? She came to me. | CU_MAR_POINT
+L21 [NARR] Girls stay choosing him. / To tell him his mom is here. / And my sandwich is still flat. | CU_ME_DEFEATED / WIDE_MINIVAN / INS_SANDWICH_FLAT

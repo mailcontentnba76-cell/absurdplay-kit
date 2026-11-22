@@ -1,0 +1,156 @@
+[
+ {
+  "line": "L00",
+  "speaker": "BRO",
+  "text": "BRO! I haven't slept!  Thirty-one hours in Vice City! Skrrrt!",
+  "start": 0.0,
+  "end": 4.533
+ },
+ {
+  "line": "L01",
+  "speaker": "NARR",
+  "text": "What the fuck is wrong with this dude?",
+  "start": 4.983,
+  "end": 6.793
+ },
+ {
+  "line": "L02",
+  "speaker": "NARR",
+  "text": "This is Brody.  GTA six came out yesterday.  And Brody hasn't left the game since.",
+  "start": 7.243,
+  "end": 12.99
+ },
+ {
+  "line": "L03",
+  "speaker": "NARR",
+  "text": "He saw the security guard's golf cart,  and pressed triangle. In real life.",
+  "start": 13.44,
+  "end": 18.513
+ },
+ {
+  "line": "L04",
+  "speaker": "GUARD",
+  "text": "HEY! That's my cart!",
+  "start": 18.963,
+  "end": 20.537
+ },
+ {
+  "line": "L05",
+  "speaker": "NARR",
+  "text": "The cart goes four miles an hour.  The guard was walking faster.",
+  "start": 20.987,
+  "end": 25.063
+ },
+ {
+  "line": "L06",
+  "speaker": "NARR",
+  "text": "First period. School assembly.  The principal is giving a speech.",
+  "start": 25.513,
+  "end": 29.337
+ },
+ {
+  "line": "L07",
+  "speaker": "MON",
+  "text": "Walk, young man! WALK!",
+  "start": 29.787,
+  "end": 31.51
+ },
+ {
+  "line": "L08",
+  "speaker": "BRO",
+  "text": "I got two stars! TWO STARS!",
+  "start": 31.96,
+  "end": 34.284
+ },
+ {
+  "line": "L09",
+  "speaker": "NARR",
+  "text": "Now he's hiding behind the curtain,  waiting for the stars to go away.",
+  "start": 34.734,
+  "end": 38.095
+ },
+ {
+  "line": "L10",
+  "speaker": "NARR",
+  "text": "Then he walks into the nurse's office.",
+  "start": 38.545,
+  "end": 40.334
+ },
+ {
+  "line": "L11",
+  "speaker": "BRO",
+  "text": "I need armor. And full health.",
+  "start": 40.784,
+  "end": 42.665
+ },
+ {
+  "line": "L12",
+  "speaker": "NURSE",
+  "text": "Sweetie, this is a granola bar.",
+  "start": 43.115,
+  "end": 45.14
+ },
+ {
+  "line": "L13",
+  "speaker": "BRO",
+  "text": "Health bar. FULL.",
+  "start": 45.59,
+  "end": 46.723
+ },
+ {
+  "line": "L14",
+  "speaker": "NARR",
+  "text": "He's been awake for thirty-one hours.",
+  "start": 47.173,
+  "end": 48.967
+ },
+ {
+  "line": "L15",
+  "speaker": "NARR",
+  "text": "Lunch.  I finally sit down with my sandwich.",
+  "start": 49.417,
+  "end": 52.392
+ },
+ {
+  "line": "L16",
+  "speaker": "BRO",
+  "text": "Sorry bro. I'm just taking the vehicle.",
+  "start": 52.842,
+  "end": 54.598
+ },
+ {
+  "line": "L17",
+  "speaker": "NARR",
+  "text": "He carjacked my sandwich.",
+  "start": 55.048,
+  "end": 56.628
+ },
+ {
+  "line": "L18",
+  "speaker": "NARR",
+  "text": "Then he shows me what he's been playing.  It's a stream.",
+  "start": 57.078,
+  "end": 59.791
+ },
+ {
+  "line": "L19",
+  "speaker": "BRO",
+  "text": "Yeah. I don't even own it.",
+  "start": 60.241,
+  "end": 61.579
+ },
+ {
+  "line": "L20",
+  "speaker": "NARR",
+  "text": "Thirty-one hours.  Watching someone else play.",
+  "start": 62.029,
+  "end": 64.892
+ },
+ {
+  "line": "L21",
+  "speaker": "NARR",
+  "text": "The streamer got rich.  Brody got detention.  And my sandwich got carjacked.",
+  "start": 65.892,
+  "end": 70.886
+ }
+]

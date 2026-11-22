@@ -1,0 +1,22 @@
+L00 [BRO] BRO! I haven't slept! / Thirty-one hours in Vice City! Skrrrt! | OPEN_BRO_RUN / CU_BRO_HYPE
+L01 [NARR] What the fuck is wrong with this dude? | CU_ME_WTF
+L02 [NARR] This is Brody. / GTA six came out yesterday. / And Brody hasn't left the game since. | WIDE_CROSS_BRO / INS_ENERGY_CAN / MS_BRO_YAWN
+L03 [NARR] He saw the security guard's golf cart, / and pressed triangle. In real life. | OTS_BRO_CART / INS_BRO_TRIANGLE
+L04 [GUARD] HEY! That's my cart! | MS_CART_ALARM
+L05 [NARR] The cart goes four miles an hour. / The guard was walking faster. | WIDE_CART_SLOW / WIDE_GUARD_WALK
+L06 [NARR] First period. School assembly. / The principal is giving a speech. | WIDE_AUD / MS_PRINCIPAL
+L07 [MON] Walk, young man! WALK! | WIDE_BRO_STAGE_RUN
+L08 [BRO] I got two stars! TWO STARS! | CU_BRO_STARS
+L09 [NARR] Now he's hiding behind the curtain, / waiting for the stars to go away. | MS_CURTAIN_FEET / CU_BRO_HIDE
+L10 [NARR] Then he walks into the nurse's office. | WIDE_NURSE_ENTER
+L11 [BRO] I need armor. And full health. | CU_BRO_ARMOR
+L12 [NURSE] Sweetie, this is a granola bar. | CU_NURSE
+L13 [BRO] Health bar. FULL. | MS_BRO_HEAL
+L14 [NARR] He's been awake for thirty-one hours. | CU_ME_DOOR
+L15 [NARR] Lunch. / I finally sit down with my sandwich. | WIDE_PATIO / INS_ME_SANDWICH
+L16 [BRO] Sorry bro. I'm just taking the vehicle. | MS_BRO_GRAB
+L17 [NARR] He carjacked my sandwich. | CU_ME_EMPTY
+L18 [NARR] Then he shows me what he's been playing. / It's a stream. | TWO_SHOT_PHONE / INS_PHONE_STREAM
+L19 [BRO] Yeah. I don't even own it. | CU_BRO_PROUD
+L20 [NARR] Thirty-one hours. / Watching someone else play. | CU_ME_SHOCK / CU_BRO_CHEW
+L21 [NARR] The streamer got rich. / Brody got detention. / And my sandwich got carjacked. | WIDE_PRINCIPAL_BEHIND / INS_DETENTION_SLIP / CU_ME_CRUMBS

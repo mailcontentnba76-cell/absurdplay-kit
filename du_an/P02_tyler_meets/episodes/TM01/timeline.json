@@ -1,0 +1,581 @@
+{
+ "out": "episodes/TM01/out/TM01_jaylen_v3.mp4",
+ "fps": 30,
+ "w": 1080,
+ "h": 1920,
+ "vo": "episodes/TM01/audio/vo.wav",
+ "words": "episodes/TM01/audio/vo16k.cap.json",
+ "tail": 0.6,
+ "music": "assets/music/bed_main_V07.wav",
+ "font": "C:/Users/ADMIN/AppData/Local/Microsoft/Windows/Fonts/Roboto-BlackItalic.ttf",
+ "shots": [
+  {
+   "key": "OPEN_JAY_STORY",
+   "start": 0.0,
+   "beats": [
+    "L00 [JAY] HA-HA-HA-HA-HA! ...Hmmmm... haaah."
+   ],
+   "end": 3.2,
+   "id": "S01",
+   "src": "work/tm01/clips/S01_OPEN_JAY_STORY",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_SAD",
+   "start": 3.2,
+   "beats": [
+    "L01 [NARR] What the fuck is wrong with this dude?"
+   ],
+   "end": 5.5667,
+   "id": "S02",
+   "src": "work/tm01/clips/S02_CU_JAY_SAD",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_BUS_JAY",
+   "start": 5.5667,
+   "beats": [
+    "L02 [NARR] This is Jaylen."
+   ],
+   "end": 7.2,
+   "id": "S03",
+   "src": "work/tm01/clips/S03_WIDE_BUS_JAY",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_LAUGH",
+   "start": 7.2,
+   "beats": [
+    "L02 [NARR] In real life, he's the chillest guy on the bus."
+   ],
+   "end": 10.7667,
+   "id": "S04",
+   "src": "work/tm01/clips/S04_CU_JAY_LAUGH",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_RAIN",
+   "start": 10.7667,
+   "beats": [
+    "L03 [NARR] Online?"
+   ],
+   "end": 12.1,
+   "id": "S05",
+   "src": "work/tm01/stories/story_rain.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_STARE",
+   "start": 12.1,
+   "beats": [
+    "L03 [NARR] He's a whole sad movie."
+   ],
+   "end": 13.6667,
+   "id": "S06",
+   "src": "work/tm01/clips/S06_CU_ME_STARE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "BUS_DOOR",
+   "start": 13.6667,
+   "beats": [
+    "L04 [NARR] Monday morning,"
+   ],
+   "end": 14.8,
+   "id": "S07",
+   "src": "work/tm01/clips/S07_BUS_DOOR",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ME_AISLE",
+   "start": 14.8,
+   "beats": [
+    "L04 [NARR] I get on the school bus."
+   ],
+   "end": 16.1667,
+   "id": "S08",
+   "src": "work/tm01/clips/S08_MS_ME_AISLE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_SEAT",
+   "start": 16.1667,
+   "beats": [
+    "L05 [NARR] Third row. Window seat."
+   ],
+   "end": 18.5333,
+   "id": "S09",
+   "src": "work/tm01/clips/S09_INS_SEAT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_SIT",
+   "start": 18.5333,
+   "beats": [
+    "L05 [NARR] Same seat since sixth grade."
+   ],
+   "end": 20.6667,
+   "id": "S10",
+   "src": "work/tm01/clips/S10_CU_ME_SIT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_ME_PHONE",
+   "start": 20.6667,
+   "beats": [
+    "L06 [NARR] Thirty seconds later, my phone buzzes."
+   ],
+   "end": 23.2,
+   "id": "S11",
+   "src": "work/tm01/stories/phone_notif.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_BLACK",
+   "start": 23.2,
+   "beats": [
+    "L07 [NARR] Jaylen posted a black screen,"
+   ],
+   "end": 24.9333,
+   "id": "S12",
+   "src": "work/tm01/stories/story_black.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_HEART",
+   "start": 24.9333,
+   "beats": [
+    "L07 [NARR] a broken heart,",
+    "L07 and sad piano."
+   ],
+   "end": 27.4667,
+   "id": "S13",
+   "src": "work/tm01/stories/story_heart.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_READ",
+   "start": 27.4667,
+   "beats": [
+    "L08 [NARR] The caption says,"
+   ],
+   "end": 28.6333,
+   "id": "S14",
+   "src": "work/tm01/clips/S14_CU_ME_READ",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_CAPTION",
+   "start": 28.6333,
+   "beats": [
+    "L08 [NARR] \"Some people take your seat, and your trust.\""
+   ],
+   "end": 32.0,
+   "id": "S15",
+   "src": "work/tm01/stories/story_caption.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_ANNOYED",
+   "start": 32.0,
+   "beats": [
+    "L09 [NARR] Bro."
+   ],
+   "end": 32.9,
+   "id": "S16",
+   "src": "work/tm01/clips/S16_CU_ME_ANNOYED",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_SEAT",
+   "start": 32.9,
+   "beats": [
+    "L09 [NARR] It's a bus seat."
+   ],
+   "end": 34.3,
+   "id": "S17",
+   "src": "work/tm01/clips/S17_WIDE_SEAT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEADPAN",
+   "start": 34.3,
+   "beats": [
+    "L09 [NARR] Not your family land."
+   ],
+   "end": 36.3,
+   "id": "S18",
+   "src": "work/tm01/clips/S18_CU_ME_DEADPAN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_TURN",
+   "start": 36.3,
+   "beats": [
+    "L10 [NARR] I turn around."
+   ],
+   "end": 37.3667,
+   "id": "S19",
+   "src": "work/tm01/clips/S19_CU_ME_TURN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "TWO_SHOT_SEATS",
+   "start": 37.3667,
+   "beats": [
+    "L10 [NARR] He's sitting right behind me."
+   ],
+   "end": 38.6,
+   "id": "S20",
+   "src": "work/tm01/clips/S20_TWO_SHOT_SEATS",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_SMILE",
+   "start": 38.6,
+   "beats": [
+    "L10 [NARR] Smiling."
+   ],
+   "end": 39.7,
+   "id": "S21",
+   "src": "work/tm01/clips/S21_CU_JAY_SMILE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_THUMBS",
+   "start": 39.7,
+   "beats": [
+    "L11 [JAY] We good, bro!"
+   ],
+   "end": 41.0,
+   "id": "S22",
+   "src": "work/tm01/clips/S22_CU_JAY_THUMBS",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_2",
+   "start": 41.0,
+   "beats": [
+    "L12 [NARR] Four minutes later,"
+   ],
+   "end": 42.7667,
+   "id": "S23",
+   "src": "work/tm01/stories/story_2.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_TYPING",
+   "start": 42.7667,
+   "beats": [
+    "L12 [NARR] \"Nobody understands me.\""
+   ],
+   "end": 44.3667,
+   "id": "S24",
+   "src": "work/tm01/clips/S24_CU_JAY_TYPING",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEADPAN2",
+   "start": 44.3667,
+   "beats": [
+    "L13 [NARR] I understand you perfectly."
+   ],
+   "end": 46.6,
+   "id": "S25",
+   "src": "work/tm01/clips/S25_CU_ME_DEADPAN2",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "TWO_SHOT_CLOSE",
+   "start": 46.6,
+   "beats": [
+    "L13 [NARR] You're breathing on my neck."
+   ],
+   "end": 49.0333,
+   "id": "S26",
+   "src": "work/tm01/clips/S26_TWO_SHOT_CLOSE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_LIBRARY",
+   "start": 49.0333,
+   "beats": [
+    "L14 [NARR] By fourth period,"
+   ],
+   "end": 50.1667,
+   "id": "S27",
+   "src": "work/tm01/clips/S27_WIDE_LIBRARY",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_BARS",
+   "start": 50.1667,
+   "beats": [
+    "L14 [NARR] he's on story number fourteen."
+   ],
+   "end": 52.5667,
+   "id": "S28",
+   "src": "work/tm01/stories/story_bars.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "MS_KAY_SHOW",
+   "start": 52.5667,
+   "beats": [
+    "L15 [NARR] In the library, Kayla shows me her phone."
+   ],
+   "end": 55.3333,
+   "id": "S29",
+   "src": "work/tm01/clips/S29_MS_KAY_SHOW",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_KAY",
+   "start": 55.3333,
+   "beats": [
+    "L16 [KAY] Why are you tagged"
+   ],
+   "end": 56.8333,
+   "id": "S30",
+   "src": "work/tm01/clips/S30_CU_KAY",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_TAG",
+   "start": 56.8333,
+   "beats": [
+    "L16 [KAY] as \"the betrayer\"?"
+   ],
+   "end": 58.3333,
+   "id": "S31",
+   "src": "work/tm01/stories/story_tag.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "WIDE_LIB_STARE",
+   "start": 58.3333,
+   "beats": [
+    "L17 [NARR] Now the whole library is staring at me."
+   ],
+   "end": 60.5333,
+   "id": "S32",
+   "src": "work/tm01/clips/S32_WIDE_LIB_STARE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_LIBRARIAN",
+   "start": 60.5333,
+   "beats": [
+    "L17 [NARR] Even the librarian."
+   ],
+   "end": 62.3,
+   "id": "S33",
+   "src": "work/tm01/clips/S33_CU_LIBRARIAN",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_BUS2",
+   "start": 62.3,
+   "beats": [
+    "L18 [NARR] Next morning on the bus,"
+   ],
+   "end": 63.6333,
+   "id": "S34",
+   "src": "work/tm01/clips/S34_WIDE_BUS2",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_EAT",
+   "start": 63.6333,
+   "beats": [
+    "L18 [NARR] he's in my seat,",
+    "L18 eating MY breakfast sandwich."
+   ],
+   "end": 66.6667,
+   "id": "S35",
+   "src": "work/tm01/clips/S35_CU_JAY_EAT",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_3",
+   "start": 66.6667,
+   "beats": [
+    "L19 [NARR] And he still posts,"
+   ],
+   "end": 68.3333,
+   "id": "S36",
+   "src": "work/tm01/stories/story_3.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEFEATED",
+   "start": 68.3333,
+   "beats": [
+    "L19 [NARR] \"Can't trust nobody.\""
+   ],
+   "end": 71.4,
+   "id": "S37",
+   "src": "work/tm01/clips/S37_CU_ME_DEFEATED",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_STANDING",
+   "start": 71.4,
+   "beats": [
+    "L20 [NARR] Online, I'm the villain."
+   ],
+   "end": 73.3,
+   "id": "S38",
+   "src": "work/tm01/clips/S38_CU_ME_STANDING",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_JAY_PEACE",
+   "start": 73.3,
+   "beats": [
+    "L20 [NARR] In real life, I'm standing."
+   ],
+   "end": 75.3667,
+   "id": "S39",
+   "src": "work/tm01/clips/S39_CU_JAY_PEACE",
+   "kind": "frames",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_STORY_FINAL",
+   "start": 75.3667,
+   "beats": [
+    "L20 [NARR] And he's at peace."
+   ],
+   "end": 77.014,
+   "id": "S40",
+   "src": "work/tm01/stories/story_final.png",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  }
+ ],
+ "caption_style": "hb",
+ "music_gain_db": -9.5,
+ "keywords": [
+  "Hmmmmm",
+  "Jaylen",
+  "chillest",
+  "bus",
+  "sad",
+  "movie",
+  "Monday",
+  "school",
+  "Third",
+  "Window",
+  "sixth",
+  "buzzes",
+  "black",
+  "broken",
+  "heart",
+  "piano",
+  "seat,",
+  "trust.",
+  "seat.",
+  "family",
+  "land.",
+  "behind",
+  "Smiling.",
+  "good,",
+  "Nobody",
+  "understands",
+  "perfectly.",
+  "breathing",
+  "neck.",
+  "fourteen.",
+  "library,",
+  "Kayla",
+  "betrayer",
+  "staring",
+  "librarian.",
+  "MY",
+  "breakfast",
+  "sandwich.",
+  "trust",
+  "villain.",
+  "standing.",
+  "peace."
+ ]
+}

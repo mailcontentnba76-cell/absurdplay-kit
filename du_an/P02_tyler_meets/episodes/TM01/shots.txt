@@ -1,0 +1,21 @@
+L00 [JAY] HA-HA-HA-HA-HA! ...Hmmmm... haaah. | OPEN_JAY_STORY
+L01 [NARR] What the fuck is wrong with this dude? | CU_JAY_SAD
+L02 [NARR] This is Jaylen. / In real life, he's the chillest guy on the bus. | WIDE_BUS_JAY / CU_JAY_LAUGH
+L03 [NARR] Online? / He's a whole sad movie. | INS_STORY_RAIN / CU_ME_STARE
+L04 [NARR] Monday morning, / I get on the school bus. | BUS_DOOR / MS_ME_AISLE
+L05 [NARR] Third row. Window seat. / Same seat since sixth grade. | INS_SEAT / CU_ME_SIT
+L06 [NARR] Thirty seconds later, my phone buzzes. | INS_ME_PHONE
+L07 [NARR] Jaylen posted a black screen, / a broken heart, / and sad piano. | INS_STORY_BLACK / INS_STORY_HEART / CU_ME_CONFUSED
+L08 [NARR] The caption says, / "Some people take your seat, and your trust." | CU_ME_READ / INS_STORY_CAPTION
+L09 [NARR] Bro. / It's a bus seat. / Not your family land. | CU_ME_ANNOYED / WIDE_SEAT / CU_ME_DEADPAN
+L10 [NARR] I turn around. / He's sitting right behind me. / Smiling. | CU_ME_TURN / TWO_SHOT_SEATS / CU_JAY_SMILE
+L11 [JAY] We good, bro! | CU_JAY_THUMBS
+L12 [NARR] Four minutes later, / "Nobody understands me." | INS_STORY_2 / CU_JAY_TYPING
+L13 [NARR] I understand you perfectly. / You're breathing on my neck. | CU_ME_DEADPAN2 / TWO_SHOT_CLOSE
+L14 [NARR] By fourth period, / he's on story number fourteen. | WIDE_LIBRARY / INS_STORY_BARS
+L15 [NARR] In the library, Kayla shows me her phone. | MS_KAY_SHOW
+L16 [KAY] Why are you tagged / as "the betrayer"? | CU_KAY / INS_STORY_TAG
+L17 [NARR] Now the whole library is staring at me. / Even the librarian. | WIDE_LIB_STARE / CU_LIBRARIAN
+L18 [NARR] Next morning on the bus, / he's in my seat, / eating MY breakfast sandwich. | WIDE_BUS2 / CU_JAY_EAT / INS_SANDWICH_BITE
+L19 [NARR] And he still posts, / "Can't trust nobody." | INS_STORY_3 / CU_ME_DEFEATED
+L20 [NARR] Online, I'm the villain. / In real life, I'm standing. / And he's at peace. | CU_ME_STANDING / CU_JAY_PEACE / INS_STORY_FINAL

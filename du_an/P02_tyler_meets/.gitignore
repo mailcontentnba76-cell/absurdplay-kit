@@ -1,0 +1,6 @@
+.env*
+!.env.sonicvoice.example
+work/
+*.blend1
+__pycache__/
+.claude/skills/tyler-meets-homeboy-production/references/videos/*.mp4
