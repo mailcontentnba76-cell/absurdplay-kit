@@ -102,3 +102,10 @@ Năm ứng viên đã kiểm trùng 5 trục và chấm điểm:
 ## Hashtag
 
 #NFL #Packers #Steelers #WhatIf #NFLMascot #SteelCurtain #TerribleTowel #Cheesehead #FootballTikTok #AbsurdPlay
+
+## Sản xuất tới bản cắt thử (22/11/2026)
+- Giọng Sport USA (Magnific, eleven_v4, 304 credit) → ×1,05 = 90,1 s; mốc 240 từ khớp kịch bản (`giong/words_tw.json`).
+- Nhạc: alvana `funk/sleep` (CC0, chưa dùng tập nào). LUFS giọng −18,6 · nhạc −33,8 · SFX −30,6; ráp −14 LUFS.
+- Bản cắt thử: `giao/E28_cat_thu.mp4` (540×960, 15 fps, 90,42 s, 47 điểm cắt hoà 3 khung). `qa_ground.js` 0–90 s: **0 khung lún**.
+- Mixamo thiếu → chạy/ném dùng UAL (`dongtac.js` MX_ALIAS). Lái xe nâng dùng tư thế ngồi.
+- Việc sửa trước bản cuối (tự kiểm từ sheet khung): khói biến hình s04/s12 quá dày, che hình; cận cảnh giấy cổ phần s33 bị tay che; cận gối sofa s44 chưa rõ hình; kiểm lại màu áo 2026 hai đội từ ảnh chính thức.
