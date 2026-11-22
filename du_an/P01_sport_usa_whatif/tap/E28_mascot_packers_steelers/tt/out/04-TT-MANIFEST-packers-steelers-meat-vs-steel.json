@@ -1,0 +1,85 @@
+{
+  "schema": "TIKTOK_LOCK_MANIFEST_V4",
+  "channel_profile": {
+    "profile_id": "absurdplay-sportusa-nfl",
+    "profile_revision": 1,
+    "channel": "AbsurdPlay (TikTok) - P01 Sport USA",
+    "scope": "NFL + NCAA football (NBA lives in another chat)",
+    "base_versions": "tiktok-topic-studio@4.0 | tiktok-script-all-in-one@4.0 | tiktok-studio-doctor@4.0",
+    "script_language": "en-US",
+    "target_fyp_region": "US"
+  },
+  "series": "mascot",
+  "topic_id": "TT-001",
+  "slug": "packers-steelers-meat-vs-steel",
+  "track": "creator_rewards",
+  "mode": "clean_voiceover",
+  "script_version": 1,
+  "timing_status": "ESTIMATED",
+  "count_unit": "words",
+  "total_spoken_units": 240,
+  "total_beats": 30,
+  "non_speech_seconds": 0.0,
+  "estimated_center_seconds": 93.5,
+  "estimated_range_seconds": [
+    83.7,
+    98.6
+  ],
+  "creator_rewards_60s_safe": true,
+  "lossless_token_roundtrip": true,
+  "seam_count": 4,
+  "beat_pacing_summary": {
+    "total_beats": 30,
+    "first_beat_est_sec": 3.12,
+    "max_single_beat_est_sec": 5.06,
+    "avg_beat_est_sec": 3.12,
+    "spoken_beats_per_10s": 3.21,
+    "max_beat_threshold_sec": 8.5,
+    "beats_exceeding_threshold": []
+  },
+  "opening_fyp_audit": {
+    "first_beat_est_sec": 3.12,
+    "beats_in_windows": {
+      "0_3s_swipe_gate": 1,
+      "3_15s_premise": 4,
+      "15_30s_escalation": 4
+    },
+    "sentences_in_0_15s": 7,
+    "avg_sentence_units_0_15s": 6.14,
+    "max_sentence_units_0_15s": 9,
+    "max_open_sentence_threshold": 20,
+    "long_sentences_0_15s": [],
+    "question_in_0_30s": true,
+    "contiguity_numeric_or_clock_anchors_0_30s": [
+      "first",
+      "forty",
+      "nineteen",
+      "thousand",
+      "two"
+    ],
+    "fyp_throttle_watchlist_hits_0_30s": [],
+    "frame0_safezone_text": "PACKERS = MEAT PACKERS\nSTEELERS = STEELWORKERS",
+    "frame0_safezone_status": "PASS_SAFEZONE_MAX_2_LINES",
+    "warnings": []
+  },
+  "files": {
+    "01_script": {
+      "path": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/out/01-TT-SCRIPT-packers-steelers-meat-vs-steel.txt",
+      "sha256": "08b31dde39a7ed38d9f900328484649b93d995d08c225087a182f8cd887451dc"
+    },
+    "02_voice": {
+      "path": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/out/02-TT-VOICE-packers-steelers-meat-vs-steel.txt",
+      "sha256": "6570299cd8e878fd458184dd86c42493cba8387ed9172e29e2ed58b660bcf917"
+    },
+    "03_timeline_csv": {
+      "path": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/out/03-TT-TIMELINE-packers-steelers-meat-vs-steel.csv",
+      "sha256": "ce9e253fe72da37b9f277865d70fe26b31757bde9a76eed77887317a855a35dc"
+    },
+    "05_magnific_paste": {
+      "path": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/out/05-MAGNIFIC-PASTE-packers-steelers-meat-vs-steel.txt",
+      "sha256": "e5c7ae079e3fdea435d8ecb201b3111ebaf35758e8ae4a6ce1037f85da10f9a3",
+      "note": "Paste into Magnific Voice Generator (voice 'Sport USA'). Same tokens as 02-TT-VOICE plus the channel tag."
+    }
+  },
+  "locked_at": "2026-11-22T06:22:59.992149+00:00"
+}

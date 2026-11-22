@@ -1,0 +1,123 @@
+schema_version: TT_TOPIC_PACKET_V1
+packet_spec_revision: "4.0-sportusa.1"
+identity:
+  topic_id: "TT-001"
+  channel_episode: "E28"
+  slug: "packers-steelers-meat-vs-steel"
+  packet_revision: 1
+  niche_profile_id: "absurdplay-sportusa-nfl"
+  profile_revision: 1
+  base_versions: "tiktok-topic-studio@4.0 | tiktok-script-all-in-one@4.0"
+selection_and_scope:
+  selection_status: "DELEGATED_SELECTED"
+  decision_source: "USER_DELEGATED"   # chủ kênh ủy quyền 22/11/2026: tự nghiên cứu, chọn 1 đề tài đỉnh nhất
+  execution_mode: "AGENT_AUTONOMOUS_STEP_LOOP"
+  execution_scope: "FULL_SCRIPT_PIPELINE"   # dừng trước TTS/render
+  adaptation_route: "CONTINUE_SERIES"      # series mascot đối đầu (E22–E27)
+  readiness: "READY_FOR_SCRIPT"
+  blockers_and_limitations:
+    - "Hướng troll bị loại: không xác minh được trận hot ≤48 giờ bằng ≥2 nguồn (22/11/2026, chỉ mục tìm kiếm chưa có kết quả NFL tuần 12 / NCAA 21/11) → theo luật kênh chuyển sang mascot."
+    - "FBX Mixamo chưa có trong máy (10 file) → chạy/nước rút dùng UAL dự phòng cho tới khi chủ kênh đính kèm gói KIT."
+    - "Tiếng hơi nước (steam hiss) chưa có trong thư viện → dùng tạm SFX công nghiệp CC0 hoặc tạo sau khi hỏi (không tự tiêu credit)."
+niche_and_psychological_avatar:
+  niche_name: "NFL/NCAA what-if 3D"
+  series: "mascot"
+  content_archetype_and_story_engine: "Mascot đối đầu theo nghĩa đen (nghề gốc của tên đội) + đấu theo hiệp, mỗi hiệp một sự thật lịch sử"
+  brand_posture: "OMNISCIENT_NARRATOR"
+  channel_stage: "STAGE_UNKNOWN"
+  target_person_and_inner_question: "Fan Packers / Steelers ở Mỹ, 16–34: 'Đội tôi có thắng nổi nếu đấu bằng đúng cái nghề làm nên tên đội không?'"
+  emotional_posture: "CUSTOM_SINGLE_POSTURE: TRASH_TALK_GLEE"
+  avatar_purity_check: "PASS — 100% NFL, 2 fanbase lớn, mời comment phe"
+  target_fyp_region_and_qualified_geo: "US"
+  script_language: "en-US"
+  format_track: "creator_rewards"
+  fiction_and_fact_policy: "FACT_ANCHORED_ABSURD"
+  identity_and_non_stereotype_lock: "UNSPECIFIED"
+  exploration_element_tested: "Mascot là NGHỀ LAO ĐỘNG của con người (không thú, 0 credit 3D) — kiểm H3"
+angle_and_packaging_9x16:
+  core_question_and_viewer_promise: "Thợ thép hay công nhân đóng gói thịt thắng? Mỗi pha là một sự thật có thật về gốc tên đội."
+  concrete_stage_and_opening_object: "Sân bóng giữa một nhà máy: nửa lò luyện thép, nửa xưởng đóng gói thịt; 2 đội lao vào nhau ở 0,0 s"
+  unique_angle_familiar_plus_new: "Khung series quen ('What if X were actual Y') + mới: tên đội từ NGHỀ, và twist 'fan sở hữu đội' bỏ phiếu"
+  format_stack:
+    aaaa_or_story_engine: "Escalation by rounds"
+    outer_container: "Mascot head-to-head"
+    inner_escalation_engine: "Trophies → defense (Steel Curtain) → shareholder vote → towels vs cheeseheads"
+  visual_hook_archetype_1_to_8: "2 — Hai phe va chạm + biến hình xé áo"
+  frame_0_four_elements:
+    motion_at_0s: "Hai đội đang nước rút, va chạm ở 1,0 s"
+    audio_hit_at_0s: "magnific/football_hit + crowd_roar + whoosh"
+    frame0_safezone_text: "PACKERS = MEAT PACKERS / STEELERS = STEELWORKERS"
+    spoken_hook_what_plus_why: "What if the Packers were actual meat packers... and the Steelers were actual steelworkers?"
+  tiktok_search_seo_keywords: ["Packers", "Steelers", "NFL", "what if", "Steel Curtain", "Terrible Towel", "cheesehead"]
+  fyp_throttle_word_check: "PASS"
+  spectacle_or_emotional_peak_at_55_65pct: "Steel Curtain đập xuống (51 %) → mọi thứ bật ra (55–61 %), có nhịp lặng ở 'Round two'"
+  ending_loop_or_part2_plan: "'Steel or sausage? Comment who wins.' → đẩy máy vào quả bóng → nối khít khung 0 (va chạm)"
+runtime_and_part_budgets:
+  target_seconds_range: "83.7–98.6 s (center 93.5 s; T_fast ≥ 62.0 s PASS)"
+  voice_delivery_mode: "clean_voiceover"
+  count_unit: "words"
+  rate_basis: "MEASURED_SAMPLE"
+  speaking_rate_center_min_max: [154, 146, 172]
+  non_speech_budget_seconds: 0
+  part_budgets_csv: "48,60,62,45"
+market_twin_and_source_governance:
+  evidence_confidence: "HIGH_VERIFIED (sự thật) / HYPOTHESIS_UNVERIFIED (hiệu quả FYP)"
+  outlier_references:
+    - "@whatifbagel mascot/what-if >500K (cấu trúc, không chép) — doc whatifbagel_tren_500k.md"
+    - "Kênh mình E22–E27 series mascot (chưa có số D+7)"
+  five_axis_twin_check:
+    closest_matches_scored:
+      - "E27 Buckeyes vs Cornhuskers (người mặc đồ nghề nông): Q0 · Stage0 · Ladder1 · Payoff1 · Look0.5 = 2.5/5 → CLEAR (Ladder/Payoff là khung series)"
+      - "E11 Packers vs 11 cardboard cutouts: Q0 · Stage0 · Ladder0 · Payoff0 · Look0 = 0/5 → CLEAR"
+      - "E14/E15 Cousins tranh việc làm: Q0 · Stage0 · Ladder0.5 · Payoff0 · Look0 = 0.5/5 → CLEAR"
+      - "Ứng viên bị loại: Panthers vs Lions = 4/5 với E25 (mèo lớn) → TWIN BLOCKER; Patriots vs Steelers = 3/5 với E24 NBA (đồ 1776) → TWIN; Raiders vs Bucs = 3/5 với E22 (thuyền/hải tặc) → TWIN; Broncos vs Colts = 2/5 nhưng tương phản thấp + ~2.070 credit"
+    verdict: "CLEAR"
+    lexical_twin_seo_check: "TT-001_TWIN_SEO.json — max own-past Jaccard 0.429 (do khung 'What if … were actual' bắt buộc của series), competitor 0.214, SEO khớp Packers/Steelers/what if, 0 từ bị bóp"
+  scorecard_100: {premise_frame0: 26, fan_bridge_seo: 17, twin_originality: 13, purity_ladder: 13, cliff_60s: 10, sources_9x16_clean: 9, total: 88}
+  source_register:
+    - {id: S1, url: "https://www.packers.com/news/what-was-acme-packing-s-role-in-forming-packers-14285346"}
+    - {id: S2, url: "https://Www.wikipedia.org/wiki/Packers"}
+    - {id: S3, url: "https://profootballhof.com/news/2023/11/green-bay-packers-reach-100-years-of-public-ownership"}
+    - {id: S4, url: "https://www.packers.com/history/championship-seasons"}
+    - {id: S5, url: "https://www.britannica.com/print/article/244939"}
+    - {id: S6, url: "https://www.profootballhof.com/news/steel-city-pirates"}
+    - {id: S7, url: "https://en.wikipedia.org/wiki/Pittsburgh_Steelers"}
+    - {id: S8, url: "https://abc7ny.com/14391081"}
+    - {id: S9, url: "https://en.wikipedia.org/wiki/Steel_Curtain"}
+    - {id: S10, url: "https://www.profootballnetwork.com/?p=470447"}
+    - {id: S11, url: "https://www.steelers.com/news/terrible-towel-has-been-poised-to-strike-for-50-years"}
+    - {id: S12, url: "https://en.wikipedia.org/wiki/Terrible_Towel"}
+    - {id: S13, url: "https://www.milwaukeemag.com/where-did-wisconsin-cheesehead-hat-come-from/"}
+    - {id: S14, url: "https://www.cbsnews.com/chicago/news/man-created-cheese-hat-from-moms-couch"}
+  claim_ledger:
+    - {beat: b004, label: FACT, claim: "Packers named after a meat packing company (Indian Packing Co.)", sources: [S1, S2]}
+    - {beat: b005, label: FACT, claim: "1919: the company paid for their first jerseys/equipment", sources: [S1, S2], note: "số tiền $500 chỉ là 'được đồn' → không đọc số tiền"}
+    - {beat: b007, label: CALC, claim: "molten steel over two thousand degrees (°F)", sources: ["điểm nóng chảy thép ~2.500–2.800 °F"], human_scale: "card 2,000°F+"}
+    - {beat: b008, label: FACT, claim: "started as the Pittsburgh Pirates (1933)", sources: [S6, S7]}
+    - {beat: b009, label: FACT, claim: "1940 renamed via fan naming contest in the newspaper (Post-Gazette)", sources: [S6, S7]}
+    - {beat: b013, label: FACT, claim: "six Super Bowl wins, tied for most (with Patriots)", sources: [S7, S8]}
+    - {beat: b014, label: FACT, claim: "13 league championships, most in NFL history", sources: [S4, S5]}
+    - {beat: b017, label: FACT, claim: "'Steel Curtain' named via 1971 radio (WTAE) contest", sources: [S9, S10]}
+    - {beat: b020, label: FACT, claim: "fans own the team; publicly owned since 1923", sources: [S3, S5]}
+    - {beat: b021-b024, label: CREATIVE, claim: "shareholders vote to scrap the curtain (hư cấu; cổ đông thật chỉ bầu ban giám đốc)"}
+    - {beat: b026, label: FACT, claim: "Terrible Towel created by radio broadcaster Myron Cope, debuted Dec 1975", sources: [S11, S12]}
+    - {beat: b028, label: FACT, claim: "foam cheesehead invented 1987 by Ralph Bruno from couch foam", sources: [S13, S14]}
+    - {beat: b029, label: CREATIVE, claim: "'Pittsburgh fans name everything' — chơi chữ từ 2 cuộc thi đặt tên có thật (1940, 1971)"}
+kit_feasibility:
+  sets: ["MỚI lib/nhamay28.js:buildMill — sân giữa nhà máy: nửa lò thép (cẩu trục, lò rót, tia lửa cam), nửa xưởng đóng gói (băng chuyền, gạch men trắng, kho lạnh), khán đài 2 bên màu đội, chòi radio, góc phòng khách chèn (couch)"]
+  characters_and_costumes: ["makeCharacter (có sẵn) + MỚI dao28: dressPacker (áo khoác trắng, lưới tóc, ủng cao su, tạp dề), dressSteelworker (mũ bảo hộ, mặt nạ hàn, áo khoác chịu nhiệt), tricorn hải tặc tái dùng philly1776"]
+  animals_3d: []
+  mixamo_needed: ["Sprint", "Running (mở đầu); hiện thiếu → UAL dự phòng"]
+  credit_cost_estimate: "0 credit Magnific / 0 ElevenLabs cho hình & tiếng thú. Chỉ giọng Sport USA (Magnific) như mọi tập."
+  owner_actions: ["Duyệt kịch bản (duyệt lần 1)", "Đính kèm gói KIT (FBX Mixamo) nếu muốn chạy người thật ở 0–3 s", "Tạo giọng Sport USA từ 05-MAGNIFIC-PASTE sau khi duyệt"]
+ordered_modular_outline:
+  parts:
+    - {part_id: P01, budget_units: 48, actual_units: 52, function_and_state_delta: "Hook + biến hình Packers + gốc tên (INFORMATION, SCALE_RUNG 1)", concrete_action_and_9x16_data_cards: ["Frame-0 card", "1919 timeline", "source card packers.com"], exit_bridge: "Green Bay back to work → Now Pittsburgh"}
+    - {part_id: P02, budget_units: 60, actual_units: 67, function_and_state_delta: "Steelers + gốc Pirates + luật + Round 1 trophies (POWER)", concrete_action_and_9x16_data_cards: ["2,000°F+", "1933 PIRATES", "1940 CONTEST", "ROUND 1", "6 SUPER BOWLS", "13 TITLES"], exit_bridge: "13 titles → Round two"}
+    - {part_id: P03, budget_units: 62, actual_units: 72, function_and_state_delta: "Steel Curtain (đỉnh) → bật ra → twist cổ đông bỏ phiếu (DANGER → OWNERSHIP)", concrete_action_and_9x16_data_cards: ["ROUND 2", "1971 RADIO CONTEST", "FAN-OWNED SINCE 1923", "MOTION card", "SOLD FOR SCRAP"], exit_bridge: "scrap → Pittsburgh fires back"}
+    - {part_id: P04, budget_units: 45, actual_units: 49, function_and_state_delta: "Towel vs cheesehead + fan toxic + câu hỏi comment nối vòng (TRUST/POWER cân bằng)", concrete_action_and_9x16_data_cards: ["TERRIBLE TOWEL 1975", "CHEESEHEAD 1987", "VS split", "STEEL OR SAUSAGE?"], exit_bridge: "Comment who wins → loop to 0.0s"}
+  open_loop_payoff_map: ["Ai thắng? (mở 0 s) → để ngỏ cho comment", "Round two defense (46 s) → trả bằng vote (71 s)", "Pirates name (24 s) → trả bằng 'Arrr became clang' (31 s)"]
+  voice_and_must_keep_constraints:
+    voice_guide_summary: "Bình luận viên năng lượng cao, câu 3–12 từ, số đọc bằng chữ, không tục (series mascot)"
+    user_must_keep: ["Hook 'What if <đội> were actual <mascot>'", "fan toxic", "mỗi câu một hành động có đạo cụ", "sân mới", "watermark AbsurdPlay"]
+    strictly_do_not_copy: ["logo Packers 'G' / Steelmark", "tên sân thật (Lambeau, Acrisure)", "clip TV thật", "hook nguyên văn của @whatifbagel"]

@@ -1,0 +1,22 @@
+[
+  {
+    "seam": "P01->P02",
+    "prev_closing": "So Green Bay is just going back to work.",
+    "next_opening": "Now Pittsburgh. Hard hats. Molten steel, over two thousand degrees."
+  },
+  {
+    "seam": "P02->P03",
+    "prev_closing": "Green Bay answers with a forklift. Thirteen league titles. Most in NFL history.",
+    "next_opening": "Round two. Defense."
+  },
+  {
+    "seam": "P03->P04",
+    "prev_closing": "Motion passed. The Steel Curtain gets sold for scrap.",
+    "next_opening": "Pittsburgh fires back. Every fan whips out a Terrible Towel."
+  },
+  {
+    "seam": "FINAL->0.0s_LOOP_OR_PART2",
+    "prev_closing": "Steel or sausage? Comment who wins.",
+    "next_opening": "What if the Packers were actual meat packers..."
+  }
+]

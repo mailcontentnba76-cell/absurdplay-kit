@@ -1,0 +1,1251 @@
+{
+  "schema": "TT_KIT_SHOTLIST_V1",
+  "profile_id": "absurdplay-sportusa-nfl",
+  "engine": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/engine",
+  "mixamo_missing": [
+    "Sprint",
+    "Running",
+    "Jogging",
+    "Run_To_Stop",
+    "Slow_Jog_Backwards",
+    "Quarterback_Pass",
+    "Receiver_Catch",
+    "Football_Catch",
+    "Football_Hike",
+    "Field_Goal"
+  ],
+  "shot_count": 48,
+  "median_shot_sec": 1.92,
+  "status_counts": {
+    "CAN_DUNG_CODE": 36,
+    "CO_SAN": 10,
+    "CO_SAN_FALLBACK": 1,
+    "THIEU_TAI_NGUYEN": 1
+  },
+  "blockers": [],
+  "warnings": [],
+  "shots": [
+    {
+      "id": "s01",
+      "t0": 0.0,
+      "t1": 1.2,
+      "set": "mill_field",
+      "action": "Packers (green/gold jerseys) & Steelers (black/gold) sprint at each other, collide at 1.0s",
+      "camera": "low tracking dolly with runner -> whip",
+      "gfx": "FRAME0 card: PACKERS = MEAT PACKERS / STEELERS = STEELWORKERS",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:locoLock",
+        "lib/nhamay28.js:buildMill",
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/chamdat.js:snapGround"
+      ],
+      "mixamo": [
+        "Sprint"
+      ],
+      "sfx": [
+        "magnific/football_hit",
+        "magnific/crowd_roar",
+        "alvana/sfx/transition/whoosh-hit-1"
+      ],
+      "assets": [],
+      "motion_at_0s": "sprint collision already in progress at 0.0s",
+      "duration": 1.2,
+      "beats": [
+        "b001"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill",
+        "MIXAMO_MISSING Sprint (fallback UAL loco)"
+      ]
+    },
+    {
+      "id": "s02",
+      "t0": 1.2,
+      "t1": 3.12,
+      "set": "mill_field",
+      "action": "collision pile pushes, players bounce; Frame-0 card holds",
+      "camera": "high angle on impact, shake 0.015",
+      "gfx": "FRAME0 card",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:locoLock",
+        "lib/camera.js:PRESET"
+      ],
+      "mixamo": [
+        "Running"
+      ],
+      "sfx": [
+        "magnific/crowd_ooh_aah"
+      ],
+      "assets": [],
+      "duration": 1.92,
+      "beats": [],
+      "kit_status": "CO_SAN_FALLBACK",
+      "kit_needs": [
+        "MIXAMO_MISSING Running (fallback UAL loco)"
+      ]
+    },
+    {
+      "id": "s03",
+      "t0": 3.12,
+      "t1": 5.46,
+      "set": "mill_field",
+      "action": "Steelers line: sparks behind them from the steel side of the stadium",
+      "camera": "push-in medium",
+      "gfx": "card: STEELERS = STEELWORKERS",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr",
+        "lib/nhamay28.js:buildMill"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/impact/metallic"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b002"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill"
+      ]
+    },
+    {
+      "id": "s04",
+      "t0": 5.46,
+      "t1": 7.2,
+      "set": "packing_side",
+      "action": "Packers rip jerseys -> transform burst",
+      "camera": "orbit 40deg",
+      "gfx": "before->after card",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/bienhinh25.js:transformFX"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/foley/cloth-1",
+        "meta/corpora/oculus-audio-pack/ogg/PAPRRip_PaperTear_OS_01.ogg"
+      ],
+      "assets": [],
+      "duration": 1.74,
+      "beats": [
+        "b003"
+      ],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s05",
+      "t0": 7.2,
+      "t1": 8.97,
+      "set": "packing_side",
+      "action": "hairnets + white coats + rubber boots pop on",
+      "camera": "crane down",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dao28.js:dressPacker",
+        "lib/dao28.js:hairnet"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/pop/classic-pop"
+      ],
+      "assets": [],
+      "duration": 1.77,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:dressPacker",
+        "BUILD lib/dao28.js:hairnet"
+      ]
+    },
+    {
+      "id": "s06",
+      "t0": 8.97,
+      "t1": 11.1,
+      "set": "packing_side",
+      "action": "packing plant wall of the stadium: conveyor of sausages",
+      "camera": "truck left",
+      "gfx": "source card: NAMED AFTER A MEAT PACKING CO. [packers.com]",
+      "kit": [
+        "lib/nhamay28.js:buildMill",
+        "lib/dao28.js:conveyor",
+        "lib/dao28.js:sausage"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/data/beeps"
+      ],
+      "assets": [],
+      "duration": 2.13,
+      "beats": [
+        "b004"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill",
+        "BUILD lib/dao28.js:conveyor",
+        "BUILD lib/dao28.js:sausage"
+      ]
+    },
+    {
+      "id": "s07",
+      "t0": 11.1,
+      "t1": 13.26,
+      "set": "packing_side",
+      "action": "packer catches giant sausage off conveyor, thumbs up",
+      "camera": "handheld close",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr",
+        "lib/dao28.js:sausage"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 2.16,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:sausage"
+      ]
+    },
+    {
+      "id": "s08",
+      "t0": 13.26,
+      "t1": 15.1,
+      "set": "packing_side",
+      "action": "old jersey on hanger, sepia tint",
+      "camera": "slow push",
+      "gfx": "timeline card: 1919",
+      "kit": [
+        "lib/dao28.js:jerseyHanger"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/whoosh/air-01"
+      ],
+      "assets": [],
+      "duration": 1.84,
+      "beats": [
+        "b005"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:jerseyHanger"
+      ]
+    },
+    {
+      "id": "s09",
+      "t0": 15.1,
+      "t1": 16.77,
+      "set": "packing_side",
+      "action": "sepia jersey swaps into white coat",
+      "camera": "match-cut",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/bienhinh25.js:transformFX"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 1.67,
+      "beats": [],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s10",
+      "t0": 16.77,
+      "t1": 18.6,
+      "set": "packing_side",
+      "action": "packer punches a time clock, walks onto field",
+      "camera": "follow",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:loco",
+        "lib/dao28.js:timeClock"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "freesfx/rubberduck/WoodMetal/hammer_01.opus"
+      ],
+      "assets": [],
+      "duration": 1.83,
+      "beats": [
+        "b006"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:timeClock"
+      ]
+    },
+    {
+      "id": "s11",
+      "t0": 18.6,
+      "t1": 20.28,
+      "set": "mill_field",
+      "action": "Packers march in a line carrying sausages",
+      "camera": "truck right",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:loco",
+        "lib/dao28.js:sausage"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/drumline"
+      ],
+      "assets": [],
+      "duration": 1.68,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:sausage"
+      ]
+    },
+    {
+      "id": "s12",
+      "t0": 20.28,
+      "t1": 22.3,
+      "set": "steel_side",
+      "action": "Steelers rip jerseys -> hard hats + welding masks",
+      "camera": "orbit",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/bienhinh25.js:transformFX",
+        "lib/dao28.js:dressSteelworker",
+        "lib/dao28.js:hardHat"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/foley/cloth-2"
+      ],
+      "assets": [],
+      "duration": 2.02,
+      "beats": [
+        "b007"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:dressSteelworker",
+        "BUILD lib/dao28.js:hardHat"
+      ]
+    },
+    {
+      "id": "s13",
+      "t0": 22.3,
+      "t1": 24.18,
+      "set": "steel_side",
+      "action": "crucible pours molten steel (emissive, no white flash)",
+      "camera": "low angle crane up",
+      "gfx": "stat card: 2,000°F+",
+      "kit": [
+        "lib/dao28.js:crucible"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "meta/corpora/oculus-audio-pack/ogg/METLImpt_HammerAnvil_OS_01.ogg",
+        "can_tao/steam_hiss"
+      ],
+      "assets": [],
+      "duration": 1.88,
+      "beats": [],
+      "kit_status": "THIEU_TAI_NGUYEN",
+      "kit_needs": [
+        "BUILD lib/dao28.js:crucible",
+        "SFX_MISSING can_tao/steam_hiss"
+      ]
+    },
+    {
+      "id": "s14",
+      "t0": 24.18,
+      "t1": 26.91,
+      "set": "steel_side",
+      "action": "steelworker in pirate tricorn, eye-roll",
+      "camera": "push-in",
+      "gfx": "card: 1933 PITTSBURGH PIRATES",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr",
+        "lib/philly1776.js:tricorn"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 2.73,
+      "beats": [
+        "b008"
+      ],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s15",
+      "t0": 26.91,
+      "t1": 28.9,
+      "set": "steel_side",
+      "action": "spinning newspaper lands: NAME THE TEAM contest",
+      "camera": "whip-in",
+      "gfx": "card: 1940 NEWSPAPER CONTEST",
+      "kit": [
+        "lib/dao28.js:newspaper"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/whoosh/air-02"
+      ],
+      "assets": [],
+      "duration": 1.99,
+      "beats": [
+        "b009"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:newspaper"
+      ]
+    },
+    {
+      "id": "s16",
+      "t0": 28.9,
+      "t1": 30.81,
+      "set": "stands",
+      "action": "Steelers fans holding paper ballots",
+      "camera": "crane over crowd",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_cheer"
+      ],
+      "assets": [],
+      "duration": 1.91,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s17",
+      "t0": 30.81,
+      "t1": 33.15,
+      "set": "steel_side",
+      "action": "tricorn flies off, hard hat clangs on",
+      "camera": "close, shake",
+      "gfx": "card: ARRR -> CLANG",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/philly1776.js:tricorn",
+        "lib/dao28.js:hardHat"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/impact/metallic"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b010"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:hardHat"
+      ]
+    },
+    {
+      "id": "s18",
+      "t0": 33.15,
+      "t1": 35.49,
+      "set": "mill_field",
+      "action": "aerial: one football at midfield, two teams line up",
+      "camera": "drone descend",
+      "gfx": "card: ONE FIELD / ONE FOOTBALL / ZERO RULES",
+      "kit": [
+        "lib/nhamay28.js:buildMill",
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dovat.js:football",
+        "lib/santap.js:goalpost"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/ref_whistle"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b011"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill"
+      ]
+    },
+    {
+      "id": "s19",
+      "t0": 35.49,
+      "t1": 36.66,
+      "set": "mill_field",
+      "action": "scoreboard flips",
+      "camera": "fast push",
+      "gfx": "HUD: ROUND 1 - TROPHIES",
+      "kit": [
+        "lib/nhamay28.js:buildMill"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/stadium_horn"
+      ],
+      "assets": [],
+      "duration": 1.17,
+      "beats": [
+        "b012"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill"
+      ]
+    },
+    {
+      "id": "s20",
+      "t0": 36.66,
+      "t1": 39.0,
+      "set": "mill_field",
+      "action": "Steelers wheel a cart with six trophies",
+      "camera": "dolly",
+      "gfx": "stat card: 6 SUPER BOWLS (TIED MOST)",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:loco",
+        "lib/dovat.js:trophy"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_roar"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b013"
+      ],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s21",
+      "t0": 39.0,
+      "t1": 41.34,
+      "set": "stands",
+      "action": "toxic Steelers fans hold up six fingers at Packers fans",
+      "camera": "handheld crowd",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_chant_defense"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s22",
+      "t0": 41.34,
+      "t1": 43.8,
+      "set": "mill_field",
+      "action": "forklift drives in with pallet of thirteen trophies",
+      "camera": "low tracking",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:forklift",
+        "lib/dovat.js:trophy"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/data/beeps-fast"
+      ],
+      "assets": [],
+      "duration": 2.46,
+      "beats": [
+        "b014"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:forklift"
+      ]
+    },
+    {
+      "id": "s23",
+      "t0": 43.8,
+      "t1": 46.4,
+      "set": "stands",
+      "action": "Packers fans erupt",
+      "camera": "crane up",
+      "gfx": "stat card: 13 LEAGUE TITLES - MOST IN NFL",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_cheer"
+      ],
+      "assets": [],
+      "duration": 2.6,
+      "beats": [],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s24",
+      "t0": 46.4,
+      "t1": 47.57,
+      "set": "mill_field",
+      "action": "everything freezes - silence hole",
+      "camera": "static then micro push",
+      "gfx": "HUD: ROUND 2 - DEFENSE",
+      "kit": [
+        "lib/nhamay28.js:buildMill"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_silence_cough"
+      ],
+      "assets": [],
+      "duration": 1.17,
+      "beats": [
+        "b015"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/nhamay28.js:buildMill"
+      ]
+    },
+    {
+      "id": "s25",
+      "t0": 47.57,
+      "t1": 49.91,
+      "set": "mill_field",
+      "action": "PEAK: giant Steel Curtain slams down across the goal line",
+      "camera": "worm's-eye, shake 0.02",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:steelCurtain"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/break/metal-falling-01",
+        "magnific/football_hit",
+        "magnific/crowd_gasp"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b016"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:steelCurtain"
+      ]
+    },
+    {
+      "id": "s26",
+      "t0": 49.91,
+      "t1": 51.7,
+      "set": "booth",
+      "action": "1971 radio booth, mic",
+      "camera": "slow push",
+      "gfx": "card: 1971 RADIO CONTEST NAMED IT",
+      "kit": [
+        "lib/dovat.js:headset",
+        "lib/dao28.js:radioMic"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 1.79,
+      "beats": [
+        "b017"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:radioMic"
+      ]
+    },
+    {
+      "id": "s27",
+      "t0": 51.7,
+      "t1": 53.42,
+      "set": "mill_field",
+      "action": "Steelers flex in front of curtain",
+      "camera": "orbit",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_roar"
+      ],
+      "assets": [],
+      "duration": 1.72,
+      "beats": [],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s28",
+      "t0": 53.42,
+      "t1": 54.6,
+      "set": "mill_field",
+      "action": "sausage thrown, bounces off curtain",
+      "camera": "tracking projectile",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:sausage",
+        "lib/dao28.js:steelCurtain"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "meta/corpora/oculus-audio-pack/ogg/TOONBoing_BounceCartoony_OS_02.ogg"
+      ],
+      "assets": [],
+      "duration": 1.18,
+      "beats": [
+        "b018"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:sausage",
+        "BUILD lib/dao28.js:steelCurtain"
+      ]
+    },
+    {
+      "id": "s29",
+      "t0": 54.6,
+      "t1": 55.8,
+      "set": "mill_field",
+      "action": "cheese wheel rolls, bounces off",
+      "camera": "low",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:cheeseWheel",
+        "lib/dao28.js:steelCurtain"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/misc/spring-01"
+      ],
+      "assets": [],
+      "duration": 1.2,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:cheeseWheel",
+        "BUILD lib/dao28.js:steelCurtain"
+      ]
+    },
+    {
+      "id": "s30",
+      "t0": 55.8,
+      "t1": 56.93,
+      "set": "mill_field",
+      "action": "forklift rams curtain, bounces back",
+      "camera": "wide, shake",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:forklift",
+        "lib/dao28.js:steelCurtain"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/impact/metallic",
+        "magnific/crowd_laugh"
+      ],
+      "assets": [],
+      "duration": 1.13,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:forklift",
+        "BUILD lib/dao28.js:steelCurtain"
+      ]
+    },
+    {
+      "id": "s31",
+      "t0": 56.93,
+      "t1": 59.2,
+      "set": "mill_field",
+      "action": "Packers huddle; captain smirks at camera",
+      "camera": "push-in",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 2.27,
+      "beats": [
+        "b019"
+      ],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s32",
+      "t0": 59.2,
+      "t1": 61.61,
+      "set": "stands",
+      "action": "camera rises to Packers fans holding share certificates",
+      "camera": "crane up",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:stockCertificate"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/riser/classic-riser"
+      ],
+      "assets": [],
+      "duration": 2.41,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:stockCertificate"
+      ]
+    },
+    {
+      "id": "s33",
+      "t0": 61.61,
+      "t1": 63.4,
+      "set": "stands",
+      "action": "certificate close-up",
+      "camera": "insert",
+      "gfx": "card: FAN-OWNED SINCE 1923",
+      "kit": [
+        "lib/dao28.js:stockCertificate"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 1.79,
+      "beats": [
+        "b020"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:stockCertificate"
+      ]
+    },
+    {
+      "id": "s34",
+      "t0": 63.4,
+      "t1": 65.12,
+      "set": "stands",
+      "action": "cheesehead fans point at themselves: BOSS",
+      "camera": "handheld",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:cheesehead",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_clap_rhythm"
+      ],
+      "assets": [],
+      "duration": 1.72,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:cheesehead",
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s35",
+      "t0": 65.12,
+      "t1": 66.29,
+      "set": "stands",
+      "action": "gavel slam on railing",
+      "camera": "close",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:gavel"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "freesfx/rubberduck/WoodMetal/hammer_02.opus"
+      ],
+      "assets": [],
+      "duration": 1.17,
+      "beats": [
+        "b021"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:gavel"
+      ]
+    },
+    {
+      "id": "s36",
+      "t0": 66.29,
+      "t1": 69.41,
+      "set": "stands",
+      "action": "fan at podium in stands",
+      "camera": "push-in",
+      "gfx": "card: MOTION: SCRAP THE CURTAIN",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr",
+        "lib/dao28.js:podium"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 3.12,
+      "beats": [
+        "b022"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:podium"
+      ]
+    },
+    {
+      "id": "s37",
+      "t0": 69.41,
+      "t1": 70.97,
+      "set": "stands",
+      "action": "sea of cheeseheads rises",
+      "camera": "crane wide",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:cheesehead",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_cheer"
+      ],
+      "assets": [],
+      "duration": 1.56,
+      "beats": [
+        "b023"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:cheesehead",
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s38",
+      "t0": 70.97,
+      "t1": 72.7,
+      "set": "mill_field",
+      "action": "scrap-yard magnet crane lifts curtain away",
+      "camera": "wide tilt up",
+      "gfx": "stamp card: SOLD FOR SCRAP",
+      "kit": [
+        "lib/dao28.js:scrapMagnet",
+        "lib/dao28.js:steelCurtain"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/break/metal-falling-02"
+      ],
+      "assets": [],
+      "duration": 1.73,
+      "beats": [
+        "b024"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:scrapMagnet",
+        "BUILD lib/dao28.js:steelCurtain"
+      ]
+    },
+    {
+      "id": "s39",
+      "t0": 72.7,
+      "t1": 74.48,
+      "set": "mill_field",
+      "action": "Steelers stunned",
+      "camera": "slow push",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_laugh"
+      ],
+      "assets": [],
+      "duration": 1.78,
+      "beats": [],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s40",
+      "t0": 74.48,
+      "t1": 76.4,
+      "set": "stands",
+      "action": "Steelers stands explode with whirling yellow towels",
+      "camera": "orbit crowd",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:terribleTowel",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_roar"
+      ],
+      "assets": [],
+      "duration": 1.92,
+      "beats": [
+        "b025"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:terribleTowel",
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s41",
+      "t0": 76.4,
+      "t1": 78.38,
+      "set": "mill_field",
+      "action": "towel wind blows Packers' hairnets off",
+      "camera": "tracking",
+      "gfx": "",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dao28.js:hairnet",
+        "lib/dao28.js:terribleTowel"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/whoosh/air-01"
+      ],
+      "assets": [],
+      "duration": 1.98,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:hairnet",
+        "BUILD lib/dao28.js:terribleTowel"
+      ]
+    },
+    {
+      "id": "s42",
+      "t0": 78.38,
+      "t1": 81.5,
+      "set": "booth",
+      "action": "1975 radio booth with towel",
+      "camera": "push",
+      "gfx": "card: TERRIBLE TOWEL - 1975 - RADIO BROADCASTER",
+      "kit": [
+        "lib/dovat.js:headset",
+        "lib/dao28.js:radioMic",
+        "lib/dao28.js:terribleTowel"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 3.12,
+      "beats": [
+        "b026"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:radioMic",
+        "BUILD lib/dao28.js:terribleTowel"
+      ]
+    },
+    {
+      "id": "s43",
+      "t0": 81.5,
+      "t1": 83.84,
+      "set": "stands",
+      "action": "Packers fans put on cheeseheads in unison",
+      "camera": "crane",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:cheesehead",
+        "lib/dao28.js:crowdProps"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/pop/bubbles-cluster"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b027"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:cheesehead",
+        "BUILD lib/dao28.js:crowdProps"
+      ]
+    },
+    {
+      "id": "s44",
+      "t0": 83.84,
+      "t1": 85.6,
+      "set": "living_room_insert",
+      "action": "couch cushion on a couch",
+      "camera": "push",
+      "gfx": "card: CHEESEHEAD - 1987",
+      "kit": [
+        "lib/dao28.js:couchCushion"
+      ],
+      "mixamo": [],
+      "sfx": [],
+      "assets": [],
+      "duration": 1.76,
+      "beats": [
+        "b028"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:couchCushion"
+      ]
+    },
+    {
+      "id": "s45",
+      "t0": 85.6,
+      "t1": 87.35,
+      "set": "living_room_insert",
+      "action": "cushion morphs into cheesehead",
+      "camera": "orbit",
+      "gfx": "",
+      "kit": [
+        "lib/dao28.js:couchCushion",
+        "lib/dao28.js:cheesehead",
+        "lib/bienhinh25.js:transformFX"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "alvana/sfx/pop/classic-hop"
+      ],
+      "assets": [],
+      "duration": 1.75,
+      "beats": [],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:couchCushion",
+        "BUILD lib/dao28.js:cheesehead"
+      ]
+    },
+    {
+      "id": "s46",
+      "t0": 87.35,
+      "t1": 89.3,
+      "set": "split",
+      "action": "top/bottom split: towels vs cheeseheads",
+      "camera": "locked split",
+      "gfx": "VS card: NAME EVERYTHING / OWN EVERYTHING",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/dao28.js:terribleTowel",
+        "lib/dao28.js:cheesehead"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_boo"
+      ],
+      "assets": [],
+      "duration": 1.95,
+      "beats": [
+        "b029"
+      ],
+      "kit_status": "CAN_DUNG_CODE",
+      "kit_needs": [
+        "BUILD lib/dao28.js:terribleTowel",
+        "BUILD lib/dao28.js:cheesehead"
+      ]
+    },
+    {
+      "id": "s47",
+      "t0": 89.3,
+      "t1": 91.25,
+      "set": "stands",
+      "action": "toxic fans taunt across the aisle",
+      "camera": "handheld",
+      "gfx": "",
+      "kit": [
+        "lib/dongnguoi25.js:buildCrowd",
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/crowd_laugh"
+      ],
+      "assets": [],
+      "duration": 1.95,
+      "beats": [],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    },
+    {
+      "id": "s48",
+      "t0": 91.25,
+      "t1": 93.59,
+      "set": "mill_field",
+      "action": "two captains face off over the football; push into ball -> loops to s01",
+      "camera": "push-in to ball",
+      "gfx": "card: STEEL OR SAUSAGE? COMMENT",
+      "kit": [
+        "lib/nhanvat2.js:makeCharacter",
+        "lib/dongtac.js:expr",
+        "lib/dovat.js:football"
+      ],
+      "mixamo": [],
+      "sfx": [
+        "magnific/organ_charge"
+      ],
+      "assets": [],
+      "duration": 2.34,
+      "beats": [
+        "b030"
+      ],
+      "kit_status": "CO_SAN",
+      "kit_needs": []
+    }
+  ]
+}

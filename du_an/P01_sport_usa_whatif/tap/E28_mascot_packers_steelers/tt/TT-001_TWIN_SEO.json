@@ -1,0 +1,90 @@
+{
+  "lang_mode": "auto",
+  "candidates": [
+    {
+      "candidate": "What if the Packers were actual meat packers and the Steelers were actual steelworkers?",
+      "max_competitor_jaccard": 0.2143,
+      "closest_competitor": "What if NFL teams were their mascots",
+      "max_own_past_jaccard": 0.4286,
+      "closest_own_past": "What if the Bengals were actual Bengal tigers and the Jaguars were actual jaguars",
+      "lexical_twin_verdict": "MODERATE_FAMILIAR_ANCHOR (0.30-0.55 — verify 5-Axis Twin score <= 2/5)",
+      "tiktok_search_seo_matched": [
+        "Packers",
+        "Steelers",
+        "what if"
+      ],
+      "tiktok_search_seo_missing": [
+        "NFL"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "What if the Raiders and the Buccaneers were actual pirates?",
+      "max_competitor_jaccard": 0.2308,
+      "closest_competitor": "What if NFL teams were their mascots",
+      "max_own_past_jaccard": 0.4615,
+      "closest_own_past": "What if the Bengals were actual Bengal tigers and the Jaguars were actual jaguars",
+      "lexical_twin_verdict": "MODERATE_FAMILIAR_ANCHOR (0.30-0.55 — verify 5-Axis Twin score <= 2/5)",
+      "tiktok_search_seo_matched": [
+        "what if"
+      ],
+      "tiktok_search_seo_missing": [
+        "Packers",
+        "Steelers",
+        "NFL"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "What if the Panthers were actual panthers and the Lions were actual lions?",
+      "max_competitor_jaccard": 0.25,
+      "closest_competitor": "What if NFL teams were their mascots",
+      "max_own_past_jaccard": 0.5,
+      "closest_own_past": "What if the Bengals were actual Bengal tigers and the Jaguars were actual jaguars",
+      "lexical_twin_verdict": "MODERATE_FAMILIAR_ANCHOR (0.30-0.55 — verify 5-Axis Twin score <= 2/5)",
+      "tiktok_search_seo_matched": [
+        "what if"
+      ],
+      "tiktok_search_seo_missing": [
+        "Packers",
+        "Steelers",
+        "NFL"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "What if the Broncos were actual wild horses and the Colts were actual baby horses?",
+      "max_competitor_jaccard": 0.2,
+      "closest_competitor": "What if NFL teams were their mascots",
+      "max_own_past_jaccard": 0.4,
+      "closest_own_past": "What if the Bengals were actual Bengal tigers and the Jaguars were actual jaguars",
+      "lexical_twin_verdict": "MODERATE_FAMILIAR_ANCHOR (0.30-0.55 — verify 5-Axis Twin score <= 2/5)",
+      "tiktok_search_seo_matched": [
+        "what if"
+      ],
+      "tiktok_search_seo_missing": [
+        "Packers",
+        "Steelers",
+        "NFL"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "What if the Patriots were actual minutemen from 1776 and the Steelers were actual steelworkers?",
+      "max_competitor_jaccard": 0.1875,
+      "closest_competitor": "What if NFL teams were their mascots",
+      "max_own_past_jaccard": 0.375,
+      "closest_own_past": "What if the Bengals were actual Bengal tigers and the Jaguars were actual jaguars",
+      "lexical_twin_verdict": "MODERATE_FAMILIAR_ANCHOR (0.30-0.55 — verify 5-Axis Twin score <= 2/5)",
+      "tiktok_search_seo_matched": [
+        "Steelers",
+        "what if"
+      ],
+      "tiktok_search_seo_missing": [
+        "Packers",
+        "NFL"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+shot,t0,t1,dur,beats,set,action,camera,gfx,sfx,kit_status,kit_needs
+s01,0.0,1.2,1.2,b001,mill_field,"Packers (green/gold jerseys) & Steelers (black/gold) sprint at each other, collide at 1.0s",low tracking dolly with runner -> whip,FRAME0 card: PACKERS = MEAT PACKERS / STEELERS = STEELWORKERS,magnific/football_hit;magnific/crowd_roar;alvana/sfx/transition/whoosh-hit-1,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill; MIXAMO_MISSING Sprint (fallback UAL loco)
+s02,1.2,3.12,1.92,,mill_field,"collision pile pushes, players bounce; Frame-0 card holds","high angle on impact, shake 0.015",FRAME0 card,magnific/crowd_ooh_aah,CO_SAN_FALLBACK,MIXAMO_MISSING Running (fallback UAL loco)
+s03,3.12,5.46,2.34,b002,mill_field,Steelers line: sparks behind them from the steel side of the stadium,push-in medium,card: STEELERS = STEELWORKERS,alvana/sfx/impact/metallic,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill
+s04,5.46,7.2,1.74,b003,packing_side,Packers rip jerseys -> transform burst,orbit 40deg,before->after card,alvana/sfx/foley/cloth-1;meta/corpora/oculus-audio-pack/ogg/PAPRRip_PaperTear_OS_01.ogg,CO_SAN,
+s05,7.2,8.97,1.77,,packing_side,hairnets + white coats + rubber boots pop on,crane down,,alvana/sfx/pop/classic-pop,CAN_DUNG_CODE,BUILD lib/dao28.js:dressPacker; BUILD lib/dao28.js:hairnet
+s06,8.97,11.1,2.13,b004,packing_side,packing plant wall of the stadium: conveyor of sausages,truck left,source card: NAMED AFTER A MEAT PACKING CO. [packers.com],alvana/sfx/data/beeps,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill; BUILD lib/dao28.js:conveyor; BUILD lib/dao28.js:sausage
+s07,11.1,13.26,2.16,,packing_side,"packer catches giant sausage off conveyor, thumbs up",handheld close,,,CAN_DUNG_CODE,BUILD lib/dao28.js:sausage
+s08,13.26,15.1,1.84,b005,packing_side,"old jersey on hanger, sepia tint",slow push,timeline card: 1919,alvana/sfx/whoosh/air-01,CAN_DUNG_CODE,BUILD lib/dao28.js:jerseyHanger
+s09,15.1,16.77,1.67,,packing_side,sepia jersey swaps into white coat,match-cut,,,CO_SAN,
+s10,16.77,18.6,1.83,b006,packing_side,"packer punches a time clock, walks onto field",follow,,freesfx/rubberduck/WoodMetal/hammer_01.opus,CAN_DUNG_CODE,BUILD lib/dao28.js:timeClock
+s11,18.6,20.28,1.68,,mill_field,Packers march in a line carrying sausages,truck right,,magnific/drumline,CAN_DUNG_CODE,BUILD lib/dao28.js:sausage
+s12,20.28,22.3,2.02,b007,steel_side,Steelers rip jerseys -> hard hats + welding masks,orbit,,alvana/sfx/foley/cloth-2,CAN_DUNG_CODE,BUILD lib/dao28.js:dressSteelworker; BUILD lib/dao28.js:hardHat
+s13,22.3,24.18,1.88,,steel_side,"crucible pours molten steel (emissive, no white flash)",low angle crane up,"stat card: 2,000°F+",meta/corpora/oculus-audio-pack/ogg/METLImpt_HammerAnvil_OS_01.ogg;can_tao/steam_hiss,THIEU_TAI_NGUYEN,BUILD lib/dao28.js:crucible; SFX_MISSING can_tao/steam_hiss
+s14,24.18,26.91,2.73,b008,steel_side,"steelworker in pirate tricorn, eye-roll",push-in,card: 1933 PITTSBURGH PIRATES,,CO_SAN,
+s15,26.91,28.9,1.99,b009,steel_side,spinning newspaper lands: NAME THE TEAM contest,whip-in,card: 1940 NEWSPAPER CONTEST,alvana/sfx/whoosh/air-02,CAN_DUNG_CODE,BUILD lib/dao28.js:newspaper
+s16,28.9,30.81,1.91,,stands,Steelers fans holding paper ballots,crane over crowd,,magnific/crowd_cheer,CAN_DUNG_CODE,BUILD lib/dao28.js:crowdProps
+s17,30.81,33.15,2.34,b010,steel_side,"tricorn flies off, hard hat clangs on","close, shake",card: ARRR -> CLANG,alvana/sfx/impact/metallic,CAN_DUNG_CODE,BUILD lib/dao28.js:hardHat
+s18,33.15,35.49,2.34,b011,mill_field,"aerial: one football at midfield, two teams line up",drone descend,card: ONE FIELD / ONE FOOTBALL / ZERO RULES,magnific/ref_whistle,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill
+s19,35.49,36.66,1.17,b012,mill_field,scoreboard flips,fast push,HUD: ROUND 1 - TROPHIES,magnific/stadium_horn,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill
+s20,36.66,39.0,2.34,b013,mill_field,Steelers wheel a cart with six trophies,dolly,stat card: 6 SUPER BOWLS (TIED MOST),magnific/crowd_roar,CO_SAN,
+s21,39.0,41.34,2.34,,stands,toxic Steelers fans hold up six fingers at Packers fans,handheld crowd,,magnific/crowd_chant_defense,CAN_DUNG_CODE,BUILD lib/dao28.js:crowdProps
+s22,41.34,43.8,2.46,b014,mill_field,forklift drives in with pallet of thirteen trophies,low tracking,,alvana/sfx/data/beeps-fast,CAN_DUNG_CODE,BUILD lib/dao28.js:forklift
+s23,43.8,46.4,2.6,,stands,Packers fans erupt,crane up,stat card: 13 LEAGUE TITLES - MOST IN NFL,magnific/crowd_cheer,CO_SAN,
+s24,46.4,47.57,1.17,b015,mill_field,everything freezes - silence hole,static then micro push,HUD: ROUND 2 - DEFENSE,magnific/crowd_silence_cough,CAN_DUNG_CODE,BUILD lib/nhamay28.js:buildMill
+s25,47.57,49.91,2.34,b016,mill_field,PEAK: giant Steel Curtain slams down across the goal line,"worm's-eye, shake 0.02",,alvana/sfx/break/metal-falling-01;magnific/football_hit;magnific/crowd_gasp,CAN_DUNG_CODE,BUILD lib/dao28.js:steelCurtain
+s26,49.91,51.7,1.79,b017,booth,"1971 radio booth, mic",slow push,card: 1971 RADIO CONTEST NAMED IT,,CAN_DUNG_CODE,BUILD lib/dao28.js:radioMic
+s27,51.7,53.42,1.72,,mill_field,Steelers flex in front of curtain,orbit,,magnific/crowd_roar,CO_SAN,
+s28,53.42,54.6,1.18,b018,mill_field,"sausage thrown, bounces off curtain",tracking projectile,,meta/corpora/oculus-audio-pack/ogg/TOONBoing_BounceCartoony_OS_02.ogg,CAN_DUNG_CODE,BUILD lib/dao28.js:sausage; BUILD lib/dao28.js:steelCurtain
+s29,54.6,55.8,1.2,,mill_field,"cheese wheel rolls, bounces off",low,,alvana/sfx/misc/spring-01,CAN_DUNG_CODE,BUILD lib/dao28.js:cheeseWheel; BUILD lib/dao28.js:steelCurtain
+s30,55.8,56.93,1.13,,mill_field,"forklift rams curtain, bounces back","wide, shake",,alvana/sfx/impact/metallic;magnific/crowd_laugh,CAN_DUNG_CODE,BUILD lib/dao28.js:forklift; BUILD lib/dao28.js:steelCurtain
+s31,56.93,59.2,2.27,b019,mill_field,Packers huddle; captain smirks at camera,push-in,,,CO_SAN,
+s32,59.2,61.61,2.41,,stands,camera rises to Packers fans holding share certificates,crane up,,alvana/sfx/riser/classic-riser,CAN_DUNG_CODE,BUILD lib/dao28.js:stockCertificate
+s33,61.61,63.4,1.79,b020,stands,certificate close-up,insert,card: FAN-OWNED SINCE 1923,,CAN_DUNG_CODE,BUILD lib/dao28.js:stockCertificate
+s34,63.4,65.12,1.72,,stands,cheesehead fans point at themselves: BOSS,handheld,,magnific/crowd_clap_rhythm,CAN_DUNG_CODE,BUILD lib/dao28.js:cheesehead; BUILD lib/dao28.js:crowdProps
+s35,65.12,66.29,1.17,b021,stands,gavel slam on railing,close,,freesfx/rubberduck/WoodMetal/hammer_02.opus,CAN_DUNG_CODE,BUILD lib/dao28.js:gavel
+s36,66.29,69.41,3.12,b022,stands,fan at podium in stands,push-in,card: MOTION: SCRAP THE CURTAIN,,CAN_DUNG_CODE,BUILD lib/dao28.js:podium
+s37,69.41,70.97,1.56,b023,stands,sea of cheeseheads rises,crane wide,,magnific/crowd_cheer,CAN_DUNG_CODE,BUILD lib/dao28.js:cheesehead; BUILD lib/dao28.js:crowdProps
+s38,70.97,72.7,1.73,b024,mill_field,scrap-yard magnet crane lifts curtain away,wide tilt up,stamp card: SOLD FOR SCRAP,alvana/sfx/break/metal-falling-02,CAN_DUNG_CODE,BUILD lib/dao28.js:scrapMagnet; BUILD lib/dao28.js:steelCurtain
+s39,72.7,74.48,1.78,,mill_field,Steelers stunned,slow push,,magnific/crowd_laugh,CO_SAN,
+s40,74.48,76.4,1.92,b025,stands,Steelers stands explode with whirling yellow towels,orbit crowd,,magnific/crowd_roar,CAN_DUNG_CODE,BUILD lib/dao28.js:terribleTowel; BUILD lib/dao28.js:crowdProps
+s41,76.4,78.38,1.98,,mill_field,towel wind blows Packers' hairnets off,tracking,,alvana/sfx/whoosh/air-01,CAN_DUNG_CODE,BUILD lib/dao28.js:hairnet; BUILD lib/dao28.js:terribleTowel
+s42,78.38,81.5,3.12,b026,booth,1975 radio booth with towel,push,card: TERRIBLE TOWEL - 1975 - RADIO BROADCASTER,,CAN_DUNG_CODE,BUILD lib/dao28.js:radioMic; BUILD lib/dao28.js:terribleTowel
+s43,81.5,83.84,2.34,b027,stands,Packers fans put on cheeseheads in unison,crane,,alvana/sfx/pop/bubbles-cluster,CAN_DUNG_CODE,BUILD lib/dao28.js:cheesehead; BUILD lib/dao28.js:crowdProps
+s44,83.84,85.6,1.76,b028,living_room_insert,couch cushion on a couch,push,card: CHEESEHEAD - 1987,,CAN_DUNG_CODE,BUILD lib/dao28.js:couchCushion
+s45,85.6,87.35,1.75,,living_room_insert,cushion morphs into cheesehead,orbit,,alvana/sfx/pop/classic-hop,CAN_DUNG_CODE,BUILD lib/dao28.js:couchCushion; BUILD lib/dao28.js:cheesehead
+s46,87.35,89.3,1.95,b029,split,top/bottom split: towels vs cheeseheads,locked split,VS card: NAME EVERYTHING / OWN EVERYTHING,magnific/crowd_boo,CAN_DUNG_CODE,BUILD lib/dao28.js:terribleTowel; BUILD lib/dao28.js:cheesehead
+s47,89.3,91.25,1.95,,stands,toxic fans taunt across the aisle,handheld,,magnific/crowd_laugh,CO_SAN,
+s48,91.25,93.59,2.34,b030,mill_field,two captains face off over the football; push into ball -> loops to s01,push-in to ball,card: STEEL OR SAUSAGE? COMMENT,magnific/organ_charge,CO_SAN,

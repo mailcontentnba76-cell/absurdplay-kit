@@ -1,0 +1,99 @@
+{
+  "schema": "TIKTOK_SCRIPT_STATE_V1",
+  "assembler_version": "4.0-sportusa.1",
+  "channel_profile": {
+    "profile_id": "absurdplay-sportusa-nfl",
+    "profile_revision": 1,
+    "channel": "AbsurdPlay (TikTok) - P01 Sport USA",
+    "scope": "NFL + NCAA football (NBA lives in another chat)",
+    "base_versions": "tiktok-topic-studio@4.0 | tiktok-script-all-in-one@4.0 | tiktok-studio-doctor@4.0",
+    "script_language": "en-US",
+    "target_fyp_region": "US"
+  },
+  "series": "mascot",
+  "topic_id": "TT-001",
+  "slug": "packers-steelers-meat-vs-steel",
+  "track": "creator_rewards",
+  "mode": "clean_voiceover",
+  "count_unit": "words",
+  "clean_tts": true,
+  "strict_natural_speech": false,
+  "max_beat_sec": 8.5,
+  "max_open_sentence_units": 20,
+  "frame0_text": "PACKERS = MEAT PACKERS\nSTEELERS = STEELWORKERS",
+  "blueprint_version": 1,
+  "script_version": 1,
+  "current_workflow": "WF06_SCRIPT_LOCKED",
+  "state": "SCRIPT_LOCKED",
+  "rate_spec": {
+    "rate_center_upm": 154.0,
+    "rate_min_upm": 146.0,
+    "rate_max_upm": 172.0,
+    "rate_basis": "MEASURED_SAMPLE",
+    "total_unit_budget": 215,
+    "non_speech_budget_seconds": 0.0,
+    "planned_spoken_center_seconds": 83.8,
+    "planned_center_seconds": 83.8,
+    "planned_range_seconds": [
+      75.0,
+      88.4
+    ]
+  },
+  "parts_expected": 4,
+  "parts_delivered": 4,
+  "next_part": null,
+  "parts_registry": {
+    "P01": {
+      "part_id": "P01",
+      "budget_units": 48,
+      "revision": 2,
+      "file": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/PARTS/P01.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 52,
+      "chunk_count": 6,
+      "sha256": "b148b7d2433eec9e4649454fc70cb522432223db709e175f33f241230dcebed6",
+      "first_sentence": "What if the Packers were actual meat packers...",
+      "last_sentence": "So Green Bay is just going back to work."
+    },
+    "P02": {
+      "part_id": "P02",
+      "budget_units": 60,
+      "revision": 1,
+      "file": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/PARTS/P02.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 67,
+      "chunk_count": 8,
+      "sha256": "688a9003de162bb9ad3c6aff306a483ecb4c074a11a8710e32304308091bce49",
+      "first_sentence": "Now Pittsburgh. Hard hats. Molten steel, over two thousand degrees.",
+      "last_sentence": "Green Bay answers with a forklift. Thirteen league titles. Most in NFL history."
+    },
+    "P03": {
+      "part_id": "P03",
+      "budget_units": 62,
+      "revision": 1,
+      "file": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/PARTS/P03.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 72,
+      "chunk_count": 10,
+      "sha256": "55dabe72721ae26a8fd7d0a3d9bb7d6fb8608457fff234040186f78d981d5c94",
+      "first_sentence": "Round two. Defense.",
+      "last_sentence": "Motion passed. The Steel Curtain gets sold for scrap."
+    },
+    "P04": {
+      "part_id": "P04",
+      "budget_units": 45,
+      "revision": 1,
+      "file": "/home/user/absurdplay-kit/du_an/P01_sport_usa_whatif/tap/E28_mascot_packers_steelers/tt/PARTS/P04.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 49,
+      "chunk_count": 6,
+      "sha256": "729be01fc7bbbfc50b3be3d1c256fab1ec03c9b4be4d791114604acd88e8782e",
+      "first_sentence": "Pittsburgh fires back. Every fan whips out a Terrible Towel.",
+      "last_sentence": "Steel or sausage? Comment who wins."
+    }
+  },
+  "cumulative_units": 240,
+  "cumulative_chunks": 30,
+  "last_delivered_boundary": "P04: Steel or sausage? Comment who wins.",
+  "updated_at": "2026-11-22T06:22:59.992311+00:00"
+}
