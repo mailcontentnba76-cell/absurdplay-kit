@@ -121,6 +121,10 @@ class Char:
             _cap(f"{name}_beanie", 0.27, (0, 0.05, 0.51), (1.0, 1.0, 0.7), BE)
             box(f"{name}_beanie_cuff", (0.50, 0.47, 0.07), (0, 0.04, 0.47), BE, head, 0.03, 4)
             box(f"{name}_beanie_slouch", (0.36, 0.28, 0.12), (0, 0.10, 0.63), BE, head, 0.06, 4)
+        elif hair_style == "sidepart":   # neat side part (Elijah, TT001): smooth glossy cap + swept fringe + part line
+            _cap(f"{name}_hairtop", 0.258, (0, 0.04, 0.41), (1.0, 1.0, 0.76), mat(f"{name}_hairgloss", srgb(hair), 0.5))
+            sw_ = box(f"{name}_swoop", (0.30, 0.12, 0.09), (0.05, -0.17, 0.50), HA, head, 0.04, 3); sw_.rotation_euler = (R(-15), 0, R(-8))
+            box(f"{name}_part", (0.014, 0.30, 0.012), (-0.08, -0.01, 0.603), mk("partline", skin), head)
         elif hair_style == "bald":
             box(f"{name}_fringeback", (0.47, 0.20, 0.12), (0, 0.14, 0.30), HA, head, 0.05, 3)   # side/back ring only
         elif hair_style == "bun":   # curly high bun (Kayla)
@@ -197,6 +201,7 @@ class Char:
             "smug": (0.01, -8, 0.75, (1.2, 1.0)), "focused": (-0.03, 22, 0.8, (0.7, 1.0)),
             "happy": (0.03, -10, 0.6, (1.3, 2.0)),
             "sad": (0.02, -22, 0.85, (0.8, 1.0)), "chill": (0.0, -4, 0.7, (1.2, 1.3)),
+            "squint": (-0.005, -4, 0.3, (1.25, 1.2)),   # TT001 Elijah: half-closed "aura" eyes (he can't see)
         }[name]
         dz, tilt, ez, (mw, mh) = E
         for k, (b, sx) in enumerate(zip(self.brows, (-1, 1))):

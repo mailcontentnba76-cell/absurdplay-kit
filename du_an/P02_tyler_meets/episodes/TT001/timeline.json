@@ -1,0 +1,455 @@
+{
+ "out": "episodes/TT001/out/TT001_elijah.mp4",
+ "fps": 30,
+ "w": 1080,
+ "h": 1920,
+ "vo": "episodes/TT001/audio/vo.wav",
+ "words": "episodes/TT001/audio/vo16k.cap.json",
+ "tail": 0.6,
+ "music": null,
+ "font": "C:/Users/ADMIN/AppData/Local/Microsoft/Windows/Fonts/Roboto-BlackItalic.ttf",
+ "shots": [
+  {
+   "key": "OPEN_ELI_CATCH",
+   "start": 0.0,
+   "beats": [
+    "L00 [KID] OHHH! No-look catch!"
+   ],
+   "end": 1.6,
+   "id": "S01",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_KID_HYPE",
+   "start": 1.6,
+   "beats": [
+    "L00 [KID] That's aura farming!"
+   ],
+   "end": 3.9333,
+   "id": "S02",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_WTF",
+   "start": 3.9333,
+   "beats": [
+    "L01 [NARR] What the fuck is wrong with this dude?"
+   ],
+   "end": 6.0333,
+   "id": "S03",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_COURT_ELI",
+   "start": 6.0333,
+   "beats": [
+    "L02 [NARR] This is Elijah."
+   ],
+   "end": 7.6667,
+   "id": "S04",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ELI_SQUINT",
+   "start": 7.6667,
+   "beats": [
+    "L02 [NARR] He doesn't try. At anything."
+   ],
+   "end": 10.1333,
+   "id": "S05",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_COURT_FANS",
+   "start": 10.1333,
+   "beats": [
+    "L03 [NARR] And the whole school treats him like a final boss."
+   ],
+   "end": 13.4,
+   "id": "S06",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ELI_LEAN_POLE",
+   "start": 13.4,
+   "beats": [
+    "L04 [NARR] He leans his way to class."
+   ],
+   "end": 15.4333,
+   "id": "S07",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ELI_LEAN_PRINCIPAL",
+   "start": 15.4333,
+   "beats": [
+    "L04 [NARR] Poles. Doors. One time, the principal."
+   ],
+   "end": 18.8333,
+   "id": "S08",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_KAY_FILM",
+   "start": 18.8333,
+   "beats": [
+    "L05 [KAY] He's aura farming."
+   ],
+   "end": 20.3,
+   "id": "S09",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_KAY_PHONE",
+   "start": 20.3,
+   "beats": [
+    "L05 [KAY] I have it on video."
+   ],
+   "end": 21.8667,
+   "id": "S10",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_DEAD",
+   "start": 21.8667,
+   "beats": [
+    "L06 [NARR] I've farmed aura for years. Zero crops."
+   ],
+   "end": 25.6,
+   "id": "S11",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "WIDE_BAND",
+   "start": 25.6,
+   "beats": [
+    "L07 [NARR] Second period. Band."
+   ],
+   "end": 27.6667,
+   "id": "S12",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ELI_TRIANGLE",
+   "start": 27.6667,
+   "beats": [
+    "L07 [NARR] Elijah plays the triangle."
+   ],
+   "end": 29.1,
+   "id": "S13",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_BAND_STOP",
+   "start": 29.1,
+   "beats": [
+    "L08 [NARR] One ding. The whole band stops."
+   ],
+   "end": 32.6333,
+   "id": "S14",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "CU_HAYES_TEAR",
+   "start": 32.6333,
+   "beats": [
+    "L09 [BAND] Elijah. That was perfect."
+   ],
+   "end": 35.0333,
+   "id": "S15",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_TUBA",
+   "start": 35.0333,
+   "beats": [
+    "L09 [BAND] Tyler, less tuba."
+   ],
+   "end": 36.9667,
+   "id": "S16",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_ME_TUBA",
+   "start": 36.9667,
+   "beats": [
+    "L10 [NARR] I played tuba for forty minutes."
+   ],
+   "end": 39.3667,
+   "id": "S17",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_BAND_BACKS",
+   "start": 39.3667,
+   "beats": [
+    "L10 [NARR] Nobody turned around."
+   ],
+   "end": 40.7667,
+   "id": "S18",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "OTS_ELI_SHEET_UPSIDE",
+   "start": 40.7667,
+   "beats": [
+    "L11 [NARR] His sheet music was upside down. Still perfect."
+   ],
+   "end": 44.3667,
+   "id": "S19",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.045,
+   "snap": false
+  },
+  {
+   "key": "WIDE_ART",
+   "start": 44.3667,
+   "beats": [
+    "L12 [NARR] Art class. We paint each other."
+   ],
+   "end": 46.7667,
+   "id": "S20",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ELI_BRUSH",
+   "start": 46.7667,
+   "beats": [
+    "L13 [NARR] Elijah paints me in one line."
+   ],
+   "end": 49.0,
+   "id": "S21",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_SIDEEYE",
+   "start": 49.0,
+   "beats": [
+    "L13 [NARR] Then I look closer."
+   ],
+   "end": 50.4,
+   "id": "S22",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_CANVAS_RACK",
+   "start": 50.4,
+   "beats": [
+    "L14 [NARR] It's the coat rack."
+   ],
+   "end": 52.3667,
+   "id": "S23",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "POV_KAY_ZOOM",
+   "start": 52.3667,
+   "beats": [
+    "L15 [KAY] Bro. He can't see."
+   ],
+   "end": 54.8667,
+   "id": "S24",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "OPEN_ELI_CATCH",
+   "start": 54.8667,
+   "beats": [
+    "L16 [NARR] The no-look catch. The triangle."
+   ],
+   "end": 57.1667,
+   "id": "S25",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_REALIZE",
+   "start": 57.1667,
+   "beats": [
+    "L16 [NARR] He wasn't farming anything."
+   ],
+   "end": 59.6667,
+   "id": "S26",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "WIDE_BUS_STOP_POINT",
+   "start": 59.6667,
+   "beats": [
+    "L17 [NARR] After school. I point at his head."
+   ],
+   "end": 62.4667,
+   "id": "S27",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_GLASSES_HEAD",
+   "start": 62.4667,
+   "beats": [
+    "L17 [NARR] Glasses. All day."
+   ],
+   "end": 64.4,
+   "id": "S28",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ELI_PANIC",
+   "start": 64.4,
+   "beats": [
+    "L18 [ELI] Wait. Why is everyone LOOKING at me?!"
+   ],
+   "end": 67.0667,
+   "id": "S29",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "MS_ELI_BUMP",
+   "start": 67.0667,
+   "beats": [
+    "L19 [NARR] He backs into me."
+   ],
+   "end": 68.3,
+   "id": "S30",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_SANDWICH_BUS",
+   "start": 68.3,
+   "beats": [
+    "L19 [NARR] My sandwich rolls under the bus."
+   ],
+   "end": 70.9333,
+   "id": "S31",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ELI_GLASSES_OFF",
+   "start": 70.9333,
+   "beats": [
+    "L20 [NARR] Elijah got his glasses."
+   ],
+   "end": 72.7,
+   "id": "S32",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "INS_PHONE_VIEWS",
+   "start": 72.7,
+   "beats": [
+    "L20 [NARR] Kayla got two million views."
+   ],
+   "end": 74.6333,
+   "id": "S33",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  },
+  {
+   "key": "CU_ME_CRUMBS",
+   "start": 74.6333,
+   "beats": [
+    "L20 [NARR] The bus got my sandwich."
+   ],
+   "end": 76.54,
+   "id": "S34",
+   "src": "PLACEHOLDER",
+   "kind": "still",
+   "push": 1.0,
+   "snap": false
+  }
+ ]
+}
