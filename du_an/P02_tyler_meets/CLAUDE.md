@@ -18,3 +18,4 @@
 ## Skill TikTok (từ 22/11/2026)
 - Chọn đề tài: `tyler-tt-topic-studio` · viết kịch bản từng phần + xuất `shots.txt`: `tyler-tt-script` · đọc số liệu sau đăng: `tyler-tt-studio-doctor`. Hồ sơ kênh: `.claude/skills/tyler-tt-script/references/NICHE_PROFILE.md`.
 - Các skill này dừng trước bước làm giọng; sau khi người dùng chốt kịch bản thì dùng `tyler-meets-homeboy-production` (Bước B–D).
+- Render trên cloud (CPU, Mesa): bóng đổ chiếm ~70 % thời gian mỗi khung. Bản thử: `EEVEE_OPTS=shadow_resolution_scale=0.25` + `--res 432x768 --samples 8 --step 2` (~5.6 s/khung, ~2 giờ/tập), rồi `finalize_timeline.py <clips> <inserts> 2` (build_episode đọc `step`). Bản cuối 1080×1920/64 mẫu nên chạy trên máy RTX.

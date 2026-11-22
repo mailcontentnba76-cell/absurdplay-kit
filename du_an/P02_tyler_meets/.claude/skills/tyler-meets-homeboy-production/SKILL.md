@@ -38,7 +38,7 @@ Skill này là **quy trình + công cụ + luật người dùng** rút ra từ 
 2. Chọn giọng: `python tools/sv_voices.py search "<từ khóa>"` (tải danh mục SonicVoice về `work/sv_voices_en.json`). Giọng đã dùng: mục 5.
 3. Tạo giọng:
    ```bash
-   python tools/sonicvoice_tts.py episodes/<ID>/shots.txt episodes/<ID>/audio --voice uv_1883_1ae2d9e41df6 --voice-map BRO=<id>,GUARD=<id> --voice-opts BRO=0.12:1.12 --speed 1.0 --gap 0.45 --stability 0.4
+   python tools/sonicvoice_tts.py episodes/<ID>/shots.txt episodes/<ID>/audio --voice uv_1628_b152bf711a96 --voice-map BRO=<id>,GUARD=<id> --voice-opts BRO=0.12:1.12 --speed 1.0 --gap 0.45 --stability 0.4
    ```
    Giọng nhân vật hét hoặc hype: `stability 0.12, speed 1.12`. Giọng clone `uv_…` không gửi provider/model (script tự xử lý). Rớt mạng thì chạy lại với `--reuse VOICEID=jobid`, không tốn thêm ký tự.
 4. ASR (**chỉ nhận âm thanh 16 kHz**; dòng lẻ 44.1 kHz phải đổi trước bằng `ffmpeg -i Lxx.wav -ar 16000 -ac 1 x.wav`, nếu không ASR ra rác):
@@ -111,7 +111,10 @@ Skill này là **quy trình + công cụ + luật người dùng** rút ra từ 
 ## 5. Giọng (SonicVoice, `https://sonicvoice.pro/api`)
 | Vai | Giọng | ID | Ghi chú |
 |---|---|---|---|
-| Tyler (người kể) | clone "Ant Just Cant" | `uv_1883_1ae2d9e41df6` | giọng clone thuộc **tài khoản SonicVoice** của người dùng; dùng khóa khác thì phải clone lại |
+| Tyler (người kể) | clone "Ant Just Cant" | **`uv_1628_b152bf711a96`** (tài khoản SonicVoice hiện tại, dùng từ TM03 21/11) | ID cũ `uv_1883_1ae2d9e41df6` thuộc tài khoản cũ, báo "Không tìm thấy giọng đọc". Đổi tài khoản thì tra lại bằng `GET /v1/tts/jobs` (voice_name) |
+| Elijah (TT001) | Andre Rene - Warm, Real & Conversational | `GogJbMCDT0Viv4cU3N4s` | 0.25:1.08 (câu hoảng) |
+| KID hype (TT001) | Valf - Young & Energetic | `nNXPmxHfg9PtGzFxr9Zd` | 0.12:1.12 |
+| Mr. Hayes, thầy band (TT001) | Bob Eastman - Relaxed and Approachable | `vRiW8gVSMIVJXaMhNy2V` | 0.3:1.0 |
 | Jaylen (TM01) | A Lost American | `enI44SIiQ2GsKAhWRSpZ` | |
 | Kayla | Brielle - Podcast girl | `6u6JbqKdaQy89ENzLSju` | |
 | Marcus (TM02) | Bateman - Deep and Seductive | `XTdzBt8oIEvodkwhxeA0` | 0.12:1.12 |
@@ -127,8 +130,9 @@ Không dùng lại giọng nhân vật chính của tập trước cho nhân v�
 - **TM01:** xe buýt trường, thư viện.
 - **TM02:** hành lang tủ khóa, toilet nam, dạ hội phòng gym, bãi đỗ xe ban đêm.
 - **TMG01:** vạch qua đường cổng trường + xe golf, hội trường, phòng y tế, căng tin ngoài trời.
+- **TT001 Elijah (aura farming):** sân bóng rổ ngoài trời, phòng band, phòng mỹ thuật, bến xe buýt (`hb_sets6.py`).
 - **TM03 Destiny (dự kiến):** sân trước trường, phòng lab hóa, phòng máy tính, khán đài sân bóng. Sân trước trường gần giống cổng trường TMG01, nên đổi góc hoặc đổi chi tiết.
-- **Còn trống:** phòng nhạc, bể bơi, phòng mỹ thuật, hội chợ khoa học, sân bóng rổ ngoài trời, phòng thay đồ, xe đưa đón, cửa hàng trường, sân thượng, bến xe buýt, nhà Tyler.
+- **Còn trống:** bể bơi, hội chợ khoa học, phòng thay đồ, xe đưa đón, cửa hàng trường, sân thượng, nhà Tyler.
 
 ## 7. Tài liệu tham chiếu
 - `references/blender_api.md` — API rig, set, cảnh, mẹo dựng.

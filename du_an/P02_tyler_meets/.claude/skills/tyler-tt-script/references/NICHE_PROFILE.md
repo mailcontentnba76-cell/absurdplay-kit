@@ -40,7 +40,7 @@ Bản gốc dùng chung cho 3 skill `tyler-tt-topic-studio`, `tyler-tt-script`, 
 | Lời vào | 0.00 s (cold open nói ngay khung đầu) | MB |
 | Phụ đề | 1–3 từ, giữa khung 60 %, từ khóa vàng, cỡ H×0.033, co 84 % rộng | OL |
 | Âm | V07 nhạc nền −9.5 dB dưới giọng; −16.5 ± 0.5 LUFS; peak ≤ −1 dBFS | OL |
-| Giọng | SonicVoice; Tyler = clone `uv_1883_1ae2d9e41df6`; mỗi vai một giọng; vai hét `0.12:1.12` | OL |
+| Giọng | SonicVoice; Tyler = clone `uv_1628_b152bf711a96`; mỗi vai một giọng; vai hét `0.12:1.12` | OL |
 
 ## 6. Frame-0 & "Thẻ dữ liệu" phiên bản kênh này
 - **Luật OL 9: trên video chỉ có phụ đề.** Vì vậy *chữ Frame-0* của bộ nền = **trang phụ đề đầu tiên** (1–3 từ, từ khóa vàng, nằm trong Safe Zone x 90–870, y 180–1480 vì phụ đề ở 60 % = y≈1152). Không thêm chữ overlay.
