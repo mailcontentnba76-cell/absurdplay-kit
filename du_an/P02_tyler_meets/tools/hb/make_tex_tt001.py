@@ -109,5 +109,5 @@ d.rectangle((150, 300, 210, 470), fill="#1b1b1d"); d.ellipse((140, 210, 220, 300
 d.rectangle((228, 120, 240, 520), fill="#d0d4d8")
 d.ellipse((20, 24, 46, 50), fill="#e01e37"); d.text((54, 22), "REC 00:14", font=B(30), fill="#ffffff")
 d.rounded_rectangle((120, 630, 240, 690), 30, outline="#ffffff", width=6); d.ellipse((160, 640, 200, 680), fill="#e01e37")
-im.save(os.path.join(TEX, "tt_kay_rec.png"))
+im.rotate(180).save(os.path.join(TEX, "tt_kay_rec.png"))   # rotated: the forearm quad shows it upside down otherwise
 print("ok")

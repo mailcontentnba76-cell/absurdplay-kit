@@ -176,7 +176,7 @@ for fi in range(n_frames):
         fr = acting_frame(sh, t - sh["start"])
     elif sh["kind"] == "frames":   # directory of rendered PNGs (Blender), one per frame, shot-local numbering from 1
         fl = cache.setdefault(sh["src"] + "#list", sorted(f for f in os.listdir(sh["src"]) if f.endswith(".png")))
-        k = min(fi - round(sh["start"] * FPS), len(fl) - 1)
+        k = min((fi - round(sh["start"] * FPS)) // int(sh.get("step", 1)), len(fl) - 1)   # step>1: preview rendered every Nth frame
         fr = fit(cv2.imread(os.path.join(sh["src"], fl[k])))
     elif sh["kind"] == "still":
         if sh["src"] not in cache: cache[sh["src"]] = fit(cv2.imread(sh["src"]))
