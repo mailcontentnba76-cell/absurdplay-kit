@@ -7,3 +7,6 @@ out_*/
 *.zip
 *.fbx
 __pycache__/
+du_an/P01_sport_usa_whatif/engine/*.log
+**/giong/raw.mp3
+**/am_thanh/giong_raw.wav
