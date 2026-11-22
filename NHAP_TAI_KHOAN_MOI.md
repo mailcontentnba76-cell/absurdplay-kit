@@ -58,6 +58,8 @@ Luôn trả lời tôi bằng tiếng Việt. Xong thì báo bảng "đã sẵn 
 
 ## 3. Dựng lại thư mục làm việc (dành cho Claude mới)
 
+**Cách nhanh (từ 22/11):** `bash du_an/P01_sport_usa_whatif/cong_cu/chuan_bi_moi_truong_nfl.sh` làm hết các bước dưới và tự kiểm tra; xem `du_an/P01_sport_usa_whatif/TAI_NGUYEN_NFL.md`.
+
 ```bash
 mkdir -p /root/work && cd /root/work
 # repo đã clone ở /root/work/repo
