@@ -48,13 +48,15 @@ html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hi
 <div class="el lab" id="l6"><small>FIRST RANKED WIN SINCE</small><b>Sept. 2016</b></div>
 <div class="el lab" id="l7"><small>OHIO STATE · 7-4</small><b>3rd L to unranked</b></div>
 <div class="el lab" id="l8"><small>NEXT WEEK</small><b>vs Michigan</b></div>
-<div class="el" id="end"><small>FINAL · NEB 31 · OSU 28</small><b>Who cracks <span class="gold">next?</span></b><i>Comment below</i></div>
+<div class="el" id="end"><div style="display:flex;justify-content:center;gap:40px;margin-bottom:10px"><span class="bd bn" style="font-size:96px">N</span><span class="bd bo" style="font-size:96px">O</span></div><small>FINAL · NEB 31 · OSU 28</small><b>Who cracks <span class="gold">next?</span></b><i>Comment below</i></div>
 <div class="wm">AbsurdPlay</div>
 <script type="module">
-import {SH,END} from './ep27_buckeyes_cornhuskers_shots.js';
+import {SH,END} from './ep27bc_shots.js';
 const TL=[['title',0.15,5.4],['teams',0.6,5.4],['l1',5.7,9.5],['l3',9.7,13.0],['l2',15.0,17.8],['l4',20.3,25.0],['sc1',29.3,30.6],['sc2',36.0,37.8],['sc3',40.1,42.0],['sc4',42.9,44.6],['sc5',44.8,45.7],
  ['l5',46.0,48.6],['l6',53.3,57.0],['l7',60.4,64.4],['l8',66.2,69.4],['end',71.0,END]];
 const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+if(location.hash.includes('clean')){const st=document.createElement('style');st.textContent='.bd{visibility:hidden}';document.head.appendChild(st);}
+window.slots=t=>{window.renderFrame(t);return [...document.querySelectorAll('.bd')].filter(b=>{let e=b;while(e&&!e.classList.contains('el'))e=e.parentElement;return e&&parseFloat(e.style.opacity)>0.99;}).map(b=>{const r=b.getBoundingClientRect();return [b.textContent,Math.round(r.left),Math.round(r.top),Math.round(r.width)];});};
 document.fonts.ready.then(()=>{window.ready=true});
 window.renderFrame=t=>{for(const [id,a,b] of TL){const e=$(id);const on=t>=a&&t<b;const k=on?ease(cl((t-a)/0.3)):0;const out=on?cl((b-t)/0.15):0;
   e.style.opacity=on?Math.min(cl((t-a)/0.15),out):0;
