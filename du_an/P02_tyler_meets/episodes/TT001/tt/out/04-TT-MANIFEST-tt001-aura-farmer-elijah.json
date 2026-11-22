@@ -1,0 +1,94 @@
+{
+  "schema": "TIKTOK_LOCK_MANIFEST_V4",
+  "profile_id": "tyler-meets-westbrook",
+  "profile_revision": 1,
+  "base_versions": "tiktok-script-all-in-one@4.0 -> tyler-tt-script@1.0",
+  "cast": {
+    "TYLER": {
+      "tag": "NARR",
+      "role": "narrator"
+    },
+    "ELIJAH": {
+      "tag": "ELI",
+      "role": "star"
+    },
+    "KAYLA": {
+      "tag": "KAY",
+      "role": "student"
+    },
+    "KID": {
+      "tag": "KID",
+      "role": "student"
+    },
+    "MR_HAYES": {
+      "tag": "BAND",
+      "role": "adult"
+    }
+  },
+  "kit_episode_id": "TT001",
+  "channel_band_seconds": [
+    68.0,
+    77.0
+  ],
+  "topic_id": "TT-001",
+  "slug": "tt001-aura-farmer-elijah",
+  "track": "creator_rewards",
+  "mode": "dialogue_scenes",
+  "script_version": 2,
+  "timing_status": "ESTIMATED",
+  "count_unit": "words",
+  "total_spoken_units": 170,
+  "total_beats": 21,
+  "non_speech_seconds": 0.0,
+  "estimated_center_seconds": 70.3,
+  "estimated_range_seconds": [
+    67.1,
+    75.0
+  ],
+  "creator_rewards_60s_safe": true,
+  "lossless_token_roundtrip": true,
+  "seam_count": 4,
+  "beat_pacing_summary": {
+    "total_beats": 21,
+    "first_beat_est_sec": 2.48,
+    "max_single_beat_est_sec": 5.79,
+    "avg_beat_est_sec": 3.35,
+    "spoken_beats_per_10s": 2.98,
+    "max_beat_threshold_sec": 8.5,
+    "beats_exceeding_threshold": []
+  },
+  "opening_fyp_audit": {
+    "first_beat_est_sec": 2.48,
+    "beats_in_windows": {
+      "0_3s_swipe_gate": 2,
+      "3_15s_premise": 3,
+      "15_30s_escalation": 5
+    },
+    "sentences_in_0_15s": 12,
+    "avg_sentence_units_0_15s": 3.67,
+    "max_sentence_units_0_15s": 10,
+    "max_open_sentence_threshold": 20,
+    "long_sentences_0_15s": [],
+    "question_in_0_30s": true,
+    "contiguity_numeric_or_clock_anchors_0_30s": [],
+    "fyp_throttle_watchlist_hits_0_30s": [],
+    "frame0_safezone_text": "OHHH! NO-LOOK",
+    "frame0_safezone_status": "PASS_SAFEZONE_MAX_2_LINES",
+    "warnings": []
+  },
+  "files": {
+    "01_script": {
+      "path": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/out/01-TT-SCRIPT-tt001-aura-farmer-elijah.txt",
+      "sha256": "0cd3610003439e3cadaecf80b4ef8ab74874465b0b8a0b2e1459b923e387f9e1"
+    },
+    "02_voice": {
+      "path": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/out/02-TT-VOICE-tt001-aura-farmer-elijah.txt",
+      "sha256": "f5d9749b1ce737e520498e0cfa13ee9f4645509ba5eaf0e63dc48dea6e623c72"
+    },
+    "03_timeline_csv": {
+      "path": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/out/03-TT-TIMELINE-tt001-aura-farmer-elijah.csv",
+      "sha256": "a02fd5de7f172126ba4c1e9ec923a3c3073eb9f8a8b4b40bd36cdffb92b2a988"
+    }
+  },
+  "locked_at": "2026-11-22T06:27:13.815501+00:00"
+}

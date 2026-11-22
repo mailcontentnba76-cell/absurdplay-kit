@@ -1,0 +1,104 @@
+{
+  "lang_mode": "auto",
+  "profile_id": "tyler-meets-westbrook",
+  "candidates": [
+    {
+      "candidate": "OHHH! No-look catch! That's aura farming! This is Elijah. He doesn't try. At anything.",
+      "max_competitor_jaccard": 0.2,
+      "closest_competitor": "When he's aura farming but trips",
+      "max_own_past_jaccard": 0.1,
+      "closest_own_past": "My homeboy has been in GTA 6 for 31 hours he doesn't even own it",
+      "lexical_twin_verdict": "CLEAR_DISTINCT_WORDING (<0.30)",
+      "tiktok_search_seo_matched": [
+        "aura farming",
+        "aura"
+      ],
+      "tiktok_search_seo_missing": [],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "Swish! Swish! This is Brianna. She turned one question into a rumor.",
+      "max_competitor_jaccard": 0.0,
+      "closest_competitor": null,
+      "max_own_past_jaccard": 0.125,
+      "closest_own_past": "Why are you TALKING to me? This is Destiny. She wakes up mad at the world.",
+      "lexical_twin_verdict": "CLEAR_DISTINCT_WORDING (<0.30)",
+      "tiktok_search_seo_matched": [],
+      "tiktok_search_seo_missing": [
+        "aura farming",
+        "aura"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "Six seven! SIX SEVEN! This is Mason. He can't stop saying it.",
+      "max_competitor_jaccard": 0.0588,
+      "closest_competitor": "When he's aura farming but trips",
+      "max_own_past_jaccard": 0.125,
+      "closest_own_past": "My homeboy has been in GTA 6 for 31 hours he doesn't even own it",
+      "lexical_twin_verdict": "CLEAR_DISTINCT_WORDING (<0.30)",
+      "tiktok_search_seo_matched": [],
+      "tiktok_search_seo_missing": [
+        "aura farming",
+        "aura"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    },
+    {
+      "candidate": "Nom-nom-nom! Sniff-sniff! This is Big Mo. He can smell my sandwich from three classrooms away.",
+      "max_competitor_jaccard": 0.0476,
+      "closest_competitor": "When he's aura farming but trips",
+      "max_own_past_jaccard": 0.1034,
+      "closest_own_past": "What the fuck is wrong with this dude? This is Jaylen. Every feeling he has goes on his story.",
+      "lexical_twin_verdict": "CLEAR_DISTINCT_WORDING (<0.30)",
+      "tiktok_search_seo_matched": [],
+      "tiktok_search_seo_missing": [
+        "aura farming",
+        "aura"
+      ],
+      "fyp_throttle_watchlist_hits": []
+    }
+  ],
+  "five_axis_twin_check": [
+    {
+      "against": "A_vs_TMG01",
+      "question": 0.0,
+      "stage": 0.0,
+      "ladder": 0.5,
+      "payoff": 0.5,
+      "look": 0.0,
+      "total_of_5": 1.0,
+      "verdict": "CLEAR"
+    },
+    {
+      "against": "A_vs_TM03",
+      "question": 0.0,
+      "stage": 0.5,
+      "ladder": 0.5,
+      "payoff": 0.0,
+      "look": 0.0,
+      "total_of_5": 1.0,
+      "verdict": "CLEAR"
+    },
+    {
+      "against": "A_vs_TM02",
+      "question": 0.5,
+      "stage": 0.0,
+      "ladder": 0.5,
+      "payoff": 0.0,
+      "look": 0.0,
+      "total_of_5": 1.0,
+      "verdict": "CLEAR"
+    },
+    {
+      "against": "D_bigmo_vs_TM01",
+      "question": 0.0,
+      "stage": 0.0,
+      "ladder": 0.5,
+      "payoff": 1.0,
+      "look": 0.0,
+      "total_of_5": 1.5,
+      "verdict": "NEAR (<=2/5, watch)"
+    }
+  ]
+}

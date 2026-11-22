@@ -1,0 +1,22 @@
+beat_id,part_id,speaker,fyp_window_bucket,est_start_sec,est_end_sec,est_duration_sec,units,contiguity_anchors,spoken_text,scene_keys
+b001,P01,KID,00_03s_FRAME0_SWIPE_GATE,0.00,2.48,2.48,6,,OHHH! No-look catch! That's aura farming!,OPEN_ELI_CATCH / CU_KID_HYPE
+b002,P01,TYLER,00_03s_FRAME0_SWIPE_GATE,2.48,5.79,3.31,8,,What the fuck is wrong with this dude?,CU_ME_WTF
+b003,P01,TYLER,03_15s_PREMISE_ANCHOR,5.79,9.10,3.31,8,,This is Elijah. He doesn't try. At anything.,WIDE_COURT_ELI / CU_ELI_SQUINT
+b004,P01,TYLER,03_15s_PREMISE_ANCHOR,9.10,13.24,4.14,10,,And the whole school treats him like a final boss.,WIDE_COURT_FANS
+b005,P01,TYLER,03_15s_PREMISE_ANCHOR,13.24,18.21,4.97,12,,"He leans his way to class. Poles. Doors. One time, the principal.",MS_ELI_LEAN_POLE / MS_ELI_LEAN_PRINCIPAL
+b006,P01,KAYLA,15_30s_ESCALATION_ZONE,18.21,21.52,3.31,8,,He's aura farming. I have it on video.,MS_KAY_FILM / INS_KAY_PHONE
+b007,P01,TYLER,15_30s_ESCALATION_ZONE,21.52,24.42,2.90,7,,I've farmed aura for years. Zero crops.,CU_ME_DEAD
+b008,P02,TYLER,15_30s_ESCALATION_ZONE,24.42,27.32,2.90,7,,Second period. Band. Elijah plays the triangle.,WIDE_BAND / MS_ELI_TRIANGLE
+b009,P02,TYLER,15_30s_ESCALATION_ZONE,27.32,29.80,2.48,6,,One ding. The whole band stops.,MS_BAND_STOP
+b010,P02,MR_HAYES,15_30s_ESCALATION_ZONE,29.80,32.70,2.90,7,,"Elijah. That was perfect. Tyler, less tuba.",CU_HAYES_TEAR / CU_ME_TUBA
+b011,P02,TYLER,30_60s_CLIFF_BRIDGE,32.70,36.42,3.72,9,,I played tuba for forty minutes. Nobody turned around.,WIDE_ME_TUBA / MS_BAND_BACKS
+b012,P02,TYLER,30_60s_CLIFF_BRIDGE,36.42,39.73,3.31,8,,His sheet music was upside down. Still perfect.,OTS_ELI_SHEET_UPSIDE
+b013,P03,TYLER,30_60s_CLIFF_BRIDGE,39.73,42.21,2.48,6,,Art class. We paint each other.,WIDE_ART
+b014,P03,TYLER,30_60s_CLIFF_BRIDGE,42.21,46.35,4.14,10,,Elijah paints me in one line. Then I look closer.,MS_ELI_BRUSH / CU_ME_SIDEEYE
+b015,P03,TYLER,30_60s_CLIFF_BRIDGE,46.35,48.01,1.66,4,,It's the coat rack.,INS_CANVAS_RACK
+b016,P03,KAYLA,30_60s_CLIFF_BRIDGE,48.01,49.67,1.66,4,,Bro. He can't see.,POV_KAY_ZOOM
+b017,P03,TYLER,30_60s_CLIFF_BRIDGE,49.67,53.39,3.72,9,,The no-look catch. The triangle. He wasn't farming anything.,OPEN_ELI_CATCH / CU_ME_REALIZE
+b018,P04,TYLER,30_60s_CLIFF_BRIDGE,53.39,57.53,4.14,10,,After school. I point at his head. Glasses. All day.,WIDE_BUS_STOP_POINT / INS_GLASSES_HEAD
+b019,P04,ELIJAH,30_60s_CLIFF_BRIDGE,57.53,60.43,2.90,7,,Wait. Why is everyone LOOKING at me?!,CU_ELI_PANIC
+b020,P04,TYLER,60s_PLUS_REWARDS_ZONE,60.43,64.57,4.14,10,,He backs into me. My sandwich rolls under the bus.,MS_ELI_BUMP / INS_SANDWICH_BUS
+b021,P04,TYLER,60s_PLUS_REWARDS_ZONE,64.57,70.36,5.79,14,,Elijah got his glasses. Kayla got two million views. The bus got my sandwich.,CU_ELI_GLASSES_OFF / INS_PHONE_VIEWS / CU_ME_CRUMBS

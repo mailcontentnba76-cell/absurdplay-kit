@@ -1,0 +1,19 @@
+{
+  "first_beat_est_sec": 2.48,
+  "beats_in_windows": {
+    "0_3s_swipe_gate": 2,
+    "3_15s_premise": 3,
+    "15_30s_escalation": 5
+  },
+  "sentences_in_0_15s": 12,
+  "avg_sentence_units_0_15s": 3.67,
+  "max_sentence_units_0_15s": 10,
+  "max_open_sentence_threshold": 20,
+  "long_sentences_0_15s": [],
+  "question_in_0_30s": true,
+  "contiguity_numeric_or_clock_anchors_0_30s": [],
+  "fyp_throttle_watchlist_hits_0_30s": [],
+  "frame0_safezone_text": "OHHH! NO-LOOK",
+  "frame0_safezone_status": "PASS_SAFEZONE_MAX_2_LINES",
+  "warnings": []
+}

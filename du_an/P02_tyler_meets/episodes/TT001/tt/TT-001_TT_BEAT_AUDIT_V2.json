@@ -1,0 +1,9 @@
+{
+  "total_beats": 21,
+  "first_beat_est_sec": 2.48,
+  "max_single_beat_est_sec": 5.79,
+  "avg_beat_est_sec": 3.35,
+  "spoken_beats_per_10s": 2.98,
+  "max_beat_threshold_sec": 6.5,
+  "beats_exceeding_threshold": []
+}

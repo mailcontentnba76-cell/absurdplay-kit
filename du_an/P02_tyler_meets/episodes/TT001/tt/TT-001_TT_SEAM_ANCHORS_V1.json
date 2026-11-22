@@ -1,0 +1,22 @@
+[
+  {
+    "seam": "P01->P02",
+    "prev_closing": "TYLER: I've farmed aura for years. Zero crops.",
+    "next_opening": "TYLER: Second period. Band. Elijah plays the triangle."
+  },
+  {
+    "seam": "P02->P03",
+    "prev_closing": "TYLER: His sheet music was upside down. Still perfect.",
+    "next_opening": "TYLER: Art class. We paint each other."
+  },
+  {
+    "seam": "P03->P04",
+    "prev_closing": "TYLER: The no-look catch. The triangle. He wasn't farming anything.",
+    "next_opening": "TYLER: After school. I point at his head. Glasses. All day."
+  },
+  {
+    "seam": "FINAL->0.0s_LOOP_OR_PART2",
+    "prev_closing": "TYLER: Elijah got his glasses. Kayla got two million views. The bus got my sandwich.",
+    "next_opening": "KID: OHHH! No-look catch! That's aura farming!"
+  }
+]

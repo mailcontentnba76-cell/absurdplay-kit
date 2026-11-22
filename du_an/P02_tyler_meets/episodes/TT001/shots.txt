@@ -1,0 +1,21 @@
+L00 [KID] OHHH! No-look catch! / That's aura farming! | OPEN_ELI_CATCH / CU_KID_HYPE
+L01 [NARR] What the fuck is wrong with this dude? | CU_ME_WTF
+L02 [NARR] This is Elijah. / He doesn't try. At anything. | WIDE_COURT_ELI / CU_ELI_SQUINT
+L03 [NARR] And the whole school treats him like a final boss. | WIDE_COURT_FANS
+L04 [NARR] He leans his way to class. / Poles. Doors. One time, the principal. | MS_ELI_LEAN_POLE / MS_ELI_LEAN_PRINCIPAL
+L05 [KAY] He's aura farming. / I have it on video. | MS_KAY_FILM / INS_KAY_PHONE
+L06 [NARR] I've farmed aura for years. Zero crops. | CU_ME_DEAD
+L07 [NARR] Second period. Band. / Elijah plays the triangle. | WIDE_BAND / MS_ELI_TRIANGLE
+L08 [NARR] One ding. The whole band stops. | MS_BAND_STOP
+L09 [BAND] Elijah. That was perfect. / Tyler, less tuba. | CU_HAYES_TEAR / CU_ME_TUBA
+L10 [NARR] I played tuba for forty minutes. / Nobody turned around. | WIDE_ME_TUBA / MS_BAND_BACKS
+L11 [NARR] His sheet music was upside down. Still perfect. | OTS_ELI_SHEET_UPSIDE
+L12 [NARR] Art class. We paint each other. | WIDE_ART
+L13 [NARR] Elijah paints me in one line. / Then I look closer. | MS_ELI_BRUSH / CU_ME_SIDEEYE
+L14 [NARR] It's the coat rack. | INS_CANVAS_RACK
+L15 [KAY] Bro. He can't see. | POV_KAY_ZOOM
+L16 [NARR] The no-look catch. The triangle. / He wasn't farming anything. | OPEN_ELI_CATCH / CU_ME_REALIZE
+L17 [NARR] After school. I point at his head. / Glasses. All day. | WIDE_BUS_STOP_POINT / INS_GLASSES_HEAD
+L18 [ELI] Wait. Why is everyone LOOKING at me?! | CU_ELI_PANIC
+L19 [NARR] He backs into me. / My sandwich rolls under the bus. | MS_ELI_BUMP / INS_SANDWICH_BUS
+L20 [NARR] Elijah got his glasses. / Kayla got two million views. / The bus got my sandwich. | CU_ELI_GLASSES_OFF / INS_PHONE_VIEWS / CU_ME_CRUMBS

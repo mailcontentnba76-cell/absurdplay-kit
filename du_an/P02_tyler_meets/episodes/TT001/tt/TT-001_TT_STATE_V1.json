@@ -1,0 +1,115 @@
+{
+  "schema": "TIKTOK_SCRIPT_STATE_V1",
+  "assembler_version": "tyler-tt-script@1.0 (base 4.0)",
+  "profile_id": "tyler-meets-westbrook",
+  "profile_revision": 1,
+  "base_versions": "tiktok-script-all-in-one@4.0 -> tyler-tt-script@1.0",
+  "cast": {
+    "TYLER": {
+      "tag": "NARR",
+      "role": "narrator"
+    },
+    "ELIJAH": {
+      "tag": "ELI",
+      "role": "star"
+    },
+    "KAYLA": {
+      "tag": "KAY",
+      "role": "student"
+    },
+    "KID": {
+      "tag": "KID",
+      "role": "student"
+    },
+    "MR_HAYES": {
+      "tag": "BAND",
+      "role": "adult"
+    }
+  },
+  "kit_episode_id": "TT001",
+  "topic_id": "TT-001",
+  "slug": "tt001-aura-farmer-elijah",
+  "track": "creator_rewards",
+  "mode": "dialogue_scenes",
+  "count_unit": "words",
+  "clean_tts": true,
+  "strict_natural_speech": true,
+  "max_beat_sec": 8.5,
+  "max_open_sentence_units": 20,
+  "frame0_text": "OHHH! NO-LOOK",
+  "blueprint_version": 1,
+  "script_version": 2,
+  "current_workflow": "WF06_SCRIPT_LOCKED",
+  "state": "SCRIPT_LOCKED",
+  "rate_spec": {
+    "rate_center_upm": 145.0,
+    "rate_min_upm": 136.0,
+    "rate_max_upm": 152.0,
+    "rate_basis": "MEASURED_SAMPLE",
+    "total_unit_budget": 182,
+    "non_speech_budget_seconds": 0.0,
+    "planned_spoken_center_seconds": 75.3,
+    "planned_center_seconds": 75.3,
+    "planned_range_seconds": [
+      71.8,
+      80.3
+    ]
+  },
+  "parts_expected": 4,
+  "parts_delivered": 4,
+  "next_part": null,
+  "parts_registry": {
+    "P01": {
+      "part_id": "P01",
+      "budget_units": 56,
+      "revision": 2,
+      "file": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/PARTS/P01.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 59,
+      "chunk_count": 7,
+      "sha256": "6dedc6ef04f93336a29194453d66728d3254ec7acd3463605b1389b8d2d8c66e",
+      "first_sentence": "KID: OHHH! No-look catch! That's aura farming!",
+      "last_sentence": "TYLER: I've farmed aura for years. Zero crops."
+    },
+    "P02": {
+      "part_id": "P02",
+      "budget_units": 44,
+      "revision": 3,
+      "file": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/PARTS/P02.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 37,
+      "chunk_count": 5,
+      "sha256": "cd05944d58e5154841bc854b6d1cc713de1961f72771818eca3a86163a28589f",
+      "first_sentence": "TYLER: Second period. Band. Elijah plays the triangle.",
+      "last_sentence": "TYLER: His sheet music was upside down. Still perfect."
+    },
+    "P03": {
+      "part_id": "P03",
+      "budget_units": 40,
+      "revision": 3,
+      "file": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/PARTS/P03.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 33,
+      "chunk_count": 5,
+      "sha256": "3952863c2b4db5202531f2f85e648e7ca3bfe3dd5bb87e0f27eb13e931b165f6",
+      "first_sentence": "TYLER: Art class. We paint each other.",
+      "last_sentence": "TYLER: The no-look catch. The triangle. He wasn't farming anything."
+    },
+    "P04": {
+      "part_id": "P04",
+      "budget_units": 42,
+      "revision": 1,
+      "file": "/home/user/absurdplay-kit/du_an/P02_tyler_meets/episodes/TT001/tt/PARTS/P04.txt",
+      "status": "SECTION_PASSED",
+      "actual_units": 41,
+      "chunk_count": 4,
+      "sha256": "b5e3be9065cdd8a3900b1efbe19b46a3c33d5ad7b8ecb9f909405675d9ef0f00",
+      "first_sentence": "TYLER: After school. I point at his head. Glasses. All day.",
+      "last_sentence": "TYLER: Elijah got his glasses. Kayla got two million views. The bus got my sandwich."
+    }
+  },
+  "cumulative_units": 170,
+  "cumulative_chunks": 21,
+  "last_delivered_boundary": "P03: TYLER: The no-look catch. The triangle. He wasn't farming anything.",
+  "updated_at": "2026-11-22T06:27:13.815609+00:00"
+}

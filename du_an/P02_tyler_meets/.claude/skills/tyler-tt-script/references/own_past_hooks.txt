@@ -1,0 +1,10 @@
+# Hook / tiêu đề đã dùng của kênh — đầu vào --own-past-file cho twin-seo-check (ID | text)
+TM01 | My homeboy posts sad stories while sitting RIGHT next to me
+TM01 | What the fuck is wrong with this dude? This is Jaylen. Every feeling he has goes on his story.
+TM02 | My homeboy thinks he's the main character of every hallway
+TM02 | She's into me, bro! She was looking at the clock. Behind him.
+TMG01 | My homeboy has been in GTA 6 for 31 hours he doesn't even own it
+TMG01 | BRO! I haven't slept! Thirty-one hours in Vice City! Skrrrt!
+TM03 | Why are you TALKING to me? This is Destiny. She wakes up mad at the world.
+TT001 | OHHH! No-look catch! That's aura farming! This is Elijah. He doesn't try. At anything.
+TT001 | Everyone thinks my homeboy is aura farming

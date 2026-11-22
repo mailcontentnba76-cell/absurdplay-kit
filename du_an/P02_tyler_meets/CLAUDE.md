@@ -14,3 +14,7 @@
 - SonicVoice: khóa được proxy chèn cho `sonicvoice.pro`; chạy script với `SONICVOICE_API_KEY=proxy-injected` (giá trị giả, không phải khóa).
 - Không GPU: ảnh thử 360×640/16 mẫu ~15 s/ảnh (dùng được); 1080×1920/64 mẫu ~87 s/khung → cả tập ~2 ngày. Render bản cuối nên chạy trên máy RTX của người dùng.
 - 3 video mẫu (`references/videos/*.mp4`) không đưa lên git; lấy lại từ TylerMeets_Kit.zip trên Google Drive.
+
+## Skill TikTok (từ 22/11/2026)
+- Chọn đề tài: `tyler-tt-topic-studio` · viết kịch bản từng phần + xuất `shots.txt`: `tyler-tt-script` · đọc số liệu sau đăng: `tyler-tt-studio-doctor`. Hồ sơ kênh: `.claude/skills/tyler-tt-script/references/NICHE_PROFILE.md`.
+- Các skill này dừng trước bước làm giọng; sau khi người dùng chốt kịch bản thì dùng `tyler-meets-homeboy-production` (Bước B–D).
