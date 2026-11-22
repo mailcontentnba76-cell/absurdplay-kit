@@ -9,7 +9,7 @@ export function buildCrowd(G, spots, o) {
   const COAT = o.coats;
   const SKIN = ['#f1c9a5', '#c68c5f', '#9a6040', '#8a5634', '#e8b98f', '#d8a37a'];
   const geo = { leg: new THREE.BoxGeometry(0.34, 0.8, 0.24).translate(0, 0.4, 0), coat: new THREE.CapsuleGeometry(0.25, 0.42, 2, 6).scale(1, 1, 0.78).translate(0, 1.15, 0),
-    head: new THREE.SphereGeometry(0.13, 6, 4).translate(0, 1.66, 0), beanie: new THREE.SphereGeometry(0.14, 6, 3, 0, 6.29, 0, 1.5).translate(0, 1.7, 0), pom: new THREE.SphereGeometry(0.05, 4, 2).translate(0, 1.85, 0),
+    head: new THREE.SphereGeometry(0.13, 6, 4).translate(0, 1.66, 0), beanie: o.hatGeo || new THREE.SphereGeometry(0.14, 6, 3, 0, 6.29, 0, 1.5).translate(0, 1.7, 0), pom: new THREE.SphereGeometry(0.05, 4, 2).translate(0, 1.85, 0),
     horn: new THREE.TorusGeometry(0.12, 0.03, 3, 6, Math.PI).translate(0, 1.76, 0), trapper: new THREE.CylinderGeometry(0.16, 0.17, 0.16, 6).translate(0, 1.72, 0),
     arm: new THREE.CapsuleGeometry(0.075, 0.42, 1, 4).translate(0, -0.26, 0), towel: new THREE.PlaneGeometry(0.42, 0.62, 1, 1).translate(0, 0.36, 0) };
   const mat = (o = {}) => new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.85, ...o });
@@ -17,7 +17,7 @@ export function buildCrowd(G, spots, o) {
   mk('leg', geo.leg, mat({ color: '#2a2e36' })); mk('coat', geo.coat, mat()); mk('head', geo.head, mat({ roughness: 0.6 })); mk('beanie', geo.beanie, mat({ roughness: 1 })); mk('pom', geo.pom, mat({ color: '#f4f4f4', roughness: 1 }));
   mk('horn', geo.horn, mat({ color: '#3a2a1e', roughness: 0.6 })); mk('trap', geo.trapper, mat({ color: '#5a4030', roughness: 1 })); mk('armL', geo.arm, mat()); mk('armR', geo.arm, mat()); mk('towel', geo.towel, mat({ side: THREE.DoubleSide, roughness: 0.9 }));
   fans.forEach((f, i) => { const shirtless = f.k % 41 === 0; f.coat = shirtless ? SKIN[f.k % 6] : COAT[f.k % COAT.length]; f.paint = shirtless ? o.paint[f.k % o.paint.length] : null;
-    f.hat = f.k % 7 === 0 ? 'horn' : f.k % 5 === 0 ? 'trap' : f.k % 9 === 0 ? 'none' : 'beanie'; f.towel = f.k % 4 === 0; f.sc = 0.92 + (f.k % 13) * 0.012;
+    f.hat = o.hatAll ? 'beanie' : f.k % 7 === 0 ? 'horn' : f.k % 5 === 0 ? 'trap' : f.k % 9 === 0 ? 'none' : 'beanie'; f.towel = f.k % (o.towelEvery || 4) === 0; f.sc = 0.92 + (f.k % 13) * 0.012;
     IM.coat.setColorAt(i, col.set(f.paint || f.coat)); IM.head.setColorAt(i, col.set(SKIN[(f.k >> 3) % 6])); IM.beanie.setColorAt(i, col.set(o.hats[(f.k >> 2) % o.hats.length]));
     IM.armL.setColorAt(i, col.set(shirtless ? SKIN[f.k % 6] : f.coat)); IM.armR.setColorAt(i, col.set(shirtless ? SKIN[f.k % 6] : f.coat)); IM.towel.setColorAt(i, col.set(o.towels[f.k % o.towels.length])); });
   // chuyển động trong VERTEX SHADER (nhanh): ma trận đặt 1 lần; uT/uCheer là uniform chung
@@ -37,7 +37,7 @@ export function buildCrowd(G, spots, o) {
   const place = (im, i, show, x, y, z, ry, sc, lat = 0) => { if (!show) { D.position.set(0, -60, 0); D.rotation.set(0, 0, 0); D.scale.setScalar(0.001); } else { D.position.set(x + Math.cos(ry) * lat * sc, y, z - Math.sin(ry) * lat * sc); D.rotation.set(0, ry, 0); D.scale.setScalar(sc); } D.updateMatrix(); im.setMatrixAt(i, D.matrix); };
   fans.forEach((f, i) => { const sc = f.sc; const sh = 1.42 * sc;
     place(IM.leg, i, true, f.x, f.y, f.z, f.ry, sc); place(IM.coat, i, true, f.x, f.y, f.z, f.ry, sc); place(IM.head, i, true, f.x, f.y, f.z, f.ry, sc);
-    place(IM.beanie, i, f.hat === 'beanie', f.x, f.y, f.z, f.ry, sc); place(IM.pom, i, f.hat === 'beanie', f.x, f.y, f.z, f.ry, sc); place(IM.horn, i, f.hat === 'horn', f.x, f.y, f.z, f.ry, sc); place(IM.trap, i, f.hat === 'trap', f.x, f.y, f.z, f.ry, sc);
+    place(IM.beanie, i, f.hat === 'beanie', f.x, f.y, f.z, f.ry, sc); place(IM.pom, i, f.hat === 'beanie' && !o.hatGeo, f.x, f.y, f.z, f.ry, sc); place(IM.horn, i, f.hat === 'horn', f.x, f.y, f.z, f.ry, sc); place(IM.trap, i, f.hat === 'trap', f.x, f.y, f.z, f.ry, sc);
     place(IM.armL, i, true, f.x, f.y + sh, f.z, f.ry, sc, -0.3); place(IM.armR, i, true, f.x, f.y + sh, f.z, f.ry, sc, 0.3);
     place(IM.towel, i, f.towel, f.x, f.y + sh + 0.45 * sc, f.z, f.ry, sc, 0.3); });
   hook(IM.leg, 3); hook(IM.coat, 0); hook(IM.head, 0); hook(IM.beanie, 0); hook(IM.pom, 0); hook(IM.horn, 0); hook(IM.trap, 0); hook(IM.armL, 1, -1); hook(IM.armR, 1, 1); hook(IM.towel, 2);

@@ -1,0 +1,275 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 28 (TT-001, mascot đối đầu) — Packers = CÔNG NHÂN ĐÓNG GÓI THỊT thật, Steelers = THỢ LUYỆN THÉP thật; sân "The Plant Bowl" giữa khu công nghiệp lúc hoàng hôn.
+// Kịch bản khoá v1: tap/E28_mascot_packers_steelers/tt/out/01-TT-SCRIPT-*.txt. Mốc: ep28_packers_steelers_shots.js (theo giong/words_tw.json).
+import * as THREE from 'three';
+import {buildMill,millLights,OX,FZ,LX,RX,XG,BOOTH,LIVING} from './lib/nhamay28.js';
+import {GB,PIT,dressPacker,dressSteelworker,hardHat,hairnet,cheesehead,sausage,cheeseWheel,conveyor,crucible,forklift,steelCurtain,scrapMagnet,timeClock,jerseyHanger,newspaper,stockCertificate,gavel,podium,radioMic,rallyTowel,couchCushion,trophyCart} from './lib/dao28.js';
+import {burstFX} from './lib/meolon25.js';
+import {transformFX} from './lib/bienhinh25.js';
+import {football,trophy,headset} from './lib/dovat.js';
+import {tricorn} from './lib/philly1776.js';
+import {HEAT} from './lib/cast2.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose,ik2} from './lib/tuthe.js';
+import {locoLock,expr,clipPose} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {snapGround,checkGround,minY} from './lib/chamdat.js';
+import {SH,END} from './ep28_packers_steelers_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.05;
+const s=new THREE.Scene();const PR=buildMill(s);const L=millLights(s);const GAN=PR.gantry;
+const lib=await loadLibrary();
+const IN=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const ON=IN;const U=(k,t)=>t-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;const PI=Math.PI;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+const BASE={...EAGLES,hair:null,backName:null,gloves:null};
+const SKN=['#f1c9a5','#c68c5f','#9a6040','#8a5634','#e8b98f','#d8a37a'];
+const HAIRS=[['Hair_Buzzed','#3a2a1a'],['Hair_SimpleParted','#6a4a2a'],['Hair_SimpleParted','#c8a060'],['Hair_Buzzed','#1a1210'],['proc:fade','#120d0b'],['proc:curlytop','#1a1210']];
+const hairOf=i=>{const h=HAIRS[i%HAIRS.length];return h[0].startsWith('proc')?{hairStyle:h[0],hairColor:h[1]}:{hair:h[0],hairColor:h[1]};};
+// cầu thủ áo đấu (chỉ cảnh mở đầu + trước khi xé áo)
+const PJ=[12,52,87,33].map((n,i)=>makeCharacter(lib,{...BASE,number:String(n),jersey:GB.green,numberColor:'#ffffff',numberOutline:GB.gold,collar:GB.gold,pants:GB.gold,pantsStripes:[GB.green,'#ffffff',GB.green],sleeveStripes:[GB.gold,'#ffffff'],socks:GB.green,shoes:'#f4f4f4',helmet:GB.gold,helmetStripe:[GB.green,'#ffffff',GB.green],helmetMetal:0.35,mask:GB.green,skin:SKN[(i*5+1)%6],heightM:1.86+(i%3)*0.03}));
+const SJ=[19,90,26,43].map((n,i)=>makeCharacter(lib,{...BASE,number:String(n),jersey:PIT.black,numberColor:PIT.gold,numberOutline:PIT.black,collar:PIT.gold,pants:PIT.gold,pantsStripes:[PIT.black],sleeveStripes:[PIT.gold],socks:PIT.black,shoes:'#1c1c1c',helmet:PIT.black,helmetStripe:[PIT.gold],helmetMetal:0.35,mask:PIT.black,skin:SKN[(i*3+2)%6],heightM:1.87+(i%3)*0.03}));
+// công nhân đóng gói (Packers) & thợ thép (Steelers)
+const NONUM={number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,helmet:null};
+const PC=[...Array(6)].map((_,i)=>makeCharacter(lib,{...BASE,...NONUM,jersey:GB.white,collar:'#e2e2da',pants:'#e6e6e0',pantsStripes:null,sleeveStripes:null,socks:'#f2f2ec',shoes:'#f2f2ec',skin:SKN[(i*5+1)%6],...hairOf(i),beardStyle:i%3===0?'stubble':null,beardColor:'#2a1a10',heightM:1.84+(i%3)*0.04}));
+const SC=[...Array(6)].map((_,i)=>makeCharacter(lib,{...BASE,...NONUM,jersey:'#1e2024',collar:'#1e2024',pants:'#2a3448',pantsStripes:null,sleeveStripes:['#e8e2c8',PIT.gold],socks:'#2a3448',shoes:'#5a3a20',skin:SKN[(i*3+2)%6],...hairOf(i+2),beardStyle:i%2===0?'stubble':'mustache',beardColor:'#2a1a10',heightM:1.86+(i%3)*0.04}));
+// fan cận cảnh: 4 Packers (áo xanh/vàng), 4 Steelers (áo đen/vàng), 1 người dẫn radio
+const TEE={...HEAT,tank:false,shorts:false,number:null,wordmark:null,frontNumberSize:0.0001,backNumberSize:0.0001,pantsStripes:null,shoes:'#2a2a2a'};
+const FP=[...Array(4)].map((_,i)=>{const c_=[GB.green,GB.gold,GB.green,'#f2efe8'][i];return makeCharacter(lib,{...TEE,jersey:c_,collar:c_,pants:['#3a4a6a','#2a2e36','#4a5a7a','#6a5a48'][i],socks:'#eee',skin:SKN[(i*5+2)%6],...hairOf(i+1),heightM:1.66+i*0.04});});
+const FS=[...Array(4)].map((_,i)=>{const c_=[PIT.black,PIT.gold,PIT.black,'#2a2a2e'][i];return makeCharacter(lib,{...TEE,jersey:c_,collar:c_,pants:['#2a2e36','#3a4a6a','#4a4a52','#2a3448'][i],socks:'#eee',skin:SKN[(i*3+4)%6],...hairOf(i+3),beardStyle:i%2?'stubble':null,beardColor:'#2a1a10',heightM:1.68+i*0.04});});
+const RAD=makeCharacter(lib,{...TEE,jersey:'#7a5a3a',collar:'#e8dcc4',pants:'#4a3a2a',skin:SKN[0],hair:'Hair_SimpleParted',hairColor:'#8a8a8a',beardStyle:'mustache',beardColor:'#8a8a8a',heightM:1.74});
+const ALL=[...PJ,...SJ,...PC,...SC,...FP,...FS,RAD];
+ALL.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+PC.forEach((ch,i)=>dressPacker(ch,i));SC.forEach((ch,i)=>dressSteelworker(ch,i));headset(RAD);
+// đạo cụ
+const add=o=>{s.add(o);o.visible=false;return o;};
+const BALL=add(football(0.28));const BIGS=add(sausage(1.3,0.17));const SAUS=PC.map(()=>add(sausage(0.5,0.075)));const WHEEL=add(cheeseWheel(0.6));
+const CONV=add(conveyor(9));const CRU=add(crucible());const FORK=add(forklift());const CURT=add(steelCurtain(PR.gantry?52:52,10));const MAG=add(scrapMagnet());
+const CLOCK=add(timeClock());const HANG=add(jerseyHanger());const PAPER=add(newspaper());const CERT=FP.map(()=>add(stockCertificate()));const GAV=add(gavel());const POD=add(podium());const MIC=add(radioMic());
+const TOW=[...FS.map(()=>add(rallyTowel())),add(rallyTowel())];const CHZ=FP.map(()=>add(cheesehead(1)));const CUSH=add(couchCushion());const CART=add(trophyCart(()=>trophy(0.9),6));
+const TRI=add(tricorn('#1a1612'));const NETS=PC.map(()=>add(hairnet()));const FLYHAT=add(hardHat());const CHAIR=add(new THREE.Mesh(new THREE.BoxGeometry(0.5,0.46,0.5),new THREE.MeshStandardMaterial({color:'#4a3a2a'})));
+{const ld=FORK.userData.load;for(let k=0;k<13;k++){const tr=trophy(0.55);tr.position.set(-0.45+(k%4)*0.3,0,-0.42+Math.floor(k/4)*0.28);ld.add(tr);}}
+const FX=burstFX(s,260);s.add(FX.im);const TFX=transformFX(s,{smoke:64,aura:20,cloth:24});
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,1500);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',0.55);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:281});const CAMS={};
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const M0=OX;                         // giữa sân
+const PE=LX+16, SE=XG-5;             // khu Packers (trước xưởng đóng gói) / khu Steelers (trước cầu trục)
+const TZ=FZ+6.0-0.62, TY=2.59;       // hàng đứng đầu tiên trên container (|z|, cao)
+const BX=BOOTH.x,BZ=BOOTH.z,LVX=LIVING.x,LVZ=LIVING.z;
+S('s01',{pos:[M0-11,0.9,4.2],look:[M0-3,1.1,0]},{pos:[M0-5.5,1.0,4.6],look:[M0+1,1.2,0]},{fov:[50,50],shake:0.01,shakeHz:1.4});
+S('s02',{pos:[M0-3.5,5.4,7.2],look:[M0,0.8,0]},{pos:[M0-2.6,6.0,6.2],look:[M0,0.9,0]},{fov:[46,44],shake:0.014,shakeHz:2});
+S('s03',{pos:[SE-9,1.6,2.4],look:[SE+2,1.6,0]},{pos:[SE-6.5,1.55,1.8],look:[SE+2,1.5,0]},{fov:[46,44],ease:'inOut'});
+S('s04',{pos:[PE-6,1.7,6.5],look:[PE,1.3,0]},{pos:[PE+1.5,1.8,7.6],look:[PE,1.3,0]},{fov:[48,48],ease:'inOut'});
+S('s05',{pos:[PE+5,5.2,5],look:[PE,1.2,0]},{pos:[PE+5.5,1.7,4.2],look:[PE,1.4,0]},{fov:[46,46],ease:'inOut'});
+S('s06',{pos:[LX-1,1.8,-7.5],look:[LX-6,1.2,-2]},{pos:[LX-1,1.8,4.5],look:[LX-6,1.2,2]},{fov:[48,48]});
+S('s07',{pos:[LX-3.2,1.55,2.6],look:[LX-5.2,1.35,1.2]},{pos:[LX-3.0,1.5,2.2],look:[LX-5.2,1.4,1.2]},{fov:[44,42],shake:0.008,shakeHz:1.2});
+S('s08',{pos:[LX-3,1.45,-4.6],look:[LX-4.6,1.35,-6]},{pos:[LX-3.5,1.4,-5.0],look:[LX-4.6,1.35,-6]},{fov:[42,40]});
+S('s09',{pos:[LX-1.6,1.6,-3.4],look:[LX-4.4,1.3,-5.6]},{pos:[LX-1.9,1.55,-3.8],look:[LX-4.4,1.35,-5.6]},{fov:[46,44]});
+S('s10',{pos:[LX-1.4,1.6,7.8],look:[LX-4,1.3,6]},{pos:[LX+1,1.6,8.6],look:[LX-1,1.2,6]},{fov:[46,46]});
+S('s11',{pos:[LX+3,1.5,8],look:[LX+6,1.1,0]},{pos:[LX+12,1.6,8],look:[LX+15,1.1,0]},{fov:[48,48]});
+S('s12',{pos:[SE+6.5,1.7,6],look:[SE,1.3,0]},{pos:[SE-1.5,1.8,7.4],look:[SE,1.3,0]},{fov:[48,48],ease:'inOut'});
+S('s13',{pos:[RX+1.5,0.6,-1.5],look:[RX+6,3.5,-8]},{pos:[RX+1.0,2.6,-1.0],look:[RX+6,2.0,-8]},{fov:[50,48],ease:'inOut'});
+S('s14',{pos:[SE+2.6,1.7,1.4],look:[SE,1.75,0]},{pos:[SE+1.9,1.75,1.0],look:[SE,1.8,0]},{fov:[42,40],ease:'inOut'});
+S('s15',{pos:[SE-1.2,1.6,3.6],look:[SE-1.2,1.5,0]},{pos:[SE-1.2,1.6,2.8],look:[SE-1.2,1.5,0]},{fov:[46,44],ease:'out'});
+S('s16',{pos:[M0+18,8,-12],look:[M0+18,TY+1.6,-TZ-3]},{pos:[M0+24,7,-13],look:[M0+24,TY+1.6,-TZ-3]},{fov:[46,46]});
+S('s17',{pos:[SE+1.9,1.75,1.25],look:[SE,1.85,0]},{pos:[SE+1.7,1.85,1.1],look:[SE,1.9,0]},{fov:[42,42]});
+S('s18',{pos:[M0-26,34,28],look:[M0,0,0]},{pos:[M0-11,5.5,10],look:[M0,1,0]},{fov:[46,48],ease:'inOut'});
+S('s19',{pos:[XG-44,7,3],look:[XG,23.4,0]},{pos:[XG-28,12,1],look:[XG,23.4,0]},{fov:[40,36],ease:'out'});
+S('s20',{pos:[M0+3,1.4,-FZ+9],look:[M0+8,1.0,-FZ+4]},{pos:[M0+7,1.4,-FZ+9.5],look:[M0+11,1.0,-FZ+4]},{fov:[48,48]});
+S('s21',{pos:[M0-1,TY+1.8,-TZ+5],look:[M0,TY+1.5,-TZ]},{pos:[M0+1.5,TY+1.9,-TZ+4.6],look:[M0+0.5,TY+1.5,-TZ]},{fov:[46,46],shake:0.008,shakeHz:1.1});
+S('s22',{pos:[M0-15,0.8,4.5],look:[M0-10,1.0,0]},{pos:[M0-7,0.9,4.8],look:[M0-3,1.1,0]},{fov:[48,48]});
+S('s23',{pos:[M0-1,1.5,TZ-7],look:[M0,TY+1.2,TZ]},{pos:[M0-2,6,TZ-9],look:[M0,TY+1.6,TZ]},{fov:[48,50],ease:'inOut'});
+S('s24',{pos:[XG-15,1.2,5],look:[XG,7,0]},{pos:[XG-14.6,1.2,4.9],look:[XG,7,0]},{fov:[50,50],shake:0.002});
+S('s25',{pos:[XG-9,0.45,6.5],look:[XG,6,0]},{pos:[XG-8.2,0.45,6],look:[XG,5,0]},{fov:[56,56],shake:0.006,shakeHz:1.2});
+S('s26',{pos:[BX+1.4,1.55,BZ+3.2],look:[BX,1.25,BZ+0.4]},{pos:[BX+0.9,1.5,BZ+2.4],look:[BX,1.25,BZ+0.4]},{fov:[46,44]});
+S('s27',{pos:[XG+8,1.5,4],look:[XG+3,1.6,0]},{pos:[XG+8,1.7,-4],look:[XG+3,1.6,0]},{fov:[48,48],ease:'inOut'});
+S('s28',{pos:[XG-13,1.6,5],look:[XG-8,1.4,0]},{pos:[XG-9,2.2,5.5],look:[XG-2,2.4,0]},{fov:[50,50]});
+S('s29',{pos:[XG-10,0.5,3],look:[XG-3,0.6,0]},{pos:[XG-7,0.5,3],look:[XG-1,0.6,0]},{fov:[50,50]});
+S('s30',{pos:[XG-16,3.5,13],look:[XG-3,2,0]},{pos:[XG-15,3.6,12.5],look:[XG-3,2,0]},{fov:[48,48]});
+S('s31',{pos:[M0-2.8,1.4,3.6],look:[M0,1.2,0.2]},{pos:[M0-1.9,1.5,2.6],look:[M0,1.4,0.2]},{fov:[46,44],ease:'inOut'});
+S('s32',{pos:[M0-3,1.3,TZ-9],look:[M0-1,1.6,TZ-4]},{pos:[M0-3,6,TZ-7],look:[M0,TY+1.5,TZ]},{fov:[48,46],ease:'inOut'});
+S('s33',{pos:[M0-1.35,TY+1.5,TZ-1.25],look:[M0-1.45,TY+1.3,TZ-0.35]},{pos:[M0-1.3,TY+1.45,TZ-1.05],look:[M0-1.45,TY+1.3,TZ-0.35]},{fov:[40,38]});
+S('s34',{pos:[M0+1,TY+1.8,TZ-5],look:[M0,TY+1.4,TZ]},{pos:[M0-1.5,TY+1.9,TZ-4.6],look:[M0-0.5,TY+1.4,TZ]},{fov:[46,46],shake:0.008,shakeHz:1.1});
+S('s35',{pos:[M0+2.6,TY+1.5,TZ-1.3],look:[M0+2.0,TY+1.05,TZ-0.75]},{pos:[M0+2.5,TY+1.45,TZ-1.2],look:[M0+2.0,TY+1.05,TZ-0.75]},{fov:[40,40]});
+S('s36',{pos:[M0+2,TY+1.6,TZ-5],look:[M0+2,TY+1.5,TZ]},{pos:[M0+2,TY+1.6,TZ-3.2],look:[M0+2,TY+1.55,TZ]},{fov:[46,44],ease:'inOut'});
+S('s37',{pos:[M0-6,4,TZ-14],look:[M0,TY+1.5,TZ]},{pos:[M0+6,9,TZ-18],look:[M0,TY+2,TZ]},{fov:[50,50],ease:'inOut'});
+S('s38',{pos:[XG-26,3,18],look:[XG,8,0]},{pos:[XG-26,4,18],look:[XG,18,6]},{fov:[50,52],ease:'inOut'});
+S('s39',{pos:[XG+6,1.6,3],look:[XG+2,1.6,0]},{pos:[XG+4.8,1.6,2.4],look:[XG+2,1.6,0]},{fov:[46,44]});
+S('s40',{pos:[M0+4,TY+2,-TZ+6],look:[M0,TY+1.5,-TZ]},{pos:[M0-4,TY+2.4,-TZ+6],look:[M0,TY+1.5,-TZ]},{fov:[50,50],ease:'inOut'});
+S('s41',{pos:[M0-9,1.5,4],look:[M0-5,1.6,0]},{pos:[M0-4,1.6,4.2],look:[M0,1.7,0]},{fov:[48,48]});
+S('s42',{pos:[BX-1.4,1.5,BZ+3],look:[BX,1.4,BZ+0.4]},{pos:[BX-0.9,1.5,BZ+2.3],look:[BX,1.45,BZ+0.4]},{fov:[46,44]});
+S('s43',{pos:[M0+4,1.6,TZ-8],look:[M0,TY+1.6,TZ]},{pos:[M0+6,6,TZ-10],look:[M0,TY+1.8,TZ]},{fov:[48,48],ease:'inOut'});
+S('s44',{pos:[LVX+1.2,1.4,LVZ+2.6],look:[LVX,0.6,LVZ-1.2]},{pos:[LVX+0.8,1.2,LVZ+1.8],look:[LVX,0.6,LVZ-1.2]},{fov:[46,44]});
+S('s45',{pos:[LVX+1.8,1.3,LVZ+1.4],look:[LVX,1.1,LVZ-0.9]},{pos:[LVX-1.4,1.4,LVZ+1.6],look:[LVX,1.2,LVZ-0.9]},{fov:[44,44],ease:'inOut'});
+S('s46',{pos:[M0-6,TY+1.6,-TZ+7],look:[M0,TY+1.8,-TZ]},{pos:[M0+6,TY+1.8,-TZ+7],look:[M0,TY+1.8,-TZ]},{fov:[52,52],ease:'inOut'});
+S('s47',{pos:[M0+5,TY+1.7,TZ-6],look:[M0,TY+1.6,TZ]},{pos:[M0-4,TY+1.8,TZ-6],look:[M0,TY+1.6,TZ]},{fov:[50,50],ease:'inOut'});
+S('s48',{pos:[M0,1.4,5.5],look:[M0,0.6,0]},{pos:[M0,0.55,1.6],look:[M0,0.2,0]},{fov:[46,40],ease:'inOut'});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+for(const k in SH){rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
+const shotAt=t=>{let kk='s01';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
+const AREA={s01:[M0,0],s02:[M0,0],s03:[SE,0],s04:[PE,0],s05:[PE,0],s06:[LX-6,0],s07:[LX-5,1],s08:[LX-4.6,-6],s09:[LX-4.4,-5.6],s10:[LX-3,6],s11:[LX+9,0],s12:[SE,0],s13:[RX+6,-8],s14:[SE,0],s15:[SE-1.2,0],s16:[M0+21,-TZ],s17:[SE,0],s18:[M0,0],s19:[XG,0],
+  s20:[M0+9,-FZ+4],s21:[M0,-TZ],s22:[M0-6,0],s23:[M0,TZ],s24:[XG-4,0],s25:[XG-2,0],s26:[BX,BZ],s27:[XG+3,0],s28:[XG-5,0],s29:[XG-3,0],s30:[XG-4,0],s31:[M0,0],s32:[M0,TZ],s33:[M0-1.4,TZ],s34:[M0,TZ],s35:[M0+2,TZ],s36:[M0+2,TZ],s37:[M0,TZ],s38:[XG,0],
+  s39:[XG+2,0],s40:[M0,-TZ],s41:[M0-3,0],s42:[BX,BZ],s43:[M0,TZ],s44:[LVX,LVZ],s45:[LVX,LVZ],s46:[M0,-TZ],s47:[M0,TZ],s48:[M0,0]};
+const PROPS=[BALL,BIGS,...SAUS,WHEEL,CONV,CRU,FORK,CURT,MAG,CLOCK,HANG,PAPER,...CERT,GAV,POD,MIC,...TOW,...CHZ,CUSH,CART,TRI,...NETS,FLYHAT,CHAIR];
+const hideAll=()=>{for(const ch of ALL){ch.root.visible=false;ch.root.scale.setScalar(1);ch.root.userData.lun=false;if(ch.hat)ch.hat.visible=true;}PROPS.forEach(o=>o.visible=false);FX.draw([]);TFX.draw([]);
+  PR.crowdS.IM.towel.visible=false;PR.crowdP.IM.beanie.visible=false;};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const CLIP=(ch,name,time,o={})=>{CP(ch,[{name,time,w:1,loop:o.loop}]);show(ch);};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,dn=o.dance||0,fa=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-dn)*(1-fa)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-dn)*(1-fa)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-dn)*(1-fa)},{name:'Dance_Loop',time:t+sd,w:dn*(1-fa)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fa}]);show(ch);};
+const walk=(ch,t,t0,p0,p1,spd,gait='Walk_Loop',endRy=null,o={})=>{const d=Math.hypot(p1[0]-p0[0],p1[1]-p0[1]);const k=cl((t-t0)*spd/d);const face=o.face??Math.atan2(p1[0]-p0[0],p1[1]-p0[1]);
+  if(t<t0){idle(ch,p0[0],p0[1],face,t,3,o.idle||{});return false;}
+  if(k<1){locoLock(ch,lib,t,(tt)=>{const kk=cl((tt-t0)*spd/d);return [lerp(p0[0],p1[0],kk),lerp(p0[1],p1[1],kk)];},{t0,face,gait,back:o.back});ch.root.position.y=o.y||0;ch.root.updateMatrixWorld(true);show(ch);return false;}
+  let ry=face;if(endRy!=null){let dA=((endRy-face+PI)%(2*PI)+2*PI)%(2*PI)-PI;ry=face+dA*sm((t-t0-d/spd)/0.4);}idle(ch,p1[0],p1[1],ry,t,3,o.idle||{});return true;};
+const hand=(ch,sd='r')=>B(ch,'hand_'+sd).getWorldPosition(V());
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const head=ch=>B(ch,'Head').getWorldPosition(V());const chest=ch=>B(ch,'spine_03').getWorldPosition(V());
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const armsUp=(ch,k,spread=0.45,sd='both')=>{for(const s_ of ['l','r']){if(sd!=='both'&&sd!==s_)continue;reach(ch,head(ch).add(Lc(ch,(s_==='l'?1:-1)*spread*k+(s_==='l'?0.25:-0.25)*(1-k),0.4*k-0.25*(1-k),0.12)),s_);}};
+const pointAt=(ch,p,sd='r',t=0)=>{const d=p.clone().sub(chest(ch)).normalize();reach(ch,chest(ch).add(d.multiplyScalar(0.62)).add(V(0,0.12+0.03*Math.sin(t*8),0)),sd);};
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const inHand=(obj,ch,sd='r',off=[0,-0.02,0.05],ry=0)=>{at(obj,hand(ch,sd).add(Lc(ch,...off)),ch.root.rotation.y+ry);};
+const arc=(p0,p1,h,k)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(k*PI)*h,lerp(p0.z,p1.z,k));
+const twoHands=(ch,off=0.32,y=0)=>{reach(ch,chest(ch).add(Lc(ch,-0.16,y,off)));reach(ch,chest(ch).add(Lc(ch,0.16,y,off)),'l');};
+const holdBall=(ch,sd='l')=>{reach(ch,chest(ch).add(Lc(ch,sd==='l'?0.16:-0.16,-0.08,0.2)),sd);inHand(BALL,ch,sd,[0,0,0.06]);};
+const flex=(ch,t,i)=>{for(const [sd,sg] of [['l',1],['r',-1]])reach(ch,head(ch).add(Lc(ch,sg*0.42,-0.05+0.04*Math.sin(t*6+i),0.05)),sd);};
+// biến hình: list hiệu ứng (xé áo + khói + vòng năng lượng)
+const tfx=(x,z,u,u0,cols,ry,sd)=>[{type:'cloth',x,y:1.4,z,k:(u-u0)/1.3,seed:sd,colors:cols,s:1,n:5,ry},{type:'smoke',x,y:1.2,z,k:(u-u0-0.15)/1.6,seed:sd,s:1.2,colors:['#9a8f86','#b8ada4','#7a706a']},{type:'aura',x,y:1.2,z,k:(u-u0)/1.4,seed:sd,colors:cols,s:1}];
+const BOARD=t=>{const msg=t>=SH.s19[0]&&t<SH.s24[0]?{msg:'ROUND 1\nTROPHIES',msgColor:'#ffd56a'}:t>=SH.s24[0]&&t<SH.s31[0]?{msg:'ROUND 2\nDEFENSE',msgColor:'#ff8a5a'}:t>=SH.s36[0]&&t<SH.s38[0]?{msg:'MOTION:\nSCRAP IT',msgColor:'#7ad08a'}:t>=SH.s38[0]&&t<SH.s40[0]?{msg:'SOLD FOR\nSCRAP',msgColor:'#ffd56a'}:t>=SH.s48[0]?{msg:'STEEL OR\nSAUSAGE?',msgColor:'#ffd56a'}:null;
+  GAN.draw(msg||{a:0,b:0,clock:'THE PLANT BOWL'});};
+// màn thép: y đỉnh (treo dưới dầm 18 m); hạ ở s25, giữ tới s38 thì nam châm nhấc đi
+const CURTY=t=>{const tH=28.5,tL=10;if(t<SH.s25[0]+0.45)return tH;const k=cl((t-SH.s25[0]-0.45)/0.42);const fall=lerp(tH,tL,k*k);const bounce=k>=1?Math.abs(Math.sin((t-SH.s25[0]-0.87)*18))*0.25*Math.exp(-(t-SH.s25[0]-0.87)*6):0;return fall+bounce;};
+const curtOn=(t,o={})=>{CURT.visible=true;let y=CURTY(t),z=0;if(t>=SH.s38[0]){const k=sm((t-SH.s38[0]-0.5)/0.9);y=lerp(tL0(),26,k);z=lerp(0,8,k);}CURT.position.set(XG,y,z);CURT.rotation.set(0,0,0);return y;};
+const tL0=()=>10;
+const pose=t=>{
+  rig.apply(t);hideAll();const k=shotAt(t),a=AREA[k]||[0,0];L.area(a[0],a[1],CAMS[k]);PR.update(t);BOARD(t);
+  const MOOD={s01:0.9,s02:1,s16:0.9,s18:0.5,s20:0.8,s21:1,s23:1,s25:1,s30:0.8,s32:0.6,s34:0.9,s37:1,s40:1,s43:1,s46:1,s47:1};const cheer=MOOD[k]??0.4;
+  PR.crowdS.update(t,k==='s23'||k==='s37'||k==='s43'||k==='s47'?0.2:cheer);PR.crowdP.update(t,k==='s21'||k==='s40'||k==='s46'?0.2:cheer);
+  if(t>=SH.s40[0])PR.crowdS.IM.towel.visible=true;if(t>=SH.s43[0]+0.6)PR.crowdP.IM.beanie.visible=true;
+  if(t>=SH.s24[0]&&t<SH.s38[0]+2)curtOn(t);
+  // ===== s01–s02: hai đội lao vào nhau giữa sân (đang chạy từ trước 0,0 s), va chạm ~0,9 s, bật ngược =====
+  if(t<SH.s03[0]){const tc=0.9;
+    PJ.forEach((ch,i)=>{const z=-2.4+i*1.6;if(t<tc)walk(ch,t,-2.2,[M0-15.5,z],[M0-0.55,z*0.6],7.0,'MX_Sprint');else{const u=t-tc;place(ch,M0-0.55-sm(u/0.6)*1.6,z*0.6,PI/2);CLIP(ch,'Hit_Knockback',0.15+u*0.9,{loop:false});ch.root.userData.lun=true;}});
+    SJ.forEach((ch,i)=>{const z=-2.0+i*1.5;if(t<tc)walk(ch,t,-2.2,[M0+15.5,z],[M0+0.55,z*0.6],7.0,'MX_Sprint');else{const u=t-tc;place(ch,M0+0.55+sm(u/0.6)*1.4,z*0.6,-PI/2);CLIP(ch,'Hit_Knockback',0.2+u*0.9,{loop:false});ch.root.userData.lun=true;}});
+    FX.draw([{x:M0,y:0.4,z:0,k:(t-tc)/1.2,n:40,seed:3,colors:['#4a8a3a','#6aa04a','#8a6a42'],s:0.9}]);}
+  // ===== s03: dàn Steelers áo đấu trước cầu trục, lò cao phía sau =====
+  if(ON('s03',t)){SJ.forEach((ch,i)=>{idle(ch,SE+1.5+(i%2)*1.2,-3+i*2,-PI/2+0.15*(i-1.5),t,i,{crouch:0.25});E(ch,t,[[0,'determined']],i);});}
+  // ===== s04: Packers xé áo → khói → công nhân đóng gói =====
+  if(ON('s04',t)){const u=U('s04',t);const swap=0.95;
+    for(let i=0;i<4;i++){const x=PE+(i%2)*1.3-0.6,z=-2.2+i*1.5;if(u<swap){idle(PJ[i],x,z,PI/2,t,i);const rip=sm((u-0.2)/0.3);reach(PJ[i],chest(PJ[i]).add(Lc(PJ[i],-0.25-0.35*rip,0.1,0.25-0.2*rip)));reach(PJ[i],chest(PJ[i]).add(Lc(PJ[i],0.25+0.35*rip,0.1,0.25-0.2*rip)),'l');E(PJ[i],t,[[0,'determined'],[5.4,'cheer']],i);}
+      else{idle(PC[i],x,z,PI/2,t,i);E(PC[i],t,[[0,'proud']],i);}}
+    TFX.draw([0,1,2,3].flatMap(i=>tfx(PE+(i%2)*1.3-0.6,-2.2+i*1.5,u,0.3,[GB.green,GB.gold,'#ffffff'],PI/2,i*3)));}
+  // ===== s05: lưới tóc đội lên, áo khoác trắng; khói tan =====
+  if(ON('s05',t)){const u=U('s05',t);PC.forEach((ch,i)=>{const x=PE+(i%3)*1.3-1.2,z=-2.6+(i%2)*1.6+Math.floor(i/3)*2.4-1.2;idle(ch,x,z,PI/2+0.1*(i-2.5),t,i);if(i<3&&u<1.2){const kk=sm(u/0.5)*(1-sm((u-0.8)/0.4));reach(ch,head(ch).add(Lc(ch,-0.12,0.12,0.02)).lerp(hand(ch,'r'),1-kk));}E(ch,t,[[0,'proud'],[7.8,'smug']],i);});
+    TFX.draw([0,1,2,3].flatMap(i=>tfx(PE+(i%2)*1.3-0.6,-2.2+i*1.5,u+1.77,0.3,[GB.green,GB.gold,'#ffffff'],PI/2,i*3)).filter(f=>f.type==='smoke'));}
+  // ===== s06: băng chuyền xúc xích trước xưởng đóng gói =====
+  if(ON('s06',t)){at(CONV,V(LX-6,0,0),PI/2);CONV.userData.update(t);[0,1,2].forEach((j,q)=>{const ch=PC[j];idle(ch,LX-7.3,-3+q*3,PI/2,t,j,{talk:q===1?0.4:0});reach(ch,V(LX-6.2,1.15,-3+q*3+0.2));E(ch,t,[[0,'smug']],j);});}
+  // ===== s07: bắt cây xúc xích khổng lồ cuối băng chuyền, giơ ngón cái =====
+  if(ON('s07',t)){const u=U('s07',t);at(CONV,V(LX-6,0,0),PI/2);CONV.userData.update(t);const ch=PC[3];idle(ch,LX-5.2,1.2,PI/2+0.6,t,3);
+    const kk=sm(u/0.6);const p=V(LX-6,lerp(1.2,1.25,kk),lerp(4.4,1.6,kk));if(kk<1){at(BIGS,p,PI/2);}else{twoHands(ch,0.34,0.02);inHand(BIGS,ch,'r',[0.16,0,0.1],PI/2);}
+    if(kk<1)twoHands(ch,0.38);E(ch,t,[[0,'determined'],[SH.s07[0]+0.7,'proud']],3,{look:[0.3,0]});}
+  // ===== s08–s09: áo đấu cũ 1919 (sepia) trên giá; công nhân chỉ vào, tự hào =====
+  if(ON('s08',t)||ON('s09',t)){at(HANG,V(LX-4.6,0,-6),PI/2+0.6);const ch=PC[0];idle(ch,LX-3.6,-4.4,PI+0.6,t,0,{talk:ON('s09',t)?0.6:0});if(ON('s09',t))pointAt(ch,V(LX-4.6,1.35,-6),'r',t);E(ch,t,[[0,'proud'],[SH.s09[0],'talk']],0);}
+  // ===== s10: bấm thẻ chấm công, bước ra sân =====
+  if(ON('s10',t)){const u=U('s10',t);at(CLOCK,V(LX-4,0,6.2),PI/2);const ch=PC[1];const done=u>0.75;
+    if(!done){idle(ch,LX-3.3,6.25,-PI/2,t,1);const kk=sm(u/0.45);const tgt=V(LX-3.85,lerp(1.4,1.62,kk),6.2);reach(ch,tgt);at(CLOCK.userData.card,tgt.clone().add(V(0.02,0,0)),PI/2);}else walk(ch,t,SH.s10[0]+0.75,[LX-3.3,6.25],[LX+1,5.5],1.4,'Walk_Loop');
+    E(ch,t,[[0,'determined'],[SH.s10[0]+0.6,'smug']],1);}
+  // ===== s11: Packers diễu ra sân, vác xúc xích =====
+  if(ON('s11',t)){PC.forEach((ch,i)=>{const z=-3+i*1.2;walk(ch,t,SH.s11[0]-1.5,[LX+3-i*0.6,z],[LX+16,z],2.3,'MX_Running');reach(ch,head(ch).add(Lc(ch,-0.18,0.05,0.02)));inHand(SAUS[i],ch,'r',[0.05,0.08,0],0);SAUS[i].rotation.set(0,ch.root.rotation.y,0.2);E(ch,t,[[0,'cheer']],i);});}
+  // ===== s12: Steelers xé áo → thợ thép mũ bảo hộ =====
+  if(ON('s12',t)){const u=U('s12',t);const swap=1.05;
+    for(let i=0;i<4;i++){const x=SE+(i%2)*1.3-0.6,z=-2.2+i*1.5;if(u<swap){idle(SJ[i],x,z,-PI/2,t,i);const rip=sm((u-0.25)/0.3);reach(SJ[i],chest(SJ[i]).add(Lc(SJ[i],-0.25-0.35*rip,0.1,0.25-0.2*rip)));reach(SJ[i],chest(SJ[i]).add(Lc(SJ[i],0.25+0.35*rip,0.1,0.25-0.2*rip)),'l');E(SJ[i],t,[[0,'determined']],i);}
+      else{idle(SC[i],x,z,-PI/2,t,i,{fold:u>1.6?1:0});E(SC[i],t,[[0,'smug']],i);}}
+    TFX.draw([0,1,2,3].flatMap(i=>tfx(SE+(i%2)*1.3-0.6,-2.2+i*1.5,u,0.4,[PIT.black,PIT.gold,'#ffffff'],-PI/2,i*5)));}
+  // ===== s13: gáo rót thép nóng chảy; 2 thợ khoanh tay đứng xem =====
+  if(ON('s13',t)){const u=U('s13',t);at(CRU,V(RX+6,0,-8),0.3);CRU.userData.pour(sm(u/1.2));[0,1].forEach((j,q)=>{idle(SC[j],RX+3.2+q*0.9,-5.4-q*1.2,-PI/2-0.8,t,j,{fold:1});E(SC[j],t,[[0,'smug']],j,{look:[0.4,0.1]});});}
+  // ===== s14: thợ thép đội mũ hải tặc (Pirates 1933), đảo mắt =====
+  if(ON('s14',t)){const ch=SC[0];idle(ch,SE,0,PI/2-0.3,t,0,{talk:0.3});ch.hat.visible=false;const h=head(ch);at(TRI,h.clone().add(Lc(ch,0,0.13,0)),ch.root.rotation.y,-0.08);E(ch,t,[[0,'shrug'],[SH.s14[0]+1.0,'wince']],0,{look:[0.1,0.7]});}
+  // ===== s15: báo bay xoáy vào tay (cuộc thi đặt tên 1940) =====
+  if(ON('s15',t)){const u=U('s15',t);const ch=SC[1];idle(ch,SE-1.2,0,PI/2-0.15+PI*0.0,t,1);const kk=sm(u/0.8);
+    if(kk<1){at(PAPER,V(lerp(SE+3,SE-1.0,kk),lerp(3.5,1.45,kk),lerp(1.5,0.35,kk)),0,0,u*12);PAPER.scale.setScalar(lerp(0.5,1,kk));}else{twoHands(ch,0.34,0.06);at(PAPER,chest(ch).add(Lc(ch,0,0.08,0.4)),ch.root.rotation.y,-0.2);}
+    if(kk<1)twoHands(ch,0.4,0.1);E(ch,t,[[0,'surprised'],[SH.s15[0]+0.9,'proud']],1);}
+  // ===== s16: fan Steelers trên container giơ phiếu bầu tên đội =====
+  if(ON('s16',t)){FS.forEach((ch,i)=>{idle(ch,M0+20+i*1.0,-TZ,0,t,i,{y:TY});armsUp(ch,0.85,0.35,'r');inHand(CERT[i%4],ch,'r',[0,0.1,0.02]);CERT[i%4].scale.setScalar(0.6);E(ch,t,[[0,'cheer']],i+10);});}
+  // ===== s17: "Arrr" → mũ hải tặc văng, "clang" → mũ bảo hộ rơi xuống đầu =====
+  if(ON('s17',t)){const ch=SC[0];idle(ch,SE,0,PI/2-0.3,t,0);const tf=29.15,tc=29.78;const h=head(ch);
+    if(t<tf){ch.hat.visible=false;at(TRI,h.clone().add(Lc(ch,0,0.13,0)),ch.root.rotation.y,-0.08);}else if(t<tf+0.9){ch.hat.visible=false;const kk=(t-tf)/0.9;at(TRI,arc(h.clone().add(V(0,0.13,0)),V(SE-2.5,0.1,2.5),1.2,kk),kk*9,kk*7);}
+    if(t>=tf&&t<tc){ch.hat.visible=false;const kk=sm((t-tf)/(tc-tf));at(FLYHAT,h.clone().add(V(0,lerp(3.2,0.12,kk*kk),0)),ch.root.rotation.y,0,0);}else if(t>=tc){ch.hat.visible=true;}
+    E(ch,t,[[0,'wince'],[29.0,'talk'],[tc,'proud']],0);}
+  // ===== s18: toàn cảnh — một sân, một quả bóng, không luật =====
+  if(ON('s18',t)){at(BALL,V(M0,0.16,0),0,0,PI/2);PC.forEach((ch,i)=>{idle(ch,M0-5.5-(i%2)*1.3,-3.6+i*1.45,PI/2,t,i,{crouch:0.4});E(ch,t,[[0,'determined']],i);});SC.forEach((ch,i)=>{idle(ch,M0+5.5+(i%2)*1.3,-3.6+i*1.45,-PI/2,t,i,{crouch:0.4});E(ch,t,[[0,'determined']],i+6);});}
+  // ===== s19: bảng điểm trên cầu trục: ROUND 1 — TROPHIES (máy đẩy vào bảng) =====
+  // ===== s20: Steelers đẩy xe 6 cúp =====
+  if(ON('s20',t)){const ch=SC[2];const p0=[M0+5,-FZ+4],p1=[M0+10.5,-FZ+4];walk(ch,t,SH.s20[0],p0,p1,1.2,'Walk_Loop');const cx=ch.root.position.x+1.55;at(CART,V(cx,0,-FZ+4),0);twoHands(ch,0.5,-0.1);[3,4].forEach((j,q)=>{idle(SC[j],M0+8+q*1.3,-FZ+6,PI,t,j,{dance:0.6});armsUp(SC[j],1,0.4);E(SC[j],t,[[0,'cheer']],j);});E(ch,t,[[0,'proud']],2);}
+  // ===== s21: fan Steelers toxic khoe 6 với khán đài Packers =====
+  if(ON('s21',t)){FS.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,-TZ,0,t,i,{y:TY,dance:i%2?0.5:0});if(i<2)armsUp(ch,1,0.55);else pointAt(ch,V(M0,3,TZ),i%2?'l':'r',t);E(ch,t,[[0,'laugh']],i+10);});}
+  // ===== s22: Green Bay đáp lại bằng xe nâng chở 13 chiếc cúp =====
+  if(ON('s22',t)){const u=U('s22',t);const x=lerp(M0-14,M0-4.5,sm(u/2.2));at(FORK,V(x,0,0),0);FORK.userData.lift(0.15+0.9*sm((u-1.7)/0.6));const dr=PC[0];place(dr,x-0.35,0.05,PI/2,0.62);CLIP(dr,'Driving_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'smug']],0);}
+  // ===== s23: khán đài Packers bùng nổ =====
+  if(ON('s23',t)){FP.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,TZ,PI,t,i,{y:TY,dance:0.6});armsUp(ch,1,0.45);E(ch,t,[[0,'cheer']],i+20);});}
+  // ===== s24: im lặng — ROUND 2: DEFENSE; hai đội đối mặt, màn thép treo trên cầu trục =====
+  if(ON('s24',t)||ON('s25',t)||ON('s27',t)||ON('s28',t)||ON('s29',t)||ON('s30',t)){
+    SC.forEach((ch,i)=>{const fl=ON('s27',t);idle(ch,XG+1.6+(i%2)*1.2,-4+i*1.6,-PI/2,t,i,{crouch:fl?0:0.5});if(fl)flex(ch,t,i);E(ch,t,[[0,fl?'smug':'determined']],i+6);});
+    PC.forEach((ch,i)=>{if((ON('s28',t)&&i===1))return;idle(ch,XG-8-(i%2)*1.2,-4+i*1.6,PI/2,t,i,{crouch:ON('s24',t)?0.5:0.2});const k=shotAt(t);E(ch,t,[[0,k==='s25'?'shock':k==='s30'?'wince':'determined']],i);});}
+  if(ON('s25',t)){const y=CURTY(t);FX.draw([{x:XG,y:0.2,z:-6,k:(t-SH.s25[0]-0.87)/1.3,n:30,seed:5,colors:['#8a8680','#a8a49c','#6a6660'],s:1.1},{x:XG,y:0.2,z:6,k:(t-SH.s25[0]-0.9)/1.3,n:30,seed:6,colors:['#8a8680','#a8a49c'],s:1.1}]);}
+  // ===== s26: phòng radio 1971 — người dẫn đặt tên "Steel Curtain" =====
+  if(ON('s26',t)||ON('s42',t)){const ch=RAD;at(CHAIR,V(BX,0.23,BZ-0.25),0);place(ch,BX,BZ-0.2,0);CLIP(ch,'Sitting_Talking_Loop',t);ch.root.userData.lun=true;at(MIC,V(BX+0.05,0.9,BZ+0.55),PI);
+    if(ON('s42',t)){const tw=TOW[4];reach(ch,head(ch).add(Lc(ch,-0.25,0.35,0.15)));inHand(tw,ch,'r',[0,0.02,0]);tw.userData.wave(t,2);E(ch,t,[[0,'cheer']],30);}else E(ch,t,[[0,'talk']],30);}
+  // ===== s28: ném xúc xích khổng lồ → bật lại =====
+  if(ON('s28',t)){const u=U('s28',t);const ch=PC[1];place(ch,XG-9,-0.5,PI/2);CLIP(ch,u<0.15?'Idle_Loop':'OverhandThrow',u<0.15?t:cl((u-0.15)/0.75)*1.0,{loop:false});E(ch,t,[[0,'determined'],[SH.s28[0]+0.8,'shock']],1);
+    const tr=SH.s28[0]+0.45,th=tr+0.45;if(t<tr)inHand(BIGS,ch,'r',[0,0,0.1],PI/2);else if(t<th)at(BIGS,arc(V(XG-8.6,2.0,-0.4),V(XG-0.3,2.6,0),1.2,(t-tr)/0.45),PI/2,0,(t-tr)*6);else{const kk=cl((t-th)/0.8);at(BIGS,V(lerp(XG-0.3,XG-5,kk),Math.max(0.17,2.6+kk*1.5-kk*kk*5.6),lerp(0,0.6,kk)),PI/2+kk*8,0,kk*5);}}
+  // ===== s29: bánh phô mai lăn tới → bật lại =====
+  if(ON('s29',t)){const u=U('s29',t);const hit=0.75;const x=u<hit?lerp(XG-9,XG-0.75,u/hit):lerp(XG-0.75,XG-4,sm((u-hit)/0.7));const y=u<hit?0.6:0.6+Math.max(0,Math.sin((u-hit)*7))*0.5;at(WHEEL,V(x,y,0.4),0,0,-x*1.6);WHEEL.rotation.set(0,0,-x/0.6);}
+  // ===== s30: xe nâng húc → dội ngược =====
+  if(ON('s30',t)){const u=U('s30',t);const hit=0.55;const x=u<hit?lerp(XG-10,XG-3.1,sm(u/hit)):lerp(XG-3.1,XG-7,sm((u-hit)/0.6));at(FORK,V(x,0,1.2),0);FORK.userData.lift(0.4);const dr=PC[0];place(dr,x-0.35,1.25,PI/2,0.62);CLIP(dr,'Driving_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'determined'],[SH.s30[0]+hit,'panic']],0);}
+  // ===== s31: Packers chụm đầu, đội trưởng nhếch mép nhìn máy =====
+  if(ON('s31',t)){const u=U('s31',t);PC.slice(0,5).forEach((ch,i)=>{const a=i/5*PI*2;idle(ch,M0+Math.cos(a)*1.1,0.2+Math.sin(a)*1.1,Math.atan2(-Math.cos(a),-Math.sin(a)),t,i,{crouch:0.55});E(ch,t,[[0,'smug']],i);});
+    const c0=PC[0];if(u>0.7){c0.root.rotation.y=lerp(c0.root.rotation.y,-0.6,sm((u-0.7)/0.4));c0.root.updateMatrixWorld(true);}E(c0,t,[[0,'determined'],[SH.s31[0]+0.8,'smug']],0,{look:[-0.6,0]});}
+  // ===== s32–s34: fan Packers cầm giấy cổ phần, tự chỉ vào mình =====
+  if(ON('s32',t)||ON('s33',t)||ON('s34',t)){FP.forEach((ch,i)=>{idle(ch,M0-1.45+i*1.15,TZ,PI,t,i,{y:TY,talk:ON('s34',t)?0.5:0});const c=CERT[i];
+      if(ON('s34',t)&&i!==0){reach(ch,chest(ch).add(Lc(ch,0.05,0.02,0.12)),'r');}else{reach(ch,chest(ch).add(Lc(ch,-0.12,0.15,0.38)),'r');reach(ch,chest(ch).add(Lc(ch,0.12,0.15,0.38)),'l');inHand(c,ch,'r',[0.12,0.04,0.04]);c.rotation.set(-0.25,ch.root.rotation.y,0);c.scale.setScalar(1);}
+      E(ch,t,[[0,ON('s34',t)?'smug':'proud']],i+20);});}
+  // ===== s35–s36: búa phiên họp gõ; diễn giả trên bục: "Motion to scrap the curtain" =====
+  if(ON('s35',t)){const u=U('s35',t);const ch=FP[0];idle(ch,M0+2,TZ,PI,t,0,{y:TY});at(POD,V(M0+2,TY,TZ-0.65),PI);const sw=Math.abs(Math.sin(u*PI*1.6));reach(ch,V(M0+2.0,TY+1.18+0.25*sw,TZ-0.78));inHand(GAV,ch,'r',[0,0.02,0],0);GAV.rotation.x=-sw*0.6;E(ch,t,[[0,'determined']],20);}
+  if(ON('s36',t)){const ch=FP[0];idle(ch,M0+2,TZ,PI,t,0,{y:TY,talk:0.9});at(POD,V(M0+2,TY,TZ-0.65),PI);pointAt(ch,V(XG,6,0),'r',t);E(ch,t,[[0,'talk']],20);[1,2,3].forEach((j,q)=>{idle(FP[j],M0+0.6+q*0.9-(q>1?2.8:0),TZ+0.1,PI,t,j,{y:TY});E(FP[j],t,[[0,'smug']],j+20);});}
+  // ===== s37: "Every cheesehead goes up" — giơ mũ phô mai lên trời =====
+  if(ON('s37',t)){FP.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,TZ,PI,t,i,{y:TY});armsUp(ch,1,0.25);inHand(CHZ[i],ch,'r',[-0.12,0.12,0]);E(ch,t,[[0,'cheer']],i+20);});}
+  // ===== s38: nam châm phế liệu nhấc Màn Thép đi =====
+  if(ON('s38',t)){const u=U('s38',t);const y=curtOn(t);at(MAG,V(XG,y+0.3+(u<0.5?lerp(8,0,sm(u/0.5)):0),CURT.position.z),0);}
+  // ===== s39: thợ thép sững sờ =====
+  if(ON('s39',t)){SC.slice(0,4).forEach((ch,i)=>{idle(ch,XG+1.8+(i%2)*1.2,-2+i*1.3,-PI/2+0.2*(i-1.5),t,i);E(ch,t,[[0,'shock']],i+6,{look:[0,0.6]});});}
+  // ===== s40: khán đài Steelers tung khăn vàng =====
+  if(ON('s40',t)||ON('s46',t)){FS.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,-TZ,0,t,i,{y:TY,dance:0.4});reach(ch,head(ch).add(Lc(ch,-0.28,0.35+0.08*Math.sin(t*9+i),0.1)));inHand(TOW[i],ch,'r',[0,0.02,0]);TOW[i].userData.wave(t,i);E(ch,t,[[0,ON('s46',t)?'laugh':'cheer']],i+10);});}
+  // ===== s41: gió khăn thổi bay lưới tóc của Packers =====
+  if(ON('s41',t)){const u=U('s41',t);PC.forEach((ch,i)=>{const x=M0-6+(i%3)*1.4,z=-2+Math.floor(i/3)*2+(i%3)*0.3;idle(ch,x,z,PI/2-0.3,t,i);const tf=0.5+i*0.12;if(u>tf){ch.hat.visible=false;const kk=cl((u-tf)/1.2);at(NETS[i],head(ch).add(V(-kk*3.5,0.1+kk*1.8,kk*1.2)),kk*8,kk*5);reach(ch,head(ch).add(Lc(ch,-0.1,0.15,0.05)));}E(ch,t,[[0,'determined'],[SH.s41[0]+tf,'shock']],i);});}
+  // ===== s43: fan Packers đội mũ phô mai đồng loạt =====
+  if(ON('s43',t)||ON('s47',t)){const u=t-SH.s43[0];FP.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,TZ,PI,t,i,{y:TY,dance:ON('s47',t)?0.5:0.2});const h=head(ch);const kk=ON('s47',t)?1:sm((u-0.2-i*0.1)/0.5);
+      at(CHZ[i],h.clone().add(V(0,lerp(0.6,0.1,kk),0)),ch.root.rotation.y,0);if(kk<1)armsUp(ch,1-kk*0.6,0.25);if(ON('s47',t)&&i%2===0)pointAt(ch,V(M0,4,-TZ),'r',t);E(ch,t,[[0,ON('s47',t)?'laugh':'cheer']],i+20);});}
+  // ===== s44–s45: phòng khách 1987 — gối sofa thành mũ phô mai =====
+  if(ON('s44',t)){at(CUSH,V(LVX,0.62,LVZ-1.15),0);CUSH.userData.morph(0);}
+  if(ON('s45',t)){const u=U('s45',t);const kk=sm(u/1.0);at(CUSH,V(LVX,lerp(0.62,1.25,sm(u/0.5)),LVZ-1.15+kk*0.2),0);CUSH.userData.morph(kk);FX.draw([{x:LVX,y:1.2,z:LVZ-1,k:(u-0.45)/0.9,n:24,seed:8,colors:['#ffc62a','#e8a030'],s:0.6}]);}
+  // ===== s48: hai đội trưởng đối mặt qua quả bóng — đẩy máy vào bóng (nối vòng về giây 0) =====
+  if(ON('s48',t)){at(BALL,V(M0,0.16,0),0,0,PI/2);const p=PC[0],q=SC[0];idle(p,M0-1.2,0,PI/2,t,0,{crouch:0.55});idle(q,M0+1.2,0,-PI/2,t,0,{crouch:0.55});E(p,t,[[0,'determined'],[89.3,'smug']],0);E(q,t,[[0,'determined'],[88.4,'smug']],6);
+    [1,2].forEach((j,i)=>{idle(PC[j],M0-3.2,-1.6+i*3.2,PI/2,t,j,{crouch:0.4});idle(SC[j],M0+3.2,-1.6+i*3.2,-PI/2,t,j,{crouch:0.4});});}
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
+};
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);{const _set=vp.setVelocityDepthNormalMaterialInScene.bind(vp),_un=vp.unsetVelocityDepthNormalMaterialInScene.bind(vp);const IMs=[];s.traverse(o=>{if(o.isInstancedMesh)IMs.push(o);});let vis=[];vp.setVelocityDepthNormalMaterialInScene=()=>{vis=IMs.map(m=>m.visible);IMs.forEach(m=>m.visible=false);_set();};vp.unsetVelocityDepthNormalMaterialInScene=()=>{_un();IMs.forEach((m,i)=>m.visible=vis[i]);};}comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+const GROUNDED=()=>[...ALL.map(c=>c.root),FORK,CART,CONV,CRU,CLOCK,HANG];
+const poseG=t=>{pose(t);snapGround(ALL.filter(c=>c.root.position.y<0.05).map(c=>c.root));};
+window.renderFrame=t=>{if(!MB){poseG(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){poseG(tp);comp.render(dt);}poseG(t);comp.render(dt);window._lt=t;};
+window.qaGround=t=>{poseG(t);return checkGround(GROUNDED().filter(o=>o.position.y<0.05));};
+window.qaFloat=t=>{poseG(t);return GROUNDED().filter(o=>o.visible&&!o.userData.lun&&o.position.y<0.05).map(o=>[o.name||'ng',+minY(o,1e6).toFixed(3)]).filter(a=>a[1]>0.012&&a[1]<0.15);};
+window.ready=true;
+</script></body></html>

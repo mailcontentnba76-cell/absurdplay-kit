@@ -5,7 +5,10 @@
 // - expr: biểu cảm theo mốc lời (preset), chuyển mượt các tham số số, chớp mắt + liếc mắt tự nhiên.
 import * as THREE from 'three';
 
-const clipOf = (ch, lib, name) => { ch._clips ??= {}; return (ch._clips[name] ??= lib.clips.find((c) => c.name === name)); };
+// Thiếu FBX Mixamo (gói KIT chưa đính kèm) → dùng clip UAL gần nhất thay thế, cảnh vẫn render được (22/11, E28)
+const MX_ALIAS = { MX_Sprint: 'Sprint_Loop', MX_Running: 'Jog_Fwd_Loop', MX_Jogging: 'Jog_Fwd_Loop', MX_Run_To_Stop: 'Jog_Fwd_Loop', MX_Slow_Jog_Backwards: 'Walk_Loop', MX_Quarterback_Pass: 'OverhandThrow' };
+const _warned = new Set();
+const clipOf = (ch, lib, name) => { ch._clips ??= {}; return (ch._clips[name] ??= (lib.clips.find((c) => c.name === name) || (MX_ALIAS[name] && (() => { if (!_warned.has(name)) { _warned.add(name); console.warn('Mixamo thiếu ' + name + ' → ' + MX_ALIAS[name]); } return lib.clips.find((c) => c.name === MX_ALIAS[name]); })()))); };
 export function clipPose(ch, lib, layers) {
   ch._acts ??= new Map(); const used = new Set();
   for (const L of layers) { if (!(L.w > 0.001)) continue; const c = clipOf(ch, lib, L.name); if (!c) throw new Error('No clip ' + L.name);
