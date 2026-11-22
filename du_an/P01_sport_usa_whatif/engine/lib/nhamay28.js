@@ -151,8 +151,8 @@ export function buildMill(scene) {
   return { G, crowdS, crowdP, gantry: gan, board: gan, plant, mill, update };
 }
 export function millLights(scene) {
-  const hemi = new THREE.HemisphereLight('#ffe2d0', '#5a4a48', 2.5); scene.add(hemi);
-  const key = new THREE.DirectionalLight('#ffd2a0', 4.0); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+  const hemi = new THREE.HemisphereLight('#eef0ff', '#6a6058', 2.6); scene.add(hemi);
+  const key = new THREE.DirectionalLight('#fff0dc', 4.2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
   Object.assign(key.shadow.camera, { left: -18, right: 18, top: 18, bottom: -18, near: 1, far: 160 }); key.shadow.bias = -0.0004; key.shadow.radius = 3; scene.add(key); scene.add(key.target);
   const fill = new THREE.DirectionalLight('#a8b8ff', 1.0); fill.position.set(-30, 18, 40); scene.add(fill);
   const area = (x, z, cp) => { key.target.position.set(x, 0, z); if (!cp) { key.position.set(x - 30, 24, z - 16); return; }

@@ -33,7 +33,7 @@ const SKN=['#f1c9a5','#c68c5f','#9a6040','#8a5634','#e8b98f','#d8a37a'];
 const HAIRS=[['Hair_Buzzed','#3a2a1a'],['Hair_SimpleParted','#6a4a2a'],['Hair_SimpleParted','#c8a060'],['Hair_Buzzed','#1a1210'],['proc:fade','#120d0b'],['proc:curlytop','#1a1210']];
 const hairOf=i=>{const h=HAIRS[i%HAIRS.length];return h[0].startsWith('proc')?{hairStyle:h[0],hairColor:h[1]}:{hair:h[0],hairColor:h[1]};};
 // cầu thủ áo đấu (chỉ cảnh mở đầu + trước khi xé áo)
-const PJ=[12,52,87,33].map((n,i)=>makeCharacter(lib,{...BASE,number:String(n),jersey:GB.green,numberColor:'#ffffff',numberOutline:GB.gold,collar:GB.gold,pants:GB.gold,pantsStripes:[GB.green,'#ffffff',GB.green],sleeveStripes:[GB.gold,'#ffffff'],socks:GB.green,shoes:'#f4f4f4',helmet:GB.gold,helmetStripe:[GB.green,'#ffffff',GB.green],helmetMetal:0.35,mask:GB.green,skin:SKN[(i*5+1)%6],heightM:1.86+(i%3)*0.03}));
+const PJ=[12,52,87,33].map((n,i)=>makeCharacter(lib,{...BASE,number:String(n),jersey:'#24503c',numberColor:'#ffffff',numberOutline:GB.gold,collar:GB.gold,pants:GB.gold,pantsStripes:[GB.green,'#ffffff',GB.green],sleeveStripes:[GB.gold,'#ffffff'],socks:GB.green,shoes:'#f4f4f4',helmet:GB.gold,helmetStripe:[GB.green,'#ffffff',GB.green],helmetMetal:0.35,mask:GB.green,skin:SKN[(i*5+1)%6],heightM:1.86+(i%3)*0.03}));
 const SJ=[19,90,26,43].map((n,i)=>makeCharacter(lib,{...BASE,number:String(n),jersey:PIT.black,numberColor:PIT.gold,numberOutline:PIT.black,collar:PIT.gold,pants:PIT.gold,pantsStripes:[PIT.black],sleeveStripes:[PIT.gold],socks:PIT.black,shoes:'#1c1c1c',helmet:PIT.black,helmetStripe:[PIT.gold],helmetMetal:0.35,mask:PIT.black,skin:SKN[(i*3+2)%6],heightM:1.87+(i%3)*0.03}));
 // công nhân đóng gói (Packers) & thợ thép (Steelers)
 const NONUM={number:' ',frontNumberSize:0.0001,backNumberSize:0.0001,helmet:null};
@@ -70,7 +70,7 @@ S('s03',{pos:[SE-9,1.6,2.4],look:[SE+2,1.6,0]},{pos:[SE-6.5,1.55,1.8],look:[SE+2
 S('s04',{pos:[PE-6,1.7,6.5],look:[PE,1.3,0]},{pos:[PE+1.5,1.8,7.6],look:[PE,1.3,0]},{fov:[48,48],ease:'inOut'});
 S('s05',{pos:[PE+5,5.2,5],look:[PE,1.2,0]},{pos:[PE+5.5,1.7,4.2],look:[PE,1.4,0]},{fov:[46,46],ease:'inOut'});
 S('s06',{pos:[LX-1,1.8,-7.5],look:[LX-6,1.2,-2]},{pos:[LX-1,1.8,4.5],look:[LX-6,1.2,2]},{fov:[48,48]});
-S('s07',{pos:[LX-3.2,1.55,2.6],look:[LX-5.2,1.35,1.2]},{pos:[LX-3.0,1.5,2.2],look:[LX-5.2,1.4,1.2]},{fov:[44,42],shake:0.008,shakeHz:1.2});
+S('s07',{pos:[LX-2.6,1.6,3.3],look:[LX-5.2,1.35,1.2]},{pos:[LX-3.0,1.5,2.2],look:[LX-5.2,1.4,1.2]},{fov:[44,42],shake:0.008,shakeHz:1.2});
 S('s08',{pos:[LX-3,1.45,-4.6],look:[LX-4.6,1.35,-6]},{pos:[LX-3.5,1.4,-5.0],look:[LX-4.6,1.35,-6]},{fov:[42,40]});
 S('s09',{pos:[LX-1.6,1.6,-3.4],look:[LX-4.4,1.3,-5.6]},{pos:[LX-1.9,1.55,-3.8],look:[LX-4.4,1.35,-5.6]},{fov:[46,44]});
 S('s10',{pos:[LX-1.4,1.6,7.8],look:[LX-4,1.3,6]},{pos:[LX+1,1.6,8.6],look:[LX-1,1.2,6]},{fov:[46,46]});
@@ -88,7 +88,7 @@ S('s21',{pos:[M0-1,TY+1.8,-TZ+5],look:[M0,TY+1.5,-TZ]},{pos:[M0+1.5,TY+1.9,-TZ+4
 S('s22',{pos:[M0-15,0.8,4.5],look:[M0-10,1.0,0]},{pos:[M0-7,0.9,4.8],look:[M0-3,1.1,0]},{fov:[48,48]});
 S('s23',{pos:[M0-1,1.5,TZ-7],look:[M0,TY+1.2,TZ]},{pos:[M0-2,6,TZ-9],look:[M0,TY+1.6,TZ]},{fov:[48,50],ease:'inOut'});
 S('s24',{pos:[XG-15,1.2,5],look:[XG,7,0]},{pos:[XG-14.6,1.2,4.9],look:[XG,7,0]},{fov:[50,50],shake:0.002});
-S('s25',{pos:[XG-9,0.45,6.5],look:[XG,6,0]},{pos:[XG-8.2,0.45,6],look:[XG,5,0]},{fov:[56,56],shake:0.006,shakeHz:1.2});
+S('s25',{pos:[XG-17,0.9,9],look:[XG,4.5,0]},{pos:[XG-16,0.9,8.5],look:[XG,3.8,0]},{fov:[56,56],shake:0.006,shakeHz:1.2});
 S('s26',{pos:[BX+1.4,1.55,BZ+3.2],look:[BX,1.25,BZ+0.4]},{pos:[BX+0.9,1.5,BZ+2.4],look:[BX,1.25,BZ+0.4]},{fov:[46,44]});
 S('s27',{pos:[XG+8,1.5,4],look:[XG+3,1.6,0]},{pos:[XG+8,1.7,-4],look:[XG+3,1.6,0]},{fov:[48,48],ease:'inOut'});
 S('s28',{pos:[XG-13,1.6,5],look:[XG-8,1.4,0]},{pos:[XG-9,2.2,5.5],look:[XG-2,2.4,0]},{fov:[50,50]});
@@ -98,7 +98,7 @@ S('s31',{pos:[M0-2.8,1.4,3.6],look:[M0,1.2,0.2]},{pos:[M0-1.9,1.5,2.6],look:[M0,
 S('s32',{pos:[M0-3,1.3,TZ-9],look:[M0-1,1.6,TZ-4]},{pos:[M0-3,6,TZ-7],look:[M0,TY+1.5,TZ]},{fov:[48,46],ease:'inOut'});
 S('s33',{pos:[M0-1.35,TY+1.5,TZ-1.25],look:[M0-1.45,TY+1.3,TZ-0.35]},{pos:[M0-1.3,TY+1.45,TZ-1.05],look:[M0-1.45,TY+1.3,TZ-0.35]},{fov:[40,38]});
 S('s34',{pos:[M0+1,TY+1.8,TZ-5],look:[M0,TY+1.4,TZ]},{pos:[M0-1.5,TY+1.9,TZ-4.6],look:[M0-0.5,TY+1.4,TZ]},{fov:[46,46],shake:0.008,shakeHz:1.1});
-S('s35',{pos:[M0+2.6,TY+1.5,TZ-1.3],look:[M0+2.0,TY+1.05,TZ-0.75]},{pos:[M0+2.5,TY+1.45,TZ-1.2],look:[M0+2.0,TY+1.05,TZ-0.75]},{fov:[40,40]});
+S('s35',{pos:[M0+3.6,TY+1.7,TZ-2.6],look:[M0+2,TY+1.25,TZ-0.5]},{pos:[M0+3.4,TY+1.65,TZ-2.4],look:[M0+2,TY+1.25,TZ-0.5]},{fov:[44,42]});
 S('s36',{pos:[M0+2,TY+1.6,TZ-5],look:[M0+2,TY+1.5,TZ]},{pos:[M0+2,TY+1.6,TZ-3.2],look:[M0+2,TY+1.55,TZ]},{fov:[46,44],ease:'inOut'});
 S('s37',{pos:[M0-6,4,TZ-14],look:[M0,TY+1.5,TZ]},{pos:[M0+6,9,TZ-18],look:[M0,TY+2,TZ]},{fov:[50,50],ease:'inOut'});
 S('s38',{pos:[XG-26,3,18],look:[XG,8,0]},{pos:[XG-26,4,18],look:[XG,18,6]},{fov:[50,52],ease:'inOut'});
@@ -158,8 +158,8 @@ const pose=t=>{
   if(t>=SH.s24[0]&&t<SH.s38[0]+2)curtOn(t);
   // ===== s01–s02: hai đội lao vào nhau giữa sân (đang chạy từ trước 0,0 s), va chạm ~0,9 s, bật ngược =====
   if(t<SH.s03[0]){const tc=0.9;
-    PJ.forEach((ch,i)=>{const z=-2.4+i*1.6;if(t<tc)walk(ch,t,-2.2,[M0-15.5,z],[M0-0.55,z*0.6],7.0,'MX_Sprint');else{const u=t-tc;place(ch,M0-0.55-sm(u/0.6)*1.6,z*0.6,PI/2);CLIP(ch,'Hit_Knockback',0.15+u*0.9,{loop:false});ch.root.userData.lun=true;}});
-    SJ.forEach((ch,i)=>{const z=-2.0+i*1.5;if(t<tc)walk(ch,t,-2.2,[M0+15.5,z],[M0+0.55,z*0.6],7.0,'MX_Sprint');else{const u=t-tc;place(ch,M0+0.55+sm(u/0.6)*1.4,z*0.6,-PI/2);CLIP(ch,'Hit_Knockback',0.2+u*0.9,{loop:false});ch.root.userData.lun=true;}});
+    PJ.forEach((ch,i)=>{const z=-2.4+i*1.6;if(t<tc)walk(ch,t,-2.2,[M0-15.5,z],[M0-0.55,z*0.6],Math.hypot(14.95,z*0.4)/(tc+2.2),'MX_Sprint');else{const u=t-tc;place(ch,M0-0.55-sm(u/0.6)*1.6,z*0.6,PI/2);CLIP(ch,'Hit_Knockback',0.15+u*0.9,{loop:false});ch.root.userData.lun=true;}});
+    SJ.forEach((ch,i)=>{const z=-2.0+i*1.5;if(t<tc)walk(ch,t,-2.2,[M0+15.5,z],[M0+0.55,z*0.6],Math.hypot(14.95,z*0.4)/(tc+2.2),'MX_Sprint');else{const u=t-tc;place(ch,M0+0.55+sm(u/0.6)*1.4,z*0.6,-PI/2);CLIP(ch,'Hit_Knockback',0.2+u*0.9,{loop:false});ch.root.userData.lun=true;}});
     FX.draw([{x:M0,y:0.4,z:0,k:(t-tc)/1.2,n:40,seed:3,colors:['#4a8a3a','#6aa04a','#8a6a42'],s:0.9}]);}
   // ===== s03: dàn Steelers áo đấu trước cầu trục, lò cao phía sau =====
   if(ON('s03',t)){SJ.forEach((ch,i)=>{idle(ch,SE+1.5+(i%2)*1.2,-3+i*2,-PI/2+0.15*(i-1.5),t,i,{crouch:0.25});E(ch,t,[[0,'determined']],i);});}
@@ -175,7 +175,7 @@ const pose=t=>{
   if(ON('s06',t)){at(CONV,V(LX-6,0,0),PI/2);CONV.userData.update(t);[0,1,2].forEach((j,q)=>{const ch=PC[j];idle(ch,LX-7.3,-3+q*3,PI/2,t,j,{talk:q===1?0.4:0});reach(ch,V(LX-6.2,1.15,-3+q*3+0.2));E(ch,t,[[0,'smug']],j);});}
   // ===== s07: bắt cây xúc xích khổng lồ cuối băng chuyền, giơ ngón cái =====
   if(ON('s07',t)){const u=U('s07',t);at(CONV,V(LX-6,0,0),PI/2);CONV.userData.update(t);const ch=PC[3];idle(ch,LX-5.2,1.2,PI/2+0.6,t,3);
-    const kk=sm(u/0.6);const p=V(LX-6,lerp(1.2,1.25,kk),lerp(4.4,1.6,kk));if(kk<1){at(BIGS,p,PI/2);}else{twoHands(ch,0.34,0.02);inHand(BIGS,ch,'r',[0.16,0,0.1],PI/2);}
+    const kk=sm(u/0.6);const p=V(LX-6,lerp(1.2,1.25,kk),lerp(4.4,1.6,kk));if(kk<1){at(BIGS,p,PI/2);}else{twoHands(ch,0.42,0.02);inHand(BIGS,ch,'r',[0.16,0,0.22],PI/2);}
     if(kk<1)twoHands(ch,0.38);E(ch,t,[[0,'determined'],[SH.s07[0]+0.7,'proud']],3,{look:[0.3,0]});}
   // ===== s08–s09: áo đấu cũ 1919 (sepia) trên giá; công nhân chỉ vào, tự hào =====
   if(ON('s08',t)||ON('s09',t)){at(HANG,V(LX-4.6,0,-6),PI/2+0.6);const ch=PC[0];idle(ch,LX-3.6,-4.4,PI+0.6,t,0,{talk:ON('s09',t)?0.6:0});if(ON('s09',t))pointAt(ch,V(LX-4.6,1.35,-6),'r',t);E(ch,t,[[0,'proud'],[SH.s09[0],'talk']],0);}
@@ -213,7 +213,7 @@ const pose=t=>{
   // ===== s21: fan Steelers toxic khoe 6 với khán đài Packers =====
   if(ON('s21',t)){FS.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,-TZ,0,t,i,{y:TY,dance:i%2?0.5:0});if(i<2)armsUp(ch,1,0.55);else pointAt(ch,V(M0,3,TZ),i%2?'l':'r',t);E(ch,t,[[0,'laugh']],i+10);});}
   // ===== s22: Green Bay đáp lại bằng xe nâng chở 13 chiếc cúp =====
-  if(ON('s22',t)){const u=U('s22',t);const x=lerp(M0-14,M0-4.5,sm(u/2.2));at(FORK,V(x,0,0),0);FORK.userData.lift(0.15+0.9*sm((u-1.7)/0.6));const dr=PC[0];place(dr,x-0.35,0.05,PI/2,0.62);CLIP(dr,'Driving_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'smug']],0);}
+  if(ON('s22',t)){const u=U('s22',t);const x=lerp(M0-14,M0-4.5,sm(u/2.2));at(FORK,V(x,0,0),0);FORK.userData.lift(0.15+0.9*sm((u-1.7)/0.6));const dr=PC[0];place(dr,x-0.35,0.05,PI/2,0.62);CLIP(dr,'Sitting_Idle_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'smug']],0);}
   // ===== s23: khán đài Packers bùng nổ =====
   if(ON('s23',t)){FP.forEach((ch,i)=>{idle(ch,M0-1.5+i*1.0,TZ,PI,t,i,{y:TY,dance:0.6});armsUp(ch,1,0.45);E(ch,t,[[0,'cheer']],i+20);});}
   // ===== s24: im lặng — ROUND 2: DEFENSE; hai đội đối mặt, màn thép treo trên cầu trục =====
@@ -230,7 +230,7 @@ const pose=t=>{
   // ===== s29: bánh phô mai lăn tới → bật lại =====
   if(ON('s29',t)){const u=U('s29',t);const hit=0.75;const x=u<hit?lerp(XG-9,XG-0.75,u/hit):lerp(XG-0.75,XG-4,sm((u-hit)/0.7));const y=u<hit?0.6:0.6+Math.max(0,Math.sin((u-hit)*7))*0.5;at(WHEEL,V(x,y,0.4),0,0,-x*1.6);WHEEL.rotation.set(0,0,-x/0.6);}
   // ===== s30: xe nâng húc → dội ngược =====
-  if(ON('s30',t)){const u=U('s30',t);const hit=0.55;const x=u<hit?lerp(XG-10,XG-3.1,sm(u/hit)):lerp(XG-3.1,XG-7,sm((u-hit)/0.6));at(FORK,V(x,0,1.2),0);FORK.userData.lift(0.4);const dr=PC[0];place(dr,x-0.35,1.25,PI/2,0.62);CLIP(dr,'Driving_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'determined'],[SH.s30[0]+hit,'panic']],0);}
+  if(ON('s30',t)){const u=U('s30',t);const hit=0.55;const x=u<hit?lerp(XG-10,XG-3.1,sm(u/hit)):lerp(XG-3.1,XG-7,sm((u-hit)/0.6));at(FORK,V(x,0,1.2),0);FORK.userData.lift(0.4);const dr=PC[0];place(dr,x-0.35,1.25,PI/2,0.62);CLIP(dr,'Sitting_Idle_Loop',t);dr.root.userData.lun=true;E(dr,t,[[0,'determined'],[SH.s30[0]+hit,'panic']],0);}
   // ===== s31: Packers chụm đầu, đội trưởng nhếch mép nhìn máy =====
   if(ON('s31',t)){const u=U('s31',t);PC.slice(0,5).forEach((ch,i)=>{const a=i/5*PI*2;idle(ch,M0+Math.cos(a)*1.1,0.2+Math.sin(a)*1.1,Math.atan2(-Math.cos(a),-Math.sin(a)),t,i,{crouch:0.55});E(ch,t,[[0,'smug']],i);});
     const c0=PC[0];if(u>0.7){c0.root.rotation.y=lerp(c0.root.rotation.y,-0.6,sm((u-0.7)/0.4));c0.root.updateMatrixWorld(true);}E(c0,t,[[0,'determined'],[SH.s31[0]+0.8,'smug']],0,{look:[-0.6,0]});}

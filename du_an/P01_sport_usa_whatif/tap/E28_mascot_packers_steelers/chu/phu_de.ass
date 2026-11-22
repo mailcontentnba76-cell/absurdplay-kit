@@ -1,0 +1,99 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Montserrat ExtraBold,60,&H0000F5F5,&H000000FF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.36,Cap,,0,0,0,,what if
+Dialogue: 0,0:00:00.36,0:00:01.26,Cap,,0,0,0,,the packers were
+Dialogue: 0,0:00:01.26,0:00:02.52,Cap,,0,0,0,,actual meat packers...
+Dialogue: 0,0:00:02.52,0:00:03.30,Cap,,0,0,0,,and the steelers
+Dialogue: 0,0:00:03.30,0:00:05.20,Cap,,0,0,0,,were actual steelworkers?
+Dialogue: 0,0:00:05.20,0:00:06.24,Cap,,0,0,0,,in green bay,
+Dialogue: 0,0:00:06.24,0:00:07.62,Cap,,0,0,0,,jerseys rip off.
+Dialogue: 0,0:00:07.62,0:00:08.78,Cap,,0,0,0,,hairnets go on.
+Dialogue: 0,0:00:08.78,0:00:09.50,Cap,,0,0,0,,fun fact.
+Dialogue: 0,0:00:09.50,0:00:10.18,Cap,,0,0,0,,the packers are
+Dialogue: 0,0:00:10.18,0:00:10.80,Cap,,0,0,0,,named after a
+Dialogue: 0,0:00:10.80,0:00:11.92,Cap,,0,0,0,,meat packing company.
+Dialogue: 0,0:00:11.92,0:00:13.02,Cap,,0,0,0,,in nineteen nineteen,
+Dialogue: 0,0:00:13.02,0:00:13.50,Cap,,0,0,0,,it paid for
+Dialogue: 0,0:00:13.50,0:00:14.54,Cap,,0,0,0,,their first jerseys.
+Dialogue: 0,0:00:14.54,0:00:15.36,Cap,,0,0,0,,so green bay
+Dialogue: 0,0:00:15.36,0:00:16.06,Cap,,0,0,0,,is just going
+Dialogue: 0,0:00:16.06,0:00:17.10,Cap,,0,0,0,,back to work.
+Dialogue: 0,0:00:17.10,0:00:18.26,Cap,,0,0,0,,now pittsburgh.
+Dialogue: 0,0:00:18.26,0:00:19.12,Cap,,0,0,0,,hard hats.
+Dialogue: 0,0:00:19.12,0:00:20.16,Cap,,0,0,0,,molten steel, over
+Dialogue: 0,0:00:20.16,0:00:21.80,Cap,,0,0,0,,two thousand degrees.
+Dialogue: 0,0:00:21.80,0:00:22.52,Cap,,0,0,0,,and they started
+Dialogue: 0,0:00:22.52,0:00:24.10,Cap,,0,0,0,,as the pittsburgh pirates.
+Dialogue: 0,0:00:24.10,0:00:25.16,Cap,,0,0,0,,in nineteen forty,
+Dialogue: 0,0:00:25.16,0:00:25.94,Cap,,0,0,0,,fans renamed them
+Dialogue: 0,0:00:25.94,0:00:27.62,Cap,,0,0,0,,in a newspaper contest.
+Dialogue: 0,0:00:27.62,0:00:29.08,Cap,,0,0,0,,pirates became steelers.
+Dialogue: 0,0:00:29.08,0:00:30.74,Cap,,0,0,0,,arrr became clang.
+Dialogue: 0,0:00:30.74,0:00:31.68,Cap,,0,0,0,,one field.
+Dialogue: 0,0:00:31.68,0:00:32.58,Cap,,0,0,0,,one football.
+Dialogue: 0,0:00:32.58,0:00:34.06,Cap,,0,0,0,,zero rules.
+Dialogue: 0,0:00:34.06,0:00:34.94,Cap,,0,0,0,,round one.
+Dialogue: 0,0:00:34.94,0:00:35.98,Cap,,0,0,0,,trophies.
+Dialogue: 0,0:00:35.98,0:00:36.46,Cap,,0,0,0,,pittsburgh rolls out
+Dialogue: 0,0:00:36.46,0:00:38.02,Cap,,0,0,0,,six super bowl wins.
+Dialogue: 0,0:00:38.02,0:00:38.30,Cap,,0,0,0,,tied for
+Dialogue: 0,0:00:38.30,0:00:39.54,Cap,,0,0,0,,the most ever.
+Dialogue: 0,0:00:39.54,0:00:40.16,Cap,,0,0,0,,green bay answers
+Dialogue: 0,0:00:40.16,0:00:41.32,Cap,,0,0,0,,with a forklift.
+Dialogue: 0,0:00:41.32,0:00:42.74,Cap,,0,0,0,,thirteen league titles.
+Dialogue: 0,0:00:42.74,0:00:44.70,Cap,,0,0,0,,most in nfl history.
+Dialogue: 0,0:00:44.70,0:00:45.74,Cap,,0,0,0,,round two.
+Dialogue: 0,0:00:45.74,0:00:46.66,Cap,,0,0,0,,defense.
+Dialogue: 0,0:00:46.66,0:00:47.20,Cap,,0,0,0,,pittsburgh drops an
+Dialogue: 0,0:00:47.20,0:00:48.86,Cap,,0,0,0,,actual steel curtain.
+Dialogue: 0,0:00:48.86,0:00:49.18,Cap,,0,0,0,,fans named
+Dialogue: 0,0:00:49.18,0:00:50.38,Cap,,0,0,0,,that defense too.
+Dialogue: 0,0:00:50.38,0:00:51.36,Cap,,0,0,0,,radio contest,
+Dialogue: 0,0:00:51.36,0:00:52.76,Cap,,0,0,0,,nineteen seventy-one.
+Dialogue: 0,0:00:52.76,0:00:53.98,Cap,,0,0,0,,sausages bounce off.
+Dialogue: 0,0:00:53.98,0:00:54.80,Cap,,0,0,0,,cheese bounces off.
+Dialogue: 0,0:00:54.80,0:00:56.14,Cap,,0,0,0,,forklift?
+Dialogue: 0,0:00:56.14,0:00:57.08,Cap,,0,0,0,,bounces off.
+Dialogue: 0,0:00:57.08,0:00:57.76,Cap,,0,0,0,,but green bay has
+Dialogue: 0,0:00:57.76,0:00:59.12,Cap,,0,0,0,,one move nobody else
+Dialogue: 0,0:00:59.12,0:01:00.30,Cap,,0,0,0,,in the league has.
+Dialogue: 0,0:01:00.30,0:01:00.74,Cap,,0,0,0,,the fans
+Dialogue: 0,0:01:00.74,0:01:02.00,Cap,,0,0,0,,own the team.
+Dialogue: 0,0:01:02.00,0:01:02.64,Cap,,0,0,0,,shareholders since
+Dialogue: 0,0:01:02.64,0:01:04.04,Cap,,0,0,0,,nineteen twenty-three.
+Dialogue: 0,0:01:04.04,0:01:05.40,Cap,,0,0,0,,and owners vote.
+Dialogue: 0,0:01:05.40,0:01:05.60,Cap,,0,0,0,,motion to
+Dialogue: 0,0:01:05.56,0:01:06.60,Cap,,0,0,0,,scrap the curtain.
+Dialogue: 0,0:01:06.60,0:01:07.44,Cap,,0,0,0,,all in favor?
+Dialogue: 0,0:01:07.44,0:01:09.02,Cap,,0,0,0,,every cheesehead goes up.
+Dialogue: 0,0:01:09.02,0:01:09.96,Cap,,0,0,0,,motion passed.
+Dialogue: 0,0:01:09.96,0:01:10.62,Cap,,0,0,0,,the steel curtain
+Dialogue: 0,0:01:10.62,0:01:12.12,Cap,,0,0,0,,gets sold for scrap.
+Dialogue: 0,0:01:12.12,0:01:13.50,Cap,,0,0,0,,pittsburgh fires back.
+Dialogue: 0,0:01:13.50,0:01:14.40,Cap,,0,0,0,,every fan whips
+Dialogue: 0,0:01:14.40,0:01:15.76,Cap,,0,0,0,,out a terrible towel.
+Dialogue: 0,0:01:15.76,0:01:16.12,Cap,,0,0,0,,a radio
+Dialogue: 0,0:01:16.12,0:01:16.86,Cap,,0,0,0,,guy invented it
+Dialogue: 0,0:01:16.86,0:01:18.32,Cap,,0,0,0,,in nineteen seventy-five.
+Dialogue: 0,0:01:18.32,0:01:19.00,Cap,,0,0,0,,green bay answers
+Dialogue: 0,0:01:19.00,0:01:20.20,Cap,,0,0,0,,with the cheesehead.
+Dialogue: 0,0:01:20.20,0:01:20.70,Cap,,0,0,0,,invented in
+Dialogue: 0,0:01:20.70,0:01:21.88,Cap,,0,0,0,,nineteen eighty-seven...
+Dialogue: 0,0:01:21.88,0:01:22.12,Cap,,0,0,0,,out of
+Dialogue: 0,0:01:22.12,0:01:22.82,Cap,,0,0,0,,a couch cushion.
+Dialogue: 0,0:01:22.82,0:01:23.80,Cap,,0,0,0,,so pittsburgh
+Dialogue: 0,0:01:23.80,0:01:25.58,Cap,,0,0,0,,fans name everything.
+Dialogue: 0,0:01:25.58,0:01:25.84,Cap,,0,0,0,,green bay
+Dialogue: 0,0:01:25.84,0:01:27.54,Cap,,0,0,0,,fans own everything.
+Dialogue: 0,0:01:27.54,0:01:28.88,Cap,,0,0,0,,steel or sausage?
+Dialogue: 0,0:01:28.88,0:01:29.86,Cap,,0,0,0,,comment who wins.

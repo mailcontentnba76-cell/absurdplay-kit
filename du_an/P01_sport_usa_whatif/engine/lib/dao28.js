@@ -42,11 +42,11 @@ export function dressPacker(ch, i = 0) { const { W, put } = dresser(ch);
   const apronT = ctex(256, 512, (g, w, h) => { g.fillStyle = GB.green; g.fillRect(0, 0, w, h); g.strokeStyle = GB.gold; g.lineWidth = 14; g.strokeRect(7, 7, w - 14, h - 14);
     g.fillStyle = GB.gold; g.fillRect(60, 120, 136, 70); g.fillStyle = GB.green; g.font = '900 52px Anton, Impact, sans-serif'; g.textAlign = 'center'; g.fillText('No. ' + (11 + i * 7), 128, 172); });
   const apron = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.92), std('#ffffff', { map: apronT, side: THREE.DoubleSide, roughness: 0.6 }));
-  put('spine_02', apron, new THREE.Vector3(s3.x, (s3.y + pv.y) / 2 - 0.12, s3.z + 0.16), [-0.04, 0, 0]);
+  put('spine_02', apron, new THREE.Vector3(s3.x, (s3.y + pv.y) / 2 - 0.12, s3.z + 0.125), [0.04, 0, 0]);
   const tie = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.008, 4, 24), std(GB.green)); tie.rotation.x = Math.PI / 2; put('spine_02', tie, new THREE.Vector3(s2.x, s2.y, s2.z), null);
   // vạt áo khoác trắng dưới hông (áo dài tới gối)
   const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 0.42, 16, 1, true), std(GB.white, { side: THREE.DoubleSide })); put('pelvis', skirt, new THREE.Vector3(pv.x, pv.y - 0.2, pv.z), null);
-  const h = W('Head'); const net = hairnet(); put('Head', net, new THREE.Vector3(h.x, h.y + 0.07, h.z - 0.01), [-0.12, 0, 0]); ch.hat = net;
+  const h = W('Head'); const net = hairnet(); put('Head', net, new THREE.Vector3(h.x, h.y + 0.13, h.z - 0.03), [-0.22, 0, 0]); ch.hat = net;
   for (const sd of ['l', 'r']) { const c = W('calf_' + sd), f = W('foot_' + sd); const boot = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.062, c.y - f.y + 0.06, 12), std('#f2f2ec', { roughness: 0.35 })); put('calf_' + sd, boot, new THREE.Vector3(c.x, (c.y + f.y) / 2 - 0.02, c.z), null); }
   return ch; }
 // thợ thép (Steelers): mũ bảo hộ vàng + mặt nạ hàn, áo khoác chịu nhiệt đen sọc phản quang vàng (dùng sleeveStripes), găng da, ủng nâu
