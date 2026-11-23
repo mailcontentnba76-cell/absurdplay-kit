@@ -115,7 +115,7 @@ function booth(G) { const B = new THREE.Group(); const wall = std('#6a5a48', { r
   const lamp = new THREE.PointLight('#ffd8a0', 18, 9, 1.5); lamp.position.set(0.6, 2.6, 1.4); B.add(lamp);
   B.position.copy(BOOTH); sh(B); G.add(B); return B; }
 // góc phòng khách (bối cảnh phụ): sofa cam 1987, tường giấy dán, đèn bàn
-function living(G) { const L_ = new THREE.Group(); const sofa = std('#c8742a', { roughness: 0.95 });
+function living(G) { const L_ = new THREE.Group(); const sofa = std('#6a3a24', { roughness: 0.95 });
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), std('#7a5a3a')); floor.rotation.x = -Math.PI / 2; L_.add(floor);
   const wpT = ctex(128, 128, (g) => { g.fillStyle = '#d8c89a'; g.fillRect(0, 0, 128, 128); g.fillStyle = 'rgba(120,90,40,0.35)'; for (let y = 0; y < 128; y += 16) for (let x = (y / 16 % 2) * 8; x < 128; x += 16) { g.beginPath(); g.arc(x, y, 3, 0, 7); g.fill(); } }, [6, 3]);
   const wall = new THREE.Mesh(new THREE.BoxGeometry(9, 4, 0.2), std('#ffffff', { map: wpT })); wall.position.set(0, 2, -2.2); L_.add(wall);

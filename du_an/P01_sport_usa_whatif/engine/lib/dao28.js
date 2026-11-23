@@ -163,7 +163,7 @@ export function rallyTowel() { const G = new THREE.Group(); const m = new THREE.
   G.userData.wave = (t, sd = 0) => { const p = m.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i); p.setZ(i, Math.sin(t * 14 + y * 6 + sd) * 0.08 * y); } p.needsUpdate = true; m.geometry.computeVertexNormals(); m.rotation.y = Math.sin(t * 12 + sd) * 0.9; };
   return shadowAll(G); }
 // gối đệm sofa: morph(k) 0 = gối, 1 = mũ phô mai
-export function couchCushion() { const G = new THREE.Group(); const cush = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.18, 0.55, 4, 2, 4), std('#e8a030', { roughness: 0.95 })); G.add(cush);
+export function couchCushion() { const G = new THREE.Group(); const cush = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.18, 0.55, 4, 2, 4), std('#f0b838', { roughness: 0.95 })); G.add(cush);
   const ch = cheesehead(1.2); ch.visible = false; G.add(ch);
   G.userData.morph = (k) => { cush.visible = k < 0.5; ch.visible = k >= 0.5; const s = k < 0.5 ? 1 - k * 0.6 : 0.7 + (k - 0.5) * 0.6; (k < 0.5 ? cush : ch).scale.setScalar(Math.max(0.3, s)); ch.rotation.y = k * 4; };
   return shadowAll(G); }
