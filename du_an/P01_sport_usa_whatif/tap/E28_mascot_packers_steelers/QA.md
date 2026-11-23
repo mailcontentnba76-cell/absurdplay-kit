@@ -109,3 +109,9 @@ Năm ứng viên đã kiểm trùng 5 trục và chấm điểm:
 - Bản cắt thử: `giao/E28_cat_thu.mp4` (540×960, 15 fps, 90,42 s, 47 điểm cắt hoà 3 khung). `qa_ground.js` 0–90 s: **0 khung lún**.
 - Mixamo thiếu → chạy/ném dùng UAL (`dongtac.js` MX_ALIAS). Lái xe nâng dùng tư thế ngồi.
 - Việc sửa trước bản cuối (tự kiểm từ sheet khung): khói biến hình s04/s12 quá dày, che hình; cận cảnh giấy cổ phần s33 bị tay che; cận gối sofa s44 chưa rõ hình; kiểm lại màu áo 2026 hai đội từ ảnh chính thức.
+
+## Bản cuối (23/11/2026)
+- Giao: `giao/E28_packers_steelers.mp4` — 1080×1920, 30 fps, 90,42 s, motion blur (render 720×1280, 1 tiến trình, 1,2 s/khung), −14,2 LUFS / đỉnh −1,4 dBFS.
+- `quet_khung_loi.py out_f28final ep28_packers_steelers_shots.js 30` → khung lỗi: [] (2712 khung). `qa_ground.js` → 0 khung lún.
+- Sửa sau cắt thử: khói biến hình nhẹ (chỉ 1/2 người có khói), giấy cổ phần dựng trên lan can, gối sofa vàng trên sofa nâu, cảnh áo 1919 dời ra trước tường xưởng (bản đầu nền trống).
+- Áo đấu: Steelers áo/mũ đen phối vàng, Packers mũ vàng phối xanh (steelers.com, NFL.com, ABC7 11/2025). Màu mặt nạ chưa xác minh (chỉ 2 s đầu).
