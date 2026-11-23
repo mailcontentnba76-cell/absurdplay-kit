@@ -16,8 +16,8 @@ export async function loadCats(list = { tiger: './assets/meo/tiger.glb', jaguar:
 const _v = new THREE.Vector3(), _q = new THREE.Quaternion();
 // S: hệ số phóng (mô hình gốc dài 1,0 / cao 0,585)
 const SIZE = { tiger: 2.05, jaguar: 1.8 };
-export function makeCat(kind = 'tiger', seed = 0) {
-  const src = TPL[kind] || TPL.tiger; const S = SIZE[kind] || 2;
+export function makeCat(kind = 'tiger', seed = 0, opt = {}) {
+  const src = TPL[kind] || TPL.tiger; const S = opt.S || SIZE[kind] || 2;
   const model = SkeletonUtils.clone(src);
   const root = new THREE.Group(); root.name = 'cat_' + kind;
   const body = new THREE.Group(); root.add(body);       // nhún/chồm quanh hông sau
@@ -30,7 +30,7 @@ export function makeCat(kind = 'tiger', seed = 0) {
   // vai trò xương (mỗi mô hình Tripo đánh số khác nhau): cổ = Spine cao nhất, đuôi = chuỗi bone_* con của Root, tai = bone_* con của Head_2 nằm cao
   const spines = Object.keys(B).filter((n) => /^Spine_\d+$/.test(n)).sort((a, b) => +a.split('_')[1] - +b.split('_')[1]);
   const NECK = spines[spines.length - 1], MID = spines.slice(1, -1);
-  const TAIL = []; let tb = B.Root.children.find((c) => c.isBone && !/Spine|Limb/.test(c.name)); while (tb) { TAIL.push(tb.name.replace(/^tripo:*/, '')); tb = tb.children.find((c) => c.isBone); }
+  const TAIL = []; if (opt.tail) opt.tail.forEach((n) => { if (B[n]) TAIL.push(n); }); else { let tb = B.Root.children.find((c) => c.isBone && !/Spine|Limb/.test(c.name)); while (tb) { TAIL.push(tb.name.replace(/^tripo:*/, '')); tb = tb.children.find((c) => c.isBone); } }
   const EARS = B.Head_2.children.filter((c) => c.isBone && !/Head/.test(c.name) && rest[c.name].mp.y > rest.Head_2.mp.y + 0.01).map((c) => c.name);
   const JAW = B.Head_3 ? 'Head_3' : null;
   // hông sau (điểm xoay khi chồm) trong hệ root: model -z = trước → root +z
@@ -46,6 +46,7 @@ export function makeCat(kind = 'tiger', seed = 0) {
     const sgn = Math.sign(new THREE.Vector3().subVectors(C, A).cross(new THREE.Vector3().subVectors(Bm, A)).x) || 1;
     return { p, front, a, b, c, top: B[p + '_Limb_0'], paw0, ankH: ank0.y, sgn, x: paw0.x };
   });
+  if (opt.evenPaws) for (const fr of [true, false]) { const g = legs.filter((L) => L.front === fr); const mz = g.reduce((a, L) => a + L.paw0.z, 0) / g.length; g.forEach((L) => { L.paw0.z = mz; }); }
   const legH = hipR.y;
   // proxy đầu: hệ trục giống root, đơn vị = mét (nhân root.scale) — headPos(q,f,dy) cũ dùng (0,dy,f)
   const head = new THREE.Group(); const hb = B['Head_1']; hb.add(head);
@@ -53,7 +54,8 @@ export function makeCat(kind = 'tiger', seed = 0) {
   head.position.copy(muzzle.clone().sub(rest['Head_1'].mp).applyQuaternion(rest['Head_1'].mq.clone().invert()));
   head.quaternion.copy(rest['Head_1'].mq.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)));
   head.scale.setScalar(1 / S);
-  const q = { root, body, inner, model, B, rest, legs, head, kind, S, legH, seed, stride: { walk: 1.1 * S / 2.05, trot: 1.7 * S / 2.05, gallop: 2.9 * S / 2.05 }, NECK, MID, TAIL, EARS, JAW, eyes: [], ears: [], o: { kind } };
+  const q = { root, body, inner, model, B, rest, legs, head, kind, S, legH, seed, stride: opt.legScale ? { walk: 1.1 * legH / 0.93, trot: 1.7 * legH / 0.93, gallop: 2.9 * legH / 0.93 } : { walk: 1.1 * S / 2.05, trot: 1.7 * S / 2.05, gallop: 2.9 * S / 2.05 }, NECK, MID, TAIL, EARS, JAW, eyes: [], ears: [], o: { kind } };
+  if (opt.strideK) for (const k in q.stride) q.stride[k] *= opt.strideK;
   return q;
 }
 
@@ -166,7 +168,7 @@ export function quadTravel(q, t, t0, p0, p1, speed, gait = 'trot', o = {}) {
   const d = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]); const s = Math.min(d, Math.max(0, (t - t0) * speed)); const k = d ? s / d : 1;
   const face = Math.atan2(p1[0] - p0[0], p1[1] - p0[1]);
   q.root.position.set(lerp(p0[0], p1[0], k), o.y || 0, lerp(p0[1], p1[1], k)); q.root.rotation.set(0, o.face ?? face, 0);
-  const moving = k < 1; poseQuad(q, t, Object.assign({}, o, { gait: moving ? gait : 'idle', phase: s / q.stride[gait] }));
+  const moving = k < 1; poseQuad(q, t, Object.assign({}, o, { gait: moving ? gait : 'idle', phase: s / (q.stride[gait] * (q.root.scale.x || 1)) }));
   return !moving;
 }
 export function jumpPose(u) {

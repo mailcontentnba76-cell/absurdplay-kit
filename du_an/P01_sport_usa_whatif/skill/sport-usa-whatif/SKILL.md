@@ -2,7 +2,7 @@
 name: "sport-usa-whatif"
 description: "Sản xuất video TikTok dọc kiểu 'What If' thể thao Mỹ (format kênh @whatifbagel) cho dự án P01 Sport USA: tìm tin NFL/NBA mới nhất, viết kịch bản, giọng clone Sport USA, dựng 3D three.js, phụ đề vàng, đồ hoạ truyền hình, ráp Kdenlive. Dùng khi người dùng yêu cầu kịch bản/video mới hoặc sửa video cho dự án P01."
 ---
-# Sport USA "What If" — v3.4 (22/11/2026)
+# Sport USA "What If" — v3.5 (23/11/2026)
 
 Kho lưu bộ hồ sơ: GitHub `mailcontentnba76-cell/absurdplay-kit` (riêng tư). Đầu phiên: clone kho này nếu chưa có `/root/work/BO_HUONG_DAN_SAN_XUAT_VIDEO`; cuối mỗi tập: commit + push (không đẩy mp4/mov/wav lớn, node_modules).
 
@@ -44,12 +44,6 @@ Theo dõi video >500K của kênh mẫu: project doc `claude/whatifbagel_tren_50
 - Đã có: E02 (nhà thi đấu Bucks, `ep02.html`), E05 (sân tuyết `lib/tuyet.js`); áo ba lỗ/quần đùi, động tác bóng rổ viết tay trong `lib/bongro*.js`/`tuthe.js` (xem file engine). Không lặp bối cảnh 2 tập này.
 - Động tác mocap bóng rổ: nhờ người dùng tải thêm ở Mixamo (FBX Binary, Without Skin, 30 fps; tích In Place cho vòng lặp) rồi đặt tên đúng: `Dribble` (Basketball Dribble/Dribbling), `Jump_Shot`, `Layup`, `Dunk`, `Free_Throw`, `Bounce_Pass`, `Chest_Pass`, `Basketball_Idle`, `Defense_Shuffle`; thêm tên vào `MIXAMO_FILES` trong `lib/nhanvat2.js` (clip thành `MX_<Tên>`). Chưa có thì dùng động tác viết tay cũ + chạy Mixamo cho di chuyển.
 - Tin NBA: `mcp__widgets__fetch_sports_data` (league nba: scores, standings, game_stats) + NBA.com/ESPN/AP; kiểm box score cầu thủ có ra sân.
-
-## Chế độ NBA — HAI HƯỚNG SONG SONG (chủ dự án chốt 21/11/2026)
-- Mỗi lần nhận việc NBA: quét lịch + tỉ số + bảng xếp hạng (`fetch_sports_data` nba) rồi chọn 1 trong 2 hướng:
-  1. **Có trận hot → ƯU TIÊN kịch bản TROLL ĐỘI THUA** (khuôn (a) mục 0). Giống quy tắc v3.2 của chat NFL: trận hot = trận VỪA ĐÁ (≤ 48 giờ) có đội đông fan (Lakers, Warriors, Celtics, Knicks, Bulls, 76ers…) hoặc kình địch/tin nóng, kết quả sốc/thua đậm/chuỗi thua; bám kết quả thật có nguồn, đăng càng sớm càng tốt.
-  2. **Không có trận hot → kịch bản MASCOT đối đầu** giữa 2 đội đông fan (không bắt buộc bám lịch).
-- Quy tắc linh vật (20/11): mascot = LINH VẬT CHÍNH THỨC (con vật/nhân vật), không hiểu tên đội theo nghĩa đen thành đồ vật; dựng bản 3D tự thiết kế. 4 đội không có linh vật được gán: Lakers → vịt hồ (`lib/vit.js`), Knicks → Father Knickerbocker, Warriors → Thunder (linh vật cũ 1997–2007), Nets → hiệp sĩ Brooklyn. Lời đọc ~240 từ (85–90 s). Tiếng động vật: Magnific Sound Effect Generator. Watermark "Literal Mascots" dọc giữa mép trái.
 
 ## Chế độ NBA — SERIES MASCOT (chủ dự án chốt 19/11/2026, chat Project "NBA 3D")
 - **Phân chat:** chat Project "NBA 3D" = NBA + bóng rổ NCAA; chat Sport USA cũ = NFL + NCAA bóng bầu dục. Không đọc được chat khác → luôn clone kho `absurdplay-kit` và đọc tập mới nhất (`tap/E2x`, QA.md, words_tw.json) trước khi đề xuất; định dạng hiện hành là định dạng của tập mới nhất trong kho.
@@ -213,6 +207,7 @@ kịch bản (duyệt) → Magnific Voice (Sport USA, tag [energetic, fast-paced
 - Không logo thật, không mặt giống hệt người thật, không lấy thảm kịch làm trò cười, không dùng hình/âm của video mẫu, không ghi API key vào file.
 
 ## Thay đổi
+- v3.5 (23/11): E28 Cowboys 51–30 Titans (gấu mèo vs bò sừng dài, sân Lone Star Dome `lib/sanrom28.js`, đạo cụ `lib/dao28.js`). Bài học: (1) **ẢNH THAM CHIẾU 3D quyết định khung xương** — chỉ chọn ảnh CHỤP NGANG, đủ 4 chân tách rời chạm đất, đuôi trọn, nền trắng; ảnh chụp chéo/ngồi khom → Tripo P1 gắn xương sai (3 chân, đầu-cổ lẫn lộn) = mất 1.035 credit. Phóng to kiểm ảnh, kiểm ô Front đúng ảnh, kiểm nút hiện đúng giá, bấm Generate 1 lần. Trang Magnific hay treo khi tải ô xem trước 3D: chờ/tải lại, đừng bấm lại. (2) Tên xương Tripo mỗi mô hình mỗi khác → `tools/remap_glb28.py` đổi tên về chuẩn meoglb25 + xoay Armature cho đầu hướng −z; `makeCat(kind,seed,{S,tail,evenPaws,strideK})` (S theo chiều cao hông ≈ 0,93 m như hổ rồi thu nhỏ bằng root.scale; strideK 0,5 cho thú chân ngắn, dáng 'walk'). (3) Bàn chân thú không trượt khi root.scale ≠ 1: `quadTravel` chia phase cho stride×scale. (4) Giọng: tài khoản ElevenLabs gắn cảnh báo ToS cho giọng "Sport USA" → không dùng được ở ElevenLabs; người dùng tự tạo bằng giọng thư viện. (5) Logo: người dùng gửi bộ logo NFL chính thức nói là "tự tạo" → kiểm bằng mắt, đúng là logo thật → không dùng; dùng HUY HIỆU KHIÊN TỰ VẼ (màu đội + biểu tượng + 3 chữ viết tắt) trong đồ hoạ. (6) Mình chỉ làm việc khi đang trong lượt trả lời — nói rõ với người dùng, không để họ tưởng đang chạy ngầm.
 - v3.4 (22/11): E27 — nhạc ElevenLabs Music; loại mọi InstancedMesh khỏi velocity pass; không chớp khi lật lịch; nhận diện đội bằng chữ cái tự vẽ.
 - v3.3 (21/11): luật chạm đất + QA lún; thú 3D Magnific có xương; cảnh biến hình xé áo.
 - v3.2 (21/11, chat NFL): **QUY TẮC CHỌN KỊCH BẢN — 2 HƯỚNG SONG SONG.** Mỗi lần xin kịch bản: (1) tra kết quả các trận vừa đá (≤48 giờ); nếu có **trận hot** (đại chiến, derby, đội top, kết quả sốc/thua đậm, drama) → ưu tiên **kịch bản troll đội thua** (bám kết quả thật, có nguồn). (2) Nếu không có trận hot → làm **kịch bản MASCOT ĐỐI ĐẦU** giữa các đội, **không cần theo lịch thi đấu**: tự chọn cặp linh vật tương phản/viral nhất, gắn một cái cớ thời sự (thành tích, drama, chuỗi thua) làm đạn troll; có thể làm series nhiều tập (vd. giải các đội chim, các đội mèo).
