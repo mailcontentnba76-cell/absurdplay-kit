@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Lora;src:url(fonts/Lora-Variable.ttf)}
+@font-face{font-family:Lora;font-style:italic;src:url(fonts/Lora-Italic-Variable.ttf)}
+@font-face{font-family:Mono;font-weight:700;src:url(fonts/space-mono-latin-700-normal.woff2)}
+/* N28 troll 76ers — bảng màu xanh 76ers #006bb6 + đỏ #ed174c + kem giấy hóa đơn #fbf8ef. Nhãn số liệu kiểu hóa đơn (chữ Mono trên giấy kem). Không logo. */
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden;font-family:Lora}
+.el{position:absolute;opacity:0}
+.red{color:#ed174c}.blu{color:#006bb6}
+#wtf{left:0;width:1080px;top:230px;text-align:center;font-weight:800;font-style:italic;font-size:190px;color:#fbf8ef;text-shadow:0 8px 0 #ed174c,0 14px 30px rgba(0,0,0,.7)}
+.tag{left:60px;top:300px;background:#fbf8ef;color:#1a1a1a;padding:18px 26px 20px;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.45);border-top:10px solid #006bb6;max-width:900px}
+.tag small{display:block;font-family:Mono;font-size:28px;letter-spacing:4px;color:#555}
+.tag b{display:block;font-family:Mono;font-size:86px;line-height:1.05;margin-top:4px}
+#end{left:90px;top:170px;width:900px;padding:30px 30px 34px;background:#fbf8ef;border-radius:8px;text-align:center;color:#1a1a1a;border-top:12px solid #ed174c;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+#end small{display:block;font-family:Mono;font-size:30px;letter-spacing:5px;color:#006bb6}
+#end b{display:block;font-family:Mono;font-size:96px;line-height:1.05;color:#ed174c}
+#end i{display:block;font-size:44px;color:#333;margin-top:10px}
+.wm{position:absolute;left:16px;top:960px;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:upright;font-family:Lora;font-weight:700;font-size:26px;line-height:1;letter-spacing:-1px;color:rgba(255,255,255,.62);text-shadow:0 1px 3px rgba(0,0,0,.45)}
+</style></head><body>
+<div class="el" id="wtf">WTF?!</div>
+<div class="el tag" id="l1"><small>FINAL · AT HOME</small><b>POR 128<br><span class="red">PHI 111</span></b></div>
+<div class="el tag" id="l2"><small>WIN STREAK</small><b>5 → <span class="red">0</span></b></div>
+<div class="el tag" id="l3"><small>GRANDMA</small><b>AGE 81</b></div>
+<div class="el tag" id="l4"><small>CRACKS IN THE BELL</small><b id="cr">1</b></div>
+<div class="el tag" id="l5"><small>PORTLAND 3PT</small><b>19/42 · <span class="red">45%</span></b></div>
+<div class="el tag" id="l6"><small>OLD MAN, TRASH CAN</small><b>5 / 5</b></div>
+<div class="el tag" id="l7"><small>BENCH POINTS</small><b>POR 54<br><span class="red">PHI 24</span></b></div>
+<div class="el tag" id="l8"><small>DENI AVDIJA</small><b>25 <span style="font-size:44px">1ST HALF</span><br>31 <span style="font-size:44px">TOTAL</span></b></div>
+<div class="el tag" id="l9"><small>STILL</small><b>14–4 · <span class="blu">1ST</span></b></div>
+<div class="el tag" id="l10"><small>NEXT UP</small><b>MIAMI · WED</b></div>
+<div class="el" id="end"><small>PHILLY RECEIPT</small><b>9 FOR 33</b><i>Philly remembers. Who wins Wednesday?</i></div>
+<div class="wm">Literal Mascots</div>
+<script type="module">
+import {SH,END} from './epn28_shots.js';
+const TL=[['wtf',0.25,1.74],['l1',1.82,4.4],['l2',6.78,8.9],['l3',25.48,26.5],['l4',31.88,33.88],['l5',33.92,36.36],['l6',39.86,41.46],['l7',44.76,48.48],['l8',56.1,59.62],['l9',66.36,69.8],['l10',69.86,73.3],['end',75.3,END]];
+const $=id=>document.getElementById(id);const ease=x=>1-Math.pow(1-x,3);const cl=x=>Math.min(1,Math.max(0,x));
+document.fonts.ready.then(()=>{window.ready=true});
+window.renderFrame=t=>{for(const [id,a,b] of TL){const e=$(id);const on=t>=a&&t<b;const k=on?ease(cl((t-a)/0.3)):0;const out=on?cl((b-t)/0.15):0;
+  e.style.opacity=on?Math.min(cl((t-a)/0.12),out):0;
+  e.style.transform=id==='wtf'?`scale(${1.6-0.6*ease(cl((t-a)/0.18))}) rotate(${-6+4*Math.sin(t*30)*(1-cl((t-a)/0.4))}deg)`:id==='end'?`translateY(${(1-k)*40}px)`:`translateX(${(1-k)*-60}px)`;}
+  $('cr').textContent=String(1+Math.floor(18*Math.min(1,Math.max(0,(t-31.88)/1.6)))**1);};
+</script></body></html>
