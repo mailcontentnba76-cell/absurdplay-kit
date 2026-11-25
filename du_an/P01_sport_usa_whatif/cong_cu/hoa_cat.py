@@ -7,7 +7,7 @@ from PIL import Image
 ap = argparse.ArgumentParser(); ap.add_argument('src'); ap.add_argument('out'); ap.add_argument('shots')
 ap.add_argument('--fps', type=int, default=30); ap.add_argument('--bo', default=''); ap.add_argument('--n', type=int, default=3)  # số khung hoà (6 ở 30 fps ≈ 0,2 s: chuyển cảnh mềm, không nháy)
 a = ap.parse_args(); bo = set(x for x in a.bo.split(',') if x)
-SH = {k: [float(x) for x in v.split(',')] for k, v in re.findall(r"(s\d+[bcd]?):\[([\d.,]+)\]", open(a.shots).read().split('END')[0])}
+SH = {k: [float(x) for x in v.split(',')] for k, v in re.findall(r"([a-z]+\d+[a-z]?):\[([\d.,]+)\]", open(a.shots).read().split('END')[0])}
 cuts = sorted(set(round(v[0] * a.fps) for k, v in SH.items() if v[0] > 0 and k not in bo))
 os.makedirs(a.out, exist_ok=True); fs = sorted(f for f in os.listdir(a.src) if f.endswith('.jpg'))
 W = {}; 
