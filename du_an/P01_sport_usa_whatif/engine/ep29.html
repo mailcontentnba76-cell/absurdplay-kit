@@ -13,7 +13,8 @@ import {CAST} from './lib/cast2.js';
 import {resetPose,ik2} from './lib/tuthe.js';
 import {expr,clipPose,locoLock} from './lib/dongtac.js';
 import {CameraRig} from './lib/camera.js';
-import {SH,END} from './ep29_shots.js';
+import {SH,END,TOFF,HK} from './ep29_shots.js';
+import {transformFX} from './lib/bienhinh25.js';
 import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
 import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
 const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
@@ -47,7 +48,24 @@ const FANC=[['#1a1a1a','#3a3a44','#e8b98f','Hair_SimpleParted','#5a3a1a','male',
   ['#c8102e','#2a2a30','#f4d2b4','Hair_SimpleParted','#8a5a2a','male','#c8102e'],['#ffffff','#c8102e','#7a4a2c','Hair_Buzzed','#111','male','#f4f4f2'],['#c8102e','#3a3a44','#e8c0a0','Hair_Long','#3a2a1a','female','#6a4a2a'],['#ffffff','#2a2a30','#c68c5f','Hair_Buzzed','#111','male','#c8102e']];
 const FAN=FANC.map(([j,p,sk,h,hc,b],i)=>mk({body:b,jersey:j,collar:j,pants:p,skin:sk,hair:h,hairColor:hc,beard:b==='male'&&i%2===0,beardColor:hc,heightM:b==='female'?1.66:1.8}));
 const HATS=FANC.map(f=>{const h=cowboyHat(f[6]);s.add(h);return h;});
-const HUM=[REF,...FAN];HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+// ---------- 5 đấu 5 cho cảnh mở đầu (đội hình đã đối chiếu các trận Spurs–Rockets mùa 2026-27) ----------
+const PB={...BASE,tank:true,shorts:true,socks:'#f4f4f4',shoes:'#f4f4f4',frontNumberSize:0.7,backNumberSize:0.95,numberDrop:0.16};
+const SAS={...PB,jersey:'#16181c',pants:'#16181c',numberColor:'#ffffff',numberOutline:'#c4ced4',wordmark:'SPURS',wordmarkColor:'#ffffff',collar:'#c4ced4',pantsStripes:['#c4ced4','#16181c'],shoes:'#16181c',socks:'#16181c'};
+const HOU={...PB,jersey:'#ce1141',pants:'#ce1141',numberColor:'#ffffff',numberOutline:'#16181c',wordmark:'ROCKETS',wordmarkColor:'#ffffff',collar:'#ffffff',pantsStripes:['#ffffff','#16181c'],shoes:'#f4f4f4'};
+const PDEF=[[SAS,{skin:'#5a3a24',hairStyle:'proc:buzz',hair:'Hair_Buzzed',hairColor:'#0c0806',number:1,backName:'WEMBANYAMA',heightM:2.24,build:'lean'}],
+ [SAS,{skin:'#7a4a2c',hairStyle:'proc:fade',hair:'Hair_Buzzed',hairColor:'#0c0806',beard:true,beardColor:'#0c0806',number:4,backName:'FOX',heightM:1.91}],
+ [SAS,{skin:'#6a4128',hairStyle:'proc:twists',hair:'Hair_Buzzed',hairColor:'#0c0806',number:5,backName:'CASTLE',heightM:1.98}],
+ [SAS,{skin:'#8a5636',hairStyle:'proc:fade',hair:'Hair_Buzzed',hairColor:'#120c08',number:24,backName:'VASSELL',heightM:1.96}],
+ [SAS,{skin:'#6a4128',hairStyle:'proc:buzz',hair:'Hair_Buzzed',hairColor:'#0c0806',beard:true,beardColor:'#0c0806',number:3,backName:'JOHNSON',heightM:1.96,build:'fit'}],
+ [HOU,{skin:'#e2b894',hairStyle:'proc:fade',hair:'Hair_Buzzed',hairColor:'#2a1a10',beard:true,beardColor:'#2a1a10',number:28,backName:'SENGUN',heightM:2.11,build:'fit'}],
+ [HOU,{skin:'#7a4a2c',hairStyle:'proc:buzz',hair:'Hair_Buzzed',hairColor:'#0c0806',beard:true,beardColor:'#0c0806',number:7,backName:'DURANT',heightM:2.11,build:'lean'}],
+ [HOU,{skin:'#6a4128',hairStyle:'proc:curlytop',hair:'Hair_Buzzed',hairColor:'#0c0806',number:1,backName:'THOMPSON',heightM:2.01}],
+ [HOU,{skin:'#6a4128',hairStyle:'proc:buzz',hair:'Hair_Buzzed',hairColor:'#0c0806',beard:true,beardColor:'#0c0806',number:5,backName:'VANVLEET',heightM:1.83,build:'fit'}],
+ [HOU,{skin:'#7a4a2c',hairStyle:'proc:fade',hair:'Hair_Buzzed',hairColor:'#0c0806',number:17,backName:'EASON',heightM:2.03}]];
+const PL=PDEF.map(([T,o])=>mk({...T,...o}));
+const PLS=[0,5].map(i=>mk({...PDEF[i][0],...PDEF[i][1],shirtless:true}));   // Wembanyama, Sengun cởi trần sau khi xé áo
+const TFX=transformFX(s);
+const HUM=[REF,...FAN,...PL,...PLS];HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
 // ---------- máy quay ----------
 const cam=new THREE.PerspectiveCamera(46,W/H,.1,900);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.2);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
 const rig=new CameraRig(cam,r.domElement,{seed:2929});const CAMS={};
@@ -101,10 +119,11 @@ const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
 for(const k in SH){if(k==='s13'||k==='s19')continue;rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
 const shotAt=t=>{let kk='s1';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
 // ---------- tiện ích ----------
-const hideAll=()=>{for(const ch of HUM)ch.root.visible=false;[CO.root,BE.root,BALL,CARD,TRO1,TRO2,BINO,BARN,...TW,...HATS,...DUST].forEach(o=>o.visible=false);EX.set(0,0,0);};
+const hideAll=()=>{TFX.draw([]);CO.root.scale.setScalar(1);for(const ch of HUM){ch.root.visible=false;ch.root.scale.setScalar(1);}[CO.root,BE.root,BALL,CARD,TRO1,TRO2,BINO,BARN,...TW,...HATS,...DUST].forEach(o=>o.visible=false);EX.set(0,0,0);};
 const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
 const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
-const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const tk=o.talk||0,fo=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-tk)*(1-fo)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo}]);ch.root.visible=true;};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,fo=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-fo)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)*(1-fo)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo}]);ch.root.visible=true;};
+const chest=ch=>B(ch,'spine_03').getWorldPosition(V());
 const head=ch=>B(ch,'Head').getWorldPosition(V());
 const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
 const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
@@ -133,7 +152,7 @@ const JB=t=>{const k=shotAt(t);let o={a:0,b:0,clock:'12:00'};
   if(t>=SH.s42[0])o={a:4,b:2,clock:'10:58'};
   P.center.draw(o);};
 // ---------- tư thế ----------
-const pose=t=>{
+const poseMain=t=>{
   rig.apply(t);hideAll();const k=shotAt(t);P.crowd.uT.value=t;P.crowd.uCheer.value=0.25;P.crowd.uBoo.value=0;JB(t);
   // s1: cỏ lăn qua sân trống
   if(ON('s1',t)){const u=U('s1',t);at(TW[0],V(-2.2+u*3.6,0.38+Math.abs(Math.sin(u*6))*0.22,1.2),0,u*5,u*3);C(CXo,0,PI/2,t);Bq(BXo,0,-PI/2,t);}
@@ -198,11 +217,59 @@ const pose=t=>{
   const k2=shotAt(t);const cp=cam.position;L.area(cp.x*0.25+(CO.root.visible?CO.root.position.x:BE.root.position.x)*0.75,(CO.root.visible?CO.root.position.z:BE.root.position.z)*0.75,cp);
   const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
 };
+
+// ===== MỞ ĐẦU MỚI (chủ dự án 25/11): "What if…" — 5 đấu 5 lao vào nhau, Wembanyama & Sengun xé áo hoá sói / gấu =====
+const TEAM_S={aura:['#c4ced4','#ffffff','#8a949c'],cloth:['#16181c','#16181c','#c4ced4','#1c1e22'],smoke:['#6e6a66','#7a7672','#5e5a58']};
+const TEAM_H={aura:['#ff4a5a','#ffd0d6','#ce1141'],cloth:['#ce1141','#ce1141','#ffffff','#b00e36'],smoke:['#6e625e','#7a6c68','#5e5450']};
+const ZL=[0,-1.6,1.6,-3.0,3.0];                       // hàng ngang: Wemby/Sengun ở giữa
+const XS=k=>k<5?(k?-1.8:-0.55):(k>5?1.8:0.55);   // ngôi sao ở giữa sát nhau, đồng đội lùi sau 1,25 m   // điểm dừng
+const T_ARR=2.05;                                     // tới vòng giữa
+const ARMB=['clavicle_l','upperarm_l','lowerarm_l','hand_l','clavicle_r','upperarm_r','lowerarm_r','hand_r'];
+const sprint=(ch,x,z,ry,ph)=>{place(ch,x,0,ry);place(ch,x,z,ry);const len=lib.clips.find(c=>c.name==='Sprint_Loop').duration,wl=lib.clips.find(c=>c.name==='Walk_Loop').duration;
+  CP(ch,[{name:'Walk_Loop',time:(ph%1)*wl,w:1}]);const Q=ARMB.map(n=>ch.bones[n].quaternion.clone());
+  CP(ch,[{name:'Sprint_Loop',time:(ph%1)*len,w:1}]);ARMB.forEach((n,k)=>ch.bones[n].quaternion.copy(Q[k]));ch.root.updateMatrixWorld(true);ch.root.visible=true;};
+const runIn=(i,t)=>{const ch=PL[i];const sp=i<5;const x1=XS(i),z=ZL[i%5];const x0=sp?-13.5:13.5;const v=6.1;const t0=T_ARR-Math.abs(x1-x0)/v-(i%5)*0.04;
+  if(t<T_ARR+0.02){const x=lerp(x0,x1,cl((t-t0)/(T_ARR-t0)));sprint(ch,x,z,sp?PI/2:-PI/2,(x-x0)*(sp?1:-1)/2.9+i*0.13);}
+  else{idle(ch,x1,z,sp?PI/2:-PI/2,t,i,{crouch:0.2});}
+  E(ch,t,[[0,'determined',{browAngle:0.5,squint:0.4}]],60+i,{look:[0,0.05]});};
+const rip=(i,j,q,t,TR,team,tfx)=>{const ch=PL[i],chB=PLS[j];const sp=i<5;const x=XS(i),z=0,ry=sp?PI/2:-PI/2;const u=t-TR;
+  const grip=(c,k,shake)=>{for(const [sd_,sg] of [['l',1],['r',-1]]){const c0=chest(c).add(Lc(c,sg*0.42,-0.42,0.12));const c1=chest(c).add(Lc(c,sg*0.07,0.2+shake,0.2));reach(c,c0.lerp(c1,k),sd_);}};
+  if(u<0){const k=sm((u+0.6)/0.3);idle(ch,x,z,ry,t,i,{crouch:0.2*(1-sm((u+0.6)/0.25))});grip(ch,k,u>-0.2?Math.sin(t*55)*0.02:0);
+    const g=1+sm((u+0.3)/0.3)*0.06;ch.root.scale.set(g,g,g);E(ch,t,[[0,'angry',{browAngle:0.6,squint:0.5}]],70+i);tfx.push({type:'aura',x,y:1.2,z,k:(u+0.35)/1.1,seed:i,colors:team.aura,s:1.1});return;}
+  if(u<0.5){idle(chB,x,z,ry,t,i,{});const kr=sm(u/0.1),kf=sm((u-0.16)/0.18);
+    for(const [sd_,sg] of [['l',1],['r',-1]]){const a=chest(chB).add(Lc(chB,sg*0.07,0.2,0.2)),b=chest(chB).add(Lc(chB,sg*0.68,0.02,0.25)),c=chest(chB).add(Lc(chB,sg*0.48,-0.42,0.18));reach(chB,a.lerp(b,kr).lerp(c,kf),sd_);}
+    const g=1.06+sm(u/0.45)*0.22;chB.root.scale.set(g*(1+Math.sin(t*63)*0.02),g,g);E(chB,t,[[0,'angry',{mouth:'grin',mouthOpen:1,browAngle:0.6,squint:0.5}]],70+i);
+    tfx.push({type:'aura',x,y:1.2,z,k:(u+0.35)/1.1,seed:i,colors:team.aura,s:1.25});}
+  else{const k=sm((u-0.5)/0.35);if(q===CO){C(x-0.2,z,ry,t,{head:0.2+0.4*sm((u-0.7)/0.2),tail:0.3});CO.root.scale.setScalar(lerp(0.55,1,k));}
+    else{Bq(x+0.2,z,ry,t,{roar:sm((u-0.7)/0.2)*(1-sm((u-1.5)/0.3))});BE.root.scale.setScalar(lerp(0.7,1,k));}}
+  tfx.push({type:'cloth',x,y:1.45,z,k:u/1.0,seed:i*7+1,colors:team.cloth,ry,n:10,s:0.55});
+  tfx.push({type:'smoke',x,y:1.0,z,k:(u-0.36)/0.8,seed:i*3,colors:team.smoke,s:1.0});};
+const flee=(i,t,t0)=>{const ch=PL[i];const sp=i<5;const x1=XS(i),z=ZL[i%5];const sz=Math.sign(z);const u=t-t0;
+  if(u<0.25){idle(ch,x1,z,sp?PI/2:-PI/2,t,i,{crouch:0.2});E(ch,t,[[0,'shock']],60+i);ch.root.position.x+=(sp?-1:1)*sm(u/0.25)*0.35;}
+  else{const w=Math.max(0,u-0.25);const dx=(sp?-1:1)*1.5*w,dz=sz*5.2*w;sprint(ch,x1+(sp?-1:1)*0.35+dx,z+dz,Math.atan2(sz*5.2,(sp?-1:1)*1.5),Math.hypot(dx,dz)/2.9+i*0.13);E(ch,t,[[0,'shock']],60+i);}};
+
+const camSet=(p,l,fov=46)=>{cam.position.set(...p);cam.lookAt(...l);cam.fov=fov;cam.updateProjectionMatrix();};
+const hookPose=(t)=>{hideAll();P.crowd.uT.value=t;P.crowd.uCheer.value=t<T_ARR?0.7:1;P.crowd.uBoo.value=0;P.center.draw({a:0,b:0,clock:'12:00'});
+  const tfx=[];const tm=t-TOFF;const TR=TOFF+0.35;
+  if(t<TOFF+SH.s1[0]+0.001&&t<TR-0.62){for(let i=0;i<10;i++)runIn(i,t);}
+  else if(tm<SH.s2[0]){for(let i=0;i<10;i++){if(i===0||i===5)continue;idle(PL[i],XS(i),ZL[i%5],i<5?PI/2:-PI/2,t,i,{crouch:0.3});E(PL[i],t,[[0,tm>0.3?'shock':'determined']],60+i);}
+    rip(0,0,CO,t,TR,TEAM_S,tfx);rip(5,1,BE,t,TR+0.06,TEAM_H,tfx);}
+  else{rip(0,0,CO,t,TR,TEAM_S,tfx);rip(5,1,BE,t,TR+0.06,TEAM_H,tfx);for(let i=0;i<10;i++){if(i===0||i===5)continue;flee(i,t,TOFF+SH.s2[0]-0.05+(i%5)*0.04);}}
+  TFX.draw(tfx);
+  // máy quay
+  if(t<HK.h2)camSet([-16.2+t*2.4,1.6,0.9],[-3+t*2.4,0.9,0],52);                       // sau lưng hàng Spurs, bám theo
+  else if(t<HK.h3){const u=t-HK.h2;camSet([0.4,4.2-u*0.6,11.5-u*1.2],[0,1.2,0],58);}     // toàn cảnh 2 hàng lao vào nhau
+  else if(tm<0){const u=t-HK.h3;camSet([0.1,1.55,4.3-u*0.2],[0,1.5,0],42);}               // cận mặt Wemby–Sengun
+  else if(tm<SH.s2[0]){const u=tm;camSet([0.1,1.75,3.9+u*0.3],[0,1.55,0],50);}             // xé áo
+  else{const u=tm-SH.s2[0];camSet([0.2,1.5,5.8+u*0.6],[0,1.0,0],54);}                    // sói & gấu hiện ra, đồng đội bỏ chạy
+  if(Math.abs(t-T_ARR)<0.12){const k=1-Math.abs(t-T_ARR)/0.12;cam.position.y+=Math.sin(t*90)*0.03*k;}
+  const cp=cam.position;L.area(0,0,cp);};
+const pose=t=>{const tm=t-TOFF;if(tm<SH.s2[1])hookPose(t);else poseMain(tm);};
 function show(...a){a.forEach(o=>o.visible=true);}
 let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
  const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
-window.CUTS=CUTS;
+const GCUTS=[0,HK.h2,HK.h3,TOFF,...CUTS.filter(c=>c>0).map(c=>c+TOFF)];window.CUTS=GCUTS;
 window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
-  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+  const dt=1/30;let c0=0;for(const c of GCUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
 window.ready=true;
 </script></body></html>

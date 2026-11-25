@@ -1,4 +1,7 @@
 // E29 mốc shot theo giọng (atempo 1.2), END 81.29
+// MỞ ĐẦU MỚI "What if…" (25/11): toàn bộ mốc SH tính SAU câu hook; thời gian video = TOFF + SH
+export const TOFF=4.2;           // độ dài câu hook mới (cập nhật khi có giọng)
+export const HK={h2:1.3,h3:2.45}; // mốc cắt trong đoạn hook
 export const END=81.29;
 export const SH={
 s1:[0.00,1.22],
