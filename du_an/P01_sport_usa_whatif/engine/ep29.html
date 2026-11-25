@@ -69,7 +69,11 @@ const HUM=[REF,...FAN,...PL,...PLS];HUM.forEach(ch=>{s.add(ch.root);resetPose(ch
 // ---------- máy quay ----------
 const cam=new THREE.PerspectiveCamera(46,W/H,.1,900);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.2);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
 const rig=new CameraRig(cam,r.domElement,{seed:2929});const CAMS={};
-const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+// lùi máy (chủ dự án 25/11: máy quá sát, chữ che nhân vật): pos = look + (pos − look)·f, giữ độ cao máy ngang tầm mắt nhân vật
+const WID={s5:1,s7:1,s8:1,s2:1,s9:1.3,s20:1,s21:1,s38:1,s42:1,s43:1.15,s44:1.15,s32:1.2,s36:1.1,s6:1.1,s22:1.15,s23:1.15,s24:1.15,s25:1.2,s26:1.6,s27:1.2,s29:1.2,s31:1.2,s35:1.2,s39:1.1,s40:1.2,s41:1.1,s45:1.45,s18:1.25};
+const BEARY={s14:1.7,s15:1.7,s16:1.6,s17:1.75,s28:1.75,s30:1.75,s33:1.8,s34:1.7,s37:1.75};
+const wide=(k,v)=>{const f=WID[k]??(BEARY[k]?1.85:1.45);const P=[...v.pos],Lk=[...v.look];if(BEARY[k]){Lk[1]=BEARY[k];P[1]=BEARY[k]+0.05;}return {pos:[Lk[0]+(P[0]-Lk[0])*f,Lk[1]+(P[1]-Lk[1])*f,Lk[2]+(P[2]-Lk[2])*f],look:Lk};};
+const S=(k,from,to,o={})=>{from=wide(k,from);to=wide(k,to);return rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));};
 const CXo=-2.2,BXo=2.2;               // chỗ đứng đối mặt ở vòng giữa: sói x=-2.2 (nhìn +x), gấu x=+2.2 (nhìn −x)
 const RIM=V(RIMX,3.05,0);const DX=10.4,GX=11.7;   // 1 đấu 1 ở rổ phải: sói tấn công từ x=10.4, gấu thủ x=11.7
 S('s1',{pos:[0,0.45,6.5],look:[0,0.45,0]},{pos:[0,0.5,6.0],look:[0,0.5,0]},{fov:[48,46]});
@@ -95,7 +99,7 @@ S('s22',{pos:[9.4,1.7,2.8],look:[RIM.x-0.6,1.9,0]},{pos:[9.6,1.8,2.6],look:[RIM.
 S('s23',{pos:[7.0,1.45,3.2],look:[9.2,1.1,-0.8]},{pos:[7.2,1.45,3.0],look:[9.2,1.1,-0.8]},{fov:[50,48]});
 S('s24',{pos:[7.4,1.5,2.6],look:[9.4,1.1,-0.8]},{pos:[7.6,1.5,2.4],look:[9.4,1.1,-0.8]},{fov:[48,46]});
 S('s25',{pos:[8.3,1.75,1.0],look:[9.6,1.7,-1.6]},{pos:[8.4,1.75,0.9],look:[9.6,1.7,-1.6]},{fov:[44,42]});
-S('s26',{pos:[11.4,1.05,0.2],look:[9.35,1.0,-0.2]},{pos:[11.2,1.05,0.15],look:[9.35,1.0,-0.2]},{fov:[52,50]});
+S('s26',{pos:[11.4,1.15,0.2],look:[9.35,1.15,-0.2]},{pos:[11.2,1.15,0.15],look:[9.35,1.15,-0.2]},{fov:[54,52]});
 S('s27',{pos:[8.2,1.1,3.0],look:[11.0,1.0,0]},{pos:[8.4,1.1,2.8],look:[11.0,1.0,0]},{fov:[52,50]});
 S('s28',{pos:[10.0,1.9,1.4],look:[GX,1.9,0]},{pos:[10.1,1.9,1.3],look:[GX,1.9,0]},{fov:[44,42]});
 S('s29',{pos:[8.4,1.1,-2.8],look:[11.0,1.0,0]},{pos:[8.6,1.1,-2.6],look:[11.0,1.0,0]},{fov:[52,50]});
@@ -166,7 +170,7 @@ const poseMain=t=>{
   if(ON('s11',t)){const ph=(t*1.6)%1;const nod=Math.sin(ph*2*PI);C(CXo,0,PI/2,t,{head:-0.25+nod*0.18,tail:0.4});const sp=snout();at(BALL,V(sp.x+0.22,0.12+Math.abs(Math.cos(ph*PI))*(sp.y-0.3),0),0,0,t*6);}
   if(ON('s12',t)){C(CXo,0,PI/2,t,{head:0.35,tail:0.25});at(TRO1,V(-1.7,0,-0.45),-PI/2);}
   if(ON('s13',t)){const u=U('s13',t),v=6.5,x=-11+v*u;C(x,0.3,PI/2,t,{gait:'run',ph:(x+11)/1.07,head:0.12});dust(t,V(x-0.5,0,0.3),V(1,0,0));
-    cam.position.set(x+1.7,0.62,0.3+1.6);cam.lookAt(x+0.25,0.6,0.3);cam.fov=48;cam.updateProjectionMatrix();}
+    cam.position.set(x+2.4,0.65,0.3+2.4);cam.lookAt(x+0.25,0.6,0.3);cam.fov=48;cam.updateProjectionMatrix();}
   // gấu giới thiệu
   if(ON('s14',t))Bq(BXo,0,-PI/2,t,{head:0.05});
   if(ON('s15',t)){const u=U('s15',t);Bq(BXo,0,-PI/2,t,{armR:0.35+Math.sin(u*9)*0.1,head:-0.05+Math.sin(u*4)*0.05});}
@@ -174,7 +178,7 @@ const poseMain=t=>{
   if(ON('s17',t)){const u=U('s17',t);Bq(BXo,0,-PI/2,t,{lean:0.1*sm(u/0.6),head:-0.08+Math.sin(u*3)*0.08,armR:0.3});at(TRO2,V(BXo-0.7,0,0.75),PI/2);}
   if(ON('s18',t))Bq(BXo,0,-PI/2,t,{head:-0.08});
   if(ON('s19',t)){const u=U('s19',t),v=4.4,x=9.5-v*u;Bq(x,0.3,-PI/2,t,{walk:1,ph:(9.5-x)/0.62});dust(t,V(x+0.4,0,0.3),V(-1,0,0),8);
-    cam.position.set(x-2.6,1.25,0.3+2.6);cam.lookAt(x-0.2,1.2,0.3);cam.fov=48;cam.updateProjectionMatrix();}
+    cam.position.set(x-3.4,1.4,0.3+3.6);cam.lookAt(x-0.2,1.3,0.3);cam.fov=48;cam.updateProjectionMatrix();}
   // danh thiếp dài lăn trên sàn từ chân gấu về phía sói
   if(ON('s20',t)||ON('s21',t)){const u=t-SH.s20[0];Bq(BXo,0,-PI/2,t,{head:-0.2,armL:0.25,armR:0.25});const len=Math.min(9,0.3+u*1.3);at(CARD,V(BXo-0.5,0.035,0.0),PI,-PI/2,0);CARD.userData.set(len);
     if(ON('s20',t))C(CXo-0.6,0.6,PI/2,t,{head:-0.15});
@@ -259,8 +263,8 @@ const hookPose=(t)=>{hideAll();P.crowd.uT.value=t;P.crowd.uCheer.value=t<T_ARR?0
   // máy quay
   if(t<HK.h2)camSet([-16.2+t*2.4,1.6,0.9],[-3+t*2.4,0.9,0],52);                       // sau lưng hàng Spurs, bám theo
   else if(t<HK.h3){const u=t-HK.h2;camSet([0.4,4.2-u*0.6,11.5-u*1.2],[0,1.2,0],58);}     // toàn cảnh 2 hàng lao vào nhau
-  else if(tm<0){const u=t-HK.h3;camSet([0.1,1.55,4.3-u*0.2],[0,1.5,0],42);}               // cận mặt Wemby–Sengun
-  else if(tm<SH.s2[0]){const u=tm;camSet([0.1,1.75,3.9+u*0.3],[0,1.55,0],50);}             // xé áo
+  else if(tm<0){const u=t-HK.h3;camSet([0.1,1.6,5.2-u*0.2],[0,1.55,0],44);}               // cận mặt Wemby–Sengun
+  else if(tm<SH.s2[0]){const u=tm;camSet([0.1,1.6,5.0+u*0.3],[0,1.4,0],50);}             // xé áo
   else{const u=tm-SH.s2[0];camSet([0.2,1.5,5.8+u*0.6],[0,1.0,0],54);}                    // sói & gấu hiện ra, đồng đội bỏ chạy
   if(Math.abs(t-T_ARR)<0.12){const k=1-Math.abs(t-T_ARR)/0.12;cam.position.y+=Math.sin(t*90)*0.03*k;}
   const cp=cam.position;L.area(0,0,cp);};
