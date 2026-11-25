@@ -1,10 +1,10 @@
 """E29 mascot Spurs Coyote vs Rockets Clutch — sói & gấu xám THẬT trong nhà thi đấu.
 Giọng ElevenLabs (Justin, atempo 1.2) + nhạc alvana upbeat/earth + tiếng động vật thật Magnific (sói tru, gấu gầm ×2, đại bàng, voi) + sân đấu."""
 import subprocess, re, numpy as np, os
-SR = 48000; LIB = '/home/claude/audio/'; MG = '/home/claude/absurdplay-kit/du_an/P01_sport_usa_whatif/tai_nguyen/am_thanh/magnific_sfx/'; DUR = 81.29
+SR = 48000; LIB = '/home/claude/audio/'; MG = '/home/claude/absurdplay-kit/du_an/P01_sport_usa_whatif/tai_nguyen/am_thanh/magnific_sfx/'; TOFF = 4.8; DUR = 81.29 + TOFF   # mở đầu What if (25/11)
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 src = open('/home/claude/absurdplay-kit/du_an/P01_sport_usa_whatif/engine/ep29_shots.js').read()
-SH = {k: [float(x) for x in v.split(',')] for k, v in re.findall(r"(s\d+):\[([\d.,]+)\]", src.split('SH=')[1])}
+SH = {k: [float(x) + TOFF for x in v.split(',')] for k, v in re.findall(r"(s\d+):\[([\d.,]+)\]", src.split('SH=')[1])}
 def load(f):
     x = subprocess.run(['ffmpeg', '-v', 'error', '-i', f if f.startswith('/') or f.startswith('am_thanh') else LIB + f, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout
     return np.frombuffer(x, np.float32).copy()
@@ -14,7 +14,7 @@ def lufs(x):
 def save(name, x):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '1', '-i', '-', '-c:a', 'pcm_s16le', f'am_thanh/{name}.wav'], input=np.clip(x, -0.99, 0.99).astype(np.float32).tobytes())
 N = int(DUR * SR); T = np.arange(N) / SR
-voice = load('am_thanh/giong_raw.wav'); voice = np.pad(voice, (0, max(0, N - len(voice))))[:N]
+voice = load('am_thanh/giong_raw_v2.wav'); voice = np.pad(voice, (0, max(0, N - len(voice))))[:N]
 save('giong', voice); LV = lufs(voice)
 sm = int(0.08 * SR)
 m = load('alvana-audio/music/upbeat/earth.mp3'); m = np.tile(m, N // len(m) + 1)[:N]
@@ -41,9 +41,18 @@ def bed(fn, t0, t1, db):
 A = 'alvana-audio/sfx/'
 WH = lambda t, db=-14: put(A + 'whoosh/swish-3.wav', t, db)
 # nền nhà thi đấu suốt video
+# ===== mở đầu: 5 đấu 5 lao vào nhau, xé áo, hoá thú =====
+put(MG + 'crowd_roar.wav', 0.0, -16, 2.4)
+for j in range(7): put(MG + 'sneaker_squeak.wav', 0.25 + j * 0.27, -24, 0.25)
+put(A + 'impact/cinematic-heavy.wav', 2.02, -10, 1.4)                   # hai hàng chạm mặt
+put(MG + 'crowd_gasp.wav', 2.3, -22, 1.2)
+put(A + 'riser/' + sorted(os.listdir(LIB + A + 'riser'))[0], 3.0, -18, 1.8)
+put(A + 'whoosh/fast-bright.wav', TOFF + 0.3, -10)                      # xé áo
+put(A + 'impact/cinematic-heavy.wav', TOFF + 0.75, -12, 1.0)            # bùng khói
+put(MG + 'bear_roar_2.wav', TOFF + 1.25, -14, 1.0)
+put(MG + 'crowd_ooh_aah.wav', TOFF + 1.3, -22, 1.4)
 bed(MG + 'crowd_ambience.wav', 0, DUR, -28)
 for kk in ['s3', 's4', 's9', 's13', 's19', 's22', 's27', 's29', 's38']: WH(SH[kk][0] - 0.12, -18)
-put(A + 'whoosh/air-02.wav', 0.2, -16)                                   # cỏ lăn
 put(MG + 'coyote_howl.wav', SH['s3'][0] + 0.2, -8, 1.4)                 # sói tru (thật)
 put(MG + 'bear_roar_1.wav', SH['s4'][0] + 0.15, -6, 1.4)                # gấu gầm (thật)
 put(MG + 'buzzer.wav', SH['s5'][0] + 0.05, -16, 0.8)
