@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const W=innerWidth,H=innerHeight;const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);r.outputColorSpace=THREE.SRGBColorSpace;
+const s=new THREE.Scene();s.background=new THREE.Color('#8899aa');s.add(new THREE.HemisphereLight('#fff','#444',2.5));const d=new THREE.DirectionalLight('#fff',2);d.position.set(2,3,2);s.add(d);
+const ld=new GLTFLoader();const a=(await ld.loadAsync('./assets/e29/coyote.glb')).scene,b=(await ld.loadAsync('./assets/e29/bear.glb')).scene;
+a.position.x=-0.8;b.position.x=0.8;s.add(a,b);
+const cam=new THREE.PerspectiveCamera(40,W/H,.01,50);
+window.renderFrame=t=>{const v=[[0,0.2,3.5],[3.5,0.2,0],[0,0.2,-3.5],[-3.5,0.2,0]][Math.round(t)%4];cam.position.set(...v);cam.lookAt(0,0,0);r.render(s,cam);};
+window.ready=true;
+</script></body></html>

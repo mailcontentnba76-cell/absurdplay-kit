@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+// E29 — đoạn thử 4 s: sói thật chạy ngang sân, gấu xám thật đi tới rồi gầm. Nhà thi đấu nửa Spurs (đen/bạc) nửa Rockets (đỏ).
+import * as THREE from 'three';
+import {buildHall,hallLights,CL as CLEN,CW} from './lib/sanphilly.js';
+import {loadAnimals,makeAnimal,poseCoyote,poseBear} from './lib/thatglb29.js';
+const W=innerWidth,H=innerHeight;
+const r=new THREE.WebGLRenderer({canvas:c,antialias:true,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.NeutralToneMapping;r.toneMappingExposure=1.05;
+const s=new THREE.Scene();
+const SIL='#c4ced4',BLK='#16181c',RED='#ce1141';
+const P=buildHall(s,{wood:[30,58,55],paintL:BLK,paintR:RED,apron:'#22252b',stripe:RED,centerFill:'#2a2d33',centerText:'TEXAS',sideL:'SAN ANTONIO',sideR:'HOUSTON',baseline:'SPURS · ROCKETS',textC:'#f4f4f2',
+  led:['SPURS','ROCKETS','TEXAS SHOWDOWN','WHO WINS?','COYOTE vs CLUTCH'],ledBg:'#101216',ledC:['#ffffff','#ff5a6e'],ledDot:SIL,jbTop:'#1d2026',jbBot:'#0a0b0e',jbBorder:RED,teamA:['SPURS',SIL],teamB:['ROCKETS','#ff5a6e'],subC:SIL,
+  shirts:[BLK,SIL,RED,'#ffffff',BLK,RED,'#2a2e38',SIL,RED,BLK,'#9aa6b8',RED,'#1c2030','#4a3a30'],hats:[BLK,RED,'#ffffff',SIL],seatColor:'#2a2d33',flags:['SAN ANTONIO','HOUSTON','TEXAS','SPURS','ROCKETS'],flagC:[BLK,RED],bell:false,chairs:RED,pad:BLK});
+P.center.draw({a:0,b:0,clock:'12:00'});
+const L=hallLights(s,P);
+await loadAnimals();
+const CO=makeAnimal('coyote',1.25),BE=makeAnimal('bear',2.13);s.add(CO.root,BE.root);
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,900);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.2);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const V=(x,y,z)=>new THREE.Vector3(x,y,z),cl=x=>Math.min(1,Math.max(0,x)),sm=x=>{x=cl(x);return x*x*(3-2*x);},lerp=(a,b,k)=>a+(b-a)*k;
+window.CUTS=[0,2];
+window.renderFrame=t=>{
+  s.traverse(()=>{});P.crowd.uT.value=t;
+  if(t<2){ // sói chạy ngang sân, máy bám bên, thấp
+    BE.root.visible=false;CO.root.visible=true;const v=4.2,x=-6+v*t;CO.root.position.set(x,0,0.5);CO.root.rotation.y=Math.PI/2;
+    poseCoyote(CO,t,{gait:'run',ph:(x+6)/1.07,head:0.12});
+    cam.position.set(x+1.9,0.62,0.5+1.75);cam.lookAt(x+0.25,0.62,0.5);L.area(x,0.5,cam.position);
+  } else { // gấu đi tới máy rồi đứng gầm
+    CO.root.visible=false;BE.root.visible=true;const u=t-2,wk=cl(u/1.3),z=lerp(-5.2,-3.9,wk);BE.root.position.set(3,0,z);BE.root.rotation.y=0;
+    const walking=u<1.3;const roar=sm((u-1.4)/0.25);poseBear(BE,t,{walk:walking,ph:(z+5.2)/0.755,roar,armL:roar*0.3,armR:roar*0.3});
+    cam.position.set(3.25,1.15,-0.2+u*0.05);cam.lookAt(3,1.15,z);L.area(3,z,cam.position);
+  }
+  r.render(s,cam);};
+window.ready=true;
+</script></body></html>

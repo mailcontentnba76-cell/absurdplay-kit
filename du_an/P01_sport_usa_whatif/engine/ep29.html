@@ -1,0 +1,208 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// E29 mascot — sói thật (Spurs) vs gấu xám thật (Rockets) trong NHÀ THI ĐẤU nửa Spurs nửa Rockets (chủ dự án 25/11: không ngoài trời, dùng con vật thật).
+// Mô hình Magnific Text-to-3D không xương, cử động bằng lib/thatglb29.js. Mốc: ep29_shots.js.
+import * as THREE from 'three';
+import {buildHall,hallLights,RIMX,JUMBO} from './lib/sanphilly.js';
+import {loadAnimals,makeAnimal,poseCoyote,poseBear,landmarks,worldOf} from './lib/thatglb29.js';
+import {bearExtras,propBarn} from './lib/dao29.js';
+import {longCard,trophy,binoculars,cowboyHat,tumbleweed,basketball} from './lib/taybien29.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {CAST} from './lib/cast2.js';
+import {resetPose,ik2} from './lib/tuthe.js';
+import {expr,clipPose,locoLock} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {SH,END} from './ep29_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.05;
+const s=new THREE.Scene();
+const SIL='#c4ced4',BLK='#16181c',RED='#ce1141';
+const P=buildHall(s,{wood:[30,58,55],paintL:BLK,paintR:RED,apron:'#22252b',stripe:RED,centerFill:'#2a2d33',centerText:'TEXAS',sideL:'SAN ANTONIO',sideR:'HOUSTON',baseline:'SPURS · ROCKETS',textC:'#f4f4f2',
+  led:['SPURS','ROCKETS','TEXAS SHOWDOWN','WHO WINS?','COYOTE vs CLUTCH'],ledBg:'#101216',ledC:['#ffffff','#ff5a6e'],ledDot:SIL,jbTop:'#1d2026',jbBot:'#0a0b0e',jbBorder:RED,teamA:['SPURS',SIL],teamB:['ROCKETS','#ff5a6e'],subC:SIL,
+  shirts:[BLK,SIL,'#ffffff','#2a2e38','#3a4a6a',BLK,'#8a8f98',RED,'#d8d2c4',SIL,'#1c2030','#4a3a30','#5a6a7a','#9a2a34'],hats:[BLK,'#ffffff',SIL,'#6a4a2a'],seatColor:'#2a2d33',flags:['SAN ANTONIO','HOUSTON','TEXAS','SPURS','ROCKETS'],flagC:[BLK,RED],bell:false,chairs:'#30343c',pad:BLK});
+const L=hallLights(s,P);
+await loadAnimals();
+const lib=await loadLibrary();
+const ON=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const U=(k,t)=>t-SH[k][0];const DUR=k=>SH[k][1]-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;const PI=Math.PI;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+// ---------- con vật ----------
+const CO=landmarks(makeAnimal('coyote',1.25)),BE=landmarks(makeAnimal('bear',2.13));s.add(CO.root,BE.root);
+const EX=bearExtras(BE);
+const BALL=basketball();s.add(BALL);const CARD=longCard("HOUSTON'S NUMBER ONE FAN, CLUTCH, THE ROCKETS BEAR   ·   SINCE 1995   ·   HALL OF FAME 2006 (ONE YEAR EARLIER)   ·   7 FEET   ·   ");s.add(CARD);
+const TRO1=trophy(),TRO2=trophy();TRO2.scale.setScalar(1.6);s.add(TRO1,TRO2);const BINO=binoculars();s.add(BINO);
+const TW=[tumbleweed(),tumbleweed()];TW.forEach(w=>s.add(w));
+const BARN=propBarn();BARN.position.set(8.2,0,3.4);BARN.rotation.y=-0.35;s.add(BARN);
+const DUST=[];for(let i=0;i<14;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(0.2,8,6),new THREE.MeshStandardMaterial({color:'#e8d2b0',transparent:true,opacity:0.45,roughness:1}));s.add(d);DUST.push(d);}
+// ---------- người: trọng tài + 8 fan sát sân ----------
+const BASE={edgeSoft:1,tank:false,shorts:false,sockAt:0.74,shortsTo:0.86,socks:'#3a2a1a',shoes:'#3a2a1a',skinMix:1,brows:false,eyeScale:2.3,frontNumberSize:0.0001,backNumberSize:0.0001,number:' ',numberDrop:0.16,
+  smooth:{jersey:12,pants:14,socks:6,shoes:10,skin:4,head:8},puff:{jersey:0.018,pants:0.04,socks:0.006,shoes:0.02,skin:0,hand:0}};
+const mk=o=>makeCharacter(lib,{...BASE,...o});
+const REF=CAST.ref(lib,{number:null});
+const FANC=[['#1a1a1a','#3a3a44','#e8b98f','Hair_SimpleParted','#5a3a1a','male','#2a2a2a'],['#c4ced4','#2a2a30','#8a5634','Hair_Buzzed','#111','male','#1a1a1a'],['#1a1a1a','#5a4a3a','#f0c8a8','Hair_Long','#c89a4a','female','#c4ced4'],['#c4ced4','#3a3a44','#c68c5f','Hair_Buns','#2a1a10','female','#1a1a1a'],
+  ['#c8102e','#2a2a30','#f4d2b4','Hair_SimpleParted','#8a5a2a','male','#c8102e'],['#ffffff','#c8102e','#7a4a2c','Hair_Buzzed','#111','male','#f4f4f2'],['#c8102e','#3a3a44','#e8c0a0','Hair_Long','#3a2a1a','female','#6a4a2a'],['#ffffff','#2a2a30','#c68c5f','Hair_Buzzed','#111','male','#c8102e']];
+const FAN=FANC.map(([j,p,sk,h,hc,b],i)=>mk({body:b,jersey:j,collar:j,pants:p,skin:sk,hair:h,hairColor:hc,beard:b==='male'&&i%2===0,beardColor:hc,heightM:b==='female'?1.66:1.8}));
+const HATS=FANC.map(f=>{const h=cowboyHat(f[6]);s.add(h);return h;});
+const HUM=[REF,...FAN];HUM.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+// ---------- máy quay ----------
+const cam=new THREE.PerspectiveCamera(46,W/H,.1,900);s.add(cam);{const cf=new THREE.DirectionalLight('#fff0e6',1.2);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:2929});const CAMS={};
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const CXo=-2.2,BXo=2.2;               // chỗ đứng đối mặt ở vòng giữa: sói x=-2.2 (nhìn +x), gấu x=+2.2 (nhìn −x)
+const RIM=V(RIMX,3.05,0);const DX=10.4,GX=11.7;   // 1 đấu 1 ở rổ phải: sói tấn công từ x=10.4, gấu thủ x=11.7
+S('s1',{pos:[0,0.45,6.5],look:[0,0.45,0]},{pos:[0,0.5,6.0],look:[0,0.5,0]},{fov:[48,46]});
+S('s2',{pos:[-5.6,1.0,1.3],look:[BXo,1.2,0]},{pos:[-5.2,1.0,1.2],look:[BXo,1.2,0]},{fov:[46,44]});
+S('s3',{pos:[-0.5,0.78,1.6],look:[CXo,0.72,0]},{pos:[-0.6,0.78,1.4],look:[CXo,0.74,0]},{fov:[44,42]});
+S('s4',{pos:[-0.6,1.55,1.5],look:[BXo,1.5,0]},{pos:[-0.4,1.55,1.4],look:[BXo,1.52,0]},{fov:[48,46]});
+S('s5',{pos:[0,12,26],look:[0,JUMBO,3]},{pos:[0,12.2,25],look:[0,JUMBO,3]},{fov:[38,36]});
+S('s6',{pos:[9.4,2.6,3.0],look:[RIM.x,2.9,0]},{pos:[9.8,2.7,2.7],look:[RIM.x,2.95,0]},{fov:[48,46]});
+S('s7',{pos:[0,12,26],look:[0,JUMBO,3]},{pos:[0,12.2,25.4],look:[0,JUMBO,3]},{fov:[37,36]});
+S('s8',{pos:[0,12.2,25.4],look:[0,JUMBO,3]},{pos:[0,12.3,24.8],look:[0,JUMBO,3]},{fov:[36,35]});
+S('s9',{pos:[7.8,2.5,-2.0],look:[CXo,0.7,0]},{pos:[7.3,2.4,-1.9],look:[CXo,0.7,0]},{fov:[44,42]});
+S('s10',{pos:[-0.9,0.8,1.9],look:[CXo,0.75,0]},{pos:[-1.0,0.8,1.7],look:[CXo,0.76,0]},{fov:[46,44]});
+S('s11',{pos:[-0.6,0.65,1.8],look:[-1.75,0.5,0]},{pos:[-0.7,0.65,1.6],look:[-1.75,0.5,0]},{fov:[46,44]});
+S('s12',{pos:[-0.7,0.6,1.5],look:[-1.8,0.6,0]},{pos:[-0.8,0.6,1.35],look:[-1.8,0.62,0]},{fov:[46,44]});
+S('s14',{pos:[-1.0,1.3,1.9],look:[BXo,1.2,0]},{pos:[-0.8,1.3,1.8],look:[BXo,1.2,0]},{fov:[48,46]});
+S('s15',{pos:[-0.6,1.5,1.6],look:[BXo,1.4,0]},{pos:[-0.5,1.5,1.5],look:[BXo,1.42,0]},{fov:[48,46]});
+S('s16',{pos:[-0.9,1.3,1.9],look:[BXo-0.2,1.1,0]},{pos:[-0.8,1.3,1.8],look:[BXo-0.2,1.15,0]},{fov:[50,48]});
+S('s17',{pos:[0.1,1.8,1.0],look:[BXo,1.75,0]},{pos:[0.25,1.8,0.95],look:[BXo,1.75,0]},{fov:[46,44]});
+S('s18',{pos:[0.6,0.35,1.5],look:[BXo,1.7,0]},{pos:[0.65,0.35,1.4],look:[BXo,1.8,0]},{fov:[56,54]});
+S('s20',{pos:[-4.8,1.7,0.9],look:[BXo,0.9,0]},{pos:[-4.4,1.6,0.8],look:[BXo,0.9,0]},{fov:[48,46]});
+S('s21',{pos:[-1.5,3.4,6.0],look:[1.5,0.6,0]},{pos:[0.5,3.6,6.4],look:[4,0.8,0]},{fov:[56,54]});
+S('s22',{pos:[9.4,1.7,2.8],look:[RIM.x-0.6,1.9,0]},{pos:[9.6,1.8,2.6],look:[RIM.x-0.6,2.0,0]},{fov:[56,54]});
+S('s23',{pos:[7.0,1.45,3.2],look:[9.2,1.1,-0.8]},{pos:[7.2,1.45,3.0],look:[9.2,1.1,-0.8]},{fov:[50,48]});
+S('s24',{pos:[7.4,1.5,2.6],look:[9.4,1.1,-0.8]},{pos:[7.6,1.5,2.4],look:[9.4,1.1,-0.8]},{fov:[48,46]});
+S('s25',{pos:[8.3,1.75,1.0],look:[9.6,1.7,-1.6]},{pos:[8.4,1.75,0.9],look:[9.6,1.7,-1.6]},{fov:[44,42]});
+S('s26',{pos:[11.4,1.05,0.2],look:[9.35,1.0,-0.2]},{pos:[11.2,1.05,0.15],look:[9.35,1.0,-0.2]},{fov:[52,50]});
+S('s27',{pos:[8.2,1.1,3.0],look:[11.0,1.0,0]},{pos:[8.4,1.1,2.8],look:[11.0,1.0,0]},{fov:[52,50]});
+S('s28',{pos:[10.0,1.9,1.4],look:[GX,1.9,0]},{pos:[10.1,1.9,1.3],look:[GX,1.9,0]},{fov:[44,42]});
+S('s29',{pos:[8.4,1.1,-2.8],look:[11.0,1.0,0]},{pos:[8.6,1.1,-2.6],look:[11.0,1.0,0]},{fov:[52,50]});
+S('s30',{pos:[10.0,1.9,-1.3],look:[GX,1.9,0]},{pos:[10.1,1.9,-1.2],look:[GX,1.9,0]},{fov:[44,42]});
+S('s31',{pos:[9.0,1.2,2.6],look:[GX,0.8,0]},{pos:[9.2,1.15,2.4],look:[GX,0.8,0]},{fov:[50,48],shake:0.012,shakeHz:4});
+S('s32',{pos:[9.3,1.7,-2.4],look:[GX,1.6,0]},{pos:[9.3,1.7,2.4],look:[GX,1.6,0]},{fov:[50,50],ease:'inOut'});
+S('s33',{pos:[10.0,1.9,1.1],look:[GX,1.9,0]},{pos:[10.25,1.9,0.9],look:[GX,1.92,0]},{fov:[46,44]});
+S('s34',{pos:[9.2,1.6,1.8],look:[GX,1.6,0]},{pos:[9.5,1.6,1.6],look:[GX,1.65,0]},{fov:[48,46]});
+S('s35',{pos:[GX+1.6,1.6,-2.4],look:[GX,1.4,0]},{pos:[GX+1.5,1.6,-2.2],look:[GX,1.4,0]},{fov:[50,48]});
+S('s36',{pos:[8.4,1.9,2.4],look:[GX,1.9,0]},{pos:[8.2,2.0,2.6],look:[GX,2.0,0]},{fov:[58,56]});
+S('s37',{pos:[10.2,1.95,0.6],look:[GX,1.8,0]},{pos:[10.3,1.95,0.55],look:[GX,1.78,0]},{fov:[44,42]});
+S('s38',{pos:[2.6,1.4,10.5],look:[7.2,2.8,2.4]},{pos:[4.6,1.6,9.6],look:[11.4,2.8,0.4]},{fov:[60,58],ease:'inOut'});
+S('s39',{pos:[9.0,2.6,3.0],look:[12.0,2.9,0]},{pos:[9.2,2.6,2.8],look:[12.0,2.85,0]},{fov:[54,52],shake:0.014,shakeHz:5});
+S('s40',{pos:[8.2,1.7,-0.8],look:[9.6,1.68,-2.2]},{pos:[8.3,1.7,-0.9],look:[9.6,1.68,-2.2]},{fov:[42,40]});
+S('s41',{pos:[6.4,1.6,1.8],look:[9.6,1.3,-1.0]},{pos:[6.2,1.6,2.0],look:[9.6,1.3,-1.0]},{fov:[56,54]});
+S('s42',{pos:[3.2,1.1,3.8],look:[0,0.6,0]},{pos:[2.6,1.2,4.2],look:[-3,0.6,0]},{fov:[52,50]});
+S('s43',{pos:[-6.0,1.75,-6.0],look:[-6.0,1.7,-9.4]},{pos:[-6.0,1.75,-6.3],look:[-6.0,1.7,-9.4]},{fov:[56,54],shake:0.008,shakeHz:3});
+S('s44',{pos:[6.0,1.75,-6.0],look:[6.0,1.7,-9.4]},{pos:[6.0,1.75,-6.3],look:[6.0,1.7,-9.4]},{fov:[56,54],shake:0.008,shakeHz:3});
+S('s45',{pos:[-3.6,0.95,1.0],look:[0.95,1.25,0]},{pos:[-3.3,0.95,0.9],look:[0.95,1.25,0]},{fov:[48,46]});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+for(const k in SH){if(k==='s13'||k==='s19')continue;rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
+const shotAt=t=>{let kk='s1';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
+// ---------- tiện ích ----------
+const hideAll=()=>{for(const ch of HUM)ch.root.visible=false;[CO.root,BE.root,BALL,CARD,TRO1,TRO2,BINO,BARN,...TW,...HATS,...DUST].forEach(o=>o.visible=false);EX.set(0,0,0);};
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CP=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const tk=o.talk||0,fo=o.fold||0;CP(ch,[{name:'Idle_Loop',time:t+sd,w:(1-tk)*(1-fo)},{name:'Idle_Talking_Loop',time:t+sd,w:tk*(1-fo)},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo}]);ch.root.visible=true;};
+const head=ch=>B(ch,'Head').getWorldPosition(V());
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const arc=(p0,p1,h,k)=>V(lerp(p0.x,p1.x,k),lerp(p0.y,p1.y,k)+Math.sin(k*PI)*h,lerp(p0.z,p1.z,k));
+const hatOn=(ch,h)=>{const p=head(ch).add(Lc(ch,0,0.13*ch.root.scale.y,0));at(h,p,ch.root.rotation.y);h.scale.setScalar(ch.root.scale.y*1.05);};
+// sói / gấu: đặt + tư thế
+const C=(x,z,ry,t,o={})=>{CO.root.visible=true;CO.root.position.set(x,o.y||0,z);CO.root.rotation.set(0,ry,0);poseCoyote(CO,t,o);CO.root.updateMatrixWorld(true);};
+const Bq=(x,z,ry,t,o={})=>{BE.root.visible=true;BE.root.position.set(x,o.ry0||0,z);BE.root.rotation.set(0,ry,0);poseBear(BE,t,o);BE.root.updateMatrixWorld(true);};
+const snout=()=>worldOf(CO,CO.snout);const belly=()=>worldOf(BE,BE.belly);
+const ballAtSnout=(t,spin=4)=>{const p=snout();at(BALL,p.add(Lc({root:CO.root},0,-0.05,0.1)),0,0,t*spin);};
+const dust=(t,p0,dir,n=14)=>DUST.forEach((d,i)=>{if(i>=n)return;const a=((t*3+i/n)%1);d.visible=true;d.position.set(p0.x-dir.x*a*2.2+Math.sin(i*7)*0.25,0.1+a*0.45,p0.z-dir.z*a*2.2+Math.cos(i*5)*0.25);d.scale.setScalar(0.3+a*1.4);d.material.opacity=0.4*(1-a);});
+// fan sát sân (biên −z, trước hàng ghế): 4 Spurs x −7..−5, 4 Rockets x 5..7, mặt hướng +z
+const FANP=[[-7.2,-9.2],[-6.4,-9.35],[-5.6,-9.2],[-4.8,-9.35],[4.8,-9.35],[5.6,-9.2],[6.4,-9.35],[7.2,-9.2]];
+const fans=(t,mode='idle',which=[0,1,2,3,4,5,6,7])=>which.forEach(i=>{const ch=FAN[i];const [x,z]=FANP[i];idle(ch,x,z,((i*37)%5-2)*0.12,t,i*0.9,{talk:mode==='argue'?1:0,fold:mode==='fold'?1:0});
+  if(mode==='argue'){const hp=head(ch).add(Lc(ch,(i%2?-0.3:0.3),0.18+0.12*Math.abs(Math.sin(t*9+i)),0.3));reach(ch,hp,i%2?'r':'l');}
+  E(ch,t,[[0,mode==='argue'?'angry':mode==='cheer'?'laugh':'neutral']],30+i,{look:[(i%2?0.3:-0.3),0]});hatOn(ch,HATS[i]);});
+// bảng điện tử
+const JB=t=>{const k=shotAt(t);let o={a:0,b:0,clock:'12:00'};
+  if(k==='s5'||k==='s6')o={msg:'HIGH NOON',sub:'12:00',big:1};
+  if(k==='s7')o={msg:'SPURS 15–3',sub:'1ST IN THE WEST',c:SIL};
+  if(k==='s8')o={msg:'ROCKETS 13–5',sub:'RIGHT BEHIND',c:'#ff5a6e'};
+  if(t>=SH.s22[0]+0.6)o={a:t>=SH.s22[0]+1.35?4:2,b:0,clock:'11:42'};
+  if(t>=SH.s38[1]-0.4&&!(t>=SH.s41[0]))o={a:4,b:2,clock:'10:58'};
+  if(t>=SH.s41[0]&&t<SH.s42[0])o={msg:'EJECTED',sub:'AGAIN',big:1,c:'#ff5a6e'};
+  if(t>=SH.s42[0])o={a:4,b:2,clock:'10:58'};
+  P.center.draw(o);};
+// ---------- tư thế ----------
+const pose=t=>{
+  rig.apply(t);hideAll();const k=shotAt(t);P.crowd.uT.value=t;P.crowd.uCheer.value=0.25;P.crowd.uBoo.value=0;JB(t);
+  // s1: cỏ lăn qua sân trống
+  if(ON('s1',t)){const u=U('s1',t);at(TW[0],V(-2.2+u*3.6,0.38+Math.abs(Math.sin(u*6))*0.22,1.2),0,u*5,u*3);C(CXo,0,PI/2,t);Bq(BXo,0,-PI/2,t);}
+  if(ON('s2',t)){C(CXo,0,PI/2,t,{head:0.1});Bq(BXo,0,-PI/2,t);at(TW[1],V(1.5-U('s2',t)*2.5,0.38,2.5),0,U('s2',t)*4,0);}
+  if(ON('s3',t)){const u=U('s3',t);const h=sm(u/0.35)*(1-sm((u-1.1)/0.3));C(CXo,0,PI/2,t,{head:0.15+0.55*h,tail:0.3});}
+  if(ON('s4',t)){const u=U('s4',t);const ro=sm((u-0.15)/0.25)*(1-sm((u-1.2)/0.25));Bq(BXo,0,-PI/2,t,{roar:ro,armL:ro*0.3,armR:ro*0.3});}
+  if(ON('s6',t)){/* rổ */}
+  if(ON('s9',t)){C(CXo,0,PI/2,t,{head:0.05});Bq(BXo,0,-PI/2,t);at(TW[0],V(-1.5+U('s9',t)*1.6,0.38+Math.abs(Math.sin(t*6))*0.2,1.0),0,U('s9',t)*4,0);P.crowd.uCheer.value=0.5;}
+  // sói giới thiệu
+  if(ON('s10',t))C(CXo,0,PI/2,t,{head:0.25,tail:0.35});
+  if(ON('s11',t)){const ph=(t*1.6)%1;const nod=Math.sin(ph*2*PI);C(CXo,0,PI/2,t,{head:-0.25+nod*0.18,tail:0.4});const sp=snout();at(BALL,V(sp.x+0.22,0.12+Math.abs(Math.cos(ph*PI))*(sp.y-0.3),0),0,0,t*6);}
+  if(ON('s12',t)){C(CXo,0,PI/2,t,{head:0.35,tail:0.25});at(TRO1,V(-1.7,0,-0.45),-PI/2);}
+  if(ON('s13',t)){const u=U('s13',t),v=6.5,x=-11+v*u;C(x,0.3,PI/2,t,{gait:'run',ph:(x+11)/1.07,head:0.12});dust(t,V(x-0.5,0,0.3),V(1,0,0));
+    cam.position.set(x+1.7,0.62,0.3+1.6);cam.lookAt(x+0.25,0.6,0.3);cam.fov=48;cam.updateProjectionMatrix();}
+  // gấu giới thiệu
+  if(ON('s14',t))Bq(BXo,0,-PI/2,t,{head:0.05});
+  if(ON('s15',t)){const u=U('s15',t);Bq(BXo,0,-PI/2,t,{armR:0.35+Math.sin(u*9)*0.1,head:-0.05+Math.sin(u*4)*0.05});}
+  if(ON('s16',t)){const u=U('s16',t);Bq(BXo,0,-PI/2,t,{head:-0.15+sm(u/1.2)*0.25,lean:0.05});at(TRO2,V(BXo-0.7,0,0.75),PI/2);}
+  if(ON('s17',t)){const u=U('s17',t);Bq(BXo,0,-PI/2,t,{lean:0.1*sm(u/0.6),head:-0.08+Math.sin(u*3)*0.08,armR:0.3});at(TRO2,V(BXo-0.7,0,0.75),PI/2);}
+  if(ON('s18',t))Bq(BXo,0,-PI/2,t,{head:-0.08});
+  if(ON('s19',t)){const u=U('s19',t),v=4.4,x=9.5-v*u;Bq(x,0.3,-PI/2,t,{walk:1,ph:(9.5-x)/0.62});dust(t,V(x+0.4,0,0.3),V(-1,0,0),8);
+    cam.position.set(x-2.6,1.25,0.3+2.6);cam.lookAt(x-0.2,1.2,0.3);cam.fov=48;cam.updateProjectionMatrix();}
+  // danh thiếp dài lăn trên sàn từ chân gấu về phía sói
+  if(ON('s20',t)||ON('s21',t)){const u=t-SH.s20[0];Bq(BXo,0,-PI/2,t,{head:-0.2,armL:0.25,armR:0.25});const len=Math.min(9,0.3+u*1.3);at(CARD,V(BXo-0.5,0.035,0.0),PI,-PI/2,0);CARD.userData.set(len);
+    if(ON('s20',t))C(CXo-0.6,0.6,PI/2,t,{head:-0.15});
+    if(ON('s21',t)){const u2=U('s21',t);const kk=sm(u2/1.3);const x=lerp(CXo-0.6,7.5,kk);C(x,lerp(0.6,1.4,kk),PI/2,t,{gait:u2<1.4?'run':'trot',ph:(x+3)/1.07,head:0.1});if(u2>0.2)ballAtSnout(t);}}
+  // sói ghi 2 quả: phóng lên vành, bóng ở mõm
+  if(ON('s22',t)){const u=U('s22',t);const cyc=(u%0.78)/0.78;const k2=Math.sin(cl(cyc/0.7)*PI);const x=lerp(DX+0.2,RIM.x-0.75,cl(cyc/0.6));C(x,0,PI/2,t,{y:k2*2.05,leap:k2>0.05?Math.min(1,k2*1.5):0,pitch:0.55});
+    if(cyc<0.62)ballAtSnout(t);else at(BALL,V(RIM.x,lerp(2.9,0.2,(cyc-0.62)/0.38),0),0,0,u*5);P.crowd.uCheer.value=cyc>0.6?1:0.4;
+    Bq(BXo-0.5,1.6,-PI/2-0.6,t,{head:-0.2,armL:0.25,armR:0.25});}
+  // trọng tài theo dõi
+  const RP=V(9.6,0,-2.2);
+  if(ON('s23',t)){const u=U('s23',t);locoLock(REF,lib,t,(tt)=>[lerp(9.8,RP.x,cl((tt-SH.s23[0])/1.3)),lerp(-6.5,RP.z,cl((tt-SH.s23[0])/1.3))],{t0:SH.s23[0],face:Math.atan2(-0.4,2.4),gait:'Walk_Loop'});REF.root.visible=true;E(REF,t,[[0,'neutral']],50);C(9.2,0.4,-0.9,t,{head:0.05,tail:0.3});}
+  if(ON('s24',t)){idle(REF,RP.x,RP.z,Math.atan2(-0.4,2.6),t,0,{fold:1});E(REF,t,[[0,'neutral']],50,{look:[0,-0.2]});C(9.2,0.4,-0.9,t,{head:-0.1,tail:0.0});}
+  if(ON('s25',t)){idle(REF,RP.x,RP.z,Math.atan2(-0.4,2.6),t,0);const hp=head(REF).add(Lc(REF,0,0.0,0.14));reach(REF,hp.clone().add(Lc(REF,-0.06,-0.03,0)),'r');reach(REF,hp.clone().add(Lc(REF,0.06,-0.03,0)),'l');at(BINO,hp,REF.root.rotation.y);C(9.2,0.4,-0.9,t,{head:-0.05});}
+  if(ON('s26',t)){idle(REF,9.35,-0.55,0.05,t,0,{fold:1});E(REF,t,[[0,'neutral']],50,{look:[0,-0.6]});C(9.35,0.35,PI,t,{head:0.45,tail:-0.1});}
+  // 1 đấu 1: sói nhảy qua lại, gấu đứng im
+  const def=(t,o={})=>Bq(GX,0,-PI/2,t,o);
+  if(ON('s27',t)||ON('s29',t)){const kk=ON('s27',t)?'s27':'s29';const u=U(kk,t);const kx=sm(u/0.6);const side=kk==='s27'?lerp(0.6,-0.6,kx):lerp(-0.6,0.6,kx);const hop=Math.sin(cl(u/0.6)*PI)*0.25;
+    C(DX,side,PI/2,t,{y:hop,leap:hop>0.02?0.4:0,pitch:0.1,head:-0.1});const sp=snout();at(BALL,V(sp.x+0.25,0.12+Math.abs(Math.sin(t*9))*0.55,side*1.1),0,0,t*6);def(t);}
+  if(ON('s28',t)||ON('s30',t))def(t,{head:0});
+  if(ON('s31',t)){const u=U('s31',t);const si=sm(u/0.45);def(t,{sit:si,head:0.05});at(BALL,V(GX,0.12,0));C(DX,0.2,PI/2,t,{head:-0.2+sm(u/0.6)*0.3,tail:-0.2});}
+  if(ON('s32',t)||ON('s33',t)||ON('s34',t))def(t,{head:0.02});
+  if(ON('s34',t)){const u=U('s34',t);BE.root.scale.setScalar(1+Math.sin(u*22)*0.015);} else BE.root.scale.setScalar(1);
+  if(ON('s35',t)){def(t,{});EX.set(sm(U('s35',t)/0.4),0,0,t);}
+  if(ON('s36',t)){def(t,{armL:0.2,armR:0.2});EX.set(1,sm(U('s36',t)/0.4),0,t,1);}
+  if(ON('s37',t)){def(t,{});EX.set(1,1,sm(U('s37',t)/0.4),t,0.3);}
+  // bay qua nhà kho bìa, úp rổ
+  if(ON('s38',t)){const u=U('s38',t);const kk=cl(u/DUR('s38'));const p=arc(V(5.2,0,5.2),V(RIM.x-0.55,1.1,0.2),3.4,kk);const ang=Math.atan2(RIM.x-5.2,-5.2);
+    Bq(p.x,p.z,ang,t,{fly:1,y:p.y});EX.set(1,1,1,t,1);const q=belly();at(BALL,kk<0.93?q.add(Lc({root:BE.root},0,0.1,0.2)):V(RIM.x,lerp(2.9,1.4,(kk-0.93)/0.07),0),0,0,u*6);
+    C(DX-1,0.6,PI/2,t,{head:0.5});show(BARN);P.crowd.uCheer.value=0.8;}
+  if(ON('s39',t)){const u=U('s39',t);Bq(RIM.x-0.55,0.2,PI/2,t,{fly:1,y:1.1+Math.sin(u*3)*0.05});EX.set(1,1,1,t,0.6);at(BALL,V(RIM.x,lerp(2.5,0.3,cl(u/0.6)),0),0,0,u*6);
+    const kk=cl(u/0.7);const leap=Math.sin(kk*PI*0.5);C(lerp(DX,RIM.x-1.15,kk),0.15,PI/2,t,{y:leap*1.6,leap:Math.min(1,leap*1.4),pitch:0.5});P.crowd.uBoo.value=0.6;show(BARN);}
+  // còi + đuổi
+  if(ON('s40',t)){idle(REF,RP.x,RP.z,0.6,t,0);const hp=head(REF).add(Lc(REF,0,-0.05,0.12));reach(REF,hp,'r');E(REF,t,[[0,'determined']],50);}
+  if(ON('s41',t)){idle(REF,RP.x,RP.z,0.9,t,0);reach(REF,head(REF).add(Lc(REF,-0.8,0.25,0.4)),'r');E(REF,t,[[0,'angry']],50,{look:[-0.4,0]});C(DX-1.2,0.3,-0.4,t,{head:-0.3,tail:-0.35});
+    Bq(GX,0.3,-PI/2,t,{});EX.set(1,1,1,t,0.2);P.crowd.uBoo.value=1;}
+  if(ON('s42',t)){const u=U('s42',t);const x=lerp(1.2,-3.0,u/DUR('s42'));C(x,0,-PI/2,t,{gait:'trot',ph:(1.2-x)/0.7,head:-0.35,tail:-0.4});at(TW[1],V(-2.6+u*2.6,0.38+Math.abs(Math.sin(u*7))*0.18,1.4),0,u*5,0);}
+  if(ON('s43',t))fans(t,'argue',[0,1,2,3]);
+  if(ON('s44',t))fans(t,'argue',[4,5,6,7]);
+  if(ON('s45',t)){C(-0.85,0,PI/2,t,{head:0.2,tail:0.2});Bq(0.95,0,-PI/2,t,{head:-0.15});EX.set(1,1,1,t,0.15);}
+  const k2=shotAt(t);const cp=cam.position;L.area(cp.x*0.25+(CO.root.visible?CO.root.position.x:BE.root.position.x)*0.75,(CO.root.visible?CO.root.position.z:BE.root.position.z)*0.75,cp);
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
+};
+function show(...a){a.forEach(o=>o.visible=true);}
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+window.renderFrame=t=>{if(!MB){pose(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){pose(tp);comp.render(dt);}pose(t);comp.render(dt);window._lt=t;};
+window.ready=true;
+</script></body></html>
