@@ -1,0 +1,61 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Lora,64,&H00F0F8FF,&H000000FF,&H00201810,&H96000000,-1,-1,0,0,100,100,0,0,1,3,1,2,60,60,606,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.48,Cap,,0,0,0,,What the f***?
+Dialogue: 0,0:00:01.48,0:00:02.84,Cap,,0,0,0,,Four-time MVP Aaron
+Dialogue: 0,0:00:02.84,0:00:03.72,Cap,,0,0,0,,Rodgers just got
+Dialogue: 0,0:00:03.72,0:00:05.56,Cap,,0,0,0,,CUT before Thanksgiving.
+Dialogue: 0,0:00:05.56,0:00:07.18,Cap,,0,0,0,,And it gets worse.
+Dialogue: 0,0:00:07.18,0:00:08.86,Cap,,0,0,0,,Pittsburgh benched him.
+Dialogue: 0,0:00:08.86,0:00:09.18,Cap,,0,0,0,,So he went
+Dialogue: 0,0:00:09.18,0:00:10.10,Cap,,0,0,0,,on live TV and
+Dialogue: 0,0:00:10.10,0:00:11.40,Cap,,0,0,0,,said, "Just release
+Dialogue: 0,0:00:11.40,0:00:12.90,Cap,,0,0,0,,me." Then he claimed
+Dialogue: 0,0:00:12.90,0:00:13.54,Cap,,0,0,0,,his head coach
+Dialogue: 0,0:00:13.54,0:00:15.18,Cap,,0,0,0,,was sleeping in meetings.
+Dialogue: 0,0:00:15.18,0:00:15.72,Cap,,0,0,0,,And at halftime
+Dialogue: 0,0:00:15.72,0:00:16.94,Cap,,0,0,0,,of a Steelers game,
+Dialogue: 0,0:00:16.94,0:00:17.90,Cap,,0,0,0,,the huddle broke on
+Dialogue: 0,0:00:17.90,0:00:21.04,Cap,,0,0,0,,one, two, three Packers.
+Dialogue: 0,0:00:21.04,0:00:22.58,Cap,,0,0,0,,Wrong team, coach.
+Dialogue: 0,0:00:22.58,0:00:22.94,Cap,,0,0,0,,Less than an
+Dialogue: 0,0:00:22.94,0:00:24.94,Cap,,0,0,0,,hour later, released.
+Dialogue: 0,0:00:24.94,0:00:26.08,Cap,,0,0,0,,Six and four.
+Dialogue: 0,0:00:26.08,0:00:26.90,Cap,,0,0,0,,Two straight losses.
+Dialogue: 0,0:00:26.90,0:00:29.14,Cap,,0,0,0,,Happy Thanksgiving.
+Dialogue: 0,0:00:29.14,0:00:29.68,Cap,,0,0,0,,Meanwhile, at a
+Dialogue: 0,0:00:29.68,0:00:31.36,Cap,,0,0,0,,Steelers family dinner.
+Dialogue: 0,0:00:31.36,0:00:31.74,Cap,,0,0,0,,We cut a
+Dialogue: 0,0:00:31.74,0:00:33.60,Cap,,0,0,0,,four-time MVP before
+Dialogue: 0,0:00:33.60,0:00:34.30,Cap,,0,0,0,,the turkey's even
+Dialogue: 0,0:00:34.30,0:00:35.50,Cap,,0,0,0,,out of the oven?
+Dialogue: 0,0:00:35.50,0:00:37.52,Cap,,0,0,0,,One, two, three Packers?
+Dialogue: 0,0:00:37.52,0:00:39.08,Cap,,0,0,0,,In a Steelers huddle?
+Dialogue: 0,0:00:39.08,0:00:40.22,Cap,,0,0,0,,So who's
+Dialogue: 0,0:00:40.22,0:00:41.76,Cap,,0,0,0,,our quarterback now?
+Dialogue: 0,0:00:41.76,0:00:43.14,Cap,,0,0,0,,Pass the gravy.
+Dialogue: 0,0:00:43.14,0:00:43.42,Cap,,0,0,0,,But in the
+Dialogue: 0,0:00:43.42,0:00:44.38,Cap,,0,0,0,,locker room, as
+Dialogue: 0,0:00:44.38,0:00:45.24,Cap,,0,0,0,,Rodgers packs his
+Dialogue: 0,0:00:45.24,0:00:47.42,Cap,,0,0,0,,bag, a visitor lands.
+Dialogue: 0,0:00:47.42,0:00:48.54,Cap,,0,0,0,,A raven with
+Dialogue: 0,0:00:48.54,0:00:50.18,Cap,,0,0,0,,a purple jersey.
+Dialogue: 0,0:00:50.18,0:00:51.12,Cap,,0,0,0,,Baltimore plays Pittsburgh
+Dialogue: 0,0:00:51.12,0:00:52.68,Cap,,0,0,0,,twice a year, Aaron.
+Dialogue: 0,0:00:52.68,0:00:53.38,Cap,,0,0,0,,Want a little revenge?
+Dialogue: 0,0:00:53.38,0:00:54.44,Cap,,0,0,0,,What if
+Dialogue: 0,0:00:54.44,0:00:55.80,Cap,,0,0,0,,Aaron Rodgers wore
+Dialogue: 0,0:00:55.80,0:00:57.12,Cap,,0,0,0,,purple, ripped the
+Dialogue: 0,0:00:57.12,0:00:58.30,Cap,,0,0,0,,jersey, black and
+Dialogue: 0,0:00:58.30,0:01:00.26,Cap,,0,0,0,,gold or purple?
+Dialogue: 0,0:01:00.26,0:01:00.90,Cap,,0,0,0,,Comment, should
+Dialogue: 0,0:01:00.90,0:01:01.76,Cap,,0,0,0,,he do it?

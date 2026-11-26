@@ -1,0 +1,179 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000"><canvas id="c"></canvas>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/","postprocessing":"./node_modules/postprocessing/build/index.js","realism-effects":"./node_modules/realism-effects/dist/index.js"}}</script>
+<script type="module">
+// TẬP 31 — "Steelers cut Aaron Rodgers" (tin thật 25/11/2026). Người thật (Rodgers, McCarthy) CHỈ hành động, không thoại bịa; lời thoại bịa chỉ của gia đình fan hư cấu + con quạ.
+import * as THREE from 'three';
+import {buildRooms,roomLights,X,trophy,scissors,jerseyFold,duffel,roastTurkey,std,chair} from './lib/phong31.js';
+import {loadRaven,makeRaven} from './lib/qua29b.js';
+import {burstFX} from './lib/meolon25.js';
+import {transformFX} from './lib/bienhinh25.js';
+import {loadLibrary,makeCharacter} from './lib/nhanvat2.js';
+import {EAGLES} from './lib/bongbau.js';
+import {resetPose,ik2} from './lib/tuthe.js';
+import {expr,clipPose,locoLock} from './lib/dongtac.js';
+import {CameraRig} from './lib/camera.js';
+import {snapGround,checkGround,minY} from './lib/chamdat.js';
+import {SH,END,T} from './ep31_rodgers_cut_shots.js';
+import {EffectComposer,RenderPass,EffectPass,ToneMappingEffect,ToneMappingMode} from 'postprocessing';
+import {VelocityDepthNormalPass,MotionBlurEffect} from 'realism-effects';
+const W=innerWidth,H=innerHeight,MB=!location.hash.includes('nomb');
+const r=new THREE.WebGLRenderer({canvas:c,antialias:!MB,preserveDrawingBuffer:true});r.setSize(W,H,false);
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFShadowMap;r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=MB?THREE.NoToneMapping:THREE.NeutralToneMapping;r.toneMappingExposure=1.1;
+const s=new THREE.Scene();const RM=buildRooms(s);const L=roomLights(s);
+{const pm=new THREE.PMREMGenerator(r);const es=new THREE.Scene();es.background=new THREE.Color('#b8b0a4');es.add(new THREE.HemisphereLight('#fff4e4','#5a5048',3));s.environment=pm.fromScene(es,0.02).texture;s.environmentIntensity=0.5;}
+const lib=await loadLibrary();await loadRaven();
+const ON=(k,t)=>t>=SH[k][0]&&t<SH[k][1];const U=(k,t)=>t-SH[k][0];
+const V=(x,y,z)=>new THREE.Vector3(x,y,z);const cl=x=>Math.min(1,Math.max(0,x));const sm=x=>{x=cl(x);return x*x*(3-2*x);};const lerp=(a,b,k)=>a+(b-a)*k;const PI=Math.PI;
+const B=(ch,n)=>ch.bones[n];const Lc=(ch,x,y,z)=>V(x,y,z).applyQuaternion(ch.root.getWorldQuaternion(new THREE.Quaternion()));
+const BASE={...EAGLES,number:null,frontNumberSize:0.0001,backNumberSize:0.0001,backName:null,numberColor:'#f2c230',numberOutline:'#121216',gloves:null,helmet:null,sleeveStripes:null};
+// Aaron Rodgers (người thật, cách điệu): 42 tuổi, tóc nâu rẽ ngôi, râu lún phún; áo tập đen số 8 vàng
+const RODL={heightM:1.88,skin:'#ecbf98',hair:'Hair_SimpleParted',hairColor:'#5a3e26',beardStyle:'stubble',beardColor:'#5a3e26'};
+const ROD=makeCharacter(lib,{...BASE,...RODL,jersey:'#121216',collar:'#f2b81a',number:'8',frontNumberSize:0.32,backNumberSize:0.36,backName:'RODGERS',pants:'#d8b030',pantsStripes:['#121216','#121216'],socks:'#121216',shoes:'#121212'});
+const RODH=makeCharacter(lib,{...BASE,...RODL,jersey:'#2a2c34',collar:'#2a2c34',pants:'#1c1e24',pantsStripes:null,socks:'#1c1e24',shoes:'#f2f2f2'});
+const RODP=makeCharacter(lib,{...BASE,...RODL,jersey:'#241773',collar:'#101014',number:'8',numberColor:'#ffffff',numberOutline:'#101014',frontNumberSize:0.32,backNumberSize:0.36,pants:'#121216',pantsStripes:['#9e7c0c','#9e7c0c'],socks:'#241773',shoes:'#121212'});
+// Mike McCarthy (người thật, cách điệu): 63 tuổi, tóc bạc, áo khoác HLV đen viền vàng, quần kaki — KHÔNG đùa ngoại hình
+const MC=makeCharacter(lib,{...BASE,heightM:1.85,skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#c8c8c4',jersey:'#16161a',collar:'#f2b81a',pants:'#b0a080',pantsStripes:null,socks:'#222',shoes:'#141414'});
+const PL=[0,1,2,3].map(i=>makeCharacter(lib,{...BASE,heightM:1.86+i*0.03,skin:['#8a5634','#c68c5f','#e8b98f','#5a3a24'][i],hair:i%2?'Hair_Buzzed':'Hair_SimpleParted',hairColor:'#1a1410',jersey:'#121216',collar:'#f2b81a',number:String([90,30,14,55][i]),frontNumberSize:0.3,backNumberSize:0.34,pants:'#d8b030',pantsStripes:['#121216','#121216'],socks:'#121216',shoes:'#121212'}));
+// gia đình fan HƯ CẤU
+const DAD=makeCharacter(lib,{...BASE,heightM:1.82,skin:'#e8b98f',hair:'Hair_Buzzed',hairColor:'#4a3020',beardStyle:'full',beardColor:'#4a3020',jersey:'#121216',collar:'#f2b81a',number:'1',frontNumberSize:0.3,pants:'#3a4a6a',pantsStripes:null,socks:'#222',shoes:'#3a2a1a'});
+const GPA=makeCharacter(lib,{...BASE,heightM:1.74,skin:'#f0c8a6',hair:'Hair_SimpleParted',hairColor:'#e8e8e4',jersey:'#2a2a30',collar:'#f2b81a',pants:'#5a4a3a',pantsStripes:null,socks:'#222',shoes:'#2a1a0a'});
+const KID=makeCharacter(lib,{...BASE,heightM:1.42,skin:'#e8b98f',hair:'Hair_SimpleParted',hairColor:'#8a5a2a',jersey:'#121216',collar:'#f2b81a',number:'8',frontNumberSize:0.26,pants:'#2a3a5a',pantsStripes:null,socks:'#fff',shoes:'#f2f2f2'});
+const ALL=[ROD,RODH,RODP,MC,...PL,DAD,GPA,KID];
+ALL.forEach(ch=>{s.add(ch.root);resetPose(ch);ch.root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;}});});
+const RV=makeRaven(0);s.add(RV.root);RV.base=1.0;
+// đạo cụ
+const TRO=[0,1,2,3].map(()=>{const g=trophy();s.add(g);return g;});const SCI=scissors();s.add(SCI);const PJ=jerseyFold();s.add(PJ);const BAG=duffel();s.add(BAG);
+const TBX=roastTurkey(0.8);s.add(TBX);
+const SEATS={};const seat=(k,x,z,ry,c)=>{const ch=chair(c);ch.position.set(x,0,z);ch.rotation.y=ry;s.add(ch);SEATS[k]={x,z,ry};return ch;};
+const PHONES=(()=>{const G=new THREE.Group();const m=std('#1a1a1e',{roughness:0.4});const band=new THREE.Mesh(new THREE.TorusGeometry(0.11,0.012,6,20,Math.PI),m);G.add(band);for(const sx of [-1,1]){const cup=new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.04,14),m);cup.rotation.z=PI/2;cup.position.set(sx*0.11,0,0);G.add(cup);}s.add(G);return G;})();
+const ZZZ=(()=>{const cv=document.createElement('canvas');cv.width=256;cv.height=256;const g=cv.getContext('2d');g.fillStyle='#ffffff';g.strokeStyle='#2a3a8a';g.lineWidth=8;g.font='900 120px Anton, Impact';g.strokeText('Z',40,140);g.fillText('Z',40,140);g.font='900 80px Anton';g.strokeText('z',150,90);g.fillText('z',150,90);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthWrite:false}));sp.scale.set(0.5,0.5,1);s.add(sp);return sp;})();
+const FX=burstFX(s,320);s.add(FX.im);const TFX=transformFX(s,{smoke:48,aura:10,cloth:4});
+// máy quay
+const cam=new THREE.PerspectiveCamera(46,W/H,.05,400);s.add(cam);{const cf=new THREE.DirectionalLight('#fff4e8',0.5);cf.position.set(0.6,1.2,0);cam.add(cf);const tg=new THREE.Object3D();tg.position.set(0,0,-6);cam.add(tg);cf.target=tg;}
+const rig=new CameraRig(cam,r.domElement,{seed:311});const CAMS={};
+const S=(k,from,to,o={})=>rig.add(Object.assign({t0:SH[k][0],t1:SH[k][1],ease:'linear',shake:0.004,shakeHz:0.8,path:[from.pos,to.pos],lookPath:[from.look,to.look]},o));
+const XL=X.LOCKER,XS=X.STUDIO,XO=X.OFFICE,XM=X.MEET,XD=X.DINING,XE=X.EXIT;
+const LK=RM.L.lockers[2];
+seat('studio',XS,-1.0,0,'#3a3c46');
+seat('mc_meet',XM-3.3,-0.6,PI/2,'#1a1a1e');[['p0',XM-1.4,-1.75,0],['p1',XM-0.2,-1.75,0],['p2',XM-1.4,0.55,PI],['p3',XM-0.2,0.55,PI]].forEach(([k,x,z,ry])=>seat(k,x,z,ry,'#3a3e4a'));
+seat('dad',XD-1.85,-0.4,PI/2,'#3a2a1e');seat('gpa',XD+0.75,-1.5,0,'#3a2a1e');seat('kid',XD-0.35,-1.5,0,'#3a2a1e');   // tủ "RODGERS 8"
+S('h0',{pos:[LK.x+0.5,2.4,-1.6],look:[LK.x+0.1,2.6,-4.4]},{pos:[LK.x+0.4,2.45,-2.1],look:[LK.x+0.1,2.6,-4.4]},{fov:[46,44],shake:0.008});
+S('h1',{pos:[XL+0.4,1.5,2.4],look:[XL,1.25,-1.2]},{pos:[XL+0.2,1.45,1.6],look:[XL,1.2,-1.2]},{fov:[46,44],ease:'inOut'});
+S('h3',{pos:[XE+0.6,1.6,5.2],look:[XE-0.1,1.1,0.4]},{pos:[XE+0.4,1.5,4.4],look:[XE,1.0,0.8]},{fov:[48,46]});
+S('h4',{pos:[XS,2.6,1.2],look:[XS,2.6,-4.5]},{pos:[XS,2.6,-1.2],look:[XS,2.6,-4.5]},{fov:[48,44],ease:'inOut'});
+S('s1',{pos:[XS+0.5,1.4,3.0],look:[XS,1.2,-0.9]},{pos:[XS+0.25,1.35,2.2],look:[XS,1.2,-0.9]},{fov:[46,42],ease:'inOut'});
+S('s2',{pos:[XM+4.4,2.3,-0.4],look:[XM-2.2,0.9,-0.6]},{pos:[XM+3.6,2.1,-0.5],look:[XM-2.3,0.9,-0.6]},{fov:[48,46],ease:'inOut'});
+S('s3',{pos:[XL+0.3,2.4,4.8],look:[XL,1.0,1.7]},{pos:[XL+0.1,2.1,4.2],look:[XL,1.1,1.7]},{fov:[50,48],ease:'inOut'});
+S('s4',{pos:[XO+0.6,1.45,2.0],look:[XO+0.3,1.0,-1.6]},{pos:[XO+0.45,1.35,1.3],look:[XO+0.3,1.0,-1.8]},{fov:[46,44],ease:'inOut'});
+S('s5',{pos:[XD+0.3,1.9,3.6],look:[XD,0.9,-0.4]},{pos:[XD+0.2,1.7,3.0],look:[XD,0.9,-0.4]},{fov:[50,48],ease:'inOut'});
+S('s5a',{pos:[XD-0.6,1.5,1.1],look:[XD-1.75,1.3,-0.4]},{pos:[XD-0.75,1.45,0.9],look:[XD-1.75,1.3,-0.4]},{fov:[44,42]});
+S('s5b',{pos:[XD+0.95,1.5,1.0],look:[XD+0.75,1.4,-1.6]},{pos:[XD+0.9,1.45,0.8],look:[XD+0.75,1.4,-1.6]},{fov:[44,42]});
+S('s5c',{pos:[XD-1.05,1.3,0.5],look:[XD-0.35,1.05,-1.5]},{pos:[XD-0.95,1.25,0.3],look:[XD-0.35,1.05,-1.5]},{fov:[44,42]});
+S('s5d',{pos:[XD+0.3,1.9,3.6],look:[XD,0.9,-0.4]},{pos:[XD+0.2,1.8,3.2],look:[XD,0.9,-0.4]},{fov:[50,50]});
+S('s6',{pos:[XL+2.2,1.2,2.6],look:[XL,0.8,-0.4]},{pos:[XL+1.6,1.1,2.0],look:[XL,0.8,-0.4]},{fov:[46,44],ease:'inOut'});
+S('s7',{pos:[XL+1.9,1.15,1.9],look:[XL+0.4,0.8,-0.4]},{pos:[XL+1.6,1.1,1.5],look:[XL+0.4,0.8,-0.4]},{fov:[44,42],ease:'inOut'});
+S('s8',{pos:[XL+0.3,1.4,3.0],look:[XL,1.2,0]},{pos:[XL+0.2,1.35,2.2],look:[XL,1.2,0]},{fov:[46,44],ease:'inOut'});
+const CUTS=[...new Set(Object.values(SH).map(v=>v[0]))].sort((a,b)=>a-b);
+for(const k in SH){rig.apply(SH[k][0]+0.02);CAMS[k]=cam.position.clone();}
+const shotAt=t=>{let kk='h0';for(const k in SH)if(t>=SH[k][0]-1e-6)kk=k;return kk;};
+const AREA={h0:[LK.x,-3.5],h1:[XL,0],h3:[XE,1],h4:[XS,-3],s1:[XS,0],s2:[XM,-0.6],s3:[XL,1.7],s4:[XO,-1.5],s5:[XD,-0.4],s5a:[XD,-0.4],s5b:[XD,-0.4],s5c:[XD,-0.4],s5d:[XD,-0.4],s6:[XL,-0.4],s7:[XL,-0.4],s8:[XL,0]};
+const hideAll=()=>{for(const ch of ALL){ch.root.visible=false;ch.root.scale.setScalar(1);ch.root.userData.lun=false;ch.root.userData.sit=false;}RV.root.visible=false;RV.root.userData.lun=false;
+  [...TRO,SCI,PJ,BAG,TBX,PHONES,ZZZ].forEach(o=>{o.visible=false;o.userData.lun=false;});LK.np.visible=true;LK.np.position.set(0,2.85,0.44);LK.np.rotation.set(0,0,0);RM.O.cap.position.y=0.11;RM.Ex.door.rotation.y=0;RM.Dn.gravy.position.set(XD+0.75,0.81,-0.25);FX.draw([]);TFX.draw([]);};
+const show=(...a)=>a.forEach(ch=>ch.root.visible=true);
+const place=(ch,x,z,ry,y=0)=>{ch.root.position.set(x,y,z);ch.root.rotation.order='XYZ';ch.root.rotation.set(0,ry,0);ch.root.updateMatrixWorld(true);};
+const CPz=(ch,layers)=>{resetPose(ch);clipPose(ch,lib,layers);ch.root.updateMatrixWorld(true);};
+const idle=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const c=o.crouch||0,tk=o.talk||0,fo=o.fold||0;CPz(ch,[{name:'Idle_Loop',time:t+sd,w:(1-c)*(1-tk)*(1-fo)},{name:'Crouch_Idle_Loop',time:t*0.8+sd,w:c*(1-tk)},{name:'Idle_Talking_Loop',time:t+sd,w:tk},{name:'Idle_FoldArms_Loop',time:t+sd,w:fo*(1-tk)}]);show(ch);};
+const sit=(ch,x,z,ry,t,sd=0,o={})=>{place(ch,x,z,ry,o.y||0);const tk=o.talk||0;CPz(ch,[{name:'Sitting_Idle_Loop',time:t+sd,w:1-tk},{name:'Sitting_Talking_Loop',time:t+sd,w:tk}]);ch.root.userData.sit=true;show(ch);};
+const reach=(ch,p,sd='r')=>{const k=sd==='r'?-1:1;ik2(ch,'upperarm_'+sd,'lowerarm_'+sd,'hand_'+sd,p,Lc(ch,k,-0.4,-0.3));};
+const chest=ch=>B(ch,'spine_03').getWorldPosition(V());const handP=(ch,sd)=>B(ch,'hand_'+sd).getWorldPosition(V());
+const headB=ch=>B(ch,'head')||B(ch,'Head');const headP=ch=>headB(ch).getWorldPosition(V());
+const E=(ch,t,keys,sd=0,o={})=>expr(ch,t,keys,{seed:sd,...o});
+const at=(obj,p,ry=0,rx=0,rz=0)=>{obj.visible=true;obj.position.copy(p);obj.rotation.set(rx,ry,rz);};
+const nod=(ch,t,k)=>{const n=B(ch,'neck_01');if(n){n.rotation.x+=k*(0.55+0.1*Math.sin(t*1.3));ch.root.updateMatrixWorld(true);}};
+const sleepEyes=(ch)=>ch.face({mouth:'o',mouthOpen:0.25,eyeWide:-0.4,browRaise:0,blink:1});
+const headphones=(ch)=>{const h=headB(ch);h.updateMatrixWorld(true);PHONES.visible=true;PHONES.position.copy(h.localToWorld(V(0,0.12,0.0)));PHONES.quaternion.copy(h.getWorldQuaternion(new THREE.Quaternion()));};
+const hulk=(ch,chB,t,TR,x,z,ry,team,tfx,bursts,sd,appear)=>{const u=t-TR;
+  const grip=(c,k,shake)=>{for(const [sd_,sg] of [['l',1],['r',-1]]){const c0=chest(c).add(Lc(c,sg*0.42,-0.42,0.12));const c1=chest(c).add(Lc(c,sg*0.07,0.2+shake,0.2));reach(c,c0.lerp(c1,k),sd_);}};
+  if(u<0){const k=sm((u+0.6)/0.3);idle(ch,x,z,ry,t,sd,{crouch:0.45*(1-sm((u+0.6)/0.25))});const sh=u>-0.2?Math.sin(t*55)*0.02:0;grip(ch,k,sh);
+    const g=1+sm((u+0.3)/0.3)*0.08;ch.root.scale.set(g,g,g);E(ch,t,[[0,'determined',{browAngle:0.5,squint:0.4}]],30+sd);tfx.push({type:'aura',x,y:1.1,z,k:(u+0.35)/1.1,seed:sd,colors:team.aura,s:1});return;}
+  if(u<0.5){idle(chB,x,z,ry,t,sd,{});const kr=sm(u/0.1),kf=sm((u-0.16)/0.18);
+    for(const [sd_,sg] of [['l',1],['r',-1]]){const a=chest(chB).add(Lc(chB,sg*0.07,0.2,0.2)),b=chest(chB).add(Lc(chB,sg*0.68,0.02,0.25)),c=chest(chB).add(Lc(chB,sg*0.48,-0.42,0.18));reach(chB,a.lerp(b,kr).lerp(c,kf),sd_);}
+    const g=1.08+sm(u/0.45)*0.26;chB.root.scale.set(g,g,g);E(chB,t,[[0,'determined',{mouth:'grin',mouthOpen:1,browAngle:0.6,squint:0.5,eyeWide:0.3}]],30+sd);tfx.push({type:'aura',x,y:1.1,z,k:(u+0.35)/1.1,seed:sd,colors:team.aura,s:1.15});}
+  else appear(sm((u-0.5)/0.35));
+  tfx.push({type:'cloth',x,y:1.35,z,k:u/1.0,seed:sd*7+1,colors:team.cloth,ry,n:8,s:0.5});tfx.push({type:'smoke',x,y:0.8,z,k:(u-0.36)/0.8,seed:sd*3,colors:team.smoke,s:0.9});
+  bursts.push({x,y:0.7,z,k:(u-0.5)/1.0,n:20,seed:x*5+sd,colors:team.fur,s:0.7});};
+
+const TEAM_P={aura:['#6a4ac8','#9e7c0c','#241773'],cloth:['#121216','#121216','#f2b81a','#1a1a20'],smoke:['#7a7888','#8a889a','#6a6878'],fur:['#241773','#3a2a90','#f2b81a']};
+const pose=t=>{
+  rig.apply(t);hideAll();const k=shotAt(t),a=AREA[k]||[0,0];L.area(a[0],a[1]);RM.update(t);
+  const bursts=[],tfx=[];
+  // ===== h0: "What the f***?" — bàn tay giật phăng biển tên RODGERS 8 khỏi tủ =====
+  if(ON('h0',t)){const u=U('h0',t);const ch=PL[1];idle(ch,LK.x+0.55,LK.z+0.2,PI*0.85,t,2);const np=LK.np;const k=sm((t-T.stamp+0.15)/0.25);
+    const npw=LK.L.localToWorld(V(0,2.85,0.44));reach(ch,npw.clone().add(V(0.2*k,-0.25*k,0.35*k)),'r');np.position.set(0.2*k,2.85-0.6*k*k,0.44+0.5*k);np.rotation.set(-0.6*k,0,0.4*k);
+    E(ch,t,[[0,'determined']],2);}
+  // ===== h1: "Four-time MVP Aaron Rodgers… just got CUT" — ôm 4 cúp vàng, kéo vàng khổng lồ cắt "xoẹt" =====
+  if(ON('h1',t)){const u=U('h1',t);const ch=ROD;idle(ch,XL,-1.0,0,t,1);E(ch,t,u<2.1?[[0,'proud']]:[[0,'shock']],1);
+    const c=chest(ch);const drop=t>T.snip+0.05;
+    reach(ch,c.clone().add(Lc(ch,-0.22,-0.1,0.32)),'r');reach(ch,c.clone().add(Lc(ch,0.22,-0.1,0.32)),'l');
+    TRO.forEach((tr,i)=>{if(!drop){at(tr,c.clone().add(Lc(ch,(i-1.5)*0.16,-0.18+(i%2)*0.12,0.36)),0);}else{const kd=cl((t-T.snip-0.05)/0.45);const p=c.clone().add(Lc(ch,(i-1.5)*0.22,-0.18,0.4+kd*0.3));p.y=lerp(p.y,0,kd*kd);at(tr,p,kd*2*(i%2?1:-1),kd*1.4*(i%2?1:-1),0);tr.userData.lun=kd<1;}});
+    if(u>1.7){const ks=sm((t-3.2)/0.45);at(SCI,V(XL+lerp(1.6,0.05,ks),1.55,lerp(-0.2,-1.2,ks)),PI/2+0.2,0,0);SCI.scale.setScalar(1.3);SCI.userData.open(t<T.snip?0.9:Math.max(0,0.9-(t-T.snip)*12));SCI.userData.lun=true;
+      if(t>T.snip)bursts.push({x:XL,y:1.55,z:-1.25,k:(t-T.snip)/0.7,n:16,seed:3,colors:['#121216','#f2c230','#f2f2f2'],s:0.5});}}
+  // ===== h3: "…before Thanksgiving!" — cửa sắt mở, bị đẩy ra bãi tuyết, hộp gà tây rơi vào tay =====
+  if(ON('h3',t)){const u=U('h3',t);const ch=ROD;RM.Ex.door.rotation.y=-sm(u/0.25)*1.6;const k=sm((t-T.push)/0.5);
+    const p=V(XE,0,lerp(-1.6,0.6,k));idle(ch,p.x,p.z,0,t,1,{crouch:k<1?0.4*(1-k):0});E(ch,t,[[0,'shock']],1);ch.root.rotation.x=-0.25*Math.sin(k*PI);
+    const kt=cl((t-4.6)/0.4);const hp=chest(ch).add(Lc(ch,0,-0.15,0.38));at(TBX,V(hp.x,lerp(3.2,hp.y,kt*kt),hp.z),0.3);TBX.userData.lun=true;if(kt>=1){reach(ch,hp.clone().add(Lc(ch,-0.15,0,0)),'r');reach(ch,hp.clone().add(Lc(ch,0.15,0,0)),'l');}}
+  // ===== h4: "And it gets worse." — đẩy máy vào màn hình BREAKING ở phim trường =====
+  // ===== s1: "went on live TV… 'Just release me.'" — Rodgers ngồi phim trường, đeo tai nghe, nói vào micro =====
+  if(ON('s1',t)){const ch=RODH;sit(ch,SEATS.studio.x,SEATS.studio.z,0,t,1,{talk:1});E(ch,t,[[0,'talk'],[T.said-0.2,'determined',{mouth:'talk',mouthOpen:0.6}]],1);headphones(ch);}
+  // ===== s2: "head coach was sleeping in meetings" — HLV ngủ gật đầu bàn, cầu thủ liếc nhau =====
+  if(ON('s2',t)){const u=U('s2',t);sit(MC,SEATS.mc_meet.x,SEATS.mc_meet.z,PI/2,t,4);nod(MC,t,1);sleepEyes(MC);const hp=headP(MC);ZZZ.visible=true;ZZZ.position.copy(hp.add(V(0.15,0.35+0.08*Math.sin(t*2),0)));ZZZ.material.opacity=0.6+0.4*Math.sin(t*3);
+    [[PL[0],SEATS.p0.x,SEATS.p0.z,0],[PL[1],SEATS.p1.x,SEATS.p1.z,0],[PL[2],SEATS.p2.x,SEATS.p2.z,PI],[PL[3],SEATS.p3.x,SEATS.p3.z,PI]].forEach(([ch,x,z,ry],i)=>{sit(ch,x,z,ry,t,i);E(ch,t,[[0,'neutral'],[13.0+i*0.2,'surprised']],i);});}
+  // ===== s3: giờ nghỉ giữa trận — chụm tay hô "One, two, three… PACKERS!" — cả đội đứng hình =====
+  if(ON('s3',t)){const u=U('s3',t);const ring=[[MC,0,-0.7,0],[PL[0],-0.75,0.1,PI*0.62],[PL[1],0.75,0.1,-PI*0.62],[PL[2],-0.45,0.75,PI*0.85],[PL[3],0.45,0.75,-PI*0.85]];
+    const mid=V(XL,1.15,1.75);const bounce=T.chant.reduce((a,c)=>a+(t>c&&t<c+0.3?Math.sin((t-c)/0.3*PI):0),0);const frozen=t>T.packers+0.2;
+    ring.forEach(([ch,dx,dz,ry],i)=>{idle(ch,XL+dx,dz+1.7,ry,t,i,{crouch:0.35});const hand=mid.clone().add(V((i-2)*0.04,0.04*i-bounce*0.12,0));
+      if(i===0&&t>T.packers-0.1&&t<T.packers+0.6)hand.y+=0.45;reach(ch,hand,'r');
+      if(i===0)E(ch,t,[[0,'determined'],[T.packers-0.1,'cheer']],i);else E(ch,t,frozen?[[0,'shock']]:[[0,'determined']],i);
+      if(frozen&&i>0){const n=B(ch,'neck_01');n.rotation.y+=Math.sin(i*2.1)*0.6*sm((t-T.packers-0.2)/0.4);ch.root.updateMatrixWorld(true);}
+      if(i===1&&t>T.wrong-0.2){reach(ch,headP(ch).add(Lc(ch,0,-0.02,0.12)),'l');}});}
+  // ===== s4: chưa đầy 1 giờ sau → HLV đập nút RELEASE; "Happy Thanksgiving" → đeo tai nghe ngủ tiếp =====
+  if(ON('s4',t)){const u=U('s4',t);sit(MC,XO,-2.22,0,t,4);const press=sm((t-T.button+0.35)/0.3)*(1-sm((t-T.button-0.4)/0.4));
+    const bp=RM.O.btn.position.clone().add(V(0,0.16,0));reach(MC,chest(MC).add(Lc(MC,-0.25,-0.1,0.4)).lerp(bp,press),'r');RM.O.cap.position.y=0.11-0.04*(t>T.button&&t<T.button+0.3?1:0);
+    if(t<T.happy){E(MC,t,[[0,'determined'],[T.button,'smug']],4);}else{headphones(MC);const kk=sm((t-T.happy-0.6)/0.8);nod(MC,t,kk);if(kk>0.5)sleepEyes(MC);else E(MC,t,[[0,'smug']],4);if(kk>0.6){const hp=headP(MC);ZZZ.visible=true;ZZZ.position.copy(hp.add(V(0.2,0.4,0)));}}}
+  // ===== s5…s5d: bữa tối Lễ Tạ Ơn nhà fan (hư cấu) =====
+  if(['s5','s5a','s5b','s5c','s5d'].some(kk=>ON(kk,t))){const dad=DAD,gp=GPA,kid=KID;
+    const slam=t>T.slam-0.1&&t<T.slam+0.25;const dStand=t>T.slam-0.4&&t<T.grand;
+    if(dStand){idle(dad,XD-1.75,-0.4,PI/2,t,1,{talk:1});E(dad,t,[[0,'panic',{mouth:'talk',mouthOpen:0.9,browAngle:0.8}]],1);reach(dad,V(XD-1.25,slam?0.83:1.0,-0.3),'r');}else{sit(dad,SEATS.dad.x,SEATS.dad.z,PI/2,t,1,{talk:ON('s5d',t)?0:0.2});E(dad,t,[[0,ON('s5d',t)?'sad':'determined']],1);}
+    const gStand=t>T.grand-0.3&&t<T.kid;if(gStand){idle(gp,XD+0.75,-1.6,0.1,t,2,{talk:1});E(gp,t,[[0,'panic',{mouth:'talk',mouthOpen:1,browAngle:0.9}]],2);const hh=headP(gp);reach(gp,hh.clone().add(V(0.25,0.3,0.1)),'r');reach(gp,hh.clone().add(V(-0.25,0.3,0.1)),'l');}
+    else{sit(gp,SEATS.gpa.x,SEATS.gpa.z,0,t,2);E(gp,t,[[0,ON('s5d',t)?'sad':'determined']],2);}
+    sit(kid,SEATS.kid.x,SEATS.kid.z,0,t,3,{talk:t>T.kid&&t<T.kid+1.6?1:0});E(kid,t,t>T.kid&&t<T.kid+1.7?[[0,'shrug',{mouth:'talk',mouthOpen:0.5}]]:[[0,'surprised']],3);
+    if(t>T.kid&&t<T.kid+1.7){reach(kid,chest(kid).add(Lc(kid,-0.35,0.15,0.2)),'r');reach(kid,chest(kid).add(Lc(kid,0.35,0.15,0.2)),'l');}
+    if(t>T.gravy){const kg=sm((t-T.gravy)/0.9);const gpos=V(lerp(XD-1.1,XD+0.5,kg),0.81+Math.sin(kg*PI)*0.12,lerp(-0.3,-0.85,kg));RM.Dn.gravy.position.copy(gpos);reach(dad,gpos.clone().add(V(0,0.08,0)),'r');}}
+  // ===== s6: phòng thay đồ — Rodgers xếp đồ vào túi; con quạ đáp xuống ghế =====
+  if(ON('s6',t)||ON('s7',t)){const ch=ROD;sit(ch,XL-0.5,-0.4,0.25,t,1,{y:0.0});ch.root.position.y=0;at(BAG,V(XL-1.35,0.54,-0.4),0.1);BAG.scale.setScalar(0.7);
+    const pk=Math.sin(t*2.2);if(ON('s6',t))reach(ch,V(XL-1.1,0.85+0.08*pk,-0.25),'r');E(ch,t,ON('s7',t)?[[0,'neutral'],[T.jersey,'surprised'],[51.0,'smug']]:[[0,'sad']],1);
+    if(ON('s7',t)){const n=B(ch,'neck_01');n.rotation.y+=0.5;ch.root.updateMatrixWorld(true);}
+    const tl=T.lands;const dst=V(XL+0.95,0.54,-0.45);
+    if(t<tl+0.4){const kk=sm((t-tl+1.0)/1.4);const src=V(XL+3.5,2.8,-3);const p=src.clone().lerp(dst,kk);p.y+=Math.sin(kk*PI)*0.4*(1-kk);if(t>tl-1.0){RV.root.visible=true;RV.root.position.copy(p);RV.root.rotation.set(0,-PI*0.7,0);RV.root.scale.setScalar(0.75);RV.set({spread:1-sm((t-tl)/0.4),flap:t*16,tuck:1-sm((t-tl)/0.3),head:[0,0.1]});RV.root.userData.lun=true;}}
+    else{RV.root.visible=true;RV.root.position.copy(dst);RV.root.rotation.set(0,-PI*0.62,0);RV.root.scale.setScalar(0.75);const whisper=t>50.1&&t<53.1;RV.set({head:whisper?[0.3+0.1*Math.sin(t*9),0.15]:[0.4,0.1],crouch:0.2,wingLift:whisper?0.3:0});RV.root.userData.lun=true;}
+    if(t>tl-1.0){const bt=RV.beakTip();if(t<T.jersey){at(PJ,bt.add(V(0,-0.04,0)),RV.root.rotation.y,0.2,0);PJ.scale.setScalar(0.7);PJ.userData.lun=true;}else{const kj=sm((t-T.jersey)/0.35);at(PJ,bt.lerp(V(XL+0.55,0.56,-0.3),kj),0.2,0,0);PJ.scale.setScalar(0.7);PJ.userData.lun=kj<1;}}}
+  // ===== s8: "What if Aaron Rodgers… wore purple?" → XÉ ÁO đen-vàng lộ áo tím số 8 =====
+  if(ON('s8',t)){const u=U('s8',t);const TR=T.rip;
+    if(t<TR-0.6){idle(ROD,XL,-0.3,0,t,1,{fold:u<1.5?0:0.6});E(ROD,t,[[0,'neutral'],[54.6,'smug']],1);const c=chest(ROD);at(PJ,c.add(Lc(ROD,0,-0.05,0.35)),0,PI/2-0.2,0);PJ.scale.setScalar(0.9);PJ.userData.lun=true;if(u<1.5){reach(ROD,PJ.position.clone().add(Lc(ROD,-0.2,0,0)),'r');reach(ROD,PJ.position.clone().add(Lc(ROD,0.2,0,0)),'l');}}
+    else hulk(ROD,RODP,t,TR,XL,-0.3,0,TEAM_P,tfx,bursts,1,(kk)=>{idle(RODP,XL,-0.3,0,t,1,{fold:sm((t-TR-1.6)/0.4)});E(RODP,t,[[0,'smug',{mouth:'grin',mouthOpen:0.2}]],1);RODP.root.scale.setScalar(lerp(1.2,1,kk));});
+    rv(t);}
+  FX.draw(bursts);TFX.draw(tfx);
+  const dm=location.hash.match(/dbg=([-\d.,]+)/);if(dm){const v=dm[1].split(',').map(Number);cam.position.set(v[0],v[1],v[2]);cam.lookAt(v[3],v[4],v[5]);cam.fov=46;cam.updateProjectionMatrix();}
+};
+function rv(t){RV.root.visible=true;RV.root.position.set(XL+0.95,0.54,-0.45);RV.root.rotation.set(0,-PI*0.62,0);RV.root.scale.setScalar(0.75);RV.set({head:[0.4+0.2*Math.sin(t*1.5),0.2],crouch:0.1});RV.root.userData.lun=true;}
+let comp;if(MB){comp=new EffectComposer(r,{frameBufferType:THREE.HalfFloatType,multisampling:2});comp.addPass(new RenderPass(s,cam));
+ const vp=new VelocityDepthNormalPass(s,cam);{const _set=vp.setVelocityDepthNormalMaterialInScene.bind(vp),_un=vp.unsetVelocityDepthNormalMaterialInScene.bind(vp);const IMs=[];s.traverse(o=>{if(o.isInstancedMesh)IMs.push(o);});let vis=[];vp.setVelocityDepthNormalMaterialInScene=()=>{vis=IMs.map(m=>m.visible);IMs.forEach(m=>m.visible=false);_set();};vp.unsetVelocityDepthNormalMaterialInScene=()=>{_un();IMs.forEach((m,i)=>m.visible=vis[i]);};}comp.addPass(vp);comp.addPass(new EffectPass(cam,new MotionBlurEffect(vp,{intensity:0.5,jitter:0,samples:8}),new ToneMappingEffect({mode:ToneMappingMode.NEUTRAL})));}
+window.CUTS=CUTS;
+const GROUNDED=()=>[...ALL.map(c=>c.root),RV.root];
+const poseG=t=>{pose(t);snapGround(ALL.map(c=>c.root).filter(o=>o.visible&&!o.userData.lun&&!o.userData.sit));};
+window.renderFrame=t=>{if(!MB){poseG(t);r.render(s,cam);return;}
+  const dt=1/30;let c0=0;for(const c of CUTS)if(c<=t+1e-6)c0=c;const tp=Math.max(c0,t-dt);if(!(window._lt!=null&&Math.abs(window._lt-tp)<1e-4&&tp>c0-1e-6&&tp!==t)){poseG(tp);comp.render(dt);}poseG(t);comp.render(dt);window._lt=t;};
+window.qaGround=t=>{poseG(t);return checkGround(GROUNDED());};
+window.qaFloat=t=>{poseG(t);return GROUNDED().filter(o=>o.visible&&!o.userData.lun).map(o=>[o.name||'ng',+minY(o,1e6).toFixed(3)]).filter(a=>a[1]>0.012&&a[1]<0.15);};
+window.ready=true;
+</script></body></html>
